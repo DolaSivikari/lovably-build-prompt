@@ -41,6 +41,7 @@ import OurProcess from "./pages/OurProcess";
 import Sustainability from "./pages/Sustainability";
 import Safety from "./pages/Safety";
 import Values from "./pages/Values";
+import Careers from "./pages/Careers";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/values" element={<Values />} />
           <Route path="/safety" element={<Safety />} />
+          <Route path="/careers" element={<Careers />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/painting" element={<ResidentialPainting />} />
           <Route path="/services/commercial" element={<CommercialPainting />} />

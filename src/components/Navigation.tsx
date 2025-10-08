@@ -43,6 +43,7 @@ const Navigation = () => {
     { name: "About Us", path: "/about" },
     { name: "Our Values", path: "/values" },
     { name: "Safety", path: "/safety" },
+    { name: "Careers", path: "/careers" },
   ];
 
   const blogDropdownItems = [
@@ -59,7 +60,7 @@ const Navigation = () => {
       <ScrollProgress />
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border" role="banner">
         <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group" aria-label="Ascent Group Construction - Home">
             <img 
@@ -74,7 +75,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8" role="navigation" aria-label="Main navigation">
+          <div className="hidden md:flex items-center gap-6 flex-1 justify-end" role="navigation" aria-label="Main navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -144,7 +145,7 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary group">
+            <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary group ml-4">
               <Link to="/estimate" className="flex items-center gap-2">
                 <div className="p-1 bg-primary/10 rounded-full">
                   <Phone className="h-4 w-4" aria-hidden="true" />

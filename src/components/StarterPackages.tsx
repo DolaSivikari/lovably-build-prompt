@@ -3,47 +3,16 @@ import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Wrench, Home as HomeIcon, Paintbrush, Info, CheckCircle2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import PackageRequestDialog from "./PackageRequestDialog";
 
 const StarterPackages = () => {
-  const navigate = useNavigate();
-  const { toast } = useToast();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState("");
 
-  const handlePackageRequest = async (packageName: string) => {
-    const name = prompt("Enter your name:");
-    if (!name) return;
-    
-    const email = prompt("Enter your email:");
-    if (!email) return;
-    
-    const phone = prompt("Enter your phone number (optional):");
-    
-    try {
-      const { error } = await supabase
-        .from("contact_submissions")
-        .insert([{
-          name,
-          email,
-          phone: phone || null,
-          message: `Interested in: ${packageName}`,
-          submission_type: "starter_package",
-          status: "new"
-        }]);
-
-      if (error) throw error;
-
-      toast({
-        title: "Request Submitted!",
-        description: "We'll contact you within 24-48 hours with a detailed quote.",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to submit request. Please try again or contact us directly.",
-        variant: "destructive",
-      });
-    }
+  const handlePackageRequest = (packageName: string) => {
+    setSelectedPackage(packageName);
+    setDialogOpen(true);
   };
 
   const packages = [
@@ -228,6 +197,12 @@ const StarterPackages = () => {
           </div>
         </div>
       </div>
+
+      <PackageRequestDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        packageName={selectedPackage}
+      />
     </section>
   );
 };

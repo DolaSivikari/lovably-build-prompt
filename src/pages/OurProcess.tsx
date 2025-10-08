@@ -4,6 +4,8 @@ import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { 
   ClipboardCheck, 
   Hammer, 
@@ -13,10 +15,14 @@ import {
   ArrowRight,
   Shield,
   Clock,
-  Users
+  Users,
+  Sparkles
 } from "lucide-react";
 
 const OurProcess = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isVisible = useIntersectionObserver(sectionRef);
+  
   const processSteps = [
     {
       step: 1,
@@ -113,13 +119,18 @@ const OurProcess = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
+        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20 relative overflow-hidden">
+          {/* Animated background elements */}
+          <div className="absolute top-10 right-10 w-72 h-72 bg-secondary/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
+          
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full animate-fade-in">
+              <Sparkles className="h-4 w-4 text-secondary" />
               <span className="text-secondary font-semibold text-sm tracking-wider uppercase">How We Work</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Proven Process</h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-slide-up">Our Proven Process</h1>
+            <p className="text-xl max-w-3xl mx-auto opacity-90 animate-fade-in" style={{ animationDelay: "0.2s" }}>
               From initial consultation to final walkthrough, we follow a systematic approach 
               that ensures quality, transparency, and your complete satisfaction at every step.
             </p>
@@ -127,16 +138,26 @@ const OurProcess = () => {
         </section>
 
         {/* Process Steps */}
-        <section className="py-24 bg-background">
-          <div className="container mx-auto px-4">
+        <section ref={sectionRef} className="py-24 bg-background relative overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute top-20 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
+          
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-6xl mx-auto">
               {processSteps.map((step, index) => (
-                <div key={step.step} className="mb-16 last:mb-0">
+                <div 
+                  key={step.step} 
+                  className={`mb-16 last:mb-0 transition-all duration-700 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ transitionDelay: `${index * 0.15}s` }}
+                >
                   <div className="grid lg:grid-cols-2 gap-12 items-start">
                     {/* Step Info */}
                     <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                       <div className="flex items-center gap-4 mb-6">
-                        <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center shadow-lg">
+                        <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
                           <step.icon className="w-8 h-8 text-secondary" />
                         </div>
                         <div>
@@ -186,10 +207,13 @@ const OurProcess = () => {
 
                     {/* Visual Card */}
                     <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                      <Card className="overflow-hidden shadow-xl border-2 hover:border-primary/30 transition-all">
-                        <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-12">
-                          <div className="text-center">
-                            <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-lg mb-6">
+                      <Card className="overflow-hidden shadow-xl border-2 hover:border-primary/30 hover:scale-105 transition-all duration-500 group">
+                        <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-12 relative">
+                          {/* Decorative corner accent */}
+                          <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full transform translate-x-10 -translate-y-10 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500" />
+                          
+                          <div className="text-center relative z-10">
+                            <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-lg mb-6 group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
                               <div className="text-5xl font-bold text-primary">
                                 {step.step}
                               </div>
@@ -208,7 +232,9 @@ const OurProcess = () => {
                   {/* Connector Line */}
                   {index < processSteps.length - 1 && (
                     <div className="flex justify-center my-8">
-                      <ArrowRight className="w-8 h-8 text-primary" />
+                      <div className="animate-pulse">
+                        <ArrowRight className="w-8 h-8 text-primary animate-bounce" />
+                      </div>
                     </div>
                   )}
                 </div>
@@ -229,12 +255,15 @@ const OurProcess = () => {
 
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {qualityStandards.map((standard, index) => (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                <Card 
+                  key={index} 
+                  className="text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group"
+                >
                   <CardContent className="p-8">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                       <standard.icon className="w-8 h-8 text-secondary" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{standard.title}</h3>
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{standard.title}</h3>
                     <p className="text-muted-foreground">{standard.description}</p>
                   </CardContent>
                 </Card>
