@@ -41,7 +41,7 @@ const CTA = () => {
             Ready to Start Your Project?
           </h2>
           <p className="text-xl md:text-2xl text-cream/90 mb-6">
-            Professional estimates for projects of any scale — from commercial renovations to institutional upgrades
+            Every project matters to us — from quick repairs to complete transformations, we deliver expert care
           </p>
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm border border-cream/20 rounded-sm">
             <Clock className="w-4 h-4 text-cream" />
