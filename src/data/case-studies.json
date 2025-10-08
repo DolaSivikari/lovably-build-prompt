@@ -80,6 +80,141 @@
         "/src/assets/project-commercial.jpg"
       ],
       "details": "Original stucco samples were analyzed in a lab to match composition. Custom pigments were mixed to achieve the exact original color."
+    },
+    "underground-parking-restoration": {
+      "title": "Underground Parking Garage Restoration",
+      "category": "Commercial",
+      "location": "Downtown Toronto, ON",
+      "date": "2024",
+      "duration": "10 weeks",
+      "size": "85,000 sq ft",
+      "heroImage": "/src/assets/project-industrial.jpg",
+      "challenge": "Restore a deteriorating 30-year-old underground parking garage with severe concrete spalling and coating failure while maintaining partial operations.",
+      "solution": "Implemented a phased approach with temporary parking solutions, applied advanced epoxy repair systems, and installed high-performance traffic coatings.",
+      "results": [
+        "Extended structure life by 25+ years",
+        "Improved lighting by 40% with reflective coatings",
+        "Zero disruption to building operations",
+        "Completed under budget"
+      ],
+      "testimonial": {
+        "quote": "The transformation is remarkable. What was once a dark, deteriorating space is now bright, safe, and protected for decades to come.",
+        "author": "David Kumar",
+        "title": "Building Operations Manager"
+      },
+      "images": [
+        "/src/assets/project-industrial.jpg",
+        "/src/assets/project-commercial.jpg"
+      ],
+      "details": "The project involved concrete repair, waterproofing, installation of traffic-rated polyurethane coatings, and line striping across three underground levels."
+    },
+    "high-rise-balcony-restoration": {
+      "title": "High-Rise Balcony Restoration Project",
+      "category": "Residential",
+      "location": "Etobicoke, ON",
+      "date": "2024",
+      "duration": "12 weeks",
+      "size": "200 balconies",
+      "heroImage": "/src/assets/project-institutional.jpg",
+      "challenge": "Repair and refinish 200 balconies across a 30-story residential tower with water damage, concrete deterioration, and coating failure.",
+      "solution": "Coordinated with residents for access, implemented comprehensive concrete repairs, applied waterproof membrane systems, and installed decorative coatings.",
+      "results": [
+        "All 200 balconies completed on schedule",
+        "Eliminated water infiltration issues",
+        "98% resident satisfaction rating",
+        "10-year warranty on all work"
+      ],
+      "testimonial": {
+        "quote": "Ascen Group's team was professional and respectful. Our balcony looks brand new and we finally have confidence it won't leak.",
+        "author": "Jennifer Park",
+        "title": "Resident"
+      },
+      "images": [
+        "/src/assets/project-institutional.jpg",
+        "/src/assets/project-commercial.jpg"
+      ],
+      "details": "Each balcony received structural assessment, concrete repair, crack injection, waterproof membrane installation, and a final decorative coating system."
+    },
+    "retail-plaza-transformation": {
+      "title": "Retail Plaza Exterior Transformation",
+      "category": "Commercial",
+      "location": "Vaughan, ON",
+      "date": "2023",
+      "duration": "8 weeks",
+      "size": "60,000 sq ft",
+      "heroImage": "/src/assets/project-commercial.jpg",
+      "challenge": "Modernize a dated 1980s retail plaza exterior to attract new tenants while keeping all existing stores operational during the work.",
+      "solution": "Complete facade makeover with new EIFS system, accent metal panels, modern color scheme, and enhanced architectural details.",
+      "results": [
+        "Increased property value by 35%",
+        "Attracted 5 new premium tenants",
+        "Zero complaints from existing tenants",
+        "Featured in local architecture magazine"
+      ],
+      "testimonial": {
+        "quote": "The transformation exceeded our expectations. What was once an eyesore is now the premier retail destination in the area.",
+        "author": "Robert Chang",
+        "title": "Property Owner"
+      },
+      "images": [
+        "/src/assets/project-commercial.jpg",
+        "/src/assets/project-institutional.jpg"
+      ],
+      "details": "The project included removal of old stucco, installation of new insulated EIFS system, decorative metal cladding accents, new signage, and comprehensive painting."
+    },
+    "school-interior-renovation": {
+      "title": "Elementary School Interior Renovation",
+      "category": "Institutional",
+      "location": "Brampton, ON",
+      "date": "2023",
+      "duration": "6 weeks",
+      "size": "35,000 sq ft",
+      "heroImage": "/src/assets/project-institutional.jpg",
+      "challenge": "Refresh a 40-year-old elementary school interior during summer break with strict safety and schedule requirements.",
+      "solution": "Used zero-VOC paints, implemented accelerated schedule, coordinated with school board specifications, and ensured completion before school year.",
+      "results": [
+        "Completed 5 days ahead of schedule",
+        "100% compliance with safety standards",
+        "Positive feedback from teachers and parents",
+        "No odors or air quality issues on opening day"
+      ],
+      "testimonial": {
+        "quote": "The school looks amazing and was ready right on time. The team worked with incredible efficiency and respect for our facility.",
+        "author": "Linda Martinez",
+        "title": "School Principal"
+      },
+      "images": [
+        "/src/assets/project-institutional.jpg",
+        "/src/assets/team-work.jpg"
+      ],
+      "details": "Painted all classrooms, hallways, gymnasium, cafeteria, and administrative offices using low-VOC materials. Included decorative murals in common areas."
+    },
+    "industrial-warehouse-coating": {
+      "title": "Industrial Warehouse Floor Coating",
+      "category": "Industrial",
+      "location": "Mississauga, ON",
+      "date": "2024",
+      "duration": "4 weeks",
+      "size": "120,000 sq ft",
+      "heroImage": "/src/assets/project-industrial.jpg",
+      "challenge": "Install a high-performance floor coating system in an active distribution warehouse without shutting down operations.",
+      "solution": "Worked overnight shifts in sections, used fast-cure epoxy systems, and coordinated closely with warehouse operations to maintain workflow.",
+      "results": [
+        "Zero operational downtime",
+        "Floor ready for traffic in 24 hours per section",
+        "Increased floor brightness by 60%",
+        "15-year durability rating"
+      ],
+      "testimonial": {
+        "quote": "Amazing coordination and execution. We never stopped operations and now have a floor that's easier to clean and maintain.",
+        "author": "Thomas Anderson",
+        "title": "Warehouse Manager"
+      },
+      "images": [
+        "/src/assets/project-industrial.jpg",
+        "/src/assets/project-commercial.jpg"
+      ],
+      "details": "Applied industrial-grade epoxy coating system with chemical resistance, anti-slip additives, and high-durability topcoat. Included line striping and safety markings."
     }
   }
 }
