@@ -30,12 +30,17 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
     { name: "Our Process", path: "/our-process" },
     { name: "Projects", path: "/projects" },
     { name: "Contact", path: "/contact" },
     ...(isAuthenticated ? [{ name: "Admin", path: "/admin" }] : []),
+  ];
+
+  const aboutDropdownItems = [
+    { name: "About Us", path: "/about" },
+    { name: "Our Values", path: "/values" },
+    { name: "Safety", path: "/safety" },
   ];
 
   const blogDropdownItems = [
@@ -45,6 +50,7 @@ const Navigation = () => {
 
   const isActive = (path: string) => location.pathname === path;
   const isBlogSection = location.pathname.startsWith("/blog") || location.pathname.startsWith("/case-stud");
+  const isAboutSection = location.pathname.startsWith("/about") || location.pathname === "/values" || location.pathname === "/safety";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -70,6 +76,29 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
+            
+            {/* About Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${
+                isAboutSection ? "text-primary" : "text-foreground"
+              }`}>
+                About <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-background border shadow-lg z-50">
+                {aboutDropdownItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link 
+                      to={item.path}
+                      className={`w-full cursor-pointer ${
+                        isActive(item.path) ? "text-primary font-medium" : ""
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             
             {/* Blog Dropdown */}
             <DropdownMenu>
@@ -124,6 +153,23 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
+            
+            {/* Mobile About Section */}
+            <div className="border-t pt-4">
+              <p className="text-xs font-semibold text-muted-foreground mb-2 px-2">ABOUT</p>
+              {aboutDropdownItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`block text-sm font-medium py-2 pl-4 transition-colors hover:text-primary ${
+                    isActive(item.path) ? "text-primary" : "text-foreground"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
             
             {/* Mobile Blog Section */}
             <div className="border-t pt-4">

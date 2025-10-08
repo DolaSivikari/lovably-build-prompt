@@ -34,6 +34,8 @@ import CaseStudy from "./pages/CaseStudy";
 import CaseStudies from "./pages/CaseStudies";
 import OurProcess from "./pages/OurProcess";
 import Sustainability from "./pages/Sustainability";
+import Safety from "./pages/Safety";
+import Values from "./pages/Values";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
+          <Route path="/values" element={<Values />} />
+          <Route path="/safety" element={<Safety />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/painting" element={<ResidentialPainting />} />
           <Route path="/services/commercial" element={<CommercialPainting />} />
