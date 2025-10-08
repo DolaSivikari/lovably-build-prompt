@@ -262,7 +262,7 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary group ml-4">
+            <Button variant="secondary" asChild className="group ml-4">
               <Link to="/estimate" className="flex items-center gap-2">
                 <div className="p-1 bg-primary/10 rounded-full">
                   <Phone 
@@ -484,7 +484,7 @@ const Navigation = () => {
               Careers
             </Link>
             
-            <Button variant="default" className="w-full bg-secondary hover:bg-secondary/90 text-primary" asChild>
+            <Button variant="secondary" className="w-full" asChild>
               <Link to="/estimate" onClick={() => setIsOpen(false)}>
                 Get Estimate
               </Link>

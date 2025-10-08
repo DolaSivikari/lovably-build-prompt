@@ -18,17 +18,6 @@ export default {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
-        // Original brand colors (kept for legacy compatibility)
-        sage: {
-          DEFAULT: "hsl(100 23% 62%)",
-          light: "hsl(100 23% 72%)",
-          dark: "hsl(100 23% 52%)",
-        },
-        terracotta: {
-          DEFAULT: "hsl(14 52% 55%)",
-          light: "hsl(14 52% 65%)",
-          dark: "hsl(14 52% 45%)",
-        },
         // Construction theme colors
         "construction-blue": {
           DEFAULT: "hsl(210 85% 35%)",
