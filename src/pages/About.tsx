@@ -4,7 +4,13 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Award, MessageCircle, Shield, Heart, Leaf } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle } from "lucide-react";
 import companyData from "@/data/company-info.json";
 import teamWork from "@/assets/team-work.jpg";
 
@@ -189,6 +195,209 @@ const About = () => {
                 </Card>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="container mx-auto px-4 py-16">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <HelpCircle className="w-8 h-8 text-primary" />
+                <h2 className="text-4xl font-bold">Frequently Asked Questions</h2>
+              </div>
+              <p className="text-lg text-muted-foreground">
+                Find answers to the most common questions about our services, pricing, and process
+              </p>
+            </div>
+
+            {/* General Questions */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4 text-primary">General</h3>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger className="text-left font-semibold">
+                    How long have you been in business?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Ascen Group Construction has been serving the GTA since 2009, with over 15 years of experience delivering quality painting and stucco/EIFS services.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-2">
+                  <AccordionTrigger className="text-left font-semibold">
+                    Are you licensed and insured?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, we are fully licensed and carry $5 million in liability insurance coverage. We also maintain WSIB coverage for all our employees. We provide certificates of insurance upon request for your peace of mind.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-3">
+                  <AccordionTrigger className="text-left font-semibold">
+                    Do you offer warranties?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, all our work comes with comprehensive warranties. We offer a 2-year warranty on workmanship and material warranties ranging from 5-15 years depending on the products used. All warranty details are clearly outlined in your contract.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-4">
+                  <AccordionTrigger className="text-left font-semibold">
+                    What areas do you serve?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    We proudly serve the Greater Toronto Area (GTA) including Toronto, Mississauga, Brampton, Oakville, Burlington, Hamilton, Vaughan, Richmond Hill, and surrounding communities. Contact us to confirm service availability in your specific area.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+
+            {/* Pricing & Estimates */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4 text-primary">Pricing & Estimates</h3>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-5">
+                  <AccordionTrigger className="text-left font-semibold">
+                    How do you calculate estimates?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Our estimates are based on several factors including project size (square footage), surface condition, preparation required, type of materials selected, and project complexity. We provide detailed line-item breakdowns so you know exactly what you are paying for. For accurate pricing, we conduct an on-site assessment.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-6">
+                  <AccordionTrigger className="text-left font-semibold">
+                    Do you offer free estimates?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, we provide free, no-obligation estimates for all residential and commercial projects. We will visit your property, assess the work required, discuss your preferences, and provide a detailed written quote typically within 24-48 hours.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-7">
+                  <AccordionTrigger className="text-left font-semibold">
+                    What payment methods do you accept?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    We accept various payment methods including cash, checks, credit cards (Visa, Mastercard, American Express), and e-transfers. Payment schedules are typically structured as: deposit upon contract signing, progress payments at project milestones, and final payment upon completion and your satisfaction.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-8">
+                  <AccordionTrigger className="text-left font-semibold">
+                    Can I get financing?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, we offer flexible financing options through our lending partners for qualified customers. This includes low-interest payment plans and deferred payment options. Contact us to discuss financing solutions that fit your budget.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+
+            {/* Project Process */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4 text-primary">Project Process</h3>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-9">
+                  <AccordionTrigger className="text-left font-semibold">
+                    How long will my project take?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Project timelines vary based on scope and size. Small interior projects (1-3 rooms) typically take 2-5 days. Full home interiors range from 5-10 business days. Exterior painting projects take 7-14 business days depending on weather. Stucco and EIFS projects can range from 2-8 weeks. We provide detailed schedules in your project proposal.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-10">
+                  <AccordionTrigger className="text-left font-semibold">
+                    Will you protect my furniture and belongings?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Absolutely. We take extensive precautions to protect your property. This includes covering furniture with plastic sheeting, protecting floors with drop cloths and protective paper, masking fixtures and hardware, and sealing off work areas to minimize dust. We treat your home with the same care we would our own.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-11">
+                  <AccordionTrigger className="text-left font-semibold">
+                    Can I stay in my home during the work?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, most clients remain in their homes during interior projects. We work room by room to minimize disruption, use low-VOC paints to reduce odors, maintain clean work areas, and can adjust our schedule to work around your routines. For exterior projects, you can stay home with minimal impact on your daily activities.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-12">
+                  <AccordionTrigger className="text-left font-semibold">
+                    What if weather delays my exterior project?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    We monitor weather forecasts closely and schedule exterior work during optimal conditions. If unexpected weather occurs, we will pause work to ensure quality and reschedule at the earliest opportunity. Weather delays do not affect your project cost, and we maintain open communication throughout any schedule adjustments.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+
+            {/* Materials & Quality */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4 text-primary">Materials & Quality</h3>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-13">
+                  <AccordionTrigger className="text-left font-semibold">
+                    What paint brands do you use?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    We use premium paint brands including Benjamin Moore, Sherwin-Williams, and Behr. These professional-grade products provide superior coverage, durability, and color retention. We select products based on project requirements and client preferences, always using top-tier formulations for lasting results.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-14">
+                  <AccordionTrigger className="text-left font-semibold">
+                    Do you offer eco-friendly options?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, we offer a full range of eco-friendly options including zero-VOC and low-VOC paints, water-based coatings, and environmentally responsible disposal methods. These products are safe for families, pets, and the environment while still delivering exceptional performance and durability.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-15">
+                  <AccordionTrigger className="text-left font-semibold">
+                    How do you ensure quality?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Quality is our top priority. We ensure excellence through meticulous surface preparation, skilled application techniques by experienced professionals, multi-coat systems for durability, quality control inspections at each project stage, and a final walkthrough with you before project completion. Our 98% client satisfaction rate reflects our commitment to quality.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-16">
+                  <AccordionTrigger className="text-left font-semibold">
+                    Can you match my existing color?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, we use advanced color matching technology to perfectly match any existing color from a sample. We can also provide digital mockups of new color schemes to help you visualize options before making a final decision. Our color consultation service ensures you get exactly the look you want.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+
+            {/* CTA within FAQ */}
+            <Card className="bg-muted/50 p-8 text-center mt-12">
+              <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
+              <p className="text-muted-foreground mb-6">
+                We are here to help! Contact us and our friendly team will be happy to answer any additional questions you may have.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/contact">
+                  <Button size="lg" className="bg-primary hover:bg-primary/90">
+                    Contact Us
+                  </Button>
+                </Link>
+                <Link to="/estimate">
+                  <Button size="lg" variant="outline">
+                    Get Free Estimate
+                  </Button>
+                </Link>
+              </div>
+            </Card>
           </div>
         </section>
 
