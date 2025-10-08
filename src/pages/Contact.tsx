@@ -65,14 +65,15 @@ const Contact = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-primary to-primary-light text-primary-foreground">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">Let's Build Together</h1>
-            <p className="text-lg md:text-xl text-primary-foreground/90">
-              Ready to start your next project? Get in touch with our team for a free consultation and discover how we can bring your vision to life.
-            </p>
+      <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
+            <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Get In Touch</span>
           </div>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">Let's Build Together</h1>
+          <p className="text-xl max-w-3xl mx-auto opacity-90">
+            Ready to start your next project? Get in touch with our team for a free consultation and discover how we can bring your vision to life.
+          </p>
         </div>
       </section>
 

@@ -29,6 +29,9 @@ const About = () => {
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-primary to-primary/80 text-white py-20">
           <div className="container mx-auto px-4 text-center">
+            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
+              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Who We Are</span>
+            </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">About Ascen Group</h1>
             <p className="text-xl max-w-3xl mx-auto opacity-90">
               Building lasting relationships through exceptional craftsmanship, integrity, and commitment to excellence since 2009.

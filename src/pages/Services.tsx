@@ -152,8 +152,11 @@ const Services = () => {
         {/* Hero Section */}
         <section className="pt-32 pb-20 bg-gradient-to-br from-primary via-primary to-primary/80 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-white/[0.05] pointer-events-none" />
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
+          <div className="container mx-auto px-4 relative z-10 text-center">
+            <div className="max-w-4xl mx-auto">
+              <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
+                <span className="text-secondary font-semibold text-sm tracking-wider uppercase">What We Do</span>
+              </div>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
                 Professional Construction Services
               </h1>

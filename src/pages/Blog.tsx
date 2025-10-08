@@ -63,30 +63,28 @@ const Blog = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-24 overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-grid-white/[0.05]" />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/90" />
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl animate-slide-up">
-              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6">
-                Industry Insights & Expertise
-              </h1>
-              <p className="text-xl text-primary-foreground/90 mb-8">
-                Stay informed with expert guidance on construction, painting, and property maintenance from the professionals at Ascen Group.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#newsletter">
-                  <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 hover:scale-105 transition-all">
-                    Subscribe to Newsletter
-                  </Button>
-                </a>
-                <Link to="/case-studies">
-                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10">
-                    View Case Studies
-                  </Button>
-                </Link>
-              </div>
+        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
+          <div className="container mx-auto px-4 text-center">
+            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
+              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Industry Insights</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              Blog & Resources
+            </h1>
+            <p className="text-xl max-w-3xl mx-auto opacity-90 mb-8">
+              Stay informed with expert guidance on construction, painting, and property maintenance from the professionals at Ascen Group.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="#newsletter">
+                <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 hover:scale-105 transition-all">
+                  Subscribe to Newsletter
+                </Button>
+              </a>
+              <Link to="/case-studies">
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10">
+                  View Case Studies
+                </Button>
+              </Link>
             </div>
           </div>
         </section>

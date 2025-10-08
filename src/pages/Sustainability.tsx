@@ -111,20 +111,17 @@ const Sustainability = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-green-700 via-green-600 to-teal-600 text-white py-24">
-          <div className="absolute inset-0 bg-grid-white/[0.05] pointer-events-none" />
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-full mb-6 backdrop-blur-sm">
-                <Leaf className="w-10 h-10" />
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                Building a Greener GTA
-              </h1>
-              <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-                Leading the painting and finishing industry toward sustainability with innovative eco-friendly practices and low-VOC materials
-              </p>
+        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
+          <div className="container mx-auto px-4 text-center">
+            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
+              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Green Building</span>
             </div>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              Building a Greener GTA
+            </h1>
+            <p className="text-xl max-w-3xl mx-auto opacity-90">
+              Leading the painting and finishing industry toward sustainability with innovative eco-friendly practices and low-VOC materials
+            </p>
           </div>
         </section>
 
