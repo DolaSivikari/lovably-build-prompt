@@ -158,10 +158,11 @@ const Navigation = () => {
 
           {/* Mobile Menu Button - Animated Hamburger */}
           <button
-            className="md:hidden text-foreground relative w-10 h-10 flex items-center justify-center"
+            className="md:hidden text-foreground relative touch-target flex items-center justify-center"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
             <div className="flex flex-col gap-1.5 w-6">
               <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
@@ -173,14 +174,14 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 space-y-2 animate-slide-in-right" role="navigation" aria-label="Mobile navigation">
+          <div id="mobile-menu" className="md:hidden py-4 space-y-2 animate-slide-in-right" role="navigation" aria-label="Mobile navigation">
             {navLinks.map((link, index) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
                 aria-current={isActive(link.path) ? "page" : undefined}
-                className={`block text-sm font-medium py-3 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 ${
+                className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
                   isActive(link.path) ? "text-primary bg-muted" : "text-foreground"
                 }`}
                 style={{ animationDelay: `${index * 0.05}s` }}
@@ -198,7 +199,7 @@ const Navigation = () => {
                   to={item.path}
                   onClick={() => setIsOpen(false)}
                   aria-current={isActive(item.path) ? "page" : undefined}
-                  className={`block text-sm font-medium py-2 pl-4 transition-colors hover:text-primary ${
+                  className={`block text-sm font-medium py-3 pl-4 transition-colors hover:text-primary touch-target ${
                     isActive(item.path) ? "text-primary" : "text-foreground"
                   }`}
                 >
@@ -216,7 +217,7 @@ const Navigation = () => {
                   to={item.path}
                   onClick={() => setIsOpen(false)}
                   aria-current={isActive(item.path) ? "page" : undefined}
-                  className={`block text-sm font-medium py-2 pl-4 transition-colors hover:text-primary ${
+                  className={`block text-sm font-medium py-3 pl-4 transition-colors hover:text-primary touch-target ${
                     isActive(item.path) ? "text-primary" : "text-foreground"
                   }`}
                 >

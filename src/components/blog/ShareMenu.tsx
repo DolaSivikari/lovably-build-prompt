@@ -21,8 +21,14 @@ const ShareMenu = () => {
   };
 
   return (
-    <Button onClick={handleShare} variant="outline" size="sm">
-      <Share2 className="w-4 h-4 mr-2" />
+    <Button 
+      onClick={handleShare} 
+      variant="outline" 
+      size="default"
+      className="touch-target"
+      aria-label="Share this page"
+    >
+      <Share2 className="w-4 h-4 mr-2" aria-hidden="true" />
       Share
     </Button>
   );

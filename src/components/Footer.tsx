@@ -20,15 +20,15 @@ const Footer = () => {
               Expert painting and exterior finishing services across the GTA. Quality craftsmanship and exceptional results since 2009.
             </p>
             <nav aria-label="Social media">
-              <div className="flex gap-4">
-                <a href="#" className="hover:text-secondary transition-colors" aria-label="Visit us on LinkedIn">
-                  <Linkedin className="h-5 w-5" />
+              <div className="flex gap-2 touch-group">
+                <a href="#" className="hover:text-secondary transition-colors touch-target" aria-label="Visit us on LinkedIn">
+                  <Linkedin className="h-5 w-5" aria-hidden="true" />
                 </a>
-                <a href="#" className="hover:text-secondary transition-colors" aria-label="Follow us on Twitter">
-                  <Twitter className="h-5 w-5" />
+                <a href="#" className="hover:text-secondary transition-colors touch-target" aria-label="Follow us on Twitter">
+                  <Twitter className="h-5 w-5" aria-hidden="true" />
                 </a>
-                <a href="#" className="hover:text-secondary transition-colors" aria-label="Like us on Facebook">
-                  <Facebook className="h-5 w-5" />
+                <a href="#" className="hover:text-secondary transition-colors touch-target" aria-label="Like us on Facebook">
+                  <Facebook className="h-5 w-5" aria-hidden="true" />
                 </a>
               </div>
             </nav>
