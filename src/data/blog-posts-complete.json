@@ -10,7 +10,7 @@
       "date": "2024-03-15",
       "category": "Painting",
       "tags": ["exterior painting", "home maintenance", "paint selection"],
-      "image": "/src/assets/project-commercial.jpg",
+      "image": "/src/assets/blog-exterior-painting.jpg",
       "featured": true
     },
     {
@@ -23,7 +23,7 @@
       "date": "2024-03-10",
       "category": "Exterior Systems",
       "tags": ["stucco", "EIFS", "exterior cladding"],
-      "image": "/src/assets/project-institutional.jpg",
+      "image": "/src/assets/blog-stucco-eifs.jpg",
       "featured": true
     },
     {
@@ -36,7 +36,7 @@
       "date": "2024-03-05",
       "category": "Property Management",
       "tags": ["property management", "maintenance", "budgeting"],
-      "image": "/src/assets/project-industrial.jpg",
+      "image": "/src/assets/blog-property-management.jpg",
       "featured": false
     },
     {
@@ -49,7 +49,7 @@
       "date": "2024-02-28",
       "category": "Masonry",
       "tags": ["masonry", "restoration", "tuckpointing"],
-      "image": "/src/assets/project-commercial.jpg",
+      "image": "/src/assets/blog-masonry-repair.jpg",
       "featured": true
     },
     {
@@ -62,7 +62,7 @@
       "date": "2024-02-20",
       "category": "Commercial",
       "tags": ["parking garage", "waterproofing", "concrete"],
-      "image": "/src/assets/project-industrial.jpg",
+      "image": "/src/assets/blog-parking-garage.jpg",
       "featured": false
     },
     {
@@ -75,7 +75,7 @@
       "date": "2024-02-15",
       "category": "Residential",
       "tags": ["condo painting", "property management", "coordination"],
-      "image": "/src/assets/project-institutional.jpg",
+      "image": "/src/assets/blog-condo-painting.jpg",
       "featured": false
     },
     {
@@ -88,7 +88,7 @@
       "date": "2024-02-10",
       "category": "Commercial",
       "tags": ["metal cladding", "facade", "maintenance"],
-      "image": "/src/assets/project-commercial.jpg",
+      "image": "/src/assets/blog-metal-cladding.jpg",
       "featured": false
     },
     {
@@ -101,7 +101,7 @@
       "date": "2024-02-05",
       "category": "Painting",
       "tags": ["paint finishes", "interior design", "paint selection"],
-      "image": "/src/assets/team-work.jpg",
+      "image": "/src/assets/blog-paint-finishes.jpg",
       "featured": true
     }
   ]

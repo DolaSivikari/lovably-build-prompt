@@ -7,7 +7,7 @@
       "date": "2024",
       "duration": "6 weeks",
       "size": "45,000 sq ft",
-      "heroImage": "/src/assets/project-commercial.jpg",
+      "heroImage": "/src/assets/case-office-tower.jpg",
       "challenge": "Modernize a 15-story office building's interior while maintaining daily operations with 200+ employees.",
       "solution": "Implemented a phased, after-hours approach using low-VOC materials for occupied spaces.",
       "results": [
@@ -34,7 +34,7 @@
       "date": "2024",
       "duration": "8 weeks",
       "size": "120 units",
-      "heroImage": "/src/assets/project-institutional.jpg",
+      "heroImage": "/src/assets/case-waterfront-condo.jpg",
       "challenge": "Restore exterior stucco and EIFS on a 25-year-old luxury condominium complex while residents remained in their homes.",
       "solution": "Developed a unit-by-unit schedule with resident coordination and implemented complete weatherproofing during work.",
       "results": [
@@ -61,7 +61,7 @@
       "date": "2023",
       "duration": "14 months",
       "size": "45,000 sq ft",
-      "heroImage": "/src/assets/project-industrial.jpg",
+      "heroImage": "/src/assets/case-heritage-building.jpg",
       "challenge": "Restoring a 1920s heritage building's original stucco facade while meeting modern building codes and preservation guidelines.",
       "solution": "Matched original materials and techniques with modern weatherproofing technology, working closely with heritage consultants.",
       "results": [
@@ -88,7 +88,7 @@
       "date": "2024",
       "duration": "10 weeks",
       "size": "85,000 sq ft",
-      "heroImage": "/src/assets/project-industrial.jpg",
+      "heroImage": "/src/assets/case-parking-restoration.jpg",
       "challenge": "Restore a deteriorating 30-year-old underground parking garage with severe concrete spalling and coating failure while maintaining partial operations.",
       "solution": "Implemented a phased approach with temporary parking solutions, applied advanced epoxy repair systems, and installed high-performance traffic coatings.",
       "results": [
@@ -115,7 +115,7 @@
       "date": "2024",
       "duration": "12 weeks",
       "size": "200 balconies",
-      "heroImage": "/src/assets/project-institutional.jpg",
+      "heroImage": "/src/assets/case-balcony-restoration.jpg",
       "challenge": "Repair and refinish 200 balconies across a 30-story residential tower with water damage, concrete deterioration, and coating failure.",
       "solution": "Coordinated with residents for access, implemented comprehensive concrete repairs, applied waterproof membrane systems, and installed decorative coatings.",
       "results": [
@@ -142,7 +142,7 @@
       "date": "2023",
       "duration": "8 weeks",
       "size": "60,000 sq ft",
-      "heroImage": "/src/assets/project-commercial.jpg",
+      "heroImage": "/src/assets/case-retail-plaza.jpg",
       "challenge": "Modernize a dated 1980s retail plaza exterior to attract new tenants while keeping all existing stores operational during the work.",
       "solution": "Complete facade makeover with new EIFS system, accent metal panels, modern color scheme, and enhanced architectural details.",
       "results": [
@@ -169,7 +169,7 @@
       "date": "2023",
       "duration": "6 weeks",
       "size": "35,000 sq ft",
-      "heroImage": "/src/assets/project-institutional.jpg",
+      "heroImage": "/src/assets/case-school-interior.jpg",
       "challenge": "Refresh a 40-year-old elementary school interior during summer break with strict safety and schedule requirements.",
       "solution": "Used zero-VOC paints, implemented accelerated schedule, coordinated with school board specifications, and ensured completion before school year.",
       "results": [
@@ -196,7 +196,7 @@
       "date": "2024",
       "duration": "4 weeks",
       "size": "120,000 sq ft",
-      "heroImage": "/src/assets/project-industrial.jpg",
+      "heroImage": "/src/assets/case-warehouse-floor.jpg",
       "challenge": "Install a high-performance floor coating system in an active distribution warehouse without shutting down operations.",
       "solution": "Worked overnight shifts in sections, used fast-cure epoxy systems, and coordinated closely with warehouse operations to maintain workflow.",
       "results": [
