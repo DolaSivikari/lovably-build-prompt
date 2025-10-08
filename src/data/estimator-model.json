@@ -1,0 +1,86 @@
+{
+  "currency": "CAD",
+  "services": {
+    "residential_painting": {
+      "name": "Residential Painting",
+      "base_per_sqft": {
+        "min": 3.5,
+        "max": 8
+      }
+    },
+    "stucco_eifs": {
+      "name": "Stucco / EIFS",
+      "base_per_sqft": {
+        "min": 8,
+        "max": 18
+      }
+    }
+  },
+  "modifiers": {
+    "prep_complexity": {
+      "none": 1,
+      "standard": 1.15,
+      "heavy": 1.4,
+      "structural_repair_required": 1.8
+    },
+    "finish_quality": {
+      "standard": 1,
+      "premium": 1.3,
+      "luxury": 1.7
+    },
+    "stories_multiplier": {
+      "1": 1,
+      "2": 1.2,
+      "3_plus": 1.5
+    },
+    "regional_multiplier": {
+      "gta_default": 1,
+      "inner_city": 1.15,
+      "suburban": 0.95,
+      "rural": 0.85
+    }
+  },
+  "add_ons": {
+    "scaffolding": {
+      "tiers": [
+        {
+          "name": "low",
+          "min": 400,
+          "max": 800
+        },
+        {
+          "name": "mid",
+          "min": 800,
+          "max": 1200
+        },
+        {
+          "name": "high",
+          "min": 1200,
+          "max": 2500
+        }
+      ]
+    },
+    "color_consultation": {
+      "default_included_with_full_job": true,
+      "flat_min": 0,
+      "flat_max": 150
+    },
+    "rush_scheduling": {
+      "multiplier_min": 1.1,
+      "multiplier_max": 1.35
+    },
+    "warranty_extension": {
+      "flat_min": 200,
+      "flat_max": 800
+    },
+    "site_cleanup": {
+      "flat_min": 100,
+      "flat_max": 400
+    }
+  },
+  "estimation_rules": {
+    "minimum_job_fee": {
+      "amount": 800
+    }
+  }
+}

@@ -40,8 +40,8 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 font-bold text-xl">
             <HardHat className="h-8 w-8 text-primary" />
-            <span className="text-primary">BuildCraft</span>
-            <span className="text-foreground">Management</span>
+            <span className="text-primary">Ascen</span>
+            <span className="text-foreground">Group</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -57,8 +57,8 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
-            <Button variant="default" asChild>
-              <Link to="/contact">Get Quote</Link>
+            <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary">
+              <Link to="/estimate">Get Estimate</Link>
             </Button>
           </div>
 
@@ -87,9 +87,9 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
-            <Button variant="default" className="w-full" asChild>
-              <Link to="/contact" onClick={() => setIsOpen(false)}>
-                Get Quote
+            <Button variant="default" className="w-full bg-secondary hover:bg-secondary/90 text-primary" asChild>
+              <Link to="/estimate" onClick={() => setIsOpen(false)}>
+                Get Estimate
               </Link>
             </Button>
           </div>

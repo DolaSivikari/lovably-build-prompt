@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
+import Estimate from "./pages/Estimate";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminServices from "./pages/admin/Services";
@@ -49,6 +50,7 @@ const App = () => (
           <Route path="/services/tile-flooring" element={<TileFlooring />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/estimate" element={<Estimate />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/services" element={<AdminServices />} />
