@@ -15,6 +15,7 @@ import EstimatorStep3 from "@/components/estimator/EstimatorStep3";
 import EstimatorStep4 from "@/components/estimator/EstimatorStep4";
 import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
 import { calculateEstimate, EstimateInput } from "@/utils/estimator";
+import PaintCalculator from "@/components/PaintCalculator";
 
 const Estimate = () => {
   const navigate = useNavigate();
@@ -198,6 +199,11 @@ Add-ons:
               <p className="text-lg text-muted-foreground">
                 Answer a few quick questions to receive an instant estimate
               </p>
+            </div>
+
+            {/* Paint Calculator Tool */}
+            <div className="mb-12">
+              <PaintCalculator />
             </div>
 
             {/* Progress Bar */}
