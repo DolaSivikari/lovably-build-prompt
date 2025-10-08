@@ -41,6 +41,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             { name: "Stucco & EIFS", link: "/services/stucco-eifs" },
             { name: "Metal Cladding", link: "/services/metal-cladding" },
             { name: "Masonry & Restoration", link: "/services/masonry" },
+            { name: "Sealants & Caulking", link: "/services/sealants" },
           ],
         },
         {
@@ -48,6 +49,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           subItems: [
             { name: "Parking Garage Restoration", link: "/services/parking-garage" },
             { name: "Tile & Flooring", link: "/services/tile-flooring" },
+            { name: "Suite Buildouts", link: "/services/suite-buildouts" },
           ],
         },
       ],
@@ -60,25 +62,19 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         {
           title: "Homeowners",
           subItems: [
-            { name: "Residential Services", link: "/homeowners" },
-            { name: "Interior Painting", link: "/services/residential-painting" },
-            { name: "Exterior Restoration", link: "/services/stucco-eifs" },
+            { name: "View Residential Solutions", link: "/homeowners" },
           ],
         },
         {
           title: "Property Managers",
           subItems: [
-            { name: "Property Management Solutions", link: "/property-managers" },
-            { name: "Multi-Unit Painting", link: "/services/condo-painting" },
-            { name: "Building Envelope", link: "/services/masonry" },
+            { name: "View Property Management Solutions", link: "/property-managers" },
           ],
         },
         {
           title: "Commercial Clients",
           subItems: [
-            { name: "Commercial Services", link: "/commercial-clients" },
-            { name: "Office & Retail Painting", link: "/services/commercial-painting" },
-            { name: "Parking Structures", link: "/services/parking-garage" },
+            { name: "View Commercial Solutions", link: "/commercial-clients" },
           ],
         },
       ],
