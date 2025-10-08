@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { HardHat, Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
+import ascentLogo from "@/assets/ascent-logo.png";
 
 const Footer = () => {
   return (
@@ -8,10 +9,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <HardHat className="h-8 w-8" />
-              <span className="font-bold text-lg">Ascen Group</span>
-            </div>
+            <Link to="/" className="inline-block mb-4">
+              <img 
+                src={ascentLogo} 
+                alt="Ascent Group Construction" 
+                className="h-16 w-auto brightness-0 invert hover:scale-105 transition-transform"
+              />
+            </Link>
             <p className="text-sm text-primary-foreground/80 mb-4">
               Expert painting and exterior finishing services across the GTA. Quality craftsmanship and exceptional results since 2009.
             </p>

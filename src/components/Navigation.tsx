@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
+import ascentLogo from "@/assets/ascent-logo.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -60,13 +61,12 @@ const Navigation = () => {
         <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl group" aria-label="Ascen Group Construction - Home">
-            <div className="relative">
-              <HardHat className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full animate-pulse" aria-hidden="true" />
-            </div>
-            <span className="text-primary">Ascen</span>
-            <span className="text-foreground">Group</span>
+          <Link to="/" className="flex items-center group" aria-label="Ascent Group Construction - Home">
+            <img 
+              src={ascentLogo} 
+              alt="Ascent Group Construction" 
+              className="h-12 w-auto transition-transform group-hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Navigation */}
