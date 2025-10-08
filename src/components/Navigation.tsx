@@ -21,6 +21,7 @@ const Navigation = () => {
   const [megaMenuHoverTimeout, setMegaMenuHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileWhoWeServeOpen, setMobileWhoWeServeOpen] = useState(false);
+  const [mobileBlogOpen, setMobileBlogOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -173,15 +174,33 @@ const Navigation = () => {
               Projects
             </Link>
 
-            <Link
-              to="/blog"
-              className={cn(
-                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                isActive("/blog") ? "text-primary after:scale-x-100" : "text-foreground"
-              )}
+            {/* Blog & Resources Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("blog")}
+              onMouseLeave={handleMegaMenuLeave}
             >
-              Blog
-            </Link>
+              <Link
+                to="/blog"
+                className={cn(
+                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
+                  activeMegaMenu === "blog" && "text-sage"
+                )}
+                aria-expanded={activeMegaMenu === "blog"}
+                aria-controls="blog-mega-menu"
+              >
+                Blog
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  activeMegaMenu === "blog" && "rotate-180"
+                )} />
+              </Link>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.blog}
+                isOpen={activeMegaMenu === "blog"}
+                onClose={closeMegaMenu}
+              />
+            </div>
             
             <Link
               to="/contact"
@@ -329,30 +348,73 @@ const Navigation = () => {
               Our Process
             </Link>
             
-            {/* Projects & Blog */}
-            <div className="border-t border-border pt-4 space-y-3">
-              <Link
-                to="/projects"
-                className="block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target text-foreground"
-                onClick={() => setIsOpen(false)}
-              >
-                Projects
-              </Link>
+            <Link
+              to="/projects"
+              onClick={() => setIsOpen(false)}
+              aria-current={isActive("/projects") ? "page" : undefined}
+              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
+                isActive("/projects") ? "text-primary bg-muted" : "text-foreground"
+              }`}
+            >
+              Projects
+            </Link>
+
+            {/* Blog & Resources with Accordion */}
+            <div className="border-t border-border pt-4">
               <Link
                 to="/blog"
-                className="block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target text-foreground"
                 onClick={() => setIsOpen(false)}
+                className="block text-sm font-medium py-3 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target text-foreground mb-2"
               >
-                Blog
+                View All Blog Articles
               </Link>
-              <Link
-                to="/contact"
-                className="block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target text-foreground"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </Link>
+              <Collapsible open={mobileBlogOpen} onOpenChange={setMobileBlogOpen}>
+                <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-semibold text-muted-foreground mb-2 px-2">
+                  <span>Browse Resources</span>
+                  <ChevronDown className={cn(
+                    "w-4 h-4 transition-transform",
+                    mobileBlogOpen && "rotate-180"
+                  )} />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  {megaMenuDataEnhanced.blog.map((section, sectionIdx) => (
+                    <div key={sectionIdx} className="space-y-3">
+                      {section.categories.map((category, categoryIdx) => (
+                        <div key={categoryIdx} className="mb-3">
+                          <div className="font-medium text-primary text-sm mb-2 px-2">
+                            {category.title}
+                          </div>
+                          <ul className="space-y-1 ml-3">
+                            {category.subItems.map((item, itemIdx) => (
+                              <li key={itemIdx}>
+                                <Link
+                                  to={item.link}
+                                  className="text-sm text-muted-foreground hover:text-foreground transition-colors block py-1"
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {item.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </CollapsibleContent>
+              </Collapsible>
             </div>
+            
+            <Link
+              to="/contact"
+              onClick={() => setIsOpen(false)}
+              aria-current={isActive("/contact") ? "page" : undefined}
+              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
+                isActive("/contact") ? "text-primary bg-muted" : "text-foreground"
+              }`}
+            >
+              Contact
+            </Link>
             
             <Button variant="default" className="w-full bg-secondary hover:bg-secondary/90 text-primary" asChild>
               <Link to="/estimate" onClick={() => setIsOpen(false)}>

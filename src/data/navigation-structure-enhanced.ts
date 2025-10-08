@@ -81,4 +81,32 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       ],
     },
   ],
+  blog: [
+    {
+      sectionTitle: "Blog & Resources",
+      sectionLink: "/blog",
+      categories: [
+        {
+          title: "Articles & Insights",
+          subItems: [
+            { name: "View All Articles", link: "/blog" },
+            { name: "Case Studies", link: "/case-studies" },
+          ],
+        },
+      ],
+    },
+    {
+      sectionTitle: "Company",
+      categories: [
+        {
+          title: "About Us",
+          subItems: [
+            { name: "Our Values", link: "/values" },
+            { name: "Safety", link: "/safety" },
+            { name: "Sustainability", link: "/sustainability" },
+          ],
+        },
+      ],
+    },
+  ],
 };
