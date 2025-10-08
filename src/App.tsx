@@ -16,6 +16,14 @@ import ServiceEditor from "./pages/admin/ServiceEditor";
 import ProjectEditor from "./pages/admin/ProjectEditor";
 import ContactSubmissions from "./pages/admin/ContactSubmissions";
 import NotFound from "./pages/NotFound";
+import ResidentialPainting from "./pages/services/ResidentialPainting";
+import CommercialPainting from "./pages/services/CommercialPainting";
+import CondoPainting from "./pages/services/CondoPainting";
+import StuccoEIFS from "./pages/services/StuccoEIFS";
+import MetalCladding from "./pages/services/MetalCladding";
+import Masonry from "./pages/services/Masonry";
+import ParkingGarage from "./pages/services/ParkingGarage";
+import TileFlooring from "./pages/services/TileFlooring";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +37,16 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/services/painting" element={<ResidentialPainting />} />
+          <Route path="/services/commercial" element={<CommercialPainting />} />
+          <Route path="/services/condo" element={<CondoPainting />} />
+          <Route path="/services/stucco" element={<StuccoEIFS />} />
+          <Route path="/services/metal-cladding" element={<MetalCladding />} />
+          <Route path="/services/masonry" element={<Masonry />} />
+          <Route path="/services/sealants" element={<Contact />} />
+          <Route path="/services/parking-garage" element={<ParkingGarage />} />
+          <Route path="/services/suite-buildouts" element={<Contact />} />
+          <Route path="/services/tile-flooring" element={<TileFlooring />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
