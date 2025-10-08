@@ -22,6 +22,7 @@ const Dashboard = () => {
     projects: 0,
     services: 0,
     blogPosts: 0,
+    caseStudies: 0,
     contactSubmissions: 0,
   });
 
@@ -40,10 +41,11 @@ const Dashboard = () => {
   };
 
   const loadStats = async () => {
-    const [projects, services, blogPosts, contacts] = await Promise.all([
-      supabase.from("projects").select("id", { count: "exact", head: true }),
+    const [projects, services, blogPosts, caseStudies, contacts] = await Promise.all([
+      supabase.from("projects").select("id", { count: "exact", head: true }).eq("publish_state", "published"),
       supabase.from("services").select("id", { count: "exact", head: true }),
       supabase.from("blog_posts").select("id", { count: "exact", head: true }),
+      supabase.from("projects").select("id", { count: "exact", head: true }),
       supabase.from("contact_submissions").select("id", { count: "exact", head: true }),
     ]);
 
@@ -51,6 +53,7 @@ const Dashboard = () => {
       projects: projects.count || 0,
       services: services.count || 0,
       blogPosts: blogPosts.count || 0,
+      caseStudies: caseStudies.count || 0,
       contactSubmissions: contacts.count || 0,
     });
   };
@@ -65,9 +68,10 @@ const Dashboard = () => {
   };
 
   const statCards = [
-    { title: "Projects", value: stats.projects, icon: Briefcase, href: "/admin/projects" },
+    { title: "Published Projects", value: stats.projects, icon: Briefcase, href: "/admin/projects" },
     { title: "Services", value: stats.services, icon: FileText, href: "/admin/services" },
     { title: "Blog Posts", value: stats.blogPosts, icon: FileText, href: "/admin/blog" },
+    { title: "Case Studies", value: stats.caseStudies, icon: Briefcase, href: "/admin/case-studies" },
     { title: "Contact Forms", value: stats.contactSubmissions, icon: Mail, href: "/admin/contacts" },
   ];
 
@@ -134,6 +138,10 @@ const Dashboard = () => {
               <Button className="w-full justify-start" variant="outline" onClick={() => navigate("/admin/blog/new")}>
                 <FileText className="h-4 w-4 mr-2" />
                 Write Blog Post
+              </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => navigate("/admin/case-studies/new")}>
+                <Briefcase className="h-4 w-4 mr-2" />
+                Create Case Study
               </Button>
             </CardContent>
           </Card>

@@ -16,6 +16,10 @@ import AdminProjects from "./pages/admin/Projects";
 import ServiceEditor from "./pages/admin/ServiceEditor";
 import ProjectEditor from "./pages/admin/ProjectEditor";
 import ContactSubmissions from "./pages/admin/ContactSubmissions";
+import AdminBlogPosts from "./pages/admin/BlogPosts";
+import BlogPostEditor from "./pages/admin/BlogPostEditor";
+import AdminCaseStudies from "./pages/admin/CaseStudies";
+import CaseStudyEditor from "./pages/admin/CaseStudyEditor";
 import NotFound from "./pages/NotFound";
 import ResidentialPainting from "./pages/services/ResidentialPainting";
 import CommercialPainting from "./pages/services/CommercialPainting";
@@ -80,6 +84,10 @@ const App = () => (
           <Route path="/admin/projects" element={<AdminProjects />} />
           <Route path="/admin/projects/:id" element={<ProjectEditor />} />
           <Route path="/admin/contacts" element={<ContactSubmissions />} />
+          <Route path="/admin/blog" element={<AdminBlogPosts />} />
+          <Route path="/admin/blog/:id" element={<BlogPostEditor />} />
+          <Route path="/admin/case-studies" element={<AdminCaseStudies />} />
+          <Route path="/admin/case-studies/:id" element={<CaseStudyEditor />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
