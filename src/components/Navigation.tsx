@@ -38,9 +38,7 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
     { name: "Our Process", path: "/our-process" },
-    { name: "Projects", path: "/projects" },
     { name: "Contact", path: "/contact" },
     ...(isAuthenticated ? [{ name: "Admin", path: "/admin" }] : []),
   ];
@@ -89,19 +87,16 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6 flex-1 justify-end" role="navigation" aria-label="Main navigation">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                aria-current={isActive(link.path) ? "page" : undefined}
-                className={cn(
-                  "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                  isActive(link.path) ? "text-primary after:scale-x-100" : "text-foreground"
-                )}
-              >
-                {link.name}
-              </Link>
-            ))}
+            <Link
+              to="/"
+              aria-current={isActive("/") ? "page" : undefined}
+              className={cn(
+                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
+                isActive("/") ? "text-primary after:scale-x-100" : "text-foreground"
+              )}
+            >
+              Home
+            </Link>
             
             {/* Services Mega-Menu */}
             <div
@@ -158,6 +153,16 @@ const Navigation = () => {
             </div>
             
             <Link
+              to="/our-process"
+              className={cn(
+                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
+                isActive("/our-process") ? "text-primary after:scale-x-100" : "text-foreground"
+              )}
+            >
+              Our Process
+            </Link>
+            
+            <Link
               to="/projects"
               className={cn(
                 "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
@@ -175,6 +180,16 @@ const Navigation = () => {
               )}
             >
               Blog
+            </Link>
+            
+            <Link
+              to="/contact"
+              className={cn(
+                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
+                isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground"
+              )}
+            >
+              Contact
             </Link>
 
             <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary group ml-4">
@@ -206,20 +221,16 @@ const Navigation = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div id="mobile-menu" className="md:hidden py-4 space-y-2 animate-slide-in-right" role="navigation" aria-label="Mobile navigation">
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                aria-current={isActive(link.path) ? "page" : undefined}
-                className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
-                  isActive(link.path) ? "text-primary bg-muted" : "text-foreground"
-                }`}
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                {link.name}
-              </Link>
-            ))}
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              aria-current={isActive("/") ? "page" : undefined}
+              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
+                isActive("/") ? "text-primary bg-muted" : "text-foreground"
+              }`}
+            >
+              Home
+            </Link>
             
             {/* Services with Accordion */}
             <div className="border-t border-border pt-4">
@@ -299,6 +310,17 @@ const Navigation = () => {
               </Collapsible>
             </div>
             
+            <Link
+              to="/our-process"
+              onClick={() => setIsOpen(false)}
+              aria-current={isActive("/our-process") ? "page" : undefined}
+              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
+                isActive("/our-process") ? "text-primary bg-muted" : "text-foreground"
+              }`}
+            >
+              Our Process
+            </Link>
+            
             {/* Projects & Blog */}
             <div className="border-t border-border pt-4 space-y-3">
               <Link
@@ -314,6 +336,13 @@ const Navigation = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Blog
+              </Link>
+              <Link
+                to="/contact"
+                className="block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target text-foreground"
+                onClick={() => setIsOpen(false)}
+              >
+                Contact
               </Link>
             </div>
             
