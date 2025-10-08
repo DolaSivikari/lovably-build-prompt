@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import StarterPackages from "@/components/StarterPackages";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -351,6 +352,9 @@ const Services = () => {
             </div>
           </div>
         </section>
+
+        {/* Starter Packages */}
+        <StarterPackages />
 
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
