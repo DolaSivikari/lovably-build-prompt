@@ -1,0 +1,58 @@
+{
+  "caseStudies": {
+    "downtown-office-renovation": {
+      "title": "Downtown Office Tower Renovation",
+      "category": "Commercial",
+      "location": "Toronto, ON",
+      "date": "2024",
+      "duration": "6 weeks",
+      "size": "45,000 sq ft",
+      "heroImage": "/src/assets/project-commercial.jpg",
+      "challenge": "Modernize a 15-story office building's interior while maintaining daily operations with 200+ employees.",
+      "solution": "Implemented a phased, after-hours approach using low-VOC materials for occupied spaces.",
+      "results": [
+        "Zero disruption to business operations",
+        "Completed 2 weeks ahead of schedule",
+        "98% employee satisfaction with new environment",
+        "30% reduction in energy costs with new coatings"
+      ],
+      "testimonial": {
+        "quote": "Ascen Group transformed our workspace without missing a beat. Their after-hours team was professional, efficient, and the results exceeded our expectations.",
+        "author": "Sarah Johnson",
+        "title": "Facilities Manager, TechCorp Inc."
+      },
+      "images": [
+        "/src/assets/project-commercial.jpg",
+        "/src/assets/project-institutional.jpg"
+      ],
+      "details": "This comprehensive renovation included painting all common areas, conference rooms, and private offices across 15 floors. The project required careful coordination with building management to minimize tenant disruption."
+    },
+    "luxury-condo-restoration": {
+      "title": "Luxury Condo Complex Restoration",
+      "category": "Residential",
+      "location": "Mississauga, ON",
+      "date": "2024",
+      "duration": "8 weeks",
+      "size": "120 units",
+      "heroImage": "/src/assets/project-institutional.jpg",
+      "challenge": "Restore exterior stucco and EIFS on a 25-year-old luxury condominium complex while residents remained in their homes.",
+      "solution": "Developed a unit-by-unit schedule with resident coordination and implemented complete weatherproofing during work.",
+      "results": [
+        "All 120 units completed on schedule",
+        "Zero water intrusion incidents",
+        "95% resident satisfaction rating",
+        "Extended building envelope life by 20+ years"
+      ],
+      "testimonial": {
+        "quote": "The team was respectful of our residents and maintained excellent communication throughout. The building looks brand new.",
+        "author": "Michael Chen",
+        "title": "Condo Board President"
+      },
+      "images": [
+        "/src/assets/project-institutional.jpg",
+        "/src/assets/project-industrial.jpg"
+      ],
+      "details": "The project involved repairing and refinishing all exterior stucco and EIFS surfaces, addressing water damage, and implementing a new weather barrier system."
+    }
+  }
+}

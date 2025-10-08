@@ -28,6 +28,10 @@ import TileFlooring from "./pages/services/TileFlooring";
 import PropertyManagers from "./pages/PropertyManagers";
 import Homeowners from "./pages/Homeowners";
 import CommercialClients from "./pages/CommercialClients";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import CaseStudy from "./pages/CaseStudy";
+import OurProcess from "./pages/OurProcess";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +61,10 @@ const App = () => (
           <Route path="/property-managers" element={<PropertyManagers />} />
           <Route path="/homeowners" element={<Homeowners />} />
           <Route path="/commercial-clients" element={<CommercialClients />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/case-study/:id" element={<CaseStudy />} />
+          <Route path="/our-process" element={<OurProcess />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/services" element={<AdminServices />} />

@@ -1,0 +1,43 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "slug": "complete-guide-exterior-painting",
+      "title": "Complete Guide to Exterior Painting in the GTA",
+      "excerpt": "Everything you need to know about preparing, painting, and protecting your home's exterior in Ontario's climate.",
+      "content": "## Why Exterior Painting Matters\n\nYour home's exterior paint does more than make it look beautiful—it's the first line of defense against Ontario's harsh weather.\n\n### Climate Challenges in the GTA\n\n- **Temperature Swings**: From -25°C winters to 30°C+ summers\n- **UV Exposure**: Intense summer sun causes fading and chalking\n- **Moisture**: Rain, snow, and humidity threaten paint integrity\n- **Freeze-Thaw Cycles**: Can crack inadequate paint systems\n\n## Choosing the Right Paint\n\n### Exterior Paint Types\n\n- **100% Acrylic Latex**: Best for most siding materials, excellent flexibility\n- **Alkyd (Oil-Based)**: Ideal for metal surfaces and doors\n- **Elastomeric**: Maximum protection for stucco and masonry\n\n## Best Time to Paint Exterior\n\nSpring (May-June) and Fall (September-October) offer ideal conditions:\n\n- Moderate temperatures (15-25°C)\n- Lower humidity\n- Stable weather patterns\n\nAvoid painting when:\n- Temperature below 10°C\n- Rain forecasted within 24 hours\n- High winds\n- Direct sun on fresh paint",
+      "author": "Ascen Group Team",
+      "date": "2024-03-15",
+      "category": "Painting",
+      "tags": ["exterior painting", "home maintenance", "paint selection"],
+      "image": "/src/assets/project-commercial.jpg",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "slug": "stucco-vs-eifs-what-you-need-to-know",
+      "title": "Stucco vs EIFS: What You Need to Know",
+      "excerpt": "Understanding the differences between traditional stucco and modern EIFS systems to make the right choice for your project.",
+      "content": "## Traditional Stucco\n\nTraditional stucco is a cement-based exterior finish that's been used for centuries.\n\n### Advantages\n\n- **Durability**: Can last 50+ years with proper maintenance\n- **Fire Resistance**: Non-combustible material\n- **Low Maintenance**: Periodic cleaning and sealing\n- **Breathability**: Allows moisture vapor to escape\n\n### Disadvantages\n\n- **Cracking**: Can develop cracks from settling\n- **Moisture**: Requires proper installation to prevent water intrusion\n- **Cost**: More expensive than some alternatives\n\n## EIFS (Exterior Insulation Finish System)\n\nModern EIFS combines insulation with a synthetic finish coat.\n\n### Advantages\n\n- **Energy Efficiency**: R-value of 4-5.6 per inch\n- **Design Flexibility**: Can mimic many textures\n- **Lightweight**: Reduces structural load\n- **Water Management**: Modern systems include drainage\n\n### Disadvantages\n\n- **Impact Resistance**: Can be damaged by impacts\n- **Installation**: Requires experienced contractors\n- **Maintenance**: Regular inspections needed",
+      "author": "Ascen Group Team",
+      "date": "2024-03-10",
+      "category": "Exterior Systems",
+      "tags": ["stucco", "EIFS", "exterior cladding"],
+      "image": "/src/assets/project-institutional.jpg",
+      "featured": true
+    },
+    {
+      "id": 3,
+      "slug": "property-manager-maintenance-guide",
+      "title": "Property Manager's Guide to Building Maintenance",
+      "excerpt": "Essential maintenance strategies to protect property value and keep tenants happy.",
+      "content": "## Preventive Maintenance Schedule\n\n### Quarterly Inspections\n\n- **Exterior**: Check for cracks, peeling paint, damaged siding\n- **Common Areas**: Evaluate hallways, lobbies, amenity spaces\n- **Parking**: Inspect coatings, line striping, drainage\n\n### Annual Projects\n\n- **Touch-Up Painting**: High-traffic areas\n- **Caulking & Sealing**: Windows, doors, expansion joints\n- **Power Washing**: Building exterior, walkways\n\n## Budgeting for Maintenance\n\nTypical annual maintenance costs:\n\n- **Painting**: $2-4 per square foot\n- **Exterior Repairs**: 1-3% of building value\n- **Emergency Fund**: 5-10% of maintenance budget\n\n## Tenant Communication\n\n### Best Practices\n\n- **Advance Notice**: Give 72 hours minimum\n- **Clear Timeline**: Start and completion dates\n- **Point of Contact**: Dedicated project manager\n- **Updates**: Regular progress communications",
+      "author": "Ascen Group Team",
+      "date": "2024-03-05",
+      "category": "Property Management",
+      "tags": ["property management", "maintenance", "budgeting"],
+      "image": "/src/assets/project-industrial.jpg",
+      "featured": false
+    }
+  ]
+}
