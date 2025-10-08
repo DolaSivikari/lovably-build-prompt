@@ -47,9 +47,25 @@ const PackageRequestDialog = ({ open, onOpenChange, packageName }: PackageReques
 
       if (error) throw error;
 
+      // Send email notifications
+      try {
+        await supabase.functions.invoke('send-package-notification', {
+          body: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            packageName: packageName,
+            message: formData.notes
+          }
+        });
+      } catch (emailError) {
+        console.error('Email notification failed:', emailError);
+        // Don't fail the submission if email fails
+      }
+
       toast({
         title: "Request Submitted!",
-        description: "We'll contact you within 24-48 hours with a detailed quote.",
+        description: "We'll contact you within 24-48 hours with a detailed quote. Check your email for confirmation.",
       });
 
       // Reset form and close dialog

@@ -56,9 +56,25 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
 
       if (error) throw error;
 
+      // Send email notifications
+      try {
+        await supabase.functions.invoke('send-resume-notification', {
+          body: {
+            applicantName: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            coverMessage: formData.coverMessage,
+            jobTitle: jobTitle
+          }
+        });
+      } catch (emailError) {
+        console.error('Email notification failed:', emailError);
+        // Don't fail the submission if email fails
+      }
+
       toast({
         title: "Application Submitted!",
-        description: "Thank you for your interest. We'll review your application and get back to you soon.",
+        description: "Thank you for your interest. Check your email for confirmation. We'll review your application and get back to you soon.",
       });
 
       // Reset form and close dialog

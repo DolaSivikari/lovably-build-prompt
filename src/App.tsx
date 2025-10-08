@@ -45,6 +45,9 @@ import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
 import ResumeSubmissions from "./pages/admin/ResumeSubmissions";
 
+import FAQ from "./pages/FAQ";
+import FloatingContact from "./components/FloatingContact";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -54,6 +57,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <FloatingContact />
           {/* Skip to main content link for accessibility */}
           <a
             href="#main-content"
@@ -91,6 +95,7 @@ const App = () => (
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/our-process" element={<OurProcess />} />
           <Route path="/sustainability" element={<Sustainability />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/services" element={<AdminServices />} />

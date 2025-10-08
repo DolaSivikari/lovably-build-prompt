@@ -39,9 +39,26 @@ const Contact = () => {
 
       if (error) throw error;
 
+      // Send email notifications
+      try {
+        await supabase.functions.invoke('send-contact-notification', {
+          body: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            message: formData.message,
+            submissionType: "Contact Form"
+          }
+        });
+      } catch (emailError) {
+        console.error('Email notification failed:', emailError);
+        // Don't fail the submission if email fails
+      }
+
       toast({
         title: "Message sent!",
-        description: "We'll get back to you within 24 hours.",
+        description: "We'll get back to you within 24 hours. Check your email for confirmation.",
       });
 
       setFormData({ name: "", email: "", phone: "", company: "", message: "" });

@@ -29,6 +29,8 @@ const Dashboard = () => {
     caseStudies: 0,
     contactSubmissions: 0,
     newSubmissions: 0,
+    resumeSubmissions: 0,
+    newResumes: 0,
   });
   const [recentSubmissions, setRecentSubmissions] = useState<any[]>([]);
 
@@ -73,13 +75,15 @@ const Dashboard = () => {
   };
 
   const loadStats = async () => {
-    const [projects, services, blogPosts, caseStudies, contacts, newContacts] = await Promise.all([
+    const [projects, services, blogPosts, caseStudies, contacts, newContacts, resumes, newResumes] = await Promise.all([
       supabase.from("projects").select("id", { count: "exact", head: true }).eq("publish_state", "published"),
       supabase.from("services").select("id", { count: "exact", head: true }),
       supabase.from("blog_posts").select("id", { count: "exact", head: true }),
       supabase.from("projects").select("id", { count: "exact", head: true }),
       supabase.from("contact_submissions").select("id", { count: "exact", head: true }),
       supabase.from("contact_submissions").select("id", { count: "exact", head: true }).eq("status", "new"),
+      supabase.from("resume_submissions").select("id", { count: "exact", head: true }),
+      supabase.from("resume_submissions").select("id", { count: "exact", head: true }).eq("status", "new"),
     ]);
 
     setStats({
@@ -89,6 +93,8 @@ const Dashboard = () => {
       caseStudies: caseStudies.count || 0,
       contactSubmissions: contacts.count || 0,
       newSubmissions: newContacts.count || 0,
+      resumeSubmissions: resumes.count || 0,
+      newResumes: newResumes.count || 0,
     });
   };
 
@@ -135,7 +141,7 @@ const Dashboard = () => {
     { title: "Blog Posts", value: stats.blogPosts, icon: FileText, href: "/admin/blog" },
     { title: "Case Studies", value: stats.caseStudies, icon: Briefcase, href: "/admin/case-studies" },
     { title: "Contact Forms", value: stats.contactSubmissions, icon: Mail, href: "/admin/contacts" },
-    { title: "Resume Inbox", value: 0, icon: Users, href: "/admin/resumes" },
+    { title: "Resume Inbox", value: stats.resumeSubmissions, icon: Users, href: "/admin/resumes", badge: stats.newResumes },
   ];
 
   return (
@@ -199,7 +205,14 @@ const Dashboard = () => {
                 <stat.icon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold">{stat.value}</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-3xl font-bold">{stat.value}</div>
+                  {stat.badge && stat.badge > 0 && (
+                    <Badge variant="default" className="bg-primary">
+                      {stat.badge} new
+                    </Badge>
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}
