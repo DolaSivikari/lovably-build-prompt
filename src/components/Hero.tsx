@@ -21,11 +21,11 @@ const Hero = () => {
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-slide-up">
             Building Excellence,
-            <span className="block text-secondary">Delivering Results</span>
+            <span className="block text-secondary">Crafting Legacy</span>
           </h1>
           
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 animate-fade-in">
-            Premier construction management services across Canada. We combine decades of expertise with cutting-edge technology to deliver projects on time, within budget, and beyond expectations.
+            Ascen Group Construction merges heritage craftsmanship with modern innovation to deliver exceptional commercial, industrial, and institutional projects across Ontario. Trusted by leading organizations for over 25 years.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in">

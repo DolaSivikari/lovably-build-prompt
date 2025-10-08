@@ -6,10 +6,12 @@ import Stats from "@/components/Stats";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <SEO />
       <Navigation />
       <Hero />
       <ServicesPreview />
