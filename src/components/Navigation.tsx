@@ -56,25 +56,26 @@ const Navigation = () => {
   return (
     <>
       <ScrollProgress />
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border" role="banner">
         <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl group">
+          <Link to="/" className="flex items-center gap-2 font-bold text-xl group" aria-label="Ascen Group Construction - Home">
             <div className="relative">
               <HardHat className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full animate-pulse" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full animate-pulse" aria-hidden="true" />
             </div>
             <span className="text-primary">Ascen</span>
             <span className="text-foreground">Group</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8" role="navigation" aria-label="Main navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
+                aria-current={isActive(link.path) ? "page" : undefined}
                 className={`text-sm font-medium uppercase tracking-wide transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100 ${
                   isActive(link.path) ? "text-primary after:scale-x-100" : "text-foreground"
                 }`}
@@ -85,10 +86,14 @@ const Navigation = () => {
             
             {/* About Dropdown */}
             <DropdownMenu>
-              <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${
-                isAboutSection ? "text-primary" : "text-foreground"
-              }`}>
-                About <ChevronDown className="h-4 w-4" />
+              <DropdownMenuTrigger 
+                className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${
+                  isAboutSection ? "text-primary" : "text-foreground"
+                }`}
+                aria-label="About menu"
+                aria-expanded={false}
+              >
+                About <ChevronDown className="h-4 w-4" aria-hidden="true" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border shadow-lg z-50">
                 {aboutDropdownItems.map((item) => (
@@ -98,6 +103,7 @@ const Navigation = () => {
                       className={`w-full cursor-pointer ${
                         isActive(item.path) ? "text-primary font-medium" : ""
                       }`}
+                      aria-current={isActive(item.path) ? "page" : undefined}
                     >
                       {item.name}
                     </Link>
@@ -108,10 +114,14 @@ const Navigation = () => {
             
             {/* Blog Dropdown */}
             <DropdownMenu>
-              <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${
-                isBlogSection ? "text-primary" : "text-foreground"
-              }`}>
-                Blog <ChevronDown className="h-4 w-4" />
+              <DropdownMenuTrigger 
+                className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${
+                  isBlogSection ? "text-primary" : "text-foreground"
+                }`}
+                aria-label="Blog menu"
+                aria-expanded={false}
+              >
+                Blog <ChevronDown className="h-4 w-4" aria-hidden="true" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border shadow-lg z-50">
                 {blogDropdownItems.map((item) => (
@@ -121,6 +131,7 @@ const Navigation = () => {
                       className={`w-full cursor-pointer ${
                         isActive(item.path) ? "text-primary font-medium" : ""
                       }`}
+                      aria-current={isActive(item.path) ? "page" : undefined}
                     >
                       {item.name}
                     </Link>
@@ -132,7 +143,7 @@ const Navigation = () => {
             <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary group">
               <Link to="/estimate" className="flex items-center gap-2">
                 <div className="p-1 bg-primary/10 rounded-full">
-                  <Phone className="h-4 w-4" />
+                  <Phone className="h-4 w-4" aria-hidden="true" />
                 </div>
                 Get Estimate
               </Link>
@@ -143,7 +154,8 @@ const Navigation = () => {
           <button
             className="md:hidden text-foreground relative w-10 h-10 flex items-center justify-center"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
           >
             <div className="flex flex-col gap-1.5 w-6">
               <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
@@ -155,12 +167,13 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 space-y-2 animate-slide-in-right">
+          <div className="md:hidden py-4 space-y-2 animate-slide-in-right" role="navigation" aria-label="Mobile navigation">
             {navLinks.map((link, index) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
+                aria-current={isActive(link.path) ? "page" : undefined}
                 className={`block text-sm font-medium py-3 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 ${
                   isActive(link.path) ? "text-primary bg-muted" : "text-foreground"
                 }`}
@@ -178,6 +191,7 @@ const Navigation = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
+                  aria-current={isActive(item.path) ? "page" : undefined}
                   className={`block text-sm font-medium py-2 pl-4 transition-colors hover:text-primary ${
                     isActive(item.path) ? "text-primary" : "text-foreground"
                   }`}
@@ -195,6 +209,7 @@ const Navigation = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
+                  aria-current={isActive(item.path) ? "page" : undefined}
                   className={`block text-sm font-medium py-2 pl-4 transition-colors hover:text-primary ${
                     isActive(item.path) ? "text-primary" : "text-foreground"
                   }`}

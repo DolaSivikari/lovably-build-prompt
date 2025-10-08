@@ -3,7 +3,7 @@ import { HardHat, Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucid
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-primary text-primary-foreground" role="contentinfo">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -15,23 +15,26 @@ const Footer = () => {
             <p className="text-sm text-primary-foreground/80 mb-4">
               Expert painting and exterior finishing services across the GTA. Quality craftsmanship and exceptional results since 2009.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-secondary transition-colors" aria-label="LinkedIn">
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a href="#" className="hover:text-secondary transition-colors" aria-label="Twitter">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="hover:text-secondary transition-colors" aria-label="Facebook">
-                <Facebook className="h-5 w-5" />
-              </a>
-            </div>
+            <nav aria-label="Social media">
+              <div className="flex gap-4">
+                <a href="#" className="hover:text-secondary transition-colors" aria-label="Visit us on LinkedIn">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+                <a href="#" className="hover:text-secondary transition-colors" aria-label="Follow us on Twitter">
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a href="#" className="hover:text-secondary transition-colors" aria-label="Like us on Facebook">
+                  <Facebook className="h-5 w-5" />
+                </a>
+              </div>
+            </nav>
           </div>
 
           {/* Quick Links */}
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
+            <nav aria-label="Quick navigation">
+              <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/about" className="text-primary-foreground/80 hover:text-secondary transition-colors">
                   About Us
@@ -83,12 +86,14 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
+            </nav>
           </div>
 
           {/* Who We Serve */}
           <div>
             <h3 className="font-semibold mb-4">Who We Serve</h3>
-            <ul className="space-y-2 text-sm">
+            <nav aria-label="Client services">
+              <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/homeowners" className="text-primary-foreground/80 hover:text-secondary transition-colors">
                   Homeowners
@@ -110,6 +115,7 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
+            </nav>
           </div>
 
           {/* Contact */}

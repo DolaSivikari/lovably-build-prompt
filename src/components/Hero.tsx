@@ -3,16 +3,21 @@ import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, ChevronDown, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-construction.jpg";
 import HeroBackground from "./HeroBackground";
+import OptimizedImage from "./OptimizedImage";
 
 const Hero = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
+        <OptimizedImage
           src={heroImage}
-          alt="Construction site at sunset"
-          className="w-full h-full object-cover"
+          alt="Modern construction site with steel framework at sunset, showcasing professional commercial building project"
+          priority={true}
+          width={1920}
+          height={1080}
+          className="w-full h-full"
+          objectFit="cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
         <HeroBackground />
