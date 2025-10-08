@@ -25,6 +25,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
+  const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
   const [megaMenuHoverTimeout, setMegaMenuHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileWhoWeServeOpen, setMobileWhoWeServeOpen] = useState(false);
@@ -210,22 +211,26 @@ const Navigation = () => {
             </div>
             
             {/* Contact Dropdown */}
-            <DropdownMenu>
+            <DropdownMenu open={contactDropdownOpen} onOpenChange={setContactDropdownOpen}>
               <DropdownMenuTrigger className={cn(
-                "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                (isActive("/contact") || isActive("/careers")) && "text-primary"
+                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100 inline-flex items-center gap-1",
+                contactDropdownOpen ? "text-sage" : "text-foreground",
+                (isActive("/contact") || isActive("/careers")) && "text-primary after:scale-x-100"
               )}>
                 Contact
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  contactDropdownOpen && "rotate-180"
+                )} />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuContent align="end" className="w-48 bg-background border border-border shadow-lg z-50 mt-2">
                 <DropdownMenuItem asChild>
-                  <Link to="/contact" className="cursor-pointer">
+                  <Link to="/contact" className="cursor-pointer hover:bg-muted transition-colors px-3 py-2">
                     Contact Us
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/careers" className="cursor-pointer">
+                  <Link to="/careers" className="cursor-pointer hover:bg-muted transition-colors px-3 py-2">
                     Careers
                   </Link>
                 </DropdownMenuItem>
