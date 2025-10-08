@@ -9,11 +9,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <Link to="/" className="inline-block mb-4">
+            <Link to="/" className="inline-block mb-4 group">
               <img 
                 src={ascentLogo} 
                 alt="Ascent Group Construction" 
-                className="h-24 w-auto brightness-0 invert hover:scale-105 transition-transform"
+                className="h-36 w-auto brightness-0 invert hover:scale-110 transition-all duration-300 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.5)]"
               />
             </Link>
             <p className="text-sm text-primary-foreground/80 mb-4">
