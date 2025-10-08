@@ -36,10 +36,10 @@ const CommercialPainting = () => {
           </div>
         </section>
 
-        {/* Industries We Serve */}
+        {/* Commercial Painting Services */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-12 text-center">Industries We Serve</h2>
+            <h2 className="text-3xl font-bold mb-12 text-center">Commercial Painting Services</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
@@ -78,11 +78,11 @@ const CommercialPainting = () => {
                   description: "Property management painting specialists",
                   features: ["Condos", "Apartments", "Common areas", "Unit turnover"]
                 }
-              ].map((sector, index) => (
+               ].map((sector, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <CardTitle className="flex items-start gap-3">
-                      <sector.icon className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                       <span>{sector.title}</span>
                     </CardTitle>
                     <CardDescription>{sector.description}</CardDescription>
@@ -106,7 +106,7 @@ const CommercialPainting = () => {
         {/* Services Offered */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-12 text-center">Comprehensive Solutions</h2>
+            <h2 className="text-3xl font-bold mb-12 text-center">Interior & Exterior Services</h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <Card>
                 <CardHeader>

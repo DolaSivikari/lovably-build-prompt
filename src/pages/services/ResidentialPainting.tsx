@@ -5,32 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Home, CheckCircle2, Paintbrush, Sparkles, Shield } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 const ResidentialPainting = () => {
-  const faqs = [
-    {
-      question: "How long does a typical residential painting project take?",
-      answer: "Most interior rooms take 1-2 days, while full house interiors take 3-5 days. Exterior painting typically takes 3-7 days depending on home size and weather conditions."
-    },
-    {
-      question: "Do I need to move my furniture?",
-      answer: "No, we'll carefully move and protect your furniture. We use drop cloths and plastic sheeting to protect all surfaces and belongings."
-    },
-    {
-      question: "What type of paint do you use?",
-      answer: "We use premium Benjamin Moore and Sherwin-Williams paints with low-VOC formulations for your health and safety. We'll recommend the best products for each surface."
-    },
-    {
-      question: "Do you offer a warranty?",
-      answer: "Yes! We provide a comprehensive warranty on both labor and materials. We stand behind our work and will address any issues promptly."
-    }
-  ];
 
   return (
     <div className="min-h-screen">
@@ -125,7 +101,7 @@ const ResidentialPainting = () => {
         {/* What's Included */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-12 text-center">Quality You Can Trust</h2>
+            <h2 className="text-3xl font-bold mb-12 text-center">What's Included & Pricing</h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <Card>
                 <CardHeader>
@@ -210,27 +186,6 @@ const ResidentialPainting = () => {
                   </CardContent>
                 </Card>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
-              <Accordion type="single" collapsible className="space-y-4">
-                {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg px-6 bg-background">
-                    <AccordionTrigger className="text-left font-semibold">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
             </div>
           </div>
         </section>
