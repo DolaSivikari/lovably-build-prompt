@@ -16,6 +16,26 @@ const ContactSubmissions = () => {
   useEffect(() => {
     checkAuth();
     loadSubmissions();
+
+    // Set up real-time subscription
+    const channel = supabase
+      .channel('contact-submissions-list')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'contact_submissions'
+        },
+        () => {
+          loadSubmissions();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const checkAuth = async () => {
@@ -74,6 +94,16 @@ const ContactSubmissions = () => {
     }
   };
 
+  const getSubmissionTypeLabel = (type: string) => {
+    switch (type) {
+      case "quote": return "Quote Request";
+      case "estimate": return "Estimate Request";
+      case "starter_package": return "Starter Package";
+      case "contact": return "General Contact";
+      default: return type;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
@@ -103,8 +133,13 @@ const ContactSubmissions = () => {
               <Card key={submission.id}>
                 <CardHeader>
                   <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle>{submission.name}</CardTitle>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <CardTitle>{submission.name}</CardTitle>
+                        <Badge variant="outline" className="text-xs">
+                          {getSubmissionTypeLabel(submission.submission_type)}
+                        </Badge>
+                      </div>
                       <CardDescription>
                         {new Date(submission.created_at).toLocaleDateString("en-CA", {
                           year: "numeric",

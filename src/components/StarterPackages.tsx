@@ -1,10 +1,51 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Wrench, Home as HomeIcon, Paintbrush, Info, CheckCircle2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const StarterPackages = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handlePackageRequest = async (packageName: string) => {
+    const name = prompt("Enter your name:");
+    if (!name) return;
+    
+    const email = prompt("Enter your email:");
+    if (!email) return;
+    
+    const phone = prompt("Enter your phone number (optional):");
+    
+    try {
+      const { error } = await supabase
+        .from("contact_submissions")
+        .insert([{
+          name,
+          email,
+          phone: phone || null,
+          message: `Interested in: ${packageName}`,
+          submission_type: "starter_package",
+          status: "new"
+        }]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Request Submitted!",
+        description: "We'll contact you within 24-48 hours with a detailed quote.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit request. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const packages = [
     {
       icon: Wrench,
@@ -153,17 +194,16 @@ const StarterPackages = () => {
 
                   {/* CTA Buttons */}
                   <div className="space-y-2">
-                    <Link to="/contact" className="block">
-                      <Button 
-                        className={`w-full ${
-                          pkg.popular 
-                            ? 'bg-primary hover:bg-primary/90 text-primary-foreground' 
-                            : 'bg-primary hover:bg-primary/90 text-primary-foreground'
-                        }`}
-                      >
-                        {pkg.ctaText}
-                      </Button>
-                    </Link>
+                    <Button 
+                      className={`w-full ${
+                        pkg.popular 
+                          ? 'bg-primary hover:bg-primary/90 text-primary-foreground' 
+                          : 'bg-primary hover:bg-primary/90 text-primary-foreground'
+                      }`}
+                      onClick={() => handlePackageRequest(pkg.title)}
+                    >
+                      {pkg.ctaText}
+                    </Button>
                     <Link to="/contact" className="block">
                       <Button variant="ghost" className="w-full text-sm text-muted-foreground hover:text-foreground">
                         Upload Photo for Ballpark

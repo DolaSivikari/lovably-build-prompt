@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
   LayoutDashboard, 
   FileText, 
@@ -10,9 +11,13 @@ import {
   Users, 
   Mail,
   LogOut,
-  Settings
+  Settings,
+  Bell,
+  Clock,
+  AlertCircle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { format } from "date-fns";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -24,11 +29,39 @@ const Dashboard = () => {
     blogPosts: 0,
     caseStudies: 0,
     contactSubmissions: 0,
+    newSubmissions: 0,
   });
+  const [recentSubmissions, setRecentSubmissions] = useState<any[]>([]);
 
   useEffect(() => {
     checkAuth();
     loadStats();
+    loadRecentSubmissions();
+
+    // Set up real-time subscription for new submissions
+    const channel = supabase
+      .channel('contact-submissions-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'contact_submissions'
+        },
+        (payload) => {
+          toast({
+            title: "New Submission! 🔔",
+            description: `${payload.new.name} sent a ${payload.new.submission_type} request`,
+          });
+          loadStats();
+          loadRecentSubmissions();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const checkAuth = async () => {
@@ -41,12 +74,13 @@ const Dashboard = () => {
   };
 
   const loadStats = async () => {
-    const [projects, services, blogPosts, caseStudies, contacts] = await Promise.all([
+    const [projects, services, blogPosts, caseStudies, contacts, newContacts] = await Promise.all([
       supabase.from("projects").select("id", { count: "exact", head: true }).eq("publish_state", "published"),
       supabase.from("services").select("id", { count: "exact", head: true }),
       supabase.from("blog_posts").select("id", { count: "exact", head: true }),
       supabase.from("projects").select("id", { count: "exact", head: true }),
       supabase.from("contact_submissions").select("id", { count: "exact", head: true }),
+      supabase.from("contact_submissions").select("id", { count: "exact", head: true }).eq("status", "new"),
     ]);
 
     setStats({
@@ -55,7 +89,36 @@ const Dashboard = () => {
       blogPosts: blogPosts.count || 0,
       caseStudies: caseStudies.count || 0,
       contactSubmissions: contacts.count || 0,
+      newSubmissions: newContacts.count || 0,
     });
+  };
+
+  const loadRecentSubmissions = async () => {
+    const { data } = await supabase
+      .from("contact_submissions")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(5);
+
+    setRecentSubmissions(data || []);
+  };
+
+  const getSubmissionTypeColor = (type: string) => {
+    switch (type) {
+      case "quote": return "default";
+      case "estimate": return "secondary";
+      case "starter_package": return "default";
+      default: return "outline";
+    }
+  };
+
+  const getSubmissionTypeLabel = (type: string) => {
+    switch (type) {
+      case "quote": return "Quote Request";
+      case "estimate": return "Estimate Request";
+      case "starter_package": return "Starter Package";
+      default: return "General Contact";
+    }
   };
 
   const handleSignOut = async () => {
@@ -104,7 +167,33 @@ const Dashboard = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* Alert Banner for New Submissions */}
+        {stats.newSubmissions > 0 && (
+          <Card className="mb-6 border-primary bg-primary/5">
+            <CardContent className="py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="bg-primary rounded-full p-2">
+                    <Bell className="h-5 w-5 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-primary">
+                      {stats.newSubmissions} New {stats.newSubmissions === 1 ? 'Submission' : 'Submissions'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      You have unread quote/estimate requests
+                    </p>
+                  </div>
+                </div>
+                <Button onClick={() => navigate("/admin/contacts")}>
+                  View All
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           {statCards.map((stat) => (
             <Card key={stat.title} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(stat.href)}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -148,11 +237,66 @@ const Dashboard = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
-              <CardDescription>Latest updates to your content</CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Recent Submissions</CardTitle>
+                  <CardDescription>Latest quote and contact requests</CardDescription>
+                </div>
+                {stats.newSubmissions > 0 && (
+                  <Badge className="bg-primary text-primary-foreground">
+                    {stats.newSubmissions} New
+                  </Badge>
+                )}
+              </div>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">No recent activity yet.</p>
+              {recentSubmissions.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No submissions yet.</p>
+              ) : (
+                <div className="space-y-4">
+                  {recentSubmissions.map((submission) => (
+                    <div 
+                      key={submission.id} 
+                      className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/50 transition-colors ${
+                        submission.status === 'new' ? 'bg-primary/5 border-primary/20' : 'bg-background'
+                      }`}
+                      onClick={() => navigate("/admin/contacts")}
+                    >
+                      <div className={`mt-1 p-1.5 rounded-full ${
+                        submission.status === 'new' ? 'bg-primary/20' : 'bg-muted'
+                      }`}>
+                        {submission.status === 'new' ? (
+                          <AlertCircle className="h-4 w-4 text-primary" />
+                        ) : (
+                          <Mail className="h-4 w-4 text-muted-foreground" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1">
+                            <p className="font-medium text-sm truncate">{submission.name}</p>
+                            <p className="text-xs text-muted-foreground truncate">{submission.email}</p>
+                          </div>
+                          <Badge variant={getSubmissionTypeColor(submission.submission_type)} className="text-xs shrink-0">
+                            {getSubmissionTypeLabel(submission.submission_type)}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
+                          <Clock className="h-3 w-3" />
+                          {format(new Date(submission.created_at), 'MMM d, h:mm a')}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  <Button 
+                    variant="outline" 
+                    className="w-full" 
+                    onClick={() => navigate("/admin/contacts")}
+                  >
+                    View All Submissions
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
