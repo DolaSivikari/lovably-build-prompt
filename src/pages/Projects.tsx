@@ -139,37 +139,43 @@ const Projects = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20 mt-16">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-            <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Our Work</span>
+      <section className="relative bg-gradient-to-br from-primary via-primary-dark to-charcoal text-white py-20 mt-16 overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 36px),
+                             repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 36px)`
+          }} />
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="inline-block mb-3 px-4 py-1.5 bg-white/5 backdrop-blur-sm border border-cream/20 rounded-full">
+            <span className="text-cream font-semibold text-sm tracking-wider uppercase">Our Work</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">Project Portfolio</h1>
-          <p className="text-xl max-w-3xl mx-auto opacity-90 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+          <p className="text-xl max-w-3xl mx-auto text-cream/90 animate-fade-in" style={{ animationDelay: "0.1s" }}>
             Explore our diverse portfolio of successfully delivered projects across commercial, industrial, and institutional sectors throughout Canada.
           </p>
         </div>
       </section>
 
       {/* Filters Section - Sticky */}
-      <section className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b border-border py-6 shadow-sm">
+      <section className="sticky top-16 z-40 bg-charcoal/95 backdrop-blur-sm border-b border-cream/20 py-6 shadow-lg">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-cream/60" />
               <Input
                 type="text"
                 placeholder="Search projects, locations, or tags..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-white/5 border-cream/20 text-cream placeholder:text-cream/50"
               />
             </div>
 
             {/* Category Filter */}
             <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-muted-foreground" />
+              <Filter className="h-4 w-4 text-cream/60" />
               <div className="flex gap-2 flex-wrap">
                 {categories.map((category) => (
                   <Button
@@ -187,7 +193,7 @@ const Projects = () => {
 
             {/* Year Filter */}
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <Calendar className="h-4 w-4 text-cream/60" />
               <div className="flex gap-2">
                 {years.map((year) => (
                   <Button
@@ -205,19 +211,19 @@ const Projects = () => {
           </div>
 
           {/* Results Counter */}
-          <div className="mt-4 text-sm text-muted-foreground">
-            Showing <span className="font-semibold text-foreground">{filteredProjects.length}</span> of{" "}
-            <span className="font-semibold text-foreground">{projects.length}</span> projects
+          <div className="mt-4 text-sm text-cream/70">
+            Showing <span className="font-semibold text-cream">{filteredProjects.length}</span> of{" "}
+            <span className="font-semibold text-cream">{projects.length}</span> projects
           </div>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-br from-charcoal via-primary-dark to-primary">
         <div className="container mx-auto px-4">
           {filteredProjects.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-xl text-muted-foreground mb-4">No projects found matching your criteria</p>
+              <p className="text-xl text-cream/70 mb-4">No projects found matching your criteria</p>
               <Button
                 variant="outline"
                 onClick={() => {
@@ -225,6 +231,7 @@ const Projects = () => {
                   setSelectedCategory("All");
                   setSelectedYear("All");
                 }}
+                className="border-cream/30 text-cream hover:bg-cream/10"
               >
                 Clear Filters
               </Button>
@@ -234,7 +241,7 @@ const Projects = () => {
               {filteredProjects.map((project, index) => (
                 <Card 
                   key={project.title}
-                  className="overflow-hidden group hover:shadow-2xl transition-all duration-300 animate-fade-in"
+                  className="overflow-hidden group hover:shadow-2xl transition-all duration-300 animate-fade-in bg-white/5 backdrop-blur-sm border-cream/10"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="grid md:grid-cols-2 gap-0">
@@ -242,37 +249,37 @@ const Projects = () => {
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:rotate-2"
+                        className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-transparent group-hover:from-charcoal/90 transition-all duration-300" />
                       <div className="absolute top-4 left-4 flex gap-2">
-                        <Badge className="bg-secondary text-secondary-foreground">
+                        <Badge className="bg-terracotta/90 text-cream border-0">
                           {project.category}
                         </Badge>
-                        <Badge variant="outline" className="bg-background/80 backdrop-blur-sm">
+                        <Badge variant="outline" className="bg-charcoal/80 backdrop-blur-sm text-cream border-cream/20">
                           {project.year}
                         </Badge>
                       </div>
                       {/* CTA Button - Reveals on Hover */}
                       <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                        <Button size="sm" variant="secondary" className="shadow-lg">
+                        <Button size="sm" className="shadow-lg bg-cream text-charcoal hover:bg-cream/90">
                           View Details <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                       </div>
                     </div>
-                    <CardContent className="p-8 flex flex-col justify-center">
-                      <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{project.title}</h3>
+                    <CardContent className="p-8 flex flex-col justify-center bg-charcoal/40">
+                      <h3 className="text-2xl font-bold mb-4 text-cream group-hover:text-white transition-colors">{project.title}</h3>
                       
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.tags.map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs">
+                          <Badge key={tag} variant="outline" className="text-xs bg-white/5 text-cream/80 border-cream/20">
                             {tag}
                           </Badge>
                         ))}
                       </div>
 
-                      <div className="flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground">
+                      <div className="flex flex-wrap gap-4 mb-4 text-sm text-cream/70">
                         <div className="flex items-center gap-1">
                           <MapPin className="h-4 w-4" />
                           {project.location}
@@ -285,17 +292,17 @@ const Projects = () => {
                           <Calendar className="h-4 w-4" />
                           {project.year}
                         </div>
-                        <div className="font-semibold text-primary">
+                        <div className="font-semibold text-cream">
                           {project.value}
                         </div>
                       </div>
-                      <p className="mb-4 text-muted-foreground">{project.description}</p>
+                      <p className="mb-4 text-cream/80 leading-relaxed">{project.description}</p>
                       <div>
-                        <h4 className="font-semibold mb-2">Project Highlights:</h4>
+                        <h4 className="font-semibold mb-2 text-cream">Project Highlights:</h4>
                         <ul className="space-y-1">
                           {project.highlights.map((highlight) => (
-                            <li key={highlight} className="text-sm flex items-start gap-2">
-                              <span className="text-primary mt-1">•</span>
+                            <li key={highlight} className="text-sm flex items-start gap-2 text-cream/70">
+                              <span className="text-terracotta mt-1">•</span>
                               <span>{highlight}</span>
                             </li>
                           ))}
