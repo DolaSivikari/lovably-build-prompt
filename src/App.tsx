@@ -25,6 +25,9 @@ import MetalCladding from "./pages/services/MetalCladding";
 import Masonry from "./pages/services/Masonry";
 import ParkingGarage from "./pages/services/ParkingGarage";
 import TileFlooring from "./pages/services/TileFlooring";
+import PropertyManagers from "./pages/PropertyManagers";
+import Homeowners from "./pages/Homeowners";
+import CommercialClients from "./pages/CommercialClients";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +54,9 @@ const App = () => (
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/estimate" element={<Estimate />} />
+          <Route path="/property-managers" element={<PropertyManagers />} />
+          <Route path="/homeowners" element={<Homeowners />} />
+          <Route path="/commercial-clients" element={<CommercialClients />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/services" element={<AdminServices />} />
