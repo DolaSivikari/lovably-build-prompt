@@ -24,12 +24,12 @@ All colors MUST be HSL.
     --charcoal: 0 0% 17%;       /* #2C2C2C */
     
     /* Professional construction blue - trust and stability */
-    --primary: 100 23% 62%;     /* Using Sage as primary */
+    --primary: 210 85% 35%;     /* Construction Blue */
     --primary-foreground: 0 0% 100%;
-    --primary-light: 100 23% 72%;
+    --primary-light: 210 75% 45%;
     
     /* Construction orange - energy and action */
-    --secondary: 14 52% 55%;    /* Using Terracotta */
+    --secondary: 25 95% 53%;    /* Construction Orange */
     --secondary-foreground: 0 0% 100%;
 
     --muted: 45 30% 94%;        /* Cream-based muted */
