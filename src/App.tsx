@@ -32,6 +32,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import CaseStudy from "./pages/CaseStudy";
 import OurProcess from "./pages/OurProcess";
+import Sustainability from "./pages/Sustainability";
 
 const queryClient = new QueryClient();
 
@@ -65,6 +66,7 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/our-process" element={<OurProcess />} />
+          <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/services" element={<AdminServices />} />

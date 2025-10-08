@@ -1,0 +1,299 @@
+import { useState } from "react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Link } from "react-router-dom";
+import { 
+  Leaf, 
+  Recycle, 
+  Sun, 
+  Droplet, 
+  Award,
+  CheckCircle2,
+  ArrowRight
+} from "lucide-react";
+
+const Sustainability = () => {
+  const [sqft, setSqft] = useState("");
+  const [co2Offset, setCo2Offset] = useState(0);
+
+  const calculateOffset = (value: string) => {
+    const size = parseFloat(value) || 0;
+    // Approximate CO₂ offset: 0.15 kg per sq ft for eco-friendly painting practices
+    const offset = (size * 0.15).toFixed(0);
+    setCo2Offset(parseFloat(offset));
+  };
+
+  const handleSqftChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSqft(value);
+    calculateOffset(value);
+  };
+
+  const stats = [
+    {
+      icon: Recycle,
+      value: "90%",
+      label: "Waste Diverted from Landfills",
+      color: "text-green-600"
+    },
+    {
+      icon: Sun,
+      value: "100%",
+      label: "Low-VOC Materials Used",
+      color: "text-orange-600"
+    },
+    {
+      icon: Droplet,
+      value: "35%",
+      label: "Water Usage Reduction",
+      color: "text-blue-600"
+    },
+    {
+      icon: Award,
+      value: "50+",
+      label: "Eco-Friendly Projects",
+      color: "text-primary"
+    }
+  ];
+
+  const materialPractices = [
+    {
+      title: "Low-VOC Materials",
+      description: "100% of our paints and coatings are low or zero-VOC, improving indoor air quality and reducing environmental impact.",
+      items: [
+        "Benjamin Moore Natura® zero-VOC paints",
+        "Low-odor, eco-friendly stucco systems",
+        "Water-based sealants and adhesives"
+      ]
+    },
+    {
+      title: "Local Sourcing",
+      description: "We prioritize suppliers within the GTA, reducing transportation emissions and supporting local businesses.",
+      items: [
+        "Ontario-based paint distributors",
+        "Local masonry and stucco suppliers",
+        "GTA metal cladding fabricators"
+      ]
+    }
+  ];
+
+  const certifications = [
+    {
+      icon: Award,
+      title: "Green Seal Certified",
+      description: "Using products that meet rigorous environmental standards"
+    },
+    {
+      icon: Leaf,
+      title: "Eco-Friendly Partner",
+      description: "Certified by leading environmental organizations"
+    },
+    {
+      icon: CheckCircle2,
+      title: "WSIB Certified",
+      description: "Full compliance with safety and environmental regulations"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen">
+      <SEO 
+        title="Sustainability - Building a Greener GTA"
+        description="Ascen Group Construction leads the painting and finishing industry with eco-friendly practices, low-VOC materials, and sustainable construction methods across the Greater Toronto Area."
+        keywords="sustainable painting, eco-friendly construction, low-VOC paint, green building, environmental construction GTA"
+      />
+      <Navigation />
+      
+      <main>
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-br from-green-700 via-green-600 to-teal-600 text-white py-24">
+          <div className="absolute inset-0 bg-grid-white/[0.05] pointer-events-none" />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-full mb-6 backdrop-blur-sm">
+                <Leaf className="w-10 h-10" />
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                Building a Greener GTA
+              </h1>
+              <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
+                Leading the painting and finishing industry toward sustainability with innovative eco-friendly practices and low-VOC materials
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Commitment Section */}
+        <section className="container mx-auto px-4 py-16">
+          <Card className="max-w-4xl mx-auto">
+            <CardContent className="p-8 md:p-12">
+              <h2 className="text-3xl font-bold mb-6">Our Sustainability Commitment</h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  At Ascen Group Construction, we believe that beautifying the GTA's buildings means protecting the environment for future generations. Our commitment to sustainability isn't just a policy—it's woven into every painting, stucco, and finishing project we undertake.
+                </p>
+                <p>
+                  From exclusively using low-VOC and zero-VOC materials to implementing comprehensive waste diversion strategies, we're dedicated to minimizing our environmental footprint. We partner with eco-certified suppliers, properly dispose of all materials, and continuously innovate our methods to reduce environmental impact.
+                </p>
+                <p>
+                  Our goal is to achieve carbon neutrality by 2030 while maintaining the exceptional quality and craftsmanship our clients expect.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Stats Section */}
+        <section className="bg-muted py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Our Impact by the Numbers</h2>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {stats.map((stat, index) => (
+                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                  <CardContent className="p-8">
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4 ${stat.color}`}>
+                      <stat.icon className="w-8 h-8" />
+                    </div>
+                    <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Material Practices */}
+        <section className="container mx-auto px-4 py-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Sustainable Material Practices</h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              {materialPractices.map((practice, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bold mb-4">{practice.title}</h3>
+                    <p className="text-muted-foreground mb-6">{practice.description}</p>
+                    <ul className="space-y-3">
+                      {practice.items.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Carbon Offset Calculator */}
+            <Card className="bg-gradient-to-br from-green-50 to-teal-50 border-green-200">
+              <CardContent className="p-8 md:p-12">
+                <div className="max-w-2xl mx-auto">
+                  <h3 className="text-2xl font-bold mb-4 text-center">Carbon Offset Calculator</h3>
+                  <p className="text-muted-foreground text-center mb-8">
+                    Estimate the CO₂ offset achieved through our sustainable painting practices
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="sqft">Project Size (sq ft)</Label>
+                      <Input
+                        id="sqft"
+                        type="number"
+                        placeholder="Enter square footage"
+                        value={sqft}
+                        onChange={handleSqftChange}
+                        className="mt-2"
+                      />
+                    </div>
+                    
+                    {co2Offset > 0 && (
+                      <div className="bg-white p-6 rounded-lg text-center animate-fade-in">
+                        <div className="text-sm text-muted-foreground mb-2">Estimated CO₂ Offset</div>
+                        <div className="text-4xl font-bold text-green-600 mb-2">
+                          {co2Offset} kg
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          Equivalent to planting {Math.ceil(co2Offset / 20)} trees annually*
+                        </div>
+                      </div>
+                    )}
+                    
+                    <p className="text-xs text-muted-foreground text-center">
+                      *Calculation based on industry averages for eco-friendly painting practices vs. conventional methods
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Certifications */}
+        <section className="bg-muted py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Certifications & Standards</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Committed to the highest environmental and safety standards
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {certifications.map((cert, index) => (
+                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                  <CardContent className="p-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                      <cert.icon className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-3">{cert.title}</h3>
+                    <p className="text-sm text-muted-foreground">{cert.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="bg-gradient-to-br from-green-700 via-green-600 to-teal-600 text-white py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-6">
+              Ready to Build Sustainably?
+            </h2>
+            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+              Let's discuss how we can bring eco-friendly painting and finishing practices to your next project
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white text-green-700 hover:bg-white/90" asChild>
+                <Link to="/estimate">
+                  Get an Eco-Friendly Quote <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10" asChild>
+                <Link to="/projects">
+                  View Our Projects
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default Sustainability;
