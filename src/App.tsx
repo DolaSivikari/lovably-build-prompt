@@ -31,6 +31,8 @@ import MetalCladding from "./pages/services/MetalCladding";
 import Masonry from "./pages/services/Masonry";
 import ParkingGarage from "./pages/services/ParkingGarage";
 import TileFlooring from "./pages/services/TileFlooring";
+import Sealants from "./pages/services/Sealants";
+import SuiteBuildouts from "./pages/services/SuiteBuildouts";
 import PropertyManagers from "./pages/PropertyManagers";
 import Homeowners from "./pages/Homeowners";
 import CommercialClients from "./pages/CommercialClients";
@@ -84,9 +86,9 @@ const App = () => (
           <Route path="/services/stucco" element={<StuccoEIFS />} />
           <Route path="/services/metal-cladding" element={<MetalCladding />} />
           <Route path="/services/masonry" element={<Masonry />} />
-          <Route path="/services/sealants" element={<Contact />} />
+          <Route path="/services/sealants" element={<Sealants />} />
           <Route path="/services/parking-garage" element={<ParkingGarage />} />
-          <Route path="/services/suite-buildouts" element={<Contact />} />
+          <Route path="/services/suite-buildouts" element={<SuiteBuildouts />} />
           <Route path="/services/tile-flooring" element={<TileFlooring />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
