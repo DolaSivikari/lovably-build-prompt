@@ -92,19 +92,19 @@ const Services = () => {
       title: "Homeowners",
       description: "Personalized service for your most valuable investment",
       icon: Home,
-      link: "/for/homeowners"
+      link: "/homeowners"
     },
     {
       title: "Property Managers",
       description: "Reliable service for multi-unit properties",
       icon: Building,
-      link: "/for/property-managers"
+      link: "/property-managers"
     },
     {
       title: "Commercial Clients",
       description: "Professional solutions for businesses",
       icon: Briefcase,
-      link: "/for/commercial"
+      link: "/commercial-clients"
     }
   ];
 
