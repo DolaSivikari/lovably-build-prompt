@@ -135,6 +135,7 @@ const Dashboard = () => {
     { title: "Blog Posts", value: stats.blogPosts, icon: FileText, href: "/admin/blog" },
     { title: "Case Studies", value: stats.caseStudies, icon: Briefcase, href: "/admin/case-studies" },
     { title: "Contact Forms", value: stats.contactSubmissions, icon: Mail, href: "/admin/contacts" },
+    { title: "Resume Inbox", value: 0, icon: Users, href: "/admin/resumes" },
   ];
 
   return (
@@ -188,7 +189,7 @@ const Dashboard = () => {
           </Card>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
           {statCards.map((stat) => (
             <Card key={stat.title} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(stat.href)}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">

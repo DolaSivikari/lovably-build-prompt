@@ -1,0 +1,313 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { ArrowLeft, Mail, Phone, ExternalLink, Calendar, User } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { format } from "date-fns";
+
+interface ResumeSubmission {
+  id: string;
+  applicant_name: string;
+  email: string;
+  phone: string | null;
+  cover_message: string | null;
+  portfolio_links: string[] | null;
+  status: string;
+  created_at: string;
+  admin_notes: string | null;
+}
+
+const ResumeSubmissions = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [submissions, setSubmissions] = useState<ResumeSubmission[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedSubmission, setSelectedSubmission] = useState<ResumeSubmission | null>(null);
+
+  useEffect(() => {
+    checkAuth();
+    loadSubmissions();
+  }, []);
+
+  const checkAuth = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      navigate("/auth");
+    }
+  };
+
+  const loadSubmissions = async () => {
+    const { data, error } = await supabase
+      .from("resume_submissions")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load resume submissions",
+        variant: "destructive",
+      });
+    } else {
+      setSubmissions(data || []);
+    }
+    setLoading(false);
+  };
+
+  const updateStatus = async (id: string, status: "new" | "reviewed" | "contacted" | "rejected" | "hired") => {
+    const { error } = await supabase
+      .from("resume_submissions")
+      .update({ status })
+      .eq("id", id);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update status",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Status Updated",
+        description: "Application status has been updated successfully",
+      });
+      loadSubmissions();
+      if (selectedSubmission?.id === id) {
+        setSelectedSubmission({ ...selectedSubmission, status });
+      }
+    }
+  };
+
+  const updateNotes = async (id: string, notes: string) => {
+    const { error } = await supabase
+      .from("resume_submissions")
+      .update({ admin_notes: notes })
+      .eq("id", id);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to save notes",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Notes Saved",
+        description: "Admin notes have been saved successfully",
+      });
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "new": return "bg-blue-500";
+      case "reviewed": return "bg-yellow-500";
+      case "contacted": return "bg-purple-500";
+      case "hired": return "bg-green-500";
+      case "rejected": return "bg-red-500";
+      default: return "bg-gray-500";
+    }
+  };
+
+  const getStatusLabel = (status: string) => {
+    return status.charAt(0).toUpperCase() + status.slice(1);
+  };
+
+  return (
+    <div className="min-h-screen bg-muted/30">
+      <header className="border-b bg-background">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={() => navigate("/admin")}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Dashboard
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold">Resume Submissions</h1>
+              <p className="text-sm text-muted-foreground">
+                Manage job applications and candidate communications
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Submissions List */}
+          <div className="lg:col-span-1 space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Applications ({submissions.length})</CardTitle>
+                <CardDescription>Click an application to view details</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 max-h-[calc(100vh-300px)] overflow-y-auto">
+                {loading ? (
+                  <p className="text-sm text-muted-foreground">Loading...</p>
+                ) : submissions.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No applications yet</p>
+                ) : (
+                  submissions.map((submission) => (
+                    <Card
+                      key={submission.id}
+                      className={`cursor-pointer hover:shadow-md transition-shadow ${
+                        selectedSubmission?.id === submission.id ? "border-primary border-2" : ""
+                      }`}
+                      onClick={() => setSelectedSubmission(submission)}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between gap-2 mb-2">
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold truncate">{submission.applicant_name}</p>
+                            <p className="text-xs text-muted-foreground truncate">{submission.email}</p>
+                          </div>
+                          <Badge className={`${getStatusColor(submission.status)} text-white text-xs`}>
+                            {getStatusLabel(submission.status)}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Calendar className="h-3 w-3" />
+                          {format(new Date(submission.created_at), 'MMM d, yyyy')}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Submission Details */}
+          <div className="lg:col-span-2">
+            {selectedSubmission ? (
+              <div className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <CardTitle className="flex items-center gap-2">
+                          <User className="h-5 w-5" />
+                          {selectedSubmission.applicant_name}
+                        </CardTitle>
+                        <CardDescription>
+                          Applied on {format(new Date(selectedSubmission.created_at), 'MMMM d, yyyy')} at {format(new Date(selectedSubmission.created_at), 'h:mm a')}
+                        </CardDescription>
+                      </div>
+                      <Select
+                        value={selectedSubmission.status}
+                        onValueChange={(value) => updateStatus(selectedSubmission.id, value as "new" | "reviewed" | "contacted" | "rejected" | "hired")}
+                      >
+                        <SelectTrigger className="w-[160px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="new">New</SelectItem>
+                          <SelectItem value="reviewed">Reviewed</SelectItem>
+                          <SelectItem value="contacted">Contacted</SelectItem>
+                          <SelectItem value="hired">Hired</SelectItem>
+                          <SelectItem value="rejected">Rejected</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Contact Information */}
+                    <div>
+                      <h3 className="font-semibold mb-3">Contact Information</h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm">
+                          <Mail className="h-4 w-4 text-muted-foreground" />
+                          <a href={`mailto:${selectedSubmission.email}`} className="text-primary hover:underline">
+                            {selectedSubmission.email}
+                          </a>
+                        </div>
+                        {selectedSubmission.phone && (
+                          <div className="flex items-center gap-2 text-sm">
+                            <Phone className="h-4 w-4 text-muted-foreground" />
+                            <a href={`tel:${selectedSubmission.phone}`} className="text-primary hover:underline">
+                              {selectedSubmission.phone}
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Cover Message */}
+                    {selectedSubmission.cover_message && (
+                      <div>
+                        <h3 className="font-semibold mb-3">Cover Letter / Message</h3>
+                        <div className="bg-muted p-4 rounded-lg text-sm whitespace-pre-wrap">
+                          {selectedSubmission.cover_message}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Portfolio Links */}
+                    {selectedSubmission.portfolio_links && selectedSubmission.portfolio_links.length > 0 && (
+                      <div>
+                        <h3 className="font-semibold mb-3">Portfolio & Documents</h3>
+                        <div className="space-y-2">
+                          {selectedSubmission.portfolio_links.map((link, index) => (
+                            <a
+                              key={index}
+                              href={link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-sm text-primary hover:underline"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                              {link}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Admin Notes */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Admin Notes</CardTitle>
+                    <CardDescription>Private notes about this application</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Textarea
+                      placeholder="Add notes about this candidate..."
+                      defaultValue={selectedSubmission.admin_notes || ""}
+                      onBlur={(e) => updateNotes(selectedSubmission.id, e.target.value)}
+                      className="min-h-[120px]"
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+            ) : (
+              <Card className="h-full flex items-center justify-center">
+                <CardContent className="text-center py-12">
+                  <User className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-lg font-semibold mb-2">No Application Selected</p>
+                  <p className="text-sm text-muted-foreground">
+                    Select an application from the list to view details
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default ResumeSubmissions;

@@ -42,6 +42,8 @@ import Sustainability from "./pages/Sustainability";
 import Safety from "./pages/Safety";
 import Values from "./pages/Values";
 import Careers from "./pages/Careers";
+import ServiceDetail from "./pages/ServiceDetail";
+import ResumeSubmissions from "./pages/admin/ResumeSubmissions";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +68,7 @@ const App = () => (
           <Route path="/safety" element={<Safety />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/services/painting" element={<ResidentialPainting />} />
           <Route path="/services/commercial" element={<CommercialPainting />} />
           <Route path="/services/condo" element={<CondoPainting />} />
@@ -99,6 +102,7 @@ const App = () => (
           <Route path="/admin/blog/:id" element={<BlogPostEditor />} />
           <Route path="/admin/case-studies" element={<AdminCaseStudies />} />
           <Route path="/admin/case-studies/:id" element={<CaseStudyEditor />} />
+          <Route path="/admin/resumes" element={<ResumeSubmissions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

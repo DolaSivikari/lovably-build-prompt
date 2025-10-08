@@ -1,9 +1,11 @@
+import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
 import { 
   Briefcase, 
   Heart, 
@@ -18,6 +20,14 @@ import {
 } from "lucide-react";
 
 const Careers = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedJobTitle, setSelectedJobTitle] = useState("");
+
+  const handleApply = (jobTitle: string) => {
+    setSelectedJobTitle(jobTitle);
+    setDialogOpen(true);
+  };
+
   const benefits = [
     {
       icon: Heart,
@@ -103,12 +113,15 @@ const Careers = () => {
               Join a team that values craftsmanship, integrity, and professional growth. 
               We're always looking for talented individuals who take pride in their work.
             </p>
-            <Link to="/contact">
-              <Button size="lg" variant="secondary" className="text-lg">
-                <Briefcase className="mr-2 w-5 h-5" />
-                Apply Now
-              </Button>
-            </Link>
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="text-lg"
+              onClick={() => handleApply("General Application")}
+            >
+              <Briefcase className="mr-2 w-5 h-5" />
+              Apply Now
+            </Button>
           </div>
         </section>
 
@@ -158,20 +171,21 @@ const Careers = () => {
                         <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <MapPin className="w-4 h-4" />
-                            {position.location}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            {position.type}
-                          </span>
-                        </div>
-                      </div>
-                      <Link to="/contact">
-                        <Button className="bg-secondary hover:bg-secondary/90 text-primary whitespace-nowrap">
-                          Apply Now
-                          <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                      </Link>
+                        {position.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {position.type}
+                      </span>
+                    </div>
+                  </div>
+                  <Button 
+                    className="bg-secondary hover:bg-secondary/90 text-primary whitespace-nowrap"
+                    onClick={() => handleApply(position.title)}
+                  >
+                    Apply Now
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
                     </div>
                     
                     <p className="text-muted-foreground mb-4">{position.description}</p>
@@ -226,11 +240,14 @@ const Careers = () => {
                       Don't see the perfect position? We're always interested in connecting with 
                       talented professionals. Send us your resume and let's talk about your future.
                     </p>
-                    <Link to="/contact">
-                      <Button variant="secondary" size="lg" className="w-full">
-                        Submit Your Resume
-                      </Button>
-                    </Link>
+                    <Button 
+                      variant="secondary" 
+                      size="lg" 
+                      className="w-full"
+                      onClick={() => handleApply("General Application")}
+                    >
+                      Submit Your Resume
+                    </Button>
                   </CardContent>
                 </Card>
               </div>
@@ -238,6 +255,12 @@ const Careers = () => {
           </div>
         </section>
       </main>
+      
+      <ResumeSubmissionDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        jobTitle={selectedJobTitle}
+      />
       
       <Footer />
     </div>

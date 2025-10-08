@@ -105,6 +105,101 @@ const Values = () => {
           </div>
         </section>
 
+        {/* Why Choose Us - Ascent Advantage */}
+        <section className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <div className="inline-block mb-3 px-4 py-1.5 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-full">
+                <span className="text-primary font-semibold text-sm tracking-wider uppercase">ASCENT ADVANTAGE</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Why Choose Us?</h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Experience the difference of working with a construction partner who values excellence
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {/* Excellence in Execution */}
+              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+                <CardContent className="p-8">
+                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                    <Award className="w-10 h-10 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-primary">Excellence in Execution</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Every project receives the same commitment to quality, precision, and craftsmanship.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Safety First, Always */}
+              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+                <CardContent className="p-8">
+                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                    <Shield className="w-10 h-10 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-primary">Safety First, Always</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    500+ projects with zero lost-time incidents. COR-certified safety protocols on every site.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Innovation & Technology */}
+              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+                <CardContent className="p-8">
+                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                    <Target className="w-10 h-10 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-primary">Innovation & Technology</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Modern techniques and premium materials reduce rework and improve accuracy.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Client Partnership */}
+              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+                <CardContent className="p-8">
+                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                    <Users className="w-10 h-10 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-primary">Client Partnership</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Collaborative approach with clients, architects, and trades ensures your vision becomes reality.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Sustainable Building */}
+              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+                <CardContent className="p-8">
+                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                    <Heart className="w-10 h-10 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-primary">Sustainable Building</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Low-VOC materials and eco-friendly practices deliver long-term value.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Transparent Communication */}
+              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+                <CardContent className="p-8">
+                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                    <MessageCircle className="w-10 h-10 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-primary">Transparent Communication</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Real-time insights and shared dashboards—no surprises, just collaboration.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
         {/* How We Live Our Values */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
