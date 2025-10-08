@@ -1,300 +1,256 @@
-import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Building2, CheckCircle2, Clock, Shield, Users, Wrench } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "react-router-dom";
+import { Building2, Store, Factory, CheckCircle2, Paintbrush, Clock, Shield, Users } from "lucide-react";
 
 const CommercialPainting = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen">
       <SEO 
-        title="Commercial Painting Services"
-        description="Professional commercial painting for office buildings, retail spaces, industrial facilities, and multi-unit properties across the GTA. Minimal disruption, maximum results."
-        keywords="commercial painting, office painting, retail painting, industrial painting, commercial contractors, business painting services"
+        title="Commercial Painting Services - Office, Retail & Industrial"
+        description="Professional commercial painting services for businesses across the GTA. Interior and exterior painting for offices, retail spaces, industrial facilities, and more."
+        keywords="commercial painting, office painting, retail painting, industrial painting, commercial painters GTA"
       />
       <Navigation />
-      <main className="flex-1">
-        {/* Hero */}
-        <section className="pt-32 pb-20 bg-gradient-to-br from-primary via-primary to-slate-800">
+      <main className="pt-20">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-br from-primary via-primary-dark to-accent py-20 text-white">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-              <div className="inline-flex items-center gap-2 bg-secondary/20 backdrop-blur-sm px-6 py-2 rounded-full mb-6">
-                <Building2 className="w-5 h-5" />
-                <span className="font-semibold">Commercial Services</span>
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-3 mb-4">
+                <Paintbrush className="w-12 h-12" />
+                <h1 className="text-4xl md:text-5xl font-bold">Commercial Painting Services</h1>
               </div>
-              <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6">
-                Commercial Painting Excellence
-              </h1>
-              <p className="text-xl opacity-90 mb-8">
-                Professional painting solutions for businesses, retail spaces, offices, and industrial facilities across Southern Ontario
+              <p className="text-xl text-white/90 mb-8">
+                Transform your business space with professional painting services that minimize downtime and maximize results. We specialize in commercial projects of all sizes.
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Link to="/estimate">
-                  <Button className="bg-secondary hover:bg-secondary/90 text-primary font-bold text-lg px-8 py-6 shadow-xl">
-                    Request Commercial Quote
-                  </Button>
-                </Link>
-                <Link to="/contact">
-                  <Button variant="outline" className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6">
-                    Contact Us
-                  </Button>
-                </Link>
-              </div>
+              <Link to="/estimate">
+                <Button size="lg" variant="secondary" className="font-semibold">
+                  Request a Quote
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* Commercial Sectors */}
-        <section className="py-24 bg-background">
+        {/* Industries We Serve */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="section-title text-primary mb-4">Industries We Serve</h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Specialized painting services tailored to your industry's unique requirements
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[
-                  {
-                    icon: Building2,
-                    title: "Office Buildings",
-                    description: "Corporate offices, professional spaces, and business centers",
-                    features: ["After-hours scheduling", "Minimal disruption", "Quick turnaround"]
-                  },
-                  {
-                    icon: Users,
-                    title: "Retail Spaces",
-                    description: "Stores, malls, showrooms, and customer-facing areas",
-                    features: ["Brand color matching", "Durable finishes", "Fast execution"]
-                  },
-                  {
-                    icon: Wrench,
-                    title: "Industrial Facilities",
-                    description: "Warehouses, manufacturing plants, and production spaces",
-                    features: ["Heavy-duty coatings", "Safety compliance", "Large-scale projects"]
-                  },
-                  {
-                    icon: Building2,
-                    title: "Multi-Unit Residential",
-                    description: "Condos, apartments, and property management companies",
-                    features: ["Tenant coordination", "Volume pricing", "Property enhancement"]
-                  },
-                  {
-                    icon: Shield,
-                    title: "Healthcare & Education",
-                    description: "Hospitals, clinics, schools, and institutions",
-                    features: ["Low-VOC paints", "Health-safe materials", "Flexible scheduling"]
-                  },
-                  {
-                    icon: Building2,
-                    title: "Hospitality",
-                    description: "Hotels, restaurants, and service businesses",
-                    features: ["Guest experience focus", "Off-season scheduling", "Quick refresh"]
-                  }
-                ].map((sector, index) => (
-                  <Card key={sector.title} className="p-6 card-hover border-2"
-                    style={{
-                      animationDelay: `${index * 0.1}s`,
-                      opacity: 0,
-                      animation: 'slide-up 0.6s ease-out forwards'
-                    }}
-                  >
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                      <sector.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-heading font-bold mb-2 text-primary">{sector.title}</h3>
-                    <p className="text-muted-foreground mb-4">{sector.description}</p>
+            <h2 className="text-3xl font-bold mb-12 text-center">Industries We Serve</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: Building2,
+                  title: "Office Buildings",
+                  description: "Professional office environments that inspire productivity",
+                  features: ["Conference rooms", "Common areas", "Executive suites", "Lobbies"]
+                },
+                {
+                  icon: Store,
+                  title: "Retail Spaces",
+                  description: "Inviting storefronts that attract and retain customers",
+                  features: ["Showrooms", "Customer areas", "Exterior facades", "Display areas"]
+                },
+                {
+                  icon: Factory,
+                  title: "Industrial Facilities",
+                  description: "Durable finishes for demanding environments",
+                  features: ["Warehouses", "Manufacturing facilities", "Distribution centers", "Loading docks"]
+                },
+                {
+                  icon: Store,
+                  title: "Hospitality",
+                  description: "Welcoming spaces that enhance guest experience",
+                  features: ["Hotels", "Restaurants", "Cafes", "Guest rooms"]
+                },
+                {
+                  icon: Building2,
+                  title: "Healthcare",
+                  description: "Clean, compliant finishes for medical facilities",
+                  features: ["Hospitals", "Clinics", "Medical offices", "Care facilities"]
+                },
+                {
+                  icon: Factory,
+                  title: "Multi-Unit Residential",
+                  description: "Property management painting specialists",
+                  features: ["Condos", "Apartments", "Common areas", "Unit turnover"]
+                }
+              ].map((sector, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-start gap-3">
+                      <sector.icon className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                      <span>{sector.title}</span>
+                    </CardTitle>
+                    <CardDescription>{sector.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
                     <ul className="space-y-2">
-                      {sector.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
-                          <span>{feature}</span>
+                      {sector.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-sm">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          {feature}
                         </li>
                       ))}
                     </ul>
-                  </Card>
-                ))}
-              </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Services Offered */}
-        <section className="py-24 bg-muted/30">
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="section-title text-center mb-16 text-primary">
-                Comprehensive Commercial Solutions
-              </h2>
-
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-2xl font-heading font-bold mb-4 text-primary">Interior Commercial Painting</h3>
+            <h2 className="text-3xl font-bold mb-12 text-center">Comprehensive Solutions</h2>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Interior Commercial Painting</CardTitle>
+                  <CardDescription>
+                    Transform your interior spaces with minimal disruption to your business operations
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
                   <ul className="space-y-3">
                     {[
-                      "Office walls and ceilings",
-                      "Conference rooms and lobbies",
-                      "Hallways and common areas",
-                      "Retail display areas",
-                      "Warehouse interiors",
-                      "Restrooms and facilities",
-                      "Specialty finishes and accents"
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                      "Office spaces and cubicles",
+                      "Conference and meeting rooms",
+                      "Lobbies and reception areas",
+                      "Hallways and stairwells",
+                      "Break rooms and cafeterias",
+                      "Retail and showroom floors"
+                    ].map((item, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                        <span className="text-sm">{item}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </CardContent>
+              </Card>
 
-                <div>
-                  <h3 className="text-2xl font-heading font-bold mb-4 text-primary">Exterior Commercial Painting</h3>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Exterior Commercial Painting</CardTitle>
+                  <CardDescription>
+                    Weather-resistant finishes that protect and enhance your building's curb appeal
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
                   <ul className="space-y-3">
                     {[
                       "Building facades and walls",
+                      "Storefront painting",
                       "Parking structures",
-                      "Loading docks",
-                      "Storefronts and signage",
-                      "Metal surfaces and trim",
-                      "Industrial equipment",
-                      "Safety markings and zones"
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                      "Metal cladding and siding",
+                      "Trim and architectural details",
+                      "Loading dock areas"
+                    ].map((item, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                        <span className="text-sm">{item}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Why Choose Us */}
-        <section className="py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="section-title text-center mb-16 text-primary">
-                The Ascent Commercial Advantage
-              </h2>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {[
-                  {
-                    icon: Clock,
-                    title: "Flexible Scheduling",
-                    description: "Work around your business hours - nights, weekends, or holidays"
-                  },
-                  {
-                    icon: Shield,
-                    title: "$5M Liability Coverage",
-                    description: "Fully insured with comprehensive commercial coverage"
-                  },
-                  {
-                    icon: Users,
-                    title: "Project Managers",
-                    description: "Dedicated coordinator for seamless communication"
-                  },
-                  {
-                    icon: CheckCircle2,
-                    title: "Quality Guarantee",
-                    description: "Written warranties on all materials and workmanship"
-                  }
-                ].map((feature, index) => (
-                  <Card key={feature.title} className="p-6 text-center card-hover"
-                    style={{
-                      animationDelay: `${index * 0.1}s`,
-                      opacity: 0,
-                      animation: 'fade-in 0.6s ease-out forwards'
-                    }}
-                  >
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <feature.icon className="w-8 h-8 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-heading font-bold mb-2 text-primary">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground">{feature.description}</p>
-                  </Card>
-                ))}
-              </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
 
         {/* Process */}
-        <section className="py-24 bg-muted/30">
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="section-title text-center mb-16 text-primary">
-                Our Commercial Process
-              </h2>
-
-              <div className="space-y-8">
-                {[
-                  {
-                    step: "01",
-                    title: "Initial Consultation",
-                    description: "Site visit, scope assessment, and detailed requirements gathering"
-                  },
-                  {
-                    step: "02",
-                    title: "Detailed Proposal",
-                    description: "Comprehensive quote with timeline, materials, and project plan"
-                  },
-                  {
-                    step: "03",
-                    title: "Schedule Coordination",
-                    description: "Align project timeline with your business operations"
-                  },
-                  {
-                    step: "04",
-                    title: "Professional Execution",
-                    description: "Skilled crew, quality materials, minimal disruption"
-                  },
-                  {
-                    step: "05",
-                    title: "Final Inspection",
-                    description: "Walkthrough, touch-ups, and project sign-off"
-                  }
-                ].map((phase) => (
-                  <div key={phase.step} className="flex gap-6 items-start">
-                    <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary/80 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                      <span className="text-2xl font-bold text-primary">{phase.step}</span>
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-heading font-bold mb-2 text-primary">{phase.title}</h3>
-                      <p className="text-muted-foreground">{phase.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <h2 className="text-3xl font-bold mb-12 text-center">Our Commercial Process</h2>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[
+                {
+                  title: "Initial Consultation",
+                  description: "We assess your space, discuss your needs, timeline constraints, and budget. Site visit to understand logistics and access requirements."
+                },
+                {
+                  title: "Detailed Proposal",
+                  description: "Comprehensive quote with scope of work, timeline, and paint specifications. Flexible scheduling options to suit your business operations."
+                },
+                {
+                  title: "Professional Execution",
+                  description: "Experienced crews work efficiently with minimal disruption. Daily progress updates and site cleanliness maintained throughout."
+                },
+                {
+                  title: "Final Inspection",
+                  description: "Thorough walkthrough and inspection. Address any concerns immediately. Your satisfaction guaranteed."
+                }
+              ].map((step, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle>{step.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{step.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-24 bg-gradient-to-br from-primary to-slate-800">
+        {/* Why Choose Us */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center text-primary-foreground">
-              <h2 className="text-4xl font-heading font-bold mb-6">
-                Ready to Transform Your Commercial Space?
-              </h2>
-              <p className="text-xl opacity-90 mb-10">
-                Get a detailed commercial painting quote - fast, professional, competitive
-              </p>
+            <h2 className="text-3xl font-bold mb-12 text-center">The Commercial Painting Advantage</h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[
+                {
+                  icon: Clock,
+                  title: "Flexible Scheduling",
+                  description: "We work around your business hours - nights, weekends, or phased schedules to minimize disruption."
+                },
+                {
+                  icon: Shield,
+                  title: "Fully Insured & Licensed",
+                  description: "Licensed, bonded, and fully insured. WSIB compliant with comprehensive liability coverage."
+                },
+                {
+                  icon: Users,
+                  title: "Project Management",
+                  description: "Dedicated project managers ensure clear communication, on-time delivery, and quality control throughout."
+                }
+              ].map((advantage, index) => (
+                <Card key={index} className="text-center">
+                  <CardHeader>
+                    <advantage.icon className="w-16 h-16 text-primary mx-auto mb-4" />
+                    <CardTitle>{advantage.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{advantage.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 bg-gradient-to-br from-primary to-primary-dark text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Commercial Space?</h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Get a detailed quote for your commercial painting project. Fast response, competitive pricing, and professional service guaranteed.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/estimate">
-                <Button className="bg-secondary hover:bg-secondary/90 text-primary font-bold text-lg px-10 py-6 rounded-xl shadow-xl hover:scale-105 transition-all">
-                  Request Commercial Quote
+                <Button size="lg" variant="secondary">Get a Free Estimate</Button>
+              </Link>
+              <Link to="/contact">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                  Contact Us
                 </Button>
               </Link>
-              <p className="mt-6 opacity-80">
-                Call us: <a href="tel:+19055550100" className="font-bold hover:text-secondary transition-colors">(905) 555-0100</a>
-              </p>
             </div>
           </div>
         </section>

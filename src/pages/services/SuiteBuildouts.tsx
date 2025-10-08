@@ -2,8 +2,9 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Home, Building2, Wrench } from "lucide-react";
+import { CheckCircle2, Home, Building2, Wrench, Hammer } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -12,29 +13,6 @@ import {
 } from "@/components/ui/accordion";
 
 const SuiteBuildouts = () => {
-  const processSteps = [
-    {
-      number: "01",
-      title: "Consultation & Design",
-      description: "We work with you to understand your vision, functional requirements, and design preferences.",
-    },
-    {
-      number: "02",
-      title: "Planning & Permits",
-      description: "Complete project planning including drawings, permits, and detailed scheduling.",
-    },
-    {
-      number: "03",
-      title: "Construction",
-      description: "Professional execution of all trades including framing, electrical, plumbing, and finishing.",
-    },
-    {
-      number: "04",
-      title: "Final Inspection",
-      description: "Thorough walkthrough, quality checks, and ensuring everything meets your expectations.",
-    },
-  ];
-
   const faqs = [
     {
       question: "How long does a typical suite buildout take?",
@@ -55,134 +33,176 @@ const SuiteBuildouts = () => {
   ];
 
   return (
-    <>
+    <div className="min-h-screen">
       <SEO 
         title="Suite Buildouts | Commercial & Residential Construction"
         description="Professional suite buildout services for commercial offices, retail spaces, and residential units. Full-service construction from design to completion."
         keywords="suite buildouts, office buildouts, retail construction, commercial renovation, tenant improvements, interior construction, space planning"
       />
       <Navigation />
-      
-      <main className="min-h-screen">
+      <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary/90 to-primary-dark py-24">
+        <section className="bg-gradient-to-br from-primary via-primary-dark to-accent py-20 text-white">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Suite Buildouts & Interior Construction
-              </h1>
+              <div className="flex items-center gap-3 mb-4">
+                <Hammer className="w-12 h-12" />
+                <h1 className="text-4xl md:text-5xl font-bold">Suite Buildouts & Interior Construction</h1>
+              </div>
               <p className="text-xl text-white/90 mb-8">
                 Transform empty spaces into functional, beautiful environments. Full-service buildouts for commercial offices, retail spaces, and residential suites.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Button asChild size="lg" variant="secondary">
-                  <Link to="/estimate">Get Free Estimate</Link>
+              <Link to="/estimate">
+                <Button size="lg" variant="secondary" className="font-semibold">
+                  Get Free Estimate
                 </Button>
-                <Button asChild size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
-                  <Link to="/contact">Contact Us</Link>
-                </Button>
-              </div>
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* Main Content */}
+        {/* Services Overview */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div>
-                  <h2 className="text-3xl font-bold mb-4">Complete Buildout Solutions</h2>
-                  <p className="text-muted-foreground mb-4">
-                    From concept to completion, we deliver turnkey suite buildouts that meet your exact specifications, timeline, and budget. Our experienced team coordinates all trades for seamless execution.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4">Services Included</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                      <span>Design consultation and space planning</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                      <span>Demolition and site preparation</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                      <span>Framing, electrical, and plumbing</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                      <span>Drywall, painting, and finishing</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                      <span>Flooring, millwork, and fixtures</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Project Types */}
-              <div className="grid sm:grid-cols-3 gap-6 mb-12">
-                <div className="bg-card p-6 rounded-lg border">
-                  <Building2 className="h-8 w-8 text-primary mb-3" />
-                  <h3 className="font-semibold mb-2">Commercial Offices</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Professional office spaces, meeting rooms, and collaborative work environments
-                  </p>
-                </div>
-                <div className="bg-card p-6 rounded-lg border">
-                  <Home className="h-8 w-8 text-primary mb-3" />
-                  <h3 className="font-semibold mb-2">Residential Suites</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Basement apartments, in-law suites, and condo renovations
-                  </p>
-                </div>
-                <div className="bg-card p-6 rounded-lg border">
-                  <Wrench className="h-8 w-8 text-primary mb-3" />
-                  <h3 className="font-semibold mb-2">Retail Spaces</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Store buildouts, showrooms, and customer-facing spaces
-                  </p>
-                </div>
-              </div>
+            <h2 className="text-3xl font-bold mb-12 text-center">Complete Buildout Solutions</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Commercial Offices",
+                  description: "Professional office spaces and work environments",
+                  features: ["Open concept offices", "Meeting rooms", "Break rooms", "Reception areas"]
+                },
+                {
+                  title: "Residential Suites",
+                  description: "Basement apartments and in-law suites",
+                  features: ["Basement suites", "In-law apartments", "Rental units", "Condo renovations"]
+                },
+                {
+                  title: "Retail Spaces",
+                  description: "Store buildouts and customer-facing spaces",
+                  features: ["Store layouts", "Showrooms", "Sales floors", "Display areas"]
+                },
+                {
+                  title: "Design & Planning",
+                  description: "Space planning and design consultation",
+                  features: ["Layout design", "Material selection", "Permit drawings", "3D visualization"]
+                },
+                {
+                  title: "Construction Services",
+                  description: "Complete interior construction",
+                  features: ["Framing", "Electrical & plumbing", "HVAC", "Drywall & finishing"]
+                },
+                {
+                  title: "Finishing Touches",
+                  description: "Final details that complete your space",
+                  features: ["Flooring", "Millwork", "Painting", "Fixtures & hardware"]
+                }
+              ].map((service, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-start gap-3">
+                      <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                      <span>{service.title}</span>
+                    </CardTitle>
+                    <CardDescription>{service.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-sm">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Process Section */}
+        {/* Process */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-center mb-12">Our Process</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                {processSteps.map((step) => (
-                  <div key={step.number} className="bg-card p-6 rounded-lg border">
-                    <div className="text-4xl font-bold text-primary/20 mb-2">
-                      {step.number}
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+            <h2 className="text-3xl font-bold mb-12 text-center">Our Process</h2>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[
+                {
+                  title: "Consultation & Design",
+                  description: "We work with you to understand your vision, functional requirements, budget, and design preferences for your space."
+                },
+                {
+                  title: "Planning & Permits",
+                  description: "Complete project planning including architectural drawings, building permits, and detailed construction scheduling."
+                },
+                {
+                  title: "Construction",
+                  description: "Professional execution of all trades including framing, electrical, plumbing, HVAC, drywall, and finishing work."
+                },
+                {
+                  title: "Final Inspection",
+                  description: "Thorough walkthrough, quality checks, and ensuring everything meets your expectations and building codes."
+                }
+              ].map((step, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle>{step.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
                     <p className="text-muted-foreground">{step.description}</p>
-                  </div>
-                ))}
-              </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* FAQ Section */}
+        {/* Why Choose Us */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Our Buildout Services</h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[
+                {
+                  icon: Building2,
+                  title: "Turnkey Solutions",
+                  description: "From design through completion, we coordinate all trades and manage every aspect of your buildout project."
+                },
+                {
+                  icon: Wrench,
+                  title: "Expert Craftsmanship",
+                  description: "Experienced team skilled in all aspects of interior construction. Quality workmanship on every project."
+                },
+                {
+                  icon: Home,
+                  title: "On-Time Delivery",
+                  description: "Detailed scheduling and project management ensures your space is completed on time and within budget."
+                }
+              ].map((advantage, index) => (
+                <Card key={index} className="text-center">
+                  <CardHeader>
+                    <advantage.icon className="w-16 h-16 text-primary mx-auto mb-4" />
+                    <CardTitle>{advantage.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{advantage.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold text-center mb-12">
-                Frequently Asked Questions
-              </h2>
-              <Accordion type="single" collapsible className="w-full">
+              <h2 className="text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+              <Accordion type="single" collapsible className="space-y-4">
                 {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`}>
-                    <AccordionTrigger className="text-left">
+                  <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg px-6 bg-background">
+                    <AccordionTrigger className="text-left font-semibold">
                       {faq.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground">
@@ -196,28 +216,27 @@ const SuiteBuildouts = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-primary text-white">
+        <section className="py-16 bg-gradient-to-br from-primary to-primary-dark text-white">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Ready to Build Your Vision?
-            </h2>
-            <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4">Ready to Build Your Vision?</h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Let's discuss your suite buildout project and create a space that works for you.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button asChild size="lg" variant="secondary">
-                <Link to="/estimate">Request Free Estimate</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
-                <Link to="/projects">View Our Projects</Link>
-              </Button>
+              <Link to="/estimate">
+                <Button size="lg" variant="secondary">Get a Free Estimate</Button>
+              </Link>
+              <Link to="/contact">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                  Contact Us
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
       </main>
-
       <Footer />
-    </>
+    </div>
   );
 };
 
