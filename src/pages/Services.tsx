@@ -14,7 +14,12 @@ import {
   CheckCircle2,
   Users,
   Building,
-  Briefcase
+  Briefcase,
+  Monitor,
+  Cloud,
+  FileText,
+  Box,
+  Layers
 } from "lucide-react";
 
 const Services = () => {
@@ -299,6 +304,45 @@ const Services = () => {
                     <h3 className="text-xl font-bold mb-2 text-primary">{item.title}</h3>
                     <p className="text-muted-foreground">{item.description}</p>
                   </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Technology Section */}
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold text-primary mb-4">
+                  Powered by Industry-Leading Technology
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                  We leverage platforms like Procore, Autodesk Construction Cloud, and Bluebeam to provide real-time project insights, seamless collaboration, and digital documentation management.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mt-12">
+                {[
+                  { name: "Procore", icon: Monitor },
+                  { name: "Autodesk Construction Cloud", icon: Cloud },
+                  { name: "Bluebeam", icon: FileText },
+                  { name: "BIM 360", icon: Box },
+                  { name: "Navisworks", icon: Layers }
+                ].map((tech, index) => (
+                  <div 
+                    key={tech.name}
+                    className="flex flex-col items-center justify-center p-6 bg-background rounded-lg border-2 hover:border-primary/50 transition-all duration-300 animate-fade-in"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-3">
+                      <tech.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <span className="text-sm font-semibold text-center text-foreground">
+                      {tech.name}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
