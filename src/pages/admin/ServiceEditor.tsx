@@ -1,0 +1,257 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArrowLeft, Save } from "lucide-react";
+
+const ServiceEditor = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    slug: "",
+    name: "",
+    short_description: "",
+    long_description: "",
+    icon_name: "",
+    pricing_range_min: "",
+    pricing_range_max: "",
+    estimated_timeline: "",
+    scope_template: "",
+    publish_state: "draft",
+    seo_title: "",
+    seo_description: "",
+  });
+
+  useEffect(() => {
+    if (id && id !== "new") {
+      loadService();
+    }
+  }, [id]);
+
+  const loadService = async () => {
+    const { data, error } = await supabase
+      .from("services")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load service",
+        variant: "destructive",
+      });
+    } else if (data) {
+      setFormData({
+        slug: data.slug || "",
+        name: data.name || "",
+        short_description: data.short_description || "",
+        long_description: data.long_description || "",
+        icon_name: data.icon_name || "",
+        pricing_range_min: data.pricing_range_min?.toString() || "",
+        pricing_range_max: data.pricing_range_max?.toString() || "",
+        estimated_timeline: data.estimated_timeline || "",
+        scope_template: data.scope_template || "",
+        publish_state: data.publish_state || "draft",
+        seo_title: data.seo_title || "",
+        seo_description: data.seo_description || "",
+      });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    const serviceData: any = {
+      ...formData,
+      pricing_range_min: formData.pricing_range_min ? parseFloat(formData.pricing_range_min) : null,
+      pricing_range_max: formData.pricing_range_max ? parseFloat(formData.pricing_range_max) : null,
+      updated_by: user?.id,
+      ...(id === "new" && { created_by: user?.id }),
+    };
+
+    const { error } = id === "new"
+      ? await supabase.from("services").insert([serviceData])
+      : await supabase.from("services").update(serviceData).eq("id", id);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: `Service ${id === "new" ? "created" : "updated"} successfully`,
+      });
+      navigate("/admin/services");
+    }
+    setIsLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-muted/30">
+      <header className="border-b bg-background">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/services")}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Services
+            </Button>
+            <h1 className="text-2xl font-bold">
+              {id === "new" ? "New Service" : "Edit Service"}
+            </h1>
+          </div>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="name">Service Name *</Label>
+              <Input
+                id="name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="slug">Slug *</Label>
+              <Input
+                id="slug"
+                value={formData.slug}
+                onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="short_description">Short Description</Label>
+            <Textarea
+              id="short_description"
+              value={formData.short_description}
+              onChange={(e) => setFormData({ ...formData, short_description: e.target.value })}
+              rows={2}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="long_description">Long Description</Label>
+            <Textarea
+              id="long_description"
+              value={formData.long_description}
+              onChange={(e) => setFormData({ ...formData, long_description: e.target.value })}
+              rows={6}
+            />
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="pricing_min">Min Price (CAD)</Label>
+              <Input
+                id="pricing_min"
+                type="number"
+                step="0.01"
+                value={formData.pricing_range_min}
+                onChange={(e) => setFormData({ ...formData, pricing_range_min: e.target.value })}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="pricing_max">Max Price (CAD)</Label>
+              <Input
+                id="pricing_max"
+                type="number"
+                step="0.01"
+                value={formData.pricing_range_max}
+                onChange={(e) => setFormData({ ...formData, pricing_range_max: e.target.value })}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="timeline">Estimated Timeline</Label>
+              <Input
+                id="timeline"
+                value={formData.estimated_timeline}
+                onChange={(e) => setFormData({ ...formData, estimated_timeline: e.target.value })}
+                placeholder="e.g., 6-8 weeks"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="scope">Scope Template</Label>
+            <Textarea
+              id="scope"
+              value={formData.scope_template}
+              onChange={(e) => setFormData({ ...formData, scope_template: e.target.value })}
+              rows={4}
+              placeholder="Bullet points of deliverables..."
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="seo_title">SEO Title</Label>
+              <Input
+                id="seo_title"
+                value={formData.seo_title}
+                onChange={(e) => setFormData({ ...formData, seo_title: e.target.value })}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="publish_state">Status</Label>
+              <Select
+                value={formData.publish_state}
+                onValueChange={(value: any) => setFormData({ ...formData, publish_state: value })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="published">Published</SelectItem>
+                  <SelectItem value="archived">Archived</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="seo_description">SEO Description</Label>
+            <Textarea
+              id="seo_description"
+              value={formData.seo_description}
+              onChange={(e) => setFormData({ ...formData, seo_description: e.target.value })}
+              rows={2}
+            />
+          </div>
+
+          <div className="flex gap-4">
+            <Button type="submit" disabled={isLoading}>
+              <Save className="h-4 w-4 mr-2" />
+              {isLoading ? "Saving..." : "Save Service"}
+            </Button>
+            <Button type="button" variant="outline" onClick={() => navigate("/admin/services")}>
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </main>
+    </div>
+  );
+};
+
+export default ServiceEditor;
