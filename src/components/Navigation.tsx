@@ -8,6 +8,7 @@ import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
+import { trackPhoneClick } from "@/lib/analytics";
 import {
   Collapsible,
   CollapsibleContent,
@@ -215,7 +216,14 @@ const Navigation = () => {
             <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary group ml-4">
               <Link to="/estimate" className="flex items-center gap-2">
                 <div className="p-1 bg-primary/10 rounded-full">
-                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  <Phone 
+                    className="h-4 w-4" 
+                    aria-hidden="true"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      trackPhoneClick();
+                    }}
+                  />
                 </div>
                 Get Estimate
               </Link>

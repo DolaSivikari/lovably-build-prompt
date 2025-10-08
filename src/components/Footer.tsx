@@ -1,10 +1,58 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
 import ascentLogo from "@/assets/ascent-logo.png";
+import SEO from "@/components/SEO";
 
 const Footer = () => {
+  // Enhanced LocalBusiness schema with citations
+  const citationSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://ascentgroupconstruction.com/#organization",
+    name: "Ascent Group Construction",
+    image: "https://ascentgroupconstruction.com/og-image.jpg",
+    telephone: "+14165557246",
+    email: "info@ascentgroupconstruction.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "123 Industrial Parkway",
+      addressLocality: "Mississauga",
+      addressRegion: "ON",
+      postalCode: "L5T 1A1",
+      addressCountry: "CA",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 43.6532,
+      longitude: -79.3832,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "08:00",
+        closes: "18:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "09:00",
+        closes: "16:00",
+      },
+    ],
+    sameAs: [
+      "https://www.facebook.com/ascentgroup",
+      "https://www.linkedin.com/company/ascentgroup",
+      "https://twitter.com/ascentgroup",
+      "https://instagram.com/ascentgroup",
+    ],
+    priceRange: "$$$$",
+  };
+
   return (
-    <footer className="bg-primary text-primary-foreground" role="contentinfo">
+    <>
+      <SEO structuredData={citationSchema} />
+      <footer className="bg-primary text-primary-foreground" role="contentinfo">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -152,6 +200,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </>
   );
 };
 

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
+import { breadcrumbSchema } from "@/utils/structured-data";
+import SEO from "@/components/SEO";
 
 interface BreadcrumbsProps {
   items: Array<{
@@ -9,9 +11,21 @@ interface BreadcrumbsProps {
 }
 
 const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
+  // Generate schema from items that have hrefs
+  const schemaItems = items
+    .filter(item => item.href)
+    .map(item => ({
+      name: item.label,
+      url: item.href!,
+    }));
+
+  const schema = breadcrumbSchema(schemaItems);
+
   return (
-    <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-      {items.map((item, index) => (
+    <>
+      <SEO structuredData={schema} />
+      <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-4" aria-label="Breadcrumb">
+        {items.map((item, index) => (
         <div key={index} className="flex items-center gap-2">
           {item.href ? (
             <Link to={item.href} className="hover:text-primary transition-colors">
@@ -23,7 +37,8 @@ const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
           {index < items.length - 1 && <ChevronRight className="w-4 h-4" />}
         </div>
       ))}
-    </nav>
+      </nav>
+    </>
   );
 };
 

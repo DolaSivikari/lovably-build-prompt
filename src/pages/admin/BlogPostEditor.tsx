@@ -195,7 +195,11 @@ const BlogPostEditor = () => {
                   onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                   rows={15}
                   required
+                  placeholder="Write your blog post content here..."
                 />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Note: For rich text editing with formatting, consider using the visual editor
+                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">

@@ -173,3 +173,79 @@ export const projectSchema = (options: ProjectSchemaOptions) => {
     image: options.image,
   };
 };
+
+interface ReviewSchemaOptions {
+  author: string;
+  reviewRating: number;
+  reviewBody: string;
+  datePublished: string;
+  itemReviewed?: {
+    name: string;
+    type: string;
+  };
+}
+
+export const reviewSchema = (options: ReviewSchemaOptions) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    author: {
+      "@type": "Person",
+      name: options.author,
+    },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: options.reviewRating,
+      bestRating: "5",
+      worstRating: "1",
+    },
+    reviewBody: options.reviewBody,
+    datePublished: options.datePublished,
+    itemReviewed: {
+      "@type": options.itemReviewed?.type || "LocalBusiness",
+      name: options.itemReviewed?.name || "Ascent Group Construction",
+    },
+  };
+};
+
+interface AggregateReviewsOptions {
+  ratingValue: number;
+  reviewCount: number;
+  bestRating?: number;
+  worstRating?: number;
+}
+
+export const aggregateReviewSchema = (options: AggregateReviewsOptions) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AggregateRating",
+    ratingValue: options.ratingValue.toString(),
+    reviewCount: options.reviewCount.toString(),
+    bestRating: (options.bestRating || 5).toString(),
+    worstRating: (options.worstRating || 1).toString(),
+  };
+};
+
+interface VideoSchemaOptions {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  contentUrl?: string;
+  embedUrl?: string;
+  duration?: string; // ISO 8601 format: PT1M30S
+}
+
+export const videoSchema = (options: VideoSchemaOptions) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: options.name,
+    description: options.description,
+    thumbnailUrl: options.thumbnailUrl,
+    uploadDate: options.uploadDate,
+    contentUrl: options.contentUrl,
+    embedUrl: options.embedUrl,
+    duration: options.duration,
+  };
+};

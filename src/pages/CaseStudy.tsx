@@ -34,15 +34,24 @@ const CaseStudy = () => {
         description={caseStudy.challenge}
         keywords={`${caseStudy.category}, case study, ${caseStudy.location}, construction project`}
         structuredData={[
-          projectSchema({
+          {
+            "@context": "https://schema.org",
+            "@type": "Project",
             name: caseStudy.title,
             description: caseStudy.challenge,
             category: caseStudy.category,
-            location: caseStudy.location,
+            location: {
+              "@type": "Place",
+              name: caseStudy.location,
+            },
             startDate: caseStudy.date,
             endDate: caseStudy.date,
-            image: caseStudy.heroImage,
-          }),
+            image: caseStudy.images,
+            contractor: {
+              "@type": "Organization",
+              name: "Ascent Group Construction",
+            },
+          },
           breadcrumbSchema([
             { name: "Home", url: "/" },
             { name: "Projects", url: "/projects" },

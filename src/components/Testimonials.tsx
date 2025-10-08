@@ -1,5 +1,7 @@
 import { Card, CardContent } from "./ui/card";
 import { Quote } from "lucide-react";
+import SEO from "./SEO";
+import { reviewSchema } from "@/utils/structured-data";
 
 const Testimonials = () => {
   const testimonials = [
@@ -8,24 +10,42 @@ const Testimonials = () => {
       author: "Sarah Thompson",
       position: "CEO, Thompson Properties",
       company: "Commercial Real Estate",
+      rating: 5,
+      date: "2024-09-15",
     },
     {
       quote: "The team's attention to detail and commitment to safety made all the difference. They turned our vision into reality while maintaining the highest standards.",
       author: "Michael Chen",
       position: "VP Operations",
       company: "Manufacturing Corp",
+      rating: 5,
+      date: "2024-08-22",
     },
     {
       quote: "Working with BuildCraft on our healthcare facility was seamless. Their use of BIM technology prevented costly delays and ensured quality outcomes.",
       author: "Dr. Jennifer Martinez",
       position: "Medical Director",
       company: "Regional Health Authority",
+      rating: 5,
+      date: "2024-07-10",
     },
   ];
 
+  // Generate review schemas
+  const reviewSchemas = testimonials.map(t => 
+    reviewSchema({
+      author: t.author,
+      reviewRating: t.rating,
+      reviewBody: t.quote,
+      datePublished: t.date,
+    })
+  );
+
   return (
-    <section className="py-20 bg-muted">
-      <div className="container mx-auto px-4">
+    <>
+      <SEO structuredData={reviewSchemas} />
+      <section className="py-20 bg-muted">
+        <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Client Success Stories</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -54,6 +74,7 @@ const Testimonials = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

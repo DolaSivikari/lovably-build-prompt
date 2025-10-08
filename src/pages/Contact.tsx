@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { trackFormSubmit, trackConversion } from "@/lib/analytics";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +39,17 @@ const Contact = () => {
         }]);
 
       if (error) throw error;
+
+      // Track conversion
+      trackConversion('contact_form_submit', {
+        form_type: 'contact',
+        submission_type: formData.company ? 'business' : 'individual',
+      });
+
+      trackFormSubmit('contact_form', {
+        has_company: !!formData.company,
+        has_phone: !!formData.phone,
+      });
 
       // Send email notifications
       try {

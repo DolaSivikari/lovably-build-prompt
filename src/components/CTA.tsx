@@ -2,6 +2,7 @@ import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock, Shield, FileText, CheckCircle2 } from "lucide-react";
+import { trackCTAClick } from "@/lib/analytics";
 
 const CTA = () => {
   const features = [
@@ -98,7 +99,11 @@ const CTA = () => {
                 className="bg-cream hover:bg-white text-charcoal font-bold text-lg px-10 py-6 shadow-xl hover-lift"
                 asChild
               >
-                <Link to="/estimate" className="flex items-center gap-2">
+                <Link 
+                  to="/estimate" 
+                  className="flex items-center gap-2"
+                  onClick={() => trackCTAClick('Request Estimate', 'CTA Section')}
+                >
                   Request Estimate
                   <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -109,7 +114,10 @@ const CTA = () => {
                 className="border-2 border-cream/30 bg-white/5 text-cream hover:bg-white/10 hover:border-cream/50 text-lg px-10 py-6 hover-lift"
                 asChild
               >
-                <Link to="/projects">
+                <Link 
+                  to="/projects"
+                  onClick={() => trackCTAClick('View Our Work', 'CTA Section')}
+                >
                   View Our Work
                 </Link>
               </Button>
