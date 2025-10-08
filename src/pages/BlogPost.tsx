@@ -9,6 +9,8 @@ import Breadcrumbs from "@/components/blog/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import blogData from "@/data/blog-posts-complete.json";
+import OptimizedImage from "@/components/OptimizedImage";
+import { articleSchema, breadcrumbSchema } from "@/utils/structured-data";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -95,6 +97,21 @@ const BlogPost = () => {
         title={post.title}
         description={post.excerpt}
         keywords={`${post.category}, ${post.tags.join(', ')}`}
+        structuredData={[
+          articleSchema({
+            title: post.title,
+            description: post.excerpt,
+            author: post.author,
+            datePublished: post.date,
+            image: post.image,
+          }),
+          breadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "Blog", url: "/blog" },
+            { name: post.category, url: `/blog?category=${encodeURIComponent(post.category)}` },
+            { name: post.title, url: `/blog/${post.slug}` },
+          ]),
+        ]}
       />
       <ReadingProgress />
       <Navigation />
@@ -103,10 +120,15 @@ const BlogPost = () => {
         {/* Hero Section with Full-Bleed Image */}
         <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
           <div className="absolute inset-0">
-            <img
+            <OptimizedImage
               src={post.image}
-              alt={post.title}
-              className="w-full h-full object-cover"
+              alt={`${post.title} - Comprehensive guide on ${post.category.toLowerCase()}`}
+              priority={true}
+              width={1920}
+              height={1080}
+              className="w-full h-full"
+              objectFit="cover"
+              sizes="100vw"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal/70 via-charcoal/50 to-charcoal/80" />
@@ -204,10 +226,14 @@ const BlogPost = () => {
                     >
                       <div className="bg-card rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
                         <div className="aspect-video overflow-hidden">
-                          <img
+                          <OptimizedImage
                             src={relatedPost.image}
-                            alt={relatedPost.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            alt={`${relatedPost.title} - Related article on ${relatedPost.category.toLowerCase()}`}
+                            width={600}
+                            height={400}
+                            className="w-full h-full group-hover:scale-110 transition-transform duration-300"
+                            objectFit="cover"
+                            sizes="(max-width: 768px) 100vw, 33vw"
                           />
                         </div>
                         <div className="p-6">

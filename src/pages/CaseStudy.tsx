@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import caseStudiesData from "@/data/case-studies.json";
+import OptimizedImage from "@/components/OptimizedImage";
+import { projectSchema, breadcrumbSchema } from "@/utils/structured-data";
 
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,16 +33,37 @@ const CaseStudy = () => {
         title={caseStudy.title}
         description={caseStudy.challenge}
         keywords={`${caseStudy.category}, case study, ${caseStudy.location}, construction project`}
+        structuredData={[
+          projectSchema({
+            name: caseStudy.title,
+            description: caseStudy.challenge,
+            category: caseStudy.category,
+            location: caseStudy.location,
+            startDate: caseStudy.date,
+            endDate: caseStudy.date,
+            image: caseStudy.heroImage,
+          }),
+          breadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "Projects", url: "/projects" },
+            { name: caseStudy.title, url: `/case-study/${id}` },
+          ]),
+        ]}
       />
       <Navigation />
       
       <main className="min-h-screen">
         {/* Hero Section */}
         <section className="relative h-[60vh] min-h-[500px]">
-          <img
+          <OptimizedImage
             src={caseStudy.heroImage}
-            alt={caseStudy.title}
-            className="w-full h-full object-cover"
+            alt={`${caseStudy.title} - ${caseStudy.category} project completed in ${caseStudy.location}, showcasing ${caseStudy.size} of professional construction work`}
+            priority={true}
+            width={1920}
+            height={1080}
+            className="w-full h-full"
+            objectFit="cover"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
           <div className="absolute inset-0 flex items-end">
@@ -116,10 +139,14 @@ const CaseStudy = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   {caseStudy.images.map((image, index) => (
                     <div key={index} className="aspect-video overflow-hidden rounded-lg">
-                      <img
+                      <OptimizedImage
                         src={image}
-                        alt={`${caseStudy.title} - Image ${index + 1}`}
-                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                        alt={`${caseStudy.title} project detail ${index + 1} - ${caseStudy.category} construction work in ${caseStudy.location}`}
+                        width={800}
+                        height={600}
+                        className="w-full h-full hover:scale-110 transition-transform duration-500"
+                        objectFit="cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     </div>
                   ))}

@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import projectCommercial from "@/assets/project-commercial.jpg";
 import projectIndustrial from "@/assets/project-industrial.jpg";
 import projectInstitutional from "@/assets/project-institutional.jpg";
+import OptimizedImage from "./OptimizedImage";
 
 const FeaturedProjects = () => {
   const projects = [
@@ -52,12 +53,16 @@ const FeaturedProjects = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="relative overflow-hidden h-64">
-                <img
+                <OptimizedImage
                   src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-500"
+                  alt={`${project.title} - ${project.category} construction project featuring modern architecture in ${project.location}`}
+                  width={800}
+                  height={600}
+                  className="w-full h-full transition-transform group-hover:scale-110 duration-500"
+                  objectFit="cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                <div className="absolute top-4 right-4">
+                <div className="absolute top-4 right-4 z-10">
                   <span className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
                     {project.category}
                   </span>

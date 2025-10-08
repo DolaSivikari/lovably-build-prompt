@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight } from "lucide-react";
 import blogData from "@/data/blog-posts-complete.json";
+import OptimizedImage from "./OptimizedImage";
 
 const BlogPreview = () => {
   const featuredPosts = blogData.posts.filter(post => post.featured).slice(0, 3);
@@ -30,12 +31,16 @@ const BlogPreview = () => {
               <Link key={post.id} to={`/blog/${post.slug}`}>
                 <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group">
                   <div className="relative h-48 overflow-hidden">
-                    <img
+                    <OptimizedImage
                       src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      alt={`${post.title} - Expert guide on ${post.category.toLowerCase()}`}
+                      width={800}
+                      height={600}
+                      className="w-full h-full group-hover:scale-105 transition-transform duration-300"
+                      objectFit="cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    <div className="absolute top-4 left-4">
+                    <div className="absolute top-4 left-4 z-10">
                       <Badge className="bg-secondary text-primary">{post.category}</Badge>
                     </div>
                   </div>

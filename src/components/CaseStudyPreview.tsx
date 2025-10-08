@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, ArrowRight } from "lucide-react";
 import caseStudiesData from "@/data/case-studies.json";
+import OptimizedImage from "./OptimizedImage";
 
 const CaseStudyPreview = () => {
   const caseStudies = Object.entries(caseStudiesData.caseStudies).slice(0, 2);
@@ -23,12 +24,16 @@ const CaseStudyPreview = () => {
             <Link key={id} to={`/case-study/${id}`}>
               <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group">
                 <div className="relative h-64 overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={caseStudy.heroImage}
-                    alt={caseStudy.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    alt={`${caseStudy.title} - ${caseStudy.category} project completed in ${caseStudy.location}`}
+                    width={800}
+                    height={600}
+                    className="w-full h-full group-hover:scale-105 transition-transform duration-300"
+                    objectFit="cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <div className="absolute top-4 left-4">
+                  <div className="absolute top-4 left-4 z-10">
                     <Badge className="bg-secondary text-primary">{caseStudy.category}</Badge>
                   </div>
                 </div>
