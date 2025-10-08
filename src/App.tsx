@@ -31,6 +31,7 @@ import CommercialClients from "./pages/CommercialClients";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import CaseStudy from "./pages/CaseStudy";
+import CaseStudies from "./pages/CaseStudies";
 import OurProcess from "./pages/OurProcess";
 import Sustainability from "./pages/Sustainability";
 
@@ -64,6 +65,7 @@ const App = () => (
           <Route path="/commercial-clients" element={<CommercialClients />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/our-process" element={<OurProcess />} />
           <Route path="/sustainability" element={<Sustainability />} />

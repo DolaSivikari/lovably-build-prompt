@@ -60,8 +60,8 @@ const CaseStudyPreview = () => {
 
         <div className="text-center">
           <Button asChild variant="outline" size="lg">
-            <Link to="/projects">
-              View All Projects <ArrowRight className="ml-2 h-5 w-5" />
+            <Link to="/case-studies">
+              View Case Studies <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
         </div>

@@ -73,13 +73,20 @@ const Blog = () => {
                 Industry Insights & Expertise
               </h1>
               <p className="text-xl text-primary-foreground/90 mb-8">
-                Stay informed with expert guidance on construction, painting, and property maintenance from the professionals at Ascent Group.
+                Stay informed with expert guidance on construction, painting, and property maintenance from the professionals at Ascen Group.
               </p>
-              <a href="#newsletter">
-                <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 hover:scale-105 transition-all">
-                  Subscribe to Newsletter
-                </Button>
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="#newsletter">
+                  <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 hover:scale-105 transition-all">
+                    Subscribe to Newsletter
+                  </Button>
+                </a>
+                <Link to="/case-studies">
+                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10">
+                    View Case Studies
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

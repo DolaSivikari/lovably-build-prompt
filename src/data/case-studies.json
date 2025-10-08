@@ -28,7 +28,7 @@
       "details": "This comprehensive renovation included painting all common areas, conference rooms, and private offices across 15 floors. The project required careful coordination with building management to minimize tenant disruption."
     },
     "luxury-condo-restoration": {
-      "title": "Luxury Condo Complex Restoration",
+      "title": "Luxury Waterfront Condo Complex",
       "category": "Residential",
       "location": "Mississauga, ON",
       "date": "2024",
@@ -53,6 +53,33 @@
         "/src/assets/project-industrial.jpg"
       ],
       "details": "The project involved repairing and refinishing all exterior stucco and EIFS surfaces, addressing water damage, and implementing a new weather barrier system."
+    },
+    "heritage-building-restoration": {
+      "title": "Heritage Building Facade Restoration",
+      "category": "Heritage/Commercial",
+      "location": "Old Toronto, ON",
+      "date": "2023",
+      "duration": "14 months",
+      "size": "45,000 sq ft",
+      "heroImage": "/src/assets/project-industrial.jpg",
+      "challenge": "Restoring a 1920s heritage building's original stucco facade while meeting modern building codes and preservation guidelines.",
+      "solution": "Matched original materials and techniques with modern weatherproofing technology, working closely with heritage consultants.",
+      "results": [
+        "Heritage designation maintained",
+        "Approved by Toronto Heritage Board",
+        "100% authentic appearance restored",
+        "50-year warranty on new systems"
+      ],
+      "testimonial": {
+        "quote": "Ascen Group's expertise in heritage restoration was evident. They preserved the building's character while ensuring it meets today's standards.",
+        "author": "Patricia Williams",
+        "title": "Heritage Architect"
+      },
+      "images": [
+        "/src/assets/project-industrial.jpg",
+        "/src/assets/project-commercial.jpg"
+      ],
+      "details": "Original stucco samples were analyzed in a lab to match composition. Custom pigments were mixed to achieve the exact original color."
     }
   }
 }
