@@ -399,9 +399,11 @@ export type Database = {
           category: string | null
           client_name: string | null
           completion_date: string | null
+          content_blocks: Json | null
           created_at: string | null
           created_by: string | null
           description: string | null
+          draft_content: Json | null
           featured_image: string | null
           gallery: Json | null
           id: string
@@ -421,15 +423,18 @@ export type Database = {
           title: string
           updated_at: string | null
           updated_by: string | null
+          version: number | null
         }
         Insert: {
           budget_range?: string | null
           category?: string | null
           client_name?: string | null
           completion_date?: string | null
+          content_blocks?: Json | null
           created_at?: string | null
           created_by?: string | null
           description?: string | null
+          draft_content?: Json | null
           featured_image?: string | null
           gallery?: Json | null
           id?: string
@@ -449,15 +454,18 @@ export type Database = {
           title: string
           updated_at?: string | null
           updated_by?: string | null
+          version?: number | null
         }
         Update: {
           budget_range?: string | null
           category?: string | null
           client_name?: string | null
           completion_date?: string | null
+          content_blocks?: Json | null
           created_at?: string | null
           created_by?: string | null
           description?: string | null
+          draft_content?: Json | null
           featured_image?: string | null
           gallery?: Json | null
           id?: string
@@ -477,6 +485,7 @@ export type Database = {
           title?: string
           updated_at?: string | null
           updated_by?: string | null
+          version?: number | null
         }
         Relationships: [
           {

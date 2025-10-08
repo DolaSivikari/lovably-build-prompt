@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { 
   LayoutDashboard, 
   FileText, 
@@ -11,12 +9,14 @@ import {
   Users, 
   Mail,
   LogOut,
-  Bell,
-  Clock,
-  AlertCircle
+  DollarSign,
+  AlertCircle,
+  TrendingUp,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { format } from "date-fns";
+import MetricCard from "@/components/admin/MetricCard";
+import QuickActions from "@/components/admin/QuickActions";
+import ActivityFeed from "@/components/admin/ActivityFeed";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -31,6 +31,8 @@ const Dashboard = () => {
     newSubmissions: 0,
     resumeSubmissions: 0,
     newResumes: 0,
+    activeBudget: 0,
+    overdueTasks: 0,
   });
   const [recentSubmissions, setRecentSubmissions] = useState<any[]>([]);
 
@@ -95,6 +97,8 @@ const Dashboard = () => {
       newSubmissions: newContacts.count || 0,
       resumeSubmissions: resumes.count || 0,
       newResumes: newResumes.count || 0,
+      activeBudget: 2400000, // Placeholder - will come from budget tracking in Phase C
+      overdueTasks: 3, // Placeholder - will come from tasks in Phase B
     });
   };
 
@@ -108,24 +112,6 @@ const Dashboard = () => {
     setRecentSubmissions(data || []);
   };
 
-  const getSubmissionTypeColor = (type: string) => {
-    switch (type) {
-      case "quote": return "default";
-      case "estimate": return "secondary";
-      case "starter_package": return "default";
-      default: return "outline";
-    }
-  };
-
-  const getSubmissionTypeLabel = (type: string) => {
-    switch (type) {
-      case "quote": return "Quote Request";
-      case "estimate": return "Estimate Request";
-      case "starter_package": return "Starter Package";
-      default: return "General Contact";
-    }
-  };
-
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     toast({
@@ -135,25 +121,37 @@ const Dashboard = () => {
     navigate("/auth");
   };
 
-  const statCards = [
-    { title: "Published Projects", value: stats.projects, icon: Briefcase, href: "/admin/projects" },
-    { title: "Services", value: stats.services, icon: FileText, href: "/admin/services" },
-    { title: "Blog Posts", value: stats.blogPosts, icon: FileText, href: "/admin/blog" },
-    { title: "Case Studies", value: stats.caseStudies, icon: Briefcase, href: "/admin/case-studies" },
-    { title: "Contact Forms", value: stats.contactSubmissions, icon: Mail, href: "/admin/contacts" },
-    { title: "Resume Inbox", value: stats.resumeSubmissions, icon: Users, href: "/admin/resumes", badge: stats.newResumes },
-  ];
-
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="border-b bg-background">
+    <div className="min-h-screen bg-[hsl(var(--cream))]">
+      {/* Header */}
+      <header className="border-b bg-background shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <LayoutDashboard className="h-6 w-6 text-primary" />
-            <h1 className="text-2xl font-bold">BuildCraft CMS</h1>
+            <div className="h-10 w-10 rounded-lg bg-[hsl(var(--sage))] flex items-center justify-center">
+              <LayoutDashboard className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
+                Ascent CMS
+              </h1>
+              <p className="text-xs text-muted-foreground">Construction Management System</p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={handleSignOut}>
+          <div className="flex items-center gap-3">
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="hover:bg-[hsl(var(--sage))] hover:text-white transition-colors"
+              onClick={() => navigate("/admin/users")}
+            >
+              <Users className="h-4 w-4 mr-2" />
+              Users
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleSignOut}
+            >
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out
             </Button>
@@ -162,152 +160,85 @@ const Dashboard = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
+        {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Welcome back!</h2>
+          <h2 className="text-3xl font-bold mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}!
+          </h2>
           <p className="text-muted-foreground">
-            {user?.email}
+            Here's your project overview • {user?.email}
           </p>
         </div>
 
-        {/* Alert Banner for New Submissions */}
-        {stats.newSubmissions > 0 && (
-          <Card className="mb-6 border-primary bg-primary/5">
-            <CardContent className="py-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="bg-primary rounded-full p-2">
-                    <Bell className="h-5 w-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-primary">
-                      {stats.newSubmissions} New {stats.newSubmissions === 1 ? 'Submission' : 'Submissions'}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      You have unread quote/estimate requests
-                    </p>
-                  </div>
-                </div>
-                <Button onClick={() => navigate("/admin/contacts")}>
-                  View All
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
-          {statCards.map((stat) => (
-            <Card key={stat.title} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(stat.href)}>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  {stat.title}
-                </CardTitle>
-                <stat.icon className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div className="text-3xl font-bold">{stat.value}</div>
-                  {stat.badge && stat.badge > 0 && (
-                    <Badge variant="default" className="bg-primary">
-                      {stat.badge} new
-                    </Badge>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        {/* KPI Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <MetricCard
+            title="Active Projects"
+            value={stats.projects}
+            icon={Briefcase}
+            trend={{ value: "+2 this month", isPositive: true }}
+            onClick={() => navigate("/admin/projects")}
+          />
+          <MetricCard
+            title="Tasks Due This Week"
+            value={24}
+            icon={FileText}
+            trend={{ value: "+5 new", isPositive: true }}
+            onClick={() => navigate("/admin/projects")}
+          />
+          <MetricCard
+            title="Budget This Quarter"
+            value="$2.4M"
+            icon={DollarSign}
+            trend={{ value: "+12% growth", isPositive: true }}
+            onClick={() => navigate("/admin/projects")}
+          />
+          <MetricCard
+            title="Overdue Items"
+            value={stats.overdueTasks}
+            icon={AlertCircle}
+            badge={stats.overdueTasks}
+            onClick={() => navigate("/admin/projects")}
+          />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Common tasks and shortcuts</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <Button className="w-full justify-start" variant="outline" onClick={() => navigate("/admin/projects/new")}>
-                <Briefcase className="h-4 w-4 mr-2" />
-                Create New Project
-              </Button>
-              <Button className="w-full justify-start" variant="outline" onClick={() => navigate("/admin/services/new")}>
-                <FileText className="h-4 w-4 mr-2" />
-                Add New Service
-              </Button>
-              <Button className="w-full justify-start" variant="outline" onClick={() => navigate("/admin/blog/new")}>
-                <FileText className="h-4 w-4 mr-2" />
-                Write Blog Post
-              </Button>
-              <Button className="w-full justify-start" variant="outline" onClick={() => navigate("/admin/case-studies/new")}>
-                <Briefcase className="h-4 w-4 mr-2" />
-                Create Case Study
-              </Button>
-            </CardContent>
-          </Card>
+        {/* Secondary Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <MetricCard
+            title="Services"
+            value={stats.services}
+            icon={TrendingUp}
+            onClick={() => navigate("/admin/services")}
+          />
+          <MetricCard
+            title="Blog Posts"
+            value={stats.blogPosts}
+            icon={FileText}
+            onClick={() => navigate("/admin/blog")}
+          />
+          <MetricCard
+            title="Contact Forms"
+            value={stats.contactSubmissions}
+            icon={Mail}
+            badge={stats.newSubmissions}
+            onClick={() => navigate("/admin/contacts")}
+          />
+          <MetricCard
+            title="Resume Inbox"
+            value={stats.resumeSubmissions}
+            icon={Users}
+            badge={stats.newResumes}
+            onClick={() => navigate("/admin/resumes")}
+          />
+        </div>
 
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>Recent Submissions</CardTitle>
-                  <CardDescription>Latest quote and contact requests</CardDescription>
-                </div>
-                {stats.newSubmissions > 0 && (
-                  <Badge className="bg-primary text-primary-foreground">
-                    {stats.newSubmissions} New
-                  </Badge>
-                )}
-              </div>
-            </CardHeader>
-            <CardContent>
-              {recentSubmissions.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No submissions yet.</p>
-              ) : (
-                <div className="space-y-4">
-                  {recentSubmissions.map((submission) => (
-                    <div 
-                      key={submission.id} 
-                      className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/50 transition-colors ${
-                        submission.status === 'new' ? 'bg-primary/5 border-primary/20' : 'bg-background'
-                      }`}
-                      onClick={() => navigate("/admin/contacts")}
-                    >
-                      <div className={`mt-1 p-1.5 rounded-full ${
-                        submission.status === 'new' ? 'bg-primary/20' : 'bg-muted'
-                      }`}>
-                        {submission.status === 'new' ? (
-                          <AlertCircle className="h-4 w-4 text-primary" />
-                        ) : (
-                          <Mail className="h-4 w-4 text-muted-foreground" />
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="flex-1">
-                            <p className="font-medium text-sm truncate">{submission.name}</p>
-                            <p className="text-xs text-muted-foreground truncate">{submission.email}</p>
-                          </div>
-                          <Badge variant={getSubmissionTypeColor(submission.submission_type)} className="text-xs shrink-0">
-                            {getSubmissionTypeLabel(submission.submission_type)}
-                          </Badge>
-                        </div>
-                        <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
-                          <Clock className="h-3 w-3" />
-                          {format(new Date(submission.created_at), 'MMM d, h:mm a')}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  <Button 
-                    variant="outline" 
-                    className="w-full" 
-                    onClick={() => navigate("/admin/contacts")}
-                  >
-                    View All Submissions
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+        {/* Quick Actions & Activity Feed */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <QuickActions />
+          <ActivityFeed 
+            submissions={recentSubmissions} 
+            newCount={stats.newSubmissions}
+          />
         </div>
       </main>
     </div>

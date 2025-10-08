@@ -45,6 +45,8 @@ import Values from "./pages/Values";
 import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
 import ResumeSubmissions from "./pages/admin/ResumeSubmissions";
+import MediaLibrary from "./pages/admin/MediaLibrary";
+import Users from "./pages/admin/Users";
 
 import FAQ from "./pages/FAQ";
 import FloatingContact from "./components/FloatingContact";
@@ -112,6 +114,8 @@ const App = () => (
           <Route path="/admin/case-studies" element={<AdminCaseStudies />} />
           <Route path="/admin/case-studies/:id" element={<CaseStudyEditor />} />
           <Route path="/admin/resumes" element={<ResumeSubmissions />} />
+          <Route path="/admin/media" element={<MediaLibrary />} />
+          <Route path="/admin/users" element={<Users />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
