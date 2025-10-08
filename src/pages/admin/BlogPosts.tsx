@@ -138,7 +138,7 @@ const BlogPosts = () => {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => navigate(`/admin/blog/edit/${post.id}`)}
+                        onClick={() => navigate(`/admin/blog/${post.id}`)}
                       >
                         <Edit className="h-4 w-4" />
                       </Button>

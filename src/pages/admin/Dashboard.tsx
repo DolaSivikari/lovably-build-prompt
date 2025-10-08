@@ -11,7 +11,6 @@ import {
   Users, 
   Mail,
   LogOut,
-  Settings,
   Bell,
   Clock,
   AlertCircle
@@ -147,10 +146,6 @@ const Dashboard = () => {
             <h1 className="text-2xl font-bold">BuildCraft CMS</h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => navigate("/admin/settings")}>
-              <Settings className="h-4 w-4 mr-2" />
-              Settings
-            </Button>
             <Button variant="outline" size="sm" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out

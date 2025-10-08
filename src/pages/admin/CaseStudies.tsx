@@ -138,7 +138,7 @@ const CaseStudies = () => {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => navigate(`/admin/case-studies/edit/${study.id}`)}
+                        onClick={() => navigate(`/admin/case-studies/${study.id}`)}
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
