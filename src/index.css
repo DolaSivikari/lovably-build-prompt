@@ -8,26 +8,32 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 215 25% 15%;
+    --background: 45 50% 98%;   /* Light cream background */
+    --foreground: 0 0% 17%;     /* Charcoal text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card: 0 0% 100%;          /* White cards */
+    --card-foreground: 0 0% 17%; /* Charcoal on cards */
 
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
 
+    /* Ascent Brand Colors */
+    --sage: 100 23% 62%;        /* #9CAF88 */
+    --terracotta: 14 52% 55%;   /* #C96E4E */
+    --cream: 45 50% 95%;        /* #F6F1E9 */
+    --charcoal: 0 0% 17%;       /* #2C2C2C */
+    
     /* Professional construction blue - trust and stability */
-    --primary: 210 85% 25%;
+    --primary: 100 23% 62%;     /* Using Sage as primary */
     --primary-foreground: 0 0% 100%;
-    --primary-light: 210 75% 45%;
+    --primary-light: 100 23% 72%;
     
     /* Construction orange - energy and action */
-    --secondary: 25 95% 53%;
+    --secondary: 14 52% 55%;    /* Using Terracotta */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 15% 35%; /* Updated for WCAG AA compliance - 7.4:1 contrast */
+    --muted: 45 30% 94%;        /* Cream-based muted */
+    --muted-foreground: 0 0% 35%; /* Charcoal-based muted text */
     
     /* Accessible color variants for WCAG AA compliance */
     --safety-yellow-accessible: 48 100% 35%; /* 4.8:1 contrast on white */

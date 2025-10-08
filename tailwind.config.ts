@@ -13,7 +13,29 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        playfair: ['Playfair Display', 'serif'],
+        inter: ['Inter', 'sans-serif'],
+      },
       colors: {
+        sage: {
+          DEFAULT: "hsl(100 23% 62%)",
+          light: "hsl(100 23% 72%)",
+          dark: "hsl(100 23% 52%)",
+        },
+        terracotta: {
+          DEFAULT: "hsl(14 52% 55%)",
+          light: "hsl(14 52% 65%)",
+          dark: "hsl(14 52% 45%)",
+        },
+        cream: {
+          DEFAULT: "hsl(45 50% 95%)",
+          dark: "hsl(45 30% 90%)",
+        },
+        charcoal: {
+          DEFAULT: "hsl(0 0% 17%)",
+          light: "hsl(0 0% 27%)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

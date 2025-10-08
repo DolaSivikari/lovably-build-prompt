@@ -71,10 +71,12 @@ export type Database = {
           created_by: string | null
           featured_image: string | null
           id: string
+          preview_token: string | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
           published_at: string | null
           read_time_minutes: number | null
           scheduled_publish: string | null
+          scheduled_publish_at: string | null
           seo_description: string | null
           seo_keywords: string[] | null
           seo_title: string | null
@@ -94,10 +96,12 @@ export type Database = {
           created_by?: string | null
           featured_image?: string | null
           id?: string
+          preview_token?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           published_at?: string | null
           read_time_minutes?: number | null
           scheduled_publish?: string | null
+          scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
@@ -117,10 +121,12 @@ export type Database = {
           created_by?: string | null
           featured_image?: string | null
           id?: string
+          preview_token?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           published_at?: string | null
           read_time_minutes?: number | null
           scheduled_publish?: string | null
+          scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
@@ -279,7 +285,9 @@ export type Database = {
           created_at: string | null
           created_by: string | null
           id: string
+          preview_token: string | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at: string | null
           seo_description: string | null
           seo_keywords: string[] | null
           seo_title: string | null
@@ -293,7 +301,9 @@ export type Database = {
           created_at?: string | null
           created_by?: string | null
           id?: string
+          preview_token?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
@@ -307,7 +317,9 @@ export type Database = {
           created_at?: string | null
           created_by?: string | null
           id?: string
+          preview_token?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
@@ -408,10 +420,12 @@ export type Database = {
           gallery: Json | null
           id: string
           location: string | null
+          preview_token: string | null
           process_notes: string | null
           project_size: string | null
           project_status: string | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at: string | null
           seo_description: string | null
           seo_keywords: string[] | null
           seo_title: string | null
@@ -439,10 +453,12 @@ export type Database = {
           gallery?: Json | null
           id?: string
           location?: string | null
+          preview_token?: string | null
           process_notes?: string | null
           project_size?: string | null
           project_status?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
@@ -470,10 +486,12 @@ export type Database = {
           gallery?: Json | null
           id?: string
           location?: string | null
+          preview_token?: string | null
           process_notes?: string | null
           project_size?: string | null
           project_status?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
@@ -567,9 +585,11 @@ export type Database = {
           id: string
           long_description: string | null
           name: string
+          preview_token: string | null
           pricing_range_max: number | null
           pricing_range_min: number | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at: string | null
           scope_template: string | null
           seo_description: string | null
           seo_keywords: string[] | null
@@ -588,9 +608,11 @@ export type Database = {
           id?: string
           long_description?: string | null
           name: string
+          preview_token?: string | null
           pricing_range_max?: number | null
           pricing_range_min?: number | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at?: string | null
           scope_template?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
@@ -609,9 +631,11 @@ export type Database = {
           id?: string
           long_description?: string | null
           name?: string
+          preview_token?: string | null
           pricing_range_max?: number | null
           pricing_range_min?: number | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at?: string | null
           scope_template?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
@@ -631,6 +655,140 @@ export type Database = {
           },
           {
             foreignKeyName: "services_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      task_comments: {
+        Row: {
+          comment: string
+          created_at: string | null
+          id: string
+          task_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          comment: string
+          created_at?: string | null
+          id?: string
+          task_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          comment?: string
+          created_at?: string | null
+          id?: string
+          task_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_comments_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "task_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          actual_hours: number | null
+          assigned_to: string | null
+          created_at: string | null
+          created_by: string | null
+          dependencies: Json | null
+          description: string | null
+          due_date: string | null
+          estimated_hours: number | null
+          gantt_position: number | null
+          id: string
+          is_milestone: boolean | null
+          priority: string | null
+          project_id: string | null
+          start_date: string | null
+          status: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          actual_hours?: number | null
+          assigned_to?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          dependencies?: Json | null
+          description?: string | null
+          due_date?: string | null
+          estimated_hours?: number | null
+          gantt_position?: number | null
+          id?: string
+          is_milestone?: boolean | null
+          priority?: string | null
+          project_id?: string | null
+          start_date?: string | null
+          status?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          actual_hours?: number | null
+          assigned_to?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          dependencies?: Json | null
+          description?: string | null
+          due_date?: string | null
+          estimated_hours?: number | null
+          gantt_position?: number | null
+          id?: string
+          is_milestone?: boolean | null
+          priority?: string | null
+          project_id?: string | null
+          start_date?: string | null
+          status?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_updated_by_fkey"
             columns: ["updated_by"]
             isOneToOne: false
             referencedRelation: "profiles"
