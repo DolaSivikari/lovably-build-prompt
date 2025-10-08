@@ -90,7 +90,7 @@ const ContactSubmissions = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "new": return "bg-[hsl(var(--terracotta))] text-white";
+      case "new": return "bg-secondary text-white";
       case "contacted": return "bg-blue-600 text-white";
       case "resolved": return "bg-green-600 text-white";
       default: return "bg-gray-600 text-white";
@@ -128,7 +128,7 @@ const ContactSubmissions = () => {
   const quotesCount = submissions.filter(s => s.submission_type === "quote" || s.submission_type === "estimate").length;
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--cream))]">
+    <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
@@ -157,7 +157,7 @@ const ContactSubmissions = () => {
             <TabsTrigger value="new" className="relative">
               New
               {newCount > 0 && (
-                <Badge className="ml-2 h-5 w-5 rounded-full p-0 text-xs bg-[hsl(var(--terracotta))]">
+                <Badge className="ml-2 h-5 w-5 rounded-full p-0 text-xs bg-secondary">
                   {newCount}
                 </Badge>
               )}
@@ -189,7 +189,7 @@ const ContactSubmissions = () => {
                     key={submission.id}
                     className={`${
                       submission.status === 'new' 
-                        ? 'border-[hsl(var(--terracotta))] border-2 bg-[hsl(var(--cream))]' 
+                        ? 'border-secondary border-2 bg-primary/5'
                         : ''
                     }`}
                   >
@@ -198,7 +198,7 @@ const ContactSubmissions = () => {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
                             {submission.status === 'new' && (
-                              <AlertCircle className="h-5 w-5 text-[hsl(var(--terracotta))]" />
+                              <AlertCircle className="h-5 w-5 text-secondary" />
                             )}
                             <CardTitle className="text-lg">{submission.name}</CardTitle>
                             <Badge variant="outline" className="text-xs">
@@ -221,14 +221,14 @@ const ContactSubmissions = () => {
                       <div className="grid md:grid-cols-3 gap-4 text-sm">
                         <div className="flex items-center gap-2">
                           <Mail className="h-4 w-4 text-muted-foreground" />
-                          <a href={`mailto:${submission.email}`} className="text-[hsl(var(--sage))] hover:underline">
+                          <a href={`mailto:${submission.email}`} className="text-primary hover:underline">
                             {submission.email}
                           </a>
                         </div>
                         {submission.phone && (
                           <div className="flex items-center gap-2">
                             <Phone className="h-4 w-4 text-muted-foreground" />
-                            <a href={`tel:${submission.phone}`} className="text-[hsl(var(--sage))] hover:underline">
+                            <a href={`tel:${submission.phone}`} className="text-primary hover:underline">
                               {submission.phone}
                             </a>
                           </div>
@@ -247,7 +247,7 @@ const ContactSubmissions = () => {
                         {submission.status === 'new' && (
                           <Button
                             size="sm"
-                            className="bg-[hsl(var(--sage))] hover:bg-[hsl(var(--sage))]/90"
+                            className="bg-primary hover:bg-primary/90"
                             onClick={() => updateStatus(submission.id, "contacted")}
                           >
                             <Mail className="h-4 w-4 mr-2" />

@@ -14,7 +14,7 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
   const navigate = useNavigate();
 
   const getSubmissionIcon = (status: string) => {
-    if (status === 'new') return <AlertCircle className="h-4 w-4 text-[hsl(var(--terracotta))]" />;
+    if (status === 'new') return <AlertCircle className="h-4 w-4 text-secondary" />;
     if (status === 'contacted') return <Mail className="h-4 w-4 text-blue-600" />;
     return <CheckCircle className="h-4 w-4 text-green-600" />;
   };
@@ -37,7 +37,7 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
             <CardDescription>Latest submissions and updates</CardDescription>
           </div>
           {newCount > 0 && (
-            <Badge className="bg-[hsl(var(--terracotta))] text-white">
+            <Badge className="bg-secondary text-white">
               <Bell className="h-3 w-3 mr-1" />
               {newCount} New
             </Badge>
@@ -53,12 +53,12 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
               <div
                 key={submission.id}
                 className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/50 transition-colors ${
-                  submission.status === 'new' ? 'bg-[hsl(var(--cream))] border-[hsl(var(--sage))]/30' : 'bg-background'
+                  submission.status === 'new' ? 'bg-primary/5 border-primary/30' : 'bg-background'
                 }`}
                 onClick={() => navigate("/admin/contacts")}
               >
                 <div className={`mt-1 p-2 rounded-full ${
-                  submission.status === 'new' ? 'bg-[hsl(var(--terracotta))]/10' : 'bg-muted'
+                  submission.status === 'new' ? 'bg-secondary/10' : 'bg-muted'
                 }`}>
                   {getSubmissionIcon(submission.status)}
                 </div>
@@ -84,7 +84,7 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
             ))}
             <Button
               variant="outline"
-              className="w-full mt-2 hover:bg-[hsl(var(--sage))] hover:text-white transition-colors"
+              className="w-full mt-2 hover:bg-primary hover:text-white transition-colors"
               onClick={() => navigate("/admin/contacts")}
             >
               View All Activity

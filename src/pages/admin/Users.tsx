@@ -132,7 +132,7 @@ const Users = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--cream))]">
+    <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -155,7 +155,7 @@ const Users = () => {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-[hsl(var(--sage))]" />
+              <Shield className="h-5 w-5 text-primary" />
               Role Definitions
             </CardTitle>
             <CardDescription>
@@ -169,11 +169,11 @@ const Users = () => {
                 <p className="text-muted-foreground">Full access + user management</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <Badge className="mb-2 bg-[hsl(var(--terracotta))]">Admin</Badge>
+                <Badge className="mb-2 bg-secondary">Admin</Badge>
                 <p className="text-muted-foreground">Content management + project creation</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <Badge className="mb-2 bg-[hsl(var(--sage))]">Editor</Badge>
+                <Badge className="mb-2 bg-primary">Editor</Badge>
                 <p className="text-muted-foreground">Content editing + task management</p>
               </div>
               <div className="p-3 border rounded-lg">
@@ -203,8 +203,8 @@ const Users = () => {
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-full bg-[hsl(var(--sage))]/20 flex items-center justify-center">
-                          <span className="text-sm font-medium text-[hsl(var(--charcoal))]">
+                        <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
+                          <span className="text-sm font-medium text-foreground">
                             {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
                           </span>
                         </div>

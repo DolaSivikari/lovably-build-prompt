@@ -7,8 +7,8 @@ const QuickActions = () => {
   const navigate = useNavigate();
 
   const actions = [
-    { label: "New Project", icon: Briefcase, path: "/admin/projects/new", color: "text-[hsl(var(--sage))]" },
-    { label: "Daily Report", icon: ClipboardList, path: "/admin/projects", color: "text-[hsl(var(--terracotta))]" },
+    { label: "New Project", icon: Briefcase, path: "/admin/projects/new", color: "text-primary" },
+    { label: "Daily Report", icon: ClipboardList, path: "/admin/projects", color: "text-secondary" },
     { label: "Add Expense", icon: DollarSign, path: "/admin/projects", color: "text-blue-600" },
     { label: "Assign Task", icon: Users, path: "/admin/projects", color: "text-purple-600" },
     { label: "Blog Post", icon: FileText, path: "/admin/blog/new", color: "text-green-600" },
@@ -27,7 +27,7 @@ const QuickActions = () => {
             <Button
               key={action.label}
               variant="outline"
-              className="justify-start h-auto py-4 hover:bg-[hsl(var(--cream))] hover:border-[hsl(var(--sage))] transition-all"
+              className="justify-start h-auto py-4 hover:bg-muted hover:border-primary transition-all"
               onClick={() => navigate(action.path)}
             >
               <action.icon className={`h-5 w-5 mr-3 ${action.color}`} />

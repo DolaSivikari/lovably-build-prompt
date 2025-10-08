@@ -127,7 +127,7 @@ const MediaLibrary = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--cream))]">
+    <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -208,7 +208,7 @@ const MediaLibrary = () => {
                   <Card
                     key={file.name}
                     className={`cursor-pointer hover:shadow-lg transition-all ${
-                      selectedFile?.name === file.name ? 'ring-2 ring-[hsl(var(--sage))]' : ''
+                      selectedFile?.name === file.name ? 'ring-2 ring-primary' : ''
                     }`}
                     onClick={() => setSelectedFile(file)}
                   >

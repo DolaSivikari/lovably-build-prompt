@@ -122,12 +122,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--cream))]">
+    <div className="min-h-screen bg-muted/30">
       {/* Header */}
       <header className="border-b bg-background shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-[hsl(var(--sage))] flex items-center justify-center">
+            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
               <LayoutDashboard className="h-6 w-6 text-white" />
             </div>
             <div>
@@ -141,7 +141,7 @@ const Dashboard = () => {
             <Button 
               variant="outline" 
               size="sm"
-              className="hover:bg-[hsl(var(--sage))] hover:text-white transition-colors"
+              className="hover:bg-primary hover:text-white transition-colors"
               onClick={() => navigate("/admin/users")}
             >
               <Users className="h-4 w-4 mr-2" />

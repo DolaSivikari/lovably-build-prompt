@@ -24,7 +24,7 @@ const MetricCard = ({ title, value, icon: Icon, trend, badge, onClick }: MetricC
         <CardTitle className="text-sm font-medium text-muted-foreground">
           {title}
         </CardTitle>
-        <Icon className="h-5 w-5 text-[hsl(var(--sage))]" />
+        <Icon className="h-5 w-5 text-primary" />
       </CardHeader>
       <CardContent>
         <div className="flex items-end justify-between">
@@ -40,7 +40,7 @@ const MetricCard = ({ title, value, icon: Icon, trend, badge, onClick }: MetricC
             )}
           </div>
           {badge && badge > 0 && (
-            <Badge className="bg-[hsl(var(--terracotta))] text-white">
+            <Badge className="bg-secondary text-white">
               {badge} new
             </Badge>
           )}

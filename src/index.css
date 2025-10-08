@@ -17,19 +17,13 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
 
-    /* Ascent Brand Colors */
-    --sage: 100 23% 62%;        /* #9CAF88 */
-    --terracotta: 14 52% 55%;   /* #C96E4E */
-    --cream: 45 50% 95%;        /* #F6F1E9 */
-    --charcoal: 0 0% 17%;       /* #2C2C2C */
-    
     /* Professional construction blue - trust and stability */
-    --primary: 100 23% 62%;     /* Using Sage as primary */
+    --primary: 210 85% 25%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 100 23% 72%;
+    --primary-light: 210 75% 45%;
     
     /* Construction orange - energy and action */
-    --secondary: 14 52% 55%;    /* Using Terracotta */
+    --secondary: 25 95% 53%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 20% 96%;
