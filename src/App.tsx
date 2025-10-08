@@ -54,6 +54,11 @@ const CaseStudyEditor = lazy(() => import("./pages/admin/CaseStudyEditor"));
 const ResumeSubmissions = lazy(() => import("./pages/admin/ResumeSubmissions"));
 const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 const Users = lazy(() => import("./pages/admin/Users"));
+const SecurityCenter = lazy(() => import("./pages/admin/SecurityCenter"));
+const SecuritySettings = lazy(() => import("./pages/admin/SecuritySettings"));
+const AdminSEODashboard = lazy(() => import("./pages/admin/SEODashboard"));
+const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard"));
+const TemplateManager = lazy(() => import("./pages/admin/TemplateManager"));
 
 // Lazy load heavy content pages
 const Blog = lazy(() => import("./pages/Blog"));
@@ -152,6 +157,11 @@ const App = () => (
                   <Route path="/admin/resumes" element={<ResumeSubmissions />} />
                   <Route path="/admin/media" element={<MediaLibrary />} />
                   <Route path="/admin/users" element={<Users />} />
+                  <Route path="/admin/security-center" element={<SecurityCenter />} />
+                  <Route path="/admin/security-settings" element={<SecuritySettings />} />
+                  <Route path="/admin/seo-dashboard" element={<AdminSEODashboard />} />
+                  <Route path="/admin/performance-dashboard" element={<PerformanceDashboard />} />
+                  <Route path="/admin/template-manager" element={<TemplateManager />} />
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
