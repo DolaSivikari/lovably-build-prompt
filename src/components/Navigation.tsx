@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import ascentLogo from "@/assets/ascent-logo.png";
@@ -9,6 +9,7 @@ import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
 import { trackPhoneClick } from "@/lib/analytics";
+import { useHoverTimeout } from "@/hooks/useHoverTimeout";
 import {
   Collapsible,
   CollapsibleContent,
@@ -26,12 +27,14 @@ const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
-  const [megaMenuHoverTimeout, setMegaMenuHoverTimeout] = useState<NodeJS.Timeout | null>(null);
-  const [contactHoverTimeout, setContactHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileWhoWeServeOpen, setMobileWhoWeServeOpen] = useState(false);
   const [mobileBlogOpen, setMobileBlogOpen] = useState(false);
   const location = useLocation();
+  
+  // Use custom hook for hover timeout management with automatic cleanup
+  const megaMenuHover = useHoverTimeout();
+  const contactHover = useHoverTimeout();
 
   useEffect(() => {
     checkAuth();
@@ -55,48 +58,39 @@ const Navigation = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const handleMegaMenuEnter = (menuKey: string) => {
-    if (megaMenuHoverTimeout) {
-      clearTimeout(megaMenuHoverTimeout);
-    }
+  // Memoize event handlers for better performance
+  const handleMegaMenuEnter = useCallback((menuKey: string) => {
+    megaMenuHover.clearPendingTimeout();
     setActiveMegaMenu(menuKey);
-  };
+  }, [megaMenuHover]);
 
-  const handleMegaMenuLeave = () => {
-    const timeout = setTimeout(() => {
-      setActiveMegaMenu(null);
-    }, 300);
-    setMegaMenuHoverTimeout(timeout);
-  };
+  const handleMegaMenuLeave = useCallback(() => {
+    megaMenuHover.scheduleAction(() => setActiveMegaMenu(null), 300);
+  }, [megaMenuHover]);
 
-  const closeMegaMenu = () => {
+  const closeMegaMenu = useCallback(() => {
     setActiveMegaMenu(null);
-    if (megaMenuHoverTimeout) {
-      clearTimeout(megaMenuHoverTimeout);
-    }
-  };
+    megaMenuHover.clearPendingTimeout();
+  }, [megaMenuHover]);
 
-  // Contact dropdown hover handlers to match mega menu behavior
-  const openContactDropdown = () => {
-    if (contactHoverTimeout) {
-      clearTimeout(contactHoverTimeout);
-    }
+  // Contact dropdown hover handlers - now matching mega menu behavior (300ms delay)
+  const openContactDropdown = useCallback(() => {
+    contactHover.clearPendingTimeout();
     setContactDropdownOpen(true);
-  };
+  }, [contactHover]);
 
-  const scheduleCloseContactDropdown = () => {
-    const t = setTimeout(() => setContactDropdownOpen(false), 200);
-    setContactHoverTimeout(t);
-  };
+  const scheduleCloseContactDropdown = useCallback(() => {
+    contactHover.scheduleAction(() => setContactDropdownOpen(false), 300);
+  }, [contactHover]);
 
   return (
     <>
       <ScrollProgress />
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border" role="banner">
+      <nav className="fixed top-0 left-0 right-0 z-navigation bg-background/95 backdrop-blur-sm border-b border-border" role="banner">
         <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group relative z-50" aria-label="Ascent Group Construction - Home">
+          <Link to="/" className="flex items-center gap-3 group relative z-navigation" aria-label="Ascent Group Construction - Home">
             <img 
               src={ascentLogo} 
               alt="Ascent Group Construction" 
@@ -242,11 +236,10 @@ const Navigation = () => {
                 )} />
               </DropdownMenuTrigger>
               <DropdownMenuContent 
-                align="end" 
-                sideOffset={8}
+                align="end"
                 onMouseEnter={openContactDropdown}
                 onMouseLeave={scheduleCloseContactDropdown}
-                className="w-64 bg-background text-foreground rounded-lg border border-border z-[60] mt-2 p-0 animate-enter shadow-[0_10px_40px_-10px_hsl(var(--charcoal)_/_0.2)]"
+                className="w-64 bg-background text-foreground rounded-lg border border-border z-mega-menu mt-2 p-0 animate-enter shadow-[0_10px_40px_-10px_hsl(var(--charcoal)_/_0.2)]"
               >
                 <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                   <Link 

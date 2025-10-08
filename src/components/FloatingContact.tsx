@@ -7,7 +7,7 @@ const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-fixed">
       {isOpen && (
         <div className="mb-4 bg-background border border-border rounded-lg shadow-2xl p-4 space-y-3 animate-scale-in">
           <button

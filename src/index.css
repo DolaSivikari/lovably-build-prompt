@@ -64,20 +64,26 @@ All colors MUST be HSL.
     --shadow-glow: 0 0 40px hsl(25 95% 53% / 0.5);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
+    /* Z-Index System - Organized in layers from base to top */
+    --z-base: 0;           /* Default layer */
+    --z-dropdown: 10;      /* Dropdowns and popovers */
+    --z-sticky: 20;        /* Sticky elements */
+    --z-fixed: 30;         /* Fixed position elements */
+    --z-overlay: 40;       /* Overlays and backdrops */
+    --z-navigation: 50;    /* Navigation bar */
+    --z-mega-menu: 60;     /* Mega menus and complex dropdowns */
+    --z-modal: 70;         /* Modal dialogs */
+    --z-toast: 80;         /* Toast notifications */
+    --z-tooltip: 90;       /* Tooltips */
+    --z-skip-link: 100;    /* Skip to content link (highest) */
+
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -228,7 +234,7 @@ All colors MUST be HSL.
     padding: 0.5rem 1rem;
     text-decoration: none;
     border-radius: 0 0 0.25rem 0;
-    z-index: 100;
+    z-index: var(--z-skip-link);
     font-weight: 600;
     transition: top 0.2s;
   }
@@ -453,7 +459,7 @@ All colors MUST be HSL.
 .landing-hero__background {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: var(--z-base);
 }
 
 .landing-hero__background img,
@@ -466,7 +472,7 @@ All colors MUST be HSL.
 .landing-hero__overlay {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: calc(var(--z-base) + 1);
   background: linear-gradient(
     135deg,
     hsl(var(--background) / 0.95) 0%,
@@ -477,7 +483,7 @@ All colors MUST be HSL.
 
 .landing-hero__content {
   position: relative;
-  z-index: 10;
+  z-index: var(--z-dropdown);
   width: 100%;
   max-width: 800px;
   animation: fade-in 0.8s ease-out;
