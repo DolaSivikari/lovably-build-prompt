@@ -27,6 +27,7 @@ const Navigation = () => {
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
   const [megaMenuHoverTimeout, setMegaMenuHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [contactHoverTimeout, setContactHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileWhoWeServeOpen, setMobileWhoWeServeOpen] = useState(false);
   const [mobileBlogOpen, setMobileBlogOpen] = useState(false);
@@ -73,6 +74,19 @@ const Navigation = () => {
     if (megaMenuHoverTimeout) {
       clearTimeout(megaMenuHoverTimeout);
     }
+  };
+
+  // Contact dropdown hover handlers to match mega menu behavior
+  const openContactDropdown = () => {
+    if (contactHoverTimeout) {
+      clearTimeout(contactHoverTimeout);
+    }
+    setContactDropdownOpen(true);
+  };
+
+  const scheduleCloseContactDropdown = () => {
+    const t = setTimeout(() => setContactDropdownOpen(false), 200);
+    setContactHoverTimeout(t);
   };
 
   return (
@@ -213,6 +227,8 @@ const Navigation = () => {
             {/* Contact Dropdown */}
             <DropdownMenu open={contactDropdownOpen} onOpenChange={setContactDropdownOpen}>
               <DropdownMenuTrigger 
+                onMouseEnter={openContactDropdown}
+                onMouseLeave={scheduleCloseContactDropdown}
                 className={cn(
                   "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
                   contactDropdownOpen && "text-sage"
@@ -227,20 +243,25 @@ const Navigation = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="end" 
-                className="w-56 bg-background text-foreground rounded-lg border border-border z-[60] mt-2 animate-enter shadow-[0_10px_40px_-10px_hsl(var(--charcoal)_/_0.2)]"
+                sideOffset={8}
+                onMouseEnter={openContactDropdown}
+                onMouseLeave={scheduleCloseContactDropdown}
+                className="w-64 bg-background text-foreground rounded-lg border border-border z-[60] mt-2 p-0 animate-enter shadow-[0_10px_40px_-10px_hsl(var(--charcoal)_/_0.2)]"
               >
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                   <Link 
                     to="/contact" 
-                    className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/30 hover:text-primary rounded-md"
+                    onClick={() => setContactDropdownOpen(false)}
+                    className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                   >
                     Contact Us
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                   <Link 
                     to="/careers" 
-                    className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/30 hover:text-primary rounded-md"
+                    onClick={() => setContactDropdownOpen(false)}
+                    className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                   >
                     Careers
                   </Link>
