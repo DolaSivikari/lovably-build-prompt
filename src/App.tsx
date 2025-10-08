@@ -47,6 +47,7 @@ import ResumeSubmissions from "./pages/admin/ResumeSubmissions";
 
 import FAQ from "./pages/FAQ";
 import FloatingContact from "./components/FloatingContact";
+import SEODashboard from "./pages/SEODashboard";
 
 const queryClient = new QueryClient();
 
@@ -96,6 +97,7 @@ const App = () => (
           <Route path="/our-process" element={<OurProcess />} />
           <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/seo-dashboard" element={<SEODashboard />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/services" element={<AdminServices />} />

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import SEO from "@/components/SEO";
 import { Input } from "@/components/ui/input";
+import { faqSchema } from "@/utils/structured-data";
 import {
   Accordion,
   AccordionContent,
@@ -121,12 +122,21 @@ const FAQ = () => {
     )
   })).filter(category => category.questions.length > 0);
 
+  // Create FAQ schema from all questions
+  const allFAQs = faqCategories.flatMap(cat => 
+    cat.questions.map(q => ({
+      question: q.question,
+      answer: q.answer
+    }))
+  );
+
   return (
     <>
       <SEO
         title="Frequently Asked Questions - Ascent Group Construction"
         description="Find answers to common questions about our construction services, pricing, project timelines, and more. Expert guidance for your construction projects."
         keywords="construction FAQ, painting questions, project timeline, GTA construction, service pricing"
+        structuredData={faqSchema(allFAQs)}
       />
 
       <main className="min-h-screen pt-24 pb-12">

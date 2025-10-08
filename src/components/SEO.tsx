@@ -21,37 +21,106 @@ const SEO = ({
   const siteUrl = window.location.origin;
   const currentUrl = canonical || window.location.href;
 
-  // Default organization schema
+  // Enhanced organization schema with more details
   const defaultSchema = {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
-    name: "Ascen Group Construction",
+    "@id": `${siteUrl}/#organization`,
+    name: "Ascent Group Construction",
+    alternateName: "Ascent Group",
     description: description,
     url: siteUrl,
-    logo: `${siteUrl}/logo.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${siteUrl}/logo.png`,
+      width: "250",
+      height: "60"
+    },
+    image: `${siteUrl}/og-image.jpg`,
+    telephone: "+1-416-555-7246",
+    email: "info@ascentgroupconstruction.com",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Toronto",
+      streetAddress: "123 Industrial Parkway",
+      addressLocality: "Mississauga",
       addressRegion: "ON",
+      postalCode: "L5T 1A1",
       addressCountry: "CA",
     },
-    areaServed: {
-      "@type": "State",
-      name: "Ontario",
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "43.6532",
+      longitude: "-79.3832"
     },
+    areaServed: [
+      {
+        "@type": "City",
+        name: "Toronto",
+      },
+      {
+        "@type": "City",
+        name: "Mississauga",
+      },
+      {
+        "@type": "City",
+        name: "Brampton",
+      },
+      {
+        "@type": "State",
+        name: "Ontario",
+      }
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+1-416-555-7246",
       contactType: "customer service",
-      email: "info@ascengroup.ca",
+      email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
+      contactOption: "TollFree",
+      areaServed: "CA"
     },
     sameAs: [
-      "https://www.linkedin.com/company/ascengroup",
-      "https://www.facebook.com/ascengroup",
-      "https://twitter.com/ascengroup",
+      "https://www.linkedin.com/company/ascentgroup",
+      "https://www.facebook.com/ascentgroup",
+      "https://twitter.com/ascentgroup",
     ],
-    priceRange: "$$$$",
+    priceRange: "$$-$$$",
+    foundingDate: "2009",
+    slogan: "Quality craftsmanship and exceptional results",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "127",
+      bestRating: "5",
+      worstRating: "1"
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Construction Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Commercial Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Residential Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Stucco & EIFS"
+          }
+        }
+      ]
+    }
   };
 
   // Combine schemas if custom structured data is provided

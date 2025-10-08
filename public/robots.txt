@@ -12,3 +12,11 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://ascengroup.ca/sitemap.xml
+
+# Block access to admin pages
+User-agent: *
+Disallow: /admin
+Disallow: /auth
