@@ -10,10 +10,10 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <HardHat className="h-8 w-8" />
-              <span className="font-bold text-lg">BuildCraft</span>
+              <span className="font-bold text-lg">Ascen Group</span>
             </div>
             <p className="text-sm text-primary-foreground/80 mb-4">
-              Leading construction management company delivering excellence across Canada with over 25 years of combined experience.
+              Expert painting and exterior finishing services across the GTA. Quality craftsmanship and exceptional results since 2009.
             </p>
             <div className="flex gap-4">
               <a href="#" className="hover:text-secondary transition-colors" aria-label="LinkedIn">
@@ -38,13 +38,23 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/our-process" className="text-primary-foreground/80 hover:text-secondary transition-colors">
+                  Our Process
+                </Link>
+              </li>
+              <li>
                 <Link to="/services" className="text-primary-foreground/80 hover:text-secondary transition-colors">
-                  Our Services
+                  Services
                 </Link>
               </li>
               <li>
                 <Link to="/projects" className="text-primary-foreground/80 hover:text-secondary transition-colors">
                   Projects
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-primary-foreground/80 hover:text-secondary transition-colors">
+                  Blog
                 </Link>
               </li>
               <li>
@@ -55,15 +65,30 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Who We Serve */}
           <div>
-            <h3 className="font-semibold mb-4">Services</h3>
-            <ul className="space-y-2 text-sm text-primary-foreground/80">
-              <li>Construction Management</li>
-              <li>General Contracting</li>
-              <li>Design-Build</li>
-              <li>Pre-Construction</li>
-              <li>VDC & BIM Services</li>
+            <h3 className="font-semibold mb-4">Who We Serve</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/homeowners" className="text-primary-foreground/80 hover:text-secondary transition-colors">
+                  Homeowners
+                </Link>
+              </li>
+              <li>
+                <Link to="/property-managers" className="text-primary-foreground/80 hover:text-secondary transition-colors">
+                  Property Managers
+                </Link>
+              </li>
+              <li>
+                <Link to="/commercial-clients" className="text-primary-foreground/80 hover:text-secondary transition-colors">
+                  Commercial Clients
+                </Link>
+              </li>
+              <li>
+                <Link to="/estimate" className="text-primary-foreground/80 hover:text-secondary transition-colors">
+                  Get Estimate
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -73,22 +98,22 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-primary-foreground/80">
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
-                <span>123 Construction Ave, Toronto, ON M5H 2N2</span>
+                <span>Serving the Greater Toronto Area</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>(416) 555-0123</span>
+                <span>(416) 555-PAINT</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <span>info@buildcraft.ca</span>
+                <span>info@ascengroup.ca</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm text-primary-foreground/60">
-          <p>&copy; {new Date().getFullYear()} BuildCraft Management. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Ascen Group Construction. All rights reserved.</p>
         </div>
       </div>
     </footer>
