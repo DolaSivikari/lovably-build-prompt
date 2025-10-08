@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Menu, X, HardHat } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Menu, X, HardHat, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const Navigation = () => {
@@ -28,12 +34,17 @@ const Navigation = () => {
     { name: "Services", path: "/services" },
     { name: "Our Process", path: "/our-process" },
     { name: "Projects", path: "/projects" },
-    { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
     ...(isAuthenticated ? [{ name: "Admin", path: "/admin" }] : []),
   ];
 
+  const blogDropdownItems = [
+    { name: "Blog", path: "/blog" },
+    { name: "Case Studies", path: "/case-studies" },
+  ];
+
   const isActive = (path: string) => location.pathname === path;
+  const isBlogSection = location.pathname.startsWith("/blog") || location.pathname.startsWith("/case-stud");
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -59,6 +70,30 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
+            
+            {/* Blog Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${
+                isBlogSection ? "text-primary" : "text-foreground"
+              }`}>
+                Blog <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-background border shadow-lg z-50">
+                {blogDropdownItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link 
+                      to={item.path}
+                      className={`w-full cursor-pointer ${
+                        isActive(item.path) ? "text-primary font-medium" : ""
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary">
               <Link to="/estimate">Get Estimate</Link>
             </Button>
@@ -89,6 +124,24 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
+            
+            {/* Mobile Blog Section */}
+            <div className="border-t pt-4">
+              <p className="text-xs font-semibold text-muted-foreground mb-2 px-2">BLOG</p>
+              {blogDropdownItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`block text-sm font-medium py-2 pl-4 transition-colors hover:text-primary ${
+                    isActive(item.path) ? "text-primary" : "text-foreground"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+            
             <Button variant="default" className="w-full bg-secondary hover:bg-secondary/90 text-primary" asChild>
               <Link to="/estimate" onClick={() => setIsOpen(false)}>
                 Get Estimate
