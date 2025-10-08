@@ -1,139 +1,219 @@
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { CheckCircle2, Users, Target, Award } from "lucide-react";
+import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Award, MessageCircle, Shield, Heart, Leaf } from "lucide-react";
+import companyData from "@/data/company-info.json";
+import teamWork from "@/assets/team-work.jpg";
+
+const iconMap: { [key: string]: any } = {
+  award: Award,
+  "message-circle": MessageCircle,
+  shield: Shield,
+  heart: Heart,
+};
 
 const About = () => {
-  const values = [
-    {
-      icon: CheckCircle2,
-      title: "Quality First",
-      description: "We never compromise on quality. Every project receives our full commitment to excellence and attention to detail.",
-    },
-    {
-      icon: Users,
-      title: "Collaborative Approach",
-      description: "Success comes from strong partnerships. We work closely with clients, architects, and trades to achieve common goals.",
-    },
-    {
-      icon: Target,
-      title: "Innovation & Technology",
-      description: "Embracing cutting-edge tools like BIM and digital project management to deliver smarter, more efficient results.",
-    },
-    {
-      icon: Award,
-      title: "Safety & Sustainability",
-      description: "Committed to maintaining the highest safety standards while minimizing environmental impact on every project.",
-    },
-  ];
-
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen">
+      <SEO 
+        title="About Us"
+        description="Learn about Ascen Group Construction - 15+ years of excellence in residential painting and stucco/EIFS services across the GTA. Meet our team and discover our values."
+        keywords="about Ascen Group, construction company Mississauga, painting contractor team, company values, sustainability"
+      />
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-primary to-primary-light text-primary-foreground">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">Building Canada's Future, One Project at a Time</h1>
-            <p className="text-lg md:text-xl text-primary-foreground/90">
-              Founded on principles of integrity, innovation, and excellence, BuildCraft Management has grown from humble beginnings to become a trusted leader in Canadian construction management.
+      <main>
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-br from-primary to-primary/80 text-white py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">About Ascen Group</h1>
+            <p className="text-xl max-w-3xl mx-auto opacity-90">
+              Building lasting relationships through exceptional craftsmanship, integrity, and commitment to excellence since 2009.
             </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Story Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+        {/* Company Story */}
+        <section className="container mx-auto px-4 py-16">
+          <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-              <div className="space-y-4 text-muted-foreground">
+              <h2 className="text-4xl font-bold mb-6">Our Story</h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  BuildCraft Management was established with a clear vision: to transform the construction industry through exceptional project delivery, collaborative partnerships, and unwavering commitment to quality.
+                  Founded in 2009, Ascen Group Construction began with a simple mission: deliver exceptional painting and exterior finishing services with uncompromising quality and integrity.
                 </p>
                 <p>
-                  Drawing inspiration from industry leaders like Bird Construction's century of trust and PCL's employee-owned culture, we've built a company that values people as much as profits. Our founders brought together decades of experience from major projects across Canada.
+                  What started as a small team of dedicated craftsmen has grown into one of the GTA's most trusted contractors. We've completed over 500 projects, built lasting relationships with hundreds of satisfied clients, and established a reputation for excellence that speaks for itself.
                 </p>
                 <p>
-                  Today, we're proud to serve clients across commercial, industrial, and institutional sectors, leveraging modern technology and proven methodologies to deliver projects that exceed expectations.
+                  Today, we continue to uphold the same values that guided us from day one—quality first, transparent communication, unwavering commitment to safety, and complete customer satisfaction.
+                </p>
+              </div>
+              <div className="mt-8 grid grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-primary">15+</div>
+                  <div className="text-sm text-muted-foreground">Years</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-primary">500+</div>
+                  <div className="text-sm text-muted-foreground">Projects</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-primary">98%</div>
+                  <div className="text-sm text-muted-foreground">Referral Rate</div>
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+              <img
+                src={teamWork}
+                alt="Ascen Group Construction team working on a project"
+                className="rounded-lg shadow-2xl w-full h-auto"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-secondary text-primary p-6 rounded-lg shadow-xl max-w-xs">
+                <p className="font-bold text-lg mb-2">Our Promise</p>
+                <p className="text-sm">
+                  Every project completed on time, within budget, and exceeding expectations.
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-primary/10 p-6 rounded-lg">
-                <div className="text-4xl font-bold text-primary mb-2">25+</div>
-                <div className="text-sm font-medium">Years Combined Experience</div>
-              </div>
-              <div className="bg-primary/10 p-6 rounded-lg">
-                <div className="text-4xl font-bold text-primary mb-2">500+</div>
-                <div className="text-sm font-medium">Projects Delivered</div>
-              </div>
-              <div className="bg-primary/10 p-6 rounded-lg">
-                <div className="text-4xl font-bold text-primary mb-2">$2B+</div>
-                <div className="text-sm font-medium">Total Project Value</div>
-              </div>
-              <div className="bg-primary/10 p-6 rounded-lg">
-                <div className="text-4xl font-bold text-primary mb-2">98%</div>
-                <div className="text-sm font-medium">Client Satisfaction</div>
-              </div>
+          </div>
+        </section>
+
+        {/* Values */}
+        <section className="bg-muted py-16 mt-12">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Our Core Values</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                The principles that guide every decision and every project
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {companyData.values.map((value, index) => {
+                const IconComponent = iconMap[value.icon];
+                return (
+                  <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <IconComponent className="w-8 h-8 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-3">{value.title}</h3>
+                      <p className="text-muted-foreground text-sm">
+                        {value.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Mission & Vision */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12">
-            <Card>
-              <CardContent className="pt-6">
-                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-                <p className="text-muted-foreground">
-                  To deliver exceptional construction management services that consistently exceed client expectations through innovation, collaboration, and an unwavering commitment to quality and safety. We strive to be the partner of choice for organizations seeking reliable, professional, and results-driven construction solutions.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6">
-                <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-                <p className="text-muted-foreground">
-                  To be recognized as Canada's premier construction management firm, setting industry standards for excellence, sustainability, and technological innovation. We envision a future where every project we touch becomes a benchmark for quality and a testament to what's possible when expertise meets dedication.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
-      {/* Values */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Core Values</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              The principles that guide every decision we make and every project we deliver
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value) => (
-              <Card key={value.title} className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="flex justify-center mb-4">
-                    <div className="p-3 bg-primary/10 rounded-full">
-                      <value.icon className="h-8 w-8 text-primary" />
+        {/* Sustainability */}
+        <section className="bg-muted py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <Leaf className="w-8 h-8 text-primary" />
+                <h2 className="text-4xl font-bold">Sustainability Commitment</h2>
+              </div>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                {companyData.sustainability.commitment}
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {companyData.sustainability.initiatives.map((initiative, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-bold mb-2">{initiative.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {initiative.description}
+                    </p>
+                    <div className="pt-3 border-t">
+                      <p className="text-xs font-semibold text-primary">
+                        Impact: {initiative.impact}
+                      </p>
                     </div>
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">{value.title}</h3>
-                  <p className="text-sm text-muted-foreground">{value.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
+        {/* Safety */}
+        <section className="container mx-auto px-4 py-16">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <Shield className="w-8 h-8 text-primary" />
+                <h2 className="text-4xl font-bold">Safety First, Always</h2>
+              </div>
+              <p className="text-lg text-muted-foreground">
+                {companyData.safety.commitment}
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <Card className="text-center p-6 bg-primary text-primary-foreground">
+                <div className="text-3xl font-bold mb-2">500+</div>
+                <p className="text-sm opacity-90">Projects with Zero Lost-Time Incidents</p>
+              </Card>
+              <Card className="text-center p-6 bg-primary text-primary-foreground">
+                <div className="text-3xl font-bold mb-2">2,000+</div>
+                <p className="text-sm opacity-90">Hours of Safety Training Annually</p>
+              </Card>
+              <Card className="text-center p-6 bg-primary text-primary-foreground">
+                <div className="text-3xl font-bold mb-2">100%</div>
+                <p className="text-sm opacity-90">OSHA Compliance Rate</p>
+              </Card>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              {companyData.safety.programs.map((program, index) => (
+                <Card key={index}>
+                  <CardContent className="p-4">
+                    <h3 className="font-bold mb-2">{program.title}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {program.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-16">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-4">
+              Ready to Work with Us?
+            </h2>
+            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+              Experience the Ascen Group difference—quality craftsmanship, transparent communication, and complete satisfaction.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/estimate">
+                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-primary font-bold px-8">
+                  Get Free Estimate
+                </Button>
+              </Link>
+              <Link to="/projects">
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10">
+                  View Our Work
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+      
       <Footer />
     </div>
   );
