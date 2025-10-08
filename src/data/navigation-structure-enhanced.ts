@@ -30,15 +30,15 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         {
           title: "Painting Services",
           subItems: [
-            { name: "Commercial Painting", link: "/services/commercial-painting" },
-            { name: "Residential Painting", link: "/services/residential-painting" },
-            { name: "Condo Painting", link: "/services/condo-painting" },
+            { name: "Commercial Painting", link: "/services/commercial" },
+            { name: "Residential Painting", link: "/services/painting" },
+            { name: "Condo Painting", link: "/services/condo" },
           ],
         },
         {
           title: "Exterior Systems",
           subItems: [
-            { name: "Stucco & EIFS", link: "/services/stucco-eifs" },
+            { name: "Stucco & EIFS", link: "/services/stucco" },
             { name: "Metal Cladding", link: "/services/metal-cladding" },
             { name: "Masonry & Restoration", link: "/services/masonry" },
             { name: "Sealants & Caulking", link: "/services/sealants" },
