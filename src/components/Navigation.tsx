@@ -212,25 +212,27 @@ const Navigation = () => {
             
             {/* Contact Dropdown */}
             <DropdownMenu open={contactDropdownOpen} onOpenChange={setContactDropdownOpen}>
-              <DropdownMenuTrigger className={cn(
-                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100 inline-flex items-center gap-1",
-                contactDropdownOpen ? "text-sage" : "text-foreground",
-                (isActive("/contact") || isActive("/careers")) && "text-primary after:scale-x-100"
-              )}>
+              <DropdownMenuTrigger 
+                className={cn(
+                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
+                  contactDropdownOpen && "text-sage"
+                )}
+                aria-expanded={contactDropdownOpen}
+              >
                 Contact
                 <ChevronDown className={cn(
                   "w-4 h-4 transition-transform duration-200",
                   contactDropdownOpen && "rotate-180"
                 )} />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 bg-background border border-border shadow-lg z-50 mt-2">
+              <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuItem asChild>
-                  <Link to="/contact" className="cursor-pointer hover:bg-muted transition-colors px-3 py-2">
+                  <Link to="/contact" className="cursor-pointer">
                     Contact Us
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/careers" className="cursor-pointer hover:bg-muted transition-colors px-3 py-2">
+                  <Link to="/careers" className="cursor-pointer">
                     Careers
                   </Link>
                 </DropdownMenuItem>
