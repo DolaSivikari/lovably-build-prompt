@@ -225,14 +225,23 @@ const Navigation = () => {
                   contactDropdownOpen && "rotate-180"
                 )} />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-popover border border-border shadow-lg z-50 mt-2 animate-enter">
+              <DropdownMenuContent 
+                align="end" 
+                className="w-56 bg-background text-foreground rounded-lg border border-border z-[60] mt-2 animate-enter shadow-[0_10px_40px_-10px_hsl(var(--charcoal)_/_0.2)]"
+              >
                 <DropdownMenuItem asChild>
-                  <Link to="/contact" className="cursor-pointer px-3 py-2 rounded-sm transition-colors hover:bg-muted">
+                  <Link 
+                    to="/contact" 
+                    className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/30 hover:text-primary rounded-md"
+                  >
                     Contact Us
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/careers" className="cursor-pointer px-3 py-2 rounded-sm transition-colors hover:bg-muted">
+                  <Link 
+                    to="/careers" 
+                    className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/30 hover:text-primary rounded-md"
+                  >
                     Careers
                   </Link>
                 </DropdownMenuItem>
