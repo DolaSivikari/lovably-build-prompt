@@ -26,6 +26,7 @@ import NotFound from "./pages/NotFound";
 import ResidentialPainting from "./pages/services/ResidentialPainting";
 import CommercialPainting from "./pages/services/CommercialPainting";
 import CondoPainting from "./pages/services/CondoPainting";
+import PopcornCeilingRemoval from "./pages/services/PopcornCeilingRemoval";
 import StuccoEIFS from "./pages/services/StuccoEIFS";
 import MetalCladding from "./pages/services/MetalCladding";
 import Masonry from "./pages/services/Masonry";
@@ -83,6 +84,7 @@ const App = () => (
           <Route path="/services/painting" element={<ResidentialPainting />} />
           <Route path="/services/commercial" element={<CommercialPainting />} />
           <Route path="/services/condo" element={<CondoPainting />} />
+          <Route path="/services/popcorn-ceiling" element={<PopcornCeilingRemoval />} />
           <Route path="/services/stucco" element={<StuccoEIFS />} />
           <Route path="/services/metal-cladding" element={<MetalCladding />} />
           <Route path="/services/masonry" element={<Masonry />} />

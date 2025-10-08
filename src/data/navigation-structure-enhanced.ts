@@ -33,6 +33,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             { name: "Commercial Painting", link: "/services/commercial" },
             { name: "Residential Painting", link: "/services/painting" },
             { name: "Condo Painting", link: "/services/condo" },
+            { name: "Popcorn Ceiling Removal", link: "/services/popcorn-ceiling" },
           ],
         },
         {
