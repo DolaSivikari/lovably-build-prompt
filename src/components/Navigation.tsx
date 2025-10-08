@@ -104,7 +104,8 @@ const Navigation = () => {
               onMouseEnter={() => handleMegaMenuEnter("services")}
               onMouseLeave={handleMegaMenuLeave}
             >
-              <button
+              <Link
+                to="/services"
                 className={cn(
                   "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
                   activeMegaMenu === "services" && "text-sage"
@@ -117,7 +118,7 @@ const Navigation = () => {
                   "w-4 h-4 transition-transform duration-200",
                   activeMegaMenu === "services" && "rotate-180"
                 )} />
-              </button>
+              </Link>
               <MegaMenuWithSections
                 sections={megaMenuDataEnhanced.services}
                 isOpen={activeMegaMenu === "services"}
@@ -234,9 +235,16 @@ const Navigation = () => {
             
             {/* Services with Accordion */}
             <div className="border-t border-border pt-4">
+              <Link
+                to="/services"
+                onClick={() => setIsOpen(false)}
+                className="block text-sm font-medium py-3 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target text-foreground mb-2"
+              >
+                View All Services
+              </Link>
               <Collapsible open={mobileServicesOpen} onOpenChange={setMobileServicesOpen}>
                 <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-semibold text-muted-foreground mb-2 px-2">
-                  <span>SERVICES</span>
+                  <span>Browse by Category</span>
                   <ChevronDown className={cn(
                     "w-4 h-4 transition-transform",
                     mobileServicesOpen && "rotate-180"
