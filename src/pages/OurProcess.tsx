@@ -12,11 +12,9 @@ import {
   Paintbrush, 
   CheckCircle, 
   Phone,
-  ArrowRight,
   Shield,
   Clock,
-  Users,
-  Sparkles
+  Users
 } from "lucide-react";
 
 const OurProcess = () => {
@@ -119,18 +117,16 @@ const OurProcess = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20 relative overflow-hidden">
-          {/* Animated background elements */}
-          <div className="absolute top-10 right-10 w-72 h-72 bg-secondary/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
+        <section className="bg-gradient-to-br from-primary via-primary-dark to-charcoal text-white py-20 relative overflow-hidden">
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 grid-pattern opacity-30" />
           
           <div className="container mx-auto px-4 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full animate-fade-in">
-              <Sparkles className="h-4 w-4 text-secondary" />
-              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">How We Work</span>
+            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-white/5 backdrop-blur-sm border border-cream/20 rounded-sm">
+              <span className="text-cream font-semibold text-sm tracking-wider uppercase">Our Process</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-slide-up">Our Proven Process</h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Proven Process</h1>
+            <p className="text-xl max-w-3xl mx-auto text-cream/90">
               From initial consultation to final walkthrough, we follow a systematic approach 
               that ensures quality, transparency, and your complete satisfaction at every step.
             </p>
@@ -138,10 +134,9 @@ const OurProcess = () => {
         </section>
 
         {/* Process Steps */}
-        <section ref={sectionRef} className="py-24 bg-background relative overflow-hidden">
-          {/* Background decoration */}
-          <div className="absolute top-20 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
+        <section ref={sectionRef} className="py-16 bg-gradient-to-br from-charcoal via-primary-dark to-primary relative overflow-hidden">
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 grid-pattern opacity-20" />
           
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-6xl mx-auto">
@@ -157,46 +152,46 @@ const OurProcess = () => {
                     {/* Step Info */}
                     <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                       <div className="flex items-center gap-4 mb-6">
-                        <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
-                          <step.icon className="w-8 h-8 text-secondary" />
+                        <div className="w-16 h-16 bg-white/5 backdrop-blur-sm border border-cream/20 rounded-sm flex items-center justify-center hover-lift">
+                          <step.icon className="w-8 h-8 text-cream" />
                         </div>
                         <div>
-                          <div className="text-sm text-muted-foreground font-semibold uppercase tracking-wider">
+                          <div className="text-sm text-cream/70 font-semibold uppercase tracking-wider">
                             Step {step.step}
                           </div>
-                          <h2 className="text-3xl font-bold text-primary">{step.title}</h2>
+                          <h2 className="text-3xl font-bold text-white">{step.title}</h2>
                         </div>
                       </div>
                       
-                      <div className="mb-4 inline-block px-3 py-1 bg-secondary/10 rounded-full">
-                        <span className="text-sm font-semibold text-primary">
+                      <div className="mb-4 inline-block px-3 py-1.5 bg-white/5 border border-cream/10 rounded-sm">
+                        <span className="text-sm font-semibold text-cream">
                           <Clock className="w-4 h-4 inline mr-1" />
                           {step.duration}
                         </span>
                       </div>
 
-                      <p className="text-lg text-muted-foreground mb-6">
+                      <p className="text-lg text-cream/90 mb-6">
                         {step.description}
                       </p>
 
                       <div className="space-y-3">
                         {step.details.map((detail, idx) => (
                           <div key={idx} className="flex items-start gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-muted-foreground">{detail}</span>
+                            <CheckCircle className="w-5 h-5 text-cream flex-shrink-0 mt-0.5" />
+                            <span className="text-cream/80">{detail}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="mt-6 pt-6 border-t border-border">
-                        <div className="text-sm font-semibold text-muted-foreground mb-3">
+                      <div className="mt-6 pt-6 border-t border-cream/10">
+                        <div className="text-sm font-semibold text-cream/70 mb-3">
                           You Receive:
                         </div>
                         <div className="flex flex-wrap gap-2">
                           {step.deliverables.map((deliverable, idx) => (
                             <span
                               key={idx}
-                              className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+                              className="px-3 py-1 bg-white/5 text-cream border border-cream/20 rounded-sm text-sm font-medium"
                             >
                               {deliverable}
                             </span>
@@ -207,20 +202,17 @@ const OurProcess = () => {
 
                     {/* Visual Card */}
                     <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                      <Card className="overflow-hidden shadow-xl border-2 hover:border-primary/30 hover:scale-105 transition-all duration-500 group">
-                        <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-12 relative">
-                          {/* Decorative corner accent */}
-                          <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full transform translate-x-10 -translate-y-10 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500" />
-                          
-                          <div className="text-center relative z-10">
-                            <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-lg mb-6 group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
-                              <div className="text-5xl font-bold text-primary">
+                      <Card className="overflow-hidden bg-white/5 backdrop-blur-sm border border-cream/10 hover:border-cream/30 hover-lift transition-all duration-300">
+                        <div className="p-12">
+                          <div className="text-center">
+                            <div className="inline-flex items-center justify-center w-24 h-24 bg-white/10 border border-cream/20 rounded-sm mb-6">
+                              <div className="text-5xl font-bold text-cream">
                                 {step.step}
                               </div>
                             </div>
-                            <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
-                            <div className="w-16 h-1 bg-secondary mx-auto mb-6" />
-                            <p className="text-muted-foreground">
+                            <h3 className="text-2xl font-bold mb-4 text-white">{step.title}</h3>
+                            <div className="w-16 h-0.5 bg-cream/30 mx-auto mb-6" />
+                            <p className="text-cream/80">
                               This phase ensures {step.title.toLowerCase()} meets our high standards and your expectations.
                             </p>
                           </div>
@@ -229,12 +221,10 @@ const OurProcess = () => {
                     </div>
                   </div>
 
-                  {/* Connector Line */}
+                  {/* Connector */}
                   {index < processSteps.length - 1 && (
                     <div className="flex justify-center my-8">
-                      <div className="animate-pulse">
-                        <ArrowRight className="w-8 h-8 text-primary animate-bounce" />
-                      </div>
+                      <div className="w-0.5 h-8 bg-cream/20" />
                     </div>
                   )}
                 </div>
@@ -244,11 +234,13 @@ const OurProcess = () => {
         </section>
 
         {/* Quality Standards */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
+        <section className="py-16 bg-gradient-to-br from-primary via-primary-dark to-charcoal relative overflow-hidden">
+          <div className="absolute inset-0 grid-pattern opacity-20" />
+          
+          <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Our Quality Standards</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold mb-4 text-white">Our Quality Standards</h2>
+              <p className="text-lg text-cream/90 max-w-2xl mx-auto">
                 Every project is backed by our commitment to excellence and attention to detail
               </p>
             </div>
@@ -257,14 +249,14 @@ const OurProcess = () => {
               {qualityStandards.map((standard, index) => (
                 <Card 
                   key={index} 
-                  className="text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group"
+                  className="text-center bg-white/5 backdrop-blur-sm border border-cream/10 hover:border-cream/30 hover-lift transition-all duration-300"
                 >
                   <CardContent className="p-8">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                      <standard.icon className="w-8 h-8 text-secondary" />
+                    <div className="w-16 h-16 bg-white/10 border border-cream/20 rounded-sm flex items-center justify-center mx-auto mb-6">
+                      <standard.icon className="w-8 h-8 text-cream" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{standard.title}</h3>
-                    <p className="text-muted-foreground">{standard.description}</p>
+                    <h3 className="text-xl font-bold mb-3 text-white">{standard.title}</h3>
+                    <p className="text-cream/80">{standard.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -273,20 +265,22 @@ const OurProcess = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">Ready to Start Your Project?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+        <section className="py-16 bg-gradient-to-br from-charcoal via-primary-dark to-primary relative overflow-hidden">
+          <div className="absolute inset-0 grid-pattern opacity-20" />
+          
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h2 className="text-4xl font-bold mb-6 text-white">Ready to Start Your Project?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto text-cream/90">
               Let's discuss your vision and show you exactly how we'll bring it to life
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/estimate">
-                <Button size="lg" variant="secondary" className="text-lg">
+                <Button size="lg" className="text-lg bg-cream text-charcoal hover:bg-cream/90">
                   Get Free Estimate
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary text-lg">
+                <Button size="lg" variant="outline" className="border-cream text-cream hover:bg-cream hover:text-charcoal text-lg">
                   <Phone className="mr-2 w-5 h-5" />
                   Contact Us
                 </Button>
