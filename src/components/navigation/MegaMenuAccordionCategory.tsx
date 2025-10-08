@@ -1,0 +1,60 @@
+import { Link } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
+import { AccordionCategory } from "@/data/navigation-structure-enhanced";
+import { cn } from "@/lib/utils";
+
+interface MegaMenuAccordionCategoryProps {
+  category: AccordionCategory;
+  isExpanded: boolean;
+  onToggle: () => void;
+  onLinkClick: () => void;
+}
+
+export const MegaMenuAccordionCategory = ({
+  category,
+  isExpanded,
+  onToggle,
+  onLinkClick,
+}: MegaMenuAccordionCategoryProps) => {
+  return (
+    <div className="mega-menu-accordion-category">
+      <button
+        className={cn(
+          "mega-menu-accordion-trigger",
+          isExpanded && "mega-menu-accordion-trigger--expanded"
+        )}
+        onClick={onToggle}
+        aria-expanded={isExpanded}
+      >
+        <span className="mega-menu-accordion-title">{category.title}</span>
+        <ChevronDown
+          className={cn(
+            "mega-menu-accordion-icon",
+            isExpanded && "mega-menu-accordion-icon--expanded"
+          )}
+        />
+      </button>
+      
+      <div
+        className={cn(
+          "mega-menu-accordion-content",
+          isExpanded && "mega-menu-accordion-content--expanded"
+        )}
+      >
+        <ul className="mega-menu-accordion-list">
+          {category.subItems.map((item, index) => (
+            <li key={index}>
+              <Link
+                to={item.link}
+                className="mega-menu-accordion-link"
+                onClick={onLinkClick}
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
