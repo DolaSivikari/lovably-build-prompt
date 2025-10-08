@@ -27,8 +27,11 @@ All colors MUST be HSL.
     --primary: 210 85% 35%;     /* Construction Blue */
     --primary-foreground: 0 0% 100%;
     --primary-light: 210 75% 45%;
+    --primary-dark: 210 85% 25%;
+    --primary-glow: 210 85% 45%;
     
     /* Construction orange - energy and action */
+    --accent-orange-light: 25 95% 63%;
     --secondary: 25 95% 53%;    /* Construction Orange */
     --secondary-foreground: 0 0% 100%;
 
@@ -104,8 +107,11 @@ All colors MUST be HSL.
     --primary: 210 75% 55%;
     --primary-foreground: 0 0% 100%;
     --primary-light: 210 70% 65%;
+    --primary-dark: 210 75% 35%;
+    --primary-glow: 210 75% 65%;
 
     --secondary: 25 95% 53%;
+    --accent-orange-light: 25 95% 63%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 215 25% 18%;
