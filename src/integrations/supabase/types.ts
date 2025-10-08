@@ -522,6 +522,33 @@ export type Database = {
           },
         ]
       }
+      rate_limits: {
+        Row: {
+          created_at: string | null
+          endpoint: string
+          id: string
+          request_count: number | null
+          user_identifier: string
+          window_start: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          endpoint: string
+          id?: string
+          request_count?: number | null
+          user_identifier: string
+          window_start?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          endpoint?: string
+          id?: string
+          request_count?: number | null
+          user_identifier?: string
+          window_start?: string | null
+        }
+        Relationships: []
+      }
       resume_submissions: {
         Row: {
           admin_notes: string | null
@@ -833,6 +860,10 @@ export type Database = {
       can_edit_content: {
         Args: { _user_id: string }
         Returns: boolean
+      }
+      cleanup_rate_limits: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
       has_role: {
         Args: {

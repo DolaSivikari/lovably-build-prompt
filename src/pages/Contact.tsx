@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,6 +11,34 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+
+// Input validation schema to prevent XSS/injection attacks
+const contactSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be less than 100 characters")
+    .regex(/^[a-zA-Z\s'-]+$/, "Name contains invalid characters"),
+  email: z.string()
+    .trim()
+    .email("Invalid email address")
+    .max(255, "Email must be less than 255 characters"),
+  phone: z.string()
+    .trim()
+    .max(20, "Phone must be less than 20 characters")
+    .regex(/^[0-9\s\-\(\)\+]*$/, "Phone contains invalid characters")
+    .optional()
+    .or(z.literal("")),
+  company: z.string()
+    .trim()
+    .max(100, "Company name must be less than 100 characters")
+    .optional()
+    .or(z.literal("")),
+  message: z.string()
+    .trim()
+    .min(10, "Message must be at least 10 characters")
+    .max(2000, "Message must be less than 2000 characters"),
+});
 
 const Contact = () => {
   const { toast } = useToast();
@@ -27,14 +56,17 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      // Validate input to prevent XSS/injection attacks
+      const validatedData = contactSchema.parse(formData);
+
       const { error } = await supabase
         .from("contact_submissions")
         .insert([{
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          company: formData.company || null,
-          message: formData.message,
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone || null,
+          company: validatedData.company || null,
+          message: validatedData.message,
           submission_type: "contact",
         }]);
 
@@ -55,11 +87,11 @@ const Contact = () => {
       try {
         await supabase.functions.invoke('send-contact-notification', {
           body: {
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            company: formData.company,
-            message: formData.message,
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            company: validatedData.company,
+            message: validatedData.message,
             submissionType: "Contact Form"
           }
         });
@@ -75,11 +107,21 @@ const Contact = () => {
 
       setFormData({ name: "", email: "", phone: "", company: "", message: "" });
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
+      if (error instanceof z.ZodError) {
+        // Display validation errors
+        const firstError = error.errors[0];
+        toast({
+          title: "Validation Error",
+          description: firstError.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to send message. Please try again.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
