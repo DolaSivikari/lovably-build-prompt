@@ -61,6 +61,66 @@ export type Database = {
           },
         ]
       }
+      auth_account_lockouts: {
+        Row: {
+          created_at: string | null
+          id: string
+          locked_at: string | null
+          locked_until: string
+          reason: string | null
+          unlocked_at: string | null
+          unlocked_by: string | null
+          user_identifier: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          locked_at?: string | null
+          locked_until: string
+          reason?: string | null
+          unlocked_at?: string | null
+          unlocked_by?: string | null
+          user_identifier: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          locked_at?: string | null
+          locked_until?: string
+          reason?: string | null
+          unlocked_at?: string | null
+          unlocked_by?: string | null
+          user_identifier?: string
+        }
+        Relationships: []
+      }
+      auth_failed_attempts: {
+        Row: {
+          attempt_time: string | null
+          created_at: string | null
+          id: string
+          ip_address: string | null
+          user_agent: string | null
+          user_identifier: string
+        }
+        Insert: {
+          attempt_time?: string | null
+          created_at?: string | null
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+          user_identifier: string
+        }
+        Update: {
+          attempt_time?: string | null
+          created_at?: string | null
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+          user_identifier?: string
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author_id: string | null
@@ -602,6 +662,45 @@ export type Database = {
           },
         ]
       }
+      security_alerts: {
+        Row: {
+          alert_type: string
+          created_at: string | null
+          description: string
+          id: string
+          metadata: Json | null
+          resolved: boolean | null
+          resolved_at: string | null
+          resolved_by: string | null
+          severity: string
+          user_id: string | null
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string | null
+          description: string
+          id?: string
+          metadata?: Json | null
+          resolved?: boolean | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity: string
+          user_id?: string | null
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string | null
+          description?: string
+          id?: string
+          metadata?: Json | null
+          resolved?: boolean | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           created_at: string | null
@@ -852,6 +951,39 @@ export type Database = {
           },
         ]
       }
+      user_sessions: {
+        Row: {
+          created_at: string | null
+          expires_at: string
+          id: string
+          ip_address: string | null
+          last_activity: string | null
+          session_token: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at: string
+          id?: string
+          ip_address?: string | null
+          last_activity?: string | null
+          session_token: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string
+          id?: string
+          ip_address?: string | null
+          last_activity?: string | null
+          session_token?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -860,6 +992,18 @@ export type Database = {
       can_edit_content: {
         Args: { _user_id: string }
         Returns: boolean
+      }
+      cleanup_expired_lockouts: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      cleanup_expired_sessions: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      cleanup_old_failed_attempts: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
       cleanup_rate_limits: {
         Args: Record<PropertyKey, never>
@@ -870,6 +1014,10 @@ export type Database = {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_account_locked: {
+        Args: { p_user_identifier: string }
         Returns: boolean
       }
       is_admin: {

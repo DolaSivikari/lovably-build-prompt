@@ -32,12 +32,39 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
+      // Check if account is locked before attempting login
+      const lockoutCheck = await supabase.functions.invoke('check-login-attempt', {
+        body: { email, success: false },
+      });
+
+      if (lockoutCheck.data?.locked) {
+        toast({
+          title: "Account Locked",
+          description: lockoutCheck.data.reason || "Too many failed attempts. Please try again later.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (error) {
+        // Record failed attempt
+        await supabase.functions.invoke('check-login-attempt', {
+          body: { email, success: false },
+        });
+        
+        throw error;
+      }
+
+      // Record successful login
+      await supabase.functions.invoke('check-login-attempt', {
+        body: { email, success: true },
+      });
 
       if (data.session) {
         toast({
