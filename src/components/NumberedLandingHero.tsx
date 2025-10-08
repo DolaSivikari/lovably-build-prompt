@@ -1,20 +1,24 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { landingMenuItems } from "@/data/landing-menu";
-import OptimizedImage from "./OptimizedImage";
 import heroConstruction from "@/assets/hero-construction.jpg";
+import heroVideo from "@/assets/hero-construction-video.mp4";
 
 const NumberedLandingHero = () => {
   return (
     <section className="landing-hero">
-      {/* Background Image */}
+      {/* Background Video */}
       <div className="landing-hero__background">
-        <OptimizedImage
-          src={heroConstruction}
-          alt="Ascent Construction Projects"
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={heroConstruction}
           className="w-full h-full object-cover"
-          priority
-        />
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
       </div>
 
       {/* Dark Overlay */}
