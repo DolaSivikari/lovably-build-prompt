@@ -14,11 +14,11 @@ const Stats = () => {
       value: 500,
       suffix: "+",
       label: "Projects Completed",
-      description: "Across commercial, industrial, and institutional sectors",
+      description: "Residential and commercial painting projects across the GTA",
     },
     {
       icon: Users,
-      value: 200,
+      value: 50,
       suffix: "+",
       label: "Skilled Professionals",
       description: "Dedicated team of experts committed to excellence",
@@ -32,11 +32,10 @@ const Stats = () => {
     },
     {
       icon: TrendingUp,
-      value: 2,
-      suffix: "B+",
-      label: "Projects Delivered",
-      description: "Total value of successfully completed work",
-      prefix: "$",
+      value: 15,
+      suffix: "+",
+      label: "Years of Experience",
+      description: "Serving the GTA since 2009 with quality craftsmanship",
     },
   ];
 
@@ -73,7 +72,7 @@ const Stats = () => {
                   </div>
                 </div>
                 <div className="text-4xl md:text-5xl font-bold mb-2 text-secondary transition-all duration-300 group-hover:scale-110">
-                  {stat.prefix}{count}{stat.suffix}
+                  {count}{stat.suffix}
                 </div>
                 <div className="text-xl font-semibold mb-2">{stat.label}</div>
                 <div className="text-sm text-primary-foreground/70">{stat.description}</div>

@@ -11,7 +11,7 @@ interface SEOProps {
 
 const SEO = ({
   title = "Ascen Group Construction | Commercial & Institutional Building Ontario",
-  description = "Professional construction management services in Ontario. Specializing in commercial, industrial, and institutional projects with LEED certification support. 25+ years experience.",
+  description = "Professional painting and exterior finishing services in the GTA. Specializing in residential, commercial painting, stucco, and EIFS with comprehensive warranties. 15+ years experience.",
   keywords = "construction management ontario, commercial construction toronto, industrial building, institutional construction, LEED certification, design-build, BIM services, general contractor ontario",
   ogImage = "/og-image.jpg",
   canonical,

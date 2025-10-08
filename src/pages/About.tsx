@@ -38,7 +38,7 @@ const About = () => {
             <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
               <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Who We Are</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">About Ascen Group</h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">About Ascent Group</h1>
             <p className="text-xl max-w-3xl mx-auto opacity-90">
               Building lasting relationships through exceptional craftsmanship, integrity, and commitment to excellence since 2009.
             </p>
@@ -52,7 +52,7 @@ const About = () => {
               <h2 className="text-4xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Founded in 2009, Ascen Group Construction began with a simple mission: deliver exceptional painting and exterior finishing services with uncompromising quality and integrity.
+                  Founded in 2009, Ascent Group Construction began with a simple mission: deliver exceptional painting and exterior finishing services with uncompromising quality and integrity.
                 </p>
                 <p>
                   What started as a small team of dedicated craftsmen has grown into one of the GTA's most trusted contractors. We've completed over 500 projects, built lasting relationships with hundreds of satisfied clients, and established a reputation for excellence that speaks for itself.
@@ -220,7 +220,7 @@ const About = () => {
                     How long have you been in business?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Ascen Group Construction has been serving the GTA since 2009, with over 15 years of experience delivering quality painting and stucco/EIFS services.
+                    Ascent Group Construction has been serving the GTA since 2009, with over 15 years of experience delivering quality painting and stucco/EIFS services.
                   </AccordionContent>
                 </AccordionItem>
 

@@ -61,12 +61,16 @@ const Navigation = () => {
         <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center group" aria-label="Ascent Group Construction - Home">
+          <Link to="/" className="flex items-center gap-3 group" aria-label="Ascent Group Construction - Home">
             <img 
               src={ascentLogo} 
               alt="Ascent Group Construction" 
-              className="h-12 w-auto transition-transform group-hover:scale-105"
+              className="h-14 w-auto transition-transform group-hover:scale-105"
             />
+            <div className="flex flex-col leading-tight">
+              <span className="text-lg font-bold text-foreground">Ascent Group</span>
+              <span className="text-xs font-semibold text-primary uppercase tracking-wider">Construction</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -76,7 +80,7 @@ const Navigation = () => {
                 key={link.path}
                 to={link.path}
                 aria-current={isActive(link.path) ? "page" : undefined}
-                className={`text-sm font-medium uppercase tracking-wide transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100 ${
+                className={`text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100 ${
                   isActive(link.path) ? "text-primary after:scale-x-100" : "text-foreground"
                 }`}
               >

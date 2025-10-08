@@ -92,8 +92,8 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    123 Construction Ave<br />
-                    Toronto, ON M5H 2N2<br />
+                    123 Industrial Parkway<br />
+                    Mississauga, ON L5T 1A1<br />
                     Canada
                   </p>
                 </CardContent>
@@ -108,8 +108,8 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Main: (416) 555-0123<br />
-                    Toll Free: 1-800-555-0123
+                    Main: (416) 555-PAINT<br />
+                    Toll Free: 1-800-555-ASCENT
                   </p>
                 </CardContent>
               </Card>
@@ -123,9 +123,9 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    General: info@buildcraft.ca<br />
-                    Projects: projects@buildcraft.ca<br />
-                    Careers: careers@buildcraft.ca
+                    General: info@ascentgroupconstruction.com<br />
+                    Projects: projects@ascentgroupconstruction.com<br />
+                    Careers: careers@ascentgroupconstruction.com
                   </p>
                 </CardContent>
               </Card>
@@ -238,7 +238,7 @@ const Contact = () => {
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold mb-4">Visit Our Office</h2>
             <p className="text-muted-foreground">
-              We're located in the heart of Toronto's business district
+              We're located in Mississauga, serving the Greater Toronto Area
             </p>
           </div>
           <div className="aspect-video bg-card rounded-lg flex items-center justify-center">

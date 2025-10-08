@@ -31,7 +31,7 @@ const Hero = () => {
             <div className="w-2 h-2 bg-secondary rounded-full animate-pulse-glow" />
             <span className="text-primary-foreground font-semibold text-sm tracking-wider uppercase">
               <Sparkles className="inline-block w-4 h-4 mr-1" />
-              Trusted Excellence Since 1998
+              Trusted Excellence Since 2009
             </span>
           </div>
 
@@ -44,7 +44,7 @@ const Hero = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 animate-fade-in">
-            Ascen Group Construction merges heritage craftsmanship with modern innovation to deliver exceptional commercial, industrial, and institutional projects across Ontario. Trusted by leading organizations for over 25 years.
+            Ascent Group Construction merges heritage craftsmanship with modern innovation to deliver exceptional painting and exterior finishing services across the GTA. Trusted by homeowners and businesses for over 15 years.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in" style={{ animationDelay: "0.2s" }}>
@@ -62,7 +62,7 @@ const Hero = () => {
           {/* Key Features */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { text: "25+ Years Experience", delay: "0.3s" },
+              { text: "15+ Years Experience", delay: "0.3s" },
               { text: "500+ Projects Completed", delay: "0.4s" },
               { text: "98% Client Satisfaction", delay: "0.5s" }
             ].map((feature) => (
