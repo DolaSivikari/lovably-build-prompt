@@ -14,6 +14,12 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -203,15 +209,28 @@ const Navigation = () => {
               />
             </div>
             
-            <Link
-              to="/contact"
-              className={cn(
-                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground"
-              )}
-            >
-              Contact
-            </Link>
+            {/* Contact Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={cn(
+                "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
+                (isActive("/contact") || isActive("/careers")) && "text-primary"
+              )}>
+                Contact
+                <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="/contact" className="cursor-pointer">
+                    Contact Us
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/careers" className="cursor-pointer">
+                    Careers
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary group ml-4">
               <Link to="/estimate" className="flex items-center gap-2">
@@ -422,6 +441,17 @@ const Navigation = () => {
               }`}
             >
               Contact
+            </Link>
+
+            <Link
+              to="/careers"
+              onClick={() => setIsOpen(false)}
+              aria-current={isActive("/careers") ? "page" : undefined}
+              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
+                isActive("/careers") ? "text-primary bg-muted" : "text-foreground"
+              }`}
+            >
+              Careers
             </Link>
             
             <Button variant="default" className="w-full bg-secondary hover:bg-secondary/90 text-primary" asChild>
