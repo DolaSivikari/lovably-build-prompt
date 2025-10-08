@@ -101,53 +101,41 @@ const TileFlooring = () => {
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-12 text-center">Our Installation Process</h2>
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-8">
-                {[
-                  {
-                    title: "Surface Preparation",
-                    description: "Proper substrate preparation is critical for long-lasting installations. We ensure surfaces are level, clean, and properly primed.",
-                    points: ["Substrate inspection & repair", "Leveling compounds as needed", "Moisture testing", "Crack isolation membranes"]
-                  },
-                  {
-                    title: "Waterproofing",
-                    description: "Protect your investment with proper waterproofing in wet areas. We use industry-leading waterproofing systems.",
-                    points: ["Shower pan systems", "Waterproof membranes", "Seam sealing", "Proper slope & drainage"]
-                  },
-                  {
-                    title: "Precision Installation",
-                    description: "Expert tile and flooring installation with attention to pattern, layout, and quality. Every detail matters.",
-                    points: ["Layout planning", "Premium thin-set mortars", "Proper spacing & alignment", "Quality grout application"]
-                  },
-                  {
-                    title: "Finishing & Protection",
-                    description: "Complete the job with proper finishing, sealing, and protection to ensure beauty and durability.",
-                    points: ["Grout sealing", "Stone sealing", "Caulking & transitions", "Final cleaning & inspection"]
-                  }
-                ].map((step, index) => (
-                  <Card key={index}>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">
-                          {index + 1}
-                        </div>
-                        {step.title}
-                      </CardTitle>
-                      <CardDescription>{step.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-2">
-                        {step.points.map((point, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-sm">
-                            <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[
+                {
+                  icon: Layers,
+                  title: "Surface Preparation",
+                  description: "Proper substrate preparation is critical for long-lasting installations. We ensure surfaces are level, clean, and properly primed with moisture testing and crack isolation."
+                },
+                {
+                  icon: Droplets,
+                  title: "Waterproofing",
+                  description: "Protect your investment with proper waterproofing in wet areas. Industry-leading systems including shower pans and waterproof membranes."
+                },
+                {
+                  icon: Grid3X3,
+                  title: "Precision Installation",
+                  description: "Expert tile and flooring installation with attention to pattern, layout, and quality. Premium materials, proper spacing and alignment throughout."
+                },
+                {
+                  icon: Shield,
+                  title: "Finishing & Protection",
+                  description: "Complete the job with proper finishing, sealing, and protection to ensure beauty and durability. Grout sealing, stone sealing, and final inspection."
+                }
+              ].map((step, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-2">
+                      <step.icon className="w-8 h-8 text-primary" />
+                      <CardTitle>{step.title}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{step.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
@@ -179,7 +167,7 @@ const TileFlooring = () => {
                   items: ["Epoxy", "Rubber", "Cork", "Heated systems"]
                 }
               ].map((category, index) => (
-                <Card key={index} className="text-center">
+                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <category.icon className="w-12 h-12 text-primary mx-auto mb-3" />
                     <CardTitle className="text-lg">{category.title}</CardTitle>

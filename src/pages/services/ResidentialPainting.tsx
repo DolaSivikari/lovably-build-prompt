@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "react-router-dom";
+import { Home, CheckCircle2, Paintbrush, Sparkles, Shield } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -13,227 +13,244 @@ import {
 } from "@/components/ui/accordion";
 
 const ResidentialPainting = () => {
-  const processSteps = [
-    {
-      number: "01",
-      title: "Consultation & Assessment",
-      description: "Free on-site visit to assess surfaces, discuss color preferences, and provide detailed scope of work."
-    },
-    {
-      number: "02",
-      title: "Surface Preparation",
-      description: "Thorough cleaning, repairs, sanding, caulking, and priming. This critical step ensures long-lasting results."
-    },
-    {
-      number: "03",
-      title: "Paint Application",
-      description: "Premium paint applied in multiple coats using professional techniques for flawless coverage and finish."
-    },
-    {
-      number: "04",
-      title: "Quality Check & Walkthrough",
-      description: "Final inspection with you to ensure complete satisfaction. Touch-ups completed before project sign-off."
-    }
-  ];
-
   const faqs = [
     {
-      question: "Do you move furniture?",
-      answer: "Yes, for interior projects we handle protective covering and light furniture moving. We recommend removing valuable items and clearing the workspace when possible."
+      question: "How long does a typical residential painting project take?",
+      answer: "Most interior rooms take 1-2 days, while full house interiors take 3-5 days. Exterior painting typically takes 3-7 days depending on home size and weather conditions."
     },
     {
-      question: "Are you insured?",
-      answer: "Yes, we're fully insured with comprehensive liability coverage and WSIB. All our painters are trained professionals."
+      question: "Do I need to move my furniture?",
+      answer: "No, we'll carefully move and protect your furniture. We use drop cloths and plastic sheeting to protect all surfaces and belongings."
     },
     {
-      question: "How long does paint last?",
-      answer: "With proper preparation and premium materials: exterior paint lasts 7-10 years, interior paint lasts 5-10 years depending on wear and tear."
+      question: "What type of paint do you use?",
+      answer: "We use premium Benjamin Moore and Sherwin-Williams paints with low-VOC formulations for your health and safety. We'll recommend the best products for each surface."
     },
     {
-      question: "Can you match existing colors?",
-      answer: "Absolutely! We use advanced color matching technology to perfectly match any existing color from a sample."
-    },
-    {
-      question: "Do you work in winter?",
-      answer: "Exterior painting requires temperatures above 50°F. We schedule weather-dependent projects during optimal conditions and can complete interior work year-round."
-    },
-    {
-      question: "What paint brands do you use?",
-      answer: "We use premium brands including Benjamin Moore, Sherwin-Williams, and Behr. We select based on project requirements and client preferences."
+      question: "Do you offer a warranty?",
+      answer: "Yes! We provide a comprehensive warranty on both labor and materials. We stand behind our work and will address any issues promptly."
     }
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen">
       <SEO 
-        title="Residential Painting Services"
-        description="Professional interior and exterior painting services across the GTA. Premium coatings, expert surface prep, and color consultation. Request a free estimate today."
-        keywords="residential painting, interior painting, exterior painting, house painters Mississauga, painting contractor GTA"
+        title="Residential Painting Services - Interior & Exterior House Painting"
+        description="Transform your home with professional residential painting services. Expert interior and exterior house painting in the GTA. Free estimates and quality guaranteed."
+        keywords="residential painting, house painting, interior painting, exterior painting, home painters GTA"
       />
       <Navigation />
-      <main className="flex-1">
-        {/* Hero */}
-        <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-slate-800">
+      <main className="pt-20">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-br from-primary via-primary-dark to-accent py-20 text-white">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center text-primary-foreground">
-              <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6">
-                Residential Painting
-              </h1>
-              <p className="text-xl opacity-90">
-                Interior & Exterior — Professional painting services across the GTA
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-3 mb-4">
+                <Paintbrush className="w-12 h-12" />
+                <h1 className="text-4xl md:text-5xl font-bold">Residential Painting Services</h1>
+              </div>
+              <p className="text-xl text-white/90 mb-8">
+                Transform your home with expert painting services. Quality craftsmanship, premium materials, and attention to detail that makes your house feel like home.
               </p>
+              <Link to="/estimate">
+                <Button size="lg" variant="secondary" className="font-semibold">
+                  Get Free Estimate
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* Main Content */}
-        <section className="py-24 bg-background">
+        {/* Services Overview */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
-              <div>
-                <Card className="p-6 bg-muted/30 border-2">
-                  <h3 className="text-xl font-heading font-bold mb-4 text-primary">
-                    Typical Timeline
-                  </h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li><strong>Small jobs (1–3 rooms):</strong> 2–5 days</li>
-                    <li><strong>Full interior house:</strong> 5–10 business days</li>
-                    <li><strong>Full exterior painting:</strong> 7–14 business days (weather permitting)</li>
+            <h2 className="text-3xl font-bold mb-12 text-center">Our Residential Services</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Interior Painting",
+                  description: "Transform your living spaces with beautiful colors",
+                  features: ["Living rooms & bedrooms", "Kitchens & bathrooms", "Trim & baseboards", "Ceiling painting"]
+                },
+                {
+                  title: "Exterior Painting",
+                  description: "Protect and beautify your home's exterior",
+                  features: ["Siding & stucco", "Trim & shutters", "Doors & garage doors", "Pressure washing prep"]
+                },
+                {
+                  title: "Color Consultation",
+                  description: "Expert guidance on choosing the perfect palette",
+                  features: ["Color matching", "Trend advice", "Sample testing", "Design coordination"]
+                },
+                {
+                  title: "Surface Preparation",
+                  description: "Proper prep ensures lasting results",
+                  features: ["Cleaning & sanding", "Crack repair", "Primer application", "Surface protection"]
+                },
+                {
+                  title: "Specialty Finishes",
+                  description: "Unique textures and decorative painting",
+                  features: ["Faux finishes", "Accent walls", "Textured surfaces", "Custom effects"]
+                },
+                {
+                  title: "Deck & Fence Staining",
+                  description: "Protect and enhance outdoor wood structures",
+                  features: ["Staining & sealing", "Pressure washing", "Wood restoration", "Weather protection"]
+                }
+              ].map((service, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-start gap-3">
+                      <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                      <span>{service.title}</span>
+                    </CardTitle>
+                    <CardDescription>{service.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-sm">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* What's Included */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center">Quality You Can Trust</h2>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <Card>
+                <CardHeader>
+                  <CardTitle>What's Included</CardTitle>
+                  <CardDescription>Every project comes with comprehensive service</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    {[
+                      "Free color consultation",
+                      "Complete surface preparation",
+                      "Premium quality paints",
+                      "Professional application",
+                      "Furniture protection & moving",
+                      "Comprehensive warranty"
+                    ].map((item, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                        <span className="text-sm">{item}</span>
+                      </li>
+                    ))}
                   </ul>
-                  <p className="text-sm text-muted-foreground mt-4">
-                    Timeline includes prep, drying times, and client walkthrough.
-                  </p>
-                </Card>
-              </div>
+                </CardContent>
+              </Card>
 
-              <div>
-                <h2 className="text-3xl font-heading font-bold mb-6 text-primary">
-                  Interior & Exterior Painting
-                </h2>
-                <p className="text-lg text-muted-foreground mb-8">
-                  A great paint job starts with preparation. At Ascent Group Construction, our painting service emphasizes surface prep, high-quality coatings, and meticulous application to deliver durable, beautiful finishes for homes across the GTA.
-                </p>
-
-                <h3 className="text-2xl font-heading font-bold mb-4 text-primary">
-                  What's Included
-                </h3>
-                <div className="space-y-3 mb-8">
-                  {[
-                    "Detailed surface inspection & documented scope",
-                    "Cleaning, light carpentry repairs, caulking, and sanding",
-                    "Primer & two-coat application with premium paint brands",
-                    "Low-VOC options available",
-                    "Color consultation with digital color mockups (upon request)",
-                    "Final walkthrough and touch-up list",
-                  ].map((item) => (
-                    <div key={item} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Card className="p-6 mb-8 border-2">
-                  <h3 className="text-xl font-heading font-bold mb-3 text-primary">
-                    Quality & Materials
-                  </h3>
-                  <p className="text-muted-foreground">
-                    We partner with premium paint brands chosen for durability and color retention. Options for anti-microbial and eco-friendly paints are available.
-                  </p>
-                </Card>
-
-                <Card className="p-6 mb-8 bg-muted/30 border-2">
-                  <h3 className="text-xl font-heading font-bold mb-3 text-primary">
-                    Pricing Guide
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Estimates are provided per square foot. Use our estimator for an instant range — for detailed pricing we perform a site visit.
-                  </p>
-                  <Link to="/estimate">
-                    <Button className="btn-hero w-full">
-                      Get Instant Estimate
-                    </Button>
-                  </Link>
-                </Card>
-              </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Transparent Pricing</CardTitle>
+                  <CardDescription>Based on your specific project needs</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    {[
+                      "Square footage and room count",
+                      "Surface condition and prep needs",
+                      "Paint quality and coats",
+                      "Ceiling height and details",
+                      "Access and complexity",
+                      "No hidden fees"
+                    ].map((item, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                        <span className="text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
 
-        {/* Our Process */}
-        <section className="py-24 bg-muted/30">
+        {/* Why Choose Us */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Our Proven Process</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                We follow a systematic approach to ensure every project exceeds expectations
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              {processSteps.map((step, index) => (
-                <Card key={index} className="p-6 relative hover:shadow-lg transition-shadow">
-                  <div className="text-6xl font-bold text-primary/10 absolute top-4 right-4">
-                    {step.number}
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 relative z-10">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm">{step.description}</p>
-                  {index < processSteps.length - 1 && (
-                    <ArrowRight className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 text-primary w-8 h-8" />
-                  )}
+            <h2 className="text-3xl font-bold mb-12 text-center">Why Homeowners Choose Us</h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[
+                {
+                  icon: Sparkles,
+                  title: "Quality Craftsmanship",
+                  description: "Experienced painters who treat your home with care and deliver flawless results that last."
+                },
+                {
+                  icon: Home,
+                  title: "Respect Your Home",
+                  description: "We protect your belongings, maintain cleanliness daily, and work efficiently to minimize disruption."
+                },
+                {
+                  icon: Shield,
+                  title: "Satisfaction Guaranteed",
+                  description: "Comprehensive warranty on labor and materials. We stand behind our work and ensure you're completely happy."
+                }
+              ].map((advantage, index) => (
+                <Card key={index} className="text-center">
+                  <CardHeader>
+                    <advantage.icon className="w-16 h-16 text-primary mx-auto mb-4" />
+                    <CardTitle>{advantage.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{advantage.description}</p>
+                  </CardContent>
                 </Card>
               ))}
             </div>
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-24 bg-background">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-              <p className="text-lg text-muted-foreground">
-                Get answers to common questions about our painting services
-              </p>
+        {/* FAQ */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg px-6 bg-background">
+                    <AccordionTrigger className="text-left font-semibold">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
-
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left font-semibold">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-24 bg-gradient-to-br from-primary to-slate-800">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center text-primary-foreground">
-              <h2 className="text-4xl font-heading font-bold mb-6">
-                Ready to Transform Your Home?
-              </h2>
-              <p className="text-xl opacity-90 mb-10">
-                Get a free estimate or view our recent painting projects
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/estimate">
-                  <Button className="bg-secondary hover:bg-secondary/90 text-primary font-bold text-lg px-10 py-6 rounded-xl shadow-[var(--shadow-glow)] hover:scale-105 transition-all">
-                    Request Estimate
-                  </Button>
-                </Link>
-                <Link to="/projects">
-                  <Button variant="outline" className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 font-bold text-lg px-10 py-6 rounded-xl">
-                    View Projects
-                  </Button>
-                </Link>
-              </div>
+        {/* CTA Section */}
+        <section className="py-16 bg-gradient-to-br from-primary to-primary-dark text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Home?</h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Get your free estimate today. Most quotes delivered within 24 hours.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link to="/estimate">
+                <Button size="lg" variant="secondary">Get a Free Estimate</Button>
+              </Link>
+              <Link to="/contact">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                  Contact Us
+                </Button>
+              </Link>
             </div>
           </div>
         </section>

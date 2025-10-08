@@ -142,133 +142,76 @@ const MetalCladding = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-12 text-center">Materials & Finish Options</h2>
-            <div className="max-w-5xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-8 mb-8">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Material Types</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-primary" />
-                          Aluminum
-                        </h4>
-                        <p className="text-sm text-muted-foreground pl-7">
-                          Lightweight, corrosion-resistant, excellent for ACM panels and architectural applications. Available in various alloys and gauges.
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-primary" />
-                          Steel
-                        </h4>
-                        <p className="text-sm text-muted-foreground pl-7">
-                          Galvanized and Galvalume coated steel for strength and durability. Ideal for standing seam and metal wall panels.
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-primary" />
-                          Zinc & Copper
-                        </h4>
-                        <p className="text-sm text-muted-foreground pl-7">
-                          Premium materials for distinctive, long-lasting facades. Natural patina development for unique aesthetics.
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Finish Options</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-primary" />
-                          PVDF Coating
-                        </h4>
-                        <p className="text-sm text-muted-foreground pl-7">
-                          Premium 70% PVDF finishes (Kynar 500, Hylar 5000) for superior fade and chalk resistance. 25+ year warranties.
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-primary" />
-                          Anodized Aluminum
-                        </h4>
-                        <p className="text-sm text-muted-foreground pl-7">
-                          Electrolytically sealed finish for durability and consistent appearance. Clear or color anodized options.
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-primary" />
-                          Textured & Special
-                        </h4>
-                        <p className="text-sm text-muted-foreground pl-7">
-                          Wood grain, stucco embossed, metallic, and custom textures. Unlimited color matching available.
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Installation Expertise */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-12 text-center">Expert Installation & Engineering</h2>
-            <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <Card>
                 <CardHeader>
-                  <CardTitle>Our Installation Standards</CardTitle>
-                  <CardDescription>
-                    Metal cladding requires precision engineering and expert installation. We deliver both.
-                  </CardDescription>
+                  <CardTitle>Material Types</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <h4 className="font-semibold">Design & Engineering</h4>
-                      <ul className="space-y-2 text-sm">
-                        {[
-                          "Structural load calculations",
-                          "Thermal movement accommodation",
-                          "Wind load and seismic considerations",
-                          "Building code compliance",
-                          "Shop drawing development"
-                        ].map((item, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        Aluminum
+                      </h4>
+                      <p className="text-sm text-muted-foreground pl-7">
+                        Lightweight, corrosion-resistant, excellent for ACM panels and architectural applications. Available in various alloys and gauges.
+                      </p>
                     </div>
-                    <div className="space-y-4">
-                      <h4 className="font-semibold">Installation Excellence</h4>
-                      <ul className="space-y-2 text-sm">
-                        {[
-                          "Precision panel alignment",
-                          "Proper fastening & attachment",
-                          "Weather-tight sealing",
-                          "Quality control inspections",
-                          "Manufacturer certification"
-                        ].map((item, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div>
+                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        Steel
+                      </h4>
+                      <p className="text-sm text-muted-foreground pl-7">
+                        Galvanized and Galvalume coated steel for strength and durability. Ideal for standing seam and metal wall panels.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        Zinc & Copper
+                      </h4>
+                      <p className="text-sm text-muted-foreground pl-7">
+                        Premium materials for distinctive, long-lasting facades. Natural patina development for unique aesthetics.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Finish Options</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        PVDF Coating
+                      </h4>
+                      <p className="text-sm text-muted-foreground pl-7">
+                        Premium 70% PVDF finishes (Kynar 500, Hylar 5000) for superior fade and chalk resistance. 25+ year warranties.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        Anodized Aluminum
+                      </h4>
+                      <p className="text-sm text-muted-foreground pl-7">
+                        Electrolytically sealed finish for durability and consistent appearance. Clear or color anodized options.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        Textured & Special
+                      </h4>
+                      <p className="text-sm text-muted-foreground pl-7">
+                        Wood grain, stucco embossed, metallic, and custom textures. Unlimited color matching available.
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -277,38 +220,35 @@ const MetalCladding = () => {
           </div>
         </section>
 
-        {/* Applications */}
-        <section className="py-16 bg-background">
+        {/* Why Choose Us */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center">Metal Cladding Applications</h2>
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold mb-12 text-center">Expert Installation & Engineering</h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {[
                 {
-                  title: "Commercial Buildings",
-                  items: ["Office towers", "Retail centers", "Mixed-use developments", "Corporate campuses"]
+                  icon: Building2,
+                  title: "Design & Engineering",
+                  description: "Structural load calculations, thermal movement accommodation, wind load considerations, and building code compliance for every project."
                 },
                 {
-                  title: "Industrial Facilities",
-                  items: ["Manufacturing plants", "Warehouses", "Distribution centers", "Cold storage"]
+                  icon: Shield,
+                  title: "Installation Excellence",
+                  description: "Precision panel alignment, proper fastening and attachment, weather-tight sealing, and quality control inspections throughout."
                 },
                 {
-                  title: "Institutional",
-                  items: ["Educational facilities", "Healthcare buildings", "Government buildings", "Recreation centers"]
+                  icon: CheckCircle2,
+                  title: "Manufacturer Certified",
+                  description: "Factory-trained installers certified by leading manufacturers. Access to premium systems and extended warranties."
                 }
-              ].map((application, index) => (
-                <Card key={index}>
+              ].map((advantage, index) => (
+                <Card key={index} className="text-center">
                   <CardHeader>
-                    <CardTitle className="text-lg">{application.title}</CardTitle>
+                    <advantage.icon className="w-16 h-16 text-primary mx-auto mb-4" />
+                    <CardTitle>{advantage.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2">
-                      {application.items.map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="text-muted-foreground">{advantage.description}</p>
                   </CardContent>
                 </Card>
               ))}
