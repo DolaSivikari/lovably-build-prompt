@@ -1,6 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
+import NumberedLandingHero from "@/components/NumberedLandingHero";
 import ServicesPreview from "@/components/ServicesPreview";
 import Stats from "@/components/Stats";
 import FeaturedProjects from "@/components/FeaturedProjects";
@@ -17,7 +17,7 @@ const Index = () => {
       <SEO />
       <Navigation />
       <main id="main-content" role="main">
-        <Hero />
+        <NumberedLandingHero />
         <ServicesPreview />
         <Stats />
         <FeaturedProjects />
