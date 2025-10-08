@@ -1,13 +1,21 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-42L85RG6M6"></script>
+    <!-- Deferred Google Analytics (GA4) - Loads after page interactive -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-42L85RG6M6');
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-42L85RG6M6';
+        document.head.appendChild(script);
+        
+        script.onload = function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-42L85RG6M6');
+        };
+      });
     </script>
     <!-- End Google Analytics -->
     
@@ -19,8 +27,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Preload critical resources -->
+    <link rel="preload" as="image" href="/src/assets/hero-construction.jpg" fetchpriority="high">
+    
+    <!-- Google Fonts - Optimized (reduced weights) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="https://xdowuirheazerlwatwja.supabase.co">

@@ -3,22 +3,50 @@ import { ArrowRight } from "lucide-react";
 import { landingMenuItems } from "@/data/landing-menu";
 import heroConstruction from "@/assets/hero-construction.jpg";
 import heroVideo from "@/assets/hero-construction-video.mp4";
+import { useEffect, useRef, useState } from "react";
 
 const NumberedLandingHero = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  useEffect(() => {
+    // On mobile, delay video load until after initial paint
+    if (isMobile) {
+      const timer = setTimeout(() => {
+        setShouldLoadVideo(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else {
+      // Desktop: load immediately
+      setShouldLoadVideo(true);
+    }
+  }, [isMobile]);
+
   return (
     <section className="landing-hero">
       {/* Background Video */}
       <div className="landing-hero__background">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={heroConstruction}
-          className="w-full h-full object-cover"
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
+        {shouldLoadVideo ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={heroConstruction}
+            className="w-full h-full object-cover"
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={heroConstruction}
+            alt="Ascent Group Construction"
+            className="w-full h-full object-cover"
+            fetchPriority="high"
+          />
+        )}
       </div>
 
       {/* Dark Overlay */}
