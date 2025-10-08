@@ -7,8 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Menu, X, HardHat, ChevronDown } from "lucide-react";
+import { Menu, X, HardHat, ChevronDown, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import ScrollProgress from "./ScrollProgress";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,12 +54,17 @@ const Navigation = () => {
   const isAboutSection = location.pathname.startsWith("/about") || location.pathname === "/values" || location.pathname === "/safety";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="container mx-auto px-4">
+    <>
+      <ScrollProgress />
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+        <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl">
-            <HardHat className="h-8 w-8 text-primary" />
+          <Link to="/" className="flex items-center gap-2 font-bold text-xl group">
+            <div className="relative">
+              <HardHat className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full animate-pulse" />
+            </div>
             <span className="text-primary">Ascen</span>
             <span className="text-foreground">Group</span>
           </Link>
@@ -69,8 +75,8 @@ const Navigation = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive(link.path) ? "text-primary" : "text-foreground"
+                className={`text-sm font-medium uppercase tracking-wide transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100 ${
+                  isActive(link.path) ? "text-primary after:scale-x-100" : "text-foreground"
                 }`}
               >
                 {link.name}
@@ -123,32 +129,42 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary">
-              <Link to="/estimate">Get Estimate</Link>
+            <Button variant="default" asChild className="bg-secondary hover:bg-secondary/90 text-primary group">
+              <Link to="/estimate" className="flex items-center gap-2">
+                <div className="p-1 bg-primary/10 rounded-full">
+                  <Phone className="h-4 w-4" />
+                </div>
+                Get Estimate
+              </Link>
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Animated Hamburger */}
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden text-foreground relative w-10 h-10 flex items-center justify-center"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <div className="flex flex-col gap-1.5 w-6">
+              <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
+              <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            </div>
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 space-y-4 animate-fade-in">
-            {navLinks.map((link) => (
+          <div className="md:hidden py-4 space-y-2 animate-slide-in-right">
+            {navLinks.map((link, index) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`block text-sm font-medium py-2 transition-colors hover:text-primary ${
-                  isActive(link.path) ? "text-primary" : "text-foreground"
+                className={`block text-sm font-medium py-3 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 ${
+                  isActive(link.path) ? "text-primary bg-muted" : "text-foreground"
                 }`}
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {link.name}
               </Link>
@@ -195,8 +211,9 @@ const Navigation = () => {
             </Button>
           </div>
         )}
-      </div>
-    </nav>
+        </div>
+      </nav>
+    </>
   );
 };
 
