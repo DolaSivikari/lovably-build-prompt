@@ -74,15 +74,15 @@ const Navigation = () => {
         <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group" aria-label="Ascent Group Construction - Home">
+          <Link to="/" className="flex items-center gap-3 group relative z-50" aria-label="Ascent Group Construction - Home">
             <img 
               src={ascentLogo} 
               alt="Ascent Group Construction" 
-              className="h-14 w-auto transition-transform group-hover:scale-105"
+              className="h-20 w-auto transition-transform group-hover:scale-105"
             />
             <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold text-foreground">Ascent Group</span>
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider">Construction</span>
+              <span className="text-xl font-bold text-foreground">Ascent Group</span>
+              <span className="text-sm font-semibold text-primary uppercase tracking-wider">Construction</span>
             </div>
           </Link>
 
