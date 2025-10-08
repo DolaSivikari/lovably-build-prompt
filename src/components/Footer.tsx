@@ -13,7 +13,7 @@ const Footer = () => {
               <img 
                 src={ascentLogo} 
                 alt="Ascent Group Construction" 
-                className="h-16 w-auto brightness-0 invert hover:scale-105 transition-transform"
+                className="h-24 w-auto brightness-0 invert hover:scale-105 transition-transform"
               />
             </Link>
             <p className="text-sm text-primary-foreground/80 mb-4">

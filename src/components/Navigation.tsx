@@ -49,6 +49,7 @@ const Navigation = () => {
   const blogDropdownItems = [
     { name: "Blog", path: "/blog" },
     { name: "Case Studies", path: "/case-studies" },
+    { name: "Sustainability", path: "/sustainability" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
