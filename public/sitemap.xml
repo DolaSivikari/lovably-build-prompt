@@ -2,260 +2,260 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://ascengroup.ca/</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Main Pages -->
   <url>
-    <loc>https://ascengroup.ca/about</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/about</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/services</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/projects</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/projects</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/contact</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/contact</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/blog</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/case-studies</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-studies</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- About Section -->
   <url>
-    <loc>https://ascengroup.ca/values</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/values</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/safety</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/safety</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/our-process</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/our-process</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/sustainability</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/sustainability</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/careers</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/careers</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/faq</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/faq</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Client Pages -->
   <url>
-    <loc>https://ascengroup.ca/homeowners</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/homeowners</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/property-managers</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/property-managers</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/commercial-clients</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/commercial-clients</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/estimate</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/estimate</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Service Pages -->
   <url>
-    <loc>https://ascengroup.ca/services/commercial-painting</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services/commercial-painting</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/services/residential-painting</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services/residential-painting</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/services/condo-painting</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services/condo-painting</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/services/stucco-eifs</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services/stucco-eifs</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/services/masonry</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services/masonry</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/services/metal-cladding</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services/metal-cladding</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/services/parking-garage</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services/parking-garage</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/services/tile-flooring</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/services/tile-flooring</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Blog Posts -->
   <url>
-    <loc>https://ascengroup.ca/blog/complete-guide-exterior-painting</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog/complete-guide-exterior-painting</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/blog/stucco-vs-eifs-what-you-need-to-know</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog/stucco-vs-eifs-what-you-need-to-know</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/blog/property-manager-maintenance-guide</loc>
-    <lastmod>2024-03-05</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog/property-manager-maintenance-guide</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/blog/masonry-repair-restoration-guide</loc>
-    <lastmod>2024-02-28</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog/masonry-repair-restoration-guide</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/blog/parking-garage-waterproofing</loc>
-    <lastmod>2024-02-20</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog/parking-garage-waterproofing</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/blog/condo-painting-best-practices</loc>
-    <lastmod>2024-02-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog/condo-painting-best-practices</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/blog/metal-cladding-maintenance</loc>
-    <lastmod>2024-02-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog/metal-cladding-maintenance</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/blog/choosing-right-paint-finish</loc>
-    <lastmod>2024-02-05</lastmod>
+    <loc>https://ascentgroupconstruction.com/blog/choosing-right-paint-finish</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Case Studies -->
   <url>
-    <loc>https://ascengroup.ca/case-study/downtown-office-renovation</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-study/downtown-office-renovation</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/case-study/luxury-condo-restoration</loc>
-    <lastmod>2024-03-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-study/luxury-condo-restoration</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/case-study/heritage-building-restoration</loc>
-    <lastmod>2024-03-05</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-study/heritage-building-restoration</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/case-study/underground-parking-restoration</loc>
-    <lastmod>2024-03-01</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-study/underground-parking-restoration</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/case-study/high-rise-balcony-restoration</loc>
-    <lastmod>2024-02-25</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-study/high-rise-balcony-restoration</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/case-study/retail-plaza-transformation</loc>
-    <lastmod>2024-02-20</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-study/retail-plaza-transformation</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/case-study/school-interior-renovation</loc>
-    <lastmod>2024-02-15</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-study/school-interior-renovation</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ascengroup.ca/case-study/industrial-warehouse-coating</loc>
-    <lastmod>2024-02-10</lastmod>
+    <loc>https://ascentgroupconstruction.com/case-study/industrial-warehouse-coating</loc>
+    <lastmod>2025-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

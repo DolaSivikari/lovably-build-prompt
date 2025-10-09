@@ -14,7 +14,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://ascengroup.ca/sitemap.xml
+Sitemap: https://ascentgroupconstruction.com/sitemap.xml
 
 # Block access to admin pages
 User-agent: *

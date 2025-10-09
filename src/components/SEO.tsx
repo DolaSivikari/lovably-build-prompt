@@ -10,9 +10,9 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Ascen Group Construction | Commercial & Institutional Building Ontario",
-  description = "Professional painting and exterior finishing services in the GTA. Specializing in residential, commercial painting, stucco, and EIFS with comprehensive warranties. 15+ years experience.",
-  keywords = "construction management ontario, commercial construction toronto, industrial building, institutional construction, LEED certification, design-build, BIM services, general contractor ontario",
+  title = "Ascent Group Construction | Professional Painting & Exterior Finishing Ontario",
+  description = "Expert painting and exterior finishing services across Ontario. Specializing in commercial, residential, condo painting, stucco, EIFS, and masonry. 15+ years experience, fully insured.",
+  keywords = "painting contractor ontario, commercial painting toronto, residential painting, condo painting GTA, stucco EIFS, masonry restoration, parking garage restoration, metal cladding, exterior finishing, painting services ontario",
   ogImage = "/og-image.jpg",
   canonical,
   structuredData,
@@ -37,20 +37,11 @@ const SEO = ({
       height: "60"
     },
     image: `${siteUrl}/og-image.jpg`,
-    telephone: "+1-416-555-7246",
     email: "info@ascentgroupconstruction.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "123 Industrial Parkway",
-      addressLocality: "Mississauga",
       addressRegion: "ON",
-      postalCode: "L5T 1A1",
       addressCountry: "CA",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: "43.6532",
-      longitude: "-79.3832"
     },
     areaServed: [
       {
@@ -72,18 +63,11 @@ const SEO = ({
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+1-416-555-7246",
       contactType: "customer service",
       email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
-      contactOption: "TollFree",
       areaServed: "CA"
     },
-    sameAs: [
-      "https://www.linkedin.com/company/ascentgroup",
-      "https://www.facebook.com/ascentgroup",
-      "https://twitter.com/ascentgroup",
-    ],
     priceRange: "$$-$$$",
     foundingDate: "2009",
     slogan: "Quality craftsmanship and exceptional results",

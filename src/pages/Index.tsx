@@ -10,6 +10,7 @@ import SEO from "@/components/SEO";
 import BlogPreview from "@/components/BlogPreview";
 import CaseStudyPreview from "@/components/CaseStudyPreview";
 import GoogleReviews from "@/components/GoogleReviews";
+import HomepageContent from "@/components/HomepageContent";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <Navigation />
       <main id="main-content" role="main">
         <NumberedLandingHero />
+        <HomepageContent />
         <ServicesPreview />
         <Stats />
         <FeaturedProjects />

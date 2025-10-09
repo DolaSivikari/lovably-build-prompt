@@ -8,27 +8,23 @@ import SocialMediaButton from "@/components/footer/SocialMediaButton";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
-  // Enhanced LocalBusiness schema with citations
+  // Enhanced ProfessionalService schema
   const citationSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "ProfessionalService",
     "@id": "https://ascentgroupconstruction.com/#organization",
     name: "Ascent Group Construction",
     image: "https://ascentgroupconstruction.com/og-image.jpg",
-    telephone: "+14165557246",
     email: "info@ascentgroupconstruction.com",
+    areaServed: {
+      "@type": "State",
+      name: "Ontario",
+      "@id": "https://en.wikipedia.org/wiki/Ontario"
+    },
     address: {
       "@type": "PostalAddress",
-      streetAddress: "123 Industrial Parkway",
-      addressLocality: "Mississauga",
       addressRegion: "ON",
-      postalCode: "L5T 1A1",
       addressCountry: "CA",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 43.6532,
-      longitude: -79.3832,
     },
     openingHoursSpecification: [
       {
@@ -44,13 +40,16 @@ const Footer = () => {
         closes: "16:00",
       },
     ],
-    sameAs: [
-      "https://www.facebook.com/ascentgroup",
-      "https://www.linkedin.com/company/ascentgroup",
-      "https://twitter.com/ascentgroup",
-      "https://instagram.com/ascentgroup",
+    serviceType: [
+      "Commercial Painting",
+      "Residential Painting", 
+      "Condo Painting",
+      "Stucco & EIFS",
+      "Masonry Restoration",
+      "Metal Cladding",
+      "Parking Garage Restoration"
     ],
-    priceRange: "$$$$",
+    priceRange: "$$-$$$",
   };
 
   const companyLinks = [
@@ -106,19 +105,8 @@ const Footer = () => {
                 />
               </Link>
               <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-                Expert painting and exterior finishing services across the GTA. Delivering quality craftsmanship and exceptional results since 2009.
+                Expert painting and exterior finishing services across Ontario. Delivering quality craftsmanship and exceptional results since 2009.
               </p>
-              
-              {/* Social Media */}
-              <div className="mb-6">
-                <h3 className="text-sm font-semibold text-primary-foreground mb-3">Connect With Us</h3>
-                <div className="flex gap-3">
-                  <SocialMediaButton href="https://www.linkedin.com/company/ascentgroup" icon={Linkedin} label="Visit us on LinkedIn" />
-                  <SocialMediaButton href="https://twitter.com/ascentgroup" icon={Twitter} label="Follow us on Twitter" />
-                  <SocialMediaButton href="https://www.facebook.com/ascentgroup" icon={Facebook} label="Like us on Facebook" />
-                  <SocialMediaButton href="https://instagram.com/ascentgroup" icon={Instagram} label="Follow us on Instagram" />
-                </div>
-              </div>
 
               {/* Certifications */}
               <div className="flex gap-4 items-center opacity-70">
@@ -170,7 +158,7 @@ const Footer = () => {
                     <MapPin className="h-5 w-5 mt-0.5 text-secondary flex-shrink-0" aria-hidden="true" />
                     <div>
                       <div className="text-sm font-medium text-primary-foreground">Service Area</div>
-                      <div className="text-sm text-primary-foreground/70">Greater Toronto Area</div>
+                      <div className="text-sm text-primary-foreground/70">Ontario, Canada</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -191,18 +179,7 @@ const Footer = () => {
                     className="w-full justify-center gap-2 animate-pulse-glow"
                     asChild
                   >
-                    <a href="tel:4165557246">
-                      <Phone className="h-4 w-4" aria-hidden="true" />
-                      (416) 555-PAINT
-                    </a>
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-center gap-2 bg-primary-foreground/5 hover:bg-primary-foreground/10 border-primary-foreground/20"
-                    asChild
-                  >
-                    <a href="mailto:info@ascengroup.ca">
+                    <a href="mailto:info@ascentgroupconstruction.com">
                       <Mail className="h-4 w-4" aria-hidden="true" />
                       Email Us
                     </a>
