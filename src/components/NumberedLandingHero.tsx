@@ -10,6 +10,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const NumberedLandingHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [activeItem, setActiveItem] = useState<string | null>(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -73,6 +74,8 @@ const NumberedLandingHero = () => {
               style={{
                 animationDelay: `${index * 0.1}s`
               }}
+              onTouchStart={() => setActiveItem(item.number)}
+              onTouchEnd={() => setActiveItem(null)}
             >
               <div className="landing-menu-item__content">
                 <h2 className="landing-menu-item__title">
