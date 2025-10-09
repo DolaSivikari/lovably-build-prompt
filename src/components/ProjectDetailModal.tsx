@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, Ruler, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { resolveAssetPath } from "@/utils/assetResolver";
 
 interface ProjectDetailModalProps {
   isOpen: boolean;
@@ -41,7 +42,7 @@ const ProjectDetailModal = ({ isOpen, onClose, project }: ProjectDetailModalProp
           {/* Hero Image */}
           <div className="rounded-lg overflow-hidden">
             <img
-              src={project.image}
+              src={resolveAssetPath(project.image)}
               alt={project.title}
               className="w-full h-64 object-cover"
             />
@@ -95,7 +96,7 @@ const ProjectDetailModal = ({ isOpen, onClose, project }: ProjectDetailModalProp
                 {project.images.map((img, idx) => (
                   <div key={idx} className="rounded-lg overflow-hidden">
                     <img
-                      src={img}
+                      src={resolveAssetPath(img)}
                       alt={`${project.title} ${idx + 1}`}
                       className="w-full h-40 object-cover"
                     />
@@ -107,7 +108,7 @@ const ProjectDetailModal = ({ isOpen, onClose, project }: ProjectDetailModalProp
           
           {/* CTA Button */}
           <Button asChild className="w-full">
-            <Link to={`/case-studies/${project.slug}`}>
+            <Link to={`/case-study/${project.slug}`}>
               View Full Case Study
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>

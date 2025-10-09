@@ -10,6 +10,7 @@ import caseStudiesData from "@/data/case-studies.json";
 import OptimizedImage from "@/components/OptimizedImage";
 import { projectSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
 import { caseStudyFAQs } from "@/data/case-study-faq-data";
+import { resolveAssetPath } from "@/utils/assetResolver";
 import {
   Accordion,
   AccordionContent,
@@ -80,7 +81,7 @@ const CaseStudy = () => {
         {/* Hero Section */}
         <section className="relative h-[60vh] min-h-[500px]">
           <OptimizedImage
-            src={caseStudy.heroImage}
+            src={resolveAssetPath(caseStudy.heroImage) || caseStudy.heroImage}
             alt={`${caseStudy.title} - ${caseStudy.category} project completed in ${caseStudy.location}, showcasing ${caseStudy.size} of professional construction work`}
             priority={true}
             width={1920}
@@ -164,7 +165,7 @@ const CaseStudy = () => {
                   {caseStudy.images.map((image, index) => (
                     <div key={index} className="aspect-video overflow-hidden rounded-lg">
                       <OptimizedImage
-                        src={image}
+                        src={resolveAssetPath(image) || image}
                         alt={`${caseStudy.title} project detail ${index + 1} - ${caseStudy.category} construction work in ${caseStudy.location}`}
                         width={800}
                         height={600}

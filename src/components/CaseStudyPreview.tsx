@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Clock, ArrowRight } from "lucide-react";
 import caseStudiesData from "@/data/case-studies.json";
 import OptimizedImage from "./OptimizedImage";
+import { resolveAssetPath } from "@/utils/assetResolver";
 
 const CaseStudyPreview = () => {
   const caseStudies = Object.entries(caseStudiesData.caseStudies).slice(0, 2);
@@ -25,7 +26,7 @@ const CaseStudyPreview = () => {
               <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group">
                 <div className="relative h-64 overflow-hidden">
                   <OptimizedImage
-                    src={caseStudy.heroImage}
+                    src={resolveAssetPath(caseStudy.heroImage) || caseStudy.heroImage}
                     alt={`${caseStudy.title} - ${caseStudy.category} project completed in ${caseStudy.location}`}
                     width={800}
                     height={600}

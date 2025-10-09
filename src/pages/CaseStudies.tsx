@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MapPin, Ruler, Clock, ArrowRight, FileText } from "lucide-react";
 import caseStudiesData from "@/data/case-studies.json";
+import { resolveAssetPath } from "@/utils/assetResolver";
 
 const CaseStudies = () => {
   const [filter, setFilter] = useState("all");
@@ -81,7 +82,7 @@ const CaseStudies = () => {
                   >
                     <div className="relative h-64 overflow-hidden">
                       <OptimizedImage
-                        src={study.heroImage}
+                        src={resolveAssetPath(study.heroImage) || study.heroImage}
                         alt={`${study.title} - ${study.category} project in ${study.location}`}
                         width={800}
                         height={600}

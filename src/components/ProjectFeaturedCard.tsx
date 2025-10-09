@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, Ruler, ArrowRight, Award } from "lucide-react";
 import { Link } from "react-router-dom";
+import { resolveAssetPath } from "@/utils/assetResolver";
 
 interface ProjectFeaturedCardProps {
   title: string;
@@ -33,7 +34,7 @@ const ProjectFeaturedCard = ({
       <div className="relative h-96 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-          style={{ backgroundImage: `url(${image})` }}
+          style={{ backgroundImage: `url(${resolveAssetPath(image) || image})` }}
         />
         
         {/* Gradient Overlay */}
@@ -78,7 +79,7 @@ const ProjectFeaturedCard = ({
       {/* Card Footer */}
       <CardContent className="p-6">
         <Button asChild className="w-full group/btn">
-          <Link to={`/case-studies/${slug}`}>
+          <Link to={`/case-study/${slug}`}>
             View Full Case Study
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
           </Link>
