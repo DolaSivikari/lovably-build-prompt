@@ -1,7 +1,25 @@
 import { Star } from "lucide-react";
 import { Card } from "./ui/card";
+import SEO from "./SEO";
 
 const GoogleReviews = () => {
+  const averageRating = 4.9;
+  const totalReviews = 127;
+
+  // Generate aggregate rating schema
+  const aggregateRatingSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Ascent Group Construction",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: averageRating.toString(),
+      reviewCount: totalReviews.toString(),
+      bestRating: "5",
+      worstRating: "1"
+    }
+  };
+
   // In production, these would come from Google Places API
   const reviews = [
     {
@@ -27,11 +45,9 @@ const GoogleReviews = () => {
     },
   ];
 
-  const averageRating = 4.9;
-  const totalReviews = 127;
-
   return (
     <section className="py-16 bg-muted/30">
+      <SEO structuredData={aggregateRatingSchema} />
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}

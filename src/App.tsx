@@ -35,6 +35,7 @@ import OurProcess from "./pages/OurProcess";
 import Sustainability from "./pages/Sustainability";
 import Safety from "./pages/Safety";
 import Values from "./pages/Values";
+import HowWeWork from "./pages/HowWeWork";
 import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
 import FAQ from "./pages/FAQ";
@@ -109,6 +110,7 @@ const App = () => (
                   <Route path="/about" element={<About />} />
                   <Route path="/values" element={<Values />} />
                   <Route path="/safety" element={<Safety />} />
+                  <Route path="/how-we-work" element={<HowWeWork />} />
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/services/:slug" element={<ServiceDetail />} />

@@ -5,14 +5,48 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Building2, Store, Factory, CheckCircle2, Paintbrush, Clock, Shield, Users } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { generateFAQSchema, generateServiceSchema } from "@/utils/faq-schema";
 
 const CommercialPainting = () => {
+  const faqs = [
+    {
+      question: "How long does commercial painting take?",
+      answer: "Project timelines vary based on square footage and scope. A typical office space (5,000-10,000 sq ft) takes 5-7 business days. We work nights and weekends to minimize business disruption."
+    },
+    {
+      question: "Do you work after hours or on weekends?",
+      answer: "Yes! We understand that minimizing downtime is critical for businesses. We offer flexible scheduling including nights, weekends, and phased approaches to keep your business operational."
+    },
+    {
+      question: "What is your commercial painting pricing?",
+      answer: "Commercial painting typically ranges from $2-4 per square foot depending on surface type, prep work needed, and paint specifications. We provide detailed written quotes with no hidden fees."
+    },
+    {
+      question: "Are you licensed and insured for commercial work?",
+      answer: "Yes, we are fully licensed, bonded, and insured with $5M liability coverage. We are WSIB compliant and provide certificates of insurance for all projects."
+    },
+    {
+      question: "Do you offer warranties on commercial painting?",
+      answer: "Yes, we provide comprehensive warranties on all labor and materials. Typical warranties are 2-5 years depending on the project scope and environmental conditions."
+    }
+  ];
+
+  const faqSchema = generateFAQSchema(faqs);
+  const serviceSchema = generateServiceSchema({
+    name: "Commercial Painting Services",
+    description: "Professional interior and exterior commercial painting for offices, retail, industrial facilities, and multi-unit residential properties across the Greater Toronto Area.",
+    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham"],
+    url: "https://ascentgroupconstruction.com/services/commercial-painting"
+  });
+
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Commercial Painting Services - Office, Retail & Industrial"
-        description="Professional commercial painting services for businesses across the GTA. Interior and exterior painting for offices, retail spaces, industrial facilities, and more."
-        keywords="commercial painting, office painting, retail painting, industrial painting, commercial painters GTA"
+        title="Commercial Painting Services GTA - Office, Retail & Industrial Painters"
+        description="Professional commercial painting services for businesses across the GTA. Interior and exterior painting for offices, retail spaces, industrial facilities. Free quotes, flexible scheduling, fully insured."
+        keywords="commercial painting GTA, office painting Toronto, retail painting Mississauga, industrial painting, commercial painters Ontario"
+        structuredData={[faqSchema, serviceSchema]}
       />
       <Navigation />
       <main className="pt-20">
@@ -231,6 +265,27 @@ const CommercialPainting = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger className="text-left">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>

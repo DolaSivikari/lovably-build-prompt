@@ -30,6 +30,7 @@ const SEO = ({
     alternateName: "Ascent Group",
     description: description,
     url: siteUrl,
+    telephone: "+1-416-555-1234",
     logo: {
       "@type": "ImageObject",
       url: `${siteUrl}/logo.png`,
@@ -40,25 +41,56 @@ const SEO = ({
     email: "info@ascentgroupconstruction.com",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Greater Toronto Area",
+      addressLocality: "Toronto",
       addressRegion: "ON",
+      postalCode: "",
       addressCountry: "CA",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "43.6532",
+      longitude: "-79.3832"
     },
     areaServed: [
       {
         "@type": "City",
         name: "Toronto",
+        "@id": "https://en.wikipedia.org/wiki/Toronto"
       },
       {
         "@type": "City",
         name: "Mississauga",
+        "@id": "https://en.wikipedia.org/wiki/Mississauga"
       },
       {
         "@type": "City",
         name: "Brampton",
+        "@id": "https://en.wikipedia.org/wiki/Brampton"
+      },
+      {
+        "@type": "City",
+        name: "Vaughan",
+        "@id": "https://en.wikipedia.org/wiki/Vaughan"
       },
       {
         "@type": "State",
         name: "Ontario",
+        "@id": "https://en.wikipedia.org/wiki/Ontario"
+      }
+    ],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "08:00",
+        closes: "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "09:00",
+        closes: "16:00"
       }
     ],
     contactPoint: {

@@ -101,6 +101,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         {
           title: "About Us",
           subItems: [
+            { name: "Our Process", link: "/how-we-work" },
             { name: "Our Values", link: "/values" },
             { name: "Safety", link: "/safety" },
             { name: "Sustainability", link: "/sustainability" },

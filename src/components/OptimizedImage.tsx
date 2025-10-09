@@ -13,6 +13,7 @@ interface OptimizedImageProps {
   className?: string;
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   fetchPriority?: "high" | "low" | "auto";
+  loading?: "eager" | "lazy";
 }
 
 const OptimizedImage = ({
@@ -27,6 +28,7 @@ const OptimizedImage = ({
   className,
   objectFit = "cover",
   fetchPriority = "auto",
+  loading,
 }: OptimizedImageProps) => {
   const { isLoaded, isInView, imageRef } = useImageLoad({
     rootMargin: "50px",
@@ -72,7 +74,7 @@ const OptimizedImage = ({
             alt={alt}
             width={width}
             height={height}
-            loading={priority ? "eager" : "lazy"}
+            loading={loading || (priority ? "eager" : "lazy")}
             decoding={priority ? "sync" : "async"}
             fetchPriority={fetchPriority}
             className={cn(
@@ -94,7 +96,7 @@ const OptimizedImage = ({
           width={width}
           height={height}
           sizes={sizes}
-          loading={priority ? "eager" : "lazy"}
+          loading={loading || (priority ? "eager" : "lazy")}
           decoding={priority ? "sync" : "async"}
           fetchPriority={fetchPriority}
           className={cn(

@@ -5,15 +5,48 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Home, CheckCircle2, Paintbrush, Sparkles, Shield } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { generateFAQSchema, generateServiceSchema } from "@/utils/faq-schema";
 
 const ResidentialPainting = () => {
+  const faqs = [
+    {
+      question: "How much does it cost to paint a house?",
+      answer: "Interior painting typically ranges from $3-6 per square foot, while exterior painting ranges from $2.50-5 per square foot. Final cost depends on surface condition, number of coats, paint quality, and project complexity. We provide free detailed estimates."
+    },
+    {
+      question: "How long does residential painting take?",
+      answer: "Most interior rooms take 2-3 days including prep and drying time. Full interior homes (2,000-3,000 sq ft) typically take 5-10 business days. Exterior painting takes 5-7 days depending on weather and house size."
+    },
+    {
+      question: "Do I need to move furniture?",
+      answer: "We handle all furniture moving and protection as part of our service. We carefully move items to the center of rooms, cover them with protective sheets, and return everything to its original location when done."
+    },
+    {
+      question: "What paint brands do you use?",
+      answer: "We use premium brands like Benjamin Moore, Sherwin-Williams, and Dulux. We'll help you select the right paint for your needs, balancing quality, durability, and budget. All paints come with manufacturer warranties."
+    },
+    {
+      question: "Do you offer color consultation?",
+      answer: "Yes! Free color consultation is included with every project. Our experts help you choose colors that match your style, lighting, and existing decor. We provide sample testing before final selection."
+    }
+  ];
+
+  const faqSchema = generateFAQSchema(faqs);
+  const serviceSchema = generateServiceSchema({
+    name: "Residential Painting Services",
+    description: "Professional interior and exterior house painting services for homeowners across the Greater Toronto Area. Quality craftsmanship, premium materials, and satisfaction guaranteed.",
+    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham"],
+    url: "https://ascentgroupconstruction.com/services/residential-painting"
+  });
 
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Residential Painting Services - Interior & Exterior House Painting"
-        description="Transform your home with professional residential painting services. Expert interior and exterior house painting in the GTA. Free estimates and quality guaranteed."
-        keywords="residential painting, house painting, interior painting, exterior painting, home painters GTA"
+        title="Residential Painting GTA - Interior & Exterior House Painting Services"
+        description="Transform your home with professional residential painting services. Expert interior and exterior house painting in Toronto, Mississauga, Brampton. Free estimates, quality guaranteed, 15+ years experience."
+        keywords="residential painting GTA, house painting Toronto, interior painting Mississauga, exterior painting Brampton, home painters Ontario"
+        structuredData={[faqSchema, serviceSchema]}
       />
       <Navigation />
       <main className="pt-20">
@@ -186,6 +219,27 @@ const ResidentialPainting = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger className="text-left">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>

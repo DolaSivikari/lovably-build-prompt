@@ -11,17 +11,30 @@ import BlogPreview from "@/components/BlogPreview";
 import CaseStudyPreview from "@/components/CaseStudyPreview";
 import GoogleReviews from "@/components/GoogleReviews";
 import HomepageContent from "@/components/HomepageContent";
+import MobileStickyCTA from "@/components/MobileStickyCTA";
+import QuoteWidget from "@/components/QuoteWidget";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <SEO />
       <Navigation />
+      <MobileStickyCTA />
       <main id="main-content" role="main">
         <NumberedLandingHero />
         <HomepageContent />
         <ServicesPreview />
         <Stats />
+        
+        {/* Quote Widget Section */}
+        <section className="py-16 bg-gradient-to-br from-primary/5 to-primary/10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-xl mx-auto">
+              <QuoteWidget />
+            </div>
+          </div>
+        </section>
+        
         <FeaturedProjects />
         <GoogleReviews />
         <CaseStudyPreview />

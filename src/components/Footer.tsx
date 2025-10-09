@@ -145,7 +145,7 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Right: Contact Card (3 cols) */}
+              {/* Right: Contact Card (3 cols) */}
             <div className="lg:col-span-3">
               <div className="footer-glass-card p-6 sticky top-4">
                 <h3 className="font-semibold text-primary-foreground mb-4 flex items-center gap-2">
@@ -153,21 +153,45 @@ const Footer = () => {
                   Contact Us
                 </h3>
                 
-                <ul className="space-y-4 mb-6">
+                <ul className="space-y-4 mb-6" itemScope itemType="https://schema.org/LocalBusiness">
+                  <meta itemProp="name" content="Ascent Group Construction" />
+                  <meta itemProp="telephone" content="+1-416-555-1234" />
+                  
                   <li className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 mt-0.5 text-secondary flex-shrink-0" aria-hidden="true" />
+                    <Phone className="h-5 w-5 mt-0.5 text-secondary flex-shrink-0" aria-hidden="true" />
                     <div>
-                      <div className="text-sm font-medium text-primary-foreground">Service Area</div>
-                      <div className="text-sm text-primary-foreground/70">Ontario, Canada</div>
+                      <div className="text-sm font-medium text-primary-foreground">Phone</div>
+                      <a 
+                        href="tel:+14165551234" 
+                        className="text-sm text-primary-foreground/70 hover:text-secondary transition-colors"
+                        itemProp="telephone"
+                      >
+                        (416) 555-1234
+                      </a>
                     </div>
                   </li>
+                  
+                  <li className="flex items-start gap-3">
+                    <MapPin className="h-5 w-5 mt-0.5 text-secondary flex-shrink-0" aria-hidden="true" />
+                    <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                      <div className="text-sm font-medium text-primary-foreground">Service Area</div>
+                      <div className="text-sm text-primary-foreground/70">
+                        <span itemProp="addressRegion">Greater Toronto Area</span>, <span itemProp="addressCountry">Ontario</span>
+                      </div>
+                      <div className="text-xs text-primary-foreground/60 mt-1">
+                        Toronto • Mississauga • Brampton • Vaughan
+                      </div>
+                    </div>
+                  </li>
+                  
                   <li className="flex items-start gap-3">
                     <Clock className="h-5 w-5 mt-0.5 text-secondary flex-shrink-0" aria-hidden="true" />
                     <div>
                       <div className="text-sm font-medium text-primary-foreground">Business Hours</div>
                       <div className="text-xs text-primary-foreground/70 mt-1">
                         Mon-Fri: 8:00 AM - 6:00 PM<br />
-                        Sat: 9:00 AM - 4:00 PM
+                        Sat: 9:00 AM - 4:00 PM<br />
+                        Sun: Closed
                       </div>
                     </div>
                   </li>
