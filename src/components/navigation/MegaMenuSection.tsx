@@ -17,18 +17,6 @@ export const MegaMenuSection = ({
 }: MegaMenuSectionProps) => {
   return (
     <div className="mega-menu-section">
-      {section.sectionLink ? (
-        <Link
-          to={section.sectionLink}
-          className="mega-menu-section-header-link"
-          onClick={onLinkClick}
-        >
-          {section.sectionTitle}
-        </Link>
-      ) : (
-        <h3 className="mega-menu-section-header">{section.sectionTitle}</h3>
-      )}
-      
       <div className="mega-menu-section-categories">
         {section.categories.map((category, index) => (
           <MegaMenuAccordionCategory
