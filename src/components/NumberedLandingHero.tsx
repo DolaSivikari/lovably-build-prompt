@@ -5,11 +5,12 @@ import heroConstruction from "@/assets/hero-construction.jpg";
 import heroVideo from "@/assets/hero-construction-video.mp4";
 import { useEffect, useRef, useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const NumberedLandingHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // On mobile, delay video load until after initial paint
@@ -73,10 +74,6 @@ const NumberedLandingHero = () => {
                 animationDelay: `${index * 0.1}s`
               }}
             >
-              <span className="landing-menu-item__number">
-                {item.number}
-              </span>
-              
               <div className="landing-menu-item__content">
                 <h2 className="landing-menu-item__title">
                   {item.title}

@@ -693,7 +693,7 @@ All colors MUST be HSL.
 
 .landing-menu-item {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: 2rem;
   padding: 2rem 0;
@@ -719,22 +719,10 @@ All colors MUST be HSL.
   border-bottom-color: hsl(var(--primary));
 }
 
-  /* Number Styling */
+  /* Number Styling - Hidden */
   .landing-menu-item__number {
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: hsl(var(--foreground) / 0.35);
-    font-family: 'Playfair Display', serif;
-    line-height: 1;
-    text-shadow: 0 2px 8px hsl(var(--foreground) / 0.1);
-    transition: all 0.3s ease;
-    user-select: none;
+    display: none;
   }
-
-.landing-menu-item:hover .landing-menu-item__number {
-  color: hsl(var(--primary));
-  text-shadow: 0 0 30px hsl(var(--primary) / 0.3);
-}
 
 /* Content Column */
 .landing-menu-item__content {
@@ -856,13 +844,9 @@ All colors MUST be HSL.
   }
 
   .landing-menu-item {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
     padding: 1.25rem 0;
-  }
-
-  .landing-menu-item__number {
-    font-size: 3rem;
   }
 
   .landing-menu-item__title {
@@ -874,7 +858,6 @@ All colors MUST be HSL.
   }
 
   .landing-menu-item__cta {
-    grid-column: 2;
     justify-self: start;
     margin-top: 0.5rem;
     font-size: 0.75rem;
@@ -890,15 +873,11 @@ All colors MUST be HSL.
 }
 
 @media (max-width: 480px) {
-  .landing-menu-item__number {
-    font-size: 2rem;
-  }
-
   .landing-menu-item__title {
     font-size: 1rem;
   }
 
-  .landing-menu-item__cta span {
-    display: none;
+  .landing-menu-item__cta {
+    font-size: 0.625rem;
   }
 }
