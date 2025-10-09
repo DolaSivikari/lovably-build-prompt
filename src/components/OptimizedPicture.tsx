@@ -12,6 +12,7 @@ interface OptimizedPictureProps {
   height: number;
   sizes?: string;
   loading?: "eager" | "lazy";
+  fetchPriority?: "high" | "low" | "auto";
   className?: string;
   imgClassName?: string;
 }
@@ -45,6 +46,7 @@ const OptimizedPicture = ({
   height,
   sizes = "100vw",
   loading = "lazy",
+  fetchPriority = "auto",
   className,
   imgClassName,
 }: OptimizedPictureProps) => {
@@ -78,6 +80,7 @@ const OptimizedPicture = ({
         sizes={sizes}
         loading={loading}
         decoding={loading === "eager" ? "sync" : "async"}
+        fetchPriority={fetchPriority}
         className={cn("w-full h-auto", imgClassName)}
         style={{ aspectRatio: `${width}/${height}` }}
       />

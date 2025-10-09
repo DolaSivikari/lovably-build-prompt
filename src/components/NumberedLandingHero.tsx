@@ -48,6 +48,7 @@ const NumberedLandingHero = () => {
             className="w-full h-full object-cover"
             loading="eager"
             decoding="async"
+            fetchPriority="high"
           />
         )}
       </div>
@@ -57,7 +58,11 @@ const NumberedLandingHero = () => {
 
       {/* Numbered Navigation Menu */}
       <div className="landing-hero__content">
-        <nav className="landing-menu" aria-label="Main landing navigation">
+        <nav 
+          className="landing-menu" 
+          role="navigation" 
+          aria-label="Main landing navigation"
+        >
           {landingMenuItems.map((item, index) => (
             <Link
               key={item.number}
@@ -81,7 +86,7 @@ const NumberedLandingHero = () => {
               </div>
 
               <div className="landing-menu-item__cta">
-                <span>Explore {item.title}</span>
+                <span>Learn More</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </div>
             </Link>

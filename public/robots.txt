@@ -18,13 +18,5 @@ Sitemap: https://ascentgroupconstruction.com/sitemap.xml
 
 # Block access to admin pages
 User-agent: *
-Disallow: /admin/
-Disallow: /auth/
-Disallow: /*.json$
-
-# Allow assets
-Allow: /assets/
-Allow: /*.jpg
-Allow: /*.png
-Allow: /*.webp
-Allow: /*.avif
+Disallow: /admin
+Disallow: /auth

@@ -100,7 +100,7 @@ const Navigation = () => {
           "fixed top-0 left-0 right-0 z-navigation bg-background/95 backdrop-blur-sm border-b border-border transition-transform duration-300 ease-in-out",
           scrollDirection === "down" && !isAtTop && "-translate-y-full"
         )} 
-        aria-label="Main navigation"
+        role="banner"
       >
         <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
@@ -118,7 +118,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6 flex-1 justify-end">
+          <div className="hidden md:flex items-center gap-6 flex-1 justify-end" role="navigation" aria-label="Main navigation">
             <Link
               to="/"
               aria-current={isActive("/") ? "page" : undefined}

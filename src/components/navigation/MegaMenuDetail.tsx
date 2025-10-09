@@ -16,9 +16,8 @@ export const MegaMenuDetail = ({ category, onLinkClick }: MegaMenuDetailProps) =
         to={category.link} 
         className="mega-menu-detail-cta"
         onClick={onLinkClick}
-        aria-label={`View all ${category.title} services`}
       >
-        View {category.title} <ArrowRight className="inline-block ml-1 h-4 w-4" />
+        Learn More <ArrowRight className="inline-block ml-1 h-4 w-4" />
       </Link>
       
       <p className="mega-menu-detail-description">{category.description}</p>

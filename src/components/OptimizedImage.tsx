@@ -12,6 +12,7 @@ interface OptimizedImageProps {
   sizes?: string;
   className?: string;
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
+  fetchPriority?: "high" | "low" | "auto";
   loading?: "eager" | "lazy";
 }
 
@@ -26,6 +27,7 @@ const OptimizedImage = ({
   sizes = "100vw",
   className,
   objectFit = "cover",
+  fetchPriority = "auto",
   loading,
 }: OptimizedImageProps) => {
   const { isLoaded, isInView, imageRef } = useImageLoad({
@@ -74,6 +76,7 @@ const OptimizedImage = ({
             height={height}
             loading={loading || (priority ? "eager" : "lazy")}
             decoding={priority ? "sync" : "async"}
+            fetchPriority={fetchPriority}
             className={cn(
               "transition-opacity duration-500",
               isLoaded ? "opacity-100" : "opacity-0",
@@ -82,7 +85,6 @@ const OptimizedImage = ({
             )}
             style={{
               objectFit,
-              aspectRatio: width && height ? `${width}/${height}` : undefined,
             }}
           />
         </picture>
@@ -96,6 +98,7 @@ const OptimizedImage = ({
           sizes={sizes}
           loading={loading || (priority ? "eager" : "lazy")}
           decoding={priority ? "sync" : "async"}
+          fetchPriority={fetchPriority}
           className={cn(
             "transition-opacity duration-500",
             isLoaded ? "opacity-100" : "opacity-0",
@@ -104,7 +107,6 @@ const OptimizedImage = ({
           )}
           style={{
             objectFit,
-            aspectRatio: width && height ? `${width}/${height}` : undefined,
           }}
         />
       )}

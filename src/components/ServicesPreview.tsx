@@ -134,9 +134,8 @@ const ServicesPreview = () => {
                   <Link 
                     to={`/services/${service.slug}`}
                     className="inline-flex items-center text-primary hover:text-primary/80 text-sm font-semibold group-hover:gap-3 gap-2 transition-all"
-                    aria-label={`Learn more about ${service.name} services`}
                   >
-                    Explore {service.name}
+                    Learn More
                     <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
