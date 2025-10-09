@@ -1,24 +1,12 @@
 import { Star, CheckCircle2 } from "lucide-react";
 import { Card } from "./ui/card";
 import SEO from "./SEO";
+import { calculateISODate, inferServiceFromReview, getConsistentAggregateRating } from "@/utils/review-helpers";
 
 const GoogleReviews = () => {
-  const averageRating = 4.8;
-  const totalReviews = 143;
-
-  // Generate aggregate rating schema
-  const aggregateRatingSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Ascent Group Construction",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: averageRating.toString(),
-      reviewCount: totalReviews.toString(),
-      bestRating: "5",
-      worstRating: "1"
-    }
-  };
+  const aggregateRating = getConsistentAggregateRating();
+  const averageRating = parseFloat(aggregateRating.ratingValue);
+  const totalReviews = parseInt(aggregateRating.reviewCount);
 
   // In production, these would come from Google Places API
   const reviews = [
@@ -64,9 +52,69 @@ const GoogleReviews = () => {
     },
   ];
 
+  // Generate @graph schema with LocalBusiness + individual Reviews
+  const reviewSchemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://ascentgroupconstruction.com/#localbusiness",
+        "name": "Ascent Group Construction",
+        "url": "https://ascentgroupconstruction.com/",
+        "telephone": "+1-416-555-7246",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "123 Construction Way",
+          "addressLocality": "Toronto",
+          "addressRegion": "ON",
+          "postalCode": "M5H 2N2",
+          "addressCountry": "CA"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": aggregateRating.ratingValue,
+          "reviewCount": aggregateRating.reviewCount,
+          "bestRating": aggregateRating.bestRating,
+          "worstRating": aggregateRating.worstRating
+        }
+      },
+      ...reviews.map(review => {
+        const service = inferServiceFromReview(review.text);
+        return {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": review.author
+          },
+          "datePublished": calculateISODate(review.date),
+          "reviewBody": review.text,
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": String(review.rating),
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "itemReviewed": {
+            "@type": "Service",
+            "name": service.name,
+            "serviceType": service.type,
+            "provider": {
+              "@type": "LocalBusiness",
+              "@id": "https://ascentgroupconstruction.com/#localbusiness"
+            }
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Google"
+          }
+        };
+      })
+    ]
+  };
+
   return (
     <section className="py-12 bg-muted/30">
-      <SEO structuredData={aggregateRatingSchema} />
+      <SEO structuredData={reviewSchemaGraph} />
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}

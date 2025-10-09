@@ -2,10 +2,12 @@ import { Star, Quote } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import SEO from "./SEO";
 import { reviewSchema } from "@/utils/structured-data";
+import { calculateISODate, inferServiceFromReview, getConsistentAggregateRating } from "@/utils/review-helpers";
 
 const SocialProof = () => {
-  const averageRating = 4.9;
-  const totalReviews = 127;
+  const aggregateRating = getConsistentAggregateRating();
+  const averageRating = parseFloat(aggregateRating.ratingValue);
+  const totalReviews = parseInt(aggregateRating.reviewCount);
 
   // Generate aggregate rating schema
   const aggregateRatingSchema = {
@@ -14,10 +16,10 @@ const SocialProof = () => {
     name: "Ascent Group Construction",
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: averageRating.toString(),
-      reviewCount: totalReviews.toString(),
-      bestRating: "5",
-      worstRating: "1"
+      ratingValue: aggregateRating.ratingValue,
+      reviewCount: aggregateRating.reviewCount,
+      bestRating: aggregateRating.bestRating,
+      worstRating: aggregateRating.worstRating
     }
   };
 
@@ -55,6 +57,7 @@ const SocialProof = () => {
       company: "Commercial Real Estate",
       rating: 5,
       date: "2024-09-15",
+      project: "Office Tower Renovation"
     },
     {
       quote: "The team's attention to detail and commitment to safety made all the difference. They turned our vision into reality while maintaining the highest standards.",
@@ -63,6 +66,7 @@ const SocialProof = () => {
       company: "Manufacturing Corp",
       rating: 5,
       date: "2024-08-22",
+      project: "Industrial Facility"
     },
     {
       quote: "Working with Ascent Group Construction on our healthcare facility was seamless. Their use of BIM technology prevented costly delays and ensured quality outcomes.",
@@ -71,22 +75,50 @@ const SocialProof = () => {
       company: "Regional Health Authority",
       rating: 5,
       date: "2024-07-10",
+      project: "Healthcare Facility Construction"
     },
   ];
 
-  // Generate review schemas for testimonials
-  const reviewSchemas = testimonials.map(t => 
+  // Generate review schemas for Google reviews
+  const googleReviewSchemas = googleReviews.map(review => {
+    const service = inferServiceFromReview(review.text);
+    return reviewSchema({
+      author: review.author,
+      reviewRating: review.rating,
+      reviewBody: review.text,
+      datePublished: calculateISODate(review.date),
+      itemReviewed: {
+        name: service.name,
+        type: service.type
+      },
+      publisher: {
+        name: "Google",
+        type: "Organization"
+      }
+    });
+  });
+
+  // Generate review schemas for testimonials with service context
+  const testimonialSchemas = testimonials.map(t => 
     reviewSchema({
       author: t.author,
       reviewRating: t.rating,
       reviewBody: t.quote,
       datePublished: t.date,
+      itemReviewed: {
+        name: t.project,
+        type: "Service"
+      },
+      publisher: {
+        name: t.company,
+        type: "Organization"
+      }
     })
   );
 
   return (
     <>
-      <SEO structuredData={[aggregateRatingSchema, ...reviewSchemas]} />
+      <SEO structuredData={[aggregateRatingSchema, ...googleReviewSchemas, ...testimonialSchemas]} />
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">

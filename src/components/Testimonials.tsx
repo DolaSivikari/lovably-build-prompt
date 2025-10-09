@@ -34,13 +34,21 @@ const Testimonials = () => {
     },
   ];
 
-  // Generate review schemas
+  // Generate review schemas with service context and publisher
   const reviewSchemas = testimonials.map(t => 
     reviewSchema({
       author: t.author,
       reviewRating: t.rating,
       reviewBody: t.quote,
       datePublished: t.date,
+      itemReviewed: {
+        name: t.project,
+        type: "Service"
+      },
+      publisher: {
+        name: t.company,
+        type: "Organization"
+      }
     })
   );
 

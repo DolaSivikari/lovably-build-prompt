@@ -183,9 +183,17 @@ interface ReviewSchemaOptions {
     name: string;
     type: string;
   };
+  publisher?: {
+    name: string;
+    type: "Person" | "Organization";
+  };
+  url?: string;
+  inLanguage?: string;
 }
 
 export const reviewSchema = (options: ReviewSchemaOptions) => {
+  const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  
   return {
     "@context": "https://schema.org",
     "@type": "Review",
@@ -201,10 +209,23 @@ export const reviewSchema = (options: ReviewSchemaOptions) => {
     },
     reviewBody: options.reviewBody,
     datePublished: options.datePublished,
+    inLanguage: options.inLanguage || "en-CA",
     itemReviewed: {
       "@type": options.itemReviewed?.type || "LocalBusiness",
       name: options.itemReviewed?.name || "Ascent Group Construction",
+      provider: {
+        "@type": "LocalBusiness",
+        name: "Ascent Group Construction",
+        url: siteUrl,
+      },
     },
+    ...(options.publisher && {
+      publisher: {
+        "@type": options.publisher.type,
+        name: options.publisher.name,
+      },
+    }),
+    ...(options.url && { url: options.url }),
   };
 };
 
