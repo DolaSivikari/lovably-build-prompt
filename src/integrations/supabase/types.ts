@@ -1472,6 +1472,21 @@ export type Database = {
         }
         Returns: string
       }
+      get_security_audit_log: {
+        Args: { limit_count?: number }
+        Returns: {
+          accessed_by_email: string
+          accessed_email: string
+          action: string
+          created_at: string
+          id: string
+          ip_address: string
+          object_id: string
+          object_type: string
+          user_agent: string
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
