@@ -83,11 +83,10 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   ],
   blog: [
     {
-      sectionTitle: "Blog & Resources",
-      sectionLink: "/blog",
+      sectionTitle: "Articles & Insights",
       categories: [
         {
-          title: "Articles & Insights",
+          title: "Blog & Resources",
           subItems: [
             { name: "View All Articles", link: "/blog" },
             { name: "Case Studies", link: "/case-studies" },
