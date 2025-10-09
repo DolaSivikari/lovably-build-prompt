@@ -86,7 +86,7 @@ const NumberedLandingHero = () => {
               </div>
 
               <div className="landing-menu-item__cta">
-                <span>Learn More</span>
+                <span>Explore {item.title}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </div>
             </Link>
