@@ -19,7 +19,8 @@ import {
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const iconMap: Record<string, any> = {
-  PaintBrush: Paintbrush,
+  Paintbrush: Paintbrush,
+  PaintBrush: Paintbrush, // Legacy support
   Building2,
   Building,
   Home,
@@ -99,7 +100,7 @@ const ServicesPreview = () => {
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {services.map((service, index) => {
-            const IconComponent = service.icon_name ? iconMap[service.icon_name as keyof typeof iconMap] : Building;
+            const IconComponent = (service.icon_name && iconMap[service.icon_name as keyof typeof iconMap]) || Building;
             const colorScheme = serviceColors[index % serviceColors.length];
             const isWide = index === 0 || index === 4; // First and fifth cards span 2 columns on large screens
             
