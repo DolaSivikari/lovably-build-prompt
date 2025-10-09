@@ -4,15 +4,12 @@ import NumberedLandingHero from "@/components/NumberedLandingHero";
 import ServicesPreview from "@/components/ServicesPreview";
 import Stats from "@/components/Stats";
 import FeaturedProjects from "@/components/FeaturedProjects";
-import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import SEO from "@/components/SEO";
 import BlogPreview from "@/components/BlogPreview";
-import CaseStudyPreview from "@/components/CaseStudyPreview";
-import GoogleReviews from "@/components/GoogleReviews";
+import SocialProof from "@/components/SocialProof";
 import HomepageContent from "@/components/HomepageContent";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
-import QuoteWidget from "@/components/QuoteWidget";
 
 const Index = () => {
   return (
@@ -25,21 +22,9 @@ const Index = () => {
         <HomepageContent />
         <ServicesPreview />
         <Stats />
-        
-        {/* Quote Widget Section */}
-        <section className="py-16 bg-gradient-to-br from-primary/5 to-primary/10">
-          <div className="container mx-auto px-4">
-            <div className="max-w-xl mx-auto">
-              <QuoteWidget />
-            </div>
-          </div>
-        </section>
-        
         <FeaturedProjects />
-        <GoogleReviews />
-        <CaseStudyPreview />
+        <SocialProof />
         <BlogPreview />
-        <Testimonials />
         <CTA />
       </main>
       <Footer />
