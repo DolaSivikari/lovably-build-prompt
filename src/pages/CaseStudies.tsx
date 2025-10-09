@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -79,10 +80,14 @@ const CaseStudies = () => {
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="relative h-64 overflow-hidden">
-                      <img
+                      <OptimizedImage
                         src={study.heroImage}
-                        alt={study.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        alt={`${study.title} - ${study.category} project in ${study.location}`}
+                        width={800}
+                        height={600}
+                        className="w-full h-full group-hover:scale-105 transition-transform duration-300"
+                        objectFit="cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className="absolute top-4 left-4">
                         <Badge className="bg-secondary text-primary">{study.category}</Badge>
