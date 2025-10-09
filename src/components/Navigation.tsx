@@ -25,7 +25,6 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
-  const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
   const location = useLocation();
   
@@ -34,7 +33,6 @@ const Navigation = () => {
   
   // Use custom hook for hover timeout management with automatic cleanup
   const megaMenuHover = useHoverTimeout();
-  const contactHover = useHoverTimeout();
   const adminHover = useHoverTimeout();
 
   // Sync mobile menu state with body data attribute
@@ -71,16 +69,6 @@ const Navigation = () => {
     setActiveMegaMenu(null);
     megaMenuHover.clearPendingTimeout();
   }, [megaMenuHover]);
-
-  // Contact dropdown hover handlers - now matching mega menu behavior (300ms delay)
-  const openContactDropdown = useCallback(() => {
-    contactHover.clearPendingTimeout();
-    setContactDropdownOpen(true);
-  }, [contactHover]);
-
-  const scheduleCloseContactDropdown = useCallback(() => {
-    contactHover.scheduleAction(() => setContactDropdownOpen(false), 300);
-  }, [contactHover]);
 
   // Admin dropdown hover handlers
   const openAdminDropdown = useCallback(() => {
@@ -226,50 +214,6 @@ const Navigation = () => {
                 onClose={closeMegaMenu}
               />
             </div>
-            
-            {/* Contact Dropdown */}
-            <DropdownMenu open={contactDropdownOpen} onOpenChange={setContactDropdownOpen}>
-              <DropdownMenuTrigger 
-                onMouseEnter={openContactDropdown}
-                onMouseLeave={scheduleCloseContactDropdown}
-                className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  contactDropdownOpen && "text-sage"
-                )}
-                aria-expanded={contactDropdownOpen}
-              >
-                Contact
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
-                  contactDropdownOpen && "rotate-180"
-                )} />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent 
-                align="end"
-                onMouseEnter={openContactDropdown}
-                onMouseLeave={scheduleCloseContactDropdown}
-                className="w-64 bg-background text-foreground rounded-lg border border-border z-mega-menu mt-2 p-0 animate-enter shadow-[0_10px_40px_-10px_hsl(var(--charcoal)_/_0.2)]"
-              >
-                <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                  <Link 
-                    to="/contact" 
-                    onClick={() => setContactDropdownOpen(false)}
-                    className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
-                  >
-                    Contact Us
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                  <Link 
-                    to="/careers" 
-                    onClick={() => setContactDropdownOpen(false)}
-                    className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
-                  >
-                    Careers
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
 
             {/* Admin Dropdown - Only visible to admin users */}
             {isAdmin && (

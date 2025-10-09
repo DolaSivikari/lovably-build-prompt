@@ -79,28 +79,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             >
               Projects
             </Link>
-            <Link
-              to="/contact"
-              onClick={handleLinkClick}
-              className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
-                isActive("/contact")
-                  ? "bg-primary text-primary-foreground"
-                  : "hover:bg-muted"
-              }`}
-            >
-              Contact
-            </Link>
-            <Link
-              to="/careers"
-              onClick={handleLinkClick}
-              className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
-                isActive("/careers")
-                  ? "bg-primary text-primary-foreground"
-                  : "hover:bg-muted"
-              }`}
-            >
-              Careers
-            </Link>
           </nav>
 
           {/* Accordion sections */}

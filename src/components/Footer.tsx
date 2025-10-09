@@ -73,6 +73,17 @@ const Footer = () => {
     { to: "/commercial-clients", label: "Commercial Clients", icon: Building2 },
   ];
 
+  const contactLinks = [
+    { to: "/contact", label: "Contact Us" },
+    { to: "/estimate", label: "Get Estimate" },
+  ];
+
+  const careersLinks = [
+    { to: "/careers", label: "Careers" },
+    { to: "/careers#benefits", label: "Benefits" },
+    { to: "/careers#positions", label: "Open Positions" },
+  ];
+
   return (
     <>
       <SEO structuredData={citationSchema} />
@@ -121,6 +132,8 @@ const Footer = () => {
             <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FooterNavCard title="Company" icon={Building2} links={companyLinks} />
               <FooterNavCard title="Resources" icon={BookOpen} links={resourceLinks} />
+              <FooterNavCard title="Contact" icon={Mail} links={contactLinks} />
+              <FooterNavCard title="Careers" icon={Wrench} links={careersLinks} />
               
               {/* Client Types Card */}
               <div className="footer-glass-card p-6 sm:col-span-2">
