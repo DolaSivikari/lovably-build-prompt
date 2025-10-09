@@ -66,13 +66,9 @@ export default defineConfig(({ mode }) => ({
   build: {
     sourcemap: mode === 'development',
     cssCodeSplit: true,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: mode === 'production',
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info'],
-      },
+    minify: 'esbuild',
+    esbuild: {
+      drop: mode === 'production' ? ['console', 'debugger'] : [],
     },
     rollupOptions: {
       output: {
