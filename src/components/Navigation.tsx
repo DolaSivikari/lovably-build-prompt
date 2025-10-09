@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import ascentLogo from "@/assets/ascent-logo.png";
-import { ChevronDown, Phone } from "lucide-react";
+import { ChevronDown, Phone, Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
@@ -10,6 +10,7 @@ import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
 import { trackPhoneClick } from "@/lib/analytics";
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
+import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 import {
   Collapsible,
   CollapsibleContent,
@@ -20,6 +21,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
@@ -27,14 +30,20 @@ const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
+  const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileWhoWeServeOpen, setMobileWhoWeServeOpen] = useState(false);
   const [mobileBlogOpen, setMobileBlogOpen] = useState(false);
+  const [mobileAdminOpen, setMobileAdminOpen] = useState(false);
   const location = useLocation();
+  
+  // Check admin role
+  const { isAdmin } = useAdminRoleCheck();
   
   // Use custom hook for hover timeout management with automatic cleanup
   const megaMenuHover = useHoverTimeout();
   const contactHover = useHoverTimeout();
+  const adminHover = useHoverTimeout();
 
   useEffect(() => {
     checkAuth();
@@ -48,13 +57,6 @@ const Navigation = () => {
     const { data: { session } } = await supabase.auth.getSession();
     setIsAuthenticated(!!session);
   };
-
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Our Process", path: "/our-process" },
-    { name: "Contact", path: "/contact" },
-    ...(isAuthenticated ? [{ name: "Admin", path: "/admin" }] : []),
-  ];
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -82,6 +84,16 @@ const Navigation = () => {
   const scheduleCloseContactDropdown = useCallback(() => {
     contactHover.scheduleAction(() => setContactDropdownOpen(false), 300);
   }, [contactHover]);
+
+  // Admin dropdown hover handlers
+  const openAdminDropdown = useCallback(() => {
+    adminHover.clearPendingTimeout();
+    setAdminDropdownOpen(true);
+  }, [adminHover]);
+
+  const scheduleCloseAdminDropdown = useCallback(() => {
+    adminHover.scheduleAction(() => setAdminDropdownOpen(false), 300);
+  }, [adminHover]);
 
   return (
     <>
@@ -261,6 +273,161 @@ const Navigation = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Admin Dropdown - Only visible to admin users */}
+            {isAdmin && (
+              <DropdownMenu open={adminDropdownOpen} onOpenChange={setAdminDropdownOpen}>
+                <DropdownMenuTrigger 
+                  onMouseEnter={openAdminDropdown}
+                  onMouseLeave={scheduleCloseAdminDropdown}
+                  className={cn(
+                    "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
+                    adminDropdownOpen && "text-sage"
+                  )}
+                  aria-expanded={adminDropdownOpen}
+                >
+                  <Shield className="w-4 h-4" />
+                  Admin
+                  <ChevronDown className={cn(
+                    "w-4 h-4 transition-transform duration-200",
+                    adminDropdownOpen && "rotate-180"
+                  )} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="end"
+                  onMouseEnter={openAdminDropdown}
+                  onMouseLeave={scheduleCloseAdminDropdown}
+                  className="w-64 bg-background text-foreground rounded-lg border border-border z-mega-menu mt-2 p-0 animate-enter shadow-[0_10px_40px_-10px_hsl(var(--charcoal)_/_0.2)]"
+                >
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                    Content Management
+                  </DropdownMenuLabel>
+                  
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/services" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Services
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/projects" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Projects
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/blog-posts" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Blog Posts
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/case-studies" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Case Studies
+                    </Link>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                    Submissions
+                  </DropdownMenuLabel>
+                  
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/contact-submissions" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Contact Submissions
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/resume-submissions" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Resume Submissions
+                    </Link>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                    Settings
+                  </DropdownMenuLabel>
+                  
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/media-library" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Media Library
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/users" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Users
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/security-center" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Security Center
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/seo-dashboard" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      SEO Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/performance-dashboard" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Performance Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
 
             <Button variant="secondary" asChild className="group ml-4">
               <Link to="/estimate" className="flex items-center gap-2">
@@ -483,6 +650,124 @@ const Navigation = () => {
             >
               Careers
             </Link>
+
+            {/* Admin Section - Only visible to admin users */}
+            {isAdmin && (
+              <div className="border-t border-border pt-4">
+                <Collapsible open={mobileAdminOpen} onOpenChange={setMobileAdminOpen}>
+                  <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-semibold text-primary mb-2 px-2">
+                    <span className="flex items-center gap-2">
+                      <Shield className="w-4 h-4" />
+                      ADMIN
+                    </span>
+                    <ChevronDown className={cn(
+                      "w-4 h-4 transition-transform",
+                      mobileAdminOpen && "rotate-180"
+                    )} />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="space-y-1">
+                      <Link
+                        to="/admin"
+                        className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2 px-4"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Dashboard
+                      </Link>
+                      
+                      <div className="pt-2 px-2">
+                        <div className="text-xs font-semibold text-muted-foreground mb-1">Content</div>
+                      </div>
+                      <Link
+                        to="/admin/services"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Services
+                      </Link>
+                      <Link
+                        to="/admin/projects"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Projects
+                      </Link>
+                      <Link
+                        to="/admin/blog-posts"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Blog Posts
+                      </Link>
+                      <Link
+                        to="/admin/case-studies"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Case Studies
+                      </Link>
+                      
+                      <div className="pt-2 px-2">
+                        <div className="text-xs font-semibold text-muted-foreground mb-1">Submissions</div>
+                      </div>
+                      <Link
+                        to="/admin/contact-submissions"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Contact Submissions
+                      </Link>
+                      <Link
+                        to="/admin/resume-submissions"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Resume Submissions
+                      </Link>
+                      
+                      <div className="pt-2 px-2">
+                        <div className="text-xs font-semibold text-muted-foreground mb-1">Settings</div>
+                      </div>
+                      <Link
+                        to="/admin/media-library"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Media Library
+                      </Link>
+                      <Link
+                        to="/admin/users"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Users
+                      </Link>
+                      <Link
+                        to="/admin/security-center"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Security Center
+                      </Link>
+                      <Link
+                        to="/admin/seo-dashboard"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        SEO Dashboard
+                      </Link>
+                      <Link
+                        to="/admin/performance-dashboard"
+                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Performance Dashboard
+                      </Link>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+              </div>
+            )}
             
             <Button variant="secondary" className="w-full" asChild>
               <Link to="/estimate" onClick={() => setIsOpen(false)}>
