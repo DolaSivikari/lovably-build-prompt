@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Building2, Wrench, BookOpen, Clock } from "lucide-react";
 import ascentLogo from "@/assets/ascent-logo.png";
 import SEO from "@/components/SEO";
-import NewsletterSignup from "@/components/footer/NewsletterSignup";
 import FooterNavCard from "@/components/footer/FooterNavCard";
 import SocialMediaButton from "@/components/footer/SocialMediaButton";
 import { Button } from "@/components/ui/button";
@@ -101,9 +100,6 @@ const Footer = () => {
         <div className="footer-grid-pattern" aria-hidden="true"></div>
 
         <div className="container mx-auto px-4 py-8 relative z-10">
-          {/* Newsletter Signup */}
-          <NewsletterSignup />
-
           {/* Compact Header with Logo */}
           <div className="flex items-center justify-start mb-6">
             <Link to="/" className="inline-block group">
