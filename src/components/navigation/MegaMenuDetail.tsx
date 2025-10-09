@@ -17,7 +17,7 @@ export const MegaMenuDetail = ({ category, onLinkClick }: MegaMenuDetailProps) =
         className="mega-menu-detail-cta"
         onClick={onLinkClick}
       >
-        Learn More <ArrowRight className="inline-block ml-1 h-4 w-4" />
+        Learn more about {category.title} <ArrowRight className="inline-block ml-1 h-4 w-4" />
       </Link>
       
       <p className="mega-menu-detail-description">{category.description}</p>

@@ -4,6 +4,7 @@ import { landingMenuItems } from "@/data/landing-menu";
 import heroConstruction from "@/assets/hero-construction.jpg";
 import heroVideo from "@/assets/hero-construction-video.mp4";
 import { useEffect, useRef, useState } from "react";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const NumberedLandingHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -40,15 +41,15 @@ const NumberedLandingHero = () => {
             <source src={heroVideo} type="video/mp4" />
           </video>
         ) : (
-          <img
+          <OptimizedImage
             src={heroConstruction}
             alt="Ascent Group Construction project showcase"
-            width="1920"
-            height="1080"
-            className="w-full h-full object-cover"
+            width={1920}
+            height={1080}
+            priority={true}
             loading="eager"
-            decoding="async"
-            fetchPriority="high"
+            className="absolute inset-0 w-full h-full"
+            objectFit="cover"
           />
         )}
       </div>
@@ -86,7 +87,7 @@ const NumberedLandingHero = () => {
               </div>
 
               <div className="landing-menu-item__cta">
-                <span>Learn More</span>
+                <span>Learn more about {item.title}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </div>
             </Link>

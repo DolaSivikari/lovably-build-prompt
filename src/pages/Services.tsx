@@ -133,7 +133,7 @@ const Services = () => {
             ))}
           </ul>
           <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all">
-            Learn More <ArrowRight className="w-4 h-4" />
+            Learn more about {service.title} <ArrowRight className="w-4 h-4" />
           </div>
         </CardContent>
       </Card>
@@ -146,6 +146,7 @@ const Services = () => {
         title="Services"
         description="Professional painting, stucco, and construction services across the GTA. Expert craftsmanship for residential and commercial projects."
         keywords="painting services, stucco installation, EIFS, exterior painting, interior painting, commercial painting, residential construction"
+        canonical="https://ascentgroupconstruction.com/services"
       />
       <Navigation />
       
@@ -261,9 +262,9 @@ const Services = () => {
                       <p className="text-muted-foreground mb-4">
                         {audience.description}
                       </p>
-                      <div className="flex items-center justify-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
-                        Learn More <ArrowRight className="w-4 h-4" />
-                      </div>
+                       <div className="flex items-center justify-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
+                         Learn more about {audience.title} <ArrowRight className="w-4 h-4" />
+                       </div>
                     </Card>
                   </Link>
                 ))}

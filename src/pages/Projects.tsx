@@ -78,6 +78,7 @@ const Projects = () => {
       <SEO
         title="Our Projects - 500+ Completed | Ascen Group"
         description="Browse our portfolio of 500+ successfully completed construction and painting projects across the GTA. Commercial, residential, institutional, and industrial work."
+        canonical="https://ascentgroupconstruction.com/projects"
       />
       <Navigation />
 

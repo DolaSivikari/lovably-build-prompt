@@ -2,6 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit, trackConversion } from "@/lib/analytics";
@@ -133,6 +134,11 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title="Contact Us - Get Free Estimate | Ascen Group"
+        description="Contact Ascen Group for a free consultation and estimate. Serving the Greater Toronto Area with professional construction and painting services."
+        canonical="https://ascentgroupconstruction.com/contact"
+      />
       <Navigation />
       
       {/* Hero Section */}
