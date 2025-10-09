@@ -51,7 +51,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               onClick={handleLinkClick}
               className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
                 isActive("/")
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-sage/20 text-sage-dark"
                   : "hover:bg-muted"
               }`}
             >
@@ -62,7 +62,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               onClick={handleLinkClick}
               className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
                 isActive("/our-process")
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-sage/20 text-sage-dark"
                   : "hover:bg-muted"
               }`}
             >
@@ -73,7 +73,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               onClick={handleLinkClick}
               className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
                 isActive("/projects")
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-sage/20 text-sage-dark"
                   : "hover:bg-muted"
               }`}
             >
@@ -105,7 +105,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                   key={item.link}
                                   to={item.link}
                                   onClick={handleLinkClick}
-                                  className="block py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted px-2 rounded"
+                                  className="block py-2 text-sm text-muted-foreground hover:text-sage-dark hover:bg-sage/10 px-2 rounded transition-colors"
                                 >
                                   {item.name}
                                 </Link>
@@ -142,7 +142,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                   key={item.link}
                                   to={item.link}
                                   onClick={handleLinkClick}
-                                  className="block py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted px-2 rounded"
+                                  className="block py-2 text-sm text-muted-foreground hover:text-sage-dark hover:bg-sage/10 px-2 rounded transition-colors"
                                 >
                                   {item.name}
                                 </Link>
@@ -179,7 +179,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                   key={item.link}
                                   to={item.link}
                                   onClick={handleLinkClick}
-                                  className="block py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted px-2 rounded"
+                                  className="block py-2 text-sm text-muted-foreground hover:text-sage-dark hover:bg-sage/10 px-2 rounded transition-colors"
                                 >
                                   {item.name}
                                 </Link>

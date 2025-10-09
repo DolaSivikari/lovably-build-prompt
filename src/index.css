@@ -665,6 +665,17 @@ All colors MUST be HSL.
     );
   }
 
+  @media (max-width: 768px) {
+    .landing-hero__overlay {
+      background: linear-gradient(
+        135deg,
+        hsl(var(--background) / 0.9) 0%,
+        hsl(var(--background) / 0.75) 50%,
+        hsl(var(--background) / 0.6) 100%
+      );
+    }
+  }
+
 .landing-hero__content {
   position: relative;
   z-index: var(--z-dropdown);
@@ -851,15 +862,15 @@ All colors MUST be HSL.
   }
 
   .landing-menu-item__number {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
   .landing-menu-item__title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 
   .landing-menu-item__subtext {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
   }
 
   .landing-menu-item__cta {
