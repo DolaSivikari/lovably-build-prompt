@@ -117,9 +117,6 @@ const Footer = () => {
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 <span className="hidden sm:inline">(416) 555-1234</span>
               </a>
-              <Button variant="secondary" size="sm" asChild>
-                <Link to="/estimate">Get Estimate</Link>
-              </Button>
             </div>
           </div>
 
