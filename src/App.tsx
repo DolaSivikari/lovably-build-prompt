@@ -3,7 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
 import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import FloatingContact from "./components/FloatingContact";
@@ -90,11 +89,10 @@ const RouteTracker = ({ children }: { children: React.ReactNode }) => {
 const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <HelmetProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
             <RouteTracker>
               <FloatingContact />
               {/* Skip to main content link for accessibility */}
@@ -170,7 +168,6 @@ const App = () => (
             </RouteTracker>
           </BrowserRouter>
         </TooltipProvider>
-      </HelmetProvider>
     </QueryClientProvider>
   </ErrorBoundary>
 );
