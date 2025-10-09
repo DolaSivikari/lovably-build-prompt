@@ -127,16 +127,18 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Single Horizontal Navigation Card */}
-          <div className="footer-glass-card p-6 mb-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {/* Company Column */}
-              <div>
-                <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
-                  <Building2 className="h-4 w-4 text-secondary" aria-hidden="true" />
-                  Company
-                </h3>
+          {/* Consolidated Navigation Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
+            {/* Quick Links Card - Combines Company + Resources */}
+            <div className="md:col-span-5 footer-glass-card p-6">
+              <h3 className="font-semibold text-primary-foreground mb-4 flex items-center gap-2">
+                <BookOpen className="h-5 w-5 text-secondary" aria-hidden="true" />
+                Quick Links
+              </h3>
+              <div className="grid grid-cols-2 gap-6">
+                {/* Company Links */}
                 <nav aria-label="Company navigation">
+                  <h4 className="text-sm font-medium text-primary-foreground/60 mb-2">Company</h4>
                   <ul className="space-y-2">
                     {companyLinks.map((link) => (
                       <li key={link.to}>
@@ -147,15 +149,10 @@ const Footer = () => {
                     ))}
                   </ul>
                 </nav>
-              </div>
-
-              {/* Resources Column */}
-              <div>
-                <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 text-secondary" aria-hidden="true" />
-                  Resources
-                </h3>
+                
+                {/* Resources Links */}
                 <nav aria-label="Resources navigation">
+                  <h4 className="text-sm font-medium text-primary-foreground/60 mb-2">Resources</h4>
                   <ul className="space-y-2">
                     {resourceLinks.map((link) => (
                       <li key={link.to}>
@@ -167,51 +164,54 @@ const Footer = () => {
                   </ul>
                 </nav>
               </div>
+            </div>
 
-              {/* Get Started Column */}
-              <div>
-                <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-secondary" aria-hidden="true" />
-                  Get Started
-                </h3>
-                <nav aria-label="Contact navigation">
-                  <ul className="space-y-2">
-                    {contactLinks.map((link) => (
-                      <li key={link.to}>
-                        <Link to={link.to} className="footer-link-animated text-sm text-primary-foreground/80">
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                    {careersLinks.map((link) => (
-                      <li key={link.to}>
-                        <Link to={link.to} className="footer-link-animated text-sm text-primary-foreground/80">
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
+            {/* Get Started Card - Combines Contact + Careers */}
+            <div className="md:col-span-4 footer-glass-card p-6">
+              <h3 className="font-semibold text-primary-foreground mb-4 flex items-center gap-2">
+                <Mail className="h-5 w-5 text-secondary" aria-hidden="true" />
+                Get Started
+              </h3>
+              <nav aria-label="Contact and careers navigation">
+                <ul className="space-y-2">
+                  {contactLinks.map((link) => (
+                    <li key={link.to}>
+                      <Link to={link.to} className="footer-link-animated text-sm text-primary-foreground/80">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                  <li className="pt-3 mt-3 border-t border-primary-foreground/10">
+                    <span className="text-sm font-medium text-primary-foreground/60 block mb-2">Careers</span>
+                  </li>
+                  {careersLinks.map((link) => (
+                    <li key={link.to}>
+                      <Link to={link.to} className="footer-link-animated text-sm text-primary-foreground/80">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
 
-              {/* Who We Serve Column */}
-              <div>
-                <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
-                  <Wrench className="h-4 w-4 text-secondary" aria-hidden="true" />
-                  Who We Serve
-                </h3>
-                <nav aria-label="Client types navigation">
-                  <ul className="space-y-2">
-                    {clientTypes.map((client) => (
-                      <li key={client.to}>
-                        <Link to={client.to} className="footer-link-animated text-sm text-primary-foreground/80">
-                          {client.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
+            {/* Who We Serve Card - Spans 2 columns */}
+            <div className="md:col-span-3 footer-glass-card p-6">
+              <h3 className="font-semibold text-primary-foreground mb-4 flex items-center gap-2">
+                <Wrench className="h-5 w-5 text-secondary" aria-hidden="true" />
+                Who We Serve
+              </h3>
+              <nav aria-label="Client types navigation">
+                <ul className="space-y-2">
+                  {clientTypes.map((client) => (
+                    <li key={client.to}>
+                      <Link to={client.to} className="footer-link-animated text-sm text-primary-foreground/80">
+                        {client.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             </div>
           </div>
 
