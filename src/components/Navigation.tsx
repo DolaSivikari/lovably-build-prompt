@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { trackPhoneClick } from "@/lib/analytics";
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
+import { useScrollDirection } from "@/hooks/useScrollDirection";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,6 +35,9 @@ const Navigation = () => {
   // Use custom hook for hover timeout management with automatic cleanup
   const megaMenuHover = useHoverTimeout();
   const adminHover = useHoverTimeout();
+  
+  // Track scroll direction for auto-hide navigation
+  const { scrollDirection, isAtTop } = useScrollDirection();
 
   // Sync mobile menu state with body data attribute
   useEffect(() => {
@@ -70,6 +74,14 @@ const Navigation = () => {
     megaMenuHover.clearPendingTimeout();
   }, [megaMenuHover]);
 
+  // Close mega menus when scrolling down
+  useEffect(() => {
+    if (scrollDirection === "down" && !isAtTop) {
+      closeMegaMenu();
+      setAdminDropdownOpen(false);
+    }
+  }, [scrollDirection, isAtTop, closeMegaMenu]);
+
   // Admin dropdown hover handlers
   const openAdminDropdown = useCallback(() => {
     adminHover.clearPendingTimeout();
@@ -83,7 +95,13 @@ const Navigation = () => {
   return (
     <>
       <ScrollProgress />
-      <nav className="fixed top-0 left-0 right-0 z-navigation bg-background/95 backdrop-blur-sm border-b border-border" role="banner">
+      <nav 
+        className={cn(
+          "fixed top-0 left-0 right-0 z-navigation bg-background/95 backdrop-blur-sm border-b border-border transition-transform duration-300 ease-in-out",
+          scrollDirection === "down" && !isAtTop && "-translate-y-full"
+        )} 
+        role="banner"
+      >
         <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
