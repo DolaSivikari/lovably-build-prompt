@@ -10,7 +10,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import blogData from "@/data/blog-posts-complete.json";
 import OptimizedImage from "@/components/OptimizedImage";
-import { articleSchema, breadcrumbSchema } from "@/utils/structured-data";
+import { articleSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
+import { blogFAQs } from "@/data/blog-faq-data";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -91,27 +98,35 @@ const BlogPost = () => {
 
   const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 
+  // Get FAQs for this blog post
+  const faqs = blogFAQs[post.slug] || [];
+  const schemas: any[] = [
+    articleSchema({
+      title: post.title,
+      description: post.excerpt,
+      author: post.author,
+      datePublished: post.date,
+      image: post.image,
+    }),
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Blog", url: "/blog" },
+      { name: post.category, url: `/blog?category=${encodeURIComponent(post.category)}` },
+      { name: post.title, url: `/blog/${post.slug}` },
+    ]),
+  ];
+  
+  if (faqs.length > 0) {
+    schemas.push(faqSchema(faqs));
+  }
+
   return (
     <div className="min-h-screen">
       <SEO 
         title={post.title}
         description={post.excerpt}
         keywords={`${post.category}, ${post.tags.join(', ')}`}
-        structuredData={[
-          articleSchema({
-            title: post.title,
-            description: post.excerpt,
-            author: post.author,
-            datePublished: post.date,
-            image: post.image,
-          }),
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Blog", url: "/blog" },
-            { name: post.category, url: `/blog?category=${encodeURIComponent(post.category)}` },
-            { name: post.title, url: `/blog/${post.slug}` },
-          ]),
-        ]}
+        structuredData={schemas}
       />
       <ReadingProgress />
       <Navigation />
@@ -182,6 +197,25 @@ const BlogPost = () => {
                 <ShareMenu />
               </div>
             </div>
+
+            {/* FAQ Section */}
+            {faqs.length > 0 && (
+              <section className="mt-12">
+                <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+                <Accordion type="single" collapsible className="w-full">
+                  {faqs.map((faq, index) => (
+                    <AccordionItem key={index} value={`item-${index}`}>
+                      <AccordionTrigger className="text-left">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </section>
+            )}
 
             {/* CTA */}
             <div className="mt-12 p-8 bg-muted rounded-lg text-center">

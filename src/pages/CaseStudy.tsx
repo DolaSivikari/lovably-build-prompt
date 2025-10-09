@@ -8,7 +8,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import caseStudiesData from "@/data/case-studies.json";
 import OptimizedImage from "@/components/OptimizedImage";
-import { projectSchema, breadcrumbSchema } from "@/utils/structured-data";
+import { projectSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
+import { caseStudyFAQs } from "@/data/case-study-faq-data";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,37 +34,45 @@ const CaseStudy = () => {
     );
   }
 
+  // Get FAQs for this case study
+  const faqs = caseStudyFAQs[id || ''] || [];
+  const schemas: any[] = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Project",
+      name: caseStudy.title,
+      description: caseStudy.challenge,
+      category: caseStudy.category,
+      location: {
+        "@type": "Place",
+        name: caseStudy.location,
+      },
+      startDate: caseStudy.date,
+      endDate: caseStudy.date,
+      image: caseStudy.images,
+      contractor: {
+        "@type": "Organization",
+        name: "Ascent Group Construction",
+      },
+    },
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Projects", url: "/projects" },
+      { name: caseStudy.title, url: `/case-study/${id}` },
+    ]),
+  ];
+
+  if (faqs.length > 0) {
+    schemas.push(faqSchema(faqs));
+  }
+
   return (
     <div className="min-h-screen">
       <SEO
         title={caseStudy.title}
         description={caseStudy.challenge}
         keywords={`${caseStudy.category}, case study, ${caseStudy.location}, construction project`}
-        structuredData={[
-          {
-            "@context": "https://schema.org",
-            "@type": "Project",
-            name: caseStudy.title,
-            description: caseStudy.challenge,
-            category: caseStudy.category,
-            location: {
-              "@type": "Place",
-              name: caseStudy.location,
-            },
-            startDate: caseStudy.date,
-            endDate: caseStudy.date,
-            image: caseStudy.images,
-            contractor: {
-              "@type": "Organization",
-              name: "Ascent Group Construction",
-            },
-          },
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Projects", url: "/projects" },
-            { name: caseStudy.title, url: `/case-study/${id}` },
-          ]),
-        ]}
+        structuredData={schemas}
       />
       <Navigation />
       
@@ -218,6 +233,25 @@ const CaseStudy = () => {
               </Card>
             </div>
           </div>
+
+          {/* FAQ Section */}
+          {faqs.length > 0 && (
+            <div className="mt-16 max-w-3xl mx-auto">
+              <h2 className="text-3xl font-bold mb-6">Project FAQs</h2>
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger className="text-left">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          )}
         </div>
       </main>
       
