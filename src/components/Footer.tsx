@@ -105,12 +105,12 @@ const Footer = () => {
           <NewsletterSignup />
 
           {/* Compact Header with Logo */}
-          <div className="flex items-center justify-between mb-6 gap-8">
+          <div className="flex items-center justify-start mb-6">
             <Link to="/" className="inline-block group">
               <img 
                 src={ascentLogo} 
                 alt="Ascent Group Construction" 
-                className="h-24 w-auto brightness-0 invert footer-logo-glow transition-transform duration-300 group-hover:scale-105"
+                className="h-36 w-auto brightness-0 invert footer-logo-glow transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
             <div className="flex items-center gap-4 ml-auto">
