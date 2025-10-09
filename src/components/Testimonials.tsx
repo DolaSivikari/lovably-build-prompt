@@ -6,7 +6,7 @@ import { reviewSchema } from "@/utils/structured-data";
 const Testimonials = () => {
   const testimonials = [
     {
-      quote: "BuildCraft delivered our office tower project ahead of schedule and under budget. Their professionalism and expertise are unmatched in the industry.",
+      quote: "Ascent Group Construction delivered our office tower project ahead of schedule and under budget. Their professionalism and expertise are unmatched in the industry.",
       author: "Sarah Thompson",
       position: "CEO, Thompson Properties",
       company: "Commercial Real Estate",
@@ -22,7 +22,7 @@ const Testimonials = () => {
       date: "2024-08-22",
     },
     {
-      quote: "Working with BuildCraft on our healthcare facility was seamless. Their use of BIM technology prevented costly delays and ensured quality outcomes.",
+      quote: "Working with Ascent Group Construction on our healthcare facility was seamless. Their use of BIM technology prevented costly delays and ensured quality outcomes.",
       author: "Dr. Jennifer Martinez",
       position: "Medical Director",
       company: "Regional Health Authority",

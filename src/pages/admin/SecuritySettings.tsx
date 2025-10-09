@@ -55,7 +55,7 @@ export default function SecuritySettings() {
 
       // Generate QR code
       const { data: { user } } = await supabase.auth.getUser();
-      const qrCodeUrl = totp.qr_code || `otpauth://totp/${user?.email}?secret=${totp.secret}&issuer=BuildCraft CMS`;
+      const qrCodeUrl = totp.qr_code || `otpauth://totp/${user?.email}?secret=${totp.secret}&issuer=Ascent Group CMS`;
       const qr = await QRCode.toDataURL(qrCodeUrl);
       setQrCode(qr);
       setShowMfaSetup(true);

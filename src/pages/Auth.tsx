@@ -92,7 +92,7 @@ const Auth = () => {
               <Building2 className="h-8 w-8 text-primary" />
             </div>
           </div>
-          <CardTitle className="text-2xl">BuildCraft CMS</CardTitle>
+          <CardTitle className="text-2xl">Ascent Group CMS</CardTitle>
           <CardDescription>Admin Access Only</CardDescription>
         </CardHeader>
         <CardContent>
