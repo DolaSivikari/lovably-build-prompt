@@ -58,11 +58,7 @@ const NumberedLandingHero = () => {
 
       {/* Numbered Navigation Menu */}
       <div className="landing-hero__content">
-        <nav 
-          className="landing-menu" 
-          role="navigation" 
-          aria-label="Main landing navigation"
-        >
+        <nav className="landing-menu" aria-label="Main landing navigation">
           {landingMenuItems.map((item, index) => (
             <Link
               key={item.number}
