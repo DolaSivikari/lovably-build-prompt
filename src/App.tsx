@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import FloatingContact from "./components/FloatingContact";
+import ScrollToTop from "./components/ScrollToTop";
 import { trackPageView } from "@/lib/analytics";
 
 // Eager load public pages (critical path)
@@ -94,6 +95,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+            <ScrollToTop />
             <RouteTracker>
               <FloatingContact />
               {/* Skip to main content link for accessibility */}
