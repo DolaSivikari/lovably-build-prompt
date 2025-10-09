@@ -684,7 +684,7 @@ All colors MUST be HSL.
 
 .landing-menu-item {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 2rem;
   padding: 2rem 0;
@@ -710,10 +710,20 @@ All colors MUST be HSL.
   border-bottom-color: hsl(var(--primary));
 }
 
-  /* Number Styling - Hidden */
-  .landing-menu-item__number {
-    display: none;
-  }
+/* Number Styling */
+.landing-menu-item__number {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: hsl(var(--primary) / 0.3);
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.landing-menu-item:hover .landing-menu-item__number {
+  color: hsl(var(--primary) / 0.6);
+  transform: scale(1.05);
+}
 
 /* Content Column */
 .landing-menu-item__content {
@@ -841,9 +851,13 @@ All colors MUST be HSL.
   }
 
   .landing-menu-item {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto 1fr;
     gap: 1rem;
     padding: 1.25rem 0;
+  }
+
+  .landing-menu-item__number {
+    font-size: 2.5rem;
   }
 
   .landing-menu-item__title {
@@ -877,6 +891,10 @@ All colors MUST be HSL.
 }
 
 @media (max-width: 480px) {
+  .landing-menu-item__number {
+    font-size: 2rem;
+  }
+
   .landing-menu-item__title {
     font-size: 1.25rem;
     line-height: 1.4;

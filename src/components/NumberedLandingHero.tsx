@@ -82,6 +82,9 @@ const NumberedLandingHero = () => {
               onTouchStart={() => setActiveItem(item.number)}
               onTouchEnd={() => setActiveItem(null)}
             >
+              <span className="landing-menu-item__number">
+                {item.number}
+              </span>
               <div className="landing-menu-item__content">
                 <h2 className="landing-menu-item__title">
                   {item.title}
