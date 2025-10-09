@@ -6,7 +6,7 @@ const HomepageContent = () => {
     <section className="py-16 px-4 bg-background">
       <div className="container mx-auto max-w-4xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-          Ascent Group Construction — Expert Painting & Exterior Finishing Across Ontario
+          Ascent Group Construction — Professional Painting & Exterior Finishing Across Ontario
         </h1>
         
         <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">

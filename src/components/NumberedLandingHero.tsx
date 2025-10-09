@@ -42,8 +42,12 @@ const NumberedLandingHero = () => {
         ) : (
           <img
             src={heroConstruction}
-            alt="Ascent Group Construction"
+            alt="Ascent Group Construction project showcase"
+            width="1920"
+            height="1080"
             className="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
             fetchPriority="high"
           />
         )}

@@ -10,9 +10,9 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Ascent Group Construction | Professional Painting & Exterior Finishing Ontario",
-  description = "Expert painting and exterior finishing services across Ontario. Specializing in commercial, residential, condo painting, stucco, EIFS, and masonry. 15+ years experience, fully insured.",
-  keywords = "painting contractor ontario, commercial painting toronto, residential painting, condo painting GTA, stucco EIFS, masonry restoration, parking garage restoration, metal cladding, exterior finishing, painting services ontario",
+  title = "Ascent Group Construction | Expert Painting & Exterior Finishing Across Ontario",
+  description = "Professional painting and exterior finishing services across Ontario. Specializing in commercial painting, residential painting, condo restoration, stucco & EIFS, masonry repair, metal cladding, and parking garage restoration. 15+ years experience.",
+  keywords = "painting contractor ontario, commercial painting toronto, residential painting GTA, condo painting restoration, stucco EIFS installation, masonry repair toronto, parking garage restoration, metal cladding, exterior finishing ontario, professional painting services",
   ogImage = "/og-image.jpg",
   canonical,
   structuredData,
@@ -21,19 +21,19 @@ const SEO = ({
   const siteUrl = window.location.origin;
   const currentUrl = canonical || window.location.href;
 
-  // Enhanced organization schema with more details
+  // Enhanced organization schema with comprehensive service catalog
   const defaultSchema = {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": ["GeneralContractor", "LocalBusiness", "PaintingContractor"],
     "@id": `${siteUrl}/#organization`,
     name: "Ascent Group Construction",
     alternateName: "Ascent Group",
     description: description,
     url: siteUrl,
-    telephone: "+1-416-555-1234",
+    telephone: "+1-647-123-4567",
     logo: {
       "@type": "ImageObject",
-      url: `${siteUrl}/logo.png`,
+      url: `${siteUrl}/ascent-logo.png`,
       width: "250",
       height: "60"
     },
@@ -44,7 +44,7 @@ const SEO = ({
       streetAddress: "Greater Toronto Area",
       addressLocality: "Toronto",
       addressRegion: "ON",
-      postalCode: "",
+      postalCode: "M5H 2N2",
       addressCountry: "CA",
     },
     geo: {
@@ -74,6 +74,11 @@ const SEO = ({
         "@id": "https://en.wikipedia.org/wiki/Vaughan"
       },
       {
+        "@type": "City",
+        name: "Markham",
+        "@id": "https://en.wikipedia.org/wiki/Markham,_Ontario"
+      },
+      {
         "@type": "State",
         name: "Ontario",
         "@id": "https://en.wikipedia.org/wiki/Ontario"
@@ -96,6 +101,7 @@ const SEO = ({
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
+      telephone: "+1-647-123-4567",
       email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
       areaServed: "CA"
@@ -112,27 +118,62 @@ const SEO = ({
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Construction Services",
+      name: "Painting & Exterior Finishing Services",
       itemListElement: [
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Commercial Painting"
+            name: "Commercial Painting",
+            description: "Professional commercial painting services for offices, retail spaces, and industrial facilities"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Residential Painting"
+            name: "Residential Painting",
+            description: "Expert interior and exterior residential painting services"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Stucco & EIFS"
+            name: "Condo Painting & Restoration",
+            description: "Specialized condo building painting and restoration services"
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Stucco & EIFS",
+            description: "Professional stucco and EIFS installation and repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Masonry Repair",
+            description: "Expert masonry restoration and repair services"
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Metal Cladding",
+            description: "Professional metal cladding installation and finishing"
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Parking Garage Restoration",
+            description: "Comprehensive parking garage restoration and waterproofing"
           }
         }
       ]
