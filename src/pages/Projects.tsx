@@ -1,229 +1,158 @@
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import SEO from "@/components/SEO";
+import FilterBar from "@/components/FilterBar";
+import ProjectCard from "@/components/ProjectCard";
+import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
+import ProjectDetailModal from "@/components/ProjectDetailModal";
+import { Building2, Home, School, Factory, Warehouse } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { MapPin, Calendar, Ruler, Search, Filter, ArrowRight } from "lucide-react";
-import projectCommercial from "@/assets/project-commercial.jpg";
-import projectIndustrial from "@/assets/project-industrial.jpg";
-import projectInstitutional from "@/assets/project-institutional.jpg";
+import caseStudiesData from "@/data/case-studies.json";
+
+const categories = [
+  { label: "All Projects", value: "All", icon: Building2 },
+  { label: "Commercial", value: "Commercial", icon: Building2 },
+  { label: "Residential", value: "Residential", icon: Home },
+  { label: "Institutional", value: "Institutional", icon: School },
+  { label: "Industrial", value: "Industrial", icon: Factory },
+];
+
+const years = ["All", "2024", "2023"];
+
+// Convert case studies to projects format
+const allProjects = Object.entries(caseStudiesData.caseStudies).map(([slug, study]: [string, any]) => ({
+  title: study.title,
+  category: study.category.split('/')[0], // Take first category if multiple
+  location: study.location,
+  year: study.date,
+  size: study.size,
+  duration: study.duration,
+  image: study.heroImage,
+  images: study.images || [],
+  tags: [study.category, study.duration, study.size],
+  description: study.challenge,
+  highlights: study.results,
+  slug: slug,
+  featured: slug === "heritage-building-restoration" ? "Heritage Award" : 
+            slug === "luxury-condo-restoration" ? "Excellence Award" :
+            slug === "downtown-office-renovation" ? "Featured Project" : undefined
+}));
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All");
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [visibleCount, setVisibleCount] = useState(6);
 
-  const projects = [
-    {
-      image: projectCommercial,
-      title: "Downtown Office Tower",
-      location: "Toronto, ON",
-      category: "Commercial",
-      size: "450,000 sq ft",
-      year: "2023",
-      value: "$180M",
-      tags: ["LEED Gold", "Office", "Toronto"],
-      description: "A flagship 24-story office development in Toronto's financial district featuring sustainable design, smart building technology, and premium amenities. The project achieved LEED Gold certification and was delivered 3 months ahead of schedule.",
-      highlights: [
-        "LEED Gold certified",
-        "Advanced HVAC and energy systems",
-        "Integrated parking structure",
-        "Rooftop amenity spaces"
-      ]
-    },
-    {
-      image: projectIndustrial,
-      title: "Advanced Manufacturing Facility",
-      location: "Mississauga, ON",
-      category: "Industrial",
-      size: "280,000 sq ft",
-      year: "2023",
-      value: "$95M",
-      tags: ["Manufacturing", "Automation", "Mississauga"],
-      description: "State-of-the-art production facility designed for advanced manufacturing operations. Features include high-bay spaces, integrated material handling systems, and sophisticated environmental controls.",
-      highlights: [
-        "Automated material handling",
-        "Heavy-duty floor loading capacity",
-        "Clean room manufacturing areas",
-        "Advanced logistics integration"
-      ]
-    },
-    {
-      image: projectInstitutional,
-      title: "Regional Healthcare Centre",
-      location: "Ottawa, ON",
-      category: "Institutional",
-      size: "320,000 sq ft",
-      year: "2024",
-      value: "$240M",
-      tags: ["Healthcare", "Medical", "Ottawa"],
-      description: "Comprehensive medical facility providing advanced patient care across multiple specialties. The project integrated complex medical systems, specialized infrastructure, and healing-focused design principles.",
-      highlights: [
-        "300+ patient rooms",
-        "8 operating theatres",
-        "Emergency and trauma center",
-        "Advanced medical imaging suite"
-      ]
-    },
-    {
-      image: projectCommercial,
-      title: "Mixed-Use Development",
-      location: "Vancouver, BC",
-      category: "Commercial",
-      size: "520,000 sq ft",
-      year: "2022",
-      value: "$220M",
-      tags: ["Mixed-Use", "Retail", "Vancouver"],
-      description: "Urban mixed-use development combining retail, office, and residential spaces. The project transformed an underutilized site into a vibrant community hub with emphasis on pedestrian connectivity.",
-      highlights: [
-        "Ground floor retail spaces",
-        "12 floors of office space",
-        "200 residential units",
-        "Public plaza and streetscapes"
-      ]
-    },
-    {
-      image: projectIndustrial,
-      title: "Distribution Centre",
-      location: "Calgary, AB",
-      category: "Industrial",
-      size: "385,000 sq ft",
-      year: "2023",
-      value: "$72M",
-      tags: ["Logistics", "Distribution", "Calgary"],
-      description: "Modern logistics facility with high-efficiency design optimized for contemporary supply chain operations. Features automated systems and sustainable building practices.",
-      highlights: [
-        "Cross-dock operations capability",
-        "32 loading docks",
-        "Automated sortation systems",
-        "Solar panel installation"
-      ]
-    },
-    {
-      image: projectInstitutional,
-      title: "University Research Building",
-      location: "Waterloo, ON",
-      category: "Institutional",
-      size: "175,000 sq ft",
-      year: "2022",
-      value: "$135M",
-      tags: ["Education", "Research", "Waterloo"],
-      description: "Cutting-edge research facility housing laboratories, collaborative workspaces, and specialized equipment. The building supports interdisciplinary research with flexible lab configurations.",
-      highlights: [
-        "Wet and dry lab spaces",
-        "Vivarium facilities",
-        "Clean room laboratories",
-        "Collaborative research commons"
-      ]
-    }
-  ];
-
-  const categories = ["All", "Commercial", "Industrial", "Institutional"];
-  const years = ["All", "2024", "2023", "2022"];
-
-  const filteredProjects = projects.filter((project) => {
-    const matchesSearch =
+  const filteredProjects = allProjects.filter((project) => {
+    const matchesSearch = 
       project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === "All" || project.category === selectedCategory;
+      project.description.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesCategory = selectedCategory === "All" || project.category.includes(selectedCategory);
     const matchesYear = selectedYear === "All" || project.year === selectedYear;
 
     return matchesSearch && matchesCategory && matchesYear;
   });
 
+  const featuredProjects = filteredProjects.filter(p => p.featured).slice(0, 3);
+  const regularProjects = filteredProjects.filter(p => !p.featured);
+  const visibleProjects = regularProjects.slice(0, visibleCount);
+
+  const handleViewDetails = (project: any) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const loadMore = () => {
+    setVisibleCount(prev => prev + 6);
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen">
+      <SEO
+        title="Our Projects - 500+ Completed | Ascen Group"
+        description="Browse our portfolio of 500+ successfully completed construction and painting projects across the GTA. Commercial, residential, institutional, and industrial work."
+      />
       <Navigation />
-      
+
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary-dark to-charcoal text-white py-20 mt-16 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 36px),
-                             repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 36px)`
-          }} />
-        </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="inline-block mb-3 px-4 py-1.5 bg-white/5 backdrop-blur-sm border border-cream/20 rounded-full">
-            <span className="text-cream font-semibold text-sm tracking-wider uppercase">Our Work</span>
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">Project Portfolio</h1>
-          <p className="text-xl max-w-3xl mx-auto text-cream/90 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Explore our diverse portfolio of successfully delivered projects across commercial, industrial, and institutional sectors throughout Canada.
-          </p>
-        </div>
-      </section>
-
-      {/* Filters Section - Sticky */}
-      <section className="sticky top-16 z-40 bg-charcoal/95 backdrop-blur-sm border-b border-cream/20 py-6 shadow-lg">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-cream/60" />
-              <Input
-                type="text"
-                placeholder="Search projects, locations, or tags..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-white/5 border-cream/20 text-cream placeholder:text-cream/50"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-cream/60" />
-              <div className="flex gap-2 flex-wrap">
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedCategory(category)}
-                    className="transition-all"
-                  >
-                    {category}
-                  </Button>
-                ))}
+      <section className="relative pt-24 pb-12 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl md:text-6xl font-bold">
+              Our <span className="text-primary">Project Portfolio</span>
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              Explore 500+ successful projects across the GTA
+            </p>
+            
+            {/* Animated Stats */}
+            <div className="flex flex-wrap justify-center gap-8 pt-6">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary">500+</div>
+                <div className="text-sm text-muted-foreground">Projects</div>
               </div>
-            </div>
-
-            {/* Year Filter */}
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-cream/60" />
-              <div className="flex gap-2">
-                {years.map((year) => (
-                  <Button
-                    key={year}
-                    variant={selectedYear === year ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedYear(year)}
-                    className="transition-all"
-                  >
-                    {year}
-                  </Button>
-                ))}
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary">$2B+</div>
+                <div className="text-sm text-muted-foreground">Total Value</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary">98%</div>
+                <div className="text-sm text-muted-foreground">Satisfaction</div>
               </div>
             </div>
           </div>
-
-          {/* Results Counter */}
-          <div className="mt-4 text-sm text-cream/70">
-            Showing <span className="font-semibold text-cream">{filteredProjects.length}</span> of{" "}
-            <span className="font-semibold text-cream">{projects.length}</span> projects
-          </div>
         </div>
       </section>
+
+      {/* Featured Projects Spotlight */}
+      {featuredProjects.length > 0 && (
+        <section className="py-12 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-2">Featured Projects</h2>
+              <p className="text-muted-foreground">Showcasing our most notable work</p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProjects.map((project) => (
+                <ProjectFeaturedCard key={project.slug} {...project} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Filter Bar */}
+      <FilterBar
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        selectedYear={selectedYear}
+        onYearChange={setSelectedYear}
+        categories={categories}
+        years={years}
+        projectCount={filteredProjects.length}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
+      />
 
       {/* Projects Grid */}
-      <section className="py-20 bg-gradient-to-br from-charcoal via-primary-dark to-primary">
+      <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
-          {filteredProjects.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-xl text-cream/70 mb-4">No projects found matching your criteria</p>
+          {visibleProjects.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground mb-4">No projects found matching your criteria</p>
               <Button
                 variant="outline"
                 onClick={() => {
@@ -231,91 +160,44 @@ const Projects = () => {
                   setSelectedCategory("All");
                   setSelectedYear("All");
                 }}
-                className="border-cream/30 text-cream hover:bg-cream/10"
               >
                 Clear Filters
               </Button>
             </div>
           ) : (
-            <div className="space-y-12">
-              {filteredProjects.map((project, index) => (
-                <Card 
-                  key={project.title}
-                  className="overflow-hidden group hover:shadow-2xl transition-all duration-300 animate-fade-in bg-white/5 backdrop-blur-sm border-cream/10"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="grid md:grid-cols-2 gap-0">
-                    <div className="relative h-64 md:h-full overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-transparent group-hover:from-charcoal/90 transition-all duration-300" />
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        <Badge className="bg-terracotta/90 text-cream border-0">
-                          {project.category}
-                        </Badge>
-                        <Badge variant="outline" className="bg-charcoal/80 backdrop-blur-sm text-cream border-cream/20">
-                          {project.year}
-                        </Badge>
-                      </div>
-                      {/* CTA Button - Reveals on Hover */}
-                      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                        <Button size="sm" className="shadow-lg bg-cream text-charcoal hover:bg-cream/90">
-                          View Details <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                    <CardContent className="p-8 flex flex-col justify-center bg-charcoal/40">
-                      <h3 className="text-2xl font-bold mb-4 text-cream group-hover:text-white transition-colors">{project.title}</h3>
-                      
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs bg-white/5 text-cream/80 border-cream/20">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {visibleProjects.map((project) => (
+                  <ProjectCard
+                    key={project.slug}
+                    {...project}
+                    onViewDetails={() => handleViewDetails(project)}
+                  />
+                ))}
+              </div>
 
-                      <div className="flex flex-wrap gap-4 mb-4 text-sm text-cream/70">
-                        <div className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
-                          {project.location}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Ruler className="h-4 w-4" />
-                          {project.size}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {project.year}
-                        </div>
-                        <div className="font-semibold text-cream">
-                          {project.value}
-                        </div>
-                      </div>
-                      <p className="mb-4 text-cream/80 leading-relaxed">{project.description}</p>
-                      <div>
-                        <h4 className="font-semibold mb-2 text-cream">Project Highlights:</h4>
-                        <ul className="space-y-1">
-                          {project.highlights.map((highlight) => (
-                            <li key={highlight} className="text-sm flex items-start gap-2 text-cream/70">
-                              <span className="text-terracotta mt-1">•</span>
-                              <span>{highlight}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </CardContent>
-                  </div>
-                </Card>
-              ))}
-            </div>
+              {/* Load More Button */}
+              {visibleCount < regularProjects.length && (
+                <div className="text-center mt-12">
+                  <Button onClick={loadMore} size="lg">
+                    Load More Projects
+                    <span className="ml-2">
+                      ({visibleCount} of {regularProjects.length})
+                    </span>
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
+
+      {/* Project Detail Modal */}
+      <ProjectDetailModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        project={selectedProject}
+      />
 
       <Footer />
     </div>
