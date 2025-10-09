@@ -22,16 +22,16 @@ const NewsletterSignup = () => {
   };
 
   return (
-    <div className="footer-glass-card p-8 mb-12">
+    <div className="footer-glass-card p-6 mb-8">
       <div className="max-w-2xl mx-auto text-center">
-        <div className="flex items-center justify-center gap-2 mb-3">
+        <div className="flex items-center justify-center gap-2 mb-2">
           <Mail className="h-5 w-5 text-secondary" />
-          <h3 className="text-xl font-semibold text-primary-foreground">Stay Updated</h3>
+          <h3 className="text-lg font-semibold text-primary-foreground">Stay Updated</h3>
         </div>
-        <p className="text-primary-foreground/70 text-sm mb-6">
+        <p className="text-primary-foreground/70 text-sm mb-4">
           Get the latest construction industry insights, project updates, and expert tips delivered to your inbox.
         </p>
-        <form onSubmit={handleSubmit} className="flex gap-3 max-w-md mx-auto">
+        <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
           <input
             type="email"
             value={email}

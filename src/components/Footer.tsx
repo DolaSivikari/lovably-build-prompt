@@ -100,44 +100,44 @@ const Footer = () => {
         {/* Grid Pattern Overlay */}
         <div className="footer-grid-pattern" aria-hidden="true"></div>
 
-        <div className="container mx-auto px-4 py-20 relative z-10">
+        <div className="container mx-auto px-4 py-12 relative z-10">
           {/* Newsletter Signup */}
           <NewsletterSignup />
 
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
             {/* Left: Company Branding (4 cols) */}
             <div className="lg:col-span-4">
-              <Link to="/" className="inline-block mb-6 group">
+              <Link to="/" className="inline-block mb-4 group">
                 <img 
                   src={ascentLogo} 
                   alt="Ascent Group Construction" 
-                  className="h-32 w-auto brightness-0 invert footer-logo-glow"
+                  className="h-24 w-auto brightness-0 invert footer-logo-glow"
                 />
               </Link>
-              <p className="text-primary-foreground/80 mb-6 leading-relaxed">
+              <p className="text-primary-foreground/80 mb-4 leading-relaxed text-sm">
                 Expert painting and exterior finishing services across Ontario. Delivering quality craftsmanship and exceptional results since 2009.
               </p>
 
               {/* Certifications */}
-              <div className="flex gap-4 items-center opacity-70">
+              <div className="flex gap-3 items-center opacity-70">
                 <div className="text-xs text-primary-foreground/60">
-                  <div className="font-semibold mb-1">Fully Insured & Licensed</div>
+                  <div className="font-semibold">Fully Insured & Licensed</div>
                   <div>WSIB Compliant</div>
                 </div>
               </div>
             </div>
 
             {/* Center: Navigation Cards (5 cols) */}
-            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <FooterNavCard title="Company" icon={Building2} links={companyLinks} />
               <FooterNavCard title="Resources" icon={BookOpen} links={resourceLinks} />
               <FooterNavCard title="Contact" icon={Mail} links={contactLinks} />
               <FooterNavCard title="Careers" icon={Wrench} links={careersLinks} />
               
               {/* Client Types Card */}
-              <div className="footer-glass-card p-6 sm:col-span-2">
-                <div className="flex items-center gap-2 mb-4">
+              <div className="footer-glass-card p-5 sm:col-span-2">
+                <div className="flex items-center gap-2 mb-3">
                   <Wrench className="h-5 w-5 text-secondary" aria-hidden="true" />
                   <h3 className="font-semibold text-primary-foreground">Who We Serve</h3>
                 </div>
@@ -159,14 +159,14 @@ const Footer = () => {
             </div>
 
               {/* Right: Contact Card (3 cols) */}
-            <div className="lg:col-span-3">
-              <div className="footer-glass-card p-6 sticky top-4">
-                <h3 className="font-semibold text-primary-foreground mb-4 flex items-center gap-2">
+              <div className="lg:col-span-3">
+              <div className="footer-glass-card p-5 sticky top-4">
+                <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
                   <Phone className="h-5 w-5 text-secondary" aria-hidden="true" />
                   Contact Us
                 </h3>
                 
-                <ul className="space-y-4 mb-6" itemScope itemType="https://schema.org/LocalBusiness">
+                <ul className="space-y-3 mb-5" itemScope itemType="https://schema.org/LocalBusiness">
                   <meta itemProp="name" content="Ascent Group Construction" />
                   <meta itemProp="telephone" content="+1-416-555-1234" />
                   

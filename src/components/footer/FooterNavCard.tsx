@@ -14,13 +14,13 @@ interface FooterNavCardProps {
 
 const FooterNavCard = ({ title, icon: Icon, links }: FooterNavCardProps) => {
   return (
-    <div className="footer-glass-card p-6">
-      <div className="flex items-center gap-2 mb-4">
+    <div className="footer-glass-card p-5">
+      <div className="flex items-center gap-2 mb-3">
         {Icon && <Icon className="h-5 w-5 text-secondary" aria-hidden="true" />}
         <h3 className="font-semibold text-primary-foreground">{title}</h3>
       </div>
       <nav aria-label={`${title} navigation`}>
-        <ul className="space-y-3">
+        <ul className="space-y-2">
           {links.map((link) => (
             <li key={link.to}>
               <Link 
