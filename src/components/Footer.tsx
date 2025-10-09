@@ -100,144 +100,152 @@ const Footer = () => {
         {/* Grid Pattern Overlay */}
         <div className="footer-grid-pattern" aria-hidden="true"></div>
 
-        <div className="container mx-auto px-4 py-12 relative z-10">
+        <div className="container mx-auto px-4 py-8 relative z-10">
           {/* Newsletter Signup */}
           <NewsletterSignup />
 
-          {/* Main Footer Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
-            {/* Left: Company Branding (4 cols) */}
-            <div className="lg:col-span-4">
-              <Link to="/" className="inline-block mb-4 group">
-                <img 
-                  src={ascentLogo} 
-                  alt="Ascent Group Construction" 
-                  className="h-24 w-auto brightness-0 invert footer-logo-glow"
-                />
-              </Link>
-              <p className="text-primary-foreground/80 mb-4 leading-relaxed text-sm">
-                Expert painting and exterior finishing services across Ontario. Delivering quality craftsmanship and exceptional results since 2009.
-              </p>
-
-              {/* Certifications */}
-              <div className="flex gap-3 items-center opacity-70">
-                <div className="text-xs text-primary-foreground/60">
-                  <div className="font-semibold">Fully Insured & Licensed</div>
-                  <div>WSIB Compliant</div>
-                </div>
-              </div>
+          {/* Compact Header with Logo */}
+          <div className="flex items-center justify-between mb-6">
+            <Link to="/" className="inline-block group">
+              <img 
+                src={ascentLogo} 
+                alt="Ascent Group Construction" 
+                className="h-16 w-auto brightness-0 invert footer-logo-glow"
+              />
+            </Link>
+            <div className="flex items-center gap-4">
+              <a 
+                href="tel:+14165551234" 
+                className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-secondary transition-colors"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                <span className="hidden sm:inline">(416) 555-1234</span>
+              </a>
+              <Button variant="secondary" size="sm" asChild>
+                <Link to="/estimate">Get Estimate</Link>
+              </Button>
             </div>
+          </div>
 
-            {/* Center: Navigation Cards (5 cols) */}
-            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <FooterNavCard title="Company" icon={Building2} links={companyLinks} />
-              <FooterNavCard title="Resources" icon={BookOpen} links={resourceLinks} />
-              <FooterNavCard title="Contact" icon={Mail} links={contactLinks} />
-              <FooterNavCard title="Careers" icon={Wrench} links={careersLinks} />
-              
-              {/* Client Types Card */}
-              <div className="footer-glass-card p-5 sm:col-span-2">
-                <div className="flex items-center gap-2 mb-3">
-                  <Wrench className="h-5 w-5 text-secondary" aria-hidden="true" />
-                  <h3 className="font-semibold text-primary-foreground">Who We Serve</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {clientTypes.map((client) => (
-                    <Link 
-                      key={client.to}
-                      to={client.to}
-                      className="footer-glass-card p-4 text-center group hover:scale-105"
-                    >
-                      <client.icon className="h-6 w-6 mx-auto mb-2 text-secondary" aria-hidden="true" />
-                      <span className="text-sm text-primary-foreground/80 group-hover:text-secondary transition-colors">
-                        {client.label}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-              {/* Right: Contact Card (3 cols) */}
-              <div className="lg:col-span-3">
-              <div className="footer-glass-card p-5 sticky top-4">
+          {/* Single Horizontal Navigation Card */}
+          <div className="footer-glass-card p-6 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {/* Company Column */}
+              <div>
                 <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
-                  <Phone className="h-5 w-5 text-secondary" aria-hidden="true" />
-                  Contact Us
+                  <Building2 className="h-4 w-4 text-secondary" aria-hidden="true" />
+                  Company
                 </h3>
-                
-                <ul className="space-y-3 mb-5" itemScope itemType="https://schema.org/LocalBusiness">
-                  <meta itemProp="name" content="Ascent Group Construction" />
-                  <meta itemProp="telephone" content="+1-416-555-1234" />
-                  
-                  <li className="flex items-start gap-3">
-                    <Phone className="h-5 w-5 mt-0.5 text-secondary flex-shrink-0" aria-hidden="true" />
-                    <div>
-                      <div className="text-sm font-medium text-primary-foreground">Phone</div>
-                      <a 
-                        href="tel:+14165551234" 
-                        className="text-sm text-primary-foreground/70 hover:text-secondary transition-colors"
-                        itemProp="telephone"
-                      >
-                        (416) 555-1234
-                      </a>
-                    </div>
-                  </li>
-                  
-                  <li className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 mt-0.5 text-secondary flex-shrink-0" aria-hidden="true" />
-                    <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                      <div className="text-sm font-medium text-primary-foreground">Service Area</div>
-                      <div className="text-sm text-primary-foreground/70">
-                        <span itemProp="addressRegion">Greater Toronto Area</span>, <span itemProp="addressCountry">Ontario</span>
-                      </div>
-                      <div className="text-xs text-primary-foreground/60 mt-1">
-                        Toronto • Mississauga • Brampton • Vaughan
-                      </div>
-                    </div>
-                  </li>
-                  
-                  <li className="flex items-start gap-3">
-                    <Clock className="h-5 w-5 mt-0.5 text-secondary flex-shrink-0" aria-hidden="true" />
-                    <div>
-                      <div className="text-sm font-medium text-primary-foreground">Business Hours</div>
-                      <div className="text-xs text-primary-foreground/70 mt-1">
-                        Mon-Fri: 8:00 AM - 6:00 PM<br />
-                        Sat: 9:00 AM - 4:00 PM<br />
-                        Sun: Closed
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                <nav aria-label="Company navigation">
+                  <ul className="space-y-2">
+                    {companyLinks.map((link) => (
+                      <li key={link.to}>
+                        <Link to={link.to} className="footer-link-animated text-sm text-primary-foreground/80">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
 
-                <div className="space-y-3">
-                  <Button 
-                    variant="secondary" 
-                    className="w-full justify-center gap-2 animate-pulse-glow"
-                    asChild
-                  >
-                    <a href="mailto:info@ascentgroupconstruction.com">
-                      <Mail className="h-4 w-4" aria-hidden="true" />
-                      Email Us
-                    </a>
-                  </Button>
+              {/* Resources Column */}
+              <div>
+                <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 text-secondary" aria-hidden="true" />
+                  Resources
+                </h3>
+                <nav aria-label="Resources navigation">
+                  <ul className="space-y-2">
+                    {resourceLinks.map((link) => (
+                      <li key={link.to}>
+                        <Link to={link.to} className="footer-link-animated text-sm text-primary-foreground/80">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
 
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-center gap-2 bg-primary-foreground/5 hover:bg-primary-foreground/10 border-primary-foreground/20"
-                    asChild
-                  >
-                    <Link to="/estimate">
-                      Get Free Estimate
-                    </Link>
-                  </Button>
+              {/* Get Started Column */}
+              <div>
+                <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-secondary" aria-hidden="true" />
+                  Get Started
+                </h3>
+                <nav aria-label="Contact navigation">
+                  <ul className="space-y-2">
+                    {contactLinks.map((link) => (
+                      <li key={link.to}>
+                        <Link to={link.to} className="footer-link-animated text-sm text-primary-foreground/80">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                    {careersLinks.map((link) => (
+                      <li key={link.to}>
+                        <Link to={link.to} className="footer-link-animated text-sm text-primary-foreground/80">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+
+              {/* Who We Serve Column */}
+              <div>
+                <h3 className="font-semibold text-primary-foreground mb-3 flex items-center gap-2">
+                  <Wrench className="h-4 w-4 text-secondary" aria-hidden="true" />
+                  Who We Serve
+                </h3>
+                <nav aria-label="Client types navigation">
+                  <ul className="space-y-2">
+                    {clientTypes.map((client) => (
+                      <li key={client.to}>
+                        <Link to={client.to} className="footer-link-animated text-sm text-primary-foreground/80">
+                          {client.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          {/* Compact Contact Info & Social */}
+          <div className="footer-glass-card p-4 mb-6" itemScope itemType="https://schema.org/LocalBusiness">
+            <meta itemProp="name" content="Ascent Group Construction" />
+            <meta itemProp="telephone" content="+1-416-555-1234" />
+            <div className="flex flex-wrap items-center justify-between gap-4 text-xs">
+              <div className="flex flex-wrap gap-4 text-primary-foreground/70">
+                <div className="flex items-center gap-1">
+                  <MapPin className="h-3 w-3 text-secondary" aria-hidden="true" />
+                  <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                    <span itemProp="addressRegion">Greater Toronto Area</span>, <span itemProp="addressCountry">Ontario</span>
+                  </span>
                 </div>
+                <div className="flex items-center gap-1">
+                  <Clock className="h-3 w-3 text-secondary" aria-hidden="true" />
+                  Mon-Fri: 8AM-6PM | Sat: 9AM-4PM
+                </div>
+                <div className="flex items-center gap-1">
+                  <Mail className="h-3 w-3 text-secondary" aria-hidden="true" />
+                  <a href="mailto:info@ascentgroupconstruction.com" className="hover:text-secondary transition-colors">
+                    info@ascentgroupconstruction.com
+                  </a>
+                </div>
+              </div>
+              <div className="text-primary-foreground/60">
+                Fully Insured & Licensed | WSIB Compliant
               </div>
             </div>
           </div>
 
           {/* Copyright Section */}
-          <div className="pt-8 border-t border-primary-foreground/10">
+          <div className="pt-4 border-t border-primary-foreground/10">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-center md:text-left">
                 <p className="text-sm text-primary-foreground/70">
