@@ -76,7 +76,7 @@ const Footer = () => {
   return (
     <>
       <SEO structuredData={citationSchema} />
-      <footer className="footer-gradient-mesh text-primary-foreground relative" role="contentinfo">
+      <footer className="w-full footer-gradient-mesh text-primary-foreground relative" role="contentinfo">
         {/* Wave Divider */}
         <div className="footer-wave-divider">
           <svg viewBox="0 0 1200 120" preserveAspectRatio="none">

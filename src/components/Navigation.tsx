@@ -6,16 +6,12 @@ import { ChevronDown, Phone, Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
+import { MobileNavSheet } from "./navigation/MobileNavSheet";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
 import { trackPhoneClick } from "@/lib/analytics";
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,10 +27,6 @@ const Navigation = () => {
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [mobileWhoWeServeOpen, setMobileWhoWeServeOpen] = useState(false);
-  const [mobileBlogOpen, setMobileBlogOpen] = useState(false);
-  const [mobileAdminOpen, setMobileAdminOpen] = useState(false);
   const location = useLocation();
   
   // Check admin role
@@ -44,6 +36,11 @@ const Navigation = () => {
   const megaMenuHover = useHoverTimeout();
   const contactHover = useHoverTimeout();
   const adminHover = useHoverTimeout();
+
+  // Sync mobile menu state with body data attribute
+  useEffect(() => {
+    document.body.dataset.mobileMenuOpen = isOpen ? "true" : "false";
+  }, [isOpen]);
 
   useEffect(() => {
     checkAuth();
@@ -462,320 +459,11 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div id="mobile-menu" className="md:hidden py-4 space-y-2 animate-slide-in-right" role="navigation" aria-label="Mobile navigation">
-            <Link
-              to="/"
-              onClick={() => setIsOpen(false)}
-              aria-current={isActive("/") ? "page" : undefined}
-              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
-                isActive("/") ? "text-primary bg-muted" : "text-foreground"
-              }`}
-            >
-              Home
-            </Link>
-            
-            {/* Services with Accordion */}
-            <div className="border-t border-border pt-4">
-              <Link
-                to="/services"
-                onClick={() => setIsOpen(false)}
-                className="block text-sm font-medium py-3 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target text-foreground mb-2"
-              >
-                View All Services
-              </Link>
-              <Collapsible open={mobileServicesOpen} onOpenChange={setMobileServicesOpen}>
-                <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-semibold text-muted-foreground mb-2 px-2">
-                  <span>Browse by Category</span>
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-transform",
-                    mobileServicesOpen && "rotate-180"
-                  )} />
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  {megaMenuDataEnhanced.services.map((section, sectionIdx) => (
-                    <div key={sectionIdx} className="space-y-3">
-                      {section.categories.map((category, categoryIdx) => (
-                        <div key={categoryIdx} className="mb-3">
-                          <div className="font-medium text-primary text-sm mb-2 px-2">
-                            {category.title}
-                          </div>
-                          <ul className="space-y-1 ml-3">
-                            {category.subItems.map((item, itemIdx) => (
-                              <li key={itemIdx}>
-                                <Link
-                                  to={item.link}
-                                  className="text-sm text-muted-foreground hover:text-foreground transition-colors block py-1"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  {item.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </CollapsibleContent>
-              </Collapsible>
-            </div>
-
-            {/* Who We Serve with Accordion */}
-            <div className="border-t border-border pt-4">
-              <Collapsible open={mobileWhoWeServeOpen} onOpenChange={setMobileWhoWeServeOpen}>
-                <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-semibold text-muted-foreground mb-2 px-2">
-                  <span>WHO WE SERVE</span>
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-transform",
-                    mobileWhoWeServeOpen && "rotate-180"
-                  )} />
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  {megaMenuDataEnhanced.whoWeServe.map((section, sectionIdx) => (
-                    <div key={sectionIdx} className="space-y-3">
-                      {section.categories.map((category, categoryIdx) => (
-                        <div key={categoryIdx} className="mb-3">
-                          <div className="font-medium text-primary text-sm mb-2 px-2">
-                            {category.title}
-                          </div>
-                          <ul className="space-y-1 ml-3">
-                            {category.subItems.map((item, itemIdx) => (
-                              <li key={itemIdx}>
-                                <Link
-                                  to={item.link}
-                                  className="text-sm text-muted-foreground hover:text-foreground transition-colors block py-1"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  {item.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </CollapsibleContent>
-              </Collapsible>
-            </div>
-            
-            <Link
-              to="/our-process"
-              onClick={() => setIsOpen(false)}
-              aria-current={isActive("/our-process") ? "page" : undefined}
-              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
-                isActive("/our-process") ? "text-primary bg-muted" : "text-foreground"
-              }`}
-            >
-              Our Process
-            </Link>
-            
-            <Link
-              to="/projects"
-              onClick={() => setIsOpen(false)}
-              aria-current={isActive("/projects") ? "page" : undefined}
-              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
-                isActive("/projects") ? "text-primary bg-muted" : "text-foreground"
-              }`}
-            >
-              Projects
-            </Link>
-
-            {/* Blog & Resources with Accordion */}
-            <div className="border-t border-border pt-4">
-              <Link
-                to="/blog"
-                onClick={() => setIsOpen(false)}
-                className="block text-sm font-medium py-3 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target text-foreground mb-2"
-              >
-                View All Blog Articles
-              </Link>
-              <Collapsible open={mobileBlogOpen} onOpenChange={setMobileBlogOpen}>
-                <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-semibold text-muted-foreground mb-2 px-2">
-                  <span>Browse Resources</span>
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-transform",
-                    mobileBlogOpen && "rotate-180"
-                  )} />
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  {megaMenuDataEnhanced.blog.map((section, sectionIdx) => (
-                    <div key={sectionIdx} className="space-y-3">
-                      {section.categories.map((category, categoryIdx) => (
-                        <div key={categoryIdx} className="mb-3">
-                          <div className="font-medium text-primary text-sm mb-2 px-2">
-                            {category.title}
-                          </div>
-                          <ul className="space-y-1 ml-3">
-                            {category.subItems.map((item, itemIdx) => (
-                              <li key={itemIdx}>
-                                <Link
-                                  to={item.link}
-                                  className="text-sm text-muted-foreground hover:text-foreground transition-colors block py-1"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  {item.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </CollapsibleContent>
-              </Collapsible>
-            </div>
-            
-            <Link
-              to="/contact"
-              onClick={() => setIsOpen(false)}
-              aria-current={isActive("/contact") ? "page" : undefined}
-              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
-                isActive("/contact") ? "text-primary bg-muted" : "text-foreground"
-              }`}
-            >
-              Contact
-            </Link>
-
-            <Link
-              to="/careers"
-              onClick={() => setIsOpen(false)}
-              aria-current={isActive("/careers") ? "page" : undefined}
-              className={`block text-sm font-medium py-4 px-4 rounded-lg transition-all hover:bg-muted hover:translate-x-2 touch-target ${
-                isActive("/careers") ? "text-primary bg-muted" : "text-foreground"
-              }`}
-            >
-              Careers
-            </Link>
-
-            {/* Admin Section - Only visible to admin users */}
-            {isAdmin && (
-              <div className="border-t border-border pt-4">
-                <Collapsible open={mobileAdminOpen} onOpenChange={setMobileAdminOpen}>
-                  <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-semibold text-primary mb-2 px-2">
-                    <span className="flex items-center gap-2">
-                      <Shield className="w-4 h-4" />
-                      ADMIN
-                    </span>
-                    <ChevronDown className={cn(
-                      "w-4 h-4 transition-transform",
-                      mobileAdminOpen && "rotate-180"
-                    )} />
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="space-y-1">
-                      <Link
-                        to="/admin"
-                        className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2 px-4"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Dashboard
-                      </Link>
-                      
-                      <div className="pt-2 px-2">
-                        <div className="text-xs font-semibold text-muted-foreground mb-1">Content</div>
-                      </div>
-                      <Link
-                        to="/admin/services"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Services
-                      </Link>
-                      <Link
-                        to="/admin/projects"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Projects
-                      </Link>
-                      <Link
-                        to="/admin/blog-posts"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Blog Posts
-                      </Link>
-                      <Link
-                        to="/admin/case-studies"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Case Studies
-                      </Link>
-                      
-                      <div className="pt-2 px-2">
-                        <div className="text-xs font-semibold text-muted-foreground mb-1">Submissions</div>
-                      </div>
-                      <Link
-                        to="/admin/contact-submissions"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Contact Submissions
-                      </Link>
-                      <Link
-                        to="/admin/resume-submissions"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Resume Submissions
-                      </Link>
-                      
-                      <div className="pt-2 px-2">
-                        <div className="text-xs font-semibold text-muted-foreground mb-1">Settings</div>
-                      </div>
-                      <Link
-                        to="/admin/media-library"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Media Library
-                      </Link>
-                      <Link
-                        to="/admin/users"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Users
-                      </Link>
-                      <Link
-                        to="/admin/security-center"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Security Center
-                      </Link>
-                      <Link
-                        to="/admin/seo-dashboard"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        SEO Dashboard
-                      </Link>
-                      <Link
-                        to="/admin/performance-dashboard"
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1 px-4 ml-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Performance Dashboard
-                      </Link>
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-              </div>
-            )}
-            
-            <Button variant="secondary" className="w-full" asChild>
-              <Link to="/estimate" onClick={() => setIsOpen(false)}>
-                Get Estimate
-              </Link>
-            </Button>
-          </div>
-        )}
+        {/* Mobile Navigation Sheet */}
+        <MobileNavSheet
+          open={isOpen}
+          onOpenChange={setIsOpen}
+        />
         </div>
       </nav>
     </>

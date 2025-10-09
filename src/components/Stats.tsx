@@ -40,7 +40,7 @@ const Stats = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-20 bg-primary text-primary-foreground relative overflow-hidden">
+    <section ref={sectionRef} className="w-full py-20 bg-primary text-primary-foreground relative overflow-hidden">
       {/* Animated background patterns */}
       <div className="absolute inset-0 grid-pattern opacity-10" />
       <div className="absolute top-10 right-10 w-64 h-64 rounded-full blur-3xl opacity-20 animate-float" style={{ background: "var(--gradient-orb)" }} />

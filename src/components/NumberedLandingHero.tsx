@@ -24,7 +24,7 @@ const NumberedLandingHero = () => {
   }, [isMobile]);
 
   return (
-    <section className="landing-hero">
+    <section className="landing-hero w-full relative">
       {/* Background Video */}
       <div className="landing-hero__background">
         {shouldLoadVideo ? (
