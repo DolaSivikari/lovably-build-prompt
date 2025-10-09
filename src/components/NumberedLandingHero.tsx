@@ -2,45 +2,50 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { landingMenuItems } from "@/data/landing-menu";
 import heroConstruction from "@/assets/hero-construction.jpg";
-import heroVideo from "@/assets/hero-construction-video.mp4";
+import homeHeroVideo from "@/assets/home-hero.mp4";
 import { useEffect, useRef, useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const NumberedLandingHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [shouldUseVideo, setShouldUseVideo] = useState(true);
   const [activeItem, setActiveItem] = useState<string | null>(null);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
-    // On mobile, delay video load until after initial paint
-    if (isMobile) {
-      const timer = setTimeout(() => {
-        setShouldLoadVideo(true);
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else {
-      // Desktop: load immediately
-      setShouldLoadVideo(true);
+    // Check for user preferences that might prevent video playback
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = (navigator as any).connection?.saveData;
+    
+    if (prefersReducedMotion || saveData) {
+      setShouldUseVideo(false);
+      return;
     }
-  }, [isMobile]);
+
+    // Attempt to play video, fallback to image if it fails
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        setShouldUseVideo(false);
+      });
+    }
+  }, []);
 
   return (
     <section className="landing-hero w-full relative">
       {/* Background Video */}
       <div className="landing-hero__background">
-        {shouldLoadVideo ? (
+        {shouldUseVideo ? (
           <video
             ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
+            preload="metadata"
             poster={heroConstruction}
             className="w-full h-full object-cover"
           >
-            <source src={heroVideo} type="video/mp4" />
+            <source src={homeHeroVideo} type="video/mp4" />
           </video>
         ) : (
           <OptimizedImage
