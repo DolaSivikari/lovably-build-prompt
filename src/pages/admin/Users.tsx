@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, UserPlus, Shield, Users as UsersIcon } from "lucide-react";
+import { ArrowLeft, Shield, Users as UsersIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { InviteUserDialog } from "@/components/admin/InviteUserDialog";
 import {
   Select,
   SelectContent,
@@ -154,10 +155,7 @@ const Users = () => {
               User Management
             </h1>
           </div>
-          <Button>
-            <UserPlus className="h-4 w-4 mr-2" />
-            Invite User
-          </Button>
+          <InviteUserDialog onUserCreated={loadUsers} />
         </div>
       </header>
 
