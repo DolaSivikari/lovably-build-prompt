@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, UserPlus, Shield, Users as UsersIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
   Select,
   SelectContent,
@@ -17,20 +18,15 @@ import {
 const Users = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isLoading: authLoading, isAdmin } = useAdminAuth();
   const [users, setUsers] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth();
-    loadUsers();
-  }, []);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/auth");
+    if (isAdmin) {
+      loadUsers();
     }
-  };
+  }, [isAdmin]);
 
   const loadUsers = async () => {
     setIsLoading(true);
@@ -130,6 +126,20 @@ const Users = () => {
       default: return role;
     }
   };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
+        <div className="text-center">
+          <p>Verifying admin access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-muted/30">

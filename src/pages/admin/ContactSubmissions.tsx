@@ -7,18 +7,20 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, Mail, Phone, Building2, AlertCircle, CheckCircle2, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
 
 const ContactSubmissions = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isLoading: authLoading, isAdmin } = useAdminAuth();
   const [submissions, setSubmissions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {
-    checkAuth();
-    loadSubmissions();
+    if (isAdmin) {
+      loadSubmissions();
 
     // Set up real-time subscription
     const channel = supabase
@@ -39,14 +41,8 @@ const ContactSubmissions = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/auth");
     }
-  };
+  }, [isAdmin]);
 
   const loadSubmissions = async () => {
     setIsLoading(true);
@@ -126,6 +122,20 @@ const ContactSubmissions = () => {
 
   const newCount = submissions.filter(s => s.status === "new").length;
   const quotesCount = submissions.filter(s => s.submission_type === "quote" || s.submission_type === "estimate").length;
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
+        <div className="text-center">
+          <p>Verifying admin access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-muted/30">

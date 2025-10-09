@@ -17,13 +17,83 @@ interface ResumeNotificationRequest {
   jobTitle?: string;
 }
 
+// Input validation function
+const validateInput = (data: ResumeNotificationRequest): string | null => {
+  const { applicantName, email, phone, coverMessage, jobTitle } = data;
+
+  if (!applicantName || applicantName.trim().length === 0) {
+    return "Applicant name is required";
+  }
+  if (applicantName.length > 100) {
+    return "Applicant name must be less than 100 characters";
+  }
+  if (!/^[a-zA-Z\s\-'\.]+$/.test(applicantName)) {
+    return "Applicant name contains invalid characters";
+  }
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return "Valid email address is required";
+  }
+  if (email.length > 255) {
+    return "Email must be less than 255 characters";
+  }
+
+  if (phone && phone.length > 0) {
+    if (!/^[\d\s\-\+\(\)]+$/.test(phone)) {
+      return "Phone number contains invalid characters";
+    }
+    if (phone.length > 20) {
+      return "Phone number must be less than 20 characters";
+    }
+  }
+
+  if (coverMessage && coverMessage.length > 2000) {
+    return "Cover message must be less than 2000 characters";
+  }
+
+  if (jobTitle && jobTitle.length > 100) {
+    return "Job title must be less than 100 characters";
+  }
+
+  return null;
+};
+
+// Sanitize HTML special characters to prevent XSS
+const sanitize = (str: string): string => {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+};
+
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { applicantName, email, phone, coverMessage, jobTitle }: ResumeNotificationRequest = await req.json();
+    const requestData: ResumeNotificationRequest = await req.json();
+
+    // Validate input
+    const validationError = validateInput(requestData);
+    if (validationError) {
+      return new Response(
+        JSON.stringify({ error: validationError }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Sanitize all inputs
+    const applicantName = sanitize(requestData.applicantName.trim());
+    const email = requestData.email.trim().toLowerCase();
+    const phone = requestData.phone ? sanitize(requestData.phone.trim()) : undefined;
+    const coverMessage = requestData.coverMessage ? sanitize(requestData.coverMessage.trim()) : undefined;
+    const jobTitle = requestData.jobTitle ? sanitize(requestData.jobTitle.trim()) : undefined;
 
     // Send notification to admin
     const adminEmail = await resend.emails.send({

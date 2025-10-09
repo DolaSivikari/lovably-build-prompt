@@ -17,13 +17,86 @@ interface PackageNotificationRequest {
   message?: string;
 }
 
+// Input validation function
+const validateInput = (data: PackageNotificationRequest): string | null => {
+  const { name, email, phone, packageName, message } = data;
+
+  if (!name || name.trim().length === 0) {
+    return "Name is required";
+  }
+  if (name.length > 100) {
+    return "Name must be less than 100 characters";
+  }
+  if (!/^[a-zA-Z\s\-'\.]+$/.test(name)) {
+    return "Name contains invalid characters";
+  }
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return "Valid email address is required";
+  }
+  if (email.length > 255) {
+    return "Email must be less than 255 characters";
+  }
+
+  if (phone && phone.length > 0) {
+    if (!/^[\d\s\-\+\(\)]+$/.test(phone)) {
+      return "Phone number contains invalid characters";
+    }
+    if (phone.length > 20) {
+      return "Phone number must be less than 20 characters";
+    }
+  }
+
+  if (!packageName || packageName.trim().length === 0) {
+    return "Package name is required";
+  }
+  if (packageName.length > 100) {
+    return "Package name must be less than 100 characters";
+  }
+
+  if (message && message.length > 1000) {
+    return "Message must be less than 1000 characters";
+  }
+
+  return null;
+};
+
+// Sanitize HTML special characters to prevent XSS
+const sanitize = (str: string): string => {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+};
+
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { name, email, phone, packageName, message }: PackageNotificationRequest = await req.json();
+    const requestData: PackageNotificationRequest = await req.json();
+
+    // Validate input
+    const validationError = validateInput(requestData);
+    if (validationError) {
+      return new Response(
+        JSON.stringify({ error: validationError }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Sanitize all inputs
+    const name = sanitize(requestData.name.trim());
+    const email = requestData.email.trim().toLowerCase();
+    const phone = requestData.phone ? sanitize(requestData.phone.trim()) : undefined;
+    const packageName = sanitize(requestData.packageName.trim());
+    const message = requestData.message ? sanitize(requestData.message.trim()) : undefined;
 
     // Send notification to admin
     const adminEmail = await resend.emails.send({

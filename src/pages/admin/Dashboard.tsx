@@ -14,6 +14,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import MetricCard from "@/components/admin/MetricCard";
 import QuickActions from "@/components/admin/QuickActions";
 import ActivityFeed from "@/components/admin/ActivityFeed";
@@ -21,6 +22,7 @@ import ActivityFeed from "@/components/admin/ActivityFeed";
 const Dashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isLoading: authLoading, isAdmin } = useAdminAuth();
   const [user, setUser] = useState<any>(null);
   const [stats, setStats] = useState({
     projects: 0,
@@ -37,9 +39,10 @@ const Dashboard = () => {
   const [recentSubmissions, setRecentSubmissions] = useState<any[]>([]);
 
   useEffect(() => {
-    checkAuth();
-    loadStats();
-    loadRecentSubmissions();
+    if (isAdmin) {
+      loadUser();
+      loadStats();
+      loadRecentSubmissions();
 
     // Set up real-time subscription for new submissions
     const channel = supabase
@@ -65,15 +68,14 @@ const Dashboard = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/auth");
-      return;
     }
-    setUser(session.user);
+  }, [isAdmin]);
+
+  const loadUser = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      setUser(session.user);
+    }
   };
 
   const loadStats = async () => {
@@ -120,6 +122,20 @@ const Dashboard = () => {
     });
     navigate("/auth");
   };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
+        <div className="text-center">
+          <p>Verifying admin access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-muted/30">

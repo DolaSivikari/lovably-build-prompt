@@ -6,25 +6,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Plus, Edit, Trash2, ArrowLeft, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
 
 const BlogPosts = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isLoading: authLoading, isAdmin } = useAdminAuth();
   const [posts, setPosts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth();
-    loadPosts();
-  }, []);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/auth");
+    if (isAdmin) {
+      loadPosts();
     }
-  };
+  }, [isAdmin]);
 
   const loadPosts = async () => {
     setIsLoading(true);
@@ -76,6 +72,20 @@ const BlogPosts = () => {
       default: return "secondary";
     }
   };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
+        <div className="text-center">
+          <p>Verifying admin access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-muted/30">
