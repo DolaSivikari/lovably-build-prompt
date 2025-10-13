@@ -39,37 +39,25 @@ export const InviteUserDialog = ({ onUserCreated }: InviteUserDialogProps) => {
     setIsLoading(true);
 
     try {
-      // Create user account
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-          },
-          emailRedirectTo: `${window.location.origin}/auth`,
+      // Call the secure server-side edge function
+      const { data, error } = await supabase.functions.invoke('invite-user', {
+        body: {
+          email,
+          password,
+          fullName,
+          role,
         },
       });
 
-      if (authError) throw authError;
+      if (error) throw error;
 
-      if (!authData.user) {
-        throw new Error("Failed to create user");
-      }
-
-      // Assign role to the new user
-      const { error: roleError } = await supabase
-        .from("user_roles")
-        .insert([{ user_id: authData.user.id, role: role as any }]);
-
-      if (roleError) {
-        console.error("Role assignment error:", roleError);
-        throw new Error("Failed to assign role to user");
+      if (!data?.success) {
+        throw new Error(data?.error || 'Failed to invite user');
       }
 
       toast({
         title: "User Invited",
-        description: `An invitation has been sent to ${email}`,
+        description: `${fullName} has been created with ${role} role`,
       });
 
       // Reset form

@@ -10,6 +10,33 @@ interface LoginAttemptRequest {
   success: boolean;
 }
 
+// Helper function for safe error responses
+function createErrorResponse(error: any) {
+  console.error('Function error:', {
+    message: error.message,
+    stack: error.stack,
+    timestamp: new Date().toISOString()
+  });
+  
+  const isValidationError = error.message.includes('required') || 
+                           error.message.includes('invalid');
+  
+  const clientMessage = isValidationError 
+    ? error.message
+    : 'An error occurred processing your request. Please try again later.';
+  
+  return new Response(
+    JSON.stringify({ 
+      error: clientMessage,
+      timestamp: new Date().toISOString()
+    }),
+    { 
+      status: isValidationError ? 400 : 500, 
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+    }
+  );
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -135,10 +162,6 @@ Deno.serve(async (req) => {
       );
     }
   } catch (error: any) {
-    console.error('Error in check-login-attempt:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    return createErrorResponse(error);
   }
 });

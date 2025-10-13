@@ -71,6 +71,35 @@ const sanitize = (str: string): string => {
     .replace(/'/g, "&#x27;");
 };
 
+// Helper function for safe error responses
+function createErrorResponse(error: any) {
+  console.error('Function error:', {
+    message: error.message,
+    stack: error.stack,
+    timestamp: new Date().toISOString()
+  });
+  
+  const isValidationError = error.message.includes('required') || 
+                           error.message.includes('invalid') ||
+                           error.message.includes('must be') ||
+                           error.message.includes('characters');
+  
+  const clientMessage = isValidationError 
+    ? error.message
+    : 'An error occurred processing your request. Please try again later.';
+  
+  return new Response(
+    JSON.stringify({ 
+      error: clientMessage,
+      timestamp: new Date().toISOString()
+    }),
+    { 
+      status: isValidationError ? 400 : 500, 
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+    }
+  );
+}
+
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -156,14 +185,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
     });
   } catch (error: any) {
-    console.error("Error in send-package-notification function:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
-    );
+    return createErrorResponse(error);
   }
 };
 
