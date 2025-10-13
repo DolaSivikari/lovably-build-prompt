@@ -3,8 +3,11 @@ import { cn } from "@/lib/utils";
 
 interface OptimizedImageProps {
   src: string;
+  srcset?: string;
   srcAvif?: string;
+  srcsetAvif?: string;
   srcWebp?: string;
+  srcsetWebp?: string;
   alt: string;
   width?: number;
   height?: number;
@@ -18,8 +21,11 @@ interface OptimizedImageProps {
 
 const OptimizedImage = ({
   src,
+  srcset,
   srcAvif,
+  srcsetAvif,
   srcWebp,
+  srcsetWebp,
   alt,
   width,
   height,
@@ -52,28 +58,30 @@ const OptimizedImage = ({
       )}
 
       {/* Modern image formats with picture element */}
-      {shouldLoad && (srcAvif || srcWebp) ? (
+      {shouldLoad && (srcAvif || srcWebp || srcsetAvif || srcsetWebp) ? (
         <picture>
-          {srcAvif && (
+          {(srcAvif || srcsetAvif) && (
             <source
               type="image/avif"
-              srcSet={srcAvif}
+              srcSet={srcsetAvif || srcAvif}
               sizes={sizes}
             />
           )}
-          {srcWebp && (
+          {(srcWebp || srcsetWebp) && (
             <source
               type="image/webp"
-              srcSet={srcWebp}
+              srcSet={srcsetWebp || srcWebp}
               sizes={sizes}
             />
           )}
           <img
             ref={imageRef}
             src={src}
+            srcSet={srcset}
             alt={alt}
             width={width}
             height={height}
+            sizes={sizes}
             loading={loading || (priority ? "eager" : "lazy")}
             decoding={priority ? "sync" : "async"}
             fetchPriority={fetchPriority}
@@ -92,6 +100,7 @@ const OptimizedImage = ({
         <img
           ref={imageRef}
           src={shouldLoad ? src : undefined}
+          srcSet={shouldLoad ? srcset : undefined}
           alt={alt}
           width={width}
           height={height}

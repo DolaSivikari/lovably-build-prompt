@@ -16,6 +16,8 @@ const Hero = () => {
           priority={true}
           width={1920}
           height={1080}
+          sizes="100vw"
+          fetchPriority="high"
           className="w-full h-full"
           objectFit="cover"
         />
