@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Phone, CheckCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { sanitizeHTML } from "@/utils/sanitize";
 
 interface Service {
   id: string;
@@ -116,7 +117,7 @@ const ServiceDetail = () => {
 
               {service.long_description && (
                 <div className="prose prose-lg max-w-none mb-12">
-                  <div dangerouslySetInnerHTML={{ __html: service.long_description }} />
+                  <div dangerouslySetInnerHTML={{ __html: sanitizeHTML(service.long_description) }} />
                 </div>
               )}
 

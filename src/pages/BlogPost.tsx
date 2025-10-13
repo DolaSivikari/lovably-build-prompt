@@ -18,6 +18,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { sanitizeHTML } from "@/utils/sanitize";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -187,7 +188,7 @@ const BlogPost = () => {
           <div className="max-w-4xl mx-auto">
             <div 
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHTML(formatContent(post.content)) }}
             />
 
             {/* Share Section */}
