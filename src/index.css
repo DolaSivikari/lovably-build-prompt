@@ -16,6 +16,9 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Layout System */
+    --nav-height: 5rem;
+    
     --background: 45 50% 98%;   /* Light cream background */
     --foreground: 0 0% 17%;     /* Charcoal text */
 
@@ -630,7 +633,7 @@ All colors MUST be HSL.
 
 .landing-hero {
   position: relative;
-  height: 100vh;
+  min-height: 100svh;
   width: 100%;
   max-width: 100%;
   overflow: hidden;
@@ -673,7 +676,7 @@ All colors MUST be HSL.
   width: 100%;
   max-width: 800px;
   margin-top: 0;
-  padding-top: clamp(7rem, 12vh, 9rem);
+  padding-top: calc(var(--nav-height) + clamp(2rem, 8vh, 6rem));
   animation: fade-in 0.8s ease-out;
 }
 
@@ -850,7 +853,7 @@ All colors MUST be HSL.
 
   .landing-hero__content {
     max-width: 100%;
-    padding-top: 7rem;
+    padding-top: calc(var(--nav-height) + clamp(3rem, 12vh, 7rem));
   }
 
   .landing-menu-item {
@@ -910,4 +913,20 @@ All colors MUST be HSL.
   .landing-menu-item__cta {
     font-size: 0.75rem;
   }
+}
+
+/* ============================================
+   MOBILE STICKY CTA SAFE SPACE
+   ============================================ */
+
+@media (max-width: 768px) {
+  body[data-sticky-cta-visible="true"] main,
+  body[data-sticky-cta-visible="true"] footer {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Footer safe area for iOS devices */
+footer {
+  padding-bottom: env(safe-area-inset-bottom);
 }
