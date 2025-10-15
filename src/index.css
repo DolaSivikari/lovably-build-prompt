@@ -637,7 +637,7 @@ All colors MUST be HSL.
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 120px 5% 80px 5%;
+  padding: 0 5%;
 }
 
 .landing-hero__background {
@@ -673,6 +673,7 @@ All colors MUST be HSL.
   width: 100%;
   max-width: 800px;
   margin-top: 0;
+  padding-top: clamp(7rem, 12vh, 9rem);
   animation: fade-in 0.8s ease-out;
 }
 
@@ -824,7 +825,7 @@ All colors MUST be HSL.
 /* Responsive Design */
 @media (max-width: 1024px) {
   .landing-hero {
-    padding: 100px 4% 60px 4%;
+    padding: 0 4%;
   }
 
   .landing-menu-item {
@@ -843,12 +844,13 @@ All colors MUST be HSL.
 
 @media (max-width: 768px) {
   .landing-hero {
-    padding: 90px 6% 50px 6%;
+    padding: 0 6%;
     align-items: center;
   }
 
   .landing-hero__content {
     max-width: 100%;
+    padding-top: 7rem;
   }
 
   .landing-menu-item {
