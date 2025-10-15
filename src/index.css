@@ -676,7 +676,7 @@ All colors MUST be HSL.
   width: 100%;
   max-width: 800px;
   margin-top: 0;
-  padding-top: calc(var(--nav-height) + clamp(2rem, 8vh, 6rem));
+  padding-top: calc(var(--nav-height) + clamp(8rem, 22vh, 14rem));
   animation: fade-in 0.8s ease-out;
 }
 
@@ -853,7 +853,7 @@ All colors MUST be HSL.
 
   .landing-hero__content {
     max-width: 100%;
-    padding-top: calc(var(--nav-height) + clamp(3rem, 12vh, 7rem));
+    padding-top: calc(var(--nav-height) + clamp(6rem, 20vh, 13rem));
   }
 
   .landing-menu-item {
