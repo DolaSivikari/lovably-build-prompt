@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { createErrorResponse, createRateLimitResponse, logSecurityError } from "../_shared/errorHandler.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -18,74 +19,6 @@ interface ContactNotificationRequest {
   message: string;
   submissionType: string;
 }
-
-// Rate limiting: 50 requests per minute
-const RATE_LIMIT = 50;
-const RATE_WINDOW = 60 * 1000; // 1 minute in milliseconds
-
-const checkRateLimit = async (supabaseClient: any, identifier: string, endpoint: string): Promise<boolean> => {
-  const now = new Date();
-  const windowStart = new Date(now.getTime() - RATE_WINDOW);
-
-  // Get or create rate limit entry
-  const { data: existingLimit, error: fetchError } = await supabaseClient
-    .from('rate_limits')
-    .select('*')
-    .eq('user_identifier', identifier)
-    .eq('endpoint', endpoint)
-    .single();
-
-  if (fetchError && fetchError.code !== 'PGRST116') {
-    console.error('Rate limit fetch error:', fetchError);
-    return true; // Allow on error to prevent blocking legitimate requests
-  }
-
-  if (!existingLimit) {
-    // Create new rate limit entry
-    await supabaseClient
-      .from('rate_limits')
-      .insert({
-        user_identifier: identifier,
-        endpoint: endpoint,
-        request_count: 1,
-        window_start: now.toISOString()
-      });
-    return true;
-  }
-
-  const limitWindowStart = new Date(existingLimit.window_start);
-  
-  // Check if we're still in the same window
-  if (limitWindowStart > windowStart) {
-    // Same window - check count
-    if (existingLimit.request_count >= RATE_LIMIT) {
-      return false; // Rate limit exceeded
-    }
-    
-    // Increment count
-    await supabaseClient
-      .from('rate_limits')
-      .update({ 
-        request_count: existingLimit.request_count + 1 
-      })
-      .eq('user_identifier', identifier)
-      .eq('endpoint', endpoint);
-    
-    return true;
-  } else {
-    // New window - reset count
-    await supabaseClient
-      .from('rate_limits')
-      .update({ 
-        request_count: 1,
-        window_start: now.toISOString()
-      })
-      .eq('user_identifier', identifier)
-      .eq('endpoint', endpoint);
-    
-    return true;
-  }
-};
 
 // Input validation function
 const validateInput = (data: ContactNotificationRequest): { valid: boolean; error?: string } => {
@@ -147,19 +80,30 @@ const handler = async (req: Request): Promise<Response> => {
     );
 
     // Get client identifier for rate limiting (IP or user ID)
-    const clientIP = req.headers.get('x-forwarded-for') || 'unknown';
+    const clientIP = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
     const identifier = `contact-${clientIP}`;
 
-    // Check rate limit
-    const rateLimitOk = await checkRateLimit(supabaseClient, identifier, 'send-contact-notification');
-    if (!rateLimitOk) {
-      return new Response(
-        JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-        {
-          status: 429,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
-      );
+    // Check rate limit using security definer function
+    const { data: rateLimitResult, error: rateLimitError } = await supabaseClient
+      .rpc('check_and_update_rate_limit', {
+        p_identifier: identifier,
+        p_endpoint: 'send-contact-notification',
+        p_limit: 50,
+        p_window_minutes: 1
+      });
+
+    if (rateLimitError) {
+      logSecurityError('rate_limit_check', rateLimitError, { identifier });
+      // Allow request on error to prevent blocking legitimate users
+      console.warn('Rate limit check failed, allowing request:', rateLimitError);
+    } else if (rateLimitResult && !rateLimitResult.allowed) {
+      logSecurityError('rate_limit_exceeded', new Error('Rate limit exceeded'), {
+        identifier,
+        request_count: rateLimitResult.request_count,
+        limit: rateLimitResult.limit,
+      });
+      
+      return createRateLimitResponse(rateLimitResult.retry_after_seconds || 60);
     }
 
     const requestData: ContactNotificationRequest = await req.json();
@@ -167,12 +111,11 @@ const handler = async (req: Request): Promise<Response> => {
     // Validate input
     const validation = validateInput(requestData);
     if (!validation.valid) {
-      return new Response(
-        JSON.stringify({ error: validation.error }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
+      return createErrorResponse(
+        new Error(validation.error),
+        validation.error,
+        400,
+        'input_validation'
       );
     }
 
@@ -238,13 +181,11 @@ const handler = async (req: Request): Promise<Response> => {
       },
     });
   } catch (error: any) {
-    console.error("Error in send-contact-notification function:", error);
-    return new Response(
-      JSON.stringify({ error: "Internal server error" }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+    return createErrorResponse(
+      error,
+      'Failed to process contact submission',
+      500,
+      'send_contact_notification'
     );
   }
 };

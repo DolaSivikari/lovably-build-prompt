@@ -1445,6 +1445,15 @@ export type Database = {
         Args: { _user_id: string }
         Returns: boolean
       }
+      check_and_update_rate_limit: {
+        Args: {
+          p_endpoint: string
+          p_identifier: string
+          p_limit?: number
+          p_window_minutes?: number
+        }
+        Returns: Json
+      }
       cleanup_expired_lockouts: {
         Args: Record<PropertyKey, never>
         Returns: undefined

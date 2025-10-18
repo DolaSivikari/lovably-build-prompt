@@ -89,6 +89,28 @@ const BlogPostEditor = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validate content length (client-side check before DB constraint)
+    const MAX_CONTENT_LENGTH = 50000;
+    const MAX_SUMMARY_LENGTH = 500;
+
+    if (formData.content.length > MAX_CONTENT_LENGTH) {
+      toast({
+        title: "Content too long",
+        description: `Content must be under ${MAX_CONTENT_LENGTH.toLocaleString()} characters. Current: ${formData.content.length.toLocaleString()}`,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (formData.summary.length > MAX_SUMMARY_LENGTH) {
+      toast({
+        title: "Summary too long",
+        description: `Summary must be under ${MAX_SUMMARY_LENGTH} characters. Current: ${formData.summary.length}`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
@@ -184,7 +206,14 @@ const BlogPostEditor = () => {
                   value={formData.summary}
                   onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                   rows={3}
+                  maxLength={500}
                 />
+                <p className="text-xs text-muted-foreground mt-1">
+                  {formData.summary.length} / 500 characters
+                  {formData.summary.length > 450 && (
+                    <span className="text-warning ml-2">⚠️ Approaching limit</span>
+                  )}
+                </p>
               </div>
 
               <div>
@@ -198,7 +227,13 @@ const BlogPostEditor = () => {
                   placeholder="Write your blog post content here..."
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Note: For rich text editing with formatting, consider using the visual editor
+                  {formData.content.length.toLocaleString()} / 50,000 characters
+                  {formData.content.length > 45000 && (
+                    <span className="text-warning ml-2">⚠️ Approaching limit</span>
+                  )}
+                  {formData.content.length >= 50000 && (
+                    <span className="text-destructive ml-2">⛔ Maximum reached</span>
+                  )}
                 </p>
               </div>
 

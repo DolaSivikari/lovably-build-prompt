@@ -70,6 +70,30 @@ const ServiceEditor = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    // Validate content length (client-side check before DB constraint)
+    const MAX_LONG_DESC_LENGTH = 20000;
+    const MAX_SHORT_DESC_LENGTH = 500;
+
+    if (formData.long_description && formData.long_description.length > MAX_LONG_DESC_LENGTH) {
+      toast({
+        title: "Description too long",
+        description: `Long description must be under ${MAX_LONG_DESC_LENGTH.toLocaleString()} characters. Current: ${formData.long_description.length.toLocaleString()}`,
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    if (formData.short_description && formData.short_description.length > MAX_SHORT_DESC_LENGTH) {
+      toast({
+        title: "Description too long",
+        description: `Short description must be under ${MAX_SHORT_DESC_LENGTH} characters. Current: ${formData.short_description.length}`,
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
     const { data: { user } } = await supabase.auth.getUser();
     
     const serviceData: any = {
@@ -146,7 +170,14 @@ const ServiceEditor = () => {
               value={formData.short_description}
               onChange={(e) => setFormData({ ...formData, short_description: e.target.value })}
               rows={2}
+              maxLength={500}
             />
+            <p className="text-xs text-muted-foreground">
+              {formData.short_description.length} / 500 characters
+              {formData.short_description.length > 450 && (
+                <span className="text-warning ml-2">⚠️ Approaching limit</span>
+              )}
+            </p>
           </div>
 
           <div className="space-y-2">
@@ -157,6 +188,15 @@ const ServiceEditor = () => {
               onChange={(e) => setFormData({ ...formData, long_description: e.target.value })}
               rows={6}
             />
+            <p className="text-xs text-muted-foreground">
+              {formData.long_description.length.toLocaleString()} / 20,000 characters
+              {formData.long_description.length > 18000 && (
+                <span className="text-warning ml-2">⚠️ Approaching limit</span>
+              )}
+              {formData.long_description.length >= 20000 && (
+                <span className="text-destructive ml-2">⛔ Maximum reached</span>
+              )}
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
