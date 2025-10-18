@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 const MobileStickyCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isFooterVisible, setIsFooterVisible] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -39,30 +38,8 @@ const MobileStickyCTA = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Observe footer visibility to hide CTA when footer is in view
-  useEffect(() => {
-    const footer = document.querySelector("footer");
-    if (!footer) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsFooterVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(footer);
-    return () => observer.disconnect();
-  }, []);
-
-  // Update body dataset when CTA visibility changes
-  useEffect(() => {
-    const shouldShow = isVisible && !isFooterVisible && !isMobileMenuOpen && location.pathname !== "/estimate";
-    document.body.dataset.stickyCtaVisible = shouldShow ? "true" : "false";
-  }, [isVisible, isFooterVisible, isMobileMenuOpen, location.pathname]);
-
-  // Hide on /estimate route, when mobile menu is open, or when footer is visible
-  const shouldHide = location.pathname === "/estimate" || isMobileMenuOpen || isFooterVisible;
+  // Hide on /estimate route or when mobile menu is open
+  const shouldHide = location.pathname === "/estimate" || isMobileMenuOpen;
 
   return (
     <div

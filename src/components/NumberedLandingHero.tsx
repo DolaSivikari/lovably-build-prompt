@@ -5,21 +5,13 @@ import heroConstruction from "@/assets/hero-construction.jpg";
 import homeHeroVideo from "@/assets/home-hero.mp4";
 import { useEffect, useRef, useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const NumberedLandingHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldUseVideo, setShouldUseVideo] = useState(true);
   const [activeItem, setActiveItem] = useState<string | null>(null);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
-    // Skip video on mobile devices entirely
-    if (isMobile) {
-      setShouldUseVideo(false);
-      return;
-    }
-
     // Check for user preferences that might prevent video playback
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const saveData = (navigator as any).connection?.saveData;
@@ -36,13 +28,13 @@ const NumberedLandingHero = () => {
         setShouldUseVideo(false);
       });
     }
-  }, [isMobile]);
+  }, []);
 
   return (
     <section className="landing-hero w-full relative">
-      {/* Background Video or Image */}
+      {/* Background Video */}
       <div className="landing-hero__background">
-        {!isMobile && shouldUseVideo ? (
+        {shouldUseVideo ? (
           <video
             ref={videoRef}
             autoPlay
@@ -59,9 +51,10 @@ const NumberedLandingHero = () => {
           <OptimizedImage
             src={heroConstruction}
             alt="Ascent Group Construction project showcase"
+            width={1920}
+            height={1080}
             priority={true}
-            sizes="100vw"
-            fetchPriority="high"
+            loading="eager"
             className="absolute inset-0 w-full h-full"
             objectFit="cover"
           />
