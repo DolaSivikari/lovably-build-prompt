@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -6,8 +6,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Save } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
+import { ArrowLeft, Save, Eye, Plus, X } from 'lucide-react';
 import { ImageUploader } from '@/components/admin/ImageUploader';
 import { ADMIN_ROUTES } from '@/utils/routeHelpers';
 
@@ -23,8 +24,11 @@ const LandingEditor = () => {
     cta_primary_url: '/home',
     cta_secondary_text: 'Get Free Estimate',
     cta_secondary_url: '/estimate',
-    background_image: ''
+    background_image: '',
+    is_active: true,
+    rotating_project_images: [] as string[]
   });
+  const [newImageUrl, setNewImageUrl] = useState('');
 
   useEffect(() => {
     loadLandingPage();
@@ -46,13 +50,57 @@ const LandingEditor = () => {
         cta_primary_url: data.cta_primary_url,
         cta_secondary_text: data.cta_secondary_text || '',
         cta_secondary_url: data.cta_secondary_url || '',
-        background_image: data.background_image || ''
+        background_image: data.background_image || '',
+        is_active: data.is_active ?? true,
+        rotating_project_images: Array.isArray(data.rotating_project_images) 
+          ? data.rotating_project_images as string[]
+          : []
       });
     }
   };
 
+  const validateUrl = (url: string) => {
+    return url.startsWith('/') || url.startsWith('http');
+  };
+
+  const addRotatingImage = () => {
+    if (newImageUrl.trim()) {
+      setFormData({
+        ...formData,
+        rotating_project_images: [...formData.rotating_project_images, newImageUrl.trim()]
+      });
+      setNewImageUrl('');
+    }
+  };
+
+  const removeRotatingImage = (index: number) => {
+    setFormData({
+      ...formData,
+      rotating_project_images: formData.rotating_project_images.filter((_, i) => i !== index)
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate URLs
+    if (!validateUrl(formData.cta_primary_url)) {
+      toast({
+        title: 'Invalid URL',
+        description: 'Primary CTA URL must start with / or http',
+        variant: 'destructive',
+      });
+      return;
+    }
+    if (formData.cta_secondary_url && !validateUrl(formData.cta_secondary_url)) {
+      toast({
+        title: 'Invalid URL',
+        description: 'Secondary CTA URL must start with / or http',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -67,8 +115,7 @@ const LandingEditor = () => {
         : await supabase
             .from('landing_page')
             .insert({
-              ...formData,
-              is_active: true
+              ...formData
             });
 
       if (error) throw error;
@@ -77,6 +124,8 @@ const LandingEditor = () => {
         title: 'Success',
         description: 'Landing page updated successfully'
       });
+
+      navigate(ADMIN_ROUTES.dashboard);
     } catch (error: any) {
       toast({
         title: 'Error',
@@ -100,16 +149,44 @@ const LandingEditor = () => {
               </Button>
               <h1 className="text-2xl font-bold">Edit Landing Page</h1>
             </div>
-            <Button onClick={handleSubmit} disabled={loading}>
-              <Save className="h-4 w-4 mr-2" />
-              {loading ? 'Saving...' : 'Save Changes'}
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline"
+                onClick={() => window.open('/', '_blank')}
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                Preview
+              </Button>
+              <Button onClick={handleSubmit} disabled={loading}>
+                <Save className="h-4 w-4 mr-2" />
+                {loading ? 'Saving...' : 'Save Changes'}
+              </Button>
+            </div>
           </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <form onSubmit={handleSubmit} className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Landing Page Settings</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="is_active" className="text-base font-semibold">Enable Landing Page</Label>
+                  <p className="text-sm text-muted-foreground">When disabled, visitors go directly to /home</p>
+                </div>
+                <Switch
+                  id="is_active"
+                  checked={formData.is_active}
+                  onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle>Hero Content</CardTitle>
@@ -141,9 +218,50 @@ const LandingEditor = () => {
               <ImageUploader
                 value={formData.background_image}
                 onChange={(url) => setFormData({ ...formData, background_image: url })}
-                label="Background Image (Optional)"
+                label="Background Image (Optional - ignored if rotating images added below)"
                 folder="landing"
               />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Rotating Background Images (Optional)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Add multiple images that will rotate every 5 seconds. Leave empty to use the single background image above.
+              </p>
+              
+              <div className="flex gap-2">
+                <Input
+                  value={newImageUrl}
+                  onChange={(e) => setNewImageUrl(e.target.value)}
+                  placeholder="Enter image URL or path (e.g., /src/assets/project.jpg)"
+                />
+                <Button type="button" onClick={addRotatingImage} variant="outline">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add
+                </Button>
+              </div>
+
+              {formData.rotating_project_images.length > 0 && (
+                <div className="space-y-2">
+                  {formData.rotating_project_images.map((url, index) => (
+                    <div key={index} className="flex items-center gap-2 p-2 bg-muted rounded">
+                      <span className="flex-1 truncate text-sm">{url}</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeRotatingImage(index)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -169,6 +287,7 @@ const LandingEditor = () => {
                     value={formData.cta_primary_url}
                     onChange={(e) => setFormData({ ...formData, cta_primary_url: e.target.value })}
                     required
+                    placeholder="/home"
                   />
                 </div>
               </div>
@@ -188,6 +307,7 @@ const LandingEditor = () => {
                     id="cta_secondary_url"
                     value={formData.cta_secondary_url}
                     onChange={(e) => setFormData({ ...formData, cta_secondary_url: e.target.value })}
+                    placeholder="/estimate"
                   />
                 </div>
               </div>
