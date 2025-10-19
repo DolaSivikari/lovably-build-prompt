@@ -1203,25 +1203,28 @@ export type Database = {
           category_icon: string | null
           created_at: string | null
           created_by: string | null
-          estimated_timeline: string | null
+          faq_items: Json | null
           featured_image: string | null
           icon_name: string | null
           id: string
+          key_benefits: Json | null
           long_description: string | null
           name: string
           preview_token: string | null
-          pricing_range_max: number | null
-          pricing_range_min: number | null
+          process_steps: Json | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
           scheduled_publish_at: string | null
           scope_template: string | null
           seo_description: string | null
           seo_keywords: string[] | null
           seo_title: string | null
+          service_overview: string | null
           short_description: string | null
           slug: string
+          typical_applications: Json | null
           updated_at: string | null
           updated_by: string | null
+          what_we_provide: Json | null
         }
         Insert: {
           category?: string | null
@@ -1230,25 +1233,28 @@ export type Database = {
           category_icon?: string | null
           created_at?: string | null
           created_by?: string | null
-          estimated_timeline?: string | null
+          faq_items?: Json | null
           featured_image?: string | null
           icon_name?: string | null
           id?: string
+          key_benefits?: Json | null
           long_description?: string | null
           name: string
           preview_token?: string | null
-          pricing_range_max?: number | null
-          pricing_range_min?: number | null
+          process_steps?: Json | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           scheduled_publish_at?: string | null
           scope_template?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
+          service_overview?: string | null
           short_description?: string | null
           slug: string
+          typical_applications?: Json | null
           updated_at?: string | null
           updated_by?: string | null
+          what_we_provide?: Json | null
         }
         Update: {
           category?: string | null
@@ -1257,25 +1263,28 @@ export type Database = {
           category_icon?: string | null
           created_at?: string | null
           created_by?: string | null
-          estimated_timeline?: string | null
+          faq_items?: Json | null
           featured_image?: string | null
           icon_name?: string | null
           id?: string
+          key_benefits?: Json | null
           long_description?: string | null
           name?: string
           preview_token?: string | null
-          pricing_range_max?: number | null
-          pricing_range_min?: number | null
+          process_steps?: Json | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           scheduled_publish_at?: string | null
           scope_template?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
+          service_overview?: string | null
           short_description?: string | null
           slug?: string
+          typical_applications?: Json | null
           updated_at?: string | null
           updated_by?: string | null
+          what_we_provide?: Json | null
         }
         Relationships: [
           {

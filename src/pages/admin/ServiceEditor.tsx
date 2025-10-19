@@ -20,9 +20,6 @@ const ServiceEditor = () => {
     short_description: "",
     long_description: "",
     icon_name: "",
-    pricing_range_min: "",
-    pricing_range_max: "",
-    estimated_timeline: "",
     scope_template: "",
     publish_state: "draft",
     seo_title: "",
@@ -55,9 +52,6 @@ const ServiceEditor = () => {
         short_description: data.short_description || "",
         long_description: data.long_description || "",
         icon_name: data.icon_name || "",
-        pricing_range_min: data.pricing_range_min?.toString() || "",
-        pricing_range_max: data.pricing_range_max?.toString() || "",
-        estimated_timeline: data.estimated_timeline || "",
         scope_template: data.scope_template || "",
         publish_state: data.publish_state || "draft",
         seo_title: data.seo_title || "",
@@ -98,8 +92,6 @@ const ServiceEditor = () => {
     
     const serviceData: any = {
       ...formData,
-      pricing_range_min: formData.pricing_range_min ? parseFloat(formData.pricing_range_min) : null,
-      pricing_range_max: formData.pricing_range_max ? parseFloat(formData.pricing_range_max) : null,
       updated_by: user?.id,
       ...(id === "new" && { created_by: user?.id }),
     };
@@ -197,38 +189,6 @@ const ServiceEditor = () => {
                 <span className="text-destructive ml-2">⛔ Maximum reached</span>
               )}
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="pricing_min">Min Price (CAD)</Label>
-              <Input
-                id="pricing_min"
-                type="number"
-                step="0.01"
-                value={formData.pricing_range_min}
-                onChange={(e) => setFormData({ ...formData, pricing_range_min: e.target.value })}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="pricing_max">Max Price (CAD)</Label>
-              <Input
-                id="pricing_max"
-                type="number"
-                step="0.01"
-                value={formData.pricing_range_max}
-                onChange={(e) => setFormData({ ...formData, pricing_range_max: e.target.value })}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="timeline">Estimated Timeline</Label>
-              <Input
-                id="timeline"
-                value={formData.estimated_timeline}
-                onChange={(e) => setFormData({ ...formData, estimated_timeline: e.target.value })}
-                placeholder="e.g., 6-8 weeks"
-              />
-            </div>
           </div>
 
           <div className="space-y-2">

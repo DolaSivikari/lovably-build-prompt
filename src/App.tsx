@@ -147,7 +147,7 @@ const App = () => (
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
                   <Route path="/case-studies" element={<CaseStudies />} />
-                  <Route path="/case-study/:id" element={<CaseStudy />} />
+                  <Route path="/case-study/:slug" element={<CaseStudy />} />
                   <Route path="/seo-dashboard" element={<SEODashboard />} />
                   
                   {/* Admin pages - lazy loaded */}

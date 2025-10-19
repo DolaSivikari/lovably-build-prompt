@@ -12,6 +12,17 @@ import { Phone, CheckCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { sanitizeHTML } from "@/utils/sanitize";
 
+interface ProcessStep {
+  step_number: number;
+  title: string;
+  description: string;
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 interface Service {
   id: string;
   name: string;
@@ -20,12 +31,15 @@ interface Service {
   long_description: string | null;
   icon_name: string | null;
   featured_image: string | null;
-  pricing_range_min: number | null;
-  pricing_range_max: number | null;
-  estimated_timeline: string | null;
   seo_title: string | null;
   seo_description: string | null;
   seo_keywords: string[] | null;
+  service_overview: string | null;
+  process_steps: ProcessStep[] | null;
+  what_we_provide: string[] | null;
+  typical_applications: string[] | null;
+  key_benefits: string[] | null;
+  faq_items: FAQItem[] | null;
 }
 
 const ServiceDetail = () => {
@@ -55,7 +69,7 @@ const ServiceDetail = () => {
     if (error || !data) {
       setNotFound(true);
     } else {
-      setService(data);
+      setService(data as unknown as Service);
     }
     setLoading(false);
   };
@@ -103,98 +117,179 @@ const ServiceDetail = () => {
         variant="standard"
       />
       
-      <main>
+      <main className="min-h-screen">
 
-        {/* Service Details */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              {service.featured_image && (
+        {/* Service Overview Section */}
+        {service.service_overview && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl font-bold mb-6">Service Overview</h2>
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                    {service.service_overview}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Featured Image */}
+        {service.featured_image && (
+          <section className="py-0">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto">
                 <img 
                   src={service.featured_image} 
                   alt={service.name}
-                  className="w-full rounded-lg shadow-xl mb-12"
+                  className="w-full rounded-lg shadow-xl"
                 />
-              )}
+              </div>
+            </div>
+          </section>
+        )}
 
-              {service.long_description && (
+        {/* Process Steps */}
+        {service.process_steps && service.process_steps.length > 0 && (
+          <section className="py-16 bg-muted/50">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl font-bold mb-8">Our Process</h2>
+                <div className="space-y-6">
+                  {service.process_steps.map((step, index) => (
+                    <Card key={index}>
+                      <CardContent className="p-6">
+                        <div className="flex gap-4">
+                          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+                            {step.step_number}
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                            <p className="text-muted-foreground">{step.description}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* What We Provide */}
+        {service.what_we_provide && service.what_we_provide.length > 0 && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl font-bold mb-8">What We Provide</h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {service.what_we_provide.map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Typical Applications */}
+        {service.typical_applications && service.typical_applications.length > 0 && (
+          <section className="py-16 bg-muted/50">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl font-bold mb-8">Typical Applications</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {service.typical_applications.map((app, index) => (
+                    <Card key={index}>
+                      <CardContent className="p-6">
+                        <p className="text-muted-foreground">{app}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Key Benefits */}
+        {service.key_benefits && service.key_benefits.length > 0 && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl font-bold mb-8">Key Benefits</h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {service.key_benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FAQs */}
+        {service.faq_items && service.faq_items.length > 0 && (
+          <section className="py-16 bg-muted/50">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl font-bold mb-8">Frequently Asked Questions</h2>
+                <div className="space-y-4">
+                  {service.faq_items.map((faq, index) => (
+                    <Card key={index}>
+                      <CardContent className="p-6">
+                        <h3 className="text-lg font-bold mb-2">{faq.question}</h3>
+                        <p className="text-muted-foreground">{faq.answer}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Fallback: Long Description (for services not yet migrated) */}
+        {!service.service_overview && service.long_description && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
                 <div className="prose prose-lg max-w-none mb-12">
                   <div dangerouslySetInnerHTML={{ __html: sanitizeHTML(service.long_description) }} />
                 </div>
-              )}
-
-              {/* Pricing & Timeline */}
-              <div className="grid md:grid-cols-2 gap-6 mb-12">
-                {(service.pricing_range_min || service.pricing_range_max) && (
-                  <Card>
-                    <CardContent className="p-6">
-                      <h3 className="text-xl font-bold mb-2">Pricing Range</h3>
-                      <p className="text-3xl font-bold text-primary">
-                        ${service.pricing_range_min?.toLocaleString()} - ${service.pricing_range_max?.toLocaleString()}
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        *Final pricing depends on project scope and specifications
-                      </p>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {service.estimated_timeline && (
-                  <Card>
-                    <CardContent className="p-6">
-                      <h3 className="text-xl font-bold mb-2">Timeline</h3>
-                      <p className="text-3xl font-bold text-primary">
-                        {service.estimated_timeline}
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        Estimated completion time for typical projects
-                      </p>
-                    </CardContent>
-                  </Card>
-                )}
               </div>
+            </div>
+          </section>
+        )}
 
-              {/* What's Included */}
-              <Card className="mb-12">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-6">What's Included</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {[
-                      "Professional consultation",
-                      "Detailed project estimate",
-                      "Quality materials",
-                      "Expert installation",
-                      "Site preparation & cleanup",
-                      "Comprehensive warranty"
-                    ].map((item, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* CTA */}
-              <div className="text-center bg-gradient-to-br from-primary to-primary/80 text-white rounded-lg p-12">
-                <h3 className="text-3xl font-bold mb-4">Ready to Get Started?</h3>
-                <p className="text-xl mb-8 opacity-90">
-                  Get a free, no-obligation estimate for your project
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" variant="secondary" asChild>
-                    <Link to="/estimate">
-                      Get Free Estimate
-                    </Link>
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
-                    <Link to="/contact">
-                      <Phone className="mr-2 w-5 h-5" />
-                      Contact Us
-                    </Link>
-                  </Button>
-                </div>
+        {/* CTA Section */}
+        <section className="py-16 bg-gradient-to-br from-primary to-primary/80">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center text-white">
+              <h2 className="text-4xl font-bold mb-4">Ready to Get Started?</h2>
+              <p className="text-xl mb-8 opacity-90">
+                Get a free, no-obligation estimate for your project
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" variant="secondary" asChild>
+                  <Link to="/estimate">
+                    Get Free Estimate
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
+                  <Link to="/contact">
+                    <Phone className="mr-2 w-5 h-5" />
+                    Contact Us
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>

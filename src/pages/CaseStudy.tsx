@@ -22,20 +22,20 @@ import {
 } from "@/components/ui/accordion";
 
 const CaseStudy = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const { isPreview } = usePreviewMode();
   const [caseStudy, setCaseStudy] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCaseStudy = async () => {
-      if (!id) return;
+      if (!slug) return;
       
       setIsLoading(true);
       const query = supabase
         .from("projects")
         .select("*")
-        .eq("slug", id);
+        .eq("slug", slug);
       
       // Only filter by publish_state if NOT in preview mode
       if (!isPreview) {
@@ -51,7 +51,7 @@ const CaseStudy = () => {
     };
     
     fetchCaseStudy();
-  }, [id, isPreview]);
+  }, [slug, isPreview]);
 
   if (isLoading) {
     return (
@@ -77,7 +77,7 @@ const CaseStudy = () => {
   }
 
   // Get FAQs for this case study
-  const faqs = caseStudyFAQs[id || ''] || [];
+  const faqs = caseStudyFAQs[slug || ''] || [];
   const schemas: any[] = [
     {
       "@context": "https://schema.org",
@@ -100,7 +100,7 @@ const CaseStudy = () => {
     breadcrumbSchema([
       { name: "Home", url: "/" },
       { name: "Projects", url: "/projects" },
-      { name: caseStudy.title, url: `/case-study/${id}` },
+      { name: caseStudy.title, url: `/case-study/${slug}` },
     ]),
   ];
 
