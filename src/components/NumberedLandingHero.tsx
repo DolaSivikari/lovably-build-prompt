@@ -5,18 +5,30 @@ import heroConstruction from "@/assets/hero-construction.jpg";
 import homeHeroVideo from "@/assets/home-hero.mp4";
 import { useEffect, useRef, useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const NumberedLandingHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [shouldUseVideo, setShouldUseVideo] = useState(true);
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  const { scrollY } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y = useTransform(scrollY, [0, 500], [0, 150]);
 
   useEffect(() => {
     // Check for user preferences that might prevent video playback
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const saveData = (navigator as any).connection?.saveData;
     
-    if (prefersReducedMotion || saveData) {
+    setPrefersReducedMotion(reducedMotion);
+    
+    if (reducedMotion || saveData) {
       setShouldUseVideo(false);
       return;
     }
@@ -31,9 +43,12 @@ const NumberedLandingHero = () => {
   }, []);
 
   return (
-    <section className="landing-hero w-full relative">
-      {/* Background Video */}
-      <div className="landing-hero__background">
+    <section ref={containerRef} className="landing-hero w-full relative">
+      {/* Background Video with Parallax */}
+      <motion.div 
+        className="landing-hero__background"
+        style={{ y: prefersReducedMotion ? 0 : y }}
+      >
         {shouldUseVideo ? (
           <video
             ref={videoRef}
@@ -59,7 +74,7 @@ const NumberedLandingHero = () => {
             objectFit="cover"
           />
         )}
-      </div>
+      </motion.div>
 
       {/* Dark Overlay */}
       <div className="landing-hero__overlay" />

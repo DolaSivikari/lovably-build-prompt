@@ -97,8 +97,10 @@ const Navigation = () => {
       <ScrollProgress />
       <nav 
         className={cn(
-          "fixed top-0 left-0 right-0 z-navigation bg-background/95 backdrop-blur-sm border-b border-border transition-transform duration-300 ease-in-out",
-          scrollDirection === "down" && !isAtTop && "-translate-y-full"
+          "fixed top-0 left-0 right-0 z-navigation border-b border-border transition-all duration-300 ease-in-out",
+          isAtTop 
+            ? "bg-transparent backdrop-blur-none" 
+            : "bg-background/98 backdrop-blur-md shadow-md"
         )}
       >
         <div className="container mx-auto px-4">

@@ -3,8 +3,13 @@ import { Card, CardContent } from "./ui/card";
 import SEO from "./SEO";
 import { reviewSchema } from "@/utils/structured-data";
 import { calculateISODate, inferServiceFromReview, getConsistentAggregateRating } from "@/utils/review-helpers";
+import { useRef } from "react";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { motion } from "framer-motion";
 
 const SocialProof = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.1 });
   const aggregateRating = getConsistentAggregateRating();
   const averageRating = parseFloat(aggregateRating.ratingValue);
   const totalReviews = parseInt(aggregateRating.reviewCount);
@@ -119,11 +124,16 @@ const SocialProof = () => {
   return (
     <>
       <SEO structuredData={[aggregateRatingSchema, ...googleReviewSchemas, ...testimonialSchemas]} />
-      <section className="py-16 bg-muted/30">
+      <section ref={sectionRef} className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Header with Google Rating */}
-            <div className="text-center mb-12">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6 }}
+            >
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 What Our Clients Say
               </h2>
@@ -147,12 +157,18 @@ const SocialProof = () => {
               <p className="text-muted-foreground">
                 Based on {totalReviews} Google reviews
               </p>
-            </div>
+            </motion.div>
 
             {/* Google Reviews Grid */}
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {googleReviews.map((review, idx) => (
-                <Card key={idx} className="p-6 hover:shadow-lg transition-shadow">
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                >
+                  <Card className="p-6 hover:shadow-lg transition-shadow">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
                       {review.avatar}
@@ -182,6 +198,7 @@ const SocialProof = () => {
                     {review.text}
                   </p>
                 </Card>
+                </motion.div>
               ))}
             </div>
 
