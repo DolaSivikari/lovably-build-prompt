@@ -58,12 +58,12 @@ const Landing = () => {
         canonical="/"
       />
       
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-sage-dark via-sage to-sage-light">
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-dark via-primary to-primary-light">
         {/* Animated background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-sage-dark/90 via-sage/80 to-cream/50 animate-pulse-slow" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/90 via-primary/80 to-cream/50 animate-pulse-slow" />
         
         {/* Decorative orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-terracotta/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cream/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
 
         {/* Content container */}
@@ -92,7 +92,7 @@ const Landing = () => {
             <Button 
               asChild
               size="lg"
-              className="bg-terracotta hover:bg-terracotta-dark text-white shadow-2xl hover:shadow-accent transition-all duration-300 text-lg px-8 py-6 group"
+              className="bg-secondary hover:bg-construction-orange-dark text-white shadow-2xl hover:shadow-accent transition-all duration-300 text-lg px-8 py-6 group"
             >
               <Link to={content.cta_primary_url}>
                 {content.cta_primary_text}
@@ -118,15 +118,15 @@ const Landing = () => {
           {/* Trust badges */}
           <div className="mt-16 flex flex-wrap justify-center gap-8 text-cream/70 text-sm animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-terracotta rounded-full" />
+              <div className="w-2 h-2 bg-secondary rounded-full" />
               <span>GTA's Premier Contractor</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-terracotta rounded-full" />
+              <div className="w-2 h-2 bg-secondary rounded-full" />
               <span>25+ Years Experience</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-terracotta rounded-full" />
+              <div className="w-2 h-2 bg-secondary rounded-full" />
               <span>Fully Licensed & Insured</span>
             </div>
           </div>

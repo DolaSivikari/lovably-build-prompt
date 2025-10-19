@@ -18,23 +18,23 @@ export default {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
-        // Ascent Brand Colors - SAGE/CREAM/TERRACOTTA
-        sage: {
-          DEFAULT: "hsl(100 23% 62%)",    // #8AA38A
-          light: "hsl(100 23% 75%)",
-          dark: "hsl(100 30% 35%)",       // Accessible for text
+        // Construction theme colors
+        "construction-blue": {
+          DEFAULT: "hsl(210 85% 35%)",
+          light: "hsl(210 75% 45%)",
+          dark: "hsl(210 85% 25%)",
         },
-        terracotta: {
-          DEFAULT: "hsl(14 52% 50%)",     // #C46A3D
-          light: "hsl(14 52% 65%)",
-          dark: "hsl(14 52% 40%)",
+        "construction-orange": {
+          DEFAULT: "hsl(25 95% 53%)",
+          light: "hsl(30 95% 58%)",
+          dark: "hsl(20 95% 48%)",
         },
         cream: {
-          DEFAULT: "hsl(45 50% 95%)",     // #F7F4EA
+          DEFAULT: "hsl(45 50% 95%)",
           dark: "hsl(45 30% 90%)",
         },
         charcoal: {
-          DEFAULT: "hsl(0 0% 17%)",       // #2C2C2C
+          DEFAULT: "hsl(0 0% 17%)",
           light: "hsl(0 0% 27%)",
         },
         border: "hsl(var(--border))",
