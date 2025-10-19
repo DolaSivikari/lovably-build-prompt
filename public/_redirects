@@ -1,3 +1,13 @@
+# 301 redirects for old service URLs to new database slugs
+/services/stucco          /services/stucco-eifs         301
+/services/painting        /services/residential-painting 301
+/services/commercial      /services/commercial-painting  301
+/services/condo           /services/condo-painting       301
+/services/popcorn-ceiling /services/popcorn-ceiling-removal 301
+/services/masonry         /services/masonry-restoration  301
+/services/sealants        /services/sealants-caulking    301
+/services/parking-garage  /services/parking-garage-coating 301
+
 # Redirect all routes to index.html for client-side routing
 /case-study/*  /index.html  200
 /blog/*        /index.html  200
