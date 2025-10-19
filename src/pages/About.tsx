@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,20 +31,24 @@ const About = () => {
         keywords="about Ascen Group, construction company Mississauga, painting contractor team, company values, sustainability"
       />
       <Navigation />
+
+      <PageHeader
+        eyebrow="About Us"
+        title="Building Excellence Since 2009"
+        description="We're not just another construction company. We're your partners in creating lasting value through quality craftsmanship and innovative solutions."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "About Us" }
+        ]}
+        variant="with-stats"
+        stats={[
+          { value: "15+", label: "Years" },
+          { value: "500+", label: "Projects" },
+          { value: "98%", label: "Satisfaction" }
+        ]}
+      />
       
       <main>
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Who We Are</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">About Ascent Group</h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90">
-              Building lasting relationships through exceptional craftsmanship, integrity, and commitment to excellence since 2009.
-            </p>
-          </div>
-        </section>
 
         {/* Company Story */}
         <section className="container mx-auto px-4 py-16">

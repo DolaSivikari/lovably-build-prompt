@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -108,22 +109,19 @@ const Sustainability = () => {
         keywords="sustainable painting, eco-friendly construction, low-VOC paint, green building, environmental construction GTA"
       />
       <Navigation />
+
+      <PageHeader
+        eyebrow="Sustainability"
+        title="Building a Greener Future"
+        description="Our commitment to environmental responsibility through sustainable practices and eco-friendly solutions"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Sustainability" }
+        ]}
+        variant="standard"
+      />
       
       <main>
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Green Building</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Building a Greener GTA
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90">
-              Leading the painting and finishing industry toward sustainability with innovative eco-friendly practices and low-VOC materials
-            </p>
-          </div>
-        </section>
 
         {/* Commitment Section */}
         <section className="container mx-auto px-4 py-16">

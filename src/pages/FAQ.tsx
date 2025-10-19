@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import { Input } from "@/components/ui/input";
 import { faqSchema } from "@/utils/structured-data";
 import {
@@ -138,19 +141,22 @@ const FAQ = () => {
         keywords="construction FAQ, painting questions, project timeline, GTA construction, service pricing"
         structuredData={faqSchema(allFAQs)}
       />
+      
+      <Navigation />
 
-      <main className="min-h-screen pt-24 pb-12">
+      <PageHeader
+        title="Frequently Asked Questions"
+        description="Find answers to common questions about our services, process, and pricing"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "FAQ" }
+        ]}
+        variant="minimal"
+      />
+
+      <main className="pb-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Frequently Asked Questions
-              </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Get answers to common questions about our services, processes, and what to expect when working with Ascent Group Construction.
-              </p>
-            </div>
 
             {/* Search */}
             <div className="relative mb-8">
@@ -225,6 +231,8 @@ const FAQ = () => {
           </div>
         </div>
       </main>
+      
+      <Footer />
     </>
   );
 };

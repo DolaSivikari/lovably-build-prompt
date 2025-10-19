@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import FilterBar from "@/components/FilterBar";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
@@ -103,38 +104,21 @@ const Projects = () => {
       />
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-12 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl md:text-6xl font-bold">
-              Our <span className="text-primary">Project Portfolio</span>
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Explore 500+ successful projects across the GTA
-            </p>
-            
-            {/* Animated Stats */}
-            <div className="flex flex-wrap justify-center gap-8 pt-6">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary">500+</div>
-                <div className="text-sm text-muted-foreground">Projects</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary">$2B+</div>
-                <div className="text-sm text-muted-foreground">Total Value</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary">98%</div>
-                <div className="text-sm text-muted-foreground">Satisfaction</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Our Work"
+        title="Project Portfolio"
+        description="Explore 500+ successful projects across the GTA"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Projects" }
+        ]}
+        variant="with-stats"
+        stats={[
+          { value: "500+", label: "Projects" },
+          { value: "$2B+", label: "Total Value" },
+          { value: "98%", label: "Satisfaction" }
+        ]}
+      />
 
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (

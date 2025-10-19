@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -47,20 +48,19 @@ const Safety = () => {
         keywords="construction safety, OSHA compliance, safety training, workplace safety, safe construction practices"
       />
       <Navigation />
+
+      <PageHeader
+        eyebrow="Safety First"
+        title="Safety is Our Top Priority"
+        description="Comprehensive safety protocols and training to protect our team and your property"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Safety" }
+        ]}
+        variant="standard"
+      />
       
       <main>
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Safety First</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Safety First, Always</h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90">
-              {companyData.safety.commitment}
-            </p>
-          </div>
-        </section>
 
         {/* Safety Stats */}
         <section className="py-16 bg-background">

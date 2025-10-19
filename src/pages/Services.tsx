@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import StarterPackages from "@/components/StarterPackages";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -149,37 +150,23 @@ const Services = () => {
         canonical="https://ascentgroupconstruction.com/services"
       />
       <Navigation />
+
+      <PageHeader
+        eyebrow="Our Services"
+        title="Comprehensive Construction Solutions"
+        description="Expert painting, exterior systems, and specialty construction for residential and commercial properties"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services" }
+        ]}
+        variant="with-cta"
+        cta={{
+          label: "Get Free Estimate",
+          href: "/estimate"
+        }}
+      />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="pt-32 pb-20 bg-gradient-to-br from-primary via-primary to-primary/80 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid-white/[0.05] pointer-events-none" />
-          <div className="container mx-auto px-4 relative z-10 text-center">
-            <div className="max-w-4xl mx-auto">
-              <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-                <span className="text-secondary font-semibold text-sm tracking-wider uppercase">What We Do</span>
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
-                Professional Construction Services
-              </h1>
-              <p className="text-xl md:text-2xl opacity-90 mb-8">
-                Expert painting, exterior systems, and specialty construction for residential and commercial properties
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact">
-                  <Button className="bg-secondary hover:bg-secondary/90 text-primary font-bold text-lg px-8 py-6 shadow-lg">
-                    Get Free Estimate
-                  </Button>
-                </Link>
-                <Link to="/about">
-                  <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-6">
-                    Our Process
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Main Services - Tabbed View */}
         <section className="py-20 bg-background">

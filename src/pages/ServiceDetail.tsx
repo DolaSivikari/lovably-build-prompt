@@ -3,6 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -90,18 +91,19 @@ const ServiceDetail = () => {
       />
       <Navigation />
       
+      <PageHeader
+        eyebrow="Our Services"
+        title={service.name}
+        description={service.short_description || ""}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services", href: "/services" },
+          { label: service.name }
+        ]}
+        variant="standard"
+      />
+      
       <main>
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">{service.name}</h1>
-              {service.short_description && (
-                <p className="text-xl opacity-90">{service.short_description}</p>
-              )}
-            </div>
-          </div>
-        </section>
 
         {/* Service Details */}
         <section className="py-16">

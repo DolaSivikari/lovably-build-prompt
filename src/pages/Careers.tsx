@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -100,30 +101,19 @@ const Careers = () => {
         keywords="construction jobs, painter jobs, careers GTA, EIFS jobs, stucco jobs, trade careers"
       />
       <Navigation />
+
+      <PageHeader
+        eyebrow="Careers"
+        title="Join Our Team"
+        description="Build your career with a company that values quality, safety, and professional growth"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Careers" }
+        ]}
+        variant="standard"
+      />
       
       <main>
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Join Our Team</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Build Your Career With Us</h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90 mb-8">
-              Join a team that values craftsmanship, integrity, and professional growth. 
-              We're always looking for talented individuals who take pride in their work.
-            </p>
-            <Button 
-              size="lg" 
-              variant="secondary" 
-              className="text-lg"
-              onClick={() => handleApply("General Application")}
-            >
-              <Briefcase className="mr-2 w-5 h-5" />
-              Apply Now
-            </Button>
-          </div>
-        </section>
 
         {/* Why Join Us */}
         <section className="py-20 bg-background">

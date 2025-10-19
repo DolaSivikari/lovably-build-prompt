@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -67,34 +68,22 @@ const PropertyManagers = () => {
       />
       <Navigation />
       
+      <PageHeader
+        eyebrow="For Property Managers"
+        title="Your Trusted Property Maintenance Partner"
+        description="Maximize property value and tenant satisfaction with our specialized multi-unit painting and restoration services. We understand the unique challenges of property management."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Property Managers" }
+        ]}
+        variant="with-cta"
+        cta={{
+          label: "Get Volume Quote",
+          href: "/estimate"
+        }}
+      />
+      
       <main>
-        {/* Hero */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-                <Building className="w-5 h-5 text-secondary" />
-                <span className="text-secondary font-semibold text-sm tracking-wider uppercase">For Property Managers</span>
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                Your Trusted Property Maintenance Partner
-              </h1>
-              <p className="text-xl opacity-90 mb-8">
-                Maximize property value and tenant satisfaction with our specialized multi-unit painting and restoration services. We understand the unique challenges of property management.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link to="/estimate">
-                  <Button size="lg" variant="secondary">Get Volume Quote</Button>
-                </Link>
-                <Link to="/contact">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                    Schedule Consultation
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ROI Focus */}
         <section className="py-16 bg-background">

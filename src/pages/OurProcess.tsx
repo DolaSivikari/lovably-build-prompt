@@ -1,11 +1,11 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import MetricCounter from "@/components/MetricCounter";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Shield, Award, ThumbsUp, ChevronRight } from "lucide-react";
+import { Shield, Award, ThumbsUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Accordion,
@@ -73,42 +73,33 @@ const OurProcess = () => {
       />
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-12 bg-muted/30">
-        <div className="container mx-auto px-4">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-foreground">How We Work</span>
-          </div>
+      <PageHeader
+        eyebrow="Our Process"
+        title="How We Work"
+        description="Our proven 4-step process ensures quality results, on-time delivery, and complete transparency from start to finish."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "How We Work" }
+        ]}
+        variant="standard"
+      />
 
-          <div className="max-w-4xl">
-            <p className="text-primary text-sm font-semibold uppercase tracking-wide mb-3">
-              Our Process
-            </p>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              How We Work With You
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-              A proven 4-step approach that ensures quality, transparency, and your complete satisfaction at every stage.
-            </p>
-            
-            {/* Inline Trust Badges */}
-            <div className="flex flex-wrap items-center gap-4 text-sm">
+      {/* Trust Badges Section */}
+      <section className="pb-12 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4 text-primary" />
-                <span>Licensed & Insured</span>
+                <span>Fully Insured</span>
               </div>
-              <span className="text-muted-foreground">•</span>
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-primary" />
-                <span>15+ Years Experience</span>
+                <span>CCA Certified</span>
               </div>
-              <span className="text-muted-foreground">•</span>
               <div className="flex items-center gap-2">
                 <ThumbsUp className="w-4 h-4 text-primary" />
-                <span>500+ Projects</span>
+                <span>Experienced Team</span>
               </div>
             </div>
           </div>
