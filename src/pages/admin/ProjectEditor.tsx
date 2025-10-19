@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Save } from "lucide-react";
+import { ImageUploader } from "@/components/admin/ImageUploader";
 
 const ProjectEditor = () => {
   const { id } = useParams();
@@ -184,15 +185,12 @@ const ProjectEditor = () => {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="featured_image">Featured Image URL</Label>
-            <Input
-              id="featured_image"
-              value={formData.featured_image}
-              onChange={(e) => setFormData({ ...formData, featured_image: e.target.value })}
-              placeholder="https://example.com/image.jpg or /images/project.jpg"
-            />
-          </div>
+          <ImageUploader
+            value={formData.featured_image}
+            onChange={(url) => setFormData({ ...formData, featured_image: url })}
+            label="Featured Image"
+            folder="projects"
+          />
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">

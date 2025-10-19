@@ -1,5 +1,6 @@
 import { useImageLoad } from "@/hooks/useImageLoad";
 import { cn } from "@/lib/utils";
+import { resolveAssetPath } from "@/utils/assetResolver";
 
 interface OptimizedImageProps {
   src: string;
@@ -38,6 +39,10 @@ const OptimizedImage = ({
   // For priority images, load immediately
   const shouldLoad = priority || isInView;
 
+  // Resolve asset path and provide fallback
+  const resolvedSrc = resolveAssetPath(src) || '/placeholder.svg';
+  const hasValidSrc = src && src !== '';
+
   return (
     <div
       className={cn("relative overflow-hidden bg-muted/20", className)}
@@ -70,8 +75,8 @@ const OptimizedImage = ({
           )}
           <img
             ref={imageRef}
-            src={src}
-            alt={alt}
+            src={resolvedSrc}
+            alt={alt || 'Image'}
             width={width}
             height={height}
             loading={loading || (priority ? "eager" : "lazy")}
@@ -91,8 +96,8 @@ const OptimizedImage = ({
       ) : (
         <img
           ref={imageRef}
-          src={shouldLoad ? src : undefined}
-          alt={alt}
+          src={shouldLoad ? resolvedSrc : undefined}
+          alt={alt || 'Image'}
           width={width}
           height={height}
           sizes={sizes}
