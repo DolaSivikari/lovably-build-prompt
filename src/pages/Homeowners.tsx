@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
+import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -98,7 +99,7 @@ const Homeowners = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {benefits.map((benefit, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="p-8">
                     <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
                       <benefit.icon className="w-7 h-7 text-secondary" />
                     </div>
@@ -143,19 +144,11 @@ const Homeowners = () => {
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Home?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Get a free, no-obligation estimate and color consultation today
-            </p>
-            <Link to="/estimate">
-              <Button size="lg" variant="secondary" className="text-lg">
-                Request Free Estimate
-              </Button>
-            </Link>
-          </div>
-        </section>
+        <CTASection
+          title="Ready to Transform Your Home?"
+          description="Get a free, no-obligation estimate and color consultation today"
+          primaryCTA={{ label: "Request Free Estimate", href: "/estimate", variant: "secondary" }}
+        />
       </main>
       
       <Footer />

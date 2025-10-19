@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
+import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -124,7 +125,7 @@ const Sustainability = () => {
       <main>
 
         {/* Commitment Section */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="py-16 bg-background">
           <Card className="max-w-4xl mx-auto">
             <CardContent className="p-8 md:p-12">
               <h2 className="text-3xl font-bold mb-6">Our Sustainability Commitment</h2>
@@ -166,11 +167,12 @@ const Sustainability = () => {
         </section>
 
         {/* Material Practices */}
-        <section className="container mx-auto px-4 py-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Sustainable Material Practices</h2>
-            </div>
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold mb-4">Sustainable Material Practices</h2>
+              </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               {materialPractices.map((practice, index) => (
@@ -233,6 +235,7 @@ const Sustainability = () => {
               </CardContent>
             </Card>
           </div>
+          </div>
         </section>
 
         {/* Certifications */}
@@ -261,29 +264,13 @@ const Sustainability = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-br from-green-700 via-green-600 to-teal-600 text-white py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">
-              Ready to Build Sustainably?
-            </h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Let's discuss how we can bring eco-friendly painting and finishing practices to your next project
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-green-700 hover:bg-white/90" asChild>
-                <Link to="/estimate">
-                  Get an Eco-Friendly Quote <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10" asChild>
-                <Link to="/projects">
-                  View Our Projects
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
+        <CTASection
+          title="Ready to Build Sustainably?"
+          description="Let's discuss how we can bring eco-friendly painting and finishing practices to your next project"
+          primaryCTA={{ label: "Get an Eco-Friendly Quote", href: "/estimate" }}
+          secondaryCTA={{ label: "View Our Projects", href: "/projects", variant: "outline" }}
+          className="bg-gradient-to-br from-green-700 via-green-600 to-teal-600"
+        />
       </main>
       
       <Footer />

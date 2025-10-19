@@ -5,9 +5,8 @@ import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import ContentPageHeader from "@/components/ContentPageHeader";
 import ShareMenu from "@/components/blog/ShareMenu";
-import ReadingProgress from "@/components/blog/ReadingProgress";
-import Breadcrumbs from "@/components/blog/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -128,7 +127,6 @@ const BlogPost = () => {
         keywords={post.seo_keywords?.join(', ') || `${post.category}, blog`}
         structuredData={schemas}
       />
-      <ReadingProgress />
       <Navigation />
       
       {isPreview && (
@@ -138,58 +136,20 @@ const BlogPost = () => {
       )}
       
       <main>
-        {/* Hero Section with Full-Bleed Image */}
-        <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
-          <div className="absolute inset-0">
-            <OptimizedImage
-              src={post.featured_image || '/placeholder.svg'}
-              alt={`${post.title} - Comprehensive guide on ${post.category?.toLowerCase()}`}
-              priority={true}
-              width={1920}
-              height={1080}
-              className="w-full h-full"
-              objectFit="cover"
-              sizes="100vw"
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/70 via-charcoal/50 to-charcoal/80" />
-          
-          <div className="container mx-auto px-4 h-full relative z-10 flex flex-col justify-end pb-12">
-            <div className="max-w-4xl">
-              <Breadcrumbs
-                items={[
-                  { label: "Home", href: "/" },
-                  { label: "Blog", href: "/blog" },
-                  { label: post.category || "Article", href: `/blog?category=${encodeURIComponent(post.category || '')}` },
-                  { label: post.title },
-                ]}
-              />
-              
-              <Badge className="mb-4 bg-secondary text-primary">{post.category}</Badge>
-              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-white">
-                {post.title}
-              </h1>
-              
-              <div className="flex flex-wrap gap-6 text-white/90">
-                <div className="flex items-center gap-2">
-                  <User className="w-5 h-5" />
-                  <span>{post.author_id || "Ascent Group Construction"}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  <span>{formattedDate}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>{post.read_time_minutes || 5} min read</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ContentPageHeader
+          title={post.title}
+          subtitle={`${post.category} · ${formattedDate} · ${post.read_time_minutes || 5} min read`}
+          imageUrl={post.featured_image || '/placeholder.svg'}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Blog", href: "/blog" },
+            { label: post.category || "Article", href: `/blog?category=${encodeURIComponent(post.category || '')}` },
+            { label: post.title }
+          ]}
+        />
 
         {/* Content */}
-        <article className="container mx-auto px-4 pb-16">
+        <article className="container mx-auto px-4 py-16">
           <div className="max-w-4xl mx-auto">
             <div 
               className="prose prose-lg max-w-none"
@@ -224,14 +184,14 @@ const BlogPost = () => {
             )}
 
             {/* CTA */}
-            <div className="mt-12 p-8 bg-muted rounded-lg text-center">
+            <div className="mt-12 p-8 bg-primary/5 border border-primary/20 rounded-lg text-center">
               <h3 className="text-2xl font-bold mb-4">Need Professional Help?</h3>
               <p className="text-muted-foreground mb-6">
                 Our team is ready to bring your project to life with expert craftsmanship and attention to detail.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/estimate">
-                  <Button size="lg" className="btn-hero">
+                  <Button size="lg">
                     Get Free Estimate
                   </Button>
                 </Link>

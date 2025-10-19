@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
+import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -198,29 +199,13 @@ const Safety = () => {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-20 bg-gradient-to-br from-primary to-primary/80 text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">
-              Work with a Safety-First Contractor
-            </h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Experience peace of mind knowing your project is in the hands of a safety-conscious, fully compliant team
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/estimate">
-                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-primary font-bold px-8">
-                  Get Free Estimate
-                </Button>
-              </Link>
-              <Link to="/about">
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10">
-                  Learn More About Us
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+        <CTASection
+          title="Work with a Safety-First Contractor"
+          description="Experience peace of mind knowing your project is in the hands of a safety-conscious, fully compliant team"
+          primaryCTA={{ label: "Get Free Estimate", href: "/estimate" }}
+          secondaryCTA={{ label: "Learn More About Us", href: "/about", variant: "outline" }}
+          className="bg-gradient-to-br from-primary to-primary/80"
+        />
       </main>
       
       <Footer />

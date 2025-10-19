@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
+import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -98,7 +99,7 @@ const PropertyManagers = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
               {benefits.map((benefit, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="p-8">
                     <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
                       <benefit.icon className="w-7 h-7 text-secondary" />
                     </div>
@@ -185,26 +186,12 @@ const PropertyManagers = () => {
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">Let's Discuss Your Property Needs</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Volume pricing available for multi-unit properties and ongoing maintenance contracts
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/estimate">
-                <Button size="lg" variant="secondary" className="text-lg">
-                  Request Volume Quote
-                </Button>
-              </Link>
-              <Link to="/projects">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary text-lg">
-                  View Our Portfolio
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+        <CTASection
+          title="Let's Discuss Your Property Needs"
+          description="Volume pricing available for multi-unit properties and ongoing maintenance contracts"
+          primaryCTA={{ label: "Request Volume Quote", href: "/estimate", variant: "secondary" }}
+          secondaryCTA={{ label: "View Our Portfolio", href: "/projects", variant: "outline" }}
+        />
       </main>
       
       <Footer />

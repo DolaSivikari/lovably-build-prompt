@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import ContentPageHeader from "@/components/ContentPageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -124,50 +125,16 @@ const CaseStudy = () => {
       )}
       
       <main className="min-h-screen">
-        {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[500px]">
-          <OptimizedImage
-            src={resolveAssetPath(caseStudy.featured_image) || caseStudy.featured_image || '/placeholder.svg'}
-            alt={`${caseStudy.title} - ${caseStudy.category} project completed in ${caseStudy.location}`}
-            priority={true}
-            width={1920}
-            height={1080}
-            className="w-full h-full"
-            objectFit="cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
-          <div className="absolute inset-0 flex items-end">
-            <div className="container mx-auto px-4 pb-12">
-              <Link to="/projects" className="inline-flex items-center gap-2 text-white mb-6 hover:gap-3 transition-all">
-                <ArrowLeft className="w-4 h-4" />
-                Back to Projects
-              </Link>
-              <Badge className="mb-4 bg-secondary text-primary">{caseStudy.category}</Badge>
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-                {caseStudy.title}
-              </h1>
-              <div className="flex flex-wrap gap-6 text-white/90">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5" />
-                  <span>{caseStudy.location}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  <span>{caseStudy.date}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
-                  <span>{caseStudy.duration || "Various timeline"}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Ruler className="w-5 h-5" />
-                  <span>{caseStudy.project_size || "Various scope"}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ContentPageHeader
+          title={caseStudy.title}
+          subtitle={`${caseStudy.category} · ${caseStudy.location} · ${caseStudy.duration || "Various timeline"}`}
+          imageUrl={resolveAssetPath(caseStudy.featured_image) || caseStudy.featured_image || '/placeholder.svg'}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Projects", href: "/projects" },
+            { label: caseStudy.title }
+          ]}
+        />
 
         <div className="container mx-auto px-4 py-16">
           <div className="grid lg:grid-cols-3 gap-12">

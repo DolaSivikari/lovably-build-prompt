@@ -98,7 +98,7 @@ const About = () => {
         </section>
 
         {/* Values */}
-        <section className="bg-muted py-16 mt-12">
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4">Our Core Values</h2>
@@ -111,7 +111,7 @@ const About = () => {
                 const IconComponent = iconMap[value.icon];
                 return (
                   <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
+                    <CardContent className="p-8">
                       <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <IconComponent className="w-8 h-8 text-primary" />
                       </div>

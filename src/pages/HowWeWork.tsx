@@ -1,9 +1,9 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
+import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import {
   ClipboardCheck,
   Users,
@@ -12,7 +12,6 @@ import {
   Phone,
   Calendar,
   Shield,
-  Sparkles,
 } from "lucide-react";
 import { generateHowToSchema } from "@/utils/faq-schema";
 
@@ -88,29 +87,24 @@ const HowWeWork = () => {
         structuredData={howToSchema}
       />
       <Navigation />
-      <main className="pt-20">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary via-primary-dark to-accent py-20 text-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center">
-              <Sparkles className="w-16 h-16 mx-auto mb-6" />
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Our Proven Process
-              </h1>
-              <p className="text-xl text-white/90 mb-8">
-                Transparency, communication, and quality craftsmanship at every
-                step. Here's exactly how we transform your space from start to
-                finish.
-              </p>
-              <Link to="/estimate">
-                <Button size="lg" variant="secondary">
-                  Start Your Project
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
+      
+      <PageHeader
+        eyebrow="Our Process"
+        title="Our Proven Process"
+        description="Transparency, communication, and quality craftsmanship at every step. Here's exactly how we transform your space from start to finish."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "How We Work" }
+        ]}
+        variant="with-cta"
+        cta={{
+          label: "Start Your Project",
+          href: "/estimate"
+        }}
+      />
+      
+      <main>
+      
         {/* Process Steps */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
@@ -194,34 +188,12 @@ const HowWeWork = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-primary to-primary-dark text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Experience the Ascent Group difference. Contact us today for your
-              free consultation and detailed quote.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/estimate">
-                <Button size="lg" variant="secondary">
-                  Get Free Estimate
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-primary"
-                >
-                  Contact Us
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+        <CTASection
+          title="Ready to Get Started?"
+          description="Experience the Ascent Group difference. Contact us today for your free consultation and detailed quote."
+          primaryCTA={{ label: "Get Free Estimate", href: "/estimate", variant: "secondary" }}
+          secondaryCTA={{ label: "Contact Us", href: "/contact", variant: "outline" }}
+        />
       </main>
       <Footer />
     </div>

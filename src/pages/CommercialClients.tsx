@@ -1,10 +1,13 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
+import BenefitsSection from "@/components/sections/BenefitsSection";
+import ProcessSteps from "@/components/sections/ProcessSteps";
+import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Briefcase, Clock, Shield, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
+import { Clock, Shield, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
 
 const CommercialClients = () => {
   const benefits = [
@@ -67,61 +70,33 @@ const CommercialClients = () => {
       />
       <Navigation />
       
+      <PageHeader
+        eyebrow="For Commercial Clients"
+        title="Keep Your Business Running While We Work"
+        description="Professional commercial painting and coating services designed around your operations. We deliver quality results with minimal disruption to your business."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Commercial Clients" }
+        ]}
+        variant="with-cta"
+        cta={{
+          label: "Request Commercial Quote",
+          href: "/estimate"
+        }}
+      />
+      
       <main>
-        {/* Hero */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
+
+        <BenefitsSection
+          title="Why Businesses Choose Ascent"
+          description="We understand that downtime costs money. Our commercial services are built for efficiency."
+          benefits={benefits.map(b => ({ icon: b.icon, title: b.title, description: b.description }))}
+        />
+
+        {/* Commercial Stats */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-                <Briefcase className="w-5 h-5 text-secondary" />
-                <span className="text-secondary font-semibold text-sm tracking-wider uppercase">For Commercial Clients</span>
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                Keep Your Business Running While We Work
-              </h1>
-              <p className="text-xl opacity-90 mb-8">
-                Professional commercial painting and coating services designed around your operations. We deliver quality results with minimal disruption to your business.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link to="/estimate">
-                  <Button size="lg" variant="secondary">Request Commercial Quote</Button>
-                </Link>
-                <Link to="/projects">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                    View Commercial Projects
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Benefits */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Why Businesses Choose Ascent</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                We understand that downtime costs money. Our commercial services are built for efficiency.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
-              {benefits.map((benefit, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                      <benefit.icon className="w-7 h-7 text-secondary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
-                    <p className="text-muted-foreground">{benefit.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Commercial Stats */}
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto bg-muted/50 rounded-2xl p-8">
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               <div className="text-center">
                 <div className="text-4xl font-bold text-primary mb-2">45K+</div>
                 <div className="text-muted-foreground">Sq Ft Completed</div>
@@ -139,7 +114,7 @@ const CommercialClients = () => {
         </section>
 
         {/* Industries */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
@@ -172,71 +147,23 @@ const CommercialClients = () => {
           </div>
         </section>
 
-        {/* Our Approach */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Our Commercial Approach</h2>
-            </div>
+        <ProcessSteps
+          title="Our Commercial Approach"
+          steps={[
+            { number: "1", title: "Site Survey", description: "Detailed assessment and coordination planning" },
+            { number: "2", title: "Schedule Planning", description: "Timeline that works around your operations" },
+            { number: "3", title: "Professional Execution", description: "Quality work with daily progress reports" },
+            { number: "4", title: "Final Inspection", description: "Walkthrough and warranty documentation" }
+          ]}
+          className="bg-muted/30"
+        />
 
-            <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {[
-                { 
-                  step: "1", 
-                  title: "Site Survey", 
-                  desc: "Detailed assessment and coordination planning" 
-                },
-                { 
-                  step: "2", 
-                  title: "Schedule Planning", 
-                  desc: "Timeline that works around your operations" 
-                },
-                { 
-                  step: "3", 
-                  title: "Professional Execution", 
-                  desc: "Quality work with daily progress reports" 
-                },
-                { 
-                  step: "4", 
-                  title: "Final Inspection", 
-                  desc: "Walkthrough and warranty documentation" 
-                }
-              ].map((item, index) => (
-                <Card key={index} className="text-center">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                      {item.step}
-                    </div>
-                    <h3 className="font-bold mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">Ready to Elevate Your Facility?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Get a comprehensive commercial quote with flexible scheduling options
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/estimate">
-                <Button size="lg" variant="secondary" className="text-lg">
-                  Get Commercial Quote
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary text-lg">
-                  Schedule Consultation
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+        <CTASection
+          title="Ready to Elevate Your Facility?"
+          description="Get a comprehensive commercial quote with flexible scheduling options"
+          primaryCTA={{ label: "Get Commercial Quote", href: "/estimate" }}
+          secondaryCTA={{ label: "Schedule Consultation", href: "/contact" }}
+        />
       </main>
       
       <Footer />
