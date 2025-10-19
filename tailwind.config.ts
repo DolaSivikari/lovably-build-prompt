@@ -18,6 +18,24 @@ export default {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
+        // PCL-inspired professional navy
+        navy: {
+          DEFAULT: "hsl(210 100% 18%)",
+          light: "hsl(210 90% 29%)",
+          dark: "hsl(210 100% 13%)",
+        },
+        "slate-cool": {
+          50: "hsl(210 40% 98%)",
+          100: "hsl(210 40% 96%)",
+          200: "hsl(214 32% 91%)",
+          300: "hsl(213 27% 84%)",
+          400: "hsl(215 20% 65%)",
+          500: "hsl(215 16% 47%)",
+          600: "hsl(215 19% 35%)",
+          700: "hsl(215 25% 27%)",
+          800: "hsl(217 33% 17%)",
+          900: "hsl(222 47% 11%)",
+        },
         // Construction theme colors
         "construction-blue": {
           DEFAULT: "hsl(210 85% 35%)",

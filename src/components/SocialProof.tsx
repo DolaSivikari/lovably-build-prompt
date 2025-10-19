@@ -3,8 +3,12 @@ import { Card, CardContent } from "./ui/card";
 import SEO from "./SEO";
 import { reviewSchema } from "@/utils/structured-data";
 import { calculateISODate, inferServiceFromReview, getConsistentAggregateRating } from "@/utils/review-helpers";
+import { useRef } from "react";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const SocialProof = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isVisible = useIntersectionObserver(sectionRef);
   const aggregateRating = getConsistentAggregateRating();
   const averageRating = parseFloat(aggregateRating.ratingValue);
   const totalReviews = parseInt(aggregateRating.reviewCount);
@@ -119,11 +123,11 @@ const SocialProof = () => {
   return (
     <>
       <SEO structuredData={[aggregateRatingSchema, ...googleReviewSchemas, ...testimonialSchemas]} />
-      <section className="py-16 bg-muted/30">
+      <section ref={sectionRef} className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Header with Google Rating */}
-            <div className="text-center mb-12">
+            <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 What Our Clients Say
               </h2>
@@ -152,7 +156,11 @@ const SocialProof = () => {
             {/* Google Reviews Grid */}
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {googleReviews.map((review, idx) => (
-                <Card key={idx} className="p-6 hover:shadow-lg transition-shadow">
+                <Card 
+                  key={idx} 
+                  className={`p-6 hover:shadow-lg transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                  style={{ transitionDelay: `${idx * 0.1}s` }}
+                >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
                       {review.avatar}
@@ -194,8 +202,8 @@ const SocialProof = () => {
                 {testimonials.map((testimonial, index) => (
                   <Card 
                     key={testimonial.author} 
-                    className="relative animate-fade-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className={`relative transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                    style={{ transitionDelay: `${0.4 + index * 0.1}s` }}
                   >
                     <CardContent className="pt-6">
                       <Quote className="h-8 w-8 text-primary mb-4" />
