@@ -100,7 +100,10 @@ const Navigation = () => {
           "fixed top-0 left-0 right-0 z-navigation border-b border-border transition-all duration-300 ease-in-out",
           isAtTop 
             ? "bg-transparent backdrop-blur-none" 
-            : "bg-background/98 backdrop-blur-md shadow-md"
+            : "bg-background/98 backdrop-blur-md shadow-md",
+          scrollDirection === "down" && !isAtTop
+            ? "-translate-y-full"
+            : "translate-y-0"
         )}
       >
         <div className="container mx-auto px-4">
