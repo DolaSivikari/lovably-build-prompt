@@ -10,7 +10,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import { trackPageView } from "@/lib/analytics";
 
 // Eager load public pages (critical path)
-import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -65,7 +64,6 @@ const SecuritySettings = lazy(() => import("./pages/admin/SecuritySettings"));
 const AdminSEODashboard = lazy(() => import("./pages/admin/SEODashboard"));
 const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard"));
 const TemplateManager = lazy(() => import("./pages/admin/TemplateManager"));
-const LandingEditor = lazy(() => import("./pages/admin/LandingEditor"));
 
 // Lazy load heavy content pages
 const Blog = lazy(() => import("./pages/Blog"));
@@ -113,11 +111,8 @@ const App = () => (
               </a>
               <Suspense fallback={<PageLoader />}>
                 <Routes>
-                  {/* Splash / Landing page */}
-                  <Route path="/" element={<Landing />} />
-                  
                   {/* Public pages - eagerly loaded */}
-                  <Route path="/home" element={<Index />} />
+                  <Route path="/" element={<Index />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/values" element={<Values />} />
                   <Route path="/safety" element={<Safety />} />
@@ -174,7 +169,6 @@ const App = () => (
                   <Route path="/admin/performance-dashboard" element={<PerformanceDashboard />} />
                   <Route path="/admin/template-manager" element={<TemplateManager />} />
                   <Route path="/admin/hero" element={<HeroEditor />} />
-                  <Route path="/admin/landing" element={<LandingEditor />} />
                   <Route path="/admin/site-settings" element={<SiteSettings />} />
                   <Route path="/admin/testimonials" element={<TestimonialsManager />} />
                   <Route path="/admin/stats" element={<StatsManager />} />

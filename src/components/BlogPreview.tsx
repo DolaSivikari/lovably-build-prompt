@@ -5,18 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight } from "lucide-react";
 import blogData from "@/data/blog-posts-complete.json";
 import OptimizedImage from "./OptimizedImage";
-import { useRef } from "react";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const BlogPreview = () => {
   const featuredPosts = blogData.posts.filter(post => post.featured).slice(0, 3);
-  const sectionRef = useRef<HTMLElement>(null);
-  const isVisible = useIntersectionObserver(sectionRef);
 
   return (
-    <section ref={sectionRef} className="py-20 bg-background">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-primary mb-4">Latest Insights</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Expert tips, industry knowledge, and project inspiration from our team
@@ -33,10 +29,7 @@ const BlogPreview = () => {
 
             return (
               <Link key={post.id} to={`/blog/${post.slug}`}>
-                <Card 
-                  className={`h-full hover:shadow-xl transition-all duration-700 overflow-hidden group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                  style={{ transitionDelay: `${featuredPosts.indexOf(post) * 0.1}s` }}
-                >
+                <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group">
                   <div className="relative h-48 overflow-hidden">
                     <OptimizedImage
                       src={post.image}

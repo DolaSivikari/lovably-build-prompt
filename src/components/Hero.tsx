@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, ChevronDown, Sparkles } from "lucide-react";
@@ -6,23 +6,12 @@ import heroImage from "@/assets/hero-construction.jpg";
 import HeroBackground from "./HeroBackground";
 import OptimizedImage from "./OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
-import { motion, useScroll, useTransform } from "framer-motion";
 
 const Hero = () => {
   const [heroContent, setHeroContent] = useState<any>(null);
   const [stats, setStats] = useState<any[]>([]);
-  const containerRef = useRef<HTMLElement>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  // Parallax effect
-  const { scrollY } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-  const y = useTransform(scrollY, [0, 500], [0, 100]);
 
   useEffect(() => {
-    setPrefersReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     const fetchHeroContent = async () => {
       const { data } = await supabase
         .from('hero_content')
@@ -57,12 +46,9 @@ const Hero = () => {
   const secondaryCtaUrl = heroContent?.secondary_cta_url || "/projects";
 
   return (
-    <section ref={containerRef} className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background Image with Parallax and Overlay */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ y: prefersReducedMotion ? 0 : y }}
-      >
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
         <OptimizedImage
           src={heroImage}
           alt="Modern construction site with steel framework at sunset, showcasing professional commercial building project"
@@ -74,7 +60,7 @@ const Hero = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
         <HeroBackground />
-      </motion.div>
+      </div>
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">

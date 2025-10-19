@@ -88,24 +88,6 @@ All colors MUST be HSL.
     --z-fixed: 30;         /* Fixed position elements */
     --z-overlay: 40;       /* Overlays and backdrops */
     --z-navigation: 50;    /* Navigation bar */
-  }
-
-  /* Text shadow utilities for hero text */
-  .text-shadow-strong {
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
-  }
-
-  .text-shadow-medium {
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-  }
-
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
     --z-mega-menu: 60;     /* Mega menus and complex dropdowns */
     --z-modal: 70;         /* Modal dialogs */
     --z-toast: 80;         /* Toast notifications */
@@ -185,37 +167,8 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     @apply bg-background text-foreground;
-  }
-
-  /* PCL-inspired Typography Hierarchy */
-  h1, h2, h3 {
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  h1 {
-    @apply font-bold;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-  }
-
-  h2 {
-    @apply font-bold;
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-  }
-
-  h3 {
-    @apply font-semibold;
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-  }
-
-  h4, h5, h6 {
-    @apply font-semibold;
   }
 }
 
@@ -702,17 +655,17 @@ All colors MUST be HSL.
   object-fit: cover;
 }
 
-.landing-hero__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: calc(var(--z-base) + 1);
-  background: linear-gradient(
-    135deg,
-    hsl(var(--background) / 0.88) 0%,
-    hsl(var(--background) / 0.72) 50%,
-    hsl(var(--background) / 0.56) 100%
-  );
-}
+  .landing-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: calc(var(--z-base) + 1);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--background) / 0.88) 0%,
+      hsl(var(--background) / 0.72) 50%,
+      hsl(var(--background) / 0.56) 100%
+    );
+  }
 
 .landing-hero__content {
   position: relative;
@@ -779,21 +732,21 @@ All colors MUST be HSL.
   gap: 0.5rem;
 }
 
-.landing-menu-item__title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: hsl(var(--foreground));
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  line-height: 1.3;
-  transition: color 0.3s ease;
-}
-
-@media (max-width: 768px) {
   .landing-menu-item__title {
-    text-shadow: 0 2px 8px hsl(var(--background) / 0.8);
+    font-size: 2rem;
+    font-weight: 700;
+    color: hsl(var(--foreground));
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    transition: color 0.3s ease;
   }
-}
+  
+  @media (max-width: 768px) {
+    .landing-menu-item__title {
+      text-shadow: 0 2px 8px hsl(var(--background) / 0.8);
+    }
+  }
 
 .landing-menu-item:hover .landing-menu-item__title {
   color: hsl(var(--primary));
@@ -951,4 +904,3 @@ All colors MUST be HSL.
     font-size: 0.75rem;
   }
 }
-

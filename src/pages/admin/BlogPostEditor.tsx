@@ -9,7 +9,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { ImageUploader } from "@/components/admin/ImageUploader";
 
 const BlogPostEditor = () => {
   const { id } = useParams();
@@ -23,7 +22,6 @@ const BlogPostEditor = () => {
     summary: "",
     content: "",
     category: "",
-    content_type: "article" as "article" | "case_study" | "insight",
     tags: "",
     featured_image: "",
     seo_title: "",
@@ -70,7 +68,6 @@ const BlogPostEditor = () => {
         summary: data.summary || "",
         content: data.content || "",
         category: data.category || "",
-        content_type: (data.content_type as any) || "article",
         tags: data.tags?.join(", ") || "",
         featured_image: data.featured_image || "",
         seo_title: data.seo_title || "",
@@ -123,7 +120,6 @@ const BlogPostEditor = () => {
       summary: formData.summary,
       content: formData.content,
       category: formData.category,
-      content_type: formData.content_type,
       tags: formData.tags.split(",").map(t => t.trim()).filter(Boolean),
       featured_image: formData.featured_image,
       seo_title: formData.seo_title || formData.title,
@@ -273,28 +269,14 @@ const BlogPostEditor = () => {
                 />
               </div>
 
-              <ImageUploader
-                value={formData.featured_image}
-                onChange={(url) => setFormData({ ...formData, featured_image: url })}
-                label="Featured Image"
-                folder="blog"
-              />
-
               <div>
-                <Label htmlFor="content_type">Content Type</Label>
-                <Select 
-                  value={formData.content_type} 
-                  onValueChange={(value: any) => setFormData({ ...formData, content_type: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="article">Article</SelectItem>
-                    <SelectItem value="case_study">Case Study</SelectItem>
-                    <SelectItem value="insight">Insight</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="featured_image">Featured Image URL</Label>
+                <Input
+                  id="featured_image"
+                  value={formData.featured_image}
+                  onChange={(e) => setFormData({ ...formData, featured_image: e.target.value })}
+                  placeholder="https://example.com/image.jpg"
+                />
               </div>
 
               <div>
