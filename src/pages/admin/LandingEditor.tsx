@@ -25,10 +25,16 @@ const LandingEditor = () => {
     cta_secondary_text: 'Get Free Estimate',
     cta_secondary_url: '/estimate',
     background_image: '',
+    background_image_alt: 'Ascent Group construction project background',
     is_active: true,
-    rotating_project_images: [] as string[]
+    rotating_project_images: [] as string[],
+    featured_stories: [] as any[],
+    projects_count: 500,
+    years_in_business: 25,
+    insured: true
   });
   const [newImageUrl, setNewImageUrl] = useState('');
+  const [newStory, setNewStory] = useState({ title: '', image: '', link: '', tag: '' });
 
   useEffect(() => {
     loadLandingPage();
@@ -51,10 +57,17 @@ const LandingEditor = () => {
         cta_secondary_text: data.cta_secondary_text || '',
         cta_secondary_url: data.cta_secondary_url || '',
         background_image: data.background_image || '',
+        background_image_alt: data.background_image_alt || 'Ascent Group construction project background',
         is_active: data.is_active ?? true,
         rotating_project_images: Array.isArray(data.rotating_project_images) 
           ? data.rotating_project_images as string[]
-          : []
+          : [],
+        featured_stories: Array.isArray(data.featured_stories)
+          ? data.featured_stories
+          : [],
+        projects_count: data.projects_count || 500,
+        years_in_business: data.years_in_business || 25,
+        insured: data.insured ?? true
       });
     }
   };
@@ -77,6 +90,23 @@ const LandingEditor = () => {
     setFormData({
       ...formData,
       rotating_project_images: formData.rotating_project_images.filter((_, i) => i !== index)
+    });
+  };
+
+  const addFeaturedStory = () => {
+    if (newStory.title.trim() && newStory.image.trim()) {
+      setFormData({
+        ...formData,
+        featured_stories: [...formData.featured_stories, { ...newStory, id: Date.now() }]
+      });
+      setNewStory({ title: '', image: '', link: '', tag: '' });
+    }
+  };
+
+  const removeFeaturedStory = (index: number) => {
+    setFormData({
+      ...formData,
+      featured_stories: formData.featured_stories.filter((_: any, i: number) => i !== index)
     });
   };
 
@@ -221,6 +251,19 @@ const LandingEditor = () => {
                 label="Background Image (Optional - ignored if rotating images added below)"
                 folder="landing"
               />
+
+              <div>
+                <Label htmlFor="background_image_alt">Background Image Alt Text</Label>
+                <Input
+                  id="background_image_alt"
+                  value={formData.background_image_alt}
+                  onChange={(e) => setFormData({ ...formData, background_image_alt: e.target.value })}
+                  placeholder="Describe the background image for screen readers"
+                />
+                <p className="text-sm text-muted-foreground mt-1">
+                  Improves accessibility for visually impaired users
+                </p>
+              </div>
             </CardContent>
           </Card>
 
@@ -255,6 +298,119 @@ const LandingEditor = () => {
                         variant="ghost"
                         size="sm"
                         onClick={() => removeRotatingImage(index)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Stats & Trust Indicators</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="projects_count">Projects Completed</Label>
+                  <Input
+                    id="projects_count"
+                    type="number"
+                    value={formData.projects_count}
+                    onChange={(e) => setFormData({ ...formData, projects_count: parseInt(e.target.value) || 0 })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="years_in_business">Years in Business</Label>
+                  <Input
+                    id="years_in_business"
+                    type="number"
+                    value={formData.years_in_business}
+                    onChange={(e) => setFormData({ ...formData, years_in_business: parseInt(e.target.value) || 0 })}
+                  />
+                </div>
+                <div className="flex items-end pb-2">
+                  <div className="flex items-center gap-2">
+                    <Switch
+                      id="insured"
+                      checked={formData.insured}
+                      onCheckedChange={(checked) => setFormData({ ...formData, insured: checked })}
+                    />
+                    <Label htmlFor="insured">Insured</Label>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Featured Stories</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Add featured stories that will appear in a carousel on the landing page.
+              </p>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Story Title *</Label>
+                  <Input
+                    value={newStory.title}
+                    onChange={(e) => setNewStory({ ...newStory, title: e.target.value })}
+                    placeholder="e.g., Historic Building Restoration"
+                  />
+                </div>
+                <div>
+                  <Label>Tag (Optional)</Label>
+                  <Input
+                    value={newStory.tag}
+                    onChange={(e) => setNewStory({ ...newStory, tag: e.target.value })}
+                    placeholder="e.g., Case Study"
+                  />
+                </div>
+                <div>
+                  <Label>Image URL *</Label>
+                  <Input
+                    value={newStory.image}
+                    onChange={(e) => setNewStory({ ...newStory, image: e.target.value })}
+                    placeholder="e.g., /src/assets/case-study.jpg"
+                  />
+                </div>
+                <div>
+                  <Label>Link (Optional)</Label>
+                  <Input
+                    value={newStory.link}
+                    onChange={(e) => setNewStory({ ...newStory, link: e.target.value })}
+                    placeholder="e.g., /case-studies/heritage-building"
+                  />
+                </div>
+              </div>
+
+              <Button type="button" onClick={addFeaturedStory} variant="outline" className="w-full">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Featured Story
+              </Button>
+
+              {formData.featured_stories.length > 0 && (
+                <div className="space-y-2">
+                  <Label>Current Stories</Label>
+                  {formData.featured_stories.map((story: any, index: number) => (
+                    <div key={index} className="flex items-start gap-2 p-3 bg-muted rounded">
+                      <div className="flex-1">
+                        <p className="font-semibold text-sm">{story.title}</p>
+                        {story.tag && <p className="text-xs text-muted-foreground">Tag: {story.tag}</p>}
+                        <p className="text-xs text-muted-foreground truncate">Image: {story.image}</p>
+                        {story.link && <p className="text-xs text-muted-foreground truncate">Link: {story.link}</p>}
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeFeaturedStory(index)}
                       >
                         <X className="h-4 w-4" />
                       </Button>

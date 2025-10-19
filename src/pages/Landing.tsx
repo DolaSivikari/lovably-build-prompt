@@ -1,213 +1,373 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Phone } from 'lucide-react';
-import SEO from '@/components/SEO';
-import OptimizedImage from '@/components/OptimizedImage';
-import { resolveAssetPath } from '@/utils/assetResolver';
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { landingMenuItems } from "@/data/landing-menu";
+import heroConstruction from "@/assets/hero-construction.jpg";
+import homeHeroVideo from "@/assets/home-hero.mp4";
+import { useEffect, useRef, useState } from "react";
+import OptimizedImage from "@/components/OptimizedImage";
+import SEO from "@/components/SEO";
+import { supabase } from "@/integrations/supabase/client";
+import { motion, AnimatePresence } from "framer-motion";
+import FeaturedStoriesCarousel from "@/components/FeaturedStoriesCarousel";
 
 interface LandingContent {
+  id?: string;
   headline: string;
   subheadline: string;
   cta_primary_text: string;
   cta_primary_url: string;
-  cta_secondary_text: string | null;
-  cta_secondary_url: string | null;
-  background_image: string | null;
+  cta_secondary_text?: string;
+  cta_secondary_url?: string;
+  background_image?: string;
+  background_image_alt?: string;
+  rotating_project_images?: any;
+  featured_stories?: any;
+  projects_count?: number;
+  years_in_business?: number;
+  insured?: boolean;
   is_active: boolean;
-  rotating_project_images?: string[];
 }
+
+const editorialVariants = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+const navItemVariants = {
+  hidden: { opacity: 0, x: 12 },
+  show: (i: number) => ({ 
+    opacity: 1, 
+    x: 0, 
+    transition: { delay: 0.6 + i * 0.08, duration: 0.4 } 
+  }),
+};
+
+const rootVariants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.3 } },
+  exit: { opacity: 0, transition: { duration: 0.5 } },
+};
 
 const Landing = () => {
   const navigate = useNavigate();
-  const [content, setContent] = useState<LandingContent>({
-    headline: 'Building Excellence Across the GTA',
-    subheadline: 'Premium painting, restoration & finishing services for commercial, residential & industrial properties',
-    cta_primary_text: 'Enter Site',
-    cta_primary_url: '/home',
-    cta_secondary_text: 'Get Free Estimate',
-    cta_secondary_url: '/estimate',
-    background_image: null,
-    is_active: true,
-    rotating_project_images: []
-  });
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
+  const [content, setContent] = useState<LandingContent | null>(null);
+  const [shouldUseVideo, setShouldUseVideo] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     loadLandingContent();
+    
+    // Check user preferences
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const connection = (navigator as any).connection;
+    const saveData = connection?.saveData;
+    
+    if (prefersReducedMotion || saveData) {
+      setShouldUseVideo(false);
+    }
   }, []);
 
+  // Intersection observer for lazy loading
   useEffect(() => {
-    // Redirect if landing page is disabled
-    if (!content.is_active) {
-      navigate('/home');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => setIsVisible(entry.isIntersecting));
+      },
+      { threshold: 0.25 }
+    );
+    
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
-  }, [content.is_active, navigate]);
+    
+    return () => observer.disconnect();
+  }, []);
 
+  // Video autoplay handling
   useEffect(() => {
-    // Rotate background images if available
-    if (content.rotating_project_images && content.rotating_project_images.length > 1) {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prev) => 
-          (prev + 1) % content.rotating_project_images!.length
-        );
-      }, 5000);
-      return () => clearInterval(interval);
+    if (!isVisible || !shouldUseVideo) return;
+    
+    const minVideoWidth = 768;
+    if (window.innerWidth < minVideoWidth) {
+      setShouldUseVideo(false);
+      return;
     }
-  }, [content.rotating_project_images]);
+    
+    const video = videoRef.current;
+    if (!video) {
+      setShouldUseVideo(false);
+      return;
+    }
+    
+    const timeout = window.setTimeout(async () => {
+      try {
+        await video.play();
+        setShouldUseVideo(true);
+      } catch {
+        setShouldUseVideo(false);
+      }
+    }, 120);
+    
+    return () => window.clearTimeout(timeout);
+  }, [isVisible, shouldUseVideo]);
 
   const loadLandingContent = async () => {
-    const { data } = await supabase
-      .from('landing_page')
-      .select('*')
-      .eq('is_active', true)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('landing_page')
+        .select('*')
+        .eq('is_active', true)
+        .maybeSingle();
 
-    if (data) {
-      setContent({
-        headline: data.headline,
-        subheadline: data.subheadline,
-        cta_primary_text: data.cta_primary_text,
-        cta_primary_url: data.cta_primary_url,
-        cta_secondary_text: data.cta_secondary_text,
-        cta_secondary_url: data.cta_secondary_url,
-        background_image: data.background_image,
-        is_active: data.is_active,
-        rotating_project_images: Array.isArray(data.rotating_project_images) 
-          ? data.rotating_project_images as string[]
-          : []
-      });
+      if (error) throw error;
+
+      if (!data || !data.is_active) {
+        navigate('/home', { replace: true });
+        return;
+      }
+
+      setContent(data);
+    } catch (error) {
+      console.error('Error loading landing content:', error);
+      navigate('/home', { replace: true });
     }
   };
 
-  const handleCTAClick = (url: string) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      navigate(url);
-    }, 500);
+  // Rotate background images if available
+  useEffect(() => {
+    const rotatingImages = Array.isArray(content?.rotating_project_images) 
+      ? content.rotating_project_images 
+      : [];
+    
+    if (rotatingImages.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % rotatingImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [content]);
+
+  const handleCTAClick = () => {
+    navigate(content?.cta_primary_url || '/home');
   };
 
-  const currentBgImage = content.rotating_project_images && content.rotating_project_images.length > 0
-    ? content.rotating_project_images[currentImageIndex]
-    : content.background_image;
+  if (!content) {
+    return (
+      <section className="w-full h-screen flex items-center justify-center bg-background">
+        <span className="text-muted-foreground">Loading…</span>
+      </section>
+    );
+  }
+
+  const bgImage = content.background_image || heroConstruction;
+  const rotatingImages = Array.isArray(content.rotating_project_images) 
+    ? content.rotating_project_images 
+    : [];
+  const featuredStories = Array.isArray(content.featured_stories)
+    ? content.featured_stories
+    : [];
 
   return (
-    <>
-      <SEO 
-        title="Ascent Group Construction - Premium GTA Contractors"
-        description="Leading construction, painting, and restoration services across the Greater Toronto Area. Commercial, residential, and industrial excellence."
-        canonical="/"
-      />
-      
-      <div className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-        {/* Background Image or Gradient */}
-        {currentBgImage ? (
-          <div className="absolute inset-0">
-            <OptimizedImage
-              src={resolveAssetPath(currentBgImage) || currentBgImage}
-              alt="Ascent Group Construction Background"
+    <AnimatePresence>
+      <motion.main
+        ref={containerRef as any}
+        initial="hidden"
+        animate="show"
+        exit="exit"
+        variants={rootVariants}
+        className="w-full min-h-screen relative overflow-hidden bg-background text-foreground"
+        aria-labelledby="landing-heading"
+        role="main"
+      >
+        <SEO 
+          title={content.headline}
+          description={content.subheadline}
+        />
+
+        {/* Background layers */}
+        <div className="absolute inset-0 -z-20">
+          {rotatingImages.length > 0 ? (
+            <div className="absolute inset-0">
+              {rotatingImages.map((src: string, i: number) => (
+                <OptimizedImage
+                  key={i}
+                  src={src}
+                  alt={content.background_image_alt || "Project background"}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                    i === currentImageIndex ? "opacity-100" : "opacity-0"
+                  }`}
+                  width={1920}
+                  height={1080}
+                />
+              ))}
+            </div>
+          ) : shouldUseVideo ? (
+            <video
+              ref={videoRef}
               className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={typeof bgImage === "string" ? bgImage : heroConstruction}
+              aria-hidden
+            >
+              <source src={homeHeroVideo} type="video/mp4" />
+            </video>
+          ) : (
+            <OptimizedImage
+              src={bgImage}
+              alt={content.background_image_alt || "Ascent Group background"}
+              className="w-full h-full object-cover"
+              width={1920}
+              height={1080}
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/80 via-primary/70 to-primary-dark/80 animate-fade-in" />
-          </div>
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-primary-light animate-fade-in" />
-        )}
-        
-        {/* Decorative orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cream/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+          )}
 
-        {/* Content container */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          {/* Logo */}
-          <div className="mb-12 opacity-0 animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
-            <img 
-              src={resolveAssetPath('/src/assets/ascent-logo.png') || '/src/assets/ascent-logo.png'}
-              alt="Ascent Group Construction" 
-              className="h-24 sm:h-32 mx-auto drop-shadow-2xl"
-            />
-          </div>
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
+        </div>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 opacity-0 animate-slide-up drop-shadow-lg" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
-            {content.headline}
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-lg sm:text-xl md:text-2xl text-cream/90 mb-12 max-w-3xl mx-auto opacity-0 animate-slide-up" style={{ animationDelay: '1.3s', animationFillMode: 'forwards' }}>
-            {content.subheadline}
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-slide-up" style={{ animationDelay: '1.6s', animationFillMode: 'forwards' }}>
-            <Button 
-              onClick={() => handleCTAClick(content.cta_primary_url)}
-              size="lg"
-              className="bg-secondary hover:bg-construction-orange-dark text-white shadow-2xl hover:shadow-accent transition-all duration-300 text-lg px-8 py-6 group animate-pulse"
-              style={{ animationDelay: '2s' }}
-            >
-              {content.cta_primary_text}
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-
-            {content.cta_secondary_text && content.cta_secondary_url && (
-              <Button 
-                onClick={() => handleCTAClick(content.cta_secondary_url!)}
-                size="lg"
-                variant="outline"
-                className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 shadow-xl text-lg px-8 py-6"
+        {/* Content grid */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-14 min-h-screen flex items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-center">
+            
+            {/* Left editorial block */}
+            <motion.div variants={editorialVariants} className="editorial-block max-w-xl">
+              <div className="kicker text-sm uppercase tracking-widest text-construction-accent mb-3">
+                Exterior Restoration
+              </div>
+              
+              <h1 
+                id="landing-heading" 
+                className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-4"
               >
-                <Phone className="mr-2 h-5 w-5" />
-                {content.cta_secondary_text}
-              </Button>
-            )}
-          </div>
+                {content.headline}
+              </h1>
+              
+              <p className="text-base md:text-lg text-white/90 leading-relaxed mb-6">
+                {content.subheadline}
+              </p>
 
-          {/* Trust badges */}
-          <div className="mt-16 flex flex-wrap justify-center gap-8 text-cream/70 text-sm opacity-0 animate-fade-in" style={{ animationDelay: '1.9s', animationFillMode: 'forwards' }}>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-secondary rounded-full" />
-              <span>GTA's Premier Contractor</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-secondary rounded-full" />
-              <span>25+ Years Experience</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-secondary rounded-full" />
-              <span>Fully Licensed & Insured</span>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
+                <button
+                  onClick={handleCTAClick}
+                  className="inline-flex items-center gap-3 px-6 py-3 rounded-md bg-construction-orange text-white font-semibold shadow-lg hover:shadow-xl hover:bg-construction-orange-dark transition-all focus:outline-none focus:ring-4 focus:ring-construction-orange/50"
+                  aria-label={content.cta_primary_text || "Continue to site"}
+                >
+                  {content.cta_primary_text}
+                </button>
+
+                {content.cta_secondary_text && content.cta_secondary_url && (
+                  <Link 
+                    to={content.cta_secondary_url} 
+                    className="text-sm text-white/90 hover:text-white underline underline-offset-4 transition-colors"
+                  >
+                    {content.cta_secondary_text}
+                  </Link>
+                )}
+              </div>
+
+              {/* Trust bar with stats */}
+              <div className="trust-bar flex flex-wrap gap-8 text-sm text-white/80">
+                <div>
+                  <strong className="block text-2xl font-bold text-white">
+                    {content.projects_count || 500}+
+                  </strong>
+                  <span>Projects</span>
+                </div>
+                <div>
+                  <strong className="block text-2xl font-bold text-white">
+                    {content.years_in_business || 25}+
+                  </strong>
+                  <span>Years</span>
+                </div>
+                <div>
+                  <strong className="block text-2xl font-bold text-white">
+                    {content.insured ? "Insured" : "Licensed"}
+                  </strong>
+                  <span>Certified</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right: Numbered nav + featured stories */}
+            <div className="nav-and-stories">
+              <nav 
+                className="landing-menu w-full space-y-2" 
+                role="navigation" 
+                aria-label="Main landing navigation"
+              >
+                {landingMenuItems.map((item, index) => (
+                  <motion.div 
+                    key={item.number} 
+                    custom={index} 
+                    initial="hidden" 
+                    animate="show" 
+                    variants={navItemVariants}
+                  >
+                    <Link
+                      to={item.link}
+                      className="landing-menu-item group flex items-center gap-4 md:gap-6 py-4 px-4 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all focus:outline-none focus:ring-2 focus:ring-construction-orange"
+                      aria-label={`${item.title} — ${item.subtext}`}
+                    >
+                      <span className="landing-menu-item__number text-2xl md:text-3xl font-bold text-construction-accent flex-shrink-0">
+                        {item.number}
+                      </span>
+
+                      <div className="landing-menu-item__content flex-1 min-w-0">
+                        <h2 className="landing-menu-item__title text-base md:text-lg font-semibold text-white mb-1">
+                          {item.title}
+                        </h2>
+                        <p className="landing-menu-item__subtext text-xs md:text-sm text-white/75">
+                          {item.subtext}
+                        </p>
+                      </div>
+
+                      <div className="landing-menu-item__cta hidden sm:flex items-center gap-2 text-sm text-white/80 flex-shrink-0">
+                        <span>Learn more</span>
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* Featured stories carousel */}
+              {featuredStories.length > 0 && (
+                <div className="mt-8">
+                  <h2 className="text-lg font-semibold text-white mb-4">Featured Stories</h2>
+                  <FeaturedStoriesCarousel items={featuredStories} />
+                </div>
+              )}
             </div>
           </div>
         </div>
 
-        {/* Image indicator dots */}
-        {content.rotating_project_images && content.rotating_project_images.length > 1 && (
-          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-            {content.rotating_project_images.map((_, index) => (
+        {/* Navigation indicators for rotating images */}
+        {rotatingImages.length > 1 && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+            {rotatingImages.map((_: any, index: number) => (
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentImageIndex ? 'bg-white w-6' : 'bg-white/50'
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentImageIndex 
+                    ? 'bg-white w-8' 
+                    : 'bg-white/40 hover:bg-white/60'
                 }`}
-                aria-label={`View background image ${index + 1}`}
+                aria-label={`Go to image ${index + 1}`}
               />
             ))}
           </div>
         )}
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-2 bg-white/70 rounded-full animate-pulse" />
-          </div>
-        </div>
-      </div>
-    </>
+      </motion.main>
+    </AnimatePresence>
   );
 };
 

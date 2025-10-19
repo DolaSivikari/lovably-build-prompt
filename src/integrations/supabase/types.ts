@@ -569,45 +569,60 @@ export type Database = {
       landing_page: {
         Row: {
           background_image: string | null
+          background_image_alt: string | null
           created_at: string | null
           cta_primary_text: string
           cta_primary_url: string
           cta_secondary_text: string | null
           cta_secondary_url: string | null
+          featured_stories: Json | null
           headline: string
           id: string
+          insured: boolean | null
           is_active: boolean | null
+          projects_count: number | null
           rotating_project_images: Json | null
           subheadline: string
           updated_at: string | null
+          years_in_business: number | null
         }
         Insert: {
           background_image?: string | null
+          background_image_alt?: string | null
           created_at?: string | null
           cta_primary_text?: string
           cta_primary_url?: string
           cta_secondary_text?: string | null
           cta_secondary_url?: string | null
+          featured_stories?: Json | null
           headline?: string
           id?: string
+          insured?: boolean | null
           is_active?: boolean | null
+          projects_count?: number | null
           rotating_project_images?: Json | null
           subheadline?: string
           updated_at?: string | null
+          years_in_business?: number | null
         }
         Update: {
           background_image?: string | null
+          background_image_alt?: string | null
           created_at?: string | null
           cta_primary_text?: string
           cta_primary_url?: string
           cta_secondary_text?: string | null
           cta_secondary_url?: string | null
+          featured_stories?: Json | null
           headline?: string
           id?: string
+          insured?: boolean | null
           is_active?: boolean | null
+          projects_count?: number | null
           rotating_project_images?: Json | null
           subheadline?: string
           updated_at?: string | null
+          years_in_business?: number | null
         }
         Relationships: []
       }
