@@ -4,9 +4,8 @@ import SEO from "@/components/SEO";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import MetricCounter from "@/components/MetricCounter";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Award, Clock, ThumbsUp, Users, TrendingUp } from "lucide-react";
+import { Shield, Award, ThumbsUp, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Accordion,
@@ -17,34 +16,28 @@ import {
 
 const qualityStandards = [
   {
-    icon: Shield,
     title: "Licensed & Insured",
-    description: "Full liability coverage and WSIB compliance for your peace of mind"
+    items: [
+      "Full liability coverage and WSIB compliance",
+      "All workers covered under comprehensive insurance",
+      "Regular safety audits and training programs"
+    ]
   },
   {
-    icon: Award,
     title: "Quality Guaranteed",
-    description: "Comprehensive warranties and satisfaction guarantee on all work"
+    items: [
+      "Comprehensive warranties on all work (2-10 years)",
+      "Premium materials from trusted brands",
+      "Satisfaction guarantee with free touch-ups"
+    ]
   },
   {
-    icon: Clock,
-    title: "On-Time Delivery",
-    description: "98% of projects completed on or ahead of schedule"
-  },
-  {
-    icon: ThumbsUp,
-    title: "Premium Materials",
-    description: "We use only top-tier brands and environmentally friendly products"
-  },
-  {
-    icon: Users,
     title: "Expert Team",
-    description: "Highly trained professionals with years of specialized experience"
-  },
-  {
-    icon: TrendingUp,
-    title: "Proven Results",
-    description: "500+ successful projects and 95%+ customer satisfaction"
+    items: [
+      "15+ years of specialized industry experience",
+      "Certified professionals with ongoing training",
+      "Background-checked and vetted team members"
+    ]
   }
 ];
 
@@ -81,46 +74,41 @@ const OurProcess = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+      <section className="relative pt-24 pb-12 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Badge variant="secondary" className="text-sm">Simple & Transparent</Badge>
-            <h1 className="text-4xl md:text-6xl font-bold">
-              Our <span className="text-primary">4-Step Process</span>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+            <ChevronRight className="w-4 h-4" />
+            <span className="text-foreground">How We Work</span>
+          </div>
+
+          <div className="max-w-4xl">
+            <p className="text-primary text-sm font-semibold uppercase tracking-wide mb-3">
+              Our Process
+            </p>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              How We Work With You
             </h1>
-            <p className="text-xl text-muted-foreground">
-              A proven approach that ensures quality, transparency, and your complete satisfaction at every stage
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
+              A proven 4-step approach that ensures quality, transparency, and your complete satisfaction at every stage.
             </p>
             
-            {/* Trust Badges */}
-            <div className="flex flex-wrap justify-center gap-6 pt-6">
-              <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full">
-                <Shield className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">Licensed & Insured</span>
+            {/* Inline Trust Badges */}
+            <div className="flex flex-wrap items-center gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-primary" />
+                <span>Licensed & Insured</span>
               </div>
-              <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full">
-                <Award className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">15+ Years Experience</span>
+              <span className="text-muted-foreground">•</span>
+              <div className="flex items-center gap-2">
+                <Award className="w-4 h-4 text-primary" />
+                <span>15+ Years Experience</span>
               </div>
-              <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full">
-                <ThumbsUp className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">500+ Projects</span>
-              </div>
-            </div>
-
-            {/* Progress Bar Visual */}
-            <div className="pt-8">
-              <div className="flex items-center justify-between max-w-2xl mx-auto">
-                {[1, 2, 3, 4].map((step) => (
-                  <div key={step} className="flex items-center">
-                    <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg shadow-lg">
-                      {step}
-                    </div>
-                    {step < 4 && (
-                      <div className="w-16 md:w-32 h-1 bg-gradient-to-r from-primary to-primary/50" />
-                    )}
-                  </div>
-                ))}
+              <span className="text-muted-foreground">•</span>
+              <div className="flex items-center gap-2">
+                <ThumbsUp className="w-4 h-4 text-primary" />
+                <span>500+ Projects</span>
               </div>
             </div>
           </div>
@@ -128,53 +116,59 @@ const OurProcess = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4 mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">How We Work With You</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Our streamlined process ensures quality results while keeping you informed every step of the way
-          </p>
-        </div>
+      <section className="py-16 bg-background">
         <ProcessTimeline />
       </section>
 
       {/* Quality Standards Section */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <Badge variant="secondary" className="mb-4">Why Choose Us</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="text-center mb-4">
+            <p className="text-primary text-sm font-semibold uppercase tracking-wide mb-3">
+              By The Numbers
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Our Commitment to Excellence
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              We don't just meet industry standards—we set them
-            </p>
           </div>
 
-          {/* Metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-            <MetricCounter value={500} suffix="+" label="Completed Projects" />
-            <MetricCounter value={98} suffix="%" label="On-Time Completion" />
-            <MetricCounter value={15} suffix="+" label="Years Experience" />
-            <MetricCounter value={95} suffix="%" label="Client Satisfaction" />
+          {/* Metrics - Emphasized */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16 max-w-5xl mx-auto">
+            <div className="text-center">
+              <MetricCounter value={500} suffix="+" label="" />
+              <p className="text-sm font-medium mt-2">Completed Projects</p>
+            </div>
+            <div className="text-center">
+              <MetricCounter value={98} suffix="%" label="" />
+              <p className="text-sm font-medium mt-2">On-Time Completion</p>
+            </div>
+            <div className="text-center">
+              <MetricCounter value={15} suffix="+" label="" />
+              <p className="text-sm font-medium mt-2">Years Experience</p>
+            </div>
+            <div className="text-center">
+              <MetricCounter value={95} suffix="%" label="" />
+              <p className="text-sm font-medium mt-2">Client Satisfaction</p>
+            </div>
           </div>
 
-          {/* Quality Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {qualityStandards.map((standard, index) => {
-              const Icon = standard.icon;
-              return (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6 space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold">{standard.title}</h3>
-                    <p className="text-muted-foreground">{standard.description}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
+          {/* Quality Standards - Simplified */}
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8">
+              {qualityStandards.map((standard, index) => (
+                <div key={index} className="bg-card rounded-lg border p-6 hover:shadow-md transition-shadow">
+                  <h3 className="text-xl font-bold mb-4">{standard.title}</h3>
+                  <ul className="space-y-2">
+                    {standard.items.map((item, idx) => (
+                      <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                        <span className="text-primary font-bold mt-0.5">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
