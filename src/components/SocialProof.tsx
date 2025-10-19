@@ -5,7 +5,6 @@ import { reviewSchema } from "@/utils/structured-data";
 import { calculateISODate, inferServiceFromReview, getConsistentAggregateRating } from "@/utils/review-helpers";
 import { useRef } from "react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { motion } from "framer-motion";
 
 const SocialProof = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -125,15 +124,10 @@ const SocialProof = () => {
     <>
       <SEO structuredData={[aggregateRatingSchema, ...googleReviewSchemas, ...testimonialSchemas]} />
       <section ref={sectionRef} className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-6xl">
           <div className="max-w-6xl mx-auto">
             {/* Header with Google Rating */}
-            <motion.div 
-              className="text-center mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6 }}
-            >
+            <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 What Our Clients Say
               </h2>
@@ -157,18 +151,13 @@ const SocialProof = () => {
               <p className="text-muted-foreground">
                 Based on {totalReviews} Google reviews
               </p>
-            </motion.div>
+            </div>
 
             {/* Google Reviews Grid */}
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {googleReviews.map((review, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                >
-                  <Card className="p-6 hover:shadow-lg transition-shadow">
+                <Card key={idx} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-8">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
                       {review.avatar}
@@ -194,11 +183,11 @@ const SocialProof = () => {
                       />
                     ))}
                   </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {review.text}
-                  </p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {review.text}
+                    </p>
+                  </CardContent>
                 </Card>
-                </motion.div>
               ))}
             </div>
 
@@ -209,12 +198,8 @@ const SocialProof = () => {
               </h3>
               <div className="grid md:grid-cols-3 gap-8">
                 {testimonials.map((testimonial, index) => (
-                  <Card 
-                    key={testimonial.author} 
-                    className="relative animate-fade-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <CardContent className="pt-6">
+                  <Card key={testimonial.author} className="hover:shadow-lg transition-shadow">
+                    <CardContent className="p-8">
                       <Quote className="h-8 w-8 text-primary mb-4" />
                       <p className="text-base mb-6 italic">"{testimonial.quote}"</p>
                       <div className="border-t pt-4">
