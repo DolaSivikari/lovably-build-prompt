@@ -43,28 +43,44 @@ const NumberedLandingHero = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="landing-hero w-full relative min-h-[85vh]">
-      {/* Background Image with Parallax - Simplified */}
+    <section ref={containerRef} className="landing-hero w-full relative">
+      {/* Background Video with Parallax */}
       <motion.div 
-        className="absolute inset-0"
+        className="landing-hero__background"
         style={{ y: prefersReducedMotion ? 0 : y }}
       >
-        <OptimizedImage
-          src={heroConstruction}
-          alt="Ascent Group Construction project showcase"
-          width={1920}
-          height={1080}
-          priority={true}
-          loading="eager"
-          className="w-full h-full"
-          objectFit="cover"
-        />
-        {/* Clean overlay - PCL style */}
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/60 to-transparent" />
+        {shouldUseVideo ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={heroConstruction}
+            className="w-full h-full object-cover"
+          >
+            <source src={homeHeroVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <OptimizedImage
+            src={heroConstruction}
+            alt="Ascent Group Construction project showcase"
+            width={1920}
+            height={1080}
+            priority={true}
+            loading="eager"
+            className="absolute inset-0 w-full h-full"
+            objectFit="cover"
+          />
+        )}
       </motion.div>
 
-      {/* Centered Text Block - PCL style */}
-      <div className="relative z-10 flex items-center justify-center min-h-[85vh]">
+      {/* Dark Overlay */}
+      <div className="landing-hero__overlay" />
+
+      {/* Numbered Navigation Menu */}
+      <div className="landing-hero__content">
         <nav 
           className="landing-menu max-w-4xl" 
           role="navigation" 
