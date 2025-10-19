@@ -38,7 +38,7 @@ interface Service {
   process_steps: ProcessStep[] | null;
   what_we_provide: string[] | null;
   typical_applications: string[] | null;
-  key_benefits: string[] | null;
+  key_benefits: Array<{title: string; description: string}> | null;
   faq_items: FAQItem[] | null;
 }
 
@@ -223,12 +223,19 @@ const ServiceDetail = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <h2 className="text-3xl font-bold mb-8">Key Benefits</h2>
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-6">
                   {service.key_benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{benefit}</span>
-                    </div>
+                    <Card key={index}>
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-3">
+                          <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                          <div>
+                            <h3 className="text-lg font-bold mb-2">{benefit.title}</h3>
+                            <p className="text-muted-foreground">{benefit.description}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
               </div>
