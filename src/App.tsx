@@ -168,6 +168,10 @@ const App = () => (
                   <Route path="/admin/seo-dashboard" element={<AdminSEODashboard />} />
                   <Route path="/admin/performance-dashboard" element={<PerformanceDashboard />} />
                   <Route path="/admin/template-manager" element={<TemplateManager />} />
+                  <Route path="/admin/hero" element={<HeroEditor />} />
+                  <Route path="/admin/site-settings" element={<SiteSettings />} />
+                  <Route path="/admin/testimonials" element={<TestimonialsManager />} />
+                  <Route path="/admin/stats" element={<StatsManager />} />
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
