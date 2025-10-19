@@ -102,10 +102,11 @@ const App = () => (
             <ScrollToTop />
             <RouteTracker>
               <FloatingContact />
-              {/* Skip to main content link for accessibility */}
+              {/* Skip to main content link for accessibility - Enhanced PCL style */}
               <a
                 href="#main-content"
-                className="skip-link sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-secondary focus:text-primary focus:px-4 focus:py-2 focus:rounded-br"
+                className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
+                aria-label="Skip to main content"
               >
                 Skip to main content
               </a>

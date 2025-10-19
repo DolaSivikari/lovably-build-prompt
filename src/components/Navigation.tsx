@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import ascentLogo from "@/assets/ascent-logo.png";
-import { ChevronDown, Phone, Shield } from "lucide-react";
+import { ChevronDown, Phone, Shield, Search } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
@@ -232,6 +232,17 @@ const Navigation = () => {
                 isOpen={activeMegaMenu === "blog"}
                 onClose={closeMegaMenu}
               />
+            </div>
+
+            {/* Search Bar */}
+            <div className="relative">
+              <button 
+                className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md"
+                aria-label="Search"
+              >
+                <Search className="w-4 h-4" />
+                <span className="hidden lg:inline">Search</span>
+              </button>
             </div>
 
             {/* Admin Dropdown - Only visible to admin users */}

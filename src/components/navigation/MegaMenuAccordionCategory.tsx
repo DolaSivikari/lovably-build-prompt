@@ -25,8 +25,14 @@ export const MegaMenuAccordionCategory = ({
         )}
         onClick={onToggle}
         aria-expanded={isExpanded}
+        aria-label={`${category.title} menu`}
       >
-        <span className="mega-menu-accordion-title">{category.title}</span>
+        <div>
+          <span className="mega-menu-accordion-title">{category.title}</span>
+          {category.description && (
+            <p className="text-xs text-muted-foreground mt-0.5">{category.description}</p>
+          )}
+        </div>
         <ChevronDown
           className={cn(
             "mega-menu-accordion-icon",

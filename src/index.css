@@ -25,25 +25,24 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
 
-    /* Ascent Brand Colors */
-    --sage: 100 23% 62%;        /* #9CAF88 */
-    --sage-dark: 100 25% 45%;   /* Darker sage for text */
-    --sage-light: 100 23% 75%;  /* Lighter sage for backgrounds */
-    --terracotta: 14 52% 55%;   /* #C96E4E */
-    --cream: 45 50% 95%;        /* #F6F1E9 */
-    --charcoal: 0 0% 17%;       /* #2C2C2C */
+    /* PCL-inspired professional construction colors */
+    --pcl-green: 151 33% 38%;        /* #346E4A - Primary buttons/accents */
+    --pcl-green-hover: 151 33% 32%;  /* Darker for hover states */
+    --pcl-blue: 220 54% 48%;         /* #3860BE - Links */
+    --pcl-gray: 0 0% 41%;            /* #696969 - Body text */
+    --pcl-gray-light: 0 0% 97%;      /* #F8F8F8 - Section backgrounds */
     
-    /* Professional construction blue - trust and stability */
-    --primary: 210 85% 35%;     /* Construction Blue */
+    /* Core semantic colors using PCL palette */
+    --primary: 151 33% 38%;          /* PCL Green */
     --primary-foreground: 0 0% 100%;
-    --primary-light: 210 75% 45%;
-    --primary-dark: 210 85% 25%;
-    --primary-glow: 210 85% 45%;
+    --primary-light: 151 33% 48%;
+    --primary-dark: 151 33% 28%;
+    --primary-glow: 151 33% 48%;
     
-    /* Construction orange - energy and action */
-    --accent-orange-light: 25 95% 63%;
-    --secondary: 25 95% 53%;    /* Construction Orange */
+    /* Secondary accent colors */
+    --secondary: 220 54% 48%;        /* PCL Blue */
     --secondary-foreground: 0 0% 100%;
+    --accent-orange-light: 25 95% 63%;
 
     --muted: 45 30% 94%;        /* Cream-based muted */
     --muted-foreground: 0 0% 35%; /* Charcoal-based muted text */

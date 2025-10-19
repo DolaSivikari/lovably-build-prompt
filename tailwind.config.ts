@@ -18,16 +18,21 @@ export default {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
-        // Construction theme colors
-        "construction-blue": {
-          DEFAULT: "hsl(210 85% 35%)",
-          light: "hsl(210 75% 45%)",
-          dark: "hsl(210 85% 25%)",
+        // PCL-inspired professional construction colors
+        "pcl-green": {
+          DEFAULT: "hsl(151 33% 38%)", // #346E4A
+          light: "hsl(151 33% 48%)",
+          dark: "hsl(151 33% 28%)",
         },
-        "construction-orange": {
-          DEFAULT: "hsl(25 95% 53%)",
-          light: "hsl(30 95% 58%)",
-          dark: "hsl(20 95% 48%)",
+        "pcl-blue": {
+          DEFAULT: "hsl(220 54% 48%)", // #3860BE
+          light: "hsl(220 54% 58%)",
+          dark: "hsl(220 54% 38%)",
+        },
+        "pcl-gray": {
+          DEFAULT: "hsl(0 0% 41%)", // #696969
+          light: "hsl(0 0% 97%)", // #F8F8F8
+          dark: "hsl(0 0% 31%)",
         },
         cream: {
           DEFAULT: "hsl(45 50% 95%)",
