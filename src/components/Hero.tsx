@@ -1,11 +1,50 @@
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, ChevronDown, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-construction.jpg";
 import HeroBackground from "./HeroBackground";
 import OptimizedImage from "./OptimizedImage";
+import { supabase } from "@/integrations/supabase/client";
 
 const Hero = () => {
+  const [heroContent, setHeroContent] = useState<any>(null);
+  const [stats, setStats] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchHeroContent = async () => {
+      const { data } = await supabase
+        .from('hero_content')
+        .select('*')
+        .eq('is_active', true)
+        .single();
+      
+      if (data) setHeroContent(data);
+    };
+
+    const fetchStats = async () => {
+      const { data } = await supabase
+        .from('stats')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order');
+      
+      if (data) setStats(data.slice(0, 3)); // Get first 3 for hero badges
+    };
+
+    fetchHeroContent();
+    fetchStats();
+  }, []);
+
+  // Default content for fallback
+  const headline = heroContent?.headline || "Building Excellence, Crafting Legacy";
+  const subheadline = heroContent?.subheadline || "Ascent Group Construction merges heritage craftsmanship with modern innovation to deliver exceptional painting and exterior finishing services across the GTA. Trusted by homeowners and businesses for over 15 years.";
+  const badgeText = heroContent?.badge_text || "Trusted Excellence Since 2009";
+  const primaryCtaText = heroContent?.primary_cta_text || "Get Started";
+  const primaryCtaUrl = heroContent?.primary_cta_url || "/contact";
+  const secondaryCtaText = heroContent?.secondary_cta_text || "View Our Work";
+  const secondaryCtaUrl = heroContent?.secondary_cta_url || "/projects";
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -31,48 +70,44 @@ const Hero = () => {
             <div className="w-2 h-2 bg-secondary rounded-full animate-pulse-glow" />
             <span className="text-primary-foreground font-semibold text-sm tracking-wider uppercase">
               <Sparkles className="inline-block w-4 h-4 mr-1" />
-              Trusted Excellence Since 2009
+              {badgeText}
             </span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-slide-up">
-            Building Excellence,
+            {headline.split(',')[0]},
             <span className="block text-secondary relative">
-              Crafting Legacy
+              {headline.split(',')[1] || "Crafting Legacy"}
               <span className="absolute bottom-2 left-0 w-full h-1 bg-gradient-to-r from-secondary to-transparent" />
             </span>
           </h1>
           
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 animate-fade-in">
-            Ascent Group Construction merges heritage craftsmanship with modern innovation to deliver exceptional painting and exterior finishing services across the GTA. Trusted by homeowners and businesses for over 15 years.
+            {subheadline}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <Button size="lg" variant="secondary" asChild className="group hover:shadow-glow transition-all">
-              <Link to="/contact">
-                Get Started 
+              <Link to={primaryCtaUrl}>
+                {primaryCtaText}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all" asChild>
-              <Link to="/projects">View Our Work</Link>
+              <Link to={secondaryCtaUrl}>{secondaryCtaText}</Link>
             </Button>
           </div>
 
           {/* Key Features */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              { text: "15+ Years Experience", delay: "0.3s" },
-              { text: "500+ Projects Completed", delay: "0.4s" },
-              { text: "98% Client Satisfaction", delay: "0.5s" }
-            ].map((feature) => (
+            {stats.map((stat, index) => (
               <div 
-                key={feature.text} 
+                key={stat.id} 
                 className="flex items-center gap-2 text-primary-foreground group animate-fade-in hover-lift"
-                style={{ animationDelay: feature.delay }}
+                style={{ animationDelay: `${0.3 + index * 0.1}s` }}
               >
                 <CheckCircle2 className="h-5 w-5 text-secondary flex-shrink-0 transition-transform group-hover:scale-110 group-hover:rotate-12" />
-                <span className="font-medium">{feature.text}</span>
+                <span className="font-medium">{stat.value}{stat.suffix} {stat.label}</span>
               </div>
             ))}
           </div>

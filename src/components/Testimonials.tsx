@@ -1,38 +1,39 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "./ui/card";
 import { Quote } from "lucide-react";
 import SEO from "./SEO";
 import { reviewSchema } from "@/utils/structured-data";
+import { supabase } from "@/integrations/supabase/client";
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      quote: "Our 200-space parking garage restoration came out beautifully. Ascent handled everything from concrete repair to waterproofing, and we haven't had a single leak since.",
-      author: "Robert Chang",
-      position: "Property Manager",
-      company: "Skyline Properties",
-      rating: 5,
-      date: "2024-09-15",
-      project: "Parking Garage Restoration"
-    },
-    {
-      quote: "They painted our entire 24-unit condo building in just under 3 weeks. Great crew, fair price, and the exterior looks fantastic. Would definitely hire again.",
-      author: "Maria Santos",
-      position: "Condo Board President",
-      company: "Lakeview Condominiums",
-      rating: 5,
-      date: "2024-08-22",
-      project: "Exterior Condo Painting"
-    },
-    {
-      quote: "Professional team that understood our tight timeline. The warehouse floor coating was done over a weekend with zero disruption to our operations.",
-      author: "Jennifer Foster",
-      position: "Facility Director",
-      company: "Metro Distribution",
-      rating: 4.5,
-      date: "2024-07-10",
-      project: "Warehouse Flooring"
-    },
-  ];
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      const { data } = await supabase
+        .from('testimonials')
+        .select('*')
+        .eq('publish_state', 'published')
+        .eq('is_featured', true)
+        .order('display_order')
+        .limit(3);
+      
+      if (data) {
+        const formattedData = data.map(t => ({
+          quote: t.quote,
+          author: t.author_name,
+          position: t.author_position,
+          company: t.company_name,
+          rating: Number(t.rating),
+          date: t.date_published,
+          project: t.project_name
+        }));
+        setTestimonials(formattedData);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
 
   // Generate review schemas with service context and publisher
   const reviewSchemas = testimonials.map(t => 

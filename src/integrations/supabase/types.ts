@@ -415,6 +415,57 @@ export type Database = {
         }
         Relationships: []
       }
+      hero_content: {
+        Row: {
+          background_image: string | null
+          badge_text: string | null
+          created_at: string | null
+          created_by: string | null
+          headline: string
+          id: string
+          is_active: boolean | null
+          primary_cta_text: string
+          primary_cta_url: string
+          secondary_cta_text: string | null
+          secondary_cta_url: string | null
+          subheadline: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          background_image?: string | null
+          badge_text?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          headline: string
+          id?: string
+          is_active?: boolean | null
+          primary_cta_text: string
+          primary_cta_url: string
+          secondary_cta_text?: string | null
+          secondary_cta_url?: string | null
+          subheadline: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          background_image?: string | null
+          badge_text?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          headline?: string
+          id?: string
+          is_active?: boolean | null
+          primary_cta_text?: string
+          primary_cta_url?: string
+          secondary_cta_text?: string | null
+          secondary_cta_url?: string | null
+          subheadline?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       job_postings: {
         Row: {
           closing_date: string | null
@@ -1141,6 +1192,63 @@ export type Database = {
           },
         ]
       }
+      site_settings: {
+        Row: {
+          address: string | null
+          business_hours: Json | null
+          certifications: string[] | null
+          company_name: string
+          created_at: string | null
+          email: string
+          google_analytics_id: string | null
+          id: string
+          is_active: boolean | null
+          meta_description: string | null
+          meta_title: string | null
+          og_image: string | null
+          phone: string
+          social_links: Json | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          address?: string | null
+          business_hours?: Json | null
+          certifications?: string[] | null
+          company_name?: string
+          created_at?: string | null
+          email: string
+          google_analytics_id?: string | null
+          id?: string
+          is_active?: boolean | null
+          meta_description?: string | null
+          meta_title?: string | null
+          og_image?: string | null
+          phone: string
+          social_links?: Json | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          address?: string | null
+          business_hours?: Json | null
+          certifications?: string[] | null
+          company_name?: string
+          created_at?: string | null
+          email?: string
+          google_analytics_id?: string | null
+          id?: string
+          is_active?: boolean | null
+          meta_description?: string | null
+          meta_title?: string | null
+          og_image?: string | null
+          phone?: string
+          social_links?: Json | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       sitemap_logs: {
         Row: {
           error_message: string | null
@@ -1162,6 +1270,51 @@ export type Database = {
           id?: string
           status?: string | null
           url_count?: number | null
+        }
+        Relationships: []
+      }
+      stats: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          display_order: number | null
+          icon_name: string | null
+          id: string
+          is_active: boolean | null
+          label: string
+          suffix: string | null
+          updated_at: string | null
+          updated_by: string | null
+          value: number
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          label: string
+          suffix?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          value: number
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          label?: string
+          suffix?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          value?: number
         }
         Relationships: []
       }
@@ -1369,6 +1522,60 @@ export type Database = {
           name?: string
           thumbnail?: string | null
           type?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          author_name: string
+          author_position: string | null
+          company_name: string | null
+          created_at: string | null
+          created_by: string | null
+          date_published: string | null
+          display_order: number | null
+          id: string
+          is_featured: boolean | null
+          project_name: string | null
+          publish_state: Database["public"]["Enums"]["publish_state"] | null
+          quote: string
+          rating: number | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          author_name: string
+          author_position?: string | null
+          company_name?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          date_published?: string | null
+          display_order?: number | null
+          id?: string
+          is_featured?: boolean | null
+          project_name?: string | null
+          publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          quote: string
+          rating?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          author_name?: string
+          author_position?: string | null
+          company_name?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          date_published?: string | null
+          display_order?: number | null
+          id?: string
+          is_featured?: boolean | null
+          project_name?: string | null
+          publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          quote?: string
+          rating?: number | null
           updated_at?: string | null
           updated_by?: string | null
         }

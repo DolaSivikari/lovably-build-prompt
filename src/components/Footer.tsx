@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Building2, Wrench, BookOpen, Clock } from "lucide-react";
 import ascentLogo from "@/assets/ascent-logo.png";
@@ -5,8 +6,24 @@ import SEO from "@/components/SEO";
 import FooterNavCard from "@/components/footer/FooterNavCard";
 import SocialMediaButton from "@/components/footer/SocialMediaButton";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
 const Footer = () => {
+  const [siteSettings, setSiteSettings] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchSiteSettings = async () => {
+      const { data } = await supabase
+        .from('site_settings')
+        .select('*')
+        .eq('is_active', true)
+        .single();
+      
+      if (data) setSiteSettings(data);
+    };
+
+    fetchSiteSettings();
+  }, []);
   // Enhanced ProfessionalService schema
   const citationSchema = {
     "@context": "https://schema.org",
@@ -111,11 +128,11 @@ const Footer = () => {
             </Link>
             <div className="flex items-center gap-4 ml-auto">
               <a 
-                href="tel:+14165551234" 
+                href={`tel:${siteSettings?.phone?.replace(/[^0-9+]/g, '') || '+14165551234'}`}
                 className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-secondary transition-colors"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
-                <span className="hidden sm:inline">(416) 555-1234</span>
+                <span className="hidden sm:inline">{siteSettings?.phone || '(416) 555-1234'}</span>
               </a>
             </div>
           </div>
@@ -217,22 +234,22 @@ const Footer = () => {
                 <div className="flex items-center gap-1">
                   <MapPin className="h-3 w-3 text-secondary" aria-hidden="true" />
                   <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                    <span itemProp="addressRegion">Greater Toronto Area</span>, <span itemProp="addressCountry">Ontario</span>
+                    <span itemProp="addressRegion">{siteSettings?.address || 'Greater Toronto Area, Ontario'}</span>
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Clock className="h-3 w-3 text-secondary" aria-hidden="true" />
-                  Mon-Fri: 8AM-6PM | Sat: 9AM-4PM
+                  {siteSettings?.business_hours?.weekday || 'Mon-Fri: 8AM-6PM'} | {siteSettings?.business_hours?.saturday || 'Sat: 9AM-4PM'}
                 </div>
                 <div className="flex items-center gap-1">
                   <Mail className="h-3 w-3 text-secondary" aria-hidden="true" />
-                  <a href="mailto:info@ascentgroupconstruction.com" className="hover:text-secondary transition-colors">
-                    info@ascentgroupconstruction.com
+                  <a href={`mailto:${siteSettings?.email || 'info@ascentgroupconstruction.com'}`} className="hover:text-secondary transition-colors">
+                    {siteSettings?.email || 'info@ascentgroupconstruction.com'}
                   </a>
                 </div>
               </div>
               <div className="text-primary-foreground/60">
-                Fully Insured & Licensed | WSIB Compliant
+                {siteSettings?.certifications?.join(' | ') || 'Fully Insured & Licensed | WSIB Compliant'}
               </div>
             </div>
           </div>

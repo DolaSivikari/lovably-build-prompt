@@ -1,43 +1,47 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Users, Building, Award, TrendingUp } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useCountUp } from "@/hooks/useCountUp";
 import { Card } from "./ui/card";
+import { supabase } from "@/integrations/supabase/client";
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
 
 const Stats = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isVisible = useIntersectionObserver(sectionRef);
+  const [stats, setStats] = useState<any[]>([]);
 
-  const stats = [
-    {
-      icon: Building,
-      value: 500,
-      suffix: "+",
-      label: "Projects Completed",
-      description: "Residential and commercial painting projects across the GTA",
-    },
-    {
-      icon: Users,
-      value: 50,
-      suffix: "+",
-      label: "Skilled Professionals",
-      description: "Dedicated team of experts committed to excellence",
-    },
-    {
-      icon: Award,
-      value: 98,
-      suffix: "%",
-      label: "Client Satisfaction",
-      description: "Proven track record of delivering on promises",
-    },
-    {
-      icon: TrendingUp,
-      value: 15,
-      suffix: "+",
-      label: "Years of Experience",
-      description: "Serving the GTA since 2009 with quality craftsmanship",
-    },
-  ];
+  useEffect(() => {
+    const fetchStats = async () => {
+      const { data } = await supabase
+        .from('stats')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order');
+      
+      if (data) {
+        // Map icon names to actual Lucide icons
+        const statsWithIcons = data.map(stat => ({
+          ...stat,
+          icon: getIconComponent(stat.icon_name)
+        }));
+        setStats(statsWithIcons);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  // Helper to get icon component from name
+  const getIconComponent = (iconName: string) => {
+    const iconMap: Record<string, any> = {
+      'Building': Building,
+      'Users': Users,
+      'Award': Award,
+      'TrendingUp': TrendingUp
+    };
+    return iconMap[iconName] || Building;
+  };
 
   return (
     <section ref={sectionRef} className="w-full py-24 bg-gradient-to-b from-muted/30 via-background to-muted/20 relative overflow-hidden">
