@@ -12,9 +12,9 @@ interface ProjectCardProps {
   year: string;
   size: string;
   image: string;
-  tags: string[];
+  tags?: string[];
   description: string;
-  highlights: string[];
+  highlights?: string[];
   onViewDetails: () => void;
 }
 
@@ -69,14 +69,16 @@ const ProjectCard = ({
           )}
         >
           <p className="text-primary-foreground text-center mb-4">{description}</p>
-          <ul className="space-y-2 mb-4">
-            {highlights.slice(0, 3).map((highlight, idx) => (
-              <li key={idx} className="text-primary-foreground text-sm flex items-start gap-2">
-                <span className="text-secondary mt-1">✓</span>
-                {highlight}
-              </li>
-            ))}
-          </ul>
+          {highlights && highlights.length > 0 && (
+            <ul className="space-y-2 mb-4">
+              {highlights.slice(0, 3).map((highlight, idx) => (
+                <li key={idx} className="text-primary-foreground text-sm flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+          )}
           <Button variant="secondary" size="sm">
             <Eye className="w-4 h-4 mr-2" />
             View Details
@@ -101,13 +103,15 @@ const ProjectCard = ({
         </div>
         
         {/* Tags */}
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag, idx) => (
-            <Badge key={idx} variant="outline" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
-        </div>
+        {tags && tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag, idx) => (
+              <Badge key={idx} variant="outline" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

@@ -14,7 +14,7 @@ interface ProjectFeaturedCardProps {
   image: string;
   description: string;
   slug: string;
-  featured?: string;
+  featured?: boolean | string;
 }
 
 const ProjectFeaturedCard = ({
@@ -48,7 +48,7 @@ const ProjectFeaturedCard = ({
           {featured && (
             <Badge className="bg-secondary text-secondary-foreground flex items-center gap-1">
               <Award className="w-3 h-3" />
-              {featured}
+              {typeof featured === 'string' ? featured : 'Featured'}
             </Badge>
           )}
         </div>

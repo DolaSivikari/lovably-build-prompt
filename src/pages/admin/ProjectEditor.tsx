@@ -20,15 +20,19 @@ const ProjectEditor = () => {
     subtitle: "",
     summary: "",
     description: "",
+    featured_image: "",
     client_name: "",
     location: "",
     category: "",
     project_size: "",
+    duration: "",
+    year: "",
     budget_range: "",
     start_date: "",
     completion_date: "",
     project_status: "Completed",
     process_notes: "",
+    featured: false,
     publish_state: "draft",
     seo_title: "",
     seo_description: "",
@@ -60,15 +64,19 @@ const ProjectEditor = () => {
         subtitle: data.subtitle || "",
         summary: data.summary || "",
         description: data.description || "",
+        featured_image: data.featured_image || "",
         client_name: data.client_name || "",
         location: data.location || "",
         category: data.category || "",
         project_size: data.project_size || "",
+        duration: data.duration || "",
+        year: data.year || "",
         budget_range: data.budget_range || "",
         start_date: data.start_date || "",
         completion_date: data.completion_date || "",
         project_status: data.project_status || "Completed",
         process_notes: data.process_notes || "",
+        featured: data.featured || false,
         publish_state: data.publish_state || "draft",
         seo_title: data.seo_title || "",
         seo_description: data.seo_description || "",
@@ -176,6 +184,16 @@ const ProjectEditor = () => {
             />
           </div>
 
+          <div className="space-y-2">
+            <Label htmlFor="featured_image">Featured Image URL</Label>
+            <Input
+              id="featured_image"
+              value={formData.featured_image}
+              onChange={(e) => setFormData({ ...formData, featured_image: e.target.value })}
+              placeholder="https://example.com/image.jpg or /images/project.jpg"
+            />
+          </div>
+
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="client_name">Client Name</Label>
@@ -207,10 +225,10 @@ const ProjectEditor = () => {
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="commercial">Commercial</SelectItem>
-                  <SelectItem value="industrial">Industrial</SelectItem>
-                  <SelectItem value="institutional">Institutional</SelectItem>
-                  <SelectItem value="residential">Residential</SelectItem>
+                  <SelectItem value="Commercial">Commercial</SelectItem>
+                  <SelectItem value="Industrial">Industrial</SelectItem>
+                  <SelectItem value="Institutional">Institutional</SelectItem>
+                  <SelectItem value="Residential">Residential</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -231,6 +249,42 @@ const ProjectEditor = () => {
                 onChange={(e) => setFormData({ ...formData, budget_range: e.target.value })}
                 placeholder="e.g., $5M-$8M"
               />
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="year">Year</Label>
+              <Input
+                id="year"
+                value={formData.year}
+                onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+                placeholder="e.g., 2024"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="duration">Duration</Label>
+              <Input
+                id="duration"
+                value={formData.duration}
+                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                placeholder="e.g., 6 months"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="featured">Featured Project</Label>
+              <Select
+                value={formData.featured ? "true" : "false"}
+                onValueChange={(value) => setFormData({ ...formData, featured: value === "true" })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="false">No</SelectItem>
+                  <SelectItem value="true">Yes (Show in Spotlight)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 

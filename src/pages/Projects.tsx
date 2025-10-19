@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -6,9 +6,9 @@ import FilterBar from "@/components/FilterBar";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
 import ProjectDetailModal from "@/components/ProjectDetailModal";
-import { Building2, Home, School, Factory, Warehouse } from "lucide-react";
+import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import caseStudiesData from "@/data/case-studies.json";
+import { supabase } from "@/integrations/supabase/client";
 
 const categories = [
   { label: "All Projects", value: "All", icon: Building2 },
@@ -18,26 +18,7 @@ const categories = [
   { label: "Industrial", value: "Industrial", icon: Factory },
 ];
 
-const years = ["All", "2024", "2023"];
-
-// Convert case studies to projects format
-const allProjects = Object.entries(caseStudiesData.caseStudies).map(([slug, study]: [string, any]) => ({
-  title: study.title,
-  category: study.category.split('/')[0], // Take first category if multiple
-  location: study.location,
-  year: study.date,
-  size: study.size,
-  duration: study.duration,
-  image: study.heroImage,
-  images: study.images || [],
-  tags: [study.category, study.duration, study.size],
-  description: study.challenge,
-  highlights: study.results,
-  slug: slug,
-  featured: slug === "heritage-building-restoration" ? "Heritage Award" : 
-            slug === "luxury-condo-restoration" ? "Excellence Award" :
-            slug === "downtown-office-renovation" ? "Featured Project" : undefined
-}));
+const years = ["All", "2024", "2023", "2022", "2021"];
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,6 +28,46 @@ const Projects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [visibleCount, setVisibleCount] = useState(6);
+  const [allProjects, setAllProjects] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch projects from database
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("publish_state", "published")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching projects:", error);
+      } else if (data) {
+        // Transform database projects to component format
+        const projects = data.map((project: any) => ({
+          title: project.title,
+          category: project.category || "General",
+          location: project.location || "N/A",
+          year: project.year || new Date(project.created_at).getFullYear().toString(),
+          size: project.project_size || "N/A",
+          duration: project.duration || "N/A",
+          image: project.featured_image || "/placeholder.svg",
+          images: project.gallery || [],
+          tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
+          description: project.description || project.summary || "",
+          highlights: project.summary ? [project.summary] : [],
+          slug: project.slug,
+          featured: project.featured,
+          id: project.id,
+        }));
+        setAllProjects(projects);
+      }
+      setIsLoading(false);
+    };
+
+    fetchProjects();
+  }, []);
 
   const filteredProjects = allProjects.filter((project) => {
     const matchesSearch = 
@@ -151,7 +172,11 @@ const Projects = () => {
       {/* Projects Grid */}
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
-          {visibleProjects.length === 0 ? (
+          {isLoading ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground">Loading projects...</p>
+            </div>
+          ) : visibleProjects.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-muted-foreground mb-4">No projects found matching your criteria</p>
               <Button

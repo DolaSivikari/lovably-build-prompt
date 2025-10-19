@@ -820,6 +820,8 @@ export type Database = {
           created_by: string | null
           description: string | null
           draft_content: Json | null
+          duration: string | null
+          featured: boolean | null
           featured_image: string | null
           gallery: Json | null
           id: string
@@ -842,6 +844,7 @@ export type Database = {
           updated_at: string | null
           updated_by: string | null
           version: number | null
+          year: string | null
         }
         Insert: {
           budget_range?: string | null
@@ -853,6 +856,8 @@ export type Database = {
           created_by?: string | null
           description?: string | null
           draft_content?: Json | null
+          duration?: string | null
+          featured?: boolean | null
           featured_image?: string | null
           gallery?: Json | null
           id?: string
@@ -875,6 +880,7 @@ export type Database = {
           updated_at?: string | null
           updated_by?: string | null
           version?: number | null
+          year?: string | null
         }
         Update: {
           budget_range?: string | null
@@ -886,6 +892,8 @@ export type Database = {
           created_by?: string | null
           description?: string | null
           draft_content?: Json | null
+          duration?: string | null
+          featured?: boolean | null
           featured_image?: string | null
           gallery?: Json | null
           id?: string
@@ -908,6 +916,7 @@ export type Database = {
           updated_at?: string | null
           updated_by?: string | null
           version?: number | null
+          year?: string | null
         }
         Relationships: [
           {
