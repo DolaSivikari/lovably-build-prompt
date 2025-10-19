@@ -195,21 +195,28 @@ export type Database = {
           author_id: string | null
           canonical_url: string | null
           category: string | null
+          challenge: string | null
           content: string | null
+          content_type: Database["public"]["Enums"]["post_content_type"] | null
           created_at: string | null
           created_by: string | null
           featured_image: string | null
           id: string
           preview_token: string | null
+          project_duration: string | null
+          project_location: string | null
+          project_size: string | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
           published_at: string | null
           read_time_minutes: number | null
+          results: string | null
           scheduled_publish: string | null
           scheduled_publish_at: string | null
           seo_description: string | null
           seo_keywords: string[] | null
           seo_title: string | null
           slug: string
+          solution: string | null
           summary: string | null
           tags: string[] | null
           title: string
@@ -220,21 +227,28 @@ export type Database = {
           author_id?: string | null
           canonical_url?: string | null
           category?: string | null
+          challenge?: string | null
           content?: string | null
+          content_type?: Database["public"]["Enums"]["post_content_type"] | null
           created_at?: string | null
           created_by?: string | null
           featured_image?: string | null
           id?: string
           preview_token?: string | null
+          project_duration?: string | null
+          project_location?: string | null
+          project_size?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           published_at?: string | null
           read_time_minutes?: number | null
+          results?: string | null
           scheduled_publish?: string | null
           scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
           slug: string
+          solution?: string | null
           summary?: string | null
           tags?: string[] | null
           title: string
@@ -245,21 +259,28 @@ export type Database = {
           author_id?: string | null
           canonical_url?: string | null
           category?: string | null
+          challenge?: string | null
           content?: string | null
+          content_type?: Database["public"]["Enums"]["post_content_type"] | null
           created_at?: string | null
           created_by?: string | null
           featured_image?: string | null
           id?: string
           preview_token?: string | null
+          project_duration?: string | null
+          project_location?: string | null
+          project_size?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           published_at?: string | null
           read_time_minutes?: number | null
+          results?: string | null
           scheduled_publish?: string | null
           scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
           slug?: string
+          solution?: string | null
           summary?: string | null
           tags?: string[] | null
           title?: string
@@ -544,6 +565,66 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      landing_page: {
+        Row: {
+          background_image: string | null
+          background_image_alt: string | null
+          created_at: string | null
+          cta_primary_text: string
+          cta_primary_url: string
+          cta_secondary_text: string | null
+          cta_secondary_url: string | null
+          featured_stories: Json | null
+          headline: string
+          id: string
+          insured: boolean | null
+          is_active: boolean | null
+          projects_count: number | null
+          rotating_project_images: Json | null
+          subheadline: string
+          updated_at: string | null
+          years_in_business: number | null
+        }
+        Insert: {
+          background_image?: string | null
+          background_image_alt?: string | null
+          created_at?: string | null
+          cta_primary_text?: string
+          cta_primary_url?: string
+          cta_secondary_text?: string | null
+          cta_secondary_url?: string | null
+          featured_stories?: Json | null
+          headline?: string
+          id?: string
+          insured?: boolean | null
+          is_active?: boolean | null
+          projects_count?: number | null
+          rotating_project_images?: Json | null
+          subheadline?: string
+          updated_at?: string | null
+          years_in_business?: number | null
+        }
+        Update: {
+          background_image?: string | null
+          background_image_alt?: string | null
+          created_at?: string | null
+          cta_primary_text?: string
+          cta_primary_url?: string
+          cta_secondary_text?: string | null
+          cta_secondary_url?: string | null
+          featured_stories?: Json | null
+          headline?: string
+          id?: string
+          insured?: boolean | null
+          is_active?: boolean | null
+          projects_count?: number | null
+          rotating_project_images?: Json | null
+          subheadline?: string
+          updated_at?: string | null
+          years_in_business?: number | null
+        }
+        Relationships: []
       }
       navigation_menus: {
         Row: {
@@ -1116,6 +1197,10 @@ export type Database = {
       }
       services: {
         Row: {
+          category: string | null
+          category_color: string | null
+          category_description: string | null
+          category_icon: string | null
           created_at: string | null
           created_by: string | null
           estimated_timeline: string | null
@@ -1139,6 +1224,10 @@ export type Database = {
           updated_by: string | null
         }
         Insert: {
+          category?: string | null
+          category_color?: string | null
+          category_description?: string | null
+          category_icon?: string | null
           created_at?: string | null
           created_by?: string | null
           estimated_timeline?: string | null
@@ -1162,6 +1251,10 @@ export type Database = {
           updated_by?: string | null
         }
         Update: {
+          category?: string | null
+          category_color?: string | null
+          category_description?: string | null
+          category_icon?: string | null
           created_at?: string | null
           created_by?: string | null
           estimated_timeline?: string | null
@@ -1749,6 +1842,7 @@ export type Database = {
         | "rejected"
         | "hired"
       employment_type: "full_time" | "part_time" | "contract" | "internship"
+      post_content_type: "article" | "case_study" | "insight"
       publish_state: "draft" | "scheduled" | "published" | "archived"
     }
     CompositeTypes: {
@@ -1880,6 +1974,7 @@ export const Constants = {
       app_role: ["super_admin", "admin", "editor", "contributor", "viewer"],
       application_status: ["new", "reviewed", "contacted", "rejected", "hired"],
       employment_type: ["full_time", "part_time", "contract", "internship"],
+      post_content_type: ["article", "case_study", "insight"],
       publish_state: ["draft", "scheduled", "published", "archived"],
     },
   },
