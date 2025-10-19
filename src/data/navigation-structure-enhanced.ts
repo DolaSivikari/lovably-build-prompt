@@ -32,19 +32,18 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           title: "Painting Services",
           description: "Professional interior and exterior painting for all property types",
           subItems: [
-            { name: "Commercial Painting", link: "/services/commercial", description: "High-quality commercial painting services" },
-            { name: "Residential Painting", link: "/services/painting", description: "Expert residential painting solutions" },
-            { name: "Condo Painting", link: "/services/condo", description: "Specialized condo painting services" },
-            { name: "Popcorn Ceiling Removal", link: "/services/popcorn-ceiling", description: "Professional ceiling finishing" },
+            { name: "Commercial Painting", link: "/services/commercial-painting", description: "High-quality commercial painting services" },
+            { name: "Residential Painting", link: "/services/residential-painting", description: "Expert residential painting solutions" },
+            { name: "Condo & Multi-Unit Painting", link: "/services/condo-multi-unit", description: "Specialized condo painting services" },
           ],
         },
         {
           title: "Exterior Systems",
           description: "Comprehensive building envelope solutions and restoration",
           subItems: [
-            { name: "Stucco & EIFS", link: "/services/stucco", description: "Expert stucco application and repair" },
+            { name: "Stucco & EIFS", link: "/services/stucco-eifs", description: "Expert stucco application and repair" },
             { name: "Metal Cladding", link: "/services/metal-cladding", description: "Durable metal cladding installation" },
-            { name: "Masonry & Restoration", link: "/services/masonry", description: "Professional masonry services" },
+            { name: "Masonry", link: "/services/masonry", description: "Professional masonry services" },
             { name: "Sealants & Caulking", link: "/services/sealants", description: "Weather-resistant sealing solutions" },
           ],
         },
@@ -52,7 +51,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           title: "Specialty Services",
           description: "Specialized construction and restoration services",
           subItems: [
-            { name: "Parking Garage Restoration", link: "/services/parking-garage", description: "Complete parking structure restoration" },
+            { name: "Parking Garage Coating", link: "/services/parking-garage", description: "Complete parking structure restoration" },
             { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional flooring installation" },
             { name: "Suite Buildouts", link: "/services/suite-buildouts", description: "Custom suite construction" },
           ],

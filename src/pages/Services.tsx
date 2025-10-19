@@ -100,9 +100,29 @@ interface ServiceCategory {
 
 const Services = () => {
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
+  const [expandedCategory, setExpandedCategory] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     loadServices();
+  }, []);
+
+  // Handle URL hash and query parameters for auto-expanding categories
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryParam = params.get('category');
+    const hash = window.location.hash.replace('#', '');
+    
+    if (categoryParam || hash) {
+      const targetId = categoryParam || hash;
+      setExpandedCategory(targetId);
+      
+      setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
   }, []);
 
   const loadServices = async () => {
@@ -197,18 +217,22 @@ const Services = () => {
 
               {/* Accordion Categories */}
               <Accordion 
-                type="multiple" 
-                defaultValue={categories.map(cat => cat.slug)}
+                type="single" 
+                collapsible
+                value={expandedCategory}
+                onValueChange={setExpandedCategory}
                 className="space-y-6"
               >
                 {categories.map((category) => {
+                  const categorySlug = category.slug;
                   const CategoryIcon = iconMap[category.icon as keyof typeof iconMap] || Building;
                   const categoryColors = categoryColorMap[category.color] || categoryColorMap.primary;
                   
                   return (
                     <AccordionItem 
-                      key={category.slug}
-                      value={category.slug}
+                      key={categorySlug}
+                      value={categorySlug}
+                      id={categorySlug}
                       className={cn(
                         "border-2 rounded-lg overflow-hidden bg-card",
                         categoryColors.border

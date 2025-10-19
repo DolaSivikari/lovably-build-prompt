@@ -1,250 +1,199 @@
-import { useEffect, useState, useRef } from "react";
-import { Card, CardContent } from "./ui/card";
-import { Button } from "./ui/button";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { 
-  Paintbrush,
-  Building2,
-  Building,
-  Home,
-  DoorOpen,
-  Layers,
-  Shield,
-  Square,
-  ArrowRight,
-  ChevronRight
-} from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./ui/accordion";
-import { cn } from "@/lib/utils";
-
-const iconMap: Record<string, any> = {
-  Paintbrush: Paintbrush,
-  PaintBrush: Paintbrush, // Legacy support
-  Building2,
-  Building,
-  Home,
-  DoorOpen,
-  Layers,
-  Shield,
-  Square,
-};
-
-const categoryColorMap: Record<string, {
-  bg: string;
-  iconBg: string;
-  iconColor: string;
-  border: string;
-  accent: string;
-}> = {
-  primary: {
-    bg: "bg-primary/10",
-    iconBg: "bg-primary/20",
-    iconColor: "text-primary",
-    border: "border-primary/30",
-    accent: "bg-primary/5"
-  },
-  terracotta: {
-    bg: "bg-terracotta/10",
-    iconBg: "bg-terracotta/20",
-    iconColor: "text-terracotta",
-    border: "border-terracotta/30",
-    accent: "bg-terracotta/5"
-  },
-  sage: {
-    bg: "bg-sage/10",
-    iconBg: "bg-sage/20",
-    iconColor: "text-sage",
-    border: "border-sage/30",
-    accent: "bg-sage/5"
-  }
-};
+import * as LucideIcons from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, ArrowRight } from "lucide-react";
+import OptimizedImage from "./OptimizedImage";
 
 interface Service {
   id: string;
   name: string;
   slug: string;
   short_description: string | null;
-  icon_name: string | null;
   category: string | null;
-  category_description: string | null;
-  category_icon: string | null;
-  category_color: string | null;
+  icon_name: string | null;
 }
 
-interface ServiceCategory {
+interface CategoryConfig {
   name: string;
   slug: string;
-  description: string;
-  icon: string;
+  icon: keyof typeof LucideIcons;
   color: string;
-  services: Service[];
+  description: string;
+  image: string;
 }
 
+const categoryConfig: Record<string, CategoryConfig> = {
+  "Painting Services": {
+    name: "Painting Services",
+    slug: "painting-services",
+    icon: "Paintbrush",
+    color: "primary",
+    description: "Professional interior and exterior painting for all property types",
+    image: "/src/assets/project-commercial.jpg"
+  },
+  "Exterior Systems": {
+    name: "Exterior Systems",
+    slug: "exterior-systems",
+    icon: "Building2",
+    color: "terracotta",
+    description: "Comprehensive building envelope solutions and restoration",
+    image: "/src/assets/project-industrial.jpg"
+  },
+  "Specialty Services": {
+    name: "Specialty Services",
+    slug: "specialty-services",
+    icon: "Layers",
+    color: "sage",
+    description: "Specialized construction and restoration services",
+    image: "/src/assets/project-institutional.jpg"
+  }
+};
+
 const ServicesPreview = () => {
-  const [categories, setCategories] = useState<ServiceCategory[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
   const isVisible = useIntersectionObserver(sectionRef);
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadServices();
   }, []);
 
   const loadServices = async () => {
-    const { data } = await supabase
-      .from('services')
-      .select('id, name, slug, short_description, icon_name, category, category_description, category_icon, category_color')
-      .eq('publish_state', 'published')
-      .neq('category', 'Construction Management') // Hide Construction Management from homepage
-      .order('category', { ascending: true })
-      .order('created_at', { ascending: true });
+    const { data, error } = await supabase
+      .from("services")
+      .select("id, name, slug, short_description, category, icon_name")
+      .eq("publish_state", "published")
+      .order("name");
 
-    if (data) {
-      // Group services by category
-      const grouped = data.reduce((acc, service) => {
-        const cat = service.category || 'Other';
-        if (!acc[cat]) {
-          acc[cat] = {
-            name: cat,
-            slug: cat.toLowerCase().replace(/\s+/g, '-'),
-            description: service.category_description || '',
-            icon: service.category_icon || 'Building',
-            color: service.category_color || 'primary',
-            services: []
-          };
-        }
-        acc[cat].services.push(service);
-        return acc;
-      }, {} as Record<string, ServiceCategory>);
-      
-      setCategories(Object.values(grouped));
+    if (error) {
+      console.error("Error loading services:", error);
+      setLoading(false);
+      return;
     }
+
+    setServices(data || []);
+    setLoading(false);
+  };
+
+  // Group services by category (exclude Construction Management from homepage)
+  const groupedServices = services
+    .filter(service => service.category && service.category !== "Construction Management")
+    .reduce((acc, service) => {
+      const category = service.category || "Other";
+      if (!acc[category]) acc[category] = [];
+      acc[category].push(service);
+      return acc;
+    }, {} as Record<string, Service[]>);
+
+  // Get top 4 services for each category
+  const getCategoryServices = (category: string) => {
+    return (groupedServices[category] || []).slice(0, 4);
   };
 
   return (
-    <section ref={sectionRef} className="w-full py-20 bg-background">
-      <div className="container mx-auto px-4 max-w-6xl">
-        {/* Section Header */}
+    <section
+      ref={sectionRef}
+      className={`py-20 bg-gradient-to-b from-background to-muted/20 transition-opacity duration-1000 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <p className="text-primary font-semibold mb-2 uppercase tracking-wider text-sm">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Our Services
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Expert Construction Services
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive solutions for every aspect of your construction project
+            Comprehensive construction solutions backed by decades of experience
           </p>
         </div>
 
-        {/* Accordion Categories */}
-        <Accordion 
-          type="multiple" 
-          defaultValue={categories.map(cat => cat.slug)}
-          className="space-y-6 mb-12"
-        >
-          {categories.map((category) => {
-            const CategoryIcon = iconMap[category.icon as keyof typeof iconMap] || Building;
-            const categoryColors = categoryColorMap[category.color] || categoryColorMap.primary;
-            
-            return (
-              <AccordionItem 
-                key={category.slug}
-                value={category.slug}
-                className={cn(
-                  "border-2 rounded-lg overflow-hidden bg-card",
-                  categoryColors.border
-                )}
-              >
-                {/* Category Header */}
-                <AccordionTrigger className="px-6 md:px-8 py-6 hover:no-underline hover:bg-accent/30 data-[state=open]:bg-accent/20 transition-all duration-300">
-                  <div className="flex items-center gap-4 w-full">
-                    {/* Category Icon */}
-                    <div className={cn(
-                      "w-12 h-12 md:w-14 md:h-14 rounded-lg flex items-center justify-center flex-shrink-0",
-                      categoryColors.iconBg
-                    )}>
-                      <CategoryIcon className={cn("w-6 h-6 md:w-7 md:h-7", categoryColors.iconColor)} />
-                    </div>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <Card key={i} className="h-[500px] animate-pulse bg-muted" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {Object.entries(categoryConfig).map(([categoryName, config]) => {
+              const IconComponent = LucideIcons[config.icon] as React.ComponentType<{ className?: string }>;
+              const categoryServices = getCategoryServices(categoryName);
+
+              return (
+                <Card
+                  key={config.slug}
+                  className="group overflow-hidden h-full hover:shadow-xl transition-all duration-300 border-2"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    <OptimizedImage
+                      src={config.image}
+                      alt={`${config.name} hero image`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      width={600}
+                      height={400}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/50 to-transparent" />
                     
-                    {/* Category Title & Description */}
-                    <div className="flex-1 text-left">
-                      <h3 className="text-lg md:text-xl font-bold mb-1">{category.name}</h3>
-                      <p className="text-xs md:text-sm text-muted-foreground hidden sm:block">{category.description}</p>
-                    </div>
-                    
-                    {/* Service Count Badge */}
-                    <div className={cn(
-                      "px-3 py-1 rounded-full text-sm font-medium flex-shrink-0",
-                      categoryColors.bg,
-                      categoryColors.iconColor
-                    )}>
-                      {category.services.length}
+                    <div className="absolute bottom-4 left-6 flex items-center gap-3">
+                      <div className="p-3 rounded-xl bg-background/80 backdrop-blur-sm border-2 border-primary/20">
+                        <IconComponent className="w-6 h-6 text-primary" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-foreground">
+                        {config.name}
+                      </h3>
                     </div>
                   </div>
-                </AccordionTrigger>
 
-                {/* Category Content - Services Grid */}
-                <AccordionContent className="px-6 md:px-8 pb-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-4">
-                    {category.services.map((service) => {
-                      const ServiceIcon = (service.icon_name && iconMap[service.icon_name as keyof typeof iconMap]) || Building;
-                      
-                      return (
-                        <Link 
+                  <CardContent className="p-6 flex flex-col h-[calc(100%-12rem)]">
+                    <p className="text-muted-foreground mb-6">
+                      {config.description}
+                    </p>
+
+                    <div className="space-y-2 mb-6 flex-grow">
+                      {categoryServices.map((service) => (
+                        <Link
                           key={service.id}
                           to={`/services/${service.slug}`}
-                          className="group"
+                          className="flex items-start gap-2 text-sm hover:text-primary transition-colors group/item"
                         >
-                          <Card className="h-full border-2 border-transparent hover:border-primary/20 hover:shadow-lg transition-all duration-300">
-                            <CardContent className="p-6">
-                              {/* Service Icon */}
-                              <div className={cn(
-                                "w-12 h-12 rounded-lg flex items-center justify-center mb-4",
-                                categoryColors.bg
-                              )}>
-                                <ServiceIcon className={cn("w-6 h-6", categoryColors.iconColor)} />
-                              </div>
-                              
-                              {/* Service Name */}
-                              <h4 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
-                                {service.name}
-                              </h4>
-                              
-                              {/* Service Description */}
-                              <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                                {service.short_description}
-                              </p>
-                              
-                              {/* Learn More Link */}
-                              <div className="flex items-center text-sm font-semibold text-primary">
-                                Learn more
-                                <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                              </div>
-                            </CardContent>
-                          </Card>
+                          <CheckCircle className="w-4 h-4 mt-0.5 text-primary shrink-0" />
+                          <span className="group-hover/item:underline">{service.name}</span>
                         </Link>
-                      );
-                    })}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
+                      ))}
+                      {categoryServices.length === 0 && (
+                        <p className="text-sm text-muted-foreground italic">
+                          Services coming soon
+                        </p>
+                      )}
+                    </div>
 
-        {/* View All Services CTA */}
-        <div className="text-center">
-          <Button size="lg" variant="outline" asChild>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="w-full group/btn border-2 hover:border-primary"
+                    >
+                      <Link to={`/services#${config.slug}`}>
+                        View All Services
+                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="text-center mt-12">
+          <Button asChild size="lg" className="shadow-lg">
             <Link to="/services">
               Explore All Services
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>
         </div>
