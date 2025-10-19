@@ -18,6 +18,7 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import MetricCard from "@/components/admin/MetricCard";
 import QuickActions from "@/components/admin/QuickActions";
 import ActivityFeed from "@/components/admin/ActivityFeed";
+import { AdminTopBar } from "@/components/admin/AdminTopBar";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -33,8 +34,8 @@ const Dashboard = () => {
     newSubmissions: 0,
     resumeSubmissions: 0,
     newResumes: 0,
-    activeBudget: 0,
-    overdueTasks: 0,
+    draftProjects: 0,
+    draftPosts: 0,
   });
   const [recentSubmissions, setRecentSubmissions] = useState<any[]>([]);
 
@@ -79,11 +80,12 @@ const Dashboard = () => {
   };
 
   const loadStats = async () => {
-    const [projects, services, blogPosts, caseStudies, contacts, newContacts, resumes, newResumes] = await Promise.all([
+    const [projects, draftProjects, services, blogPosts, draftPosts, contacts, newContacts, resumes, newResumes] = await Promise.all([
       supabase.from("projects").select("id", { count: "exact", head: true }).eq("publish_state", "published"),
+      supabase.from("projects").select("id", { count: "exact", head: true }).eq("publish_state", "draft"),
       supabase.from("services").select("id", { count: "exact", head: true }),
-      supabase.from("blog_posts").select("id", { count: "exact", head: true }),
-      supabase.from("projects").select("id", { count: "exact", head: true }),
+      supabase.from("blog_posts").select("id", { count: "exact", head: true }).eq("publish_state", "published"),
+      supabase.from("blog_posts").select("id", { count: "exact", head: true }).eq("publish_state", "draft"),
       supabase.from("contact_submissions").select("id", { count: "exact", head: true }),
       supabase.from("contact_submissions").select("id", { count: "exact", head: true }).eq("status", "new"),
       supabase.from("resume_submissions").select("id", { count: "exact", head: true }),
@@ -94,13 +96,13 @@ const Dashboard = () => {
       projects: projects.count || 0,
       services: services.count || 0,
       blogPosts: blogPosts.count || 0,
-      caseStudies: caseStudies.count || 0,
+      caseStudies: projects.count || 0,
       contactSubmissions: contacts.count || 0,
       newSubmissions: newContacts.count || 0,
       resumeSubmissions: resumes.count || 0,
       newResumes: newResumes.count || 0,
-      activeBudget: 2400000, // Placeholder - will come from budget tracking in Phase C
-      overdueTasks: 3, // Placeholder - will come from tasks in Phase B
+      draftProjects: draftProjects.count || 0,
+      draftPosts: draftPosts.count || 0,
     });
   };
 
@@ -139,42 +141,8 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      {/* Header */}
-      <header className="border-b bg-background shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
-              <LayoutDashboard className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Ascent CMS
-              </h1>
-              <p className="text-xs text-muted-foreground">Construction Management System</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="hover:bg-primary hover:text-white transition-colors"
-              onClick={() => navigate("/admin/users")}
-            >
-              <Users className="h-4 w-4 mr-2" />
-              Users
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={handleSignOut}
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Sign Out
-            </Button>
-          </div>
-        </div>
-      </header>
-
+      <AdminTopBar />
+      
       <main className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
@@ -189,47 +157,17 @@ const Dashboard = () => {
         {/* KPI Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <MetricCard
-            title="Active Projects"
+            title="Published Projects"
             value={stats.projects}
             icon={Briefcase}
-            trend={{ value: "+2 this month", isPositive: true }}
+            trend={{ value: `${stats.draftProjects} drafts`, isPositive: false }}
             onClick={() => navigate("/admin/projects")}
           />
           <MetricCard
-            title="Tasks Due This Week"
-            value={24}
-            icon={FileText}
-            trend={{ value: "+5 new", isPositive: true }}
-            onClick={() => navigate("/admin/projects")}
-          />
-          <MetricCard
-            title="Budget This Quarter"
-            value="$2.4M"
-            icon={DollarSign}
-            trend={{ value: "+12% growth", isPositive: true }}
-            onClick={() => navigate("/admin/projects")}
-          />
-          <MetricCard
-            title="Overdue Items"
-            value={stats.overdueTasks}
-            icon={AlertCircle}
-            badge={stats.overdueTasks}
-            onClick={() => navigate("/admin/projects")}
-          />
-        </div>
-
-        {/* Secondary Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <MetricCard
-            title="Services"
-            value={stats.services}
-            icon={TrendingUp}
-            onClick={() => navigate("/admin/services")}
-          />
-          <MetricCard
-            title="Blog Posts"
+            title="Published Blog Posts"
             value={stats.blogPosts}
             icon={FileText}
+            trend={{ value: `${stats.draftPosts} drafts`, isPositive: false }}
             onClick={() => navigate("/admin/blog")}
           />
           <MetricCard
@@ -245,6 +183,16 @@ const Dashboard = () => {
             icon={Users}
             badge={stats.newResumes}
             onClick={() => navigate("/admin/resumes")}
+          />
+        </div>
+
+        {/* Secondary Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <MetricCard
+            title="Services"
+            value={stats.services}
+            icon={TrendingUp}
+            onClick={() => navigate("/admin/services")}
           />
         </div>
 

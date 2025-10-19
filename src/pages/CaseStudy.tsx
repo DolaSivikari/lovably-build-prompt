@@ -1,16 +1,18 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Calendar, MapPin, Clock, Ruler, CheckCircle2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import caseStudiesData from "@/data/case-studies.json";
 import OptimizedImage from "@/components/OptimizedImage";
 import { projectSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
 import { caseStudyFAQs } from "@/data/case-study-faq-data";
 import { resolveAssetPath } from "@/utils/assetResolver";
+import { usePreviewMode } from "@/hooks/usePreviewMode";
 import {
   Accordion,
   AccordionContent,
@@ -20,7 +22,45 @@ import {
 
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
-  const caseStudy = id ? caseStudiesData.caseStudies[id as keyof typeof caseStudiesData.caseStudies] : null;
+  const { isPreview } = usePreviewMode();
+  const [caseStudy, setCaseStudy] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCaseStudy = async () => {
+      if (!id) return;
+      
+      setIsLoading(true);
+      const query = supabase
+        .from("projects")
+        .select("*")
+        .eq("slug", id);
+      
+      // Only filter by publish_state if NOT in preview mode
+      if (!isPreview) {
+        query.eq("publish_state", "published");
+      }
+      
+      const { data, error } = await query.maybeSingle();
+      
+      if (!error && data) {
+        setCaseStudy(data);
+      }
+      setIsLoading(false);
+    };
+    
+    fetchCaseStudy();
+  }, [id, isPreview]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p>Loading case study...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!caseStudy) {
     return (
@@ -42,15 +82,15 @@ const CaseStudy = () => {
       "@context": "https://schema.org",
       "@type": "Project",
       name: caseStudy.title,
-      description: caseStudy.challenge,
+      description: caseStudy.description || caseStudy.summary,
       category: caseStudy.category,
       location: {
         "@type": "Place",
         name: caseStudy.location,
       },
-      startDate: caseStudy.date,
-      endDate: caseStudy.date,
-      image: caseStudy.images,
+      startDate: caseStudy.start_date,
+      endDate: caseStudy.completion_date,
+      image: caseStudy.featured_image,
       contractor: {
         "@type": "Organization",
         name: "Ascent Group Construction",
@@ -70,19 +110,25 @@ const CaseStudy = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title={caseStudy.title}
-        description={caseStudy.challenge}
-        keywords={`${caseStudy.category}, case study, ${caseStudy.location}, construction project`}
+        title={caseStudy.seo_title || caseStudy.title}
+        description={caseStudy.seo_description || caseStudy.description || caseStudy.summary}
+        keywords={caseStudy.seo_keywords?.join(', ') || `${caseStudy.category}, case study, ${caseStudy.location}, construction project`}
         structuredData={schemas}
       />
       <Navigation />
+      
+      {isPreview && (
+        <div className="bg-yellow-500 text-black text-center py-2 font-semibold">
+          🔍 PREVIEW MODE - This is a draft case study
+        </div>
+      )}
       
       <main className="min-h-screen">
         {/* Hero Section */}
         <section className="relative h-[60vh] min-h-[500px]">
           <OptimizedImage
-            src={resolveAssetPath(caseStudy.heroImage) || caseStudy.heroImage}
-            alt={`${caseStudy.title} - ${caseStudy.category} project completed in ${caseStudy.location}, showcasing ${caseStudy.size} of professional construction work`}
+            src={resolveAssetPath(caseStudy.featured_image) || caseStudy.featured_image || '/placeholder.svg'}
+            alt={`${caseStudy.title} - ${caseStudy.category} project completed in ${caseStudy.location}`}
             priority={true}
             width={1920}
             height={1080}
@@ -112,11 +158,11 @@ const CaseStudy = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5" />
-                  <span>{caseStudy.duration}</span>
+                  <span>{caseStudy.duration || "Various timeline"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Ruler className="w-5 h-5" />
-                  <span>{caseStudy.size}</span>
+                  <span>{caseStudy.project_size || "Various scope"}</span>
                 </div>
               </div>
             </div>
@@ -127,72 +173,47 @@ const CaseStudy = () => {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-12">
-              {/* Challenge */}
-              <section>
-                <h2 className="text-3xl font-bold mb-4">The Challenge</h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {caseStudy.challenge}
-                </p>
-              </section>
+              {/* Description */}
+              {caseStudy.description && (
+                <section>
+                  <h2 className="text-3xl font-bold mb-4">Project Overview</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    {caseStudy.description}
+                  </p>
+                </section>
+              )}
 
-              {/* Solution */}
-              <section>
-                <h2 className="text-3xl font-bold mb-4">Our Solution</h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {caseStudy.solution}
-                </p>
-              </section>
-
-              {/* Results */}
-              <section>
-                <h2 className="text-3xl font-bold mb-6">Results Achieved</h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {caseStudy.results.map((result, index) => (
-                    <Card key={index} className="border-l-4 border-l-primary">
-                      <CardContent className="p-4 flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                        <p className="text-foreground">{result}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </section>
+              {/* Process Notes */}
+              {caseStudy.process_notes && (
+                <section>
+                  <h2 className="text-3xl font-bold mb-4">Our Approach</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    {caseStudy.process_notes}
+                  </p>
+                </section>
+              )}
 
               {/* Gallery */}
-              <section>
-                <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {caseStudy.images.map((image, index) => (
-                    <div key={index} className="aspect-video overflow-hidden rounded-lg">
-                      <OptimizedImage
-                        src={resolveAssetPath(image) || image}
-                        alt={`${caseStudy.title} project detail ${index + 1} - ${caseStudy.category} construction work in ${caseStudy.location}`}
-                        width={800}
-                        height={600}
-                        className="w-full h-full hover:scale-110 transition-transform duration-500"
-                        objectFit="cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Testimonial */}
-              <section className="bg-muted/50 p-8 rounded-lg">
-                <div className="flex items-start gap-4">
-                  <div className="text-6xl text-primary leading-none">"</div>
-                  <div>
-                    <p className="text-xl italic mb-4 text-foreground">
-                      {caseStudy.testimonial.quote}
-                    </p>
-                    <div>
-                      <p className="font-semibold">{caseStudy.testimonial.author}</p>
-                      <p className="text-sm text-muted-foreground">{caseStudy.testimonial.title}</p>
-                    </div>
+              {caseStudy.gallery && Array.isArray(caseStudy.gallery) && caseStudy.gallery.length > 0 && (
+                <section>
+                  <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {caseStudy.gallery.map((image: any, index: number) => (
+                      <div key={index} className="aspect-video overflow-hidden rounded-lg">
+                        <OptimizedImage
+                          src={resolveAssetPath(image.url || image) || image.url || image}
+                          alt={`${caseStudy.title} project detail ${index + 1}`}
+                          width={800}
+                          height={600}
+                          className="w-full h-full hover:scale-110 transition-transform duration-500"
+                          objectFit="cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                    ))}
                   </div>
-                </div>
-              </section>
+                </section>
+              )}
             </div>
 
             {/* Sidebar */}
@@ -202,18 +223,30 @@ const CaseStudy = () => {
                 <CardContent className="p-6">
                   <h3 className="font-bold text-lg mb-4">Project Information</h3>
                   <div className="space-y-3 text-sm">
-                    <div>
-                      <p className="text-muted-foreground">Location</p>
-                      <p className="font-semibold">{caseStudy.location}</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Duration</p>
-                      <p className="font-semibold">{caseStudy.duration}</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Project Size</p>
-                      <p className="font-semibold">{caseStudy.size}</p>
-                    </div>
+                    {caseStudy.location && (
+                      <div>
+                        <p className="text-muted-foreground">Location</p>
+                        <p className="font-semibold">{caseStudy.location}</p>
+                      </div>
+                    )}
+                    {caseStudy.duration && (
+                      <div>
+                        <p className="text-muted-foreground">Duration</p>
+                        <p className="font-semibold">{caseStudy.duration}</p>
+                      </div>
+                    )}
+                    {caseStudy.project_size && (
+                      <div>
+                        <p className="text-muted-foreground">Project Size</p>
+                        <p className="font-semibold">{caseStudy.project_size}</p>
+                      </div>
+                    )}
+                    {caseStudy.budget_range && (
+                      <div>
+                        <p className="text-muted-foreground">Budget Range</p>
+                        <p className="font-semibold">{caseStudy.budget_range}</p>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>

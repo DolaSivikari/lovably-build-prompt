@@ -8,6 +8,8 @@ import { Plus, Edit, Trash2, ArrowLeft, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
+import { generatePreviewToken } from "@/utils/previewToken";
+import { AdminTopBar } from "@/components/admin/AdminTopBar";
 
 const BlogPosts = () => {
   const navigate = useNavigate();
@@ -87,8 +89,19 @@ const BlogPosts = () => {
     return null;
   }
 
+  const handleViewPost = (post: any) => {
+    if (post.publish_state === 'published') {
+      window.open(`/blog/${post.slug}`, '_blank');
+    } else {
+      // Draft: open with preview mode
+      const token = generatePreviewToken();
+      window.open(`/blog/${post.slug}?preview=true&token=${token}`, '_blank');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-muted/30">
+      <AdminTopBar />
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -136,16 +149,15 @@ const BlogPosts = () => {
                       <CardDescription>{post.summary || post.seo_description}</CardDescription>
                     </div>
                     <div className="flex gap-2">
-                      {post.publish_state === 'published' && (
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => window.open(`/blog/${post.slug}`, '_blank')}
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                      )}
                       <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleViewPost(post)}
+                        title={post.publish_state === 'published' ? 'View published post' : 'Preview draft'}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button
                         variant="outline" 
                         size="sm"
                         onClick={() => navigate(`/admin/blog/${post.id}`)}

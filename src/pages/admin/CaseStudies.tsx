@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Edit, Trash2, ArrowLeft, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import { generatePreviewToken } from "@/utils/previewToken";
+import { AdminTopBar } from "@/components/admin/AdminTopBar";
 
 const CaseStudies = () => {
   const navigate = useNavigate();
@@ -77,8 +79,19 @@ const CaseStudies = () => {
     }
   };
 
+  const handleViewCaseStudy = (study: any) => {
+    if (study.publish_state === 'published') {
+      window.open(`/case-study/${study.slug}`, '_blank');
+    } else {
+      // Draft: open with preview mode
+      const token = generatePreviewToken();
+      window.open(`/case-study/${study.slug}?preview=true&token=${token}`, '_blank');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-muted/30">
+      <AdminTopBar />
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -126,16 +139,15 @@ const CaseStudies = () => {
                       <CardDescription>{study.summary || study.description}</CardDescription>
                     </div>
                     <div className="flex gap-2">
-                      {study.publish_state === 'published' && (
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => window.open(`/case-study/${study.slug}`, '_blank')}
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                      )}
                       <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleViewCaseStudy(study)}
+                        title={study.publish_state === 'published' ? 'View published case study' : 'Preview draft'}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button
                         variant="outline" 
                         size="sm"
                         onClick={() => navigate(`/admin/case-studies/${study.id}`)}

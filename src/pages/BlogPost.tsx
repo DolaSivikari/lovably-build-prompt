@@ -1,5 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { Calendar, Clock, User } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -8,10 +10,10 @@ import ReadingProgress from "@/components/blog/ReadingProgress";
 import Breadcrumbs from "@/components/blog/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import blogData from "@/data/blog-posts-complete.json";
 import OptimizedImage from "@/components/OptimizedImage";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
 import { blogFAQs } from "@/data/blog-faq-data";
+import { usePreviewMode } from "@/hooks/usePreviewMode";
 import {
   Accordion,
   AccordionContent,
@@ -22,7 +24,45 @@ import { sanitizeHTML } from "@/utils/sanitize";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
-  const post = blogData.posts.find(p => p.slug === slug);
+  const { isPreview } = usePreviewMode();
+  const [post, setPost] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      if (!slug) return;
+      
+      setIsLoading(true);
+      const query = supabase
+        .from("blog_posts")
+        .select("*")
+        .eq("slug", slug);
+      
+      // Only filter by publish_state if NOT in preview mode
+      if (!isPreview) {
+        query.eq("publish_state", "published");
+      }
+      
+      const { data, error } = await query.maybeSingle();
+      
+      if (!error && data) {
+        setPost(data);
+      }
+      setIsLoading(false);
+    };
+    
+    fetchPost();
+  }, [slug, isPreview]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p>Loading article...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -37,82 +77,41 @@ const BlogPost = () => {
     );
   }
 
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric'
-  });
+  const formattedDate = post.published_at 
+    ? new Date(post.published_at).toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      })
+    : new Date(post.created_at).toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
 
-  // Convert markdown-like content to HTML (simple version)
+  // Convert content to HTML (simple version for database content)
   const formatContent = (content: string) => {
+    if (!content) return '';
     return content
       .split('\n\n')
-      .map((paragraph, idx) => {
-        if (paragraph.startsWith('# ')) {
-          return `<h1 key="${idx}" class="text-4xl font-bold mb-6 text-primary">${paragraph.slice(2)}</h1>`;
-        } else if (paragraph.startsWith('## ')) {
-          return `<h2 key="${idx}" class="text-3xl font-bold mb-4 mt-8 text-primary">${paragraph.slice(3)}</h2>`;
-        } else if (paragraph.startsWith('### ')) {
-          return `<h3 key="${idx}" class="text-2xl font-bold mb-3 mt-6">${paragraph.slice(4)}</h3>`;
-        } else if (paragraph.startsWith('- **')) {
-          const items = paragraph.split('\n').filter(line => line.startsWith('- **'));
-          const listHtml = items.map(item => {
-            const match = item.match(/- \*\*(.+?):\*\* (.+)/);
-            if (match) {
-              return `<li class="mb-2"><strong class="text-primary">${match[1]}:</strong> ${match[2]}</li>`;
-            }
-            return `<li class="mb-2">${item.slice(2)}</li>`;
-          }).join('');
-          return `<ul key="${idx}" class="list-none space-y-2 mb-4">${listHtml}</ul>`;
-        } else if (paragraph.startsWith('- [ ]')) {
-          const items = paragraph.split('\n').filter(line => line.startsWith('- [ ]'));
-          const checklistHtml = items.map(item => 
-            `<li class="flex items-start gap-2 mb-2">
-              <input type="checkbox" class="mt-1 rounded" />
-              <span>${item.slice(6)}</span>
-            </li>`
-          ).join('');
-          return `<ul key="${idx}" class="space-y-2 mb-4">${checklistHtml}</ul>`;
-        } else if (paragraph.startsWith('**')) {
-          return `<p key="${idx}" class="text-lg font-semibold mb-4">${paragraph.replace(/\*\*/g, '')}</p>`;
-        } else {
-          return `<p key="${idx}" class="text-foreground/90 leading-relaxed mb-4">${paragraph}</p>`;
-        }
-      })
+      .map((paragraph, idx) => `<p key="${idx}" class="text-foreground/90 leading-relaxed mb-4">${paragraph}</p>`)
       .join('');
   };
 
-  // Improved related articles logic: same category, then by date
-  const relatedPosts = blogData.posts
-    .filter(p => p.id !== post.id && p.category === post.category)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 3);
-  
-  // If not enough same-category posts, add recent posts from other categories
-  if (relatedPosts.length < 3) {
-    const otherPosts = blogData.posts
-      .filter(p => p.id !== post.id && p.category !== post.category)
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 3 - relatedPosts.length);
-    relatedPosts.push(...otherPosts);
-  }
-
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
-
-  // Get FAQs for this blog post
+  // Get FAQs for this blog post  
   const faqs = blogFAQs[post.slug] || [];
   const schemas: any[] = [
     articleSchema({
       title: post.title,
-      description: post.excerpt,
-      author: post.author,
-      datePublished: post.date,
-      image: post.image,
+      description: post.summary || post.seo_description,
+      author: "Ascent Group Construction",
+      datePublished: post.published_at || post.created_at,
+      image: post.featured_image || '',
     }),
     breadcrumbSchema([
       { name: "Home", url: "/" },
       { name: "Blog", url: "/blog" },
-      { name: post.category, url: `/blog?category=${encodeURIComponent(post.category)}` },
+      { name: post.category || "Article", url: `/blog?category=${encodeURIComponent(post.category || '')}` },
       { name: post.title, url: `/blog/${post.slug}` },
     ]),
   ];
@@ -124,21 +123,27 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title={post.title}
-        description={post.excerpt}
-        keywords={`${post.category}, ${post.tags.join(', ')}`}
+        title={post.seo_title || post.title}
+        description={post.seo_description || post.summary}
+        keywords={post.seo_keywords?.join(', ') || `${post.category}, blog`}
         structuredData={schemas}
       />
       <ReadingProgress />
       <Navigation />
+      
+      {isPreview && (
+        <div className="bg-yellow-500 text-black text-center py-2 font-semibold">
+          🔍 PREVIEW MODE - This is a draft article
+        </div>
+      )}
       
       <main>
         {/* Hero Section with Full-Bleed Image */}
         <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
           <div className="absolute inset-0">
             <OptimizedImage
-              src={post.image}
-              alt={`${post.title} - Comprehensive guide on ${post.category.toLowerCase()}`}
+              src={post.featured_image || '/placeholder.svg'}
+              alt={`${post.title} - Comprehensive guide on ${post.category?.toLowerCase()}`}
               priority={true}
               width={1920}
               height={1080}
@@ -155,7 +160,7 @@ const BlogPost = () => {
                 items={[
                   { label: "Home", href: "/" },
                   { label: "Blog", href: "/blog" },
-                  { label: post.category, href: `/blog?category=${encodeURIComponent(post.category)}` },
+                  { label: post.category || "Article", href: `/blog?category=${encodeURIComponent(post.category || '')}` },
                   { label: post.title },
                 ]}
               />
@@ -168,7 +173,7 @@ const BlogPost = () => {
               <div className="flex flex-wrap gap-6 text-white/90">
                 <div className="flex items-center gap-2">
                   <User className="w-5 h-5" />
-                  <span>{post.author}</span>
+                  <span>{post.author_id || "Ascent Group Construction"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
@@ -176,7 +181,7 @@ const BlogPost = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  <span>5 min read</span>
+                  <span>{post.read_time_minutes || 5} min read</span>
                 </div>
               </div>
             </div>
@@ -188,7 +193,7 @@ const BlogPost = () => {
           <div className="max-w-4xl mx-auto">
             <div 
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: sanitizeHTML(formatContent(post.content)) }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHTML(formatContent(post.content || '')) }}
             />
 
             {/* Share Section */}
@@ -240,52 +245,7 @@ const BlogPost = () => {
           </div>
         </article>
 
-        {/* Related Posts */}
-        {relatedPosts.length > 0 && (
-          <section className="bg-muted py-16">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold mb-8 text-center">Related Articles</h2>
-              <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {relatedPosts.map((relatedPost) => {
-                  const relatedDate = new Date(relatedPost.date).toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                  });
-                  
-                  return (
-                    <Link
-                      key={relatedPost.id}
-                      to={`/blog/${relatedPost.slug}`}
-                      className="group"
-                    >
-                      <div className="bg-card rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                        <div className="aspect-video overflow-hidden">
-                          <OptimizedImage
-                            src={relatedPost.image}
-                            alt={`${relatedPost.title} - Related article on ${relatedPost.category.toLowerCase()}`}
-                            width={600}
-                            height={400}
-                            className="w-full h-full group-hover:scale-110 transition-transform duration-300"
-                            objectFit="cover"
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                          />
-                        </div>
-                        <div className="p-6">
-                          <Badge variant="outline" className="mb-2">{relatedPost.category}</Badge>
-                          <h3 className="font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                            {relatedPost.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">{relatedDate}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-        )}
+        {/* Related Posts - Removed for now since we don't have related posts query */}
       </main>
       
       <Footer />

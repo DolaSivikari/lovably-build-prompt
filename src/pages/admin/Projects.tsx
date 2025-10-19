@@ -122,7 +122,7 @@ const Projects = () => {
                       <Button 
                         variant="ghost" 
                         size="sm"
-                        onClick={() => navigate(`/admin/projects/edit/${project.id}`)}
+                        onClick={() => navigate(`/admin/projects/${project.id}`)}
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
