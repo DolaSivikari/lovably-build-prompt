@@ -99,6 +99,11 @@ All colors MUST be HSL.
   .landing-menu-item {
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .landing-menu-item:hover {
+    transform: scale(1.02) translateX(4px);
   }
 
   .landing-menu-item::before {
@@ -112,6 +117,35 @@ All colors MUST be HSL.
 
   .landing-menu-item:hover::before {
     opacity: 1;
+  }
+
+  /* Glassmorphism enhancement */
+  .glass-panel {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Fallback for browsers without backdrop-filter */
+  @supports not (backdrop-filter: blur(16px)) {
+    .glass-panel {
+      background: rgba(0, 0, 0, 0.85);
+    }
+  }
+
+  /* Pulse glow animation for CTA button */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 10px 15px -3px rgba(201, 112, 100, 0.3), 0 4px 6px -2px rgba(201, 112, 100, 0.2);
+    }
+    50% {
+      box-shadow: 0 20px 25px -5px rgba(201, 112, 100, 0.4), 0 10px 10px -5px rgba(201, 112, 100, 0.3);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
   }
 
   .scrollbar-hide {

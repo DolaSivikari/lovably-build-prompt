@@ -29,16 +29,32 @@ interface LandingContent {
 }
 
 const editorialVariants = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { 
+      duration: 0.8,
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 15
+    } 
+  },
 };
 
 const navItemVariants = {
-  hidden: { opacity: 0, x: 12 },
+  hidden: { opacity: 0, x: 20, scale: 0.9 },
   show: (i: number) => ({ 
     opacity: 1, 
-    x: 0, 
-    transition: { delay: 0.6 + i * 0.08, duration: 0.4 } 
+    x: 0,
+    scale: 1,
+    transition: { 
+      delay: 0.8 + i * 0.12, 
+      duration: 0.5,
+      type: "spring" as const,
+      stiffness: 120
+    } 
   }),
 };
 
@@ -230,7 +246,7 @@ const Landing = () => {
           )}
 
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         </div>
 
         {/* Content grid */}
@@ -238,7 +254,10 @@ const Landing = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-center">
             
             {/* Left editorial block */}
-            <motion.div variants={editorialVariants} className="editorial-block max-w-xl">
+            <motion.div 
+              variants={editorialVariants}
+              className="editorial-block max-w-xl bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-2xl"
+            >
               <div className="kicker text-sm uppercase tracking-widest text-construction-accent mb-3">
                 Exterior Restoration
               </div>
@@ -255,13 +274,15 @@ const Landing = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
-                <button
+                <motion.button
                   onClick={handleCTAClick}
-                  className="inline-flex items-center gap-3 px-6 py-3 rounded-md bg-construction-orange text-white font-semibold shadow-lg hover:shadow-xl hover:bg-construction-orange-dark transition-all focus:outline-none focus:ring-4 focus:ring-construction-orange/50"
+                  whileHover={{ y: -2, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center gap-3 px-6 py-3 rounded-md bg-construction-orange text-white font-semibold shadow-lg hover:shadow-2xl hover:bg-construction-orange-dark transition-all focus:outline-none focus:ring-4 focus:ring-construction-orange/50 animate-pulse-glow"
                   aria-label={content.cta_primary_text || "Continue to site"}
                 >
                   {content.cta_primary_text}
-                </button>
+                </motion.button>
 
                 {content.cta_secondary_text && content.cta_secondary_url && (
                   <Link 
@@ -311,11 +332,11 @@ const Landing = () => {
                     animate="show" 
                     variants={navItemVariants}
                   >
-                    <Link
-                      to={item.link}
-                      className="landing-menu-item group flex items-center gap-4 md:gap-6 py-4 px-4 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all focus:outline-none focus:ring-2 focus:ring-construction-orange"
-                      aria-label={`${item.title} — ${item.subtext}`}
-                    >
+                      <Link
+                        to={item.link}
+                        className="landing-menu-item group flex items-center gap-4 md:gap-6 py-4 px-4 rounded-lg bg-black/40 backdrop-blur-md border border-white/20 hover:bg-black/50 hover:border-white/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-construction-orange"
+                        aria-label={`${item.title} — ${item.subtext}`}
+                      >
                       <span className="landing-menu-item__number text-2xl md:text-3xl font-bold text-construction-accent flex-shrink-0">
                         {item.number}
                       </span>
