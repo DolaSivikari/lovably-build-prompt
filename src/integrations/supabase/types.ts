@@ -1204,6 +1204,7 @@ export type Database = {
       site_settings: {
         Row: {
           address: string | null
+          admin_quick_actions: Json | null
           business_hours: Json | null
           certifications: string[] | null
           company_name: string
@@ -1222,6 +1223,7 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          admin_quick_actions?: Json | null
           business_hours?: Json | null
           certifications?: string[] | null
           company_name?: string
@@ -1240,6 +1242,7 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          admin_quick_actions?: Json | null
           business_hours?: Json | null
           certifications?: string[] | null
           company_name?: string

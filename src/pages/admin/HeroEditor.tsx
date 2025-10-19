@@ -62,7 +62,7 @@ const HeroEditor = () => {
       if (error) throw error;
 
       toast.success("Hero content updated successfully");
-      navigate('/admin/dashboard');
+      navigate('/admin');
     } catch (error: any) {
       toast.error("Failed to update hero content");
     } finally {
@@ -78,7 +78,7 @@ const HeroEditor = () => {
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" onClick={() => navigate('/admin/dashboard')}>
+          <Button variant="ghost" onClick={() => navigate('/admin')}>
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Button>
@@ -167,7 +167,7 @@ const HeroEditor = () => {
             </div>
 
             <div className="flex justify-end gap-4 pt-6">
-              <Button variant="outline" onClick={() => navigate('/admin/dashboard')}>
+              <Button variant="outline" onClick={() => navigate('/admin')}>
                 Cancel
               </Button>
               <Button onClick={handleSave} disabled={saving}>

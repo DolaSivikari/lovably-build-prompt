@@ -128,7 +128,8 @@ const Services = () => {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => navigate(`/admin/services/edit/${service.id}`)}
+                        onClick={() => navigate(`/admin/services/${service.id}`)}
+                        aria-label={`Edit ${service.name}`}
                       >
                         <Edit className="h-4 w-4" />
                       </Button>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   LayoutDashboard, 
   FileText, 
@@ -12,6 +13,10 @@ import {
   DollarSign,
   AlertCircle,
   TrendingUp,
+  Shield,
+  Settings,
+  Activity,
+  Search,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -204,6 +209,72 @@ const Dashboard = () => {
             newCount={stats.newSubmissions}
           />
         </div>
+
+        {/* Settings & Tools Card */}
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle>Settings & Tools</CardTitle>
+            <CardDescription>Manage content, users, and site configuration</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/media")}
+                aria-label="Open Media Library"
+              >
+                <FileText className="h-5 w-5 mr-3 text-blue-600" />
+                <span className="text-sm font-medium">Media Library</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/users")}
+                aria-label="Manage Users"
+              >
+                <Users className="h-5 w-5 mr-3 text-purple-600" />
+                <span className="text-sm font-medium">User Management</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/security-center")}
+                aria-label="Open Security Centre"
+              >
+                <Shield className="h-5 w-5 mr-3 text-red-600" />
+                <span className="text-sm font-medium">Security Centre</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/seo-dashboard")}
+                aria-label="Open SEO Dashboard"
+              >
+                <Search className="h-5 w-5 mr-3 text-green-600" />
+                <span className="text-sm font-medium">SEO Dashboard</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/performance-dashboard")}
+                aria-label="Open Performance Dashboard"
+              >
+                <Activity className="h-5 w-5 mr-3 text-orange-600" />
+                <span className="text-sm font-medium">Performance</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/site-settings")}
+                aria-label="Open Site Settings"
+              >
+                <Settings className="h-5 w-5 mr-3 text-gray-600" />
+                <span className="text-sm font-medium">Site Settings</span>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </main>
     </div>
   );
