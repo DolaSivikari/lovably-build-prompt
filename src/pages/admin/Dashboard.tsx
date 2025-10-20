@@ -45,12 +45,13 @@ const Dashboard = () => {
   const [recentSubmissions, setRecentSubmissions] = useState<any[]>([]);
 
   useEffect(() => {
-    if (isAdmin) {
-      loadUser();
-      loadStats();
-      loadRecentSubmissions();
+    if (!isAdmin) return;
 
-    // Set up real-time subscription for new submissions
+    loadUser();
+    loadStats();
+    loadRecentSubmissions();
+
+    // Set up real-time subscription for new submissions (fixed memory leak)
     const channel = supabase
       .channel('contact-submissions-changes')
       .on(
@@ -74,8 +75,7 @@ const Dashboard = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-    }
-  }, [isAdmin]);
+  }, []); // Empty dependency array - only run once
 
   const loadUser = async () => {
     const { data: { session } } = await supabase.auth.getSession();

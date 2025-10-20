@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -38,8 +38,11 @@ const stories = [
 ];
 
 const InteractiveCTA = () => {
+  const navigate = useNavigate();
   const [currentStory, setCurrentStory] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -48,24 +51,34 @@ const InteractiveCTA = () => {
   });
   const { toast } = useToast();
 
-  // Rotate stories every 4 seconds
-  useState(() => {
+  // Rotate stories every 4 seconds (fixed memory leak)
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentStory((prev) => (prev + 1) % stories.length);
     }, 4000);
     return () => clearInterval(interval);
-  });
+  }, []);
 
   const handleQuickContact = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Prevent duplicate submissions with synchronous check
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
+
+    // Cancel any pending requests
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
 
     try {
       // Validate form data
       const validatedData = contactSchema.parse(formData);
 
-      // Insert into database
-      const { error: dbError } = await supabase
+      // Insert into database with timeout
+      const dbPromise = supabase
         .from("contact_submissions")
         .insert({
           name: validatedData.name,
@@ -75,10 +88,15 @@ const InteractiveCTA = () => {
           submission_type: "quote",
         });
 
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Database request timeout")), 10000)
+      );
+
+      const { error: dbError } = await Promise.race([dbPromise, timeoutPromise]) as any;
       if (dbError) throw dbError;
 
-      // Send notification email
-      await supabase.functions.invoke("send-contact-notification", {
+      // Send notification email with timeout
+      const emailPromise = supabase.functions.invoke("send-contact-notification", {
         body: {
           name: validatedData.name,
           email: validatedData.email,
@@ -86,6 +104,13 @@ const InteractiveCTA = () => {
           message: validatedData.message || "Quick estimate request",
         },
       });
+
+      await Promise.race([
+        emailPromise,
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Email notification timeout")), 10000)
+        ),
+      ]);
 
       toast({
         title: "Request Sent!",
@@ -95,19 +120,29 @@ const InteractiveCTA = () => {
       // Reset form
       setFormData({ name: "", email: "", phone: "", message: "" });
       
-      // Redirect after success
+      // Use navigate instead of window.location for proper routing
       setTimeout(() => {
-        window.location.href = "/estimate";
+        navigate("/estimate");
       }, 1500);
     } catch (error) {
-      console.error("Form submission error:", error);
-      toast({
-        title: "Error",
-        description: "Failed to submit request. Please try again.",
-        variant: "destructive",
-      });
+      if (error instanceof Error && error.message.includes("timeout")) {
+        toast({
+          title: "Request Timeout",
+          description: "The request is taking longer than expected. We'll still process it.",
+          variant: "destructive",
+        });
+      } else {
+        console.error("Form submission error:", error);
+        toast({
+          title: "Error",
+          description: "Failed to submit request. Please try again.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSubmitting(false);
+      isSubmittingRef.current = false;
+      abortControllerRef.current = null;
     }
   };
 

@@ -69,8 +69,15 @@ const sanitize = (str: string): string => {
 };
 
 const handler = async (req: Request): Promise<Response> => {
+  // Handle CORS preflight requests with comprehensive headers
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { 
+      status: 200,
+      headers: {
+        ...corsHeaders,
+        'Access-Control-Max-Age': '86400', // 24 hours
+      }
+    });
   }
 
   try {
@@ -83,12 +90,12 @@ const handler = async (req: Request): Promise<Response> => {
     const clientIP = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
     const identifier = `contact-${clientIP}`;
 
-    // Check rate limit using security definer function
+    // Enhanced rate limiting: 5 requests per minute (reduced from 50)
     const { data: rateLimitResult, error: rateLimitError } = await supabaseClient
       .rpc('check_and_update_rate_limit', {
         p_identifier: identifier,
         p_endpoint: 'send-contact-notification',
-        p_limit: 50,
+        p_limit: 5, // Reduced to 5 per minute for contact forms
         p_window_minutes: 1
       });
 

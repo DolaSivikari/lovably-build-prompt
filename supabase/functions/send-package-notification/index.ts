@@ -101,8 +101,15 @@ function createErrorResponse(error: any) {
 }
 
 const handler = async (req: Request): Promise<Response> => {
+  // Handle CORS preflight requests with comprehensive headers
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { 
+      status: 200,
+      headers: {
+        ...corsHeaders,
+        'Access-Control-Max-Age': '86400', // 24 hours
+      }
+    });
   }
 
   try {

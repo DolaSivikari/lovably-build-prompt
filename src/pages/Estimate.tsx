@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -17,11 +18,22 @@ import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
 import { calculateEstimate, EstimateInput } from "@/utils/estimator";
 import PaintCalculator from "@/components/PaintCalculator";
 
+// Validation schema for estimate form
+const estimateSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.string().trim().email("Invalid email address").max(255),
+  phone: z.string().trim().min(1, "Phone is required").max(20),
+  address: z.string().trim().max(255).optional(),
+  preferredContact: z.string().trim().max(50).optional(),
+  notes: z.string().trim().max(2000).optional(),
+});
+
 const Estimate = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
   const totalSteps = 5;
 
   const [formData, setFormData] = useState({
@@ -125,26 +137,36 @@ const Estimate = () => {
   const handleSubmit = async () => {
     if (!canProceed()) return;
 
+    // Prevent duplicate submissions
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
+
     const estimate = calculateCurrentEstimate();
 
     try {
-      const { error } = await supabase.from("contact_submissions").insert({
+      // Validate contact data
+      const validatedData = estimateSchema.parse({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        company: formData.address,
-        message: `
+        address: formData.address,
+        preferredContact: formData.preferredContact,
+        notes: formData.notes,
+      });
+
+      // Sanitize and build message with validated data
+      const sanitizedMessage = `
 Estimate Request:
-- Service: ${formData.service}
-- Square Footage: ${formData.sqft}
-- Stories: ${formData.stories}
-- Prep Complexity: ${formData.prepComplexity}
-- Finish Quality: ${formData.finishQuality}
-- Region: ${formData.region}
+- Service: ${formData.service.replace(/[<>]/g, '')}
+- Square Footage: ${formData.sqft.replace(/[<>]/g, '')}
+- Stories: ${formData.stories.replace(/[<>]/g, '')}
+- Prep Complexity: ${formData.prepComplexity.replace(/[<>]/g, '')}
+- Finish Quality: ${formData.finishQuality.replace(/[<>]/g, '')}
+- Region: ${formData.region.replace(/[<>]/g, '')}
 - Estimated Range: $${estimate.min.toLocaleString()} - $${estimate.max.toLocaleString()} CAD
-- Preferred Contact: ${formData.preferredContact}
-- Additional Notes: ${formData.notes}
+- Preferred Contact: ${validatedData.preferredContact || 'Not specified'}
+- Additional Notes: ${validatedData.notes || 'None'}
 
 Add-ons:
 - Scaffolding: ${formData.scaffolding || "None"}
@@ -152,10 +174,23 @@ Add-ons:
 - Rush Scheduling: ${formData.rushScheduling ? "Yes" : "No"}
 - Warranty Extension: ${formData.warrantyExtension ? "Yes" : "No"}
 - Premium Site Cleanup: ${formData.siteCleanup ? "Yes" : "No"}
-        `.trim(),
+      `.trim();
+
+      // Insert with timeout
+      const insertPromise = supabase.from("contact_submissions").insert({
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        company: validatedData.address,
+        message: sanitizedMessage,
         submission_type: "estimate",
       });
 
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Database request timeout")), 10000)
+      );
+
+      const { error } = await Promise.race([insertPromise, timeoutPromise]) as any;
       if (error) throw error;
 
       toast({
@@ -167,13 +202,29 @@ Add-ons:
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       console.error("Error submitting estimate:", error);
-      toast({
-        title: "Submission Error",
-        description: "There was an error submitting your request. Please try again.",
-        variant: "destructive",
-      });
+      
+      if (error instanceof z.ZodError) {
+        toast({
+          title: "Validation Error",
+          description: error.errors[0].message,
+          variant: "destructive",
+        });
+      } else if (error instanceof Error && error.message.includes("timeout")) {
+        toast({
+          title: "Request Timeout",
+          description: "The request is taking longer than expected. Please try again.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Submission Error",
+          description: "There was an error submitting your request. Please try again.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSubmitting(false);
+      isSubmittingRef.current = false;
     }
   };
 

@@ -30,36 +30,90 @@ import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
 import FAQ from "./pages/FAQ";
 
-// Lazy load admin pages (not critical for initial load)
-const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
-const AdminServices = lazy(() => import("./pages/admin/Services"));
-const AdminProjects = lazy(() => import("./pages/admin/Projects"));
-const ServiceEditor = lazy(() => import("./pages/admin/ServiceEditor"));
-const ProjectEditor = lazy(() => import("./pages/admin/ProjectEditor"));
-const ContactSubmissions = lazy(() => import("./pages/admin/ContactSubmissions"));
-const HeroEditor = lazy(() => import("./pages/admin/HeroEditor"));
-const SiteSettings = lazy(() => import("./pages/admin/SiteSettings"));
-const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager"));
-const StatsManager = lazy(() => import("./pages/admin/StatsManager"));
-const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts"));
-const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor"));
-const AdminCaseStudies = lazy(() => import("./pages/admin/CaseStudies"));
-const CaseStudyEditor = lazy(() => import("./pages/admin/CaseStudyEditor"));
-const ResumeSubmissions = lazy(() => import("./pages/admin/ResumeSubmissions"));
-const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
-const Users = lazy(() => import("./pages/admin/Users"));
-const SecurityCenter = lazy(() => import("./pages/admin/SecurityCenter"));
-const SecuritySettings = lazy(() => import("./pages/admin/SecuritySettings"));
-const AdminSEODashboard = lazy(() => import("./pages/admin/SEODashboard"));
-const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard"));
-const TemplateManager = lazy(() => import("./pages/admin/TemplateManager"));
+// Lazy load admin pages (not critical for initial load) with error handling
+const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Dashboard</p></div>
+})));
+const AdminServices = lazy(() => import("./pages/admin/Services").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Services</p></div>
+})));
+const AdminProjects = lazy(() => import("./pages/admin/Projects").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Projects</p></div>
+})));
+const ServiceEditor = lazy(() => import("./pages/admin/ServiceEditor").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Service Editor</p></div>
+})));
+const ProjectEditor = lazy(() => import("./pages/admin/ProjectEditor").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Project Editor</p></div>
+})));
+const ContactSubmissions = lazy(() => import("./pages/admin/ContactSubmissions").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Contact Submissions</p></div>
+})));
+const HeroEditor = lazy(() => import("./pages/admin/HeroEditor").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Editor</p></div>
+})));
+const SiteSettings = lazy(() => import("./pages/admin/SiteSettings").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Site Settings</p></div>
+})));
+const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Testimonials Manager</p></div>
+})));
+const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Stats Manager</p></div>
+})));
+const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Posts</p></div>
+})));
+const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post Editor</p></div>
+})));
+const AdminCaseStudies = lazy(() => import("./pages/admin/CaseStudies").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Case Studies</p></div>
+})));
+const CaseStudyEditor = lazy(() => import("./pages/admin/CaseStudyEditor").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Case Study Editor</p></div>
+})));
+const ResumeSubmissions = lazy(() => import("./pages/admin/ResumeSubmissions").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Resume Submissions</p></div>
+})));
+const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Media Library</p></div>
+})));
+const Users = lazy(() => import("./pages/admin/Users").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Users</p></div>
+})));
+const SecurityCenter = lazy(() => import("./pages/admin/SecurityCenter").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Security Center</p></div>
+})));
+const SecuritySettings = lazy(() => import("./pages/admin/SecuritySettings").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Security Settings</p></div>
+})));
+const AdminSEODashboard = lazy(() => import("./pages/admin/SEODashboard").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
+})));
+const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Performance Dashboard</p></div>
+})));
+const TemplateManager = lazy(() => import("./pages/admin/TemplateManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Template Manager</p></div>
+})));
 
-// Lazy load heavy content pages
-const Blog = lazy(() => import("./pages/Blog"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
-const CaseStudy = lazy(() => import("./pages/CaseStudy"));
-const CaseStudies = lazy(() => import("./pages/CaseStudies"));
-const SEODashboard = lazy(() => import("./pages/SEODashboard"));
+// Lazy load heavy content pages with error handling
+const Blog = lazy(() => import("./pages/Blog").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog</p></div>
+})));
+const BlogPost = lazy(() => import("./pages/BlogPost").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post</p></div>
+})));
+const CaseStudy = lazy(() => import("./pages/CaseStudy").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Case Study</p></div>
+})));
+const CaseStudies = lazy(() => import("./pages/CaseStudies").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Case Studies</p></div>
+})));
+const SEODashboard = lazy(() => import("./pages/SEODashboard").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
+})));
 
 const queryClient = new QueryClient();
 
