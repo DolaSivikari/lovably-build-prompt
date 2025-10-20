@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import NumberedLandingHero from "@/components/NumberedLandingHero";
-import ServicesPreview from "@/components/ServicesPreview";
+import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import Stats from "@/components/Stats";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import CTA from "@/components/CTA";
@@ -29,7 +29,7 @@ const Index = () => {
         <HomepageContent />
         <ClientSelector />
         <WhyChooseUs />
-        <ServicesPreview />
+        <ServicesExplorer />
         <Stats />
         <CertificationsBar />
         <FeaturedProjects />

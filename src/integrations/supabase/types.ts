@@ -1279,6 +1279,7 @@ export type Database = {
           created_at: string | null
           created_by: string | null
           faq_items: Json | null
+          featured: boolean | null
           featured_image: string | null
           icon_name: string | null
           id: string
@@ -1287,6 +1288,7 @@ export type Database = {
           name: string
           preview_token: string | null
           process_steps: Json | null
+          project_types: string[] | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
           scheduled_publish_at: string | null
           scope_template: string | null
@@ -1297,6 +1299,7 @@ export type Database = {
           short_description: string | null
           slug: string
           typical_applications: Json | null
+          typical_timeline: string | null
           updated_at: string | null
           updated_by: string | null
           what_we_provide: Json | null
@@ -1309,6 +1312,7 @@ export type Database = {
           created_at?: string | null
           created_by?: string | null
           faq_items?: Json | null
+          featured?: boolean | null
           featured_image?: string | null
           icon_name?: string | null
           id?: string
@@ -1317,6 +1321,7 @@ export type Database = {
           name: string
           preview_token?: string | null
           process_steps?: Json | null
+          project_types?: string[] | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           scheduled_publish_at?: string | null
           scope_template?: string | null
@@ -1327,6 +1332,7 @@ export type Database = {
           short_description?: string | null
           slug: string
           typical_applications?: Json | null
+          typical_timeline?: string | null
           updated_at?: string | null
           updated_by?: string | null
           what_we_provide?: Json | null
@@ -1339,6 +1345,7 @@ export type Database = {
           created_at?: string | null
           created_by?: string | null
           faq_items?: Json | null
+          featured?: boolean | null
           featured_image?: string | null
           icon_name?: string | null
           id?: string
@@ -1347,6 +1354,7 @@ export type Database = {
           name?: string
           preview_token?: string | null
           process_steps?: Json | null
+          project_types?: string[] | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           scheduled_publish_at?: string | null
           scope_template?: string | null
@@ -1357,6 +1365,7 @@ export type Database = {
           short_description?: string | null
           slug?: string
           typical_applications?: Json | null
+          typical_timeline?: string | null
           updated_at?: string | null
           updated_by?: string | null
           what_we_provide?: Json | null
