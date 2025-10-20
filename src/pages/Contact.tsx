@@ -90,18 +90,25 @@ const Contact = () => {
         has_phone: !!formData.phone,
       });
 
-      // Send email notifications
+      // Send email notifications with timeout
       try {
-        await supabase.functions.invoke('send-contact-notification', {
-          body: {
-            name: validatedData.name,
-            email: validatedData.email,
-            phone: validatedData.phone,
-            company: validatedData.company,
-            message: validatedData.message,
-            submissionType: "Contact Form"
-          }
-        });
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Email notification timeout')), 10000)
+        );
+
+        await Promise.race([
+          supabase.functions.invoke('send-contact-notification', {
+            body: {
+              name: validatedData.name,
+              email: validatedData.email,
+              phone: validatedData.phone,
+              company: validatedData.company,
+              message: validatedData.message,
+              submissionType: "Contact Form"
+            }
+          }),
+          timeoutPromise
+        ]);
       } catch (emailError) {
         console.error('Email notification failed:', emailError);
         // Don't fail the submission if email fails

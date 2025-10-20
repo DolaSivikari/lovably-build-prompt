@@ -5,6 +5,7 @@ import ascentLogo from "@/assets/ascent-logo.png";
 import SEO from "@/components/SEO";
 import FooterNavCard from "@/components/footer/FooterNavCard";
 import SocialMediaButton from "@/components/footer/SocialMediaButton";
+import NewsletterBackend from "@/components/footer/NewsletterBackend";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
@@ -107,8 +108,15 @@ const Footer = () => {
       <SEO structuredData={citationSchema} />
       <footer className="w-full bg-white border-t border-border relative" role="contentinfo">
         
-        {/* Trust Bar - Company Credentials */}
+        {/* Newsletter Signup */}
         <div className="border-b border-border bg-muted/30">
+          <div className="container mx-auto px-4 py-8">
+            <NewsletterBackend />
+          </div>
+        </div>
+
+        {/* Trust Bar - Company Credentials */}
+        <div className="border-b border-border">
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
               <div className="flex items-center gap-2">

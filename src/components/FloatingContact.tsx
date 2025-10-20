@@ -7,16 +7,38 @@ const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
   const phone = "14165557246";
 
+  const sanitizePhoneNumber = (rawPhone: string): string | null => {
+    // Remove all non-digits except +
+    const cleaned = rawPhone.replace(/[^\d+]/g, '');
+    
+    // Ensure it starts with country code
+    let withCountryCode = cleaned;
+    if (!cleaned.startsWith('+')) {
+      // Assume North American number if no country code
+      withCountryCode = cleaned.startsWith('1') ? `+${cleaned}` : `+1${cleaned}`;
+    }
+    
+    // Validate: must be + followed by 1-3 digit country code, then 7-15 digits
+    if (!/^\+\d{8,18}$/.test(withCountryCode)) {
+      console.error('Invalid phone format:', withCountryCode);
+      return null;
+    }
+    
+    // Additional validation: check reasonable length ranges
+    const digitCount = withCountryCode.replace(/\D/g, '').length;
+    if (digitCount < 8 || digitCount > 18) {
+      console.error('Phone number length out of range:', digitCount);
+      return null;
+    }
+    
+    return withCountryCode;
+  };
+
   const handleWhatsAppClick = () => {
-    // Validate and sanitize phone number (remove all non-digits except +)
-    const sanitizedPhone = phone.replace(/[^\d+]/g, '');
+    const validPhone = sanitizePhoneNumber(phone);
     
-    // Ensure phone starts with country code
-    const validPhone = sanitizedPhone.startsWith('+') ? sanitizedPhone : `+${sanitizedPhone}`;
-    
-    // Validate format (must be 10-15 digits after country code)
-    if (!/^\+\d{10,15}$/.test(validPhone)) {
-      console.error('Invalid WhatsApp phone number format');
+    if (!validPhone) {
+      console.error('Cannot open WhatsApp with invalid phone number');
       return;
     }
     
