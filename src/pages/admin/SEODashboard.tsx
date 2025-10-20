@@ -143,9 +143,6 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         title: 'Keywords Generated',
         description: `Found ${data.keywords?.length || 0} relevant keywords`,
       });
-
-      // Display keywords to user
-      console.log('Generated keywords:', data.keywords);
     } catch (error: any) {
       toast({
         variant: 'destructive',

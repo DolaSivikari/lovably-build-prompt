@@ -12,7 +12,6 @@ export const useIdleTimeout = () => {
   const navigate = useNavigate();
 
   const onIdle = async () => {
-    console.log('User idle - logging out');
     await supabase.auth.signOut();
     navigate('/auth');
   };
