@@ -308,7 +308,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/blog-posts" 
+                      to="/admin/blog" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -332,7 +332,7 @@ const Navigation = () => {
                   
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/contact-submissions" 
+                      to="/admin/contacts" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -341,7 +341,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/resume-submissions" 
+                      to="/admin/resumes" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -356,7 +356,7 @@ const Navigation = () => {
                   
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/media-library" 
+                      to="/admin/media" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
