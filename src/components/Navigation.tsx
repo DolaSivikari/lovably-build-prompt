@@ -112,7 +112,7 @@ const Navigation = () => {
           <Link to="/" className="flex items-center gap-3 group relative z-navigation" aria-label="Ascent Group Construction - Home">
             <img 
               src={ascentLogo} 
-              alt="Ascent Group Construction" 
+              alt="Ascent Group Construction Logo" 
               className="h-20 w-auto transition-transform group-hover:scale-105"
             />
             <div className="flex flex-col leading-tight">

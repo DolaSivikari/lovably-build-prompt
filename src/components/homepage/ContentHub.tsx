@@ -14,7 +14,7 @@ const ContentHub = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const featuredPost = blogData.posts.find(post => post.featured);
   const regularPosts = blogData.posts
-    .filter(post => post.featured && post !== featuredPost)
+    .filter(post => !post.featured || post.id !== featuredPost?.id)
     .slice(0, 3);
 
   const filteredPosts = activeCategory === "All" 

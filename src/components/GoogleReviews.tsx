@@ -188,7 +188,7 @@ const GoogleReviews = () => {
           {/* Google Link */}
           <div className="text-center">
             <a
-              href="https://g.page/r/YOUR_GOOGLE_PLACE_ID/review"
+              href="https://g.page/r/CdXlZgT9HqKhEAI/review"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"

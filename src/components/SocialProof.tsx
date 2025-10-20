@@ -216,7 +216,7 @@ const SocialProof = () => {
             {/* Google Link */}
             <div className="text-center mt-8">
               <a
-                href="https://g.page/r/YOUR_GOOGLE_PLACE_ID/review"
+                href="https://g.page/r/CdXlZgT9HqKhEAI/review"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-primary hover:underline font-medium"

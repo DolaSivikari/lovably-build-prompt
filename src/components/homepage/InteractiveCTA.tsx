@@ -5,6 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.string().trim().email("Invalid email address").max(255),
+  phone: z.string().trim().min(1, "Phone is required").max(20),
+  message: z.string().trim().max(1000).optional(),
+});
 
 const stories = [
   {
@@ -30,6 +40,13 @@ const stories = [
 const InteractiveCTA = () => {
   const [currentStory, setCurrentStory] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const { toast } = useToast();
 
   // Rotate stories every 4 seconds
   useState(() => {
@@ -39,14 +56,59 @@ const InteractiveCTA = () => {
     return () => clearInterval(interval);
   });
 
-  const handleQuickContact = (e: React.FormEvent) => {
+  const handleQuickContact = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
-    setTimeout(() => {
+
+    try {
+      // Validate form data
+      const validatedData = contactSchema.parse(formData);
+
+      // Insert into database
+      const { error: dbError } = await supabase
+        .from("contact_submissions")
+        .insert({
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          message: validatedData.message || "Quick estimate request",
+          submission_type: "quote",
+        });
+
+      if (dbError) throw dbError;
+
+      // Send notification email
+      await supabase.functions.invoke("send-contact-notification", {
+        body: {
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          message: validatedData.message || "Quick estimate request",
+        },
+      });
+
+      toast({
+        title: "Request Sent!",
+        description: "We'll contact you within 24 hours.",
+      });
+
+      // Reset form
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      
+      // Redirect after success
+      setTimeout(() => {
+        window.location.href = "/estimate";
+      }, 1500);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to submit request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-      window.location.href = "/estimate";
-    }, 1000);
+    }
   };
 
   return (
@@ -155,6 +217,8 @@ const InteractiveCTA = () => {
                   placeholder="Your Name"
                   required
                   className="h-12"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
               </div>
               <div>
@@ -163,6 +227,8 @@ const InteractiveCTA = () => {
                   placeholder="Email Address"
                   required
                   className="h-12"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
               </div>
               <div>
@@ -171,6 +237,8 @@ const InteractiveCTA = () => {
                   placeholder="Phone Number"
                   required
                   className="h-12"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 />
               </div>
               <div>
@@ -178,6 +246,8 @@ const InteractiveCTA = () => {
                   placeholder="Tell us about your project..."
                   rows={4}
                   className="resize-none"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 />
               </div>
               

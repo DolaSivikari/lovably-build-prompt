@@ -5,6 +5,24 @@ import { Button } from "./ui/button";
 
 const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const phone = "14165557246";
+
+  const handleWhatsAppClick = () => {
+    // Validate and sanitize phone number (remove all non-digits except +)
+    const sanitizedPhone = phone.replace(/[^\d+]/g, '');
+    
+    // Ensure phone starts with country code
+    const validPhone = sanitizedPhone.startsWith('+') ? sanitizedPhone : `+${sanitizedPhone}`;
+    
+    // Validate format (must be 10-15 digits after country code)
+    if (!/^\+\d{10,15}$/.test(validPhone)) {
+      console.error('Invalid WhatsApp phone number format');
+      return;
+    }
+    
+    const message = encodeURIComponent("Hi, I'd like to inquire about your construction services.");
+    window.open(`https://wa.me/${validPhone}?text=${message}`, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-fixed">
@@ -34,10 +52,12 @@ const FloatingContact = () => {
           </a>
 
           <a
-            href="https://wa.me/14165557246"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors group"
+            onClick={(e) => {
+              e.preventDefault();
+              handleWhatsAppClick();
+            }}
+            href="#"
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors group cursor-pointer"
           >
             <div className="p-2 bg-green-500/10 rounded-full group-hover:bg-green-500/20">
               <MessageCircle className="h-5 w-5 text-green-600" />
