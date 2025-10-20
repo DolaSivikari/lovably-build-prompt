@@ -311,6 +311,45 @@ export type Database = {
           },
         ]
       }
+      certifications: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          expiry_date: string | null
+          id: string
+          is_active: boolean | null
+          issued_by: string | null
+          logo_url: string | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          expiry_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          issued_by?: string | null
+          logo_url?: string | null
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          expiry_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          issued_by?: string | null
+          logo_url?: string | null
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           admin_notes: string | null
@@ -827,6 +866,42 @@ export type Database = {
           recorded_at?: string | null
           unit?: string | null
           value?: number
+        }
+        Relationships: []
+      }
+      prequalification_downloads: {
+        Row: {
+          company_name: string
+          contact_name: string
+          downloaded_at: string | null
+          email: string
+          id: string
+          message: string | null
+          phone: string | null
+          project_type: string | null
+          project_value_range: string | null
+        }
+        Insert: {
+          company_name: string
+          contact_name: string
+          downloaded_at?: string | null
+          email: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          project_type?: string | null
+          project_value_range?: string | null
+        }
+        Update: {
+          company_name?: string
+          contact_name?: string
+          downloaded_at?: string | null
+          email?: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          project_type?: string | null
+          project_value_range?: string | null
         }
         Relationships: []
       }
