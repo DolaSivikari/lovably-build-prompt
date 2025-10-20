@@ -3,9 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
-import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
@@ -264,13 +262,6 @@ const Sustainability = () => {
           </div>
         </section>
 
-        <CTASection
-          title="Ready to Build Sustainably?"
-          description="Let's discuss how we can bring eco-friendly painting and finishing practices to your next project"
-          primaryCTA={{ label: "Get an Eco-Friendly Quote", href: "/estimate" }}
-          secondaryCTA={{ label: "View Our Projects", href: "/projects", variant: "outline" }}
-          className="bg-gradient-to-br from-green-700 via-green-600 to-teal-600"
-        />
       </main>
       
       <Footer />

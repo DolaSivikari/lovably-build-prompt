@@ -2,10 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
-import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { Award, MessageCircle, Shield, Heart, Users, Target } from "lucide-react";
 import companyData from "@/data/company-info.json";
 
@@ -269,13 +266,6 @@ const Values = () => {
           </div>
         </section>
 
-        <CTASection
-          title="Experience the Ascen Group Difference"
-          description="Work with a contractor who puts integrity, quality, and your satisfaction first"
-          primaryCTA={{ label: "Get Free Estimate", href: "/estimate" }}
-          secondaryCTA={{ label: "See Our Process", href: "/our-process", variant: "outline" }}
-          className="bg-gradient-to-br from-primary to-primary/80"
-        />
       </main>
       
       <Footer />

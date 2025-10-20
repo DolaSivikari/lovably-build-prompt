@@ -12,7 +12,7 @@ import ClientSelector from "@/components/homepage/ClientSelector";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
-import QuickLinks from "@/components/homepage/QuickLinks";
+
 import DirectAnswer from "@/components/seo/DirectAnswer";
 import SkipLink from "@/components/SkipLink";
 import InteractiveCTA from "@/components/homepage/InteractiveCTA";
@@ -92,7 +92,6 @@ const Index = () => {
         <FeaturedProjects />
         <SocialProof />
         <PrequalPackage />
-        <QuickLinks />
         <ContentHub />
         <InteractiveCTA />
       </main>

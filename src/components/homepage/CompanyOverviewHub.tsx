@@ -2,10 +2,7 @@ import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, Award, Users, Target, Shield, Lightbulb, Heart } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import MetricCounter from "@/components/MetricCounter";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { supabase } from "@/integrations/supabase/client";
-import { useQuery } from "@tanstack/react-query";
 
 const COMPANY_VALUES = [
   {
@@ -61,22 +58,7 @@ const OUR_PROMISE = [
 const CompanyOverviewHub = () => {
   const [activeTab, setActiveTab] = useState("approach");
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.2 });
-
-  const { data: stats } = useQuery({
-    queryKey: ["homepage-stats"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("stats")
-        .select("*")
-        .eq("is_active", true)
-        .order("display_order", { ascending: true })
-        .limit(4);
-
-      if (error) throw error;
-      return data;
-    },
-  });
+  useIntersectionObserver(sectionRef, { threshold: 0.2 });
 
   return (
     <section
@@ -94,28 +76,6 @@ const CompanyOverviewHub = () => {
             with the expertise, safety standards, and quality you expect from a trusted partner.
           </p>
         </div>
-
-        {/* Stats Grid */}
-        {stats && stats.length > 0 && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-            {stats.map((stat, index) => (
-              <div
-                key={stat.id}
-                className="text-center p-6 rounded-xl bg-card border hover:border-primary/50 transition-all hover:shadow-lg"
-                style={{
-                  animation: isVisible ? `fade-in 0.5s ease-out ${index * 0.1}s both` : "none",
-                }}
-              >
-                <MetricCounter
-                  value={stat.value}
-                  suffix={stat.suffix || ""}
-                  label={stat.label}
-                  duration={2000}
-                />
-              </div>
-            ))}
-          </div>
-        )}
 
         {/* Interactive Tabs */}
         <Tabs

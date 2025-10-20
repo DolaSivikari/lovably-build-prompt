@@ -57,22 +57,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </div>
           </div>
 
-          {/* Mini Stats Bar */}
-          <div className="grid grid-cols-3 gap-2 mb-6 p-4 bg-muted/30 rounded-lg">
-            <div className="text-center">
-              <div className="text-xl font-bold text-primary">15+</div>
-              <div className="text-xs text-muted-foreground">Years</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xl font-bold text-primary">500+</div>
-              <div className="text-xs text-muted-foreground">Projects</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xl font-bold text-primary">98%</div>
-              <div className="text-xs text-muted-foreground">Satisfied</div>
-            </div>
-          </div>
-
           {/* Popular Services Quick Links */}
           <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg border border-primary/10">
             <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">

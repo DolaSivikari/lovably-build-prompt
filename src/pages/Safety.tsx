@@ -2,10 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
-import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { 
   Shield, 
   HardHat, 
@@ -199,13 +196,6 @@ const Safety = () => {
           </div>
         </section>
 
-        <CTASection
-          title="Work with a Safety-First Contractor"
-          description="Experience peace of mind knowing your project is in the hands of a safety-conscious, fully compliant team"
-          primaryCTA={{ label: "Get Free Estimate", href: "/estimate" }}
-          secondaryCTA={{ label: "Learn More About Us", href: "/about", variant: "outline" }}
-          className="bg-gradient-to-br from-primary to-primary/80"
-        />
       </main>
       
       <Footer />

@@ -66,20 +66,6 @@ const About = () => {
                   Today, we continue to uphold the same values that guided us from day one—quality first, transparent communication, unwavering commitment to safety, and complete customer satisfaction.
                 </p>
               </div>
-              <div className="mt-8 grid grid-cols-3 gap-4">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-primary">15+</div>
-                  <div className="text-sm text-muted-foreground">Years</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-primary">500+</div>
-                  <div className="text-sm text-muted-foreground">Projects</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-primary">98%</div>
-                  <div className="text-sm text-muted-foreground">Referral Rate</div>
-                </div>
-              </div>
             </div>
             <div className="relative">
               <img

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-construction.jpg";
 import HeroBackground from "./HeroBackground";
 import OptimizedImage from "./OptimizedImage";
@@ -11,7 +11,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [heroContent, setHeroContent] = useState<any>(null);
-  const [stats, setStats] = useState<any[]>([]);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   const { scrollY } = useScroll({
@@ -34,18 +33,7 @@ const Hero = () => {
       if (data) setHeroContent(data);
     };
 
-    const fetchStats = async () => {
-      const { data } = await supabase
-        .from('stats')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order');
-      
-      if (data) setStats(data.slice(0, 3)); // Get first 3 for hero badges
-    };
-
     fetchHeroContent();
-    fetchStats();
   }, []);
 
   // Default content for fallback
@@ -111,20 +99,6 @@ const Hero = () => {
             <Button size="lg" variant="outline" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all" asChild>
               <Link to={secondaryCtaUrl}>{secondaryCtaText}</Link>
             </Button>
-          </div>
-
-          {/* Key Features */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {stats.map((stat, index) => (
-              <div 
-                key={stat.id} 
-                className="flex items-center gap-2 text-primary-foreground group animate-fade-in hover-lift"
-                style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-              >
-                <CheckCircle2 className="h-5 w-5 text-secondary flex-shrink-0 transition-transform group-hover:scale-110 group-hover:rotate-12" />
-                <span className="font-medium">{stat.value}{stat.suffix} {stat.label}</span>
-              </div>
-            ))}
           </div>
         </div>
       </div>

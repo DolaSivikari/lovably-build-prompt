@@ -3,7 +3,6 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import BenefitsSection from "@/components/sections/BenefitsSection";
-import ProcessSteps from "@/components/sections/ProcessSteps";
 import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -147,16 +146,18 @@ const CommercialClients = () => {
           </div>
         </section>
 
-        <ProcessSteps
-          title="Our Commercial Approach"
-          steps={[
-            { number: "1", title: "Site Survey", description: "Detailed assessment and coordination planning" },
-            { number: "2", title: "Schedule Planning", description: "Timeline that works around your operations" },
-            { number: "3", title: "Professional Execution", description: "Quality work with daily progress reports" },
-            { number: "4", title: "Final Inspection", description: "Walkthrough and warranty documentation" }
-          ]}
-          className="bg-muted/30"
-        />
+        {/* Process Overview */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Our Commercial Approach</h2>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              We follow a proven 6-step process to ensure your commercial project is completed on time, within budget, and to the highest standards.
+            </p>
+            <Link to="/our-process" className="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
+              View Our Detailed Process <CheckCircle className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
 
         <CTASection
           title="Ready to Elevate Your Facility?"
