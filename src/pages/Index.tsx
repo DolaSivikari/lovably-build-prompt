@@ -8,7 +8,7 @@ import CTA from "@/components/CTA";
 import SEO from "@/components/SEO";
 import BlogPreview from "@/components/BlogPreview";
 import SocialProof from "@/components/SocialProof";
-import HomepageContent from "@/components/HomepageContent";
+import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
 import TrustBar from "@/components/homepage/TrustBar";
 import ClientSelector from "@/components/homepage/ClientSelector";
@@ -26,7 +26,7 @@ const Index = () => {
       <main id="main-content" role="main">
         <NumberedLandingHero />
         <TrustBar />
-        <HomepageContent />
+        <CompanyOverviewHub />
         <ClientSelector />
         <WhyChooseUs />
         <ServicesExplorer />
