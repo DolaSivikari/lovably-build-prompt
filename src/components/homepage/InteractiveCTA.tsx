@@ -1,0 +1,227 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Phone, Mail, MapPin, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const stories = [
+  {
+    stat: "500+",
+    label: "Projects Completed",
+    detail: "From small renovations to major restorations",
+    icon: CheckCircle2,
+  },
+  {
+    stat: "15+",
+    label: "Years Experience",
+    detail: "Trusted by Ontario property owners since 2009",
+    icon: Clock,
+  },
+  {
+    stat: "98%",
+    label: "Client Satisfaction",
+    detail: "Based on verified reviews and repeat business",
+    icon: Shield,
+  },
+];
+
+const InteractiveCTA = () => {
+  const [currentStory, setCurrentStory] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Rotate stories every 4 seconds
+  useState(() => {
+    const interval = setInterval(() => {
+      setCurrentStory((prev) => (prev + 1) % stories.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  });
+
+  const handleQuickContact = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      window.location.href = "/estimate";
+    }, 1000);
+  };
+
+  return (
+    <section className="relative py-20 bg-gradient-to-br from-primary to-primary/90 overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-diagonal-stripes"></div>
+      </div>
+
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Left Column - Rotating Visual Story */}
+          <div className="text-white space-y-8">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                Your Construction Partner For Success
+              </h2>
+              <p className="text-xl text-white/90 leading-relaxed">
+                From concept to completion, we deliver exceptional results with transparent communication and expert craftsmanship.
+              </p>
+            </div>
+
+            {/* Animated Story Cards */}
+            <AnimatePresence mode="wait">
+              {(() => {
+                const CurrentIcon = stories[currentStory].icon;
+                return (
+                  <motion.div
+                    key={currentStory}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="bg-secondary/20 rounded-full p-3 flex-shrink-0">
+                        {CurrentIcon && <CurrentIcon className="h-8 w-8 text-secondary" />}
+                      </div>
+                      <div>
+                        <div className="text-5xl font-bold mb-2 text-secondary">
+                          {stories[currentStory].stat}
+                        </div>
+                        <div className="text-xl font-semibold mb-1">
+                          {stories[currentStory].label}
+                        </div>
+                        <p className="text-white/80 text-sm">
+                          {stories[currentStory].detail}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })()}
+            </AnimatePresence>
+
+            {/* Story Navigation Dots */}
+            <div className="flex gap-2">
+              {stories.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentStory(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentStory
+                      ? "w-8 bg-secondary"
+                      : "w-2 bg-white/30 hover:bg-white/50"
+                  }`}
+                  aria-label={`View story ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/20">
+              <div className="text-center">
+                <Shield className="h-6 w-6 mx-auto mb-2 text-secondary" />
+                <div className="text-xs text-white/80">Fully Licensed</div>
+              </div>
+              <div className="text-center">
+                <CheckCircle2 className="h-6 w-6 mx-auto mb-2 text-secondary" />
+                <div className="text-xs text-white/80">WSIB Compliant</div>
+              </div>
+              <div className="text-center">
+                <Clock className="h-6 w-6 mx-auto mb-2 text-secondary" />
+                <div className="text-xs text-white/80">24/7 Support</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Quick Contact Form */}
+          <div className="bg-background rounded-2xl shadow-2xl p-8 lg:p-10">
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Get Your Free Estimate
+              </h3>
+              <p className="text-muted-foreground">
+                Detailed quote within 24-48 hours. No obligation.
+              </p>
+            </div>
+
+            <form onSubmit={handleQuickContact} className="space-y-4">
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Your Name"
+                  required
+                  className="h-12"
+                />
+              </div>
+              <div>
+                <Input
+                  type="email"
+                  placeholder="Email Address"
+                  required
+                  className="h-12"
+                />
+              </div>
+              <div>
+                <Input
+                  type="tel"
+                  placeholder="Phone Number"
+                  required
+                  className="h-12"
+                />
+              </div>
+              <div>
+                <Textarea
+                  placeholder="Tell us about your project..."
+                  rows={4}
+                  className="resize-none"
+                />
+              </div>
+              
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full h-12 text-base gap-2"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  "Sending..."
+                ) : (
+                  <>
+                    Request Free Estimate
+                    <ArrowRight className="h-5 w-5" />
+                  </>
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-6 pt-6 border-t border-border">
+              <p className="text-sm text-muted-foreground mb-3 text-center">
+                Prefer to talk directly?
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                <Button variant="outline" asChild className="gap-2">
+                  <a href="tel:+14165551234">
+                    <Phone className="h-4 w-4" />
+                    Call Now
+                  </a>
+                </Button>
+                <Button variant="outline" asChild className="gap-2">
+                  <Link to="/contact">
+                    <Mail className="h-4 w-4" />
+                    Email Us
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default InteractiveCTA;

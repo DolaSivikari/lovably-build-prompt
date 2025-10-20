@@ -13,7 +13,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Phone } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Phone, Search, TrendingUp, Users, Building, Wrench } from "lucide-react";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 
 interface MobileNavSheetProps {
@@ -44,6 +45,75 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
         </SheetHeader>
 
         <div className="px-6 py-4">
+          {/* Search Bar */}
+          <div className="mb-6">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search services..."
+                className="pl-10 h-11"
+              />
+            </div>
+          </div>
+
+          {/* Mini Stats Bar */}
+          <div className="grid grid-cols-3 gap-2 mb-6 p-4 bg-muted/30 rounded-lg">
+            <div className="text-center">
+              <div className="text-xl font-bold text-primary">15+</div>
+              <div className="text-xs text-muted-foreground">Years</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl font-bold text-primary">500+</div>
+              <div className="text-xs text-muted-foreground">Projects</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl font-bold text-primary">98%</div>
+              <div className="text-xs text-muted-foreground">Satisfied</div>
+            </div>
+          </div>
+
+          {/* Popular Services Quick Links */}
+          <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg border border-primary/10">
+            <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-primary" />
+              Popular Services
+            </h4>
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                to="/services/commercial-painting"
+                onClick={handleLinkClick}
+                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
+              >
+                <Building className="h-3 w-3" />
+                Commercial
+              </Link>
+              <Link
+                to="/services/residential-painting"
+                onClick={handleLinkClick}
+                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
+              >
+                <Users className="h-3 w-3" />
+                Residential
+              </Link>
+              <Link
+                to="/services/stucco-eifs"
+                onClick={handleLinkClick}
+                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
+              >
+                <Wrench className="h-3 w-3" />
+                Stucco
+              </Link>
+              <Link
+                to="/services/parking-garage-restoration"
+                onClick={handleLinkClick}
+                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
+              >
+                <Building className="h-3 w-3" />
+                Restoration
+              </Link>
+            </div>
+          </div>
           {/* Top-level routes */}
           <nav className="space-y-1 mb-6">
             <Link

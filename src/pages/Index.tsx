@@ -2,11 +2,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import NumberedLandingHero from "@/components/NumberedLandingHero";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
-import Stats from "@/components/Stats";
 import FeaturedProjects from "@/components/FeaturedProjects";
-import CTA from "@/components/CTA";
 import SEO from "@/components/SEO";
-import BlogPreview from "@/components/BlogPreview";
 import SocialProof from "@/components/SocialProof";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
@@ -18,6 +15,9 @@ import PrequalPackage from "@/components/homepage/PrequalPackage";
 import QuickLinks from "@/components/homepage/QuickLinks";
 import DirectAnswer from "@/components/seo/DirectAnswer";
 import SkipLink from "@/components/SkipLink";
+import InteractiveCTA from "@/components/homepage/InteractiveCTA";
+import AchievementShowcase from "@/components/homepage/AchievementShowcase";
+import ContentHub from "@/components/homepage/ContentHub";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 
 const Index = () => {
@@ -87,14 +87,14 @@ const Index = () => {
         <ClientSelector />
         <WhyChooseUs />
         <ServicesExplorer />
-        <Stats />
+        <AchievementShowcase />
         <CertificationsBar />
         <FeaturedProjects />
         <SocialProof />
         <PrequalPackage />
         <QuickLinks />
-        <BlogPreview />
-        <CTA />
+        <ContentHub />
+        <InteractiveCTA />
       </main>
       <Footer />
     </div>
