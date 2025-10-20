@@ -11,6 +11,15 @@ import { Link } from "react-router-dom";
 import { Phone, CheckCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { sanitizeHTML } from "@/utils/sanitize";
+import QuickFacts from "@/components/seo/QuickFacts";
+import PeopleAlsoAsk from "@/components/seo/PeopleAlsoAsk";
+import ServiceAreaSection from "@/components/seo/ServiceAreaSection";
+import DirectAnswer from "@/components/seo/DirectAnswer";
+import { serviceQuickFacts } from "@/data/service-quick-facts";
+import { servicePeopleAlsoAsk } from "@/data/service-people-ask";
+import { serviceAreaCities } from "@/data/service-area-cities";
+import { createServiceSchema, createHowToSchema } from "@/utils/schema-injector";
+import { breadcrumbSchema } from "@/utils/structured-data";
 
 interface ProcessStep {
   step_number: number;
@@ -96,12 +105,46 @@ const ServiceDetail = () => {
     return <Navigate to="/404" replace />;
   }
 
+  // Generate slug-safe key for data lookups
+  const serviceKey = service.slug || "";
+  const quickFacts = serviceQuickFacts[serviceKey] || [];
+  const peopleAsk = servicePeopleAlsoAsk[serviceKey] || [];
+
+  // Generate AEO/GEO structured data
+  const serviceSchemaData = createServiceSchema({
+    serviceType: service.name,
+    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham"],
+    priceRange: "$$-$$$",
+    subServices: service.what_we_provide || []
+  });
+
+  const howToSchemaData = service.process_steps ? createHowToSchema({
+    name: `How ${service.name} Works: Professional Process`,
+    description: `Step-by-step process for ${service.name.toLowerCase()} services by Ascent Group Construction`,
+    steps: service.process_steps.map(step => ({
+      position: step.step_number,
+      name: step.title,
+      text: step.description
+    })),
+    totalTime: "P7D"
+  }) : null;
+
+  const breadcrumbSchemaData = breadcrumbSchema([
+    { name: "Home", url: "https://ascentgroupconstruction.com/" },
+    { name: "Services", url: "https://ascentgroupconstruction.com/services" },
+    { name: service.name, url: `https://ascentgroupconstruction.com/services/${service.slug}` }
+  ]);
+
+  const structuredDataArray = [serviceSchemaData, breadcrumbSchemaData];
+  if (howToSchemaData) structuredDataArray.push(howToSchemaData);
+
   return (
     <div className="min-h-screen">
       <SEO
         title={service.seo_title || service.name}
         description={service.seo_description || service.short_description || ""}
         keywords={service.seo_keywords?.join(", ") || ""}
+        structuredData={structuredDataArray}
       />
       <Navigation />
       
@@ -118,6 +161,26 @@ const ServiceDetail = () => {
       />
       
       <main className="min-h-screen">
+        {/* Direct Answer Section - "What is [Service]?" */}
+        {service.short_description && (
+          <DirectAnswer>
+            <p className="text-lg leading-relaxed">
+              <strong>What is {service.name}?</strong>{" "}
+              {service.short_description} Ascent Group Construction provides professional {service.name.toLowerCase()} services throughout the Greater Toronto Area, including Toronto, Mississauga, Brampton, Vaughan, and Markham.
+            </p>
+          </DirectAnswer>
+        )}
+
+        {/* Quick Facts Section */}
+        {quickFacts.length > 0 && (
+          <section className="py-12 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <QuickFacts title={`Quick Facts: ${service.name}`} facts={quickFacts} />
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Service Overview Section */}
         {service.service_overview && (
@@ -263,6 +326,24 @@ const ServiceDetail = () => {
             </div>
           </section>
         )}
+
+        {/* People Also Ask Section */}
+        {peopleAsk.length > 0 && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <PeopleAlsoAsk questions={peopleAsk} />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Service Area Section */}
+        <section className="py-16 bg-muted/50">
+          <div className="container mx-auto px-4">
+            <ServiceAreaSection cities={serviceAreaCities} radius="100km" />
+          </div>
+        </section>
 
         {/* Fallback: Long Description (for services not yet migrated) */}
         {!service.service_overview && service.long_description && (

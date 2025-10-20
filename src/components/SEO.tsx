@@ -10,9 +10,9 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Ascent Group Construction | Expert Painting & Exterior Finishing Across Ontario",
-  description = "Professional painting and exterior finishing services across Ontario. Specializing in commercial painting, residential painting, condo restoration, stucco & EIFS, masonry repair, metal cladding, and parking garage restoration. 15+ years experience.",
-  keywords = "painting contractor ontario, commercial painting toronto, residential painting GTA, condo painting restoration, stucco EIFS installation, masonry repair toronto, parking garage restoration, metal cladding, exterior finishing ontario, professional painting services",
+  title = "Ascent Group Construction | Complete Construction Solutions Across Ontario - Commercial, Residential & Industrial",
+  description = "Ontario's trusted construction partner for 15+ years. Specializing in painting, exterior systems (stucco, EIFS, masonry), metal cladding, parking garage restoration, and specialty construction. Serving Toronto, Mississauga, Brampton, Vaughan, Markham. Licensed, insured, WSIB compliant. Free estimates available.",
+  keywords = "construction contractor ontario, commercial painting toronto, residential painting GTA, condo restoration, stucco EIFS installation ontario, masonry repair toronto, parking garage restoration, metal cladding installation, exterior finishing contractor, construction management ontario, LEED certified contractor, building restoration GTA, property maintenance contractor, construction services toronto, painting contractor mississauga, building envelope services",
   ogImage = "/og-image.jpg",
   canonical,
   structuredData,
@@ -21,13 +21,14 @@ const SEO = ({
   const siteUrl = window.location.origin;
   const currentUrl = canonical || window.location.href;
 
-  // Enhanced organization schema with comprehensive service catalog
+  // Enhanced organization schema with comprehensive service catalog + AEO/GEO optimization
   const defaultSchema = {
     "@context": "https://schema.org",
     "@type": ["GeneralContractor", "LocalBusiness", "PaintingContractor"],
     "@id": `${siteUrl}/#organization`,
     name: "Ascent Group Construction",
     alternateName: "Ascent Group",
+    slogan: "Your Complete Construction Partner Across Ontario",
     description: description,
     url: siteUrl,
     telephone: "+1-647-123-4567",
@@ -107,8 +108,26 @@ const SEO = ({
       areaServed: "CA"
     },
     priceRange: "$$-$$$",
+    paymentAccepted: ["Cash", "Check", "Credit Card", "Bank Transfer", "Financing Available"],
+    currenciesAccepted: "CAD",
     foundingDate: "2009",
-    slogan: "Quality craftsmanship and exceptional results",
+    knowsAbout: [
+      "Commercial Painting",
+      "Residential Painting", 
+      "Stucco Installation",
+      "EIFS Systems",
+      "Masonry Restoration",
+      "Metal Cladding",
+      "Parking Garage Waterproofing",
+      "Exterior Building Restoration",
+      "Construction Project Management",
+      "Building Envelope Services"
+    ],
+    award: [
+      "15+ Years Excellence in Construction Services",
+      "WSIB Certified Contractor",
+      "Licensed General Contractor Ontario"
+    ],
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",

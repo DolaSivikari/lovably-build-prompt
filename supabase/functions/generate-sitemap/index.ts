@@ -103,46 +103,87 @@ Deno.serve(async (req) => {
     const { data: blogPosts } = await supabase
       .from('blog_posts')
       .select('slug, updated_at')
-      .eq('publish_state', 'published');
+      .eq('publish_state', 'published')
+      .order('updated_at', { ascending: false });
 
     if (blogPosts) {
       blogPosts.forEach(post => {
         urls.push({
           loc: `${baseUrl}/blog/${post.slug}`,
           lastmod: new Date(post.updated_at).toISOString().split('T')[0],
-          priority: '0.6',
+          priority: '0.7',
         });
       });
     }
+
+    // Add blog index
+    urls.push({
+      loc: `${baseUrl}/blog`,
+      lastmod: new Date().toISOString().split('T')[0],
+      priority: '0.8',
+    });
+
+    // Add published case studies
+    const { data: caseStudies } = await supabase
+      .from('case_studies')
+      .select('slug, updated_at')
+      .eq('publish_state', 'published')
+      .order('updated_at', { ascending: false });
+
+    if (caseStudies) {
+      caseStudies.forEach(study => {
+        urls.push({
+          loc: `${baseUrl}/case-studies/${study.slug}`,
+          lastmod: new Date(study.updated_at).toISOString().split('T')[0],
+          priority: '0.7',
+        });
+      });
+    }
+
+    // Add case studies index
+    urls.push({
+      loc: `${baseUrl}/case-studies`,
+      lastmod: new Date().toISOString().split('T')[0],
+      priority: '0.8',
+    });
 
     // Add published projects
     const { data: projects } = await supabase
       .from('projects')
       .select('slug, updated_at')
-      .eq('publish_state', 'published');
+      .eq('publish_state', 'published')
+      .order('updated_at', { ascending: false });
 
     if (projects) {
       projects.forEach(project => {
         urls.push({
           loc: `${baseUrl}/projects/${project.slug}`,
           lastmod: new Date(project.updated_at).toISOString().split('T')[0],
-          priority: '0.6',
+          priority: '0.7',
         });
       });
     }
+
+    // Add projects index
+    urls.push({
+      loc: `${baseUrl}/projects`,
+      lastmod: new Date().toISOString().split('T')[0],
+      priority: '0.8',
+    });
 
     // Add published services
     const { data: services } = await supabase
       .from('services')
       .select('slug, updated_at')
-      .eq('publish_state', 'published');
+      .eq('publish_state', 'published')
+      .order('updated_at', { ascending: false });
 
     if (services) {
       services.forEach(service => {
         urls.push({
           loc: `${baseUrl}/services/${service.slug}`,
           lastmod: new Date(service.updated_at).toISOString().split('T')[0],
-          priority: '0.7',
+          priority: '0.85',
         });
       });
     }
