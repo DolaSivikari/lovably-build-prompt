@@ -167,6 +167,8 @@ const Footer = () => {
                   <li><Link to="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">Projects</Link></li>
                   <li><Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
                   <li><Link to="/our-process" className="text-sm text-muted-foreground hover:text-primary transition-colors">Our Process</Link></li>
+                  <li><Link to="/company/certifications-insurance" className="text-sm text-muted-foreground hover:text-primary transition-colors">Certifications</Link></li>
+                  <li><Link to="/company/equipment-resources" className="text-sm text-muted-foreground hover:text-primary transition-colors">Equipment</Link></li>
                   <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
                   <li><Link to="/case-studies" className="text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</Link></li>
                 </ul>
@@ -183,6 +185,8 @@ const Footer = () => {
                   <li><Link to="/homeowners" className="text-sm text-muted-foreground hover:text-primary transition-colors">Homeowners</Link></li>
                   <li><Link to="/property-managers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Property Managers</Link></li>
                   <li><Link to="/commercial-clients" className="text-sm text-muted-foreground hover:text-primary transition-colors">Commercial Clients</Link></li>
+                  <li><Link to="/resources/service-areas" className="text-sm text-muted-foreground hover:text-primary transition-colors">Service Areas</Link></li>
+                  <li><Link to="/resources/contractor-portal" className="text-sm font-semibold text-primary hover:text-sage transition-colors flex items-center gap-1"><Shield className="h-3 w-3" />Contractor Portal</Link></li>
                   <li><Link to="/careers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
                 </ul>
               </nav>
