@@ -3,13 +3,16 @@ import { ArrowRight } from "lucide-react";
 import { landingMenuItems } from "@/data/landing-menu";
 import heroConstruction from "@/assets/hero-construction.jpg";
 import heroPremiumVideo from "@/assets/hero-premium.mp4";
+import homeHeroVideo from "@/assets/home-hero.mp4";
 import { useEffect, useRef, useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
 
 const NumberedLandingHero = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const video1Ref = useRef<HTMLVideoElement>(null);
+  const video2Ref = useRef<HTMLVideoElement>(null);
   const [shouldUseVideo, setShouldUseVideo] = useState(true);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [activeVideo, setActiveVideo] = useState<1 | 2>(1);
+  const [videosLoaded, setVideosLoaded] = useState({ video1: false, video2: false });
 
   useEffect(() => {
     // Check for user preferences that might prevent video playback
@@ -21,17 +24,41 @@ const NumberedLandingHero = () => {
       return;
     }
 
-    // Attempt to play video, fallback to image if it fails
-    const video = videoRef.current;
-    if (video) {
-      video.play().catch(() => {
+    // Attempt to play first video, fallback to image if it fails
+    const video1 = video1Ref.current;
+    if (video1) {
+      video1.play().catch(() => {
         setShouldUseVideo(false);
       });
     }
   }, []);
 
-  const handleVideoLoaded = () => {
-    setVideoLoaded(true);
+  const handleVideo1Loaded = () => {
+    setVideosLoaded(prev => ({ ...prev, video1: true }));
+  };
+
+  const handleVideo2Loaded = () => {
+    setVideosLoaded(prev => ({ ...prev, video2: true }));
+  };
+
+  const handleVideo1Ended = () => {
+    // Start video 2 and crossfade
+    const video2 = video2Ref.current;
+    if (video2) {
+      video2.currentTime = 0;
+      video2.play();
+      setActiveVideo(2);
+    }
+  };
+
+  const handleVideo2Ended = () => {
+    // Start video 1 and crossfade
+    const video1 = video1Ref.current;
+    if (video1) {
+      video1.currentTime = 0;
+      video1.play();
+      setActiveVideo(1);
+    }
   };
 
   return (
@@ -39,21 +66,36 @@ const NumberedLandingHero = () => {
       {/* Background Video */}
       <div className="landing-hero__background">
         {shouldUseVideo ? (
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            poster={heroConstruction}
-            onLoadedData={handleVideoLoaded}
-            className={`w-full h-full object-cover transition-opacity duration-[1500ms] ease-in ${
-              videoLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <source src={heroPremiumVideo} type="video/mp4" />
-          </video>
+          <>
+            <video
+              ref={video1Ref}
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              poster={heroConstruction}
+              onLoadedData={handleVideo1Loaded}
+              onEnded={handleVideo1Ended}
+              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+                activeVideo === 1 && videosLoaded.video1 ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <source src={heroPremiumVideo} type="video/mp4" />
+            </video>
+            <video
+              ref={video2Ref}
+              muted
+              playsInline
+              preload="auto"
+              onLoadedData={handleVideo2Loaded}
+              onEnded={handleVideo2Ended}
+              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+                activeVideo === 2 && videosLoaded.video2 ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <source src={homeHeroVideo} type="video/mp4" />
+            </video>
+          </>
         ) : (
           <OptimizedImage
             src={heroConstruction}
