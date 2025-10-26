@@ -140,60 +140,68 @@ const Footer = () => {
         </div>
 
         <div className="container mx-auto px-4 py-12">
-          {/* PCL-style 4-column footer layout */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            {/* Column 1: Logo & Tagline */}
-            <div>
-              <Link to="/" className="inline-block mb-4">
-                <img 
-                  src={ascentLogo} 
-                  alt="Ascent Group Construction" 
-                  className="h-24 w-auto"
-                />
-              </Link>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Professional construction services delivering excellence across the Greater Toronto Area since 2009.
-              </p>
-            </div>
-
-            {/* Column 2: Quick Links */}
+          {/* 4-column footer layout with new structure */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            {/* Column 1: SERVICES */}
             <div>
               <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">
-                Quick Links
+                Services
               </h3>
-              <nav aria-label="Quick links">
+              <nav aria-label="Services navigation">
                 <ul className="space-y-2">
-                  <li><Link to="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">Services</Link></li>
-                  <li><Link to="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">Projects</Link></li>
-                  <li><Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
-                  <li><Link to="/our-process" className="text-sm text-muted-foreground hover:text-primary transition-colors">Our Process</Link></li>
-                  <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
-                  <li><Link to="/case-studies" className="text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</Link></li>
+                  <li><Link to="/services/residential" className="text-sm text-muted-foreground hover:text-primary transition-colors">Residential</Link></li>
+                  <li><Link to="/services/commercial" className="text-sm text-muted-foreground hover:text-primary transition-colors">Commercial</Link></li>
+                  <li><Link to="/services/multi-unit" className="text-sm text-muted-foreground hover:text-primary transition-colors font-semibold">Multi-Unit</Link></li>
+                  <li><Link to="/services/industrial" className="text-sm text-muted-foreground hover:text-primary transition-colors">Industrial</Link></li>
+                  <li><Link to="/emergency-services" className="text-sm text-muted-foreground hover:text-primary transition-colors">Emergency (24/7)</Link></li>
+                  <li><Link to="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">View All Services</Link></li>
                 </ul>
               </nav>
             </div>
 
-            {/* Column 3: Sectors */}
+            {/* Column 2: COMPANY */}
             <div>
               <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">
-                Sectors
+                Company
               </h3>
-              <nav aria-label="Client sectors">
+              <nav aria-label="Company navigation">
                 <ul className="space-y-2">
-                  <li><Link to="/homeowners" className="text-sm text-muted-foreground hover:text-primary transition-colors">Homeowners</Link></li>
-                  <li><Link to="/property-managers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Property Managers</Link></li>
-                  <li><Link to="/commercial-clients" className="text-sm text-muted-foreground hover:text-primary transition-colors">Commercial Clients</Link></li>
+                  <li><Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
+                  <li><Link to="/company/our-team" className="text-sm text-muted-foreground hover:text-primary transition-colors">Our Team</Link></li>
+                  <li><Link to="/safety" className="text-sm text-muted-foreground hover:text-primary transition-colors">Safety & Compliance</Link></li>
+                  <li><Link to="/company/certifications-insurance" className="text-sm text-muted-foreground hover:text-primary transition-colors">Certifications</Link></li>
+                  <li><Link to="/company/equipment-resources" className="text-sm text-muted-foreground hover:text-primary transition-colors">Equipment</Link></li>
                   <li><Link to="/careers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
                 </ul>
               </nav>
             </div>
 
-            {/* Column 4: Contact & Social */}
+            {/* Column 3: RESOURCES */}
+            <div>
+              <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">
+                Resources
+              </h3>
+              <nav aria-label="Resources navigation">
+                <ul className="space-y-2">
+                  <li><Link to="/faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
+                  <li><Link to="/our-process" className="text-sm text-muted-foreground hover:text-primary transition-colors">Our Process</Link></li>
+                  <li><Link to="/resources/warranties" className="text-sm text-muted-foreground hover:text-primary transition-colors">Warranties</Link></li>
+                  <li><Link to="/resources/financing" className="text-sm text-muted-foreground hover:text-primary transition-colors">Financing</Link></li>
+                  <li><Link to="/resources/service-areas" className="text-sm text-muted-foreground hover:text-primary transition-colors">Service Areas</Link></li>
+                  <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
+                  <li><Link to="/resources/contractor-portal" className="text-sm font-bold text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
+                    Contractor Portal <Shield className="w-3 h-3" />
+                  </Link></li>
+                </ul>
+              </nav>
+            </div>
+
+            {/* Column 4: CONTACT & CREDENTIALS */}
             <div>
               <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">
                 Contact
               </h3>
-              <div className="space-y-3 text-sm text-muted-foreground">
+              <div className="space-y-3 text-sm text-muted-foreground mb-6">
                 <div className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
                   <span>{siteSettings?.address || 'Greater Toronto Area, Ontario'}</span>
@@ -210,22 +218,43 @@ const Footer = () => {
                     {siteSettings?.email || 'info@ascentgroupconstruction.com'}
                   </a>
                 </div>
-                
-                {/* Social Icons */}
-                <div className="flex gap-3 pt-2">
-                  <a href="https://www.linkedin.com/company/ascent-group-construction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
-                    <Linkedin className="h-5 w-5" />
+              </div>
+
+              {/* Certification Badges */}
+              <div className="mb-4">
+                <h4 className="text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+                  Downloads
+                </h4>
+                <div className="space-y-2">
+                  <a href="#" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
+                    <Shield className="w-3 h-3" />
+                    <span>WSIB Certificate</span>
                   </a>
-                  <a href="https://www.facebook.com/ascentgroupconstruction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
-                    <Facebook className="h-5 w-5" />
+                  <a href="#" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
+                    <Award className="w-3 h-3" />
+                    <span>COR Certificate</span>
                   </a>
-                  <a href="https://twitter.com/ascentgroupca" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
-                    <Twitter className="h-5 w-5" />
-                  </a>
-                  <a href="https://www.instagram.com/ascentgroupconstruction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
-                    <Instagram className="h-5 w-5" />
+                  <a href="#" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Insurance Certificate</span>
                   </a>
                 </div>
+              </div>
+              
+              {/* Social Icons */}
+              <div className="flex gap-3">
+                <a href="https://www.linkedin.com/company/ascent-group-construction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+                <a href="https://www.facebook.com/ascentgroupconstruction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a href="https://twitter.com/ascentgroupca" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a href="https://www.instagram.com/ascentgroupconstruction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
+                  <Instagram className="h-5 w-5" />
+                </a>
               </div>
             </div>
           </div>
@@ -237,8 +266,8 @@ const Footer = () => {
                 &copy; {new Date().getFullYear()} Ascent Group Construction. All rights reserved.
               </p>
               <nav aria-label="Legal navigation" className="flex gap-6 text-muted-foreground">
-                <Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-                <Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
+                <Link to="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+                <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
                 <Link to="/accessibility" className="hover:text-primary transition-colors">Accessibility</Link>
               </nav>
             </div>

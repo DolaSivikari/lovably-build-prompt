@@ -43,6 +43,8 @@ import HowWeWork from "./pages/HowWeWork";
 import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
 import FAQ from "./pages/FAQ";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -201,6 +203,8 @@ const App = () => (
                   <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
                   <Route path="/company/equipment-resources" element={<EquipmentResources />} />
                   <Route path="/company/our-team" element={<OurTeam />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/terms-of-service" element={<TermsOfService />} />
                   <Route path="/auth" element={<Auth />} />
                   
                   {/* Heavy content pages - lazy loaded */}

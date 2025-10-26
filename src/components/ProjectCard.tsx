@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Calendar, Ruler, Eye } from "lucide-react";
+import { MapPin, Calendar, Ruler, Eye, Building2, Home, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
@@ -16,6 +16,11 @@ interface ProjectCardProps {
   description: string;
   highlights?: string[];
   onViewDetails: () => void;
+  unitsCount?: number;
+  squareFootage?: number;
+  timelineWeeks?: number;
+  projectScale?: 'small' | 'medium' | 'large' | 'major';
+  clientType?: 'homeowner' | 'property_manager' | 'developer' | 'commercial';
 }
 
 const ProjectCard = ({
@@ -29,6 +34,11 @@ const ProjectCard = ({
   description,
   highlights,
   onViewDetails,
+  unitsCount,
+  squareFootage,
+  timelineWeeks,
+  projectScale,
+  clientType,
 }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -86,6 +96,44 @@ const ProjectCard = ({
         </div>
         
         <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+        
+        {/* Metadata Badges */}
+        {(unitsCount || squareFootage || timelineWeeks || projectScale) && (
+          <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t">
+            {unitsCount && (
+              <Badge variant="secondary" className="text-xs">
+                <Building2 className="w-3 h-3 mr-1" />
+                {unitsCount} Units
+              </Badge>
+            )}
+            {squareFootage && (
+              <Badge variant="secondary" className="text-xs">
+                <Ruler className="w-3 h-3 mr-1" />
+                {squareFootage.toLocaleString()} sq ft
+              </Badge>
+            )}
+            {timelineWeeks && (
+              <Badge variant="secondary" className="text-xs">
+                <Clock className="w-3 h-3 mr-1" />
+                {timelineWeeks} weeks
+              </Badge>
+            )}
+            {projectScale && (
+              <Badge 
+                variant={projectScale === 'major' ? 'default' : 'outline'} 
+                className="text-xs"
+              >
+                {projectScale.charAt(0).toUpperCase() + projectScale.slice(1)} Scale
+              </Badge>
+            )}
+            {clientType && (
+              <Badge variant="outline" className="text-xs">
+                {clientType === 'homeowner' ? <Home className="w-3 h-3 mr-1" /> : <Building2 className="w-3 h-3 mr-1" />}
+                {clientType.replace('_', ' ')}
+              </Badge>
+            )}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

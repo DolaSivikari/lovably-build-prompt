@@ -71,6 +71,30 @@ const Index = () => {
         <DualPathHero />
         <TrustBar />
         
+        {/* Trust Indicators Section */}
+        <section className="py-12 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">15+</div>
+                <div className="text-sm text-muted-foreground">Years In Business</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">1,000+</div>
+                <div className="text-sm text-muted-foreground">Units Annually</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">$5M</div>
+                <div className="text-sm text-muted-foreground">Bonding Capacity</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">15</div>
+                <div className="text-sm text-muted-foreground">Concurrent Projects</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         {/* Direct Answer for AEO/GEO */}
         <DirectAnswer>
           <p className="text-lg leading-relaxed">
