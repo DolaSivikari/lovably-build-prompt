@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import OptimizedImage from "@/components/OptimizedImage";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -36,20 +37,15 @@ const CaseStudies = () => {
       <Navigation />
       
       <main>
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Success Stories</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Case Studies
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto text-primary-foreground/90">
-              Discover how we tackle complex painting and finishing challenges with innovative solutions and expert craftsmanship
-            </p>
-          </div>
-        </section>
+        <PageHeader
+          title="Case Studies"
+          description="Discover how we tackle complex painting and finishing challenges with innovative solutions and expert craftsmanship"
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Case Studies" }
+          ]}
+          variant="standard"
+        />
 
         {/* Filter Tabs */}
         <section className="py-16 bg-background sticky top-16 z-40 border-b">

@@ -31,32 +31,26 @@ const BlogCard = ({ post }: BlogCardProps) => {
 
   return (
     <Link to={`/blog/${post.slug}`}>
-      <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group">
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={image}
-            alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute top-4 left-4">
-            <Badge className="bg-secondary text-primary">{post.category}</Badge>
-          </div>
-        </div>
-        <CardContent className="p-6">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              <span>{formattedDate}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>5 min read</span>
+      <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group border-2 hover:border-primary">
+        <CardContent className="p-8">
+          <div className="flex items-start gap-3 mb-4">
+            <Badge className="bg-secondary text-primary shrink-0">{post.category}</Badge>
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <Calendar className="w-4 h-4" />
+                <span>{formattedDate}</span>
+              </div>
+              <span>•</span>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                <span>5 min read</span>
+              </div>
             </div>
           </div>
-          <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+          <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors leading-tight">
             {post.title}
           </h3>
-          <p className="text-muted-foreground text-sm line-clamp-2">
+          <p className="text-muted-foreground line-clamp-3 leading-relaxed">
             {excerpt}
           </p>
         </CardContent>

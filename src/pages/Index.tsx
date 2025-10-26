@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import NumberedLandingHero from "@/components/NumberedLandingHero";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
-import FeaturedProjects from "@/components/FeaturedProjects";
+
 import SEO from "@/components/SEO";
 import SocialProof from "@/components/SocialProof";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
@@ -89,7 +89,7 @@ const Index = () => {
         <ServicesExplorer />
         <AchievementShowcase />
         <CertificationsBar />
-        <FeaturedProjects />
+        
         <SocialProof />
         <PrequalPackage />
         <ContentHub />

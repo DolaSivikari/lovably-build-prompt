@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
 import BlogCard from "@/components/blog/BlogCard";
 import NewsletterSection from "@/components/blog/NewsletterSection";
 import { Button } from "@/components/ui/button";
@@ -90,32 +91,15 @@ const Blog = () => {
         <div className="container mx-auto px-4 py-20 text-center">Loading...</div>
       ) : (
       <main>
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
-              <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Industry Insights</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Blog & Resources
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto text-primary-foreground/90 mb-8">
-              Stay informed with expert guidance on construction, painting, and property maintenance from the professionals at Ascen Group.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#newsletter">
-                <Button size="lg" variant="secondary" className="hover:scale-105 transition-all">
-                  Subscribe to Newsletter
-                </Button>
-              </a>
-              <Link to="/case-studies">
-                <Button size="lg" variant="outline">
-                  View Case Studies
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+        <PageHeader
+          title="Blog & Resources"
+          description="Expert insights on construction, painting, and property maintenance from industry professionals"
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Blog" }
+          ]}
+          variant="standard"
+        />
 
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
