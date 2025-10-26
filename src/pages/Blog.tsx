@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -7,26 +7,51 @@ import BlogCard from "@/components/blog/BlogCard";
 import NewsletterSection from "@/components/blog/NewsletterSection";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import blogData from "@/data/blog-posts-complete.json";
+import { supabase } from "@/integrations/supabase/client";
+
+interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  summary: string;
+  category: string;
+  featured_image: string;
+  published_at: string;
+  author_id: string | null;
+}
 
 const Blog = () => {
   const [filter, setFilter] = useState<string>("all");
   const [visiblePosts, setVisiblePosts] = React.useState(6);
   const [animatedCards, setAnimatedCards] = React.useState<Set<number>>(new Set());
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
   
-  const categories = ["all", ...Array.from(new Set(blogData.posts.map(p => p.category)))];
-  
-  // Sort posts by date (newest first)
-  const sortedPosts = [...blogData.posts].sort((a, b) => 
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  useEffect(() => {
+    const loadPosts = async () => {
+      const { data } = await supabase
+        .from('blog_posts')
+        .select('id, slug, title, summary, category, featured_image, published_at, author_id')
+        .eq('publish_state', 'published')
+        .order('published_at', { ascending: false });
+      
+      if (data) {
+        setPosts(data);
+      }
+      setLoading(false);
+    };
+    
+    loadPosts();
+  }, []);
+
+  const categories = ["all", ...Array.from(new Set(posts.map(p => p.category)))];
   
   const filteredPosts = filter === "all" 
-    ? sortedPosts 
-    : sortedPosts.filter(p => p.category === filter);
+    ? posts 
+    : posts.filter(p => p.category === filter);
 
   // Limit featured posts to top 3
-  const featuredPosts = sortedPosts.filter(p => p.featured).slice(0, 3);
+  const featuredPosts = posts.slice(0, 3);
 
   const loadMore = () => {
     setVisiblePosts(prev => Math.min(prev + 6, filteredPosts.length));
@@ -61,6 +86,9 @@ const Blog = () => {
       />
       <Navigation />
       
+      {loading ? (
+        <div className="container mx-auto px-4 py-20 text-center">Loading...</div>
+      ) : (
       <main>
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
@@ -163,6 +191,7 @@ const Blog = () => {
         {/* Newsletter Signup */}
         <NewsletterSection />
       </main>
+      )}
       
       <Footer />
     </div>

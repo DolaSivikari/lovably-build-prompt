@@ -7,27 +7,34 @@ interface BlogCardProps {
   post: {
     slug: string;
     title: string;
-    excerpt: string;
-    date: string;
+    summary?: string;
+    excerpt?: string;
+    published_at?: string;
+    date?: string;
     category: string;
-    image: string;
-    author: string;
+    featured_image?: string;
+    image?: string;
+    author?: string;
   };
 }
 
 const BlogCard = ({ post }: BlogCardProps) => {
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+  const date = post.published_at || post.date || new Date().toISOString();
+  const formattedDate = new Date(date).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric'
   });
+  
+  const excerpt = post.summary || post.excerpt || '';
+  const image = post.featured_image || post.image || '';
 
   return (
     <Link to={`/blog/${post.slug}`}>
       <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group">
         <div className="relative h-48 overflow-hidden">
           <img
-            src={post.image}
+            src={image}
             alt={post.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
@@ -50,7 +57,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
             {post.title}
           </h3>
           <p className="text-muted-foreground text-sm line-clamp-2">
-            {post.excerpt}
+            {excerpt}
           </p>
         </CardContent>
       </Card>

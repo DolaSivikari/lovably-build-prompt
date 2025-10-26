@@ -3,12 +3,39 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight } from "lucide-react";
-import blogData from "@/data/blog-posts-complete.json";
 import OptimizedImage from "./OptimizedImage";
 import { resolveAssetPath } from "@/utils/assetResolver";
+import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
+
+interface BlogPost {
+  slug: string;
+  title: string;
+  summary: string;
+  category: string;
+  featured_image: string;
+  published_at: string;
+}
 
 const BlogPreview = () => {
-  const featuredPosts = blogData.posts.filter(post => post.featured).slice(0, 3);
+  const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      const { data } = await supabase
+        .from('blog_posts')
+        .select('slug, title, summary, category, featured_image, published_at')
+        .eq('publish_state', 'published')
+        .order('published_at', { ascending: false })
+        .limit(3);
+      
+      if (data) {
+        setFeaturedPosts(data);
+      }
+    };
+    
+    loadPosts();
+  }, []);
 
   return (
     <section className="py-20 bg-background">
@@ -22,19 +49,19 @@ const BlogPreview = () => {
 
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {featuredPosts.slice(0, 1).map((post) => {
-            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+            const formattedDate = new Date(post.published_at).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
               year: 'numeric'
             });
 
             return (
-              <Link key={post.id} to={`/blog/${post.slug}`} className="md:col-span-3">
+              <Link key={post.slug} to={`/blog/${post.slug}`} className="md:col-span-3">
                 <Card className="h-full hover:shadow-lg transition-all duration-300 overflow-hidden group">
                   <div className="grid md:grid-cols-2 gap-0">
                     <div className="relative h-64 md:h-full overflow-hidden">
                       <OptimizedImage
-                        src={resolveAssetPath(post.image) || post.image}
+                        src={resolveAssetPath(post.featured_image) || post.featured_image}
                         alt={`${post.title} - Expert guide on ${post.category.toLowerCase()}`}
                         width={1200}
                         height={800}
@@ -55,7 +82,7 @@ const BlogPreview = () => {
                         {post.title}
                       </h3>
                       <p className="text-muted-foreground text-lg line-clamp-3">
-                        {post.excerpt}
+                        {post.summary}
                       </p>
                     </CardContent>
                   </div>
@@ -67,18 +94,18 @@ const BlogPreview = () => {
 
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           {featuredPosts.slice(1, 3).map((post) => {
-            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+            const formattedDate = new Date(post.published_at).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
               year: 'numeric'
             });
 
             return (
-              <Link key={post.id} to={`/blog/${post.slug}`}>
+              <Link key={post.slug} to={`/blog/${post.slug}`}>
                 <Card className="h-full hover:shadow-lg transition-all duration-300 overflow-hidden group">
                   <div className="relative h-48 overflow-hidden">
                     <OptimizedImage
-                      src={resolveAssetPath(post.image) || post.image}
+                      src={resolveAssetPath(post.featured_image) || post.featured_image}
                       alt={`${post.title} - Expert guide on ${post.category.toLowerCase()}`}
                       width={800}
                       height={600}
@@ -99,7 +126,7 @@ const BlogPreview = () => {
                       {post.title}
                     </h3>
                     <p className="text-muted-foreground line-clamp-2">
-                      {post.excerpt}
+                      {post.summary}
                     </p>
                   </CardContent>
                 </Card>

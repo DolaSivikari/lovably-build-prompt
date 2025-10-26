@@ -1873,10 +1873,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      can_edit_content: {
-        Args: { _user_id: string }
-        Returns: boolean
-      }
+      can_edit_content: { Args: { _user_id: string }; Returns: boolean }
       check_and_update_rate_limit: {
         Args: {
           p_endpoint: string
@@ -1886,22 +1883,10 @@ export type Database = {
         }
         Returns: Json
       }
-      cleanup_expired_lockouts: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      cleanup_expired_sessions: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      cleanup_old_failed_attempts: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      cleanup_rate_limits: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      cleanup_expired_lockouts: { Args: never; Returns: undefined }
+      cleanup_expired_sessions: { Args: never; Returns: undefined }
+      cleanup_old_failed_attempts: { Args: never; Returns: undefined }
+      cleanup_rate_limits: { Args: never; Returns: undefined }
       create_notification: {
         Args: {
           p_link?: string
@@ -1939,10 +1924,7 @@ export type Database = {
         Args: { p_user_identifier: string }
         Returns: boolean
       }
-      is_admin: {
-        Args: { _user_id: string }
-        Returns: boolean
-      }
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
       save_content_version: {
         Args: {
           p_change_summary: string

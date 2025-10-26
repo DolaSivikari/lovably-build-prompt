@@ -1,27 +1,67 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight, Clock, TrendingUp, BookOpen } from "lucide-react";
-import blogData from "@/data/blog-posts-complete.json";
 import OptimizedImage from "../OptimizedImage";
 import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { resolveAssetPath } from "@/utils/assetResolver";
 
 const categories = ["All", "Painting", "Exterior Systems", "Restoration", "Tips & Guides"];
 
+interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  summary: string;
+  category: string;
+  featured_image: string;
+  published_at: string;
+}
+
 const ContentHub = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-  const featuredPost = blogData.posts.find(post => post.featured);
-  const regularPosts = blogData.posts
-    .filter(post => !post.featured || post.id !== featuredPost?.id)
-    .slice(0, 3);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      const { data } = await supabase
+        .from('blog_posts')
+        .select('id, slug, title, summary, category, featured_image, published_at')
+        .eq('publish_state', 'published')
+        .order('published_at', { ascending: false })
+        .limit(4);
+      
+      if (data) {
+        setPosts(data);
+      }
+      setLoading(false);
+    };
+    
+    loadPosts();
+  }, []);
+
+  const featuredPost = posts[0];
+  const regularPosts = posts.slice(1, 4);
 
   const filteredPosts = activeCategory === "All" 
     ? regularPosts 
     : regularPosts.filter(post => 
         post.category.toLowerCase().includes(activeCategory.toLowerCase())
       );
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-gradient-to-b from-background to-muted/30">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center">Loading...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-gradient-to-b from-background to-muted/30">
@@ -68,7 +108,7 @@ const ContentHub = () => {
                   {/* Image */}
                   <div className="relative h-72 md:h-auto overflow-hidden">
                     <OptimizedImage
-                      src={featuredPost.image}
+                      src={resolveAssetPath(featuredPost.featured_image) || featuredPost.featured_image}
                       alt={featuredPost.title}
                       width={1200}
                       height={800}
@@ -94,14 +134,14 @@ const ContentHub = () => {
                     </h3>
                     
                     <p className="text-muted-foreground mb-6 line-clamp-3 text-base">
-                      {featuredPost.excerpt}
+                      {featuredPost.summary}
                     </p>
 
                     <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
                         <span>
-                          {new Date(featuredPost.date).toLocaleDateString('en-US', {
+                          {new Date(featuredPost.published_at).toLocaleDateString('en-US', {
                             month: 'short',
                             day: 'numeric',
                             year: 'numeric'
@@ -128,7 +168,7 @@ const ContentHub = () => {
         {/* Regular Post Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {filteredPosts.map((post, index) => {
-            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+            const formattedDate = new Date(post.published_at).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
               year: 'numeric'
@@ -145,7 +185,7 @@ const ContentHub = () => {
                   <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group border hover:border-primary">
                     <div className="relative h-48 overflow-hidden">
                       <OptimizedImage
-                        src={post.image}
+                        src={resolveAssetPath(post.featured_image) || post.featured_image}
                         alt={`${post.title} - ${post.category}`}
                         width={800}
                         height={600}
@@ -173,7 +213,7 @@ const ContentHub = () => {
                       </h3>
                       
                       <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                        {post.excerpt}
+                        {post.summary}
                       </p>
 
                       <div className="flex items-center gap-2 text-sm text-primary font-semibold">
