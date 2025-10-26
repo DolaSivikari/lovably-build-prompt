@@ -3,7 +3,6 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { 
   Shield, 
   HardHat, 
@@ -11,8 +10,7 @@ import {
   Users, 
   ClipboardCheck,
   Award,
-  CheckCircle2,
-  FileText
+  CheckCircle2
 } from "lucide-react";
 import companyData from "@/data/company-info.json";
 
@@ -160,76 +158,38 @@ const Safety = () => {
                 </p>
               </div>
 
-              <Card className="mb-8">
+              <Card>
                 <CardContent className="p-8">
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <h3 className="font-bold">OSHA 30-Hour Certification</h3>
-                          <a href="#" className="text-sm text-primary hover:underline flex items-center gap-1">
-                            <Shield className="w-4 h-4" />
-                            Download
-                          </a>
-                        </div>
+                      <div>
+                        <h3 className="font-bold mb-1">OSHA 30-Hour Certification</h3>
                         <p className="text-sm text-muted-foreground">All supervisors and project managers are OSHA 30-hour certified</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <h3 className="font-bold">WSIB Coverage</h3>
-                          <a href="#" className="text-sm text-primary hover:underline flex items-center gap-1">
-                            <Shield className="w-4 h-4" />
-                            Download Certificate
-                          </a>
-                        </div>
+                      <div>
+                        <h3 className="font-bold mb-1">WSIB Coverage</h3>
                         <p className="text-sm text-muted-foreground">Full Workplace Safety and Insurance Board coverage for all employees</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <h3 className="font-bold">Liability Insurance</h3>
-                          <a href="#" className="text-sm text-primary hover:underline flex items-center gap-1">
-                            <Shield className="w-4 h-4" />
-                            Download Certificate
-                          </a>
-                        </div>
+                      <div>
+                        <h3 className="font-bold mb-1">Liability Insurance</h3>
                         <p className="text-sm text-muted-foreground">Comprehensive general liability insurance protecting clients and properties</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <h3 className="font-bold">COR Certification</h3>
-                          <a href="#" className="text-sm text-primary hover:underline flex items-center gap-1">
-                            <Award className="w-4 h-4" />
-                            Download Certificate
-                          </a>
-                        </div>
+                      <div>
+                        <h3 className="font-bold mb-1">COR Certification</h3>
                         <p className="text-sm text-muted-foreground">Certificate of Recognition for workplace health and safety management systems</p>
                       </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-
-              {/* Safety Manual Download */}
-              <Card className="bg-primary text-primary-foreground">
-                <CardContent className="p-8 text-center">
-                  <h3 className="text-2xl font-bold mb-3">Download Our Safety Manual</h3>
-                  <p className="mb-6 opacity-90">
-                    Complete documentation of our safety protocols, procedures, and training programs
-                  </p>
-                  <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                    <Shield className="w-5 h-5 mr-2" />
-                    Download Safety Manual (PDF)
-                  </Button>
                 </CardContent>
               </Card>
             </div>

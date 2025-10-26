@@ -7,9 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { MobileNavSheet } from "./navigation/MobileNavSheet";
-import { NavDropdown } from "./navigation/NavDropdown";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
-import { navigationStructure } from "@/data/navigation-structure-new";
 import { cn } from "@/lib/utils";
 import { trackPhoneClick } from "@/lib/analytics";
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
@@ -28,7 +26,6 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
   const location = useLocation();
   
@@ -77,28 +74,13 @@ const Navigation = () => {
     megaMenuHover.clearPendingTimeout();
   }, [megaMenuHover]);
 
-  const handleDropdownEnter = useCallback((menuKey: string) => {
-    megaMenuHover.clearPendingTimeout();
-    setActiveDropdown(menuKey);
-  }, [megaMenuHover]);
-
-  const handleDropdownLeave = useCallback(() => {
-    megaMenuHover.scheduleAction(() => setActiveDropdown(null), 300);
-  }, [megaMenuHover]);
-
-  const closeDropdown = useCallback(() => {
-    setActiveDropdown(null);
-    megaMenuHover.clearPendingTimeout();
-  }, [megaMenuHover]);
-
   // Close mega menus when scrolling down
   useEffect(() => {
     if (scrollDirection === "down" && !isAtTop) {
       closeMegaMenu();
-      closeDropdown();
       setAdminDropdownOpen(false);
     }
-  }, [scrollDirection, isAtTop, closeMegaMenu, closeDropdown]);
+  }, [scrollDirection, isAtTop, closeMegaMenu]);
 
   // Admin dropdown hover handlers
   const openAdminDropdown = useCallback(() => {
@@ -152,56 +134,119 @@ const Navigation = () => {
               Home
             </Link>
             
-            {/* Services Dropdown */}
-            <NavDropdown
-              label="Services"
-              items={navigationStructure.services.dropdown}
-              isOpen={activeDropdown === "services"}
-              onMouseEnter={() => handleDropdownEnter("services")}
-              onMouseLeave={handleDropdownLeave}
-              onClose={closeDropdown}
-            />
+            {/* Services Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("services")}
+              onMouseLeave={handleMegaMenuLeave}
+            >
+              <Link
+                to="/services"
+                className={cn(
+                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
+                  activeMegaMenu === "services" && "text-sage"
+                )}
+                aria-expanded={activeMegaMenu === "services"}
+                aria-controls="services-mega-menu"
+              >
+                Services
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  activeMegaMenu === "services" && "rotate-180"
+                )} />
+              </Link>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.services}
+                isOpen={activeMegaMenu === "services"}
+                onClose={closeMegaMenu}
+              />
+            </div>
 
-            {/* Projects Dropdown */}
-            <NavDropdown
-              label="Projects"
-              items={navigationStructure.projects.dropdown}
-              isOpen={activeDropdown === "projects"}
-              onMouseEnter={() => handleDropdownEnter("projects")}
-              onMouseLeave={handleDropdownLeave}
-              onClose={closeDropdown}
-            />
-
-            {/* Company Dropdown */}
-            <NavDropdown
-              label="Company"
-              items={navigationStructure.company.dropdown}
-              isOpen={activeDropdown === "company"}
-              onMouseEnter={() => handleDropdownEnter("company")}
-              onMouseLeave={handleDropdownLeave}
-              onClose={closeDropdown}
-            />
-
-            {/* Resources Dropdown */}
-            <NavDropdown
-              label="Resources"
-              items={navigationStructure.resources.dropdown}
-              isOpen={activeDropdown === "resources"}
-              onMouseEnter={() => handleDropdownEnter("resources")}
-              onMouseLeave={handleDropdownLeave}
-              onClose={closeDropdown}
-            />
-
-            {/* Contact Link */}
+            {/* Who We Serve Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("whoWeServe")}
+              onMouseLeave={handleMegaMenuLeave}
+            >
+              <button
+                className={cn(
+                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
+                  activeMegaMenu === "whoWeServe" && "text-sage"
+                )}
+                aria-expanded={activeMegaMenu === "whoWeServe"}
+                aria-controls="whowesserve-mega-menu"
+              >
+                Who We Serve
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  activeMegaMenu === "whoWeServe" && "rotate-180"
+                )} />
+              </button>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.whoWeServe}
+                isOpen={activeMegaMenu === "whoWeServe"}
+                onClose={closeMegaMenu}
+              />
+            </div>
+            
             <Link
-              to="/contact"
+              to="/our-process"
               className={cn(
                 "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground"
+                isActive("/our-process") ? "text-primary after:scale-x-100" : "text-foreground"
               )}
             >
-              Contact
+              Our Process
             </Link>
+            
+            <Link
+              to="/projects"
+              className={cn(
+                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
+                isActive("/projects") ? "text-primary after:scale-x-100" : "text-foreground"
+              )}
+            >
+              Projects
+            </Link>
+
+            {/* Blog & Resources Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("blog")}
+              onMouseLeave={handleMegaMenuLeave}
+            >
+              <Link
+                to="/blog"
+                className={cn(
+                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
+                  activeMegaMenu === "blog" && "text-sage"
+                )}
+                aria-expanded={activeMegaMenu === "blog"}
+                aria-controls="blog-mega-menu"
+              >
+                Blog
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  activeMegaMenu === "blog" && "rotate-180"
+                )} />
+              </Link>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.blog}
+                isOpen={activeMegaMenu === "blog"}
+                onClose={closeMegaMenu}
+              />
+            </div>
+
+            {/* Search Bar */}
+            <div className="relative">
+              <button 
+                className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md"
+                aria-label="Search"
+              >
+                <Search className="w-4 h-4" />
+                <span className="hidden lg:inline">Search</span>
+              </button>
+            </div>
 
             {/* Admin Dropdown - Only visible to admin users */}
             {isAdmin && (

@@ -1,70 +1,48 @@
-/**
- * Asset Resolver Utility - Phase 0
- * Fixes broken images on mobile by converting JSON paths to Vite URLs
- */
+// Utility to resolve asset paths from JSON/data to built URLs via Vite's import.meta.glob
+// Supports paths like "/assets/filename.jpg", "src/assets/filename.jpg", or just "filename.jpg"
 
-// Import all images from assets folder
-const imageModules = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp,svg}', { eager: true });
+const rawAssets = import.meta.glob("/src/assets/**/*", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
 
-// Create a map of image paths for fast lookup
-const imageMap: Record<string, string> = {};
+const assetMap: Record<string, string> = {};
 
-Object.entries(imageModules).forEach(([path, module]) => {
-  // Extract the file name from the path
-  const fileName = path.split('/').pop() || '';
-  const moduleWithDefault = module as { default: string };
-  
-  // Store multiple path formats for flexible matching
-  imageMap[path] = moduleWithDefault.default;
-  imageMap[path.replace('/src', '')] = moduleWithDefault.default;
-  imageMap[`/assets/${fileName}`] = moduleWithDefault.default;
-  imageMap[`/src/assets/${fileName}`] = moduleWithDefault.default;
-  imageMap[fileName] = moduleWithDefault.default;
+Object.entries(rawAssets).forEach(([fullPath, url]) => {
+  // fullPath example: "/src/assets/case-office-tower.jpg"
+  assetMap[fullPath] = url;
+  const afterPrefix = fullPath.split("/src/assets/")[1];
+  if (afterPrefix) {
+    // Map common variants that might appear in data/JSON
+    assetMap[`/src/assets/${afterPrefix}`] = url;
+    assetMap[`src/assets/${afterPrefix}`] = url;
+    assetMap[`/assets/${afterPrefix}`] = url;
+    assetMap[`assets/${afterPrefix}`] = url;
+    // Also allow direct filename lookups (last resort; may collide but helpful)
+    if (!assetMap[afterPrefix]) assetMap[afterPrefix] = url;
+    const filenameOnly = afterPrefix.split("/").pop()!;
+    if (!assetMap[filenameOnly]) assetMap[filenameOnly] = url;
+  }
 });
 
-/**
- * Resolves asset paths to Vite URLs
- * @param path - The asset path from JSON or component
- * @returns The resolved Vite URL or placeholder
- */
-export const resolveAsset = (path: string | undefined | null): string => {
-  if (!path) return '/placeholder.svg';
-  
-  // Return absolute URLs as-is
-  if (path.startsWith('http://') || path.startsWith('https://')) {
-    return path;
-  }
-  
-  // Return public folder paths as-is
-  if (path.startsWith('/public/')) {
-    return path.replace('/public', '');
-  }
-  
-  // Try to find the image in our map
-  const resolved = imageMap[path];
-  if (resolved) return resolved;
-  
-  // Try with leading slash removed
-  const withoutLeadingSlash = path.startsWith('/') ? path.substring(1) : path;
-  if (imageMap[withoutLeadingSlash]) return imageMap[withoutLeadingSlash];
-  
-  // Try just the filename
-  const filename = path.split('/').pop() || '';
-  if (imageMap[filename]) return imageMap[filename];
-  
-  // Fallback to placeholder
-  console.warn(`Asset not found: ${path}`);
-  return '/placeholder.svg';
-};
+export function resolveAssetPath(input?: string): string | undefined {
+  if (!input) return undefined;
+  // Pass-through for absolute URLs or data URIs
+  if (/^https?:\/\//.test(input) || input.startsWith("data:")) return input;
 
-/**
- * Batch resolve multiple assets
- */
-export const resolveAssets = (paths: (string | undefined | null)[]): string[] => {
-  return paths.map(resolveAsset);
-};
+  // Try exact match
+  if (assetMap[input]) return assetMap[input];
 
-/**
- * Legacy alias for backwards compatibility
- */
-export const resolveAssetPath = resolveAsset;
+  // Normalize leading ./ or /
+  const normalized = input.replace(/^\.\//, "").replace(/^\//, "");
+  if (assetMap[normalized]) return assetMap[normalized];
+  if (assetMap[`/${normalized}`]) return assetMap[`/${normalized}`];
+
+  // Try mapping to /assets/<filename>
+  const fileNameOnly = normalized.split("/").pop()!;
+  if (assetMap[`/assets/${fileNameOnly}`]) return assetMap[`/assets/${fileNameOnly}`];
+  if (assetMap[fileNameOnly]) return assetMap[fileNameOnly];
+
+  // As a last resort, return input unchanged (may work in dev)
+  return input;
+}

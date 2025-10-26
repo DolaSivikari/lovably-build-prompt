@@ -12,20 +12,6 @@ import { trackPageView } from "@/lib/analytics";
 // Eager load public pages (critical path)
 import Index from "./pages/Index";
 import About from "./pages/About";
-import ContractorPortal from "./pages/resources/ContractorPortal";
-import CertificationsInsurance from "./pages/company/CertificationsInsurance";
-import EquipmentResources from "./pages/company/EquipmentResources";
-import OurTeam from "./pages/company/OurTeam";
-import MultiUnitServices from "./pages/services/MultiUnitServices";
-import ResidentialServices from "./pages/services/ResidentialServices";
-import CommercialServices from "./pages/services/CommercialServices";
-import IndustrialServices from "./pages/services/IndustrialServices";
-import Warranties from "./pages/resources/Warranties";
-import Financing from "./pages/resources/Financing";
-import ServiceAreas from "./pages/resources/ServiceAreas";
-import DeveloperServices from "./pages/DeveloperServices";
-import HomeownerServices from "./pages/HomeownerServices";
-import EmergencyServices from "./pages/EmergencyServices";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
@@ -43,8 +29,6 @@ import HowWeWork from "./pages/HowWeWork";
 import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
 import FAQ from "./pages/FAQ";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -180,31 +164,15 @@ const App = () => (
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/services/:slug" element={<ServiceDetail />} />
-                  <Route path="/services/multi-unit" element={<MultiUnitServices />} />
-                  <Route path="/services/residential" element={<ResidentialServices />} />
-                  <Route path="/services/commercial" element={<CommercialServices />} />
-                  <Route path="/services/industrial" element={<IndustrialServices />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
                   <Route path="/property-managers" element={<PropertyManagers />} />
                   <Route path="/homeowners" element={<Homeowners />} />
                   <Route path="/commercial-clients" element={<CommercialClients />} />
-                  <Route path="/developer-services" element={<DeveloperServices />} />
-                  <Route path="/homeowner-services" element={<HomeownerServices />} />
-                  <Route path="/emergency-services" element={<EmergencyServices />} />
                   <Route path="/our-process" element={<OurProcess />} />
                   <Route path="/sustainability" element={<Sustainability />} />
                   <Route path="/faq" element={<FAQ />} />
-                  <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
-                  <Route path="/resources/warranties" element={<Warranties />} />
-                  <Route path="/resources/financing" element={<Financing />} />
-                  <Route path="/resources/service-areas" element={<ServiceAreas />} />
-                  <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
-                  <Route path="/company/equipment-resources" element={<EquipmentResources />} />
-                  <Route path="/company/our-team" element={<OurTeam />} />
-                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="/terms-of-service" element={<TermsOfService />} />
                   <Route path="/auth" element={<Auth />} />
                   
                   {/* Heavy content pages - lazy loaded */}

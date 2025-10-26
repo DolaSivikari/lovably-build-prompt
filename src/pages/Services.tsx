@@ -204,34 +204,6 @@ const Services = () => {
       
       <main className="flex-1">
 
-        {/* Large-Scale Projects Callout */}
-        <section className="py-12 bg-primary/5 border-y border-primary/20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <Card className="border-2 border-primary/30">
-                <CardContent className="p-8">
-                  <div className="flex flex-col md:flex-row items-center gap-6">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Building className="w-8 h-8 text-primary" />
-                    </div>
-                    <div className="flex-1 text-center md:text-left">
-                      <h3 className="text-2xl font-bold mb-2">Trusted by Ontario's Leading Developers</h3>
-                      <p className="text-muted-foreground mb-4">
-                        <strong>1,000+ units completed annually</strong> • $5M bonding capacity • 15 concurrent projects
-                      </p>
-                      <Link to="/services/multi-unit">
-                        <Button variant="default" className="mt-2">
-                          View Multi-Unit Services <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
         {/* Main Services - Accordion View */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
@@ -466,29 +438,6 @@ const Services = () => {
 
         {/* Starter Packages */}
         <StarterPackages />
-
-        {/* Services Brochure Download */}
-        <section className="py-12 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center">
-              <Card>
-                <CardContent className="p-8">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                    <FileText className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-3">Download Our Services Brochure</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Get a comprehensive overview of all our services, capabilities, and project examples in one convenient PDF.
-                  </p>
-                  <Button size="lg">
-                    <FileText className="w-4 h-4 mr-2" />
-                    Download Brochure (PDF)
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
 
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
