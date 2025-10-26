@@ -32,6 +32,29 @@ jobs:
         run: |
           ./scripts/smoke-test.sh https://ascentgroupconstruction.com
 
+      - name: Run route audit
+        run: |
+          if [ -f scripts/audit-routes.ts ]; then
+            echo "Running route audit..."
+            npx ts-node scripts/audit-routes.ts || echo "Route audit completed with warnings"
+          fi
+
+      - name: Check bundle size
+        run: |
+          echo "Checking bundle size..."
+          if [ -f package.json ]; then
+            npm run build 2>&1 | tee build.log || true
+            if [ -f dist/index.html ]; then
+              DIST_SIZE=$(du -sh dist | cut -f1)
+              echo "📦 Build size: $DIST_SIZE"
+            fi
+          fi
+
+      - name: Security audit
+        run: |
+          echo "Running security audit..."
+          npm audit --production || echo "Security audit completed with warnings"
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4

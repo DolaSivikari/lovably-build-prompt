@@ -1,4 +1,5 @@
 import { onCLS, onINP, onLCP, onFCP, onTTFB } from 'web-vitals';
+import { supabase } from '@/integrations/supabase/client';
 
 // Performance metrics storage for enhanced tracking
 interface PerformanceMetrics {
@@ -11,6 +12,12 @@ interface PerformanceMetrics {
 
 const performanceMetrics: PerformanceMetrics = {};
 
+// Log metrics to database (only in production)
+const logToDatabase = async (metric: any) => {
+  // TODO: Create performance_metrics table and enable this
+  // Disabled for now to prevent errors
+};
+
 // Send Web Vitals metrics to Google Analytics
 const sendToAnalytics = (metric: any) => {
   // Store metric for analysis
@@ -19,6 +26,9 @@ const sendToAnalytics = (metric: any) => {
     rating: metric.rating,
     timestamp: Date.now(),
   };
+  
+  // Log to database
+  logToDatabase(metric);
 
   // Check if gtag is available
   if (typeof window !== 'undefined' && (window as any).gtag) {

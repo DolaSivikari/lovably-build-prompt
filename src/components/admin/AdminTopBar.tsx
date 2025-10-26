@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Home, LayoutDashboard, LogOut } from "lucide-react";
+import { ExternalLink, Home, LayoutDashboard, LogOut, RefreshCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { bustCache } from "@/utils/cacheBuster";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -57,6 +58,23 @@ export const AdminTopBar = () => {
             >
               <ExternalLink className="h-4 w-4" />
               <span className="hidden sm:inline">View Site</span>
+            </Button>
+            
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                bustCache();
+                toast({
+                  title: "Cache Cleared",
+                  description: "Site cache has been refreshed successfully",
+                });
+              }}
+              className="gap-2"
+              aria-label="Force refresh site cache"
+            >
+              <RefreshCw className="h-4 w-4" />
+              <span className="hidden sm:inline">Refresh</span>
             </Button>
             
             <Button

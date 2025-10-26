@@ -1,5 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from "../_shared/rateLimiter.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -113,6 +115,25 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Rate limiting check
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+    );
+    
+    const clientId = getClientIdentifier(req);
+    const rateLimitResult = await checkRateLimit(
+      supabaseClient,
+      `package-${clientId}`,
+      'send-package-notification',
+      10, // 10 requests per minute for package requests
+      1
+    );
+
+    if (!rateLimitResult.allowed) {
+      return createRateLimitResponse(rateLimitResult.retry_after_seconds || 60, corsHeaders);
+    }
+
     const requestData: PackageNotificationRequest = await req.json();
 
     // Validate input

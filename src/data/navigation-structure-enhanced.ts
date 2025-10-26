@@ -113,6 +113,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           title: "Excellence",
           subItems: [
             { name: "Safety & Compliance", link: "/safety" },
+            { name: "Sustainability", link: "/sustainability" },
             { name: "Certifications & Insurance", link: "/company/certifications-insurance", badge: "important" },
             { name: "Equipment & Resources", link: "/company/equipment-resources" },
             { name: "Careers", link: "/careers" },
@@ -144,6 +145,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           title: "For Professionals",
           subItems: [
             { name: "Contractor Portal", link: "/resources/contractor-portal", badge: "important" },
+            { name: "Get an Estimate", link: "/estimate", badge: "new" },
           ],
         },
       ],
