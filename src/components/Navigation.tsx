@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import ascentLogo from "@/assets/ascent-logo.png";
-import { ChevronDown, Phone, Shield, Search } from "lucide-react";
+import { ChevronDown, Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
@@ -10,7 +10,7 @@ import { MobileNavSheet } from "./navigation/MobileNavSheet";
 import { DynamicServicesMegaMenu } from "./navigation/DynamicServicesMegaMenu";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
-import { trackPhoneClick } from "@/lib/analytics";
+
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
@@ -254,37 +254,9 @@ const Navigation = () => {
               Contact
             </Link>
 
-            {/* Utility Navigation */}
-            <div className="flex items-center gap-3 ml-4 pl-4 border-l border-border">
-              <a 
-                href="tel:+14165551234" 
-                onClick={() => trackPhoneClick()}
-                className="hidden lg:flex items-center gap-1.5 text-xs font-medium text-foreground hover:text-primary transition-colors"
-                aria-label="Call us"
-              >
-                <Phone className="h-4 w-4" />
-                <span>(416) 555-1234</span>
-              </a>
-              
-              <Button asChild variant="secondary" size="sm" className="hidden lg:flex">
-                <Link to="/estimate">Get Quote</Link>
-              </Button>
-              
-              <Button asChild variant="default" size="sm" className="hidden lg:flex">
-                <Link to="/contact?type=commercial">Request Proposal</Link>
-              </Button>
-            </div>
-
-            {/* Search Bar */}
-            <div className="relative">
-              <button 
-                className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md"
-                aria-label="Search"
-              >
-                <Search className="w-4 h-4" />
-                <span className="hidden xl:inline">Search</span>
-              </button>
-            </div>
+            <Button asChild variant="default" size="sm" className="ml-4">
+              <Link to="/contact?type=commercial">Request Proposal</Link>
+            </Button>
 
             {/* Admin Dropdown - Only visible to admin users */}
             {isAdmin && (
@@ -440,22 +412,6 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-
-            <Button variant="secondary" asChild className="group ml-4">
-              <Link to="/estimate" className="flex items-center gap-2">
-                <div className="p-1 bg-primary/10 rounded-full">
-                  <Phone 
-                    className="h-4 w-4" 
-                    aria-hidden="true"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      trackPhoneClick();
-                    }}
-                  />
-                </div>
-                Get Estimate
-              </Link>
-            </Button>
           </nav>
 
           {/* Mobile Menu Button - Animated Hamburger */}
