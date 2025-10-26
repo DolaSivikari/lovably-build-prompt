@@ -40,13 +40,17 @@ export const useAdminRoleCheck = () => {
         .maybeSingle();
 
       if (error) {
-        console.error("Error checking admin role:", error);
+        if (import.meta.env.DEV) {
+          console.error("Error checking admin role:", error);
+        }
         setIsAdmin(false);
       } else {
         setIsAdmin(!!roleData);
       }
     } catch (error) {
-      console.error("Admin role check failed:", error);
+      if (import.meta.env.DEV) {
+        console.error("Admin role check failed:", error);
+      }
       setIsAdmin(false);
     } finally {
       setIsLoading(false);

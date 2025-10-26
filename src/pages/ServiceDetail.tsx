@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Phone, CheckCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { sanitizeHTML } from "@/utils/sanitize";
+import { sanitizeAndValidate } from "@/utils/sanitize";
 import QuickFacts from "@/components/seo/QuickFacts";
 import PeopleAlsoAsk from "@/components/seo/PeopleAlsoAsk";
 import ServiceAreaSection from "@/components/seo/ServiceAreaSection";
@@ -351,7 +351,7 @@ const ServiceDetail = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div className="prose prose-lg max-w-none mb-12">
-                  <div dangerouslySetInnerHTML={{ __html: sanitizeHTML(service.long_description) }} />
+                  <div dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(service.long_description).sanitized }} />
                 </div>
               </div>
             </div>

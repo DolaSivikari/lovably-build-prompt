@@ -43,7 +43,9 @@ export const useAdminAuth = () => {
 
       setIsAdmin(true);
     } catch (error) {
-      console.error("Admin auth check failed:", error);
+      if (import.meta.env.DEV) {
+        console.error("Admin auth check failed:", error);
+      }
       navigate("/auth");
     } finally {
       setIsLoading(false);
