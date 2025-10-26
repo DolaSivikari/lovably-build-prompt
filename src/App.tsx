@@ -12,6 +12,17 @@ import { trackPageView } from "@/lib/analytics";
 // Eager load public pages (critical path)
 import Index from "./pages/Index";
 import About from "./pages/About";
+import ContractorPortal from "./pages/resources/ContractorPortal";
+import CertificationsInsurance from "./pages/company/CertificationsInsurance";
+import EquipmentResources from "./pages/company/EquipmentResources";
+import OurTeam from "./pages/company/OurTeam";
+import MultiUnitServices from "./pages/services/MultiUnitServices";
+import ResidentialServices from "./pages/services/ResidentialServices";
+import CommercialServices from "./pages/services/CommercialServices";
+import IndustrialServices from "./pages/services/IndustrialServices";
+import Warranties from "./pages/resources/Warranties";
+import Financing from "./pages/resources/Financing";
+import ServiceAreas from "./pages/resources/ServiceAreas";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
