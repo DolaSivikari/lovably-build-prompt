@@ -156,35 +156,34 @@ const Footer = () => {
               </p>
             </div>
 
-            {/* Column 2: Services */}
+            {/* Column 2: Quick Links */}
             <div>
               <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">
-                Services
+                Quick Links
               </h3>
-              <nav aria-label="Services">
+              <nav aria-label="Quick links">
                 <ul className="space-y-2">
-                  <li><Link to="/services/residential" className="text-sm text-muted-foreground hover:text-primary transition-colors">Residential</Link></li>
-                  <li><Link to="/services/commercial" className="text-sm text-muted-foreground hover:text-primary transition-colors">Commercial</Link></li>
-                  <li><Link to="/services/multi-unit" className="text-sm text-muted-foreground hover:text-primary transition-colors">Multi-Unit</Link></li>
-                  <li><Link to="/services/industrial" className="text-sm text-muted-foreground hover:text-primary transition-colors">Industrial</Link></li>
-                  <li><Link to="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">View All Services</Link></li>
+                  <li><Link to="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">Services</Link></li>
+                  <li><Link to="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">Projects</Link></li>
+                  <li><Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
+                  <li><Link to="/our-process" className="text-sm text-muted-foreground hover:text-primary transition-colors">Our Process</Link></li>
+                  <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
+                  <li><Link to="/case-studies" className="text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</Link></li>
                 </ul>
               </nav>
             </div>
 
-            {/* Column 3: Resources */}
+            {/* Column 3: Sectors */}
             <div>
               <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">
-                Resources
+                Sectors
               </h3>
-              <nav aria-label="Resources">
+              <nav aria-label="Client sectors">
                 <ul className="space-y-2">
-                  <li><Link to="/resources/contractor-portal" className="text-sm text-primary hover:text-primary/80 transition-colors font-semibold">Contractor Portal</Link></li>
-                  <li><Link to="/resources/warranties" className="text-sm text-muted-foreground hover:text-primary transition-colors">Warranties</Link></li>
-                  <li><Link to="/resources/financing" className="text-sm text-muted-foreground hover:text-primary transition-colors">Financing</Link></li>
-                  <li><Link to="/resources/service-areas" className="text-sm text-muted-foreground hover:text-primary transition-colors">Service Areas</Link></li>
-                  <li><Link to="/faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
-                  <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
+                  <li><Link to="/homeowners" className="text-sm text-muted-foreground hover:text-primary transition-colors">Homeowners</Link></li>
+                  <li><Link to="/property-managers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Property Managers</Link></li>
+                  <li><Link to="/commercial-clients" className="text-sm text-muted-foreground hover:text-primary transition-colors">Commercial Clients</Link></li>
+                  <li><Link to="/careers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
                 </ul>
               </nav>
             </div>

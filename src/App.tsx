@@ -30,27 +30,6 @@ import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
 import FAQ from "./pages/FAQ";
 
-// Company Pages
-import CertificationsInsurance from "./pages/company/CertificationsInsurance";
-import OurTeam from "./pages/company/OurTeam";
-import EquipmentResources from "./pages/company/EquipmentResources";
-
-// Resource Pages
-import ContractorPortal from "./pages/resources/ContractorPortal";
-import Warranties from "./pages/resources/Warranties";
-import Financing from "./pages/resources/Financing";
-import ServiceAreas from "./pages/resources/ServiceAreas";
-
-// Service Category Pages
-import ResidentialServices from "./pages/services/ResidentialServices";
-import CommercialServices from "./pages/services/CommercialServices";
-import MultiUnitServices from "./pages/services/MultiUnitServices";
-import IndustrialServices from "./pages/services/IndustrialServices";
-
-// Landing Pages
-import DeveloperServices from "./pages/DeveloperServices";
-import EmergencyServices from "./pages/EmergencyServices";
-
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Dashboard</p></div>
@@ -195,27 +174,6 @@ const App = () => (
                   <Route path="/sustainability" element={<Sustainability />} />
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="/auth" element={<Auth />} />
-                  
-                  {/* Company Pages */}
-                  <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
-                  <Route path="/company/our-team" element={<OurTeam />} />
-                  <Route path="/company/equipment-resources" element={<EquipmentResources />} />
-                  
-                  {/* Resource Pages */}
-                  <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
-                  <Route path="/resources/warranties" element={<Warranties />} />
-                  <Route path="/resources/financing" element={<Financing />} />
-                  <Route path="/resources/service-areas" element={<ServiceAreas />} />
-                  
-                  {/* Service Category Pages */}
-                  <Route path="/services/residential" element={<ResidentialServices />} />
-                  <Route path="/services/commercial" element={<CommercialServices />} />
-                  <Route path="/services/multi-unit" element={<MultiUnitServices />} />
-                  <Route path="/services/industrial" element={<IndustrialServices />} />
-                  
-                  {/* Landing Pages */}
-                  <Route path="/developer-services" element={<DeveloperServices />} />
-                  <Route path="/emergency-services" element={<EmergencyServices />} />
                   
                   {/* Heavy content pages - lazy loaded */}
                   <Route path="/blog" element={<Blog />} />

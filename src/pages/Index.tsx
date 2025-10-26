@@ -1,6 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import DualPathHero from "@/components/DualPathHero";
+import NumberedLandingHero from "@/components/NumberedLandingHero";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import SEO from "@/components/SEO";
@@ -68,7 +68,7 @@ const Index = () => {
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">
-        <DualPathHero />
+        <NumberedLandingHero />
         <TrustBar />
         
         {/* Direct Answer for AEO/GEO */}

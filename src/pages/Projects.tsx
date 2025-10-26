@@ -7,7 +7,6 @@ import FilterBar from "@/components/FilterBar";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
 import ProjectDetailModal from "@/components/ProjectDetailModal";
-import ProjectFilters from "@/components/ProjectFilters";
 import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -32,8 +31,6 @@ const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(6);
   const [allProjects, setAllProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedScales, setSelectedScales] = useState<string[]>([]);
-  const [selectedClientTypes, setSelectedClientTypes] = useState<string[]>([]);
 
   // Fetch projects from database
   useEffect(() => {
@@ -81,20 +78,8 @@ const Projects = () => {
     
     const matchesCategory = selectedCategory === "All" || project.category.includes(selectedCategory);
     const matchesYear = selectedYear === "All" || project.year === selectedYear;
-    
-    // Scale filtering (if no scales selected, show all)
-    const matchesScale = selectedScales.length === 0 || selectedScales.some(scale => {
-      // This would need actual project value data to work properly
-      return true; // Placeholder - implement based on actual data
-    });
-    
-    // Client type filtering (if no types selected, show all)
-    const matchesClientType = selectedClientTypes.length === 0 || selectedClientTypes.some(type => {
-      // This would need actual client type data to work properly
-      return true; // Placeholder - implement based on actual data
-    });
 
-    return matchesSearch && matchesCategory && matchesYear && matchesScale && matchesClientType;
+    return matchesSearch && matchesCategory && matchesYear;
   });
 
   const featuredProjects = filteredProjects.filter(p => p.featured).slice(0, 3);
@@ -168,84 +153,52 @@ const Projects = () => {
         onViewModeChange={setViewMode}
       />
 
-      {/* Projects Grid with Sidebar Filters */}
+      {/* Projects Grid */}
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-4 gap-8">
-            {/* Sidebar Filters */}
-            <aside className="lg:col-span-1">
-              <div className="sticky top-24">
-                <ProjectFilters
-                  selectedScales={selectedScales}
-                  selectedClientTypes={selectedClientTypes}
-                  onScaleToggle={(scale) => {
-                    setSelectedScales(prev =>
-                      prev.includes(scale)
-                        ? prev.filter(s => s !== scale)
-                        : [...prev, scale]
-                    );
-                  }}
-                  onClientTypeToggle={(type) => {
-                    setSelectedClientTypes(prev =>
-                      prev.includes(type)
-                        ? prev.filter(t => t !== type)
-                        : [...prev, type]
-                    );
-                  }}
-                  activeCount={selectedScales.length + selectedClientTypes.length}
-                />
+          {isLoading ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground">Loading projects...</p>
+            </div>
+          ) : visibleProjects.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground mb-4">No projects found matching your criteria</p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchTerm("");
+                  setSelectedCategory("All");
+                  setSelectedYear("All");
+                }}
+              >
+                Clear Filters
+              </Button>
+            </div>
+          ) : (
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {visibleProjects.map((project) => (
+                  <ProjectCard
+                    key={project.slug}
+                    {...project}
+                    onViewDetails={() => handleViewDetails(project)}
+                  />
+                ))}
               </div>
-            </aside>
 
-            {/* Projects Grid */}
-            <div className="lg:col-span-3">
-              {isLoading ? (
-                <div className="text-center py-16">
-                  <p className="text-muted-foreground">Loading projects...</p>
-                </div>
-              ) : visibleProjects.length === 0 ? (
-                <div className="text-center py-16">
-                  <p className="text-muted-foreground mb-4">No projects found matching your criteria</p>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setSearchTerm("");
-                      setSelectedCategory("All");
-                      setSelectedYear("All");
-                      setSelectedScales([]);
-                      setSelectedClientTypes([]);
-                    }}
-                  >
-                    Clear Filters
+              {/* Load More Button */}
+              {visibleCount < regularProjects.length && (
+                <div className="text-center mt-12">
+                  <Button onClick={loadMore} size="lg">
+                    Load More Projects
+                    <span className="ml-2">
+                      ({visibleCount} of {regularProjects.length})
+                    </span>
                   </Button>
                 </div>
-              ) : (
-                <>
-                  <div className="grid md:grid-cols-2 gap-8">
-                    {visibleProjects.map((project) => (
-                      <ProjectCard
-                        key={project.slug}
-                        {...project}
-                        onViewDetails={() => handleViewDetails(project)}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Load More Button */}
-                  {visibleCount < regularProjects.length && (
-                    <div className="text-center mt-12">
-                      <Button onClick={loadMore} size="lg">
-                        Load More Projects
-                        <span className="ml-2">
-                          ({visibleCount} of {regularProjects.length})
-                        </span>
-                      </Button>
-                    </div>
-                  )}
-                </>
               )}
-            </div>
-          </div>
+            </>
+          )}
         </div>
       </section>
 
