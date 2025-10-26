@@ -7,7 +7,9 @@ import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { MobileNavSheet } from "./navigation/MobileNavSheet";
+import { NavDropdown } from "./navigation/NavDropdown";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
+import { navigationStructure } from "@/data/navigation-structure-new";
 import { cn } from "@/lib/utils";
 import { trackPhoneClick } from "@/lib/analytics";
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
@@ -122,130 +124,140 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 flex-1 justify-end" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-1 flex-1 justify-end" aria-label="Main navigation">
             <Link
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
               className={cn(
-                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                isActive("/") ? "text-primary after:scale-x-100" : "text-foreground"
+                "px-3 py-2 text-sm font-medium transition-colors hover:text-primary rounded-md",
+                isActive("/") ? "text-primary bg-muted" : "text-foreground"
               )}
             >
-              Home
+              HOME
             </Link>
             
-            {/* Services Mega-Menu */}
+            {/* Services Dropdown */}
             <div
               className="relative"
               onMouseEnter={() => handleMegaMenuEnter("services")}
               onMouseLeave={handleMegaMenuLeave}
             >
-              <Link
-                to="/services"
+              <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  activeMegaMenu === "services" && "text-sage"
+                  "px-3 py-2 text-sm font-medium transition-colors hover:text-primary inline-flex items-center gap-1 rounded-md",
+                  activeMegaMenu === "services" && "text-primary bg-muted"
                 )}
                 aria-expanded={activeMegaMenu === "services"}
-                aria-controls="services-mega-menu"
               >
-                Services
+                SERVICES
                 <ChevronDown className={cn(
                   "w-4 h-4 transition-transform duration-200",
                   activeMegaMenu === "services" && "rotate-180"
                 )} />
-              </Link>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.services}
+              </button>
+              <NavDropdown
+                sections={navigationStructure.services}
                 isOpen={activeMegaMenu === "services"}
                 onClose={closeMegaMenu}
               />
             </div>
 
-            {/* Who We Serve Mega-Menu */}
+            {/* Projects Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("whoWeServe")}
+              onMouseEnter={() => handleMegaMenuEnter("projects")}
               onMouseLeave={handleMegaMenuLeave}
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  activeMegaMenu === "whoWeServe" && "text-sage"
+                  "px-3 py-2 text-sm font-medium transition-colors hover:text-primary inline-flex items-center gap-1 rounded-md",
+                  activeMegaMenu === "projects" && "text-primary bg-muted"
                 )}
-                aria-expanded={activeMegaMenu === "whoWeServe"}
-                aria-controls="whowesserve-mega-menu"
+                aria-expanded={activeMegaMenu === "projects"}
               >
-                Who We Serve
+                PROJECTS
                 <ChevronDown className={cn(
                   "w-4 h-4 transition-transform duration-200",
-                  activeMegaMenu === "whoWeServe" && "rotate-180"
+                  activeMegaMenu === "projects" && "rotate-180"
                 )} />
               </button>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.whoWeServe}
-                isOpen={activeMegaMenu === "whoWeServe"}
+              <NavDropdown
+                sections={navigationStructure.projects}
+                isOpen={activeMegaMenu === "projects"}
                 onClose={closeMegaMenu}
               />
             </div>
-            
-            <Link
-              to="/our-process"
-              className={cn(
-                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                isActive("/our-process") ? "text-primary after:scale-x-100" : "text-foreground"
-              )}
-            >
-              Our Process
-            </Link>
-            
-            <Link
-              to="/projects"
-              className={cn(
-                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                isActive("/projects") ? "text-primary after:scale-x-100" : "text-foreground"
-              )}
-            >
-              Projects
-            </Link>
 
-            {/* Blog & Resources Mega-Menu */}
+            {/* Company Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("blog")}
+              onMouseEnter={() => handleMegaMenuEnter("company")}
               onMouseLeave={handleMegaMenuLeave}
             >
-              <Link
-                to="/blog"
+              <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  activeMegaMenu === "blog" && "text-sage"
+                  "px-3 py-2 text-sm font-medium transition-colors hover:text-primary inline-flex items-center gap-1 rounded-md",
+                  activeMegaMenu === "company" && "text-primary bg-muted"
                 )}
-                aria-expanded={activeMegaMenu === "blog"}
-                aria-controls="blog-mega-menu"
+                aria-expanded={activeMegaMenu === "company"}
               >
-                Blog
+                COMPANY
                 <ChevronDown className={cn(
                   "w-4 h-4 transition-transform duration-200",
-                  activeMegaMenu === "blog" && "rotate-180"
+                  activeMegaMenu === "company" && "rotate-180"
                 )} />
-              </Link>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.blog}
-                isOpen={activeMegaMenu === "blog"}
+              </button>
+              <NavDropdown
+                sections={navigationStructure.company}
+                isOpen={activeMegaMenu === "company"}
                 onClose={closeMegaMenu}
               />
             </div>
 
-            {/* Search Bar */}
-            <div className="relative">
-              <button 
-                className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md"
-                aria-label="Search"
+            {/* Resources Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("resources")}
+              onMouseLeave={handleMegaMenuLeave}
+            >
+              <button
+                className={cn(
+                  "px-3 py-2 text-sm font-medium transition-colors hover:text-primary inline-flex items-center gap-1 rounded-md",
+                  activeMegaMenu === "resources" && "text-primary bg-muted"
+                )}
+                aria-expanded={activeMegaMenu === "resources"}
               >
-                <Search className="w-4 h-4" />
-                <span className="hidden lg:inline">Search</span>
+                RESOURCES
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  activeMegaMenu === "resources" && "rotate-180"
+                )} />
               </button>
+              <NavDropdown
+                sections={navigationStructure.resources}
+                isOpen={activeMegaMenu === "resources"}
+                onClose={closeMegaMenu}
+              />
+            </div>
+            
+            <Link
+              to="/contact"
+              className={cn(
+                "px-3 py-2 text-sm font-medium transition-colors hover:text-primary rounded-md",
+                isActive("/contact") ? "text-primary bg-muted" : "text-foreground"
+              )}
+            >
+              CONTACT
+            </Link>
+
+            {/* CTA Buttons */}
+            <div className="flex items-center gap-3 ml-4 border-l border-border pl-4">
+              <Button asChild size="sm" variant="outline">
+                <Link to="/estimate">Get Quote</Link>
+              </Button>
+              <Button asChild size="sm">
+                <Link to="/resources/contractor-portal">Request Proposal</Link>
+              </Button>
             </div>
 
             {/* Admin Dropdown - Only visible to admin users */}
