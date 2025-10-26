@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, Ruler, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { resolveAssetPath } from "@/utils/assetResolver";
 
 interface ProjectCardProps {
   title: string;
@@ -42,8 +43,11 @@ const ProjectCard = ({
       {/* Image Container - PCL style */}
       <div className="relative h-64 overflow-hidden">
         <img
-          src={image}
+          src={resolveAssetPath(image) || "/placeholder.svg"}
           alt={title}
+          onError={(e) => {
+            e.currentTarget.src = "/placeholder.svg";
+          }}
           className={cn(
             "w-full h-full object-cover transition-all duration-300",
             isHovered && "scale-105 brightness-90"

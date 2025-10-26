@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight } from "lucide-react";
 import blogData from "@/data/blog-posts-complete.json";
 import OptimizedImage from "./OptimizedImage";
+import { resolveAssetPath } from "@/utils/assetResolver";
 
 const BlogPreview = () => {
   const featuredPosts = blogData.posts.filter(post => post.featured).slice(0, 3);
@@ -33,7 +34,7 @@ const BlogPreview = () => {
                   <div className="grid md:grid-cols-2 gap-0">
                     <div className="relative h-64 md:h-full overflow-hidden">
                       <OptimizedImage
-                        src={post.image}
+                        src={resolveAssetPath(post.image) || post.image}
                         alt={`${post.title} - Expert guide on ${post.category.toLowerCase()}`}
                         width={1200}
                         height={800}
@@ -77,7 +78,7 @@ const BlogPreview = () => {
                 <Card className="h-full hover:shadow-lg transition-all duration-300 overflow-hidden group">
                   <div className="relative h-48 overflow-hidden">
                     <OptimizedImage
-                      src={post.image}
+                      src={resolveAssetPath(post.image) || post.image}
                       alt={`${post.title} - Expert guide on ${post.category.toLowerCase()}`}
                       width={800}
                       height={600}

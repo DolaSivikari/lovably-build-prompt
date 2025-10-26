@@ -42,8 +42,11 @@ const ProjectDetailModal = ({ isOpen, onClose, project }: ProjectDetailModalProp
           {/* Hero Image */}
           <div className="rounded-lg overflow-hidden">
             <img
-              src={resolveAssetPath(project.image)}
+              src={resolveAssetPath(project.image) || "/placeholder.svg"}
               alt={project.title}
+              onError={(e) => {
+                e.currentTarget.src = "/placeholder.svg";
+              }}
               className="w-full h-64 object-cover"
             />
           </div>
@@ -96,8 +99,11 @@ const ProjectDetailModal = ({ isOpen, onClose, project }: ProjectDetailModalProp
                 {project.images.map((img, idx) => (
                   <div key={idx} className="rounded-lg overflow-hidden">
                     <img
-                      src={resolveAssetPath(img)}
+                      src={resolveAssetPath(img) || "/placeholder.svg"}
                       alt={`${project.title} ${idx + 1}`}
+                      onError={(e) => {
+                        e.currentTarget.src = "/placeholder.svg";
+                      }}
                       className="w-full h-40 object-cover"
                     />
                   </div>

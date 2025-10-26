@@ -26,7 +26,8 @@ Object.entries(rawAssets).forEach(([fullPath, url]) => {
 });
 
 export function resolveAssetPath(input?: string): string | undefined {
-  if (!input) return undefined;
+  if (!input) return "/placeholder.svg";
+  
   // Pass-through for absolute URLs or data URIs
   if (/^https?:\/\//.test(input) || input.startsWith("data:")) return input;
 
@@ -43,6 +44,11 @@ export function resolveAssetPath(input?: string): string | undefined {
   if (assetMap[`/assets/${fileNameOnly}`]) return assetMap[`/assets/${fileNameOnly}`];
   if (assetMap[fileNameOnly]) return assetMap[fileNameOnly];
 
-  // As a last resort, return input unchanged (may work in dev)
-  return input;
+  // Log unresolved paths in development
+  if (import.meta.env.DEV) {
+    console.warn(`[AssetResolver] Could not resolve: "${input}"`);
+  }
+
+  // Return placeholder as fallback
+  return "/placeholder.svg";
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useImageLoad } from "@/hooks/useImageLoad";
 import { cn } from "@/lib/utils";
 
@@ -30,10 +31,19 @@ const OptimizedImage = ({
   fetchPriority = "auto",
   loading,
 }: OptimizedImageProps) => {
+  const [imgSrc, setImgSrc] = useState(src);
+  const [hasError, setHasError] = useState(false);
   const { isLoaded, isInView, imageRef } = useImageLoad({
     rootMargin: "50px",
     threshold: 0.01,
   });
+
+  const handleError = () => {
+    if (!hasError) {
+      setHasError(true);
+      setImgSrc("/placeholder.svg");
+    }
+  };
 
   // For priority images, load immediately
   const shouldLoad = priority || isInView;
@@ -70,13 +80,14 @@ const OptimizedImage = ({
           )}
           <img
             ref={imageRef}
-            src={src}
+            src={imgSrc}
             alt={alt}
             width={width}
             height={height}
             loading={loading || (priority ? "eager" : "lazy")}
             decoding={priority ? "sync" : "async"}
             fetchPriority={fetchPriority}
+            onError={handleError}
             className={cn(
               "transition-opacity duration-500",
               isLoaded ? "opacity-100" : "opacity-0",
@@ -91,7 +102,7 @@ const OptimizedImage = ({
       ) : (
         <img
           ref={imageRef}
-          src={shouldLoad ? src : undefined}
+          src={shouldLoad ? imgSrc : undefined}
           alt={alt}
           width={width}
           height={height}
@@ -99,6 +110,7 @@ const OptimizedImage = ({
           loading={loading || (priority ? "eager" : "lazy")}
           decoding={priority ? "sync" : "async"}
           fetchPriority={fetchPriority}
+          onError={handleError}
           className={cn(
             "transition-opacity duration-500",
             isLoaded ? "opacity-100" : "opacity-0",
