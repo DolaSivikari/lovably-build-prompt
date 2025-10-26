@@ -10,6 +10,8 @@ import ProjectDetailModal from "@/components/ProjectDetailModal";
 import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { useRealtimeProjects } from "@/hooks/useRealtimeProjects";
+import { resolveImagePath } from "@/utils/imageResolver";
 
 const categories = [
   { label: "All Projects", value: "All", icon: Building2 },
@@ -32,7 +34,7 @@ const Projects = () => {
   const [allProjects, setAllProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch projects from database
+  // Fetch projects from database with realtime updates
   useEffect(() => {
     const fetchProjects = async () => {
       setIsLoading(true);
@@ -53,7 +55,7 @@ const Projects = () => {
           year: project.year || new Date(project.created_at).getFullYear().toString(),
           size: project.project_size || "N/A",
           duration: project.duration || "N/A",
-          image: project.featured_image || "/placeholder.svg",
+          image: resolveImagePath(project.featured_image),
           images: project.gallery || [],
           tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
           description: project.description || project.summary || "",
@@ -61,6 +63,7 @@ const Projects = () => {
           slug: project.slug,
           featured: project.featured,
           id: project.id,
+          rawData: project,
         }));
         setAllProjects(projects);
       }
@@ -69,6 +72,32 @@ const Projects = () => {
 
     fetchProjects();
   }, []);
+
+  // Enable realtime subscription for instant updates
+  const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData));
+  
+  useEffect(() => {
+    if (realtimeProjects.length > 0) {
+      const transformed = realtimeProjects.map((project: any) => ({
+        title: project.title,
+        category: project.category || "General",
+        location: project.location || "N/A",
+        year: project.year || new Date(project.created_at).getFullYear().toString(),
+        size: project.project_size || "N/A",
+        duration: project.duration || "N/A",
+        image: resolveImagePath(project.featured_image),
+        images: project.gallery || [],
+        tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
+        description: project.description || project.summary || "",
+        highlights: project.summary ? [project.summary] : [],
+        slug: project.slug,
+        featured: project.featured,
+        id: project.id,
+        rawData: project,
+      }));
+      setAllProjects(transformed);
+    }
+  }, [realtimeProjects]);
 
   const filteredProjects = allProjects.filter((project) => {
     const matchesSearch = 

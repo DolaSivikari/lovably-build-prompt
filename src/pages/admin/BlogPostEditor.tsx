@@ -7,8 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { generatePreviewToken } from "@/utils/routeHelpers";
 
 const BlogPostEditor = () => {
   const { id } = useParams();
@@ -131,9 +133,9 @@ const BlogPostEditor = () => {
       ...(isNewPost ? { created_by: user.id } : { updated_by: user.id }),
     };
 
-    const { error } = isNewPost
-      ? await supabase.from("blog_posts").insert(postData)
-      : await supabase.from("blog_posts").update(postData).eq("id", id);
+    const { error, data } = isNewPost
+      ? await supabase.from("blog_posts").insert(postData).select().single()
+      : await supabase.from("blog_posts").update(postData).eq("id", id).select().single();
 
     if (error) {
       toast({
@@ -146,8 +148,40 @@ const BlogPostEditor = () => {
         title: "Success",
         description: `Blog post ${isNewPost ? "created" : "updated"} successfully`,
       });
+      
+      if (data && formData.publish_state === "published") {
+        toast({
+          title: "Published!",
+          description: "Blog post is now live on the site",
+        });
+      }
+      
       navigate("/admin/blog");
     }
+  };
+
+  const handlePreview = async () => {
+    if (!formData.slug) {
+      toast({
+        title: "Slug required",
+        description: "Please add a slug before previewing",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const token = generatePreviewToken();
+    
+    // Save preview token to database
+    if (id && !isNewPost) {
+      await supabase
+        .from("blog_posts")
+        .update({ preview_token: token })
+        .eq("id", id);
+    }
+
+    const previewUrl = `/blog/${formData.slug}?preview=true&token=${token}`;
+    window.open(previewUrl, "_blank");
   };
 
   return (
@@ -164,10 +198,18 @@ const BlogPostEditor = () => {
                 {isNewPost ? "New Blog Post" : "Edit Blog Post"}
               </h1>
             </div>
-            <Button onClick={handleSubmit}>
-              <Save className="h-4 w-4 mr-2" />
-              Save
-            </Button>
+            <div className="flex gap-2">
+              {!isNewPost && (
+                <Button variant="outline" onClick={handlePreview} type="button">
+                  <Eye className="h-4 w-4 mr-2" />
+                  Preview Draft
+                </Button>
+              )}
+              <Button onClick={handleSubmit}>
+                <Save className="h-4 w-4 mr-2" />
+                Save
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -269,15 +311,12 @@ const BlogPostEditor = () => {
                 />
               </div>
 
-              <div>
-                <Label htmlFor="featured_image">Featured Image URL</Label>
-                <Input
-                  id="featured_image"
-                  value={formData.featured_image}
-                  onChange={(e) => setFormData({ ...formData, featured_image: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
-                />
-              </div>
+              <ImageUploadField
+                value={formData.featured_image}
+                onChange={(url) => setFormData({ ...formData, featured_image: url })}
+                bucket="project-images"
+                label="Featured Image"
+              />
 
               <div>
                 <Label htmlFor="publish_state">Publish State</Label>

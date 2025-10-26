@@ -55,3 +55,18 @@ export const getPublicRoute = (type: string, slug: string): string => {
 export const isValidAdminRoute = (path: string): boolean => {
   return Object.values(ADMIN_ROUTES).some(route => path.startsWith(route));
 };
+
+/**
+ * Generate preview URL with token for draft content
+ */
+export const getPreviewUrl = (type: string, slug: string, token: string): string => {
+  const baseRoute = getPublicRoute(type, slug);
+  return `${baseRoute}?preview=true&token=${token}`;
+};
+
+/**
+ * Generate a secure preview token
+ */
+export const generatePreviewToken = (): string => {
+  return `preview_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+};

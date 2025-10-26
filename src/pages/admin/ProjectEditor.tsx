@@ -7,7 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Eye } from "lucide-react";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { generatePreviewToken } from "@/utils/routeHelpers";
+import { resolveImagePath } from "@/utils/imageResolver";
 
 const ProjectEditor = () => {
   const { id } = useParams();
@@ -96,9 +99,9 @@ const ProjectEditor = () => {
       ...(id === "new" && { created_by: user?.id }),
     };
 
-    const { error } = id === "new"
-      ? await supabase.from("projects").insert([projectData])
-      : await supabase.from("projects").update(projectData).eq("id", id);
+    const { error, data } = id === "new"
+      ? await supabase.from("projects").insert([projectData]).select().single()
+      : await supabase.from("projects").update(projectData).eq("id", id).select().single();
 
     if (error) {
       toast({
@@ -111,9 +114,41 @@ const ProjectEditor = () => {
         title: "Success",
         description: `Project ${id === "new" ? "created" : "updated"} successfully`,
       });
+      
+      if (data && formData.publish_state === "published") {
+        toast({
+          title: "Live!",
+          description: "Project is now visible on the public site",
+        });
+      }
+      
       navigate("/admin/projects");
     }
     setIsLoading(false);
+  };
+
+  const handlePreview = async () => {
+    if (!formData.slug) {
+      toast({
+        title: "Slug required",
+        description: "Please add a slug before previewing",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const token = generatePreviewToken();
+    
+    // Save preview token to database
+    if (id && id !== "new") {
+      await supabase
+        .from("projects")
+        .update({ preview_token: token })
+        .eq("id", id);
+    }
+
+    const previewUrl = `/projects/${formData.slug}?preview=true&token=${token}`;
+    window.open(previewUrl, "_blank");
   };
 
   return (
@@ -128,6 +163,18 @@ const ProjectEditor = () => {
             <h1 className="text-2xl font-bold">
               {id === "new" ? "New Project" : "Edit Project"}
             </h1>
+          </div>
+          <div className="flex gap-2">
+            {id !== "new" && (
+              <Button variant="outline" onClick={handlePreview} type="button">
+                <Eye className="h-4 w-4 mr-2" />
+                Preview Draft
+              </Button>
+            )}
+            <Button type="submit" disabled={isLoading} onClick={handleSubmit}>
+              <Save className="h-4 w-4 mr-2" />
+              {isLoading ? "Saving..." : "Save Project"}
+            </Button>
           </div>
         </div>
       </header>
@@ -184,15 +231,12 @@ const ProjectEditor = () => {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="featured_image">Featured Image URL</Label>
-            <Input
-              id="featured_image"
-              value={formData.featured_image}
-              onChange={(e) => setFormData({ ...formData, featured_image: e.target.value })}
-              placeholder="https://example.com/image.jpg or /images/project.jpg"
-            />
-          </div>
+          <ImageUploadField
+            value={formData.featured_image}
+            onChange={(url) => setFormData({ ...formData, featured_image: url })}
+            bucket="project-images"
+            label="Featured Image"
+          />
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
