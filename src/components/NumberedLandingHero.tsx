@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { landingMenuItems } from "@/data/landing-menu";
 import heroConstruction from "@/assets/hero-construction.jpg";
-import homeHeroVideo from "@/assets/home-hero.mp4";
+import heroPremiumVideo from "@/assets/hero-premium.mp4";
 import { useEffect, useRef, useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
 
 const NumberedLandingHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldUseVideo, setShouldUseVideo] = useState(true);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
     // Check for user preferences that might prevent video playback
@@ -29,6 +30,10 @@ const NumberedLandingHero = () => {
     }
   }, []);
 
+  const handleVideoLoaded = () => {
+    setVideoLoaded(true);
+  };
+
   return (
     <section className="landing-hero w-full relative">
       {/* Background Video */}
@@ -40,11 +45,14 @@ const NumberedLandingHero = () => {
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             poster={heroConstruction}
-            className="w-full h-full object-cover"
+            onLoadedData={handleVideoLoaded}
+            className={`w-full h-full object-cover transition-opacity duration-[1500ms] ease-in ${
+              videoLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
           >
-            <source src={homeHeroVideo} type="video/mp4" />
+            <source src={heroPremiumVideo} type="video/mp4" />
           </video>
         ) : (
           <OptimizedImage
