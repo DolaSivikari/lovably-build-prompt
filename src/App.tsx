@@ -23,6 +23,9 @@ import IndustrialServices from "./pages/services/IndustrialServices";
 import Warranties from "./pages/resources/Warranties";
 import Financing from "./pages/resources/Financing";
 import ServiceAreas from "./pages/resources/ServiceAreas";
+import DeveloperServices from "./pages/DeveloperServices";
+import HomeownerServices from "./pages/HomeownerServices";
+import EmergencyServices from "./pages/EmergencyServices";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
@@ -175,15 +178,29 @@ const App = () => (
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/services/:slug" element={<ServiceDetail />} />
+                  <Route path="/services/multi-unit" element={<MultiUnitServices />} />
+                  <Route path="/services/residential" element={<ResidentialServices />} />
+                  <Route path="/services/commercial" element={<CommercialServices />} />
+                  <Route path="/services/industrial" element={<IndustrialServices />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
                   <Route path="/property-managers" element={<PropertyManagers />} />
                   <Route path="/homeowners" element={<Homeowners />} />
                   <Route path="/commercial-clients" element={<CommercialClients />} />
+                  <Route path="/developer-services" element={<DeveloperServices />} />
+                  <Route path="/homeowner-services" element={<HomeownerServices />} />
+                  <Route path="/emergency-services" element={<EmergencyServices />} />
                   <Route path="/our-process" element={<OurProcess />} />
                   <Route path="/sustainability" element={<Sustainability />} />
                   <Route path="/faq" element={<FAQ />} />
+                  <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
+                  <Route path="/resources/warranties" element={<Warranties />} />
+                  <Route path="/resources/financing" element={<Financing />} />
+                  <Route path="/resources/service-areas" element={<ServiceAreas />} />
+                  <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
+                  <Route path="/company/equipment-resources" element={<EquipmentResources />} />
+                  <Route path="/company/our-team" element={<OurTeam />} />
                   <Route path="/auth" element={<Auth />} />
                   
                   {/* Heavy content pages - lazy loaded */}

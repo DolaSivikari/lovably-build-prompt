@@ -7,6 +7,7 @@ import FilterBar from "@/components/FilterBar";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
 import ProjectDetailModal from "@/components/ProjectDetailModal";
+import ProjectFilters from "@/components/ProjectFilters";
 import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -25,6 +26,9 @@ const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All");
+  const [selectedClientTypes, setSelectedClientTypes] = useState<string[]>([]);
+  const [selectedScales, setSelectedScales] = useState<string[]>([]);
+  const [selectedServiceTypes, setSelectedServiceTypes] = useState<string[]>([]);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -78,8 +82,21 @@ const Projects = () => {
     
     const matchesCategory = selectedCategory === "All" || project.category.includes(selectedCategory);
     const matchesYear = selectedYear === "All" || project.year === selectedYear;
+    
+    const matchesClientType = selectedClientTypes.length === 0 || selectedClientTypes.some(type => 
+      project.tags?.some((tag: string) => tag.toLowerCase().includes(type.toLowerCase()))
+    );
+    
+    const matchesScale = selectedScales.length === 0 || selectedScales.some(scale => 
+      project.tags?.some((tag: string) => tag.toLowerCase().includes(scale))
+    );
+    
+    const matchesServiceType = selectedServiceTypes.length === 0 || selectedServiceTypes.some(service => 
+      project.category?.toLowerCase().includes(service) || 
+      project.tags?.some((tag: string) => tag.toLowerCase().includes(service))
+    );
 
-    return matchesSearch && matchesCategory && matchesYear;
+    return matchesSearch && matchesCategory && matchesYear && matchesClientType && matchesScale && matchesServiceType;
   });
 
   const featuredProjects = filteredProjects.filter(p => p.featured).slice(0, 3);
@@ -93,6 +110,15 @@ const Projects = () => {
 
   const loadMore = () => {
     setVisibleCount(prev => prev + 6);
+  };
+
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSelectedCategory("All");
+    setSelectedYear("All");
+    setSelectedClientTypes([]);
+    setSelectedScales([]);
+    setSelectedServiceTypes([]);
   };
 
   return (
@@ -153,52 +179,68 @@ const Projects = () => {
         onViewModeChange={setViewMode}
       />
 
-      {/* Projects Grid */}
+      {/* Projects Grid with Filters */}
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
-          {isLoading ? (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground">Loading projects...</p>
+          <div className="flex flex-col md:flex-row gap-8">
+            {/* Filters Sidebar */}
+            <div className="md:w-64 flex-shrink-0">
+              <ProjectFilters
+                selectedClientTypes={selectedClientTypes}
+                selectedScales={selectedScales}
+                selectedServiceTypes={selectedServiceTypes}
+                onClientTypeChange={setSelectedClientTypes}
+                onScaleChange={setSelectedScales}
+                onServiceTypeChange={setSelectedServiceTypes}
+                onClearFilters={handleClearFilters}
+                resultCount={filteredProjects.length}
+                totalCount={allProjects.length}
+              />
             </div>
-          ) : visibleProjects.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground mb-4">No projects found matching your criteria</p>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedCategory("All");
-                  setSelectedYear("All");
-                }}
-              >
-                Clear Filters
-              </Button>
-            </div>
-          ) : (
-            <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {visibleProjects.map((project) => (
-                  <ProjectCard
-                    key={project.slug}
-                    {...project}
-                    onViewDetails={() => handleViewDetails(project)}
-                  />
-                ))}
-              </div>
 
-              {/* Load More Button */}
-              {visibleCount < regularProjects.length && (
-                <div className="text-center mt-12">
-                  <Button onClick={loadMore} size="lg">
-                    Load More Projects
-                    <span className="ml-2">
-                      ({visibleCount} of {regularProjects.length})
-                    </span>
+            {/* Projects Content */}
+            <div className="flex-1">
+              {isLoading ? (
+                <div className="text-center py-16">
+                  <p className="text-muted-foreground">Loading projects...</p>
+                </div>
+              ) : visibleProjects.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="text-muted-foreground mb-4">No projects found matching your criteria</p>
+                  <Button
+                    variant="outline"
+                    onClick={handleClearFilters}
+                  >
+                    Clear All Filters
                   </Button>
                 </div>
+              ) : (
+                <>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {visibleProjects.map((project) => (
+                      <ProjectCard
+                        key={project.slug}
+                        {...project}
+                        onViewDetails={() => handleViewDetails(project)}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Load More Button */}
+                  {visibleCount < regularProjects.length && (
+                    <div className="text-center mt-12">
+                      <Button onClick={loadMore} size="lg">
+                        Load More Projects
+                        <span className="ml-2">
+                          ({visibleCount} of {regularProjects.length})
+                        </span>
+                      </Button>
+                    </div>
+                  )}
+                </>
               )}
-            </>
-          )}
+            </div>
+          </div>
         </div>
       </section>
 

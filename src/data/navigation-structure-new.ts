@@ -5,18 +5,9 @@
 
 export interface NavLink {
   label: string;
-  href: string;
+  href?: string;
   badge?: string;
-}
-
-export interface NavDropdown {
-  label: string;
-  items: (NavLink | NavSubmenu)[];
-}
-
-export interface NavSubmenu {
-  label: string;
-  items: NavLink[];
+  items?: NavLink[];
 }
 
 export const navigationStructure = {

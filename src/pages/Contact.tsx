@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
+import { useSearchParams } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -12,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 // Input validation schema to prevent XSS/injection attacks
@@ -44,15 +47,28 @@ const contactSchema = z.object({
 
 const Contact = () => {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
+  const [projectType, setProjectType] = useState<string>("residential");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     company: "",
+    title: "",
+    projectValue: "",
+    timeline: "",
+    serviceNeeded: "",
     message: "",
   });
+
+  useEffect(() => {
+    const type = searchParams.get("type");
+    if (type && ["residential", "commercial", "multi-unit", "emergency"].includes(type)) {
+      setProjectType(type);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +90,7 @@ const Contact = () => {
           phone: validatedData.phone || null,
           company: validatedData.company || null,
           message: validatedData.message,
-          submission_type: "contact",
+          submission_type: projectType,
         }]);
 
       if (error) throw error;
@@ -114,12 +130,14 @@ const Contact = () => {
         // Don't fail the submission if email fails
       }
 
+      const responseTime = projectType === "emergency" ? "4 hours" : projectType === "commercial" || projectType === "multi-unit" ? "48 hours" : "24 hours";
+      
       toast({
         title: "Message sent!",
-        description: "We'll get back to you within 24 hours. Check your email for confirmation.",
+        description: `We'll get back to you within ${responseTime}. Check your email for confirmation.`,
       });
 
-      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", company: "", title: "", projectValue: "", timeline: "", serviceNeeded: "", message: "" });
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Display validation errors
@@ -144,6 +162,10 @@ const Contact = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
@@ -241,10 +263,41 @@ const Contact = () => {
                 <CardHeader>
                   <CardTitle>Request a Consultation</CardTitle>
                   <CardDescription>
-                    Fill out the form below and our team will get back to you within 24 hours.
+                    Fill out the form below and our team will get back to you.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
+                  {/* Project Type Selector */}
+                  <div className="mb-6">
+                    <Label className="text-base font-semibold mb-3 block">Project Type</Label>
+                    <RadioGroup value={projectType} onValueChange={setProjectType} className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div>
+                        <RadioGroupItem value="residential" id="residential" className="peer sr-only" />
+                        <Label htmlFor="residential" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                          <span className="text-sm font-medium">Residential</span>
+                        </Label>
+                      </div>
+                      <div>
+                        <RadioGroupItem value="commercial" id="commercial" className="peer sr-only" />
+                        <Label htmlFor="commercial" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                          <span className="text-sm font-medium">Commercial</span>
+                        </Label>
+                      </div>
+                      <div>
+                        <RadioGroupItem value="multi-unit" id="multi-unit" className="peer sr-only" />
+                        <Label htmlFor="multi-unit" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                          <span className="text-sm font-medium">Multi-Unit</span>
+                        </Label>
+                      </div>
+                      <div>
+                        <RadioGroupItem value="emergency" id="emergency" className="peer sr-only" />
+                        <Label htmlFor="emergency" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                          <span className="text-sm font-medium text-destructive">Emergency</span>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2">
@@ -274,26 +327,91 @@ const Contact = () => {
 
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="phone">Phone</Label>
+                        <Label htmlFor="phone">Phone {projectType === "emergency" && "*"}</Label>
                         <Input
                           id="phone"
                           name="phone"
                           type="tel"
                           value={formData.phone}
                           onChange={handleChange}
+                          required={projectType === "emergency"}
                           placeholder="(416) 555-0123"
                         />
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="company">Company</Label>
-                        <Input
-                          id="company"
-                          name="company"
-                          value={formData.company}
-                          onChange={handleChange}
-                          placeholder="Your Company"
-                        />
+                      {(projectType === "commercial" || projectType === "multi-unit") && (
+                        <div className="space-y-2">
+                          <Label htmlFor="company">Company *</Label>
+                          <Input
+                            id="company"
+                            name="company"
+                            value={formData.company}
+                            onChange={handleChange}
+                            required
+                            placeholder="Your Company"
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {projectType === "multi-unit" && (
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="title">Title</Label>
+                          <Input
+                            id="title"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            placeholder="Project Manager"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="projectValue">Estimated Project Value</Label>
+                          <Select value={formData.projectValue} onValueChange={(value) => handleSelectChange("projectValue", value)}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select range" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="100k-500k">$100K - $500K</SelectItem>
+                              <SelectItem value="500k-1m">$500K - $1M</SelectItem>
+                              <SelectItem value="1m-5m">$1M - $5M</SelectItem>
+                              <SelectItem value="5m+">$5M+</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
+                    )}
+
+                    {projectType === "residential" && (
+                      <div className="space-y-2">
+                        <Label htmlFor="serviceNeeded">Service Needed</Label>
+                        <Select value={formData.serviceNeeded} onValueChange={(value) => handleSelectChange("serviceNeeded", value)}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select service" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="interior-painting">Interior Painting</SelectItem>
+                            <SelectItem value="exterior-painting">Exterior Painting</SelectItem>
+                            <SelectItem value="stucco">Stucco Repair</SelectItem>
+                            <SelectItem value="renovation">Full Renovation</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    )}
+
+                    <div className="space-y-2">
+                      <Label htmlFor="timeline">Timeline</Label>
+                      <Select value={formData.timeline} onValueChange={(value) => handleSelectChange("timeline", value)}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select timeline" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="asap">ASAP</SelectItem>
+                          <SelectItem value="1-2-weeks">1-2 Weeks</SelectItem>
+                          <SelectItem value="1-3-months">1-3 Months</SelectItem>
+                          <SelectItem value="3+-months">3+ Months</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     <div className="space-y-2">
@@ -309,9 +427,21 @@ const Contact = () => {
                       />
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                      {isSubmitting ? "Sending..." : "Submit Request"}
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full" 
+                      disabled={isSubmitting}
+                      variant={projectType === "emergency" ? "destructive" : "default"}
+                    >
+                      {isSubmitting ? "Sending..." : projectType === "emergency" ? "Request Emergency Service" : projectType === "multi-unit" ? "Request Proposal" : "Get Your Free Quote"}
                     </Button>
+                    
+                    {projectType !== "emergency" && (
+                      <p className="text-sm text-muted-foreground text-center">
+                        We'll respond within {projectType === "commercial" || projectType === "multi-unit" ? "48 hours" : "24 hours"}
+                      </p>
+                    )}
                   </form>
                 </CardContent>
               </Card>
