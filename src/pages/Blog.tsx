@@ -91,7 +91,7 @@ const Blog = () => {
       ) : (
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
+        <section className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-20">
           <div className="container mx-auto px-4 text-center">
             <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
               <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Industry Insights</span>
@@ -99,17 +99,17 @@ const Blog = () => {
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               Blog & Resources
             </h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90 mb-8">
+            <p className="text-xl max-w-3xl mx-auto text-primary-foreground/90 mb-8">
               Stay informed with expert guidance on construction, painting, and property maintenance from the professionals at Ascen Group.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="#newsletter">
-                <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 hover:scale-105 transition-all">
+                <Button size="lg" variant="secondary" className="hover:scale-105 transition-all">
                   Subscribe to Newsletter
                 </Button>
               </a>
               <Link to="/case-studies">
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10">
+                <Button size="lg" variant="outline">
                   View Case Studies
                 </Button>
               </Link>
@@ -119,7 +119,7 @@ const Blog = () => {
 
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
-          <section className="container mx-auto px-4 py-16 border-b">
+          <section className="container mx-auto px-4 py-20 border-b">
             <h2 className="text-3xl font-heading font-bold mb-8">Featured Articles</h2>
             <div className="grid md:grid-cols-2 gap-8">
               {featuredPosts.map((post, index) => (
@@ -136,7 +136,7 @@ const Blog = () => {
         )}
 
         {/* All Posts with Filter */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-20">
           <h2 className="text-3xl font-heading font-bold mb-8">All Articles</h2>
           
           <Tabs defaultValue="all" className="w-full" onValueChange={setFilter}>

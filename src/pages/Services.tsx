@@ -205,7 +205,7 @@ const Services = () => {
       <main className="flex-1">
 
         {/* Main Services - Accordion View */}
-        <section className="py-16 bg-background">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
@@ -319,7 +319,7 @@ const Services = () => {
         </section>
 
         {/* Who We Serve */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
@@ -356,7 +356,7 @@ const Services = () => {
         </section>
 
         {/* Why Choose Us */}
-        <section className="py-16 bg-background">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -398,7 +398,7 @@ const Services = () => {
         </section>
 
         {/* Technology Section */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">

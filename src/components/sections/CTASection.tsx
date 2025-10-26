@@ -28,7 +28,7 @@ const CTASection = ({
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           {title}
         </h2>
-        <p className="text-lg mb-8 opacity-90">
+        <p className="text-lg mb-8 text-primary-foreground/90">
           {description}
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
@@ -45,7 +45,6 @@ const CTASection = ({
             <Button 
               size="lg" 
               variant={secondaryCTA.variant || "outline"}
-              className="border-white/30 text-white hover:bg-white/10"
               asChild
             >
               <Link to={secondaryCTA.href}>

@@ -37,7 +37,7 @@ const CaseStudies = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
+        <section className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-20">
           <div className="container mx-auto px-4 text-center">
             <div className="inline-block mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm border border-secondary/30 rounded-full">
               <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Success Stories</span>
@@ -45,14 +45,14 @@ const CaseStudies = () => {
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               Case Studies
             </h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90">
+            <p className="text-xl max-w-3xl mx-auto text-primary-foreground/90">
               Discover how we tackle complex painting and finishing challenges with innovative solutions and expert craftsmanship
             </p>
           </div>
         </section>
 
         {/* Filter Tabs */}
-        <section className="py-12 bg-background sticky top-16 z-40 border-b">
+        <section className="py-16 bg-background sticky top-16 z-40 border-b">
           <div className="container mx-auto px-4">
             <Tabs value={filter} onValueChange={setFilter} className="w-full max-w-4xl mx-auto">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
@@ -71,7 +71,7 @@ const CaseStudies = () => {
         </section>
 
         {/* Case Studies Grid */}
-        <section className="py-16 bg-background">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {filteredStudies.map((study, index) => (
@@ -138,7 +138,7 @@ const CaseStudies = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-muted py-16">
+        <section className="bg-muted py-20">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               Ready to Start Your Project?
