@@ -4,15 +4,17 @@ import { landingMenuItems } from "@/data/landing-menu";
 import heroConstruction from "@/assets/hero-construction.jpg";
 import heroPremiumVideo from "@/assets/hero-premium.mp4";
 import homeHeroVideo from "@/assets/home-hero.mp4";
+import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 import { useEffect, useRef, useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
 
 const NumberedLandingHero = () => {
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
+  const video3Ref = useRef<HTMLVideoElement>(null);
   const [shouldUseVideo, setShouldUseVideo] = useState(true);
-  const [activeVideo, setActiveVideo] = useState<1 | 2>(1);
-  const [videosLoaded, setVideosLoaded] = useState({ video1: false, video2: false });
+  const [activeVideo, setActiveVideo] = useState<1 | 2 | 3>(1);
+  const [videosLoaded, setVideosLoaded] = useState({ video1: false, video2: false, video3: false });
 
   useEffect(() => {
     // Check for user preferences that might prevent video playback
@@ -41,8 +43,11 @@ const NumberedLandingHero = () => {
     setVideosLoaded(prev => ({ ...prev, video2: true }));
   };
 
+  const handleVideo3Loaded = () => {
+    setVideosLoaded(prev => ({ ...prev, video3: true }));
+  };
+
   const handleVideo1Ended = () => {
-    // Start video 2 and crossfade
     const video2 = video2Ref.current;
     if (video2) {
       video2.currentTime = 0;
@@ -52,12 +57,42 @@ const NumberedLandingHero = () => {
   };
 
   const handleVideo2Ended = () => {
-    // Start video 1 and crossfade
+    const video3 = video3Ref.current;
+    if (video3) {
+      video3.currentTime = 0;
+      video3.play();
+      setActiveVideo(3);
+    }
+  };
+
+  const handleVideo3Ended = () => {
     const video1 = video1Ref.current;
     if (video1) {
       video1.currentTime = 0;
       video1.play();
       setActiveVideo(1);
+    }
+  };
+
+  // Pre-buffer next video when current video is 80% complete
+  const handleTimeUpdate = (currentVideoNum: 1 | 2 | 3) => {
+    const currentVideo = currentVideoNum === 1 ? video1Ref.current : 
+                         currentVideoNum === 2 ? video2Ref.current : 
+                         video3Ref.current;
+    
+    if (!currentVideo) return;
+
+    const progress = currentVideo.currentTime / currentVideo.duration;
+    
+    if (progress >= 0.8) {
+      // Pre-buffer next video
+      const nextVideo = currentVideoNum === 1 ? video2Ref.current :
+                       currentVideoNum === 2 ? video3Ref.current :
+                       video1Ref.current;
+      
+      if (nextVideo && nextVideo.readyState < 3) {
+        nextVideo.load();
+      }
     }
   };
 
@@ -76,9 +111,15 @@ const NumberedLandingHero = () => {
               poster={heroConstruction}
               onLoadedData={handleVideo1Loaded}
               onEnded={handleVideo1Ended}
-              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
-                activeVideo === 1 && videosLoaded.video1 ? 'opacity-100' : 'opacity-0'
+              onTimeUpdate={() => handleTimeUpdate(1)}
+              className={`w-full h-full object-cover absolute inset-0 transition-all duration-[4000ms] ${
+                activeVideo === 1 && videosLoaded.video1 
+                  ? 'opacity-100 scale-100' 
+                  : activeVideo !== 1 && videosLoaded.video1 
+                  ? 'opacity-0 scale-105' 
+                  : 'opacity-0 scale-100'
               }`}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)' }}
             >
               <source src={heroPremiumVideo} type="video/mp4" />
             </video>
@@ -86,14 +127,39 @@ const NumberedLandingHero = () => {
               ref={video2Ref}
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               onLoadedData={handleVideo2Loaded}
               onEnded={handleVideo2Ended}
-              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
-                activeVideo === 2 && videosLoaded.video2 ? 'opacity-100' : 'opacity-0'
+              onTimeUpdate={() => handleTimeUpdate(2)}
+              className={`w-full h-full object-cover absolute inset-0 transition-all duration-[4000ms] ${
+                activeVideo === 2 && videosLoaded.video2 
+                  ? 'opacity-100 scale-100' 
+                  : activeVideo !== 2 && videosLoaded.video2 
+                  ? 'opacity-0 scale-105' 
+                  : 'opacity-0 scale-100'
               }`}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)' }}
             >
               <source src={homeHeroVideo} type="video/mp4" />
+            </video>
+            <video
+              ref={video3Ref}
+              muted
+              playsInline
+              preload="metadata"
+              onLoadedData={handleVideo3Loaded}
+              onEnded={handleVideo3Ended}
+              onTimeUpdate={() => handleTimeUpdate(3)}
+              className={`w-full h-full object-cover absolute inset-0 transition-all duration-[4000ms] ${
+                activeVideo === 3 && videosLoaded.video3 
+                  ? 'opacity-100 scale-100' 
+                  : activeVideo !== 3 && videosLoaded.video3 
+                  ? 'opacity-0 scale-105' 
+                  : 'opacity-0 scale-100'
+              }`}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)' }}
+            >
+              <source src={heroClipchampVideo} type="video/mp4" />
             </video>
           </>
         ) : (
