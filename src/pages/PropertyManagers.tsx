@@ -6,12 +6,12 @@ import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Building, TrendingUp, Users, Calendar, Shield, Clock, CheckCircle, DollarSign } from "lucide-react";
+import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CheckCircle, CreditCard } from "lucide-react";
 
 const PropertyManagers = () => {
   const benefits = [
     {
-      icon: DollarSign,
+      icon: CreditCard,
       title: "Maximize ROI",
       description: "Quality work that increases property value and reduces long-term maintenance costs"
     },
@@ -26,12 +26,12 @@ const PropertyManagers = () => {
       description: "Competitive rates for multi-unit projects and ongoing maintenance programs"
     },
     {
-      icon: Shield,
+      icon: ShieldCheck,
       title: "Full Insurance",
       description: "$5M liability coverage and WSIB compliance for your protection"
     },
     {
-      icon: Clock,
+      icon: Timer,
       title: "Fast Turnarounds",
       description: "3-day unit turnover process keeps your vacancy rates low"
     }

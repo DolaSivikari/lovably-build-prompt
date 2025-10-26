@@ -6,7 +6,7 @@ import BenefitsSection from "@/components/sections/BenefitsSection";
 import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Clock, Shield, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
+import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
 
 const CommercialClients = () => {
   const benefits = [
@@ -16,12 +16,12 @@ const CommercialClients = () => {
       description: "Night and weekend scheduling available to avoid disrupting your business operations"
     },
     {
-      icon: Clock,
+      icon: Timer,
       title: "Fast-Track Scheduling",
       description: "Accelerated timelines when you need to meet tight deadlines"
     },
     {
-      icon: Shield,
+      icon: ShieldCheck,
       title: "Fully Insured",
       description: "$5M liability coverage and WSIB compliance - your business is protected"
     },

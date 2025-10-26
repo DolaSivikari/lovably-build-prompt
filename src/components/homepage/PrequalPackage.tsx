@@ -1,4 +1,4 @@
-import { FileText, Download, CheckCircle } from "lucide-react";
+import { FileText, Download, CheckCircle, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -106,13 +106,14 @@ const PrequalPackage = () => {
                   ))}
                 </div>
 
-                <Dialog open={open} onOpenChange={setOpen}>
-                  <DialogTrigger asChild>
-                    <Button size="lg" className="w-full md:w-auto">
-                      <Download className="mr-2 w-5 h-5" />
-                      Request Prequalification Package
-                    </Button>
-                  </DialogTrigger>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Dialog open={open} onOpenChange={setOpen}>
+                    <DialogTrigger asChild>
+                      <Button size="lg" className="w-full sm:w-auto">
+                        <Download className="mr-2 w-5 h-5" />
+                        Request Package
+                      </Button>
+                    </DialogTrigger>
                   <DialogContent className="max-w-md">
                     <DialogHeader>
                       <DialogTitle>Request Prequalification Package</DialogTitle>
@@ -202,6 +203,13 @@ const PrequalPackage = () => {
                     </form>
                   </DialogContent>
                 </Dialog>
+                <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
+                  <a href="/resources/contractor-portal">
+                    View All Documents
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </a>
+                </Button>
+              </div>
               </div>
             </div>
           </CardContent>

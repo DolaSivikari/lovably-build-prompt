@@ -8,16 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
 import { 
-  Briefcase, 
   Heart, 
   TrendingUp, 
   Users, 
   GraduationCap,
-  Shield,
+  ShieldCheck,
   Award,
-  Clock,
+  Calendar,
   MapPin,
-  ArrowRight
+  ArrowRight,
+  Briefcase
 } from "lucide-react";
 
 const Careers = () => {
@@ -46,12 +46,12 @@ const Careers = () => {
       description: "Paid training, certifications, and attendance at industry conferences"
     },
     {
-      icon: Shield,
+      icon: ShieldCheck,
       title: "Safety First",
       description: "Industry-leading safety equipment, training, and protocols to protect our team"
     },
     {
-      icon: Clock,
+      icon: Calendar,
       title: "Work-Life Balance",
       description: "Competitive PTO, flexible scheduling, and paid holidays"
     },
@@ -164,7 +164,7 @@ const Careers = () => {
                         {position.location}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
+                        <Briefcase className="w-4 h-4" />
                         {position.type}
                       </span>
                     </div>

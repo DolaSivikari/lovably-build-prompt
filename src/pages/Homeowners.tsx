@@ -6,32 +6,32 @@ import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Home, Heart, Palette, Shield, Clock, DollarSign, CheckCircle } from "lucide-react";
+import { Sparkles, PaintbrushVertical, ShieldCheck, Calendar, CreditCard, CheckCircle } from "lucide-react";
 
 const Homeowners = () => {
   const benefits = [
     {
-      icon: Heart,
+      icon: Sparkles,
       title: "Personalized Service",
       description: "We treat your home like our own, with care and respect throughout the entire process"
     },
     {
-      icon: Palette,
+      icon: PaintbrushVertical,
       title: "Color Consultation",
       description: "Free professional color consultation to help you choose the perfect palette"
     },
     {
-      icon: Shield,
+      icon: ShieldCheck,
       title: "Home Protection",
       description: "Complete furniture and floor protection - your home stays clean and safe"
     },
     {
-      icon: Clock,
+      icon: Calendar,
       title: "Flexible Scheduling",
       description: "We work around your schedule to minimize disruption to your daily life"
     },
     {
-      icon: DollarSign,
+      icon: CreditCard,
       title: "Transparent Pricing",
       description: "No hidden fees - detailed written estimates you can understand"
     }
