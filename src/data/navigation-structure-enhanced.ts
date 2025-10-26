@@ -4,6 +4,7 @@ export interface SubItem {
   name: string;
   link: string;
   description?: string;
+  badge?: "new" | "popular" | "important";
 }
 
 export interface AccordionCategory {
@@ -59,56 +60,90 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       ],
     },
   ],
-  whoWeServe: [
+  projects: [
     {
-      sectionTitle: "Who We Serve",
+      sectionTitle: "Projects",
+      sectionLink: "/projects",
       categories: [
         {
-          title: "Homeowners",
+          title: "Browse by Type",
           subItems: [
-            { name: "View Residential Solutions", link: "/homeowners" },
-          ],
-        },
-        {
-          title: "Property Managers",
-          subItems: [
-            { name: "View Property Management Solutions", link: "/property-managers" },
-          ],
-        },
-        {
-          title: "Commercial Clients",
-          subItems: [
-            { name: "View Commercial Solutions", link: "/commercial-clients" },
-          ],
-        },
-      ],
-    },
-  ],
-  blog: [
-    {
-      sectionTitle: "Articles & Insights",
-      sectionLink: "/blog",
-      categories: [
-        {
-          title: "Articles & Insights",
-          subItems: [
-            { name: "Blog & Resources", link: "/blog" },
-            { name: "View All Articles", link: "/blog" },
+            { name: "All Projects", link: "/projects" },
+            { name: "Residential Projects", link: "/projects?client_type=homeowner" },
+            { name: "Commercial Projects", link: "/projects?client_type=commercial" },
+            { name: "Multi-Unit Projects", link: "/projects?client_type=developer", badge: "popular" },
             { name: "Case Studies", link: "/case-studies" },
           ],
         },
       ],
     },
+  ],
+  company: [
     {
-      sectionTitle: "Company",
+      sectionTitle: "About",
       categories: [
         {
-          title: "About Us",
+          title: "Company",
           subItems: [
-            { name: "Our Process", link: "/how-we-work" },
-            { name: "Our Values", link: "/values" },
-            { name: "Safety", link: "/safety" },
-            { name: "Sustainability", link: "/sustainability" },
+            { name: "About Us", link: "/about" },
+            { name: "Our Team", link: "/company/team", badge: "new" },
+            { name: "Our Process", link: "/our-process" },
+          ],
+        },
+      ],
+    },
+    {
+      sectionTitle: "Who We Serve",
+      categories: [
+        {
+          title: "Client Types",
+          subItems: [
+            { name: "Homeowners", link: "/homeowners" },
+            { name: "Property Managers", link: "/property-managers" },
+            { name: "Commercial Clients", link: "/commercial-clients" },
+            { name: "Developers & Contractors", link: "/company/developers", badge: "new" },
+          ],
+        },
+      ],
+    },
+    {
+      sectionTitle: "Credentials",
+      categories: [
+        {
+          title: "Excellence",
+          subItems: [
+            { name: "Safety & Compliance", link: "/safety" },
+            { name: "Certifications & Insurance", link: "/company/certifications-insurance", badge: "important" },
+            { name: "Equipment & Resources", link: "/company/equipment-resources" },
+            { name: "Careers", link: "/careers" },
+          ],
+        },
+      ],
+    },
+  ],
+  resources: [
+    {
+      sectionTitle: "Support",
+      categories: [
+        {
+          title: "Resources",
+          subItems: [
+            { name: "FAQ", link: "/faq" },
+            { name: "Warranties & Guarantees", link: "/resources/warranties", badge: "new" },
+            { name: "Financing Options", link: "/resources/financing", badge: "new" },
+            { name: "Service Areas", link: "/resources/service-areas" },
+            { name: "Blog", link: "/blog" },
+          ],
+        },
+      ],
+    },
+    {
+      sectionTitle: "B2B Resources",
+      categories: [
+        {
+          title: "For Professionals",
+          subItems: [
+            { name: "Contractor Portal", link: "/resources/contractor-portal", badge: "important" },
           ],
         },
       ],

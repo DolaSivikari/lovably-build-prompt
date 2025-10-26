@@ -33,6 +33,10 @@ import CertificationsInsurance from "./pages/company/CertificationsInsurance";
 import ContractorPortal from "./pages/resources/ContractorPortal";
 import ServiceAreas from "./pages/resources/ServiceAreas";
 import EquipmentResources from "./pages/company/EquipmentResources";
+import Team from "./pages/company/Team";
+import Developers from "./pages/company/Developers";
+import Warranties from "./pages/resources/Warranties";
+import Financing from "./pages/resources/Financing";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -180,8 +184,12 @@ const App = () => (
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
                   <Route path="/company/equipment-resources" element={<EquipmentResources />} />
+                  <Route path="/company/team" element={<Team />} />
+                  <Route path="/company/developers" element={<Developers />} />
                   <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
                   <Route path="/resources/service-areas" element={<ServiceAreas />} />
+                  <Route path="/resources/warranties" element={<Warranties />} />
+                  <Route path="/resources/financing" element={<Financing />} />
                   
                   {/* Heavy content pages - lazy loaded */}
                   <Route path="/blog" element={<Blog />} />

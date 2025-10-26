@@ -112,26 +112,15 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               Home
             </Link>
             <Link
-              to="/our-process"
+              to="/contact"
               onClick={handleLinkClick}
               className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
-                isActive("/our-process")
+                isActive("/contact")
                   ? "bg-[hsl(var(--sage))]/20 text-[hsl(var(--sage-dark))]"
                   : "hover:bg-muted"
               }`}
             >
-              Our Process
-            </Link>
-            <Link
-              to="/projects"
-              onClick={handleLinkClick}
-              className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
-                isActive("/projects")
-                  ? "bg-[hsl(var(--sage))]/20 text-[hsl(var(--sage-dark))]"
-                  : "hover:bg-muted"
-              }`}
-            >
-              Projects
+              Contact
             </Link>
           </nav>
 
@@ -174,23 +163,19 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               </AccordionContent>
             </AccordionItem>
 
-            {/* Who We Serve Section */}
-            <AccordionItem value="who-we-serve" className="border rounded-md">
+            {/* Projects Section */}
+            <AccordionItem value="projects" className="border rounded-md">
               <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
-                Who We Serve
+                Projects
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
-                {megaMenuDataEnhanced.whoWeServe.map((section) => (
+                {megaMenuDataEnhanced.projects.map((section) => (
                   <div key={section.sectionTitle} className="mb-4">
-                    <h4 className="text-sm font-semibold text-muted-foreground mb-2">
-                      {section.sectionTitle}
-                    </h4>
                     <div className="space-y-1">
                       {section.categories.map((category) => (
                         <div key={category.title} className="ml-2">
-                          <div className="font-medium text-sm py-1">{category.title}</div>
                           {category.subItems && (
-                            <div className="ml-3 space-y-1">
+                            <div className="space-y-1">
                               {category.subItems.map((item) => (
                                 <Link
                                   key={item.link}
@@ -199,6 +184,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                   className="block py-2 text-sm text-muted-foreground hover:text-[hsl(var(--sage-dark))] hover:bg-[hsl(var(--sage))]/10 px-2 rounded transition-colors"
                                 >
                                   {item.name}
+                                  {item.badge === "popular" && <span className="ml-2 text-xs text-secondary">★</span>}
                                 </Link>
                               ))}
                             </div>
@@ -211,13 +197,13 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               </AccordionContent>
             </AccordionItem>
 
-            {/* Blog & Resources Section */}
-            <AccordionItem value="blog" className="border rounded-md">
+            {/* Company Section */}
+            <AccordionItem value="company" className="border rounded-md">
               <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
-                Blog & Resources
+                Company
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
-                {megaMenuDataEnhanced.blog.map((section) => (
+                {megaMenuDataEnhanced.company.map((section) => (
                   <div key={section.sectionTitle} className="mb-4">
                     <h4 className="text-sm font-semibold text-muted-foreground mb-2">
                       {section.sectionTitle}
@@ -225,9 +211,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     <div className="space-y-1">
                       {section.categories.map((category) => (
                         <div key={category.title} className="ml-2">
-                          <div className="font-medium text-sm py-1">{category.title}</div>
                           {category.subItems && (
-                            <div className="ml-3 space-y-1">
+                            <div className="space-y-1">
                               {category.subItems.map((item) => (
                                 <Link
                                   key={item.link}
@@ -236,6 +221,46 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                   className="block py-2 text-sm text-muted-foreground hover:text-[hsl(var(--sage-dark))] hover:bg-[hsl(var(--sage))]/10 px-2 rounded transition-colors"
                                 >
                                   {item.name}
+                                  {item.badge === "new" && <span className="ml-2 text-xs text-blue-500">New</span>}
+                                  {item.badge === "important" && <span className="ml-2 text-xs text-primary">★</span>}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Resources Section */}
+            <AccordionItem value="resources" className="border rounded-md">
+              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
+                Resources
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4">
+                {megaMenuDataEnhanced.resources.map((section) => (
+                  <div key={section.sectionTitle} className="mb-4">
+                    <h4 className="text-sm font-semibold text-muted-foreground mb-2">
+                      {section.sectionTitle}
+                    </h4>
+                    <div className="space-y-1">
+                      {section.categories.map((category) => (
+                        <div key={category.title} className="ml-2">
+                          {category.subItems && (
+                            <div className="space-y-1">
+                              {category.subItems.map((item) => (
+                                <Link
+                                  key={item.link}
+                                  to={item.link}
+                                  onClick={handleLinkClick}
+                                  className="block py-2 text-sm text-muted-foreground hover:text-[hsl(var(--sage-dark))] hover:bg-[hsl(var(--sage))]/10 px-2 rounded transition-colors"
+                                >
+                                  {item.name}
+                                  {item.badge === "new" && <span className="ml-2 text-xs text-blue-500">New</span>}
+                                  {item.badge === "important" && <span className="ml-2 text-xs text-primary">★★</span>}
                                 </Link>
                               ))}
                             </div>

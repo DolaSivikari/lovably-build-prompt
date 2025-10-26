@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { AccordionCategory } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
+import { NavBadge } from "@/components/ui/nav-badge";
 
 interface MegaMenuAccordionCategoryProps {
   category: AccordionCategory;
@@ -52,10 +53,11 @@ export const MegaMenuAccordionCategory = ({
             <li key={index}>
               <Link
                 to={item.link}
-                className="mega-menu-accordion-link"
+                className="mega-menu-accordion-link inline-flex items-center"
                 onClick={onLinkClick}
               >
                 {item.name}
+                {item.badge && <NavBadge variant={item.badge} />}
               </Link>
             </li>
           ))}
