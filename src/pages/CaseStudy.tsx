@@ -1,20 +1,21 @@
-import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Calendar, MapPin, Clock, Ruler, CheckCircle2 } from "lucide-react";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import ContentPageHeader from "@/components/ContentPageHeader";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import OptimizedImage from "@/components/OptimizedImage";
 import { InteractiveLightbox } from "@/components/InteractiveLightbox";
 import { projectSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
 import { caseStudyFAQs } from "@/data/case-study-faq-data";
 import { resolveAssetPath } from "@/utils/assetResolver";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
+import NotFound from "./NotFound";
 import {
   Accordion,
   AccordionContent,
@@ -67,16 +68,7 @@ const CaseStudy = () => {
   }
 
   if (!caseStudy) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Case Study Not Found</h1>
-          <Link to="/projects">
-            <Button>Back to Projects</Button>
-          </Link>
-        </div>
-      </div>
-    );
+    return <NotFound />;
   }
 
   // Build complete gallery for lightbox

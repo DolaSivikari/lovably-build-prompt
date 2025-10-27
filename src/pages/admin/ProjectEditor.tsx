@@ -180,7 +180,7 @@ const ProjectEditor = () => {
         .eq("id", id);
     }
 
-    const previewUrl = `/projects/${formData.slug}?preview=true&token=${token}`;
+    const previewUrl = `/case-study/${formData.slug}?preview=true&token=${token}`;
     window.open(previewUrl, "_blank");
   };
 
