@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, User, MapPin, Ruler, DollarSign } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
@@ -13,6 +13,8 @@ import OptimizedImage from "@/components/OptimizedImage";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
 import { blogFAQs } from "@/data/blog-faq-data";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
+import ProcessTimelineStep from "@/components/ProcessTimelineStep";
 import {
   Accordion,
   AccordionContent,
@@ -99,6 +101,8 @@ const BlogPost = () => {
 
   // Get FAQs for this blog post  
   const faqs = blogFAQs[post.slug] || [];
+  const isCaseStudy = post.content_type === 'case-study';
+  
   const schemas: any[] = [
     articleSchema({
       title: post.title,
@@ -151,10 +155,81 @@ const BlogPost = () => {
         {/* Content */}
         <article className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-4xl mx-auto">
+            
+            {/* Case Study Project Details */}
+            {isCaseStudy && (
+              <div className="grid md:grid-cols-3 gap-6 mb-12 p-6 bg-muted/30 rounded-lg">
+                {post.project_location && (
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold">Location</p>
+                      <p className="text-sm text-muted-foreground">{post.project_location}</p>
+                    </div>
+                  </div>
+                )}
+                {post.project_duration && (
+                  <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold">Duration</p>
+                      <p className="text-sm text-muted-foreground">{post.project_duration}</p>
+                    </div>
+                  </div>
+                )}
+                {post.project_size && (
+                  <div className="flex items-start gap-3">
+                    <Ruler className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold">Project Size</p>
+                      <p className="text-sm text-muted-foreground">{post.project_size}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Before/After Images for Case Studies */}
+            {isCaseStudy && post.before_images && post.after_images && 
+             Array.isArray(post.before_images) && Array.isArray(post.after_images) &&
+             post.before_images.length > 0 && post.after_images.length > 0 && (
+              <section className="mb-12">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-6">Before & After</h2>
+                <BeforeAfterSlider
+                  beforeImage={typeof post.before_images[0] === 'string' ? post.before_images[0] : post.before_images[0]?.url || ''}
+                  afterImage={typeof post.after_images[0] === 'string' ? post.after_images[0] : post.after_images[0]?.url || ''}
+                  altBefore={`${post.title} - Before`}
+                  altAfter={`${post.title} - After`}
+                />
+              </section>
+            )}
+
+            {/* Main Content */}
             <div 
-              className="prose prose-sm sm:prose-lg max-w-none break-words"
+              className="prose prose-sm sm:prose-lg max-w-none break-words mb-12"
               dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(formatContent(post.content || '')).sanitized }}
             />
+
+            {/* Process Steps for Case Studies */}
+            {isCaseStudy && post.process_steps && Array.isArray(post.process_steps) && post.process_steps.length > 0 && (
+              <section className="mb-12">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-6">Our Process</h2>
+                <div className="space-y-8">
+                  {post.process_steps.map((step: any, index: number) => (
+                    <ProcessTimelineStep
+                      key={index}
+                      step={index + 1}
+                      title={step.title || step.step || `Step ${index + 1}`}
+                      duration={step.duration || ''}
+                      description={step.description || step.details || ''}
+                      details={Array.isArray(step.details) ? step.details : [step.details || '']}
+                      deliverables={Array.isArray(step.deliverables) ? step.deliverables : []}
+                      image={step.image}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Share Section */}
             <div className="mt-12 pt-8 border-t">

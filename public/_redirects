@@ -8,8 +8,12 @@
 /services/sealants        /services/sealants-caulking    301
 /services/parking-garage  /services/parking-garage-coating 301
 
+# 301 redirects for old case study URLs to blog
+/case-studies             /blog                         301
+/case-study/*             /blog/:splat                  301
+/projects/*               /blog/:splat                  301
+
 # Redirect all routes to index.html for client-side routing
-/case-study/*  /index.html  200
 /blog/*        /index.html  200
 /services/*    /index.html  200
 /*             /index.html  200

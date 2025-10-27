@@ -75,12 +75,6 @@ const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts").catch(() => 
 const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post Editor</p></div>
 })));
-const AdminCaseStudies = lazy(() => import("./pages/admin/CaseStudies").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Case Studies</p></div>
-})));
-const CaseStudyEditor = lazy(() => import("./pages/admin/CaseStudyEditor").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Case Study Editor</p></div>
-})));
 const ResumeSubmissions = lazy(() => import("./pages/admin/ResumeSubmissions").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Resume Submissions</p></div>
 })));
@@ -112,15 +106,6 @@ const Blog = lazy(() => import("./pages/Blog").catch(() => ({
 })));
 const BlogPost = lazy(() => import("./pages/BlogPost").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post</p></div>
-})));
-const CaseStudy = lazy(() => import("./pages/CaseStudy").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Case Study</p></div>
-})));
-const CaseStudies = lazy(() => import("./pages/CaseStudies").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Case Studies</p></div>
-})));
-const ProjectsSlugRouter = lazy(() => import("./components/ProjectsSlugRouter").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Projects Router</p></div>
 })));
 const SEODashboard = lazy(() => import("./pages/SEODashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
@@ -197,10 +182,11 @@ const App = () => (
                   {/* Heavy content pages - lazy loaded */}
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
-                  <Route path="/case-studies" element={<CaseStudies />} />
-                  <Route path="/case-study/:slug" element={<CaseStudy />} />
+                  {/* Redirect old case study routes to blog */}
+                  <Route path="/case-studies" element={<Blog />} />
+                  <Route path="/case-study/:slug" element={<BlogPost />} />
                   {/* Defensive router for /projects/:slug - handles invalid slugs */}
-                  <Route path="/projects/:slug" element={<ProjectsSlugRouter />} />
+                  <Route path="/projects/:slug" element={<BlogPost />} />
                   <Route path="/seo-dashboard" element={<SEODashboard />} />
                   
                   {/* Admin pages - lazy loaded */}
@@ -212,8 +198,6 @@ const App = () => (
                   <Route path="/admin/contacts" element={<ContactSubmissions />} />
                   <Route path="/admin/blog" element={<AdminBlogPosts />} />
                   <Route path="/admin/blog/:id" element={<BlogPostEditor />} />
-                  <Route path="/admin/case-studies" element={<AdminCaseStudies />} />
-                  <Route path="/admin/case-studies/:id" element={<CaseStudyEditor />} />
                   <Route path="/admin/resumes" element={<ResumeSubmissions />} />
                   <Route path="/admin/media" element={<MediaLibrary />} />
                   <Route path="/admin/users" element={<Users />} />

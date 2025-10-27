@@ -192,10 +192,14 @@ export type Database = {
       }
       blog_posts: {
         Row: {
+          after_images: Json | null
           author_id: string | null
+          before_images: Json | null
+          budget_range: string | null
           canonical_url: string | null
           category: string | null
           challenge: string | null
+          client_name: string | null
           content: string | null
           content_type: Database["public"]["Enums"]["post_content_type"] | null
           created_at: string | null
@@ -203,6 +207,7 @@ export type Database = {
           featured_image: string | null
           id: string
           preview_token: string | null
+          process_steps: Json | null
           project_duration: string | null
           project_location: string | null
           project_size: string | null
@@ -224,10 +229,14 @@ export type Database = {
           updated_by: string | null
         }
         Insert: {
+          after_images?: Json | null
           author_id?: string | null
+          before_images?: Json | null
+          budget_range?: string | null
           canonical_url?: string | null
           category?: string | null
           challenge?: string | null
+          client_name?: string | null
           content?: string | null
           content_type?: Database["public"]["Enums"]["post_content_type"] | null
           created_at?: string | null
@@ -235,6 +244,7 @@ export type Database = {
           featured_image?: string | null
           id?: string
           preview_token?: string | null
+          process_steps?: Json | null
           project_duration?: string | null
           project_location?: string | null
           project_size?: string | null
@@ -256,10 +266,14 @@ export type Database = {
           updated_by?: string | null
         }
         Update: {
+          after_images?: Json | null
           author_id?: string | null
+          before_images?: Json | null
+          budget_range?: string | null
           canonical_url?: string | null
           category?: string | null
           challenge?: string | null
+          client_name?: string | null
           content?: string | null
           content_type?: Database["public"]["Enums"]["post_content_type"] | null
           created_at?: string | null
@@ -267,6 +281,7 @@ export type Database = {
           featured_image?: string | null
           id?: string
           preview_token?: string | null
+          process_steps?: Json | null
           project_duration?: string | null
           project_location?: string | null
           project_size?: string | null
@@ -1981,7 +1996,7 @@ export type Database = {
         | "rejected"
         | "hired"
       employment_type: "full_time" | "part_time" | "contract" | "internship"
-      post_content_type: "article" | "case_study" | "insight"
+      post_content_type: "article" | "case_study" | "insight" | "case-study"
       publish_state: "draft" | "scheduled" | "published" | "archived"
     }
     CompositeTypes: {
@@ -2113,7 +2128,7 @@ export const Constants = {
       app_role: ["super_admin", "admin", "editor", "contributor", "viewer"],
       application_status: ["new", "reviewed", "contacted", "rejected", "hired"],
       employment_type: ["full_time", "part_time", "contract", "internship"],
-      post_content_type: ["article", "case_study", "insight"],
+      post_content_type: ["article", "case_study", "insight", "case-study"],
       publish_state: ["draft", "scheduled", "published", "archived"],
     },
   },

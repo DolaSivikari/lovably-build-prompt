@@ -19,6 +19,10 @@ interface BlogPost {
   featured_image: string;
   published_at: string;
   author_id: string | null;
+  content_type?: string;
+  project_location?: string;
+  project_duration?: string;
+  project_size?: string;
 }
 
 const Blog = () => {
@@ -30,10 +34,12 @@ const Blog = () => {
   
   useEffect(() => {
     const loadPosts = async () => {
+      const today = new Date().toISOString();
       const { data } = await supabase
         .from('blog_posts')
-        .select('id, slug, title, summary, category, featured_image, published_at, author_id')
+        .select('id, slug, title, summary, category, featured_image, published_at, author_id, content_type, project_location, project_duration, project_size')
         .eq('publish_state', 'published')
+        .lte('published_at', today)
         .order('published_at', { ascending: false });
       
       if (data) {
@@ -81,9 +87,9 @@ const Blog = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Blog & Resources"
-        description="Expert insights on painting, stucco, EIFS, and construction best practices. Tips, guides, and industry knowledge from Ascent Group Construction."
-        keywords="construction blog, painting tips, stucco guides, EIFS maintenance, property management, construction industry news"
+        title="Blog & Case Studies - Expert Insights & Success Stories"
+        description="Expert insights on painting, stucco, EIFS, construction best practices, and real-world case studies showcasing successful projects from Ascent Group Construction."
+        keywords="construction blog, painting tips, stucco guides, EIFS maintenance, property management, construction case studies, project success stories"
       />
       <Navigation />
       
@@ -92,11 +98,11 @@ const Blog = () => {
       ) : (
       <main>
         <PageHeader
-          title="Blog & Resources"
-          description="Expert insights on construction, painting, and property maintenance from industry professionals"
+          title="Blog & Case Studies"
+          description="Expert insights, success stories, and real-world projects from industry professionals"
           breadcrumbs={[
             { label: "Home", href: "/" },
-            { label: "Blog" }
+            { label: "Blog & Case Studies" }
           ]}
           variant="standard"
         />
@@ -104,7 +110,7 @@ const Blog = () => {
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
           <section className="container mx-auto px-4 py-20 border-b">
-            <h2 className="text-3xl font-heading font-bold mb-8">Featured Articles</h2>
+            <h2 className="text-3xl font-heading font-bold mb-8">Featured Content</h2>
             <div className="grid md:grid-cols-2 gap-8">
               {featuredPosts.map((post, index) => (
                 <div
@@ -121,7 +127,7 @@ const Blog = () => {
 
         {/* All Posts with Filter */}
         <section className="container mx-auto px-4 py-20">
-          <h2 className="text-3xl font-heading font-bold mb-8">All Articles</h2>
+          <h2 className="text-3xl font-heading font-bold mb-8">All Content</h2>
           
           <Tabs defaultValue="all" className="w-full" onValueChange={setFilter}>
             <TabsList className="mb-12 flex-wrap h-auto">

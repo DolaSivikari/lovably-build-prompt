@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight, Clock, BookOpen } from "lucide-react";
+import { Calendar, ArrowRight, Clock, BookOpen, MapPin, Ruler } from "lucide-react";
 import OptimizedImage from "../OptimizedImage";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
@@ -19,6 +19,10 @@ interface BlogPost {
   category: string;
   featured_image: string;
   published_at: string;
+  content_type?: string;
+  project_location?: string;
+  project_duration?: string;
+  project_size?: string;
 }
 
 const ContentHub = () => {
@@ -31,7 +35,7 @@ const ContentHub = () => {
       const today = new Date().toISOString();
       const { data } = await supabase
         .from('blog_posts')
-        .select('id, slug, title, summary, category, featured_image, published_at')
+        .select('id, slug, title, summary, category, featured_image, published_at, content_type, project_location, project_duration, project_size')
         .eq('publish_state', 'published')
         .lte('published_at', today)
         .order('published_at', { ascending: false })
