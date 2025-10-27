@@ -72,16 +72,7 @@ const Index = () => {
         <TrustBar />
         
         {/* Direct Answer for AEO/GEO */}
-        <DirectAnswer>
-          <p className="text-lg leading-relaxed">
-            <strong>Ascent Group Construction is Ontario&apos;s complete construction partner</strong>, 
-            providing commercial painting, residential painting, exterior systems (stucco, EIFS, masonry), 
-            metal cladding, and parking garage restoration across the Greater Toronto Area. 
-            With 15+ years of experience, we serve property managers, commercial clients, and homeowners 
-            in Toronto, Mississauga, Brampton, Vaughan, and Markham with fully licensed, insured, 
-            and WSIB-compliant services.
-          </p>
-        </DirectAnswer>
+        <DirectAnswer />
         
         <CompanyOverviewHub />
         <ClientSelector />
