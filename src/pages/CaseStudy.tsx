@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import OptimizedImage from "@/components/OptimizedImage";
+import { InteractiveLightbox } from "@/components/InteractiveLightbox";
 import { projectSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
 import { caseStudyFAQs } from "@/data/case-study-faq-data";
 import { resolveAssetPath } from "@/utils/assetResolver";
@@ -26,6 +27,8 @@ const CaseStudy = () => {
   const { isPreview } = usePreviewMode();
   const [caseStudy, setCaseStudy] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   useEffect(() => {
     const fetchCaseStudy = async () => {
@@ -75,6 +78,32 @@ const CaseStudy = () => {
       </div>
     );
   }
+
+  // Build complete gallery for lightbox
+  const allGalleryImages = [
+    ...(caseStudy?.before_images || []).map((img: any) => ({
+      src: resolveAssetPath(img.url) || img.url,
+      alt: img.alt,
+      caption: img.caption,
+    })),
+    ...(caseStudy?.content_blocks || [])
+      .filter((step: any) => step.image_url)
+      .map((step: any) => ({
+        src: resolveAssetPath(step.image_url) || step.image_url,
+        alt: step.image_alt || step.title,
+        caption: step.title,
+      })),
+    ...(caseStudy?.after_images || []).map((img: any) => ({
+      src: resolveAssetPath(img.url) || img.url,
+      alt: img.alt,
+      caption: img.caption,
+    })),
+  ];
+
+  const openLightbox = (index: number) => {
+    setSelectedImageIndex(index);
+    setLightboxOpen(true);
+  };
 
   // Get FAQs for this case study
   const faqs = caseStudyFAQs[slug || ''] || [];
@@ -140,42 +169,134 @@ const CaseStudy = () => {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-12">
-              {/* Description */}
+              {/* Project Story */}
               {caseStudy.description && (
                 <section>
-                  <h2 className="text-3xl font-bold mb-4">Project Overview</h2>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    {caseStudy.description}
-                  </p>
+                  <h2 className="text-3xl font-bold mb-4">Project Story</h2>
+                  <div className="prose prose-lg max-w-none">
+                    <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                      {caseStudy.description}
+                    </p>
+                  </div>
                 </section>
               )}
 
-              {/* Process Notes */}
-              {caseStudy.process_notes && (
+              {/* Before Images */}
+              {caseStudy.before_images && caseStudy.before_images.length > 0 && (
                 <section>
-                  <h2 className="text-3xl font-bold mb-4">Our Approach</h2>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    {caseStudy.process_notes}
-                  </p>
-                </section>
-              )}
-
-              {/* Gallery */}
-              {caseStudy.gallery && Array.isArray(caseStudy.gallery) && caseStudy.gallery.length > 0 && (
-                <section>
-                  <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {caseStudy.gallery.map((image: any, index: number) => (
-                      <div key={index} className="aspect-video overflow-hidden rounded-lg">
+                  <h2 className="text-3xl font-bold mb-6">Before Renovation</h2>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {caseStudy.before_images.map((image: any, idx: number) => (
+                      <div 
+                        key={idx} 
+                        className="cursor-pointer group relative overflow-hidden rounded-lg"
+                        onClick={() => openLightbox(idx)}
+                      >
                         <OptimizedImage
-                          src={resolveAssetPath(image.url || image) || image.url || image}
-                          alt={`${caseStudy.title} project detail ${index + 1}`}
+                          src={resolveAssetPath(image.url) || image.url}
+                          alt={image.alt}
                           width={800}
                           height={600}
                           className="w-full h-full hover:scale-110 transition-transform duration-500"
                           objectFit="cover"
-                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
+                        {image.caption && (
+                          <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                            {image.caption}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Process Steps Timeline */}
+              {caseStudy.content_blocks && caseStudy.content_blocks.length > 0 && (
+                <section>
+                  <h2 className="text-3xl font-bold mb-8">Project Process</h2>
+                  <div className="space-y-12">
+                    {caseStudy.content_blocks.map((step: any, idx: number) => (
+                      <div key={idx} className="relative">
+                        {/* Timeline connector */}
+                        {idx < caseStudy.content_blocks.length - 1 && (
+                          <div className="absolute left-8 top-20 bottom-0 w-0.5 bg-primary/20" />
+                        )}
+
+                        <div className="flex gap-6">
+                          {/* Step number badge */}
+                          <div className="flex-shrink-0">
+                            <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold z-10 relative shadow-lg">
+                              {step.step_number || idx + 1}
+                            </div>
+                          </div>
+
+                          {/* Step content */}
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between mb-3">
+                              <h3 className="text-2xl font-semibold">{step.title}</h3>
+                              {step.duration && (
+                                <Badge variant="secondary" className="ml-4">
+                                  {step.duration}
+                                </Badge>
+                              )}
+                            </div>
+                            <p className="text-muted-foreground mb-4 leading-relaxed whitespace-pre-wrap">
+                              {step.description}
+                            </p>
+                            {step.image_url && (
+                              <div 
+                                className="rounded-lg overflow-hidden cursor-pointer max-w-2xl group relative"
+                                onClick={() => openLightbox(
+                                  caseStudy.before_images.length + idx
+                                )}
+                              >
+                                <OptimizedImage
+                                  src={resolveAssetPath(step.image_url) || step.image_url}
+                                  alt={step.image_alt || step.title}
+                                  width={800}
+                                  height={600}
+                                  className="hover:scale-105 transition-transform duration-500"
+                                  objectFit="cover"
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* After Images */}
+              {caseStudy.after_images && caseStudy.after_images.length > 0 && (
+                <section>
+                  <h2 className="text-3xl font-bold mb-6">Final Results</h2>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {caseStudy.after_images.map((image: any, idx: number) => (
+                      <div 
+                        key={idx} 
+                        className="cursor-pointer group relative overflow-hidden rounded-lg"
+                        onClick={() => openLightbox(
+                          caseStudy.before_images.length + 
+                          caseStudy.content_blocks.filter((s: any) => s.image_url).length + 
+                          idx
+                        )}
+                      >
+                        <OptimizedImage
+                          src={resolveAssetPath(image.url) || image.url}
+                          alt={image.alt}
+                          width={800}
+                          height={600}
+                          className="w-full h-full hover:scale-110 transition-transform duration-500"
+                          objectFit="cover"
+                        />
+                        {image.caption && (
+                          <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                            {image.caption}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -254,6 +375,14 @@ const CaseStudy = () => {
             </div>
           )}
         </div>
+
+        {/* Interactive Gallery Lightbox */}
+        <InteractiveLightbox
+          images={allGalleryImages}
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+          initialIndex={selectedImageIndex}
+        />
       </main>
       
       <Footer />

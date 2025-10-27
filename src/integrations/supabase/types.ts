@@ -1024,6 +1024,8 @@ export type Database = {
       }
       projects: {
         Row: {
+          after_images: Json | null
+          before_images: Json | null
           budget_range: string | null
           category: string | null
           client_name: string | null
@@ -1060,6 +1062,8 @@ export type Database = {
           year: string | null
         }
         Insert: {
+          after_images?: Json | null
+          before_images?: Json | null
           budget_range?: string | null
           category?: string | null
           client_name?: string | null
@@ -1096,6 +1100,8 @@ export type Database = {
           year?: string | null
         }
         Update: {
+          after_images?: Json | null
+          before_images?: Json | null
           budget_range?: string | null
           category?: string | null
           client_name?: string | null

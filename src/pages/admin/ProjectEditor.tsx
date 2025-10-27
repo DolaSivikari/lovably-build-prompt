@@ -9,15 +9,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Save, Eye } from "lucide-react";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { MultiImageUpload, GalleryImage } from "@/components/admin/MultiImageUpload";
+import { ProcessStepsEditor, ProcessStep } from "@/components/admin/ProcessStepsEditor";
 import { generatePreviewToken } from "@/utils/routeHelpers";
 import { resolveImagePath } from "@/utils/imageResolver";
+import { Card } from "@/components/ui/card";
 
 const ProjectEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     slug: "",
     title: "",
     subtitle: "",
@@ -39,6 +42,9 @@ const ProjectEditor = () => {
     publish_state: "draft",
     seo_title: "",
     seo_description: "",
+    before_images: [],
+    after_images: [],
+    content_blocks: [],
   });
 
   useEffect(() => {
@@ -83,6 +89,9 @@ const ProjectEditor = () => {
         publish_state: data.publish_state || "draft",
         seo_title: data.seo_title || "",
         seo_description: data.seo_description || "",
+        before_images: data.before_images || [],
+        after_images: data.after_images || [],
+        content_blocks: data.content_blocks || [],
       });
     }
   };
@@ -93,8 +102,32 @@ const ProjectEditor = () => {
 
     const { data: { user } } = await supabase.auth.getUser();
     
+    // Auto-generate complete gallery from all sections
+    const completeGallery = [
+      ...formData.before_images.map((img: GalleryImage, idx: number) => ({ 
+        ...img, 
+        category: 'before',
+        order: idx 
+      })),
+      ...formData.content_blocks
+        .filter((step: ProcessStep) => step.image_url)
+        .map((step: ProcessStep, idx: number) => ({
+          url: step.image_url!,
+          caption: step.title,
+          alt: step.image_alt || step.title,
+          order: formData.before_images.length + idx,
+          category: 'process'
+        })),
+      ...formData.after_images.map((img: GalleryImage, idx: number) => ({
+        ...img,
+        order: formData.before_images.length + formData.content_blocks.length + idx,
+        category: 'after'
+      }))
+    ];
+    
     const projectData: any = {
       ...formData,
+      gallery: completeGallery,
       updated_by: user?.id,
       ...(id === "new" && { created_by: user?.id }),
     };
@@ -222,12 +255,13 @@ const ProjectEditor = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Full Description</Label>
+            <Label htmlFor="description">Project Story & Scope</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={8}
+              placeholder="Tell the story: What was the challenge? What did the client need?"
             />
           </div>
 
@@ -235,8 +269,44 @@ const ProjectEditor = () => {
             value={formData.featured_image}
             onChange={(url) => setFormData({ ...formData, featured_image: url })}
             bucket="project-images"
-            label="Featured Image"
+            label="Featured Image (Main hero image for cards)"
           />
+
+          {/* Before Images Section */}
+          <Card className="p-6">
+            <MultiImageUpload
+              images={formData.before_images}
+              onChange={(images) => setFormData({ ...formData, before_images: images })}
+              title="Before Images"
+              maxImages={10}
+              bucket="project-images"
+            />
+            <p className="text-sm text-muted-foreground mt-2">
+              Upload 3-5 images showing the original state before work began
+            </p>
+          </Card>
+
+          {/* Process Steps Section */}
+          <Card className="p-6">
+            <ProcessStepsEditor
+              steps={formData.content_blocks}
+              onChange={(steps) => setFormData({ ...formData, content_blocks: steps })}
+            />
+          </Card>
+
+          {/* After Images Section */}
+          <Card className="p-6">
+            <MultiImageUpload
+              images={formData.after_images}
+              onChange={(images) => setFormData({ ...formData, after_images: images })}
+              title="After Images"
+              maxImages={10}
+              bucket="project-images"
+            />
+            <p className="text-sm text-muted-foreground mt-2">
+              Upload 3-5 images showing the completed project from various angles
+            </p>
+          </Card>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
