@@ -365,11 +365,11 @@ const Dashboard = () => {
               <Button
                 variant="outline"
                 className="justify-start h-auto py-4"
-                onClick={() => navigate("/admin/homepage-settings")}
-                aria-label="Edit Homepage Content"
+                onClick={() => navigate("/admin/landing-menu")}
+                aria-label="Edit Home Hero Menu"
               >
                 <LayoutDashboard className="h-5 w-5 mr-3 text-primary" />
-                <span className="text-sm font-medium">Homepage Content</span>
+                <span className="text-sm font-medium">Home Hero Menu</span>
               </Button>
               <Button
                 variant="outline"

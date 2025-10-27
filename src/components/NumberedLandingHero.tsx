@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { landingMenuItems } from "@/data/landing-menu";
 import heroConstruction from "@/assets/hero-construction.jpg";
 import heroPremiumVideo from "@/assets/hero-premium.mp4";
 import homeHeroVideo from "@/assets/home-hero.mp4";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 import { useEffect, useRef, useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
+import { supabase } from "@/integrations/supabase/client";
+
+interface MenuItem {
+  id: string;
+  number: string;
+  title: string;
+  subtext: string;
+  link: string;
+  display_order: number;
+}
 
 const NumberedLandingHero = () => {
   const video1Ref = useRef<HTMLVideoElement>(null);
@@ -15,6 +24,25 @@ const NumberedLandingHero = () => {
   const [shouldUseVideo, setShouldUseVideo] = useState(true);
   const [activeVideo, setActiveVideo] = useState<1 | 2 | 3>(1);
   const [videosLoaded, setVideosLoaded] = useState({ video1: false, video2: false, video3: false });
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+
+  useEffect(() => {
+    fetchMenuItems();
+  }, []);
+
+  const fetchMenuItems = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('landing_menu_items')
+        .select('*')
+        .order('display_order', { ascending: true });
+
+      if (error) throw error;
+      setMenuItems(data || []);
+    } catch (error) {
+      console.error('Error fetching menu items:', error);
+    }
+  };
 
   useEffect(() => {
     // Check for user preferences that might prevent video playback
@@ -180,7 +208,7 @@ const NumberedLandingHero = () => {
           role="navigation" 
           aria-label="Main landing navigation"
         >
-          {landingMenuItems.map((item, index) => (
+          {menuItems.map((item, index) => (
             <Link
               key={item.number}
               to={item.link}

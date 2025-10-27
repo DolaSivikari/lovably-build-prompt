@@ -619,99 +619,6 @@ export type Database = {
         }
         Relationships: []
       }
-      hero_content: {
-        Row: {
-          background_image: string | null
-          badge_text: string | null
-          created_at: string | null
-          created_by: string | null
-          headline: string
-          id: string
-          is_active: boolean | null
-          primary_cta_text: string
-          primary_cta_url: string
-          secondary_cta_text: string | null
-          secondary_cta_url: string | null
-          subheadline: string
-          updated_at: string | null
-          updated_by: string | null
-        }
-        Insert: {
-          background_image?: string | null
-          badge_text?: string | null
-          created_at?: string | null
-          created_by?: string | null
-          headline: string
-          id?: string
-          is_active?: boolean | null
-          primary_cta_text: string
-          primary_cta_url: string
-          secondary_cta_text?: string | null
-          secondary_cta_url?: string | null
-          subheadline: string
-          updated_at?: string | null
-          updated_by?: string | null
-        }
-        Update: {
-          background_image?: string | null
-          badge_text?: string | null
-          created_at?: string | null
-          created_by?: string | null
-          headline?: string
-          id?: string
-          is_active?: boolean | null
-          primary_cta_text?: string
-          primary_cta_url?: string
-          secondary_cta_text?: string | null
-          secondary_cta_url?: string | null
-          subheadline?: string
-          updated_at?: string | null
-          updated_by?: string | null
-        }
-        Relationships: []
-      }
-      homepage_settings: {
-        Row: {
-          created_at: string | null
-          created_by: string | null
-          headline: string
-          hero_description: string | null
-          id: string
-          is_active: boolean | null
-          services_intro: string | null
-          subheadline: string
-          updated_at: string | null
-          updated_by: string | null
-          why_choose_content: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          created_by?: string | null
-          headline?: string
-          hero_description?: string | null
-          id?: string
-          is_active?: boolean | null
-          services_intro?: string | null
-          subheadline?: string
-          updated_at?: string | null
-          updated_by?: string | null
-          why_choose_content?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          created_by?: string | null
-          headline?: string
-          hero_description?: string | null
-          id?: string
-          is_active?: boolean | null
-          services_intro?: string | null
-          subheadline?: string
-          updated_at?: string | null
-          updated_by?: string | null
-          why_choose_content?: string | null
-        }
-        Relationships: []
-      }
       job_postings: {
         Row: {
           closing_date: string | null
@@ -790,6 +697,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      landing_menu_items: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          display_order: number
+          id: string
+          is_active: boolean | null
+          link: string
+          number: string
+          subtext: string
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          display_order: number
+          id?: string
+          is_active?: boolean | null
+          link: string
+          number: string
+          subtext: string
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean | null
+          link?: string
+          number?: string
+          subtext?: string
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
       }
       landing_page: {
         Row: {

@@ -20,6 +20,7 @@ import {
   AlertCircle,
   BarChart3,
   Settings,
+  ArrowLeft,
 } from 'lucide-react';
 
 interface SEOSettings {
@@ -205,7 +206,11 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
 
   return (
     <div className="container mx-auto p-6">
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-4 mb-6">
+        <Button variant="ghost" onClick={() => navigate('/admin')}>
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Dashboard
+        </Button>
         <Search className="h-8 w-8 text-primary" />
         <div>
           <h1 className="text-3xl font-bold">SEO Dashboard</h1>

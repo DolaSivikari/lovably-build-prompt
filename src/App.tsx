@@ -57,9 +57,6 @@ const ProjectEditor = lazy(() => import("./pages/admin/ProjectEditor").catch(() 
 const ContactSubmissions = lazy(() => import("./pages/admin/ContactSubmissions").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Contact Submissions</p></div>
 })));
-const HeroEditor = lazy(() => import("./pages/admin/HeroEditor").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Editor</p></div>
-})));
 const SiteSettings = lazy(() => import("./pages/admin/SiteSettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Site Settings</p></div>
 })));
@@ -105,8 +102,8 @@ const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboa
 const TemplateManager = lazy(() => import("./pages/admin/TemplateManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Template Manager</p></div>
 })));
-const HomepageSettings = lazy(() => import("./pages/admin/HomepageSettings").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Settings</p></div>
+const LandingMenuEditor = lazy(() => import("./pages/admin/LandingMenuEditor").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Landing Menu Editor</p></div>
 })));
 
 // Lazy load heavy content pages with error handling
@@ -215,9 +212,8 @@ const App = () => (
                   <Route path="/admin/seo-dashboard" element={<AdminSEODashboard />} />
                   <Route path="/admin/performance-dashboard" element={<PerformanceDashboard />} />
                   <Route path="/admin/template-manager" element={<TemplateManager />} />
-                  <Route path="/admin/hero" element={<HeroEditor />} />
                   <Route path="/admin/site-settings" element={<SiteSettings />} />
-                  <Route path="/admin/homepage-settings" element={<HomepageSettings />} />
+                  <Route path="/admin/landing-menu" element={<LandingMenuEditor />} />
                   <Route path="/admin/testimonials" element={<TestimonialsManager />} />
                   <Route path="/admin/stats" element={<StatsManager />} />
                   <Route path="/admin/footer-settings" element={<FooterSettings />} />
