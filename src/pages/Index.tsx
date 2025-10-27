@@ -15,7 +15,6 @@ import PrequalPackage from "@/components/homepage/PrequalPackage";
 
 import DirectAnswer from "@/components/seo/DirectAnswer";
 import SkipLink from "@/components/SkipLink";
-import InteractiveCTA from "@/components/homepage/InteractiveCTA";
 import AchievementShowcase from "@/components/homepage/AchievementShowcase";
 import ContentHub from "@/components/homepage/ContentHub";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
@@ -130,7 +129,6 @@ const Index = () => {
         <SocialProof />
         <PrequalPackage />
         <ContentHub />
-        <InteractiveCTA />
       </main>
       <Footer />
     </div>
