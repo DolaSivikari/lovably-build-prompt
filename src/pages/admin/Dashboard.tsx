@@ -75,7 +75,7 @@ const Dashboard = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []); // Empty dependency array - only run once
+  }, [isAdmin]); // Re-run when isAdmin changes
 
   const loadUser = async () => {
     const { data: { session } } = await supabase.auth.getSession();
