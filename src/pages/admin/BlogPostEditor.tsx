@@ -338,12 +338,24 @@ const BlogPostEditor = () => {
 
               <div>
                 <Label htmlFor="category">Category</Label>
-                <Input
-                  id="category"
-                  value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  placeholder="e.g., Painting, Construction, Case Study"
-                />
+                <Select 
+                  value={formData.category} 
+                  onValueChange={(value) => setFormData({ ...formData, category: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Case Study">Case Study</SelectItem>
+                    <SelectItem value="Painting">Painting</SelectItem>
+                    <SelectItem value="Commercial">Commercial</SelectItem>
+                    <SelectItem value="Residential">Residential</SelectItem>
+                    <SelectItem value="Industrial">Industrial</SelectItem>
+                    <SelectItem value="Institutional">Institutional</SelectItem>
+                    <SelectItem value="Restoration">Restoration</SelectItem>
+                    <SelectItem value="Waterproofing">Waterproofing</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div>
