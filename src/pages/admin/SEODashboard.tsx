@@ -54,10 +54,36 @@ export default function SEODashboard() {
   const [selectedContent, setSelectedContent] = useState('');
   const [siteUrl, setSiteUrl] = useState('');
   const [fetchingData, setFetchingData] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const [checkingConnection, setCheckingConnection] = useState(true);
 
   useEffect(() => {
     checkAuth();
     loadSEOData();
+    checkGoogleConnection();
+    
+    // Check URL params for OAuth callback status
+    const params = new URLSearchParams(window.location.search);
+    const connected = params.get('gsc_connected');
+    const error = params.get('gsc_error');
+    
+    if (connected === 'true') {
+      toast({
+        title: 'Success',
+        description: 'Google Search Console connected successfully!',
+      });
+      // Clear URL params
+      window.history.replaceState({}, '', '/admin/seo-dashboard');
+      checkGoogleConnection();
+    } else if (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Connection Failed',
+        description: decodeURIComponent(error),
+      });
+      // Clear URL params
+      window.history.replaceState({}, '', '/admin/seo-dashboard');
+    }
   }, []);
 
   const checkAuth = async () => {
@@ -81,6 +107,28 @@ export default function SEODashboard() {
         title: 'Access Denied',
         description: 'You do not have permission to access the SEO Dashboard',
       });
+    }
+  };
+
+  const checkGoogleConnection = async () => {
+    try {
+      setCheckingConnection(true);
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session?.user?.id) return;
+
+      const { data, error } = await supabase
+        .from('google_auth_tokens')
+        .select('access_token')
+        .eq('user_id', session.user.id)
+        .single();
+
+      setIsConnected(!!data && !error);
+    } catch (error) {
+      console.error('Error checking Google connection:', error);
+      setIsConnected(false);
+    } finally {
+      setCheckingConnection(false);
     }
   };
 
@@ -502,6 +550,42 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
               <CardDescription>Connect Google Search Console for enhanced analytics</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              {checkingConnection ? (
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Checking connection status...</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 p-3 border rounded-lg mb-4">
+                  {isConnected ? (
+                    <>
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span className="font-medium">Connected to Google Search Console</span>
+                    </>
+                  ) : (
+                    <>
+                      <AlertCircle className="h-5 w-5 text-muted-foreground" />
+                      <span className="font-medium">Not connected</span>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {!isConnected && (
+                <div className="p-4 border rounded-lg bg-muted/50 space-y-2 mb-4">
+                  <p className="text-sm font-medium">Setup Instructions:</p>
+                  <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
+                    <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Google Cloud Console</a></li>
+                    <li>Add this redirect URI to your OAuth Client:<br/>
+                      <code className="text-xs bg-background px-2 py-1 rounded mt-1 block">
+                        https://xdowuirheazerlwatwja.supabase.co/functions/v1/google-oauth-callback
+                      </code>
+                    </li>
+                    <li>Click "Connect" below to authorize access</li>
+                  </ol>
+                </div>
+              )}
+
               <div className="space-y-2">
                 <Label htmlFor="siteUrl">Website URL</Label>
                 <Input
@@ -514,11 +598,17 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
                 />
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" onClick={connectGoogleSearchConsole}>
-                  <LinkIcon className="mr-2 h-4 w-4" />
-                  Connect Google Search Console
-                </Button>
-                <Button variant="secondary" onClick={fetchSearchConsoleData} disabled={fetchingData}>
+                {!isConnected && (
+                  <Button variant="outline" onClick={connectGoogleSearchConsole}>
+                    <LinkIcon className="mr-2 h-4 w-4" />
+                    Connect Google Search Console
+                  </Button>
+                )}
+                <Button 
+                  variant="secondary" 
+                  onClick={fetchSearchConsoleData} 
+                  disabled={fetchingData || !isConnected}
+                >
                   {fetchingData ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (

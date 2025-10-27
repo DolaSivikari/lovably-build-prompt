@@ -16,11 +16,17 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const { code, state } = await req.json();
+    // Extract code and state from URL query parameters (not JSON body)
+    const url = new URL(req.url);
+    const code = url.searchParams.get('code');
+    const state = url.searchParams.get('state');
 
     if (!code) {
+      console.error('No authorization code in callback');
       throw new Error('Authorization code is required');
     }
+
+    console.log('Received OAuth callback with code and state:', { hasCode: !!code, userId: state });
 
     // Get OAuth credentials from environment
     const clientId = Deno.env.get('GOOGLE_SEARCH_CONSOLE_CLIENT_ID');
@@ -58,17 +64,11 @@ serve(async (req) => {
     // Calculate token expiry
     const tokenExpiry = new Date(Date.now() + expires_in * 1000);
 
-    // Get user ID from state or auth header
-    const authHeader = req.headers.get('Authorization');
-    let userId = state;
-
-    if (!userId && authHeader) {
-      const jwt = authHeader.replace('Bearer ', '');
-      const { data: { user } } = await supabase.auth.getUser(jwt);
-      userId = user?.id;
-    }
+    // Get user ID from state parameter
+    const userId = state;
 
     if (!userId) {
+      console.error('No user ID in state parameter');
       throw new Error('User authentication required');
     }
 
@@ -92,24 +92,48 @@ serve(async (req) => {
 
     console.log('Successfully stored Google OAuth tokens for user:', userId);
 
+    // Return HTML that redirects back to SEO dashboard with success message
+    const dashboardUrl = `${Deno.env.get('SUPABASE_URL')?.replace('.supabase.co', '.lovable.app') || 'https://lovable.app'}/admin/seo-dashboard?gsc_connected=true`;
+    
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: 'Google Search Console connected successfully' 
-      }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      `<!DOCTYPE html>
+      <html>
+        <head>
+          <title>Authentication Successful</title>
+          <script>
+            window.location.href = '${dashboardUrl}';
+          </script>
+        </head>
+        <body>
+          <p>Authentication successful! Redirecting...</p>
+        </body>
+      </html>`,
+      { headers: { ...corsHeaders, 'Content-Type': 'text/html' } }
     );
 
   } catch (error) {
     console.error('OAuth callback error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    
+    // Return HTML that redirects back to SEO dashboard with error message
+    const dashboardUrl = `${Deno.env.get('SUPABASE_URL')?.replace('.supabase.co', '.lovable.app') || 'https://lovable.app'}/admin/seo-dashboard?gsc_error=${encodeURIComponent(errorMessage)}`;
+    
     return new Response(
-      JSON.stringify({ 
-        error: errorMessage
-      }),
+      `<!DOCTYPE html>
+      <html>
+        <head>
+          <title>Authentication Failed</title>
+          <script>
+            window.location.href = '${dashboardUrl}';
+          </script>
+        </head>
+        <body>
+          <p>Authentication failed. Redirecting...</p>
+        </body>
+      </html>`,
       { 
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        headers: { ...corsHeaders, 'Content-Type': 'text/html' } 
       }
     );
   }
