@@ -11,3 +11,6 @@ verify_jwt = true
 
 [functions.fetch-search-console-data]
 verify_jwt = true
+
+[functions.scheduled-fetch-search-console]
+verify_jwt = false

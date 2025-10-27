@@ -8,10 +8,12 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import {
   Search,
   TrendingUp,
+  TrendingDown,
   FileText,
   Link as LinkIcon,
   RefreshCw,
@@ -21,7 +23,11 @@ import {
   BarChart3,
   Settings,
   ArrowLeft,
+  MousePointerClick,
+  Eye,
+  XCircle,
 } from 'lucide-react';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface SEOSettings {
   id: string;
@@ -43,6 +49,40 @@ interface AnalyticsSnapshot {
   bounce_rate: number;
 }
 
+interface SearchConsoleData {
+  page_path: string;
+  query: string;
+  date: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+
+interface DailyMetrics {
+  date: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+
+interface PageMetrics {
+  page_path: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+
+interface QueryMetrics {
+  query: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+
 export default function SEODashboard() {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -56,6 +96,10 @@ export default function SEODashboard() {
   const [fetchingData, setFetchingData] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [checkingConnection, setCheckingConnection] = useState(true);
+  const [searchConsoleData, setSearchConsoleData] = useState<SearchConsoleData[]>([]);
+  const [dateRange, setDateRange] = useState<'7' | '30' | '90'>('30');
+  const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   useEffect(() => {
     checkAuth();
@@ -86,6 +130,12 @@ export default function SEODashboard() {
     }
   }, []);
 
+  useEffect(() => {
+    if (currentUserId) {
+      loadSearchConsoleData();
+    }
+  }, [dateRange, currentUserId]);
+
   const checkAuth = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     
@@ -93,6 +143,8 @@ export default function SEODashboard() {
       navigate('/auth');
       return;
     }
+
+    setCurrentUserId(session.user.id);
 
     const { data: roleData } = await supabase
       .from('user_roles')
@@ -107,6 +159,34 @@ export default function SEODashboard() {
         title: 'Access Denied',
         description: 'You do not have permission to access the SEO Dashboard',
       });
+    }
+  };
+
+  const loadSearchConsoleData = async () => {
+    if (!currentUserId) return;
+
+    try {
+      const daysAgo = parseInt(dateRange);
+      const startDate = new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000);
+      
+      const { data, error } = await supabase
+        .from('search_console_data')
+        .select('*')
+        .eq('user_id', currentUserId)
+        .gte('date', startDate.toISOString().split('T')[0])
+        .order('date', { ascending: true });
+
+      if (error) throw error;
+
+      setSearchConsoleData(data || []);
+      
+      // Get last sync time
+      if (data && data.length > 0) {
+        const latestDate = data[data.length - 1].date;
+        setLastSyncTime(new Date(latestDate).toLocaleDateString());
+      }
+    } catch (error) {
+      console.error('Error loading Search Console data:', error);
     }
   };
 
@@ -155,7 +235,7 @@ export default function SEODashboard() {
 
       if (analyticsData) setAnalytics(analyticsData);
 
-      // Load robots.txt (you would typically fetch this from your public folder)
+      // Load robots.txt
       setRobotsTxt(`User-agent: *
 Allow: /
 Sitemap: ${window.location.origin}/sitemap.xml`);
@@ -240,12 +320,6 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
     }
   };
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-primary';
-    if (score >= 60) return 'text-warning';
-    return 'text-destructive';
-  };
-
   const connectGoogleSearchConsole = async () => {
     try {
       const { data, error } = await supabase.functions.invoke('google-search-console-auth');
@@ -319,7 +393,7 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         description: `Fetched ${data.rowCount || 0} rows of Search Console data`,
       });
 
-      loadSEOData();
+      await loadSearchConsoleData();
     } catch (error: any) {
       toast({
         variant: 'destructive',
@@ -330,6 +404,126 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
       setFetchingData(false);
     }
   };
+
+  // Calculate aggregated metrics
+  const calculateMetrics = () => {
+    if (!searchConsoleData.length) {
+      return {
+        totalClicks: 0,
+        totalImpressions: 0,
+        avgCTR: 0,
+        avgPosition: 0,
+        previousClicks: 0,
+        previousImpressions: 0,
+      };
+    }
+
+    const halfwayPoint = Math.floor(searchConsoleData.length / 2);
+    const recentData = searchConsoleData.slice(halfwayPoint);
+    const previousData = searchConsoleData.slice(0, halfwayPoint);
+
+    const totalClicks = recentData.reduce((sum, row) => sum + row.clicks, 0);
+    const totalImpressions = recentData.reduce((sum, row) => sum + row.impressions, 0);
+    const avgCTR = recentData.reduce((sum, row) => sum + row.ctr, 0) / recentData.length;
+    const avgPosition = recentData.reduce((sum, row) => sum + row.position, 0) / recentData.length;
+
+    const previousClicks = previousData.reduce((sum, row) => sum + row.clicks, 0);
+    const previousImpressions = previousData.reduce((sum, row) => sum + row.impressions, 0);
+
+    return {
+      totalClicks,
+      totalImpressions,
+      avgCTR: avgCTR * 100,
+      avgPosition,
+      previousClicks,
+      previousImpressions,
+    };
+  };
+
+  // Aggregate data by date for charts
+  const getDailyMetrics = (): DailyMetrics[] => {
+    const dailyMap = new Map<string, DailyMetrics>();
+
+    searchConsoleData.forEach(row => {
+      const existing = dailyMap.get(row.date);
+      if (existing) {
+        existing.clicks += row.clicks;
+        existing.impressions += row.impressions;
+      } else {
+        dailyMap.set(row.date, {
+          date: new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+          clicks: row.clicks,
+          impressions: row.impressions,
+          ctr: row.ctr * 100,
+          position: row.position,
+        });
+      }
+    });
+
+    return Array.from(dailyMap.values());
+  };
+
+  // Get top pages by clicks
+  const getTopPages = (): PageMetrics[] => {
+    const pageMap = new Map<string, PageMetrics>();
+
+    searchConsoleData.forEach(row => {
+      const existing = pageMap.get(row.page_path);
+      if (existing) {
+        existing.clicks += row.clicks;
+        existing.impressions += row.impressions;
+      } else {
+        pageMap.set(row.page_path, {
+          page_path: row.page_path,
+          clicks: row.clicks,
+          impressions: row.impressions,
+          ctr: row.ctr,
+          position: row.position,
+        });
+      }
+    });
+
+    return Array.from(pageMap.values())
+      .sort((a, b) => b.clicks - a.clicks)
+      .slice(0, 10);
+  };
+
+  // Get top queries by impressions
+  const getTopQueries = (): QueryMetrics[] => {
+    const queryMap = new Map<string, QueryMetrics>();
+
+    searchConsoleData.forEach(row => {
+      const existing = queryMap.get(row.query);
+      if (existing) {
+        existing.clicks += row.clicks;
+        existing.impressions += row.impressions;
+      } else {
+        queryMap.set(row.query, {
+          query: row.query,
+          clicks: row.clicks,
+          impressions: row.impressions,
+          ctr: row.ctr,
+          position: row.position,
+        });
+      }
+    });
+
+    return Array.from(queryMap.values())
+      .sort((a, b) => b.impressions - a.impressions)
+      .slice(0, 10);
+  };
+
+  const metrics = calculateMetrics();
+  const dailyMetrics = getDailyMetrics();
+  const topPages = getTopPages();
+  const topQueries = getTopQueries();
+
+  const clicksChange = metrics.previousClicks > 0 
+    ? ((metrics.totalClicks - metrics.previousClicks) / metrics.previousClicks) * 100 
+    : 0;
+  const impressionsChange = metrics.previousImpressions > 0
+    ? ((metrics.totalImpressions - metrics.previousImpressions) / metrics.previousImpressions) * 100
+    : 0;
 
   if (loading) {
     return (
@@ -356,38 +550,24 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
       <Tabs defaultValue="overview" className="space-y-6">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="analytics">Search Analytics</TabsTrigger>
           <TabsTrigger value="content">Content SEO</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
 
         {/* Overview Tab */}
         <TabsContent value="overview" className="space-y-6">
-          {seoSettings.length === 0 && analytics.length === 0 ? (
+          <div className="grid gap-4 md:grid-cols-4">
             <Card>
-              <CardContent className="pt-6">
-                <div className="text-center space-y-3 py-8">
-                  <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <p className="text-lg font-medium">No SEO data available yet</p>
-                  <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                    Create blog posts, projects, and services to start tracking SEO performance.
-                  </p>
-                </div>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Pages</CardTitle>
+                <FileText className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{seoSettings.length}</div>
+                <p className="text-xs text-muted-foreground">Pages optimized</p>
               </CardContent>
             </Card>
-          ) : (
-            <>
-              <div className="grid gap-4 md:grid-cols-4">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Pages</CardTitle>
-                    <FileText className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{seoSettings.length}</div>
-                    <p className="text-xs text-muted-foreground">Pages optimized</p>
-                  </CardContent>
-                </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -438,26 +618,280 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
               <CardDescription>Recent pages and their SEO scores</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {seoSettings.slice(0, 5).map((setting) => (
-                  <div key={setting.id} className="flex items-center justify-between p-3 border rounded-lg">
+              {seoSettings.length === 0 ? (
+                <div className="text-center space-y-3 py-8">
+                  <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
+                  <p className="text-lg font-medium">No SEO data available yet</p>
+                  <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                    Create blog posts, projects, and services to start tracking SEO performance.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {seoSettings.slice(0, 5).map((setting) => (
+                    <div key={setting.id} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div className="flex-1">
+                        <p className="font-medium">{setting.meta_title || 'Untitled'}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {setting.entity_type} • {setting.focus_keyword || 'No focus keyword'}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Badge variant={setting.seo_score >= 80 ? 'default' : 'secondary'}>
+                          {setting.seo_score}/100
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Search Analytics Tab */}
+        <TabsContent value="analytics" className="space-y-6">
+          {/* Connection Status & Controls */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                Google Search Console
+                {checkingConnection ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : isConnected ? (
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                ) : (
+                  <XCircle className="h-4 w-4 text-red-500" />
+                )}
+              </CardTitle>
+              <CardDescription>
+                {isConnected ? (
+                  <div className="flex items-center gap-2">
+                    <span>Connected</span>
+                    {lastSyncTime && <span className="text-xs">• Last synced: {lastSyncTime}</span>}
+                  </div>
+                ) : (
+                  'Connect your Google Search Console account to view analytics'
+                )}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {!isConnected ? (
+                <Button onClick={connectGoogleSearchConsole}>
+                  Connect Google Search Console
+                </Button>
+              ) : (
+                <div className="space-y-4">
+                  <div className="flex gap-4 items-end">
                     <div className="flex-1">
-                      <p className="font-medium">{setting.meta_title || 'Untitled'}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {setting.entity_type} • {setting.focus_keyword || 'No focus keyword'}
+                      <Label htmlFor="siteUrl">Website URL or Domain</Label>
+                      <Input
+                        id="siteUrl"
+                        value={siteUrl}
+                        onChange={(e) => setSiteUrl(e.target.value)}
+                        placeholder="ascentgroupconstruction.com or https://example.com/"
+                        className="max-w-md"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Enter your domain (e.g., ascentgroupconstruction.com) or full URL with protocol
                       </p>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <Badge variant={setting.seo_score >= 80 ? 'default' : 'secondary'}>
-                        {setting.seo_score}/100
-                      </Badge>
+                    <div>
+                      <Label>Date Range</Label>
+                      <Select value={dateRange} onValueChange={(value: '7' | '30' | '90') => setDateRange(value)}>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="7">Last 7 days</SelectItem>
+                          <SelectItem value="30">Last 30 days</SelectItem>
+                          <SelectItem value="90">Last 90 days</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
-                ))}
+                  <div className="flex gap-2">
+                    <Button onClick={fetchSearchConsoleData} disabled={fetchingData}>
+                      {fetchingData ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Fetching...
+                        </>
+                      ) : (
+                        <>
+                          <RefreshCw className="h-4 w-4 mr-2" />
+                          Fetch Data
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {searchConsoleData.length > 0 && (
+            <>
+              {/* Summary Cards */}
+              <div className="grid gap-4 md:grid-cols-4">
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Total Clicks</CardTitle>
+                    <MousePointerClick className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{metrics.totalClicks.toLocaleString()}</div>
+                    <p className="text-xs flex items-center gap-1">
+                      {clicksChange > 0 ? (
+                        <>
+                          <TrendingUp className="h-3 w-3 text-green-500" />
+                          <span className="text-green-500">+{clicksChange.toFixed(1)}%</span>
+                        </>
+                      ) : (
+                        <>
+                          <TrendingDown className="h-3 w-3 text-red-500" />
+                          <span className="text-red-500">{clicksChange.toFixed(1)}%</span>
+                        </>
+                      )}
+                      <span className="text-muted-foreground">vs previous period</span>
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Total Impressions</CardTitle>
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{metrics.totalImpressions.toLocaleString()}</div>
+                    <p className="text-xs flex items-center gap-1">
+                      {impressionsChange > 0 ? (
+                        <>
+                          <TrendingUp className="h-3 w-3 text-green-500" />
+                          <span className="text-green-500">+{impressionsChange.toFixed(1)}%</span>
+                        </>
+                      ) : (
+                        <>
+                          <TrendingDown className="h-3 w-3 text-red-500" />
+                          <span className="text-red-500">{impressionsChange.toFixed(1)}%</span>
+                        </>
+                      )}
+                      <span className="text-muted-foreground">vs previous period</span>
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Avg CTR</CardTitle>
+                    <BarChart3 className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{metrics.avgCTR.toFixed(2)}%</div>
+                    <p className="text-xs text-muted-foreground">Click-through rate</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Avg Position</CardTitle>
+                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{metrics.avgPosition.toFixed(1)}</div>
+                    <p className="text-xs text-muted-foreground">Search ranking</p>
+                  </CardContent>
+                </Card>
               </div>
+
+              {/* Charts */}
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Clicks & Impressions Over Time</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart data={dailyMetrics}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="clicks" stroke="hsl(var(--primary))" strokeWidth={2} />
+                        <Line type="monotone" dataKey="impressions" stroke="hsl(var(--secondary))" strokeWidth={2} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Top 10 Pages by Clicks</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={topPages} layout="vertical">
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis type="number" />
+                        <YAxis dataKey="page_path" type="category" width={150} tickFormatter={(value) => {
+                          return value.length > 20 ? value.substring(0, 20) + '...' : value;
+                        }} />
+                        <Tooltip />
+                        <Bar dataKey="clicks" fill="hsl(var(--primary))" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Top Queries Table */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Top Search Queries</CardTitle>
+                  <CardDescription>Most viewed search queries for your site</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {topQueries.map((query, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                        <div className="flex-1">
+                          <p className="font-medium">{query.query}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Position {query.position.toFixed(1)} • CTR {(query.ctr * 100).toFixed(2)}%
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-6 text-sm">
+                          <div className="text-center">
+                            <p className="font-bold">{query.clicks}</p>
+                            <p className="text-muted-foreground">Clicks</p>
+                          </div>
+                          <div className="text-center">
+                            <p className="font-bold">{query.impressions.toLocaleString()}</p>
+                            <p className="text-muted-foreground">Impressions</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
+
+          {searchConsoleData.length === 0 && isConnected && (
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center space-y-3 py-8">
+                  <BarChart3 className="h-12 w-12 mx-auto text-muted-foreground" />
+                  <p className="text-lg font-medium">No Search Console data available</p>
+                  <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                    Enter your site URL above and click "Fetch Data" to load analytics from Google Search Console.
+                  </p>
+                </div>
               </CardContent>
             </Card>
-          </>
           )}
         </TabsContent>
 
@@ -480,56 +914,28 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
                 />
               </div>
               <Button onClick={generateKeywordSuggestions} disabled={generatingKeywords}>
-                {generatingKeywords && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Generate Keywords
+                {generatingKeywords ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Analyzing...
+                  </>
+                ) : (
+                  'Generate Keywords'
+                )}
               </Button>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Sitemap Management</CardTitle>
-              <CardDescription>Manage your XML sitemap for search engines</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between p-4 border rounded-lg">
-                <div>
-                  <p className="font-medium">XML Sitemap</p>
-                  <p className="text-sm text-muted-foreground">/sitemap.xml</p>
-                </div>
-                <Button onClick={regenerateSitemap} variant="outline">
-                  <RefreshCw className="mr-2 h-4 w-4" />
-                  Regenerate
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Analytics Tab */}
-        <TabsContent value="analytics" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Top Performing Pages</CardTitle>
-              <CardDescription>Pages with highest traffic (last 30 days)</CardDescription>
+              <CardTitle>Sitemap Generator</CardTitle>
+              <CardDescription>Regenerate your XML sitemap with the latest content</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {analytics.map((page, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                    <div className="flex-1">
-                      <p className="font-medium">{page.page_path}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {page.unique_visitors} unique visitors • {page.bounce_rate?.toFixed(1)}% bounce rate
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold">{page.page_views.toLocaleString()}</p>
-                      <p className="text-xs text-muted-foreground">views</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Button onClick={regenerateSitemap}>
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Regenerate Sitemap
+              </Button>
             </CardContent>
           </Card>
         </TabsContent>
@@ -538,95 +944,23 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         <TabsContent value="settings" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Robots.txt Configuration</CardTitle>
-              <CardDescription>Control how search engines crawl your site</CardDescription>
+              <CardTitle>Robots.txt</CardTitle>
+              <CardDescription>Configure search engine crawler behavior</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Textarea
-                value={robotsTxt}
-                onChange={(e) => setRobotsTxt(e.target.value)}
-                rows={8}
-                className="font-mono text-sm"
-              />
-              <Button>Save Robots.txt</Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Search Console Integration</CardTitle>
-              <CardDescription>Connect Google Search Console for enhanced analytics</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {checkingConnection ? (
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Checking connection status...</span>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2 p-3 border rounded-lg mb-4">
-                  {isConnected ? (
-                    <>
-                      <CheckCircle className="h-5 w-5 text-primary" />
-                      <span className="font-medium">Connected to Google Search Console</span>
-                    </>
-                  ) : (
-                    <>
-                      <AlertCircle className="h-5 w-5 text-muted-foreground" />
-                      <span className="font-medium">Not connected</span>
-                    </>
-                  )}
-                </div>
-              )}
-
-              {!isConnected && (
-                <div className="p-4 border rounded-lg bg-muted/50 space-y-2 mb-4">
-                  <p className="text-sm font-medium">Setup Instructions:</p>
-                  <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-                    <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Google Cloud Console</a></li>
-                    <li>Add this redirect URI to your OAuth Client:<br/>
-                      <code className="text-xs bg-background px-2 py-1 rounded mt-1 block">
-                        https://xdowuirheazerlwatwja.supabase.co/functions/v1/google-oauth-callback
-                      </code>
-                    </li>
-                    <li>Click "Connect" below to authorize access</li>
-                  </ol>
-                </div>
-              )}
-
               <div className="space-y-2">
-                <Label htmlFor="siteUrl">Website URL or Domain</Label>
-                <Input
-                  id="siteUrl"
-                  value={siteUrl}
-                  onChange={(e) => setSiteUrl(e.target.value)}
-                  placeholder="ascentgroupconstruction.com or https://example.com/"
-                  className="max-w-md"
+                <Label htmlFor="robots">Robots.txt Content</Label>
+                <Textarea
+                  id="robots"
+                  value={robotsTxt}
+                  onChange={(e) => setRobotsTxt(e.target.value)}
+                  rows={8}
+                  className="font-mono text-sm"
                 />
-                <p className="text-xs text-muted-foreground">
-                  Enter your domain (e.g., ascentgroupconstruction.com) or full URL with protocol (e.g., https://example.com/)
-                </p>
               </div>
-              <div className="flex gap-2">
-                {!isConnected && (
-                  <Button variant="outline" onClick={connectGoogleSearchConsole}>
-                    <LinkIcon className="mr-2 h-4 w-4" />
-                    Connect Google Search Console
-                  </Button>
-                )}
-                <Button 
-                  variant="secondary" 
-                  onClick={fetchSearchConsoleData} 
-                  disabled={fetchingData || !isConnected}
-                >
-                  {fetchingData ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                  )}
-                  Fetch Data
-                </Button>
-              </div>
+              <p className="text-sm text-muted-foreground">
+                Make sure to update the actual robots.txt file in your public folder to match these settings.
+              </p>
             </CardContent>
           </Card>
         </TabsContent>
