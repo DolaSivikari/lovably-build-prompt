@@ -7,9 +7,9 @@ interface NavBadgeProps {
 
 export const NavBadge = ({ variant, className }: NavBadgeProps) => {
   const styles = {
-    new: "bg-blue-500 text-white",
-    popular: "bg-secondary text-white",
-    important: "bg-primary text-white",
+    new: "bg-accent text-accent-foreground",
+    popular: "bg-secondary text-secondary-foreground",
+    important: "bg-primary text-primary-foreground",
   };
 
   const labels = {
