@@ -102,9 +102,9 @@ const ProcessTimelineStep = ({
           )}
           
           <Button
-            variant="ghost"
+            variant="outline"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="w-full rounded-t-none py-6 text-base hover:bg-primary/5"
+            className="w-full rounded-t-none py-6 text-base"
             aria-expanded={isExpanded}
             aria-label={`${isExpanded ? 'Hide' : 'Show'} details for step ${step}: ${title}`}
           >

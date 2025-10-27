@@ -170,7 +170,7 @@ const HeroEditor = () => {
               <Button variant="outline" onClick={() => navigate('/admin')}>
                 Cancel
               </Button>
-              <Button onClick={handleSave} disabled={saving}>
+              <Button variant="default" onClick={handleSave} disabled={saving}>
                 <Save className="h-4 w-4 mr-2" />
                 {saving ? 'Saving...' : 'Save Changes'}
               </Button>

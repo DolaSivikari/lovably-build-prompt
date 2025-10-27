@@ -73,7 +73,7 @@ const NotFound = () => {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Button asChild size="lg">
+          <Button asChild variant="default" size="lg">
             <Link to="/">
               <Home className="mr-2 h-5 w-5" />
               Return to Home

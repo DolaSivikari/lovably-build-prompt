@@ -224,7 +224,7 @@ const Dashboard = () => {
                 onClick={() => navigate("/admin/media")}
                 aria-label="Open Media Library"
               >
-                <FileText className="h-5 w-5 mr-3 text-blue-600" />
+                <FileText className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">Media Library</span>
               </Button>
               <Button
@@ -233,7 +233,7 @@ const Dashboard = () => {
                 onClick={() => navigate("/admin/users")}
                 aria-label="Manage Users"
               >
-                <Users className="h-5 w-5 mr-3 text-purple-600" />
+                <Users className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">User Management</span>
               </Button>
               <Button
@@ -242,7 +242,7 @@ const Dashboard = () => {
                 onClick={() => navigate("/admin/security-center")}
                 aria-label="Open Security Centre"
               >
-                <Shield className="h-5 w-5 mr-3 text-red-600" />
+                <Shield className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">Security Centre</span>
               </Button>
               <Button
@@ -251,7 +251,7 @@ const Dashboard = () => {
                 onClick={() => navigate("/admin/seo-dashboard")}
                 aria-label="Open SEO Dashboard"
               >
-                <Search className="h-5 w-5 mr-3 text-green-600" />
+                <Search className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">SEO Dashboard</span>
               </Button>
               <Button
@@ -260,7 +260,7 @@ const Dashboard = () => {
                 onClick={() => navigate("/admin/performance-dashboard")}
                 aria-label="Open Performance Dashboard"
               >
-                <Activity className="h-5 w-5 mr-3 text-orange-600" />
+                <Activity className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">Performance</span>
               </Button>
               <Button
@@ -269,7 +269,7 @@ const Dashboard = () => {
                 onClick={() => navigate("/admin/site-settings")}
                 aria-label="Open Site Settings"
               >
-                <Settings className="h-5 w-5 mr-3 text-gray-600" />
+                <Settings className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">Site Settings</span>
               </Button>
             </div>
