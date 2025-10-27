@@ -105,6 +105,9 @@ const TemplateManager = lazy(() => import("./pages/admin/TemplateManager").catch
 const LandingMenuEditor = lazy(() => import("./pages/admin/LandingMenuEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Landing Menu Editor</p></div>
 })));
+const AboutPageSettings = lazy(() => import("./pages/admin/AboutPageSettings").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load About Page Settings</p></div>
+})));
 
 // Lazy load heavy content pages with error handling
 const Blog = lazy(() => import("./pages/Blog").catch(() => ({
@@ -214,6 +217,7 @@ const App = () => (
                   <Route path="/admin/template-manager" element={<TemplateManager />} />
                   <Route path="/admin/site-settings" element={<SiteSettings />} />
                   <Route path="/admin/landing-menu" element={<LandingMenuEditor />} />
+                  <Route path="/admin/about-page" element={<AboutPageSettings />} />
                   <Route path="/admin/testimonials" element={<TestimonialsManager />} />
                   <Route path="/admin/stats" element={<StatsManager />} />
                   <Route path="/admin/footer-settings" element={<FooterSettings />} />

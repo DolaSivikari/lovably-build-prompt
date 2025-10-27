@@ -322,16 +322,67 @@ const Navigation = () => {
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
-                      Blog Posts
+                      Blog Posts & Case Studies
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/blog" 
+                      to="/admin/testimonials" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
-                      Case Studies
+                      Testimonials
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/stats" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Stats
+                    </Link>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                    Page Editors
+                  </DropdownMenuLabel>
+                  
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/landing-menu" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Home Hero Menu
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/about-page" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      About Us Page
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/footer-settings" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Footer Content
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/contact-page-settings" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Contact Page
                     </Link>
                   </DropdownMenuItem>
                   
@@ -361,9 +412,18 @@ const Navigation = () => {
                   
                   <DropdownMenuSeparator />
                   <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
-                    Settings
+                    Settings & Tools
                   </DropdownMenuLabel>
                   
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/site-settings" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Site Settings
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
                       to="/admin/media" 

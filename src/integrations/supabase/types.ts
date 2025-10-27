@@ -14,6 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
+      about_page_settings: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          cta_headline: string | null
+          cta_subheadline: string | null
+          faq_items: Json | null
+          id: string
+          is_active: boolean | null
+          safety_commitment: string | null
+          safety_headline: string | null
+          safety_programs: Json | null
+          safety_stats: Json | null
+          satisfaction_rate: number | null
+          story_content: Json | null
+          story_headline: string | null
+          story_image_url: string | null
+          story_promise_text: string | null
+          story_promise_title: string | null
+          sustainability_commitment: string | null
+          sustainability_headline: string | null
+          sustainability_initiatives: Json | null
+          total_projects: number | null
+          updated_at: string | null
+          updated_by: string | null
+          values: Json | null
+          years_in_business: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          cta_headline?: string | null
+          cta_subheadline?: string | null
+          faq_items?: Json | null
+          id?: string
+          is_active?: boolean | null
+          safety_commitment?: string | null
+          safety_headline?: string | null
+          safety_programs?: Json | null
+          safety_stats?: Json | null
+          satisfaction_rate?: number | null
+          story_content?: Json | null
+          story_headline?: string | null
+          story_image_url?: string | null
+          story_promise_text?: string | null
+          story_promise_title?: string | null
+          sustainability_commitment?: string | null
+          sustainability_headline?: string | null
+          sustainability_initiatives?: Json | null
+          total_projects?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+          values?: Json | null
+          years_in_business?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          cta_headline?: string | null
+          cta_subheadline?: string | null
+          faq_items?: Json | null
+          id?: string
+          is_active?: boolean | null
+          safety_commitment?: string | null
+          safety_headline?: string | null
+          safety_programs?: Json | null
+          safety_stats?: Json | null
+          satisfaction_rate?: number | null
+          story_content?: Json | null
+          story_headline?: string | null
+          story_image_url?: string | null
+          story_promise_text?: string | null
+          story_promise_title?: string | null
+          sustainability_commitment?: string | null
+          sustainability_headline?: string | null
+          sustainability_initiatives?: Json | null
+          total_projects?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+          values?: Json | null
+          years_in_business?: number | null
+        }
+        Relationships: []
+      }
       analytics_snapshots: {
         Row: {
           avg_time_on_page: number | null

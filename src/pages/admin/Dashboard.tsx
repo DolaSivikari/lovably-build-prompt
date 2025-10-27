@@ -389,6 +389,15 @@ const Dashboard = () => {
                 <Mail className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">Contact Page</span>
               </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/about-page")}
+                aria-label="Edit About Page"
+              >
+                <FileText className="h-5 w-5 mr-3 text-primary" />
+                <span className="text-sm font-medium">About Page</span>
+              </Button>
             </div>
           </CardContent>
         </Card>
