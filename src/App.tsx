@@ -116,6 +116,9 @@ const Blog = lazy(() => import("./pages/Blog").catch(() => ({
 const BlogPost = lazy(() => import("./pages/BlogPost").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post</p></div>
 })));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Project Detail</p></div>
+})));
 const SEODashboard = lazy(() => import("./pages/SEODashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
 })));
@@ -194,8 +197,8 @@ const App = () => (
                   {/* Redirect old case study routes to blog */}
                   <Route path="/case-studies" element={<Blog />} />
                   <Route path="/case-study/:slug" element={<BlogPost />} />
-                  {/* Defensive router for /projects/:slug - handles invalid slugs */}
-                  <Route path="/projects/:slug" element={<BlogPost />} />
+                  {/* Dedicated projects detail page */}
+                  <Route path="/projects/:slug" element={<ProjectDetail />} />
                   <Route path="/seo-dashboard" element={<SEODashboard />} />
                   
                   {/* Admin pages - lazy loaded */}
