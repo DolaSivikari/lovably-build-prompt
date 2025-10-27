@@ -18,6 +18,7 @@ import {
   Activity,
   Search,
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import MetricCard from "@/components/admin/MetricCard";
@@ -30,6 +31,7 @@ const Dashboard = () => {
   const { toast } = useToast();
   const { isLoading: authLoading, isAdmin } = useAdminAuth();
   const [user, setUser] = useState<any>(null);
+  const [statsLoaded, setStatsLoaded] = useState(false);
   const [stats, setStats] = useState({
     projects: 0,
     services: 0,
@@ -84,21 +86,27 @@ const Dashboard = () => {
     }
   };
 
-  const loadStats = async () => {
+  const loadStats = async (attempt = 0): Promise<void> => {
     try {
       const { data, error } = await supabase.rpc('get_admin_dashboard_stats' as any);
       
-      if (error) {
+      if (error || !data) {
+        // Retry up to 2 times with backoff
+        if (attempt < 2) {
+          await new Promise(resolve => setTimeout(resolve, 300 * (attempt + 1)));
+          return loadStats(attempt + 1);
+        }
+        
         console.error('RPC Error:', error);
         
         // Show specific error messages
-        if (error.message?.includes('does not exist')) {
+        if (error?.message?.includes('does not exist')) {
           toast({
             variant: "destructive",
             title: "Database Setup Incomplete",
             description: "Dashboard statistics function not found. Please contact support.",
           });
-        } else if (error.message?.includes('Access denied')) {
+        } else if (error?.message?.includes('Access denied')) {
           toast({
             variant: "destructive",
             title: "Access Denied",
@@ -108,7 +116,7 @@ const Dashboard = () => {
           toast({
             variant: "destructive",
             title: "Failed to load dashboard stats",
-            description: error.message || "Please refresh the page to try again.",
+            description: error?.message || "Please refresh the page to try again.",
           });
         }
         return;
@@ -136,17 +144,28 @@ const Dashboard = () => {
         title: "Error loading dashboard",
         description: "An unexpected error occurred. Please try again.",
       });
+    } finally {
+      setStatsLoaded(true);
     }
   };
 
   const loadRecentSubmissions = async () => {
-    const { data } = await supabase
-      .from("contact_submissions")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(5);
+    try {
+      const { data, error } = await supabase
+        .from("contact_submissions")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(5);
 
-    setRecentSubmissions(data || []);
+      if (error) {
+        console.error('Error loading recent submissions:', error);
+      }
+      
+      setRecentSubmissions(data || []);
+    } catch (error) {
+      console.error('Error loading recent submissions:', error);
+      setRecentSubmissions([]);
+    }
   };
 
   const handleSignOut = async () => {
@@ -188,7 +207,22 @@ const Dashboard = () => {
         </div>
 
         {/* KPI Metrics */}
-        {stats.projects === 0 && stats.blogPosts === 0 && stats.services === 0 ? (
+        {!statsLoaded ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {[1, 2, 3, 4].map((i) => (
+              <Card key={i}>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-5 w-5 rounded" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-8 w-16 mb-2" />
+                  <Skeleton className="h-3 w-20" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : statsLoaded && stats.projects === 0 && stats.blogPosts === 0 && stats.services === 0 ? (
           <Card className="mb-8">
             <CardContent className="pt-6">
               <div className="text-center space-y-4 py-8">
@@ -234,14 +268,14 @@ const Dashboard = () => {
               value={stats.contactSubmissions}
               icon={Mail}
               badge={stats.newSubmissions}
-              onClick={() => navigate("/admin/contact-submissions")}
+              onClick={() => navigate("/admin/contacts")}
             />
             <MetricCard
               title="Resume Inbox"
               value={stats.resumeSubmissions}
               icon={Users}
               badge={stats.newResumes}
-              onClick={() => navigate("/admin/resume-submissions")}
+              onClick={() => navigate("/admin/resumes")}
             />
           </div>
         )}

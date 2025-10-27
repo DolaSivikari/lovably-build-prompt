@@ -46,8 +46,10 @@ const QuickActions = () => {
         .eq('is_active', true)
         .single();
 
-      if (!error && data?.admin_quick_actions && Array.isArray(data.admin_quick_actions)) {
+      if (!error && Array.isArray(data?.admin_quick_actions) && data.admin_quick_actions.length > 0) {
         setActions(data.admin_quick_actions as any as QuickAction[]);
+      } else {
+        setActions(DEFAULT_ACTIONS);
       }
     } catch (e) {
       // Use defaults if no custom settings found
