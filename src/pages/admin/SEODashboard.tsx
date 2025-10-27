@@ -296,9 +296,17 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         description: 'Retrieving Search Console data...',
       });
 
+      // Format the site URL correctly for domain properties
+      let formattedSiteUrl = siteUrl.trim();
+      
+      // If it doesn't have a protocol and isn't already prefixed with sc-domain:
+      if (!formattedSiteUrl.startsWith('http') && !formattedSiteUrl.startsWith('sc-domain:')) {
+        formattedSiteUrl = `sc-domain:${formattedSiteUrl}`;
+      }
+
       const { data, error } = await supabase.functions.invoke('fetch-search-console-data', {
         body: { 
-          siteUrl,
+          siteUrl: formattedSiteUrl,
           startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
           endDate: new Date().toISOString().split('T')[0],
         },
@@ -587,15 +595,17 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="siteUrl">Website URL</Label>
+                <Label htmlFor="siteUrl">Website URL or Domain</Label>
                 <Input
                   id="siteUrl"
-                  type="url"
                   value={siteUrl}
                   onChange={(e) => setSiteUrl(e.target.value)}
-                  placeholder="https://example.com"
+                  placeholder="ascentgroupconstruction.com or https://example.com/"
                   className="max-w-md"
                 />
+                <p className="text-xs text-muted-foreground">
+                  Enter your domain (e.g., ascentgroupconstruction.com) or full URL with protocol (e.g., https://example.com/)
+                </p>
               </div>
               <div className="flex gap-2">
                 {!isConnected && (
