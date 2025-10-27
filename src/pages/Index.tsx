@@ -59,12 +59,58 @@ const Index = () => {
     "Ascent Group Construction provides comprehensive construction services across Ontario including commercial and residential painting, exterior systems (stucco, EIFS, masonry repair), metal cladding installation, parking garage restoration, waterproofing, and specialty construction. We serve Toronto, Mississauga, Brampton, Vaughan, and Markham with 15+ years of experience."
   );
 
+  // Why Choose Us Structured Data
+  const whyChooseUsSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Why Choose Ascent Group Construction",
+    "description": "Six key reasons to choose Ascent Group Construction for your Toronto and GTA construction projects",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Licensed Construction Excellence Across Ontario",
+        "description": "Fully licensed and insured with $5M liability coverage, WSIB compliant, and municipally licensed across the Greater Toronto Area with 500+ successful projects."
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Comprehensive Construction Services Under One Roof",
+        "description": "21+ specialized services including commercial painting, masonry repair, EIFS installation, metal cladding, and parking garage restoration throughout Toronto and the GTA."
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Premium Materials & Manufacturer Warranties",
+        "description": "Benjamin Moore and Sherwin-Williams authorized contractor using premium materials backed by extended manufacturer warranties."
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "On-Time, On-Budget Project Delivery",
+        "description": "95% on-time completion rate with transparent pricing, itemized estimates, and dedicated project management across Ontario."
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "Safety-First Approach to Every Project",
+        "description": "OSHA certified crews with zero-incident safety record, comprehensive protocols, and full liability coverage."
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "name": "24/7 Emergency Response Services",
+        "description": "Same-day emergency assessment and response throughout Greater Toronto Area with dedicated rapid response team."
+      }
+    ]
+  };
+
   const siteSearchSchema = createSiteSearchSchema("https://ascentgroupconstruction.com");
 
   return (
     <div className="min-h-screen">
       <SkipLink />
-      <SEO structuredData={[howToChooseContractor, whatDoesAscentDo, siteSearchSchema]} />
+      <SEO structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} />
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">
