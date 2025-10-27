@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight, Clock, TrendingUp, BookOpen } from "lucide-react";
+import { Calendar, ArrowRight, Clock, BookOpen } from "lucide-react";
 import OptimizedImage from "../OptimizedImage";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
@@ -28,12 +28,14 @@ const ContentHub = () => {
 
   useEffect(() => {
     const loadPosts = async () => {
+      const today = new Date().toISOString();
       const { data } = await supabase
         .from('blog_posts')
         .select('id, slug, title, summary, category, featured_image, published_at')
         .eq('publish_state', 'published')
+        .lte('published_at', today)
         .order('published_at', { ascending: false })
-        .limit(4);
+        .limit(7);
       
       if (data) {
         setPosts(data);
@@ -45,7 +47,7 @@ const ContentHub = () => {
   }, []);
 
   const featuredPost = posts[0];
-  const regularPosts = posts.slice(1, 4);
+  const regularPosts = posts.slice(1, 7);
 
   const filteredPosts = activeCategory === "All" 
     ? regularPosts 
@@ -55,7 +57,7 @@ const ContentHub = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-gradient-to-b from-background to-muted/30">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="text-center">Loading...</div>
         </div>
@@ -64,7 +66,7 @@ const ContentHub = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/30">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4 max-w-7xl">
         
         {/* Section Header */}
@@ -101,9 +103,9 @@ const ContentHub = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5 }}
             >
-              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 group border-2 hover:border-primary">
+              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group border hover:border-primary">
                 <div className="grid md:grid-cols-2 gap-0">
                   {/* Image */}
                   <div className="relative h-72 md:h-auto overflow-hidden">
@@ -112,7 +114,7 @@ const ContentHub = () => {
                       alt={featuredPost.title}
                       width={1200}
                       height={800}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute top-6 left-6 z-10">
@@ -189,11 +191,11 @@ const ContentHub = () => {
                         alt={`${post.title} - ${post.category}`}
                         width={800}
                         height={600}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       <div className="absolute top-4 left-4 z-10">
-                        <Badge className="bg-secondary/90 text-primary backdrop-blur-sm">
+                        <Badge className="bg-secondary text-primary">
                           {post.category}
                         </Badge>
                       </div>
@@ -230,20 +232,12 @@ const ContentHub = () => {
 
         {/* CTA Section */}
         <div className="text-center">
-          <div className="inline-flex flex-col sm:flex-row gap-4 items-center">
-            <Button asChild size="lg" className="gap-2">
-              <Link to="/blog">
-                <BookOpen className="h-5 w-5" />
-                View All Articles
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="gap-2">
-              <Link to="/case-studies">
-                <TrendingUp className="h-5 w-5" />
-                View Case Studies
-              </Link>
-            </Button>
-          </div>
+          <Button asChild size="lg" className="gap-2">
+            <Link to="/blog">
+              <BookOpen className="h-5 w-5" />
+              View All Articles
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
