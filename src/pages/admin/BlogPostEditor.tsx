@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, Save, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { MultiImageUpload } from "@/components/admin/MultiImageUpload";
 import { generatePreviewToken } from "@/utils/routeHelpers";
 
 const BlogPostEditor = () => {
@@ -31,6 +32,19 @@ const BlogPostEditor = () => {
     seo_keywords: "",
     read_time_minutes: 5,
     publish_state: "draft" as "draft" | "published" | "archived" | "scheduled",
+    content_type: "article" as "article" | "case-study" | "case_study" | "insight",
+    // Case study specific fields
+    project_location: "",
+    project_size: "",
+    project_duration: "",
+    challenge: "",
+    solution: "",
+    results: "",
+    client_name: "",
+    budget_range: "",
+    before_images: [] as any[],
+    after_images: [] as any[],
+    process_steps: [] as any[],
   });
 
   useEffect(() => {
@@ -77,6 +91,18 @@ const BlogPostEditor = () => {
         seo_keywords: data.seo_keywords?.join(", ") || "",
         read_time_minutes: data.read_time_minutes || 5,
         publish_state: data.publish_state || "draft",
+        content_type: data.content_type || "article",
+        project_location: data.project_location || "",
+        project_size: data.project_size || "",
+        project_duration: data.project_duration || "",
+        challenge: data.challenge || "",
+        solution: data.solution || "",
+        results: data.results || "",
+        client_name: data.client_name || "",
+        budget_range: data.budget_range || "",
+        before_images: Array.isArray(data.before_images) ? data.before_images : [],
+        after_images: Array.isArray(data.after_images) ? data.after_images : [],
+        process_steps: Array.isArray(data.process_steps) ? data.process_steps : [],
       });
     }
   };
@@ -130,6 +156,20 @@ const BlogPostEditor = () => {
       read_time_minutes: formData.read_time_minutes,
       publish_state: formData.publish_state,
       published_at: formData.publish_state === "published" ? new Date().toISOString() : null,
+      content_type: formData.content_type,
+      ...(formData.content_type === "case-study" && {
+        project_location: formData.project_location,
+        project_size: formData.project_size,
+        project_duration: formData.project_duration,
+        challenge: formData.challenge,
+        solution: formData.solution,
+        results: formData.results,
+        client_name: formData.client_name,
+        budget_range: formData.budget_range,
+        before_images: formData.before_images,
+        after_images: formData.after_images,
+        process_steps: formData.process_steps,
+      }),
       ...(isNewPost ? { created_by: user.id } : { updated_by: user.id }),
     };
 
@@ -280,25 +320,41 @@ const BlogPostEditor = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="category">Category</Label>
-                  <Input
-                    id="category"
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    placeholder="e.g., Painting, Construction"
-                  />
-                </div>
+              <div>
+                <Label htmlFor="content_type">Content Type</Label>
+                <Select 
+                  value={formData.content_type} 
+                  onValueChange={(value: any) => setFormData({ ...formData, content_type: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="article">Article</SelectItem>
+                    <SelectItem value="case-study">Case Study</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-                <div>
-                  <Label htmlFor="read_time">Read Time (minutes)</Label>
-                  <Input
-                    id="read_time"
-                    type="number"
-                    value={formData.read_time_minutes}
-                    onChange={(e) => setFormData({ ...formData, read_time_minutes: parseInt(e.target.value) })}
-                  />
-                </div>
+              <div>
+                <Label htmlFor="category">Category</Label>
+                <Input
+                  id="category"
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  placeholder="e.g., Painting, Construction, Case Study"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="read_time">Read Time (minutes)</Label>
+                <Input
+                  id="read_time"
+                  type="number"
+                  value={formData.read_time_minutes}
+                  onChange={(e) => setFormData({ ...formData, read_time_minutes: parseInt(e.target.value) })}
+                />
+              </div>
               </div>
 
               <div>
@@ -374,6 +430,99 @@ const BlogPostEditor = () => {
               </div>
             </CardContent>
           </Card>
+
+          {formData.content_type === "case-study" && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Case Study Details</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="project_location">Project Location</Label>
+                    <Input
+                      id="project_location"
+                      value={formData.project_location}
+                      onChange={(e) => setFormData({ ...formData, project_location: e.target.value })}
+                      placeholder="e.g., Toronto, ON"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="project_size">Project Size</Label>
+                    <Input
+                      id="project_size"
+                      value={formData.project_size}
+                      onChange={(e) => setFormData({ ...formData, project_size: e.target.value })}
+                      placeholder="e.g., 50,000 sq ft"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="project_duration">Duration</Label>
+                    <Input
+                      id="project_duration"
+                      value={formData.project_duration}
+                      onChange={(e) => setFormData({ ...formData, project_duration: e.target.value })}
+                      placeholder="e.g., 6 months"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="client_name">Client Name</Label>
+                    <Input
+                      id="client_name"
+                      value={formData.client_name}
+                      onChange={(e) => setFormData({ ...formData, client_name: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="budget_range">Budget Range</Label>
+                  <Input
+                    id="budget_range"
+                    value={formData.budget_range}
+                    onChange={(e) => setFormData({ ...formData, budget_range: e.target.value })}
+                    placeholder="e.g., $500K - $1M"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="challenge">Challenge</Label>
+                  <Textarea
+                    id="challenge"
+                    value={formData.challenge}
+                    onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
+                    rows={3}
+                    placeholder="What was the main challenge?"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="solution">Solution</Label>
+                  <Textarea
+                    id="solution"
+                    value={formData.solution}
+                    onChange={(e) => setFormData({ ...formData, solution: e.target.value })}
+                    rows={3}
+                    placeholder="How did you solve it?"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="results">Results</Label>
+                  <Textarea
+                    id="results"
+                    value={formData.results}
+                    onChange={(e) => setFormData({ ...formData, results: e.target.value })}
+                    rows={3}
+                    placeholder="What were the outcomes?"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           <div className="flex justify-end gap-4">
             <Button type="button" variant="outline" onClick={() => navigate("/admin/blog")}>

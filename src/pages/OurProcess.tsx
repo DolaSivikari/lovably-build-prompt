@@ -328,7 +328,7 @@ const OurProcess = () => {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link to="/case-studies">View Our Work</Link>
+                <Link to="/blog">View Our Work</Link>
               </Button>
             </div>
           </div>

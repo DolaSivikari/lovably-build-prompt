@@ -20,7 +20,7 @@ interface Project {
 
 const ProjectCard = ({ project }: { project: Project }) => (
   <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-    <Link to={`/case-study/${project.slug}`}>
+    <Link to={`/blog/${project.slug}`}>
       {project.featured_image && (
         <div className="relative overflow-hidden h-64">
           <OptimizedImage
@@ -53,7 +53,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
           </Badge>
         )}
       </div>
-      <Link to={`/case-study/${project.slug}`}>
+      <Link to={`/blog/${project.slug}`}>
         <h3 className="text-xl font-bold mb-2 hover:text-primary transition-colors">
           {project.title}
         </h3>

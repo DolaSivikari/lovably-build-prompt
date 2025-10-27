@@ -72,7 +72,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             { name: "Residential Projects", link: "/projects?client_type=homeowner" },
             { name: "Commercial Projects", link: "/projects?client_type=commercial" },
             { name: "Multi-Unit Projects", link: "/projects?client_type=developer", badge: "popular" },
-            { name: "Case Studies", link: "/case-studies" },
+            { name: "Blog & Case Studies", link: "/blog" },
           ],
         },
       ],

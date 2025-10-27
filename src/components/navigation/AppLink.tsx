@@ -8,7 +8,7 @@ const KNOWN_ROUTES = [
   "/services",
   "/services/:slug",
   "/projects",
-  "/case-study/:slug",
+  
   "/blog",
   "/blog/:slug",
   "/contact",

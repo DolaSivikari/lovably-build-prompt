@@ -248,7 +248,7 @@ const ProjectEditor = () => {
         .eq("id", id);
     }
 
-    const previewUrl = `/case-study/${formData.slug}?preview=true&token=${token}`;
+    const previewUrl = `/blog/${formData.slug}?preview=true&token=${token}`;
     window.open(previewUrl, "_blank");
   };
 
@@ -330,7 +330,7 @@ const ProjectEditor = () => {
               {/* Status indicator */}
               <div className="flex items-center justify-between text-sm">
                 <p className="text-muted-foreground">
-                  URL: https://ascentgroupconstruction.com/case-study/
+                  URL: https://ascentgroupconstruction.com/blog/
                   <span className="font-semibold text-foreground">
                     {formData.slug || "project-slug"}
                   </span>

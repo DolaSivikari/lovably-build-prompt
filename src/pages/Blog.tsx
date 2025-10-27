@@ -53,12 +53,15 @@ const Blog = () => {
 
   const categories = ["all", ...Array.from(new Set(posts.map(p => p.category)))];
   
-  const filteredPosts = filter === "all" 
-    ? posts 
-    : posts.filter(p => p.category === filter);
-
-  // Limit featured posts to top 3
+  // Featured section (top 3)
   const featuredPosts = posts.slice(0, 3);
+  
+  // All content section (exclude featured posts to avoid duplication)
+  const allContentPosts = posts.slice(3);
+  
+  const filteredPosts = filter === "all" 
+    ? allContentPosts 
+    : allContentPosts.filter(p => p.category === filter);
 
   const loadMore = () => {
     setVisiblePosts(prev => Math.min(prev + 6, filteredPosts.length));

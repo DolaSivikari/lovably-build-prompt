@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Edit, Trash2, ArrowLeft, Eye } from "lucide-react";
+import { Plus, Edit, Trash2, ArrowLeft, Eye, Filter } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
 import { generatePreviewToken } from "@/utils/previewToken";
@@ -17,6 +18,7 @@ const BlogPosts = () => {
   const { isLoading: authLoading, isAdmin } = useAdminAuth();
   const [posts, setPosts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [contentTypeFilter, setContentTypeFilter] = useState<string>("all");
 
   useEffect(() => {
     if (isAdmin) {
@@ -110,12 +112,24 @@ const BlogPosts = () => {
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back
               </Button>
-              <h1 className="text-2xl font-bold">Blog Posts</h1>
+              <h1 className="text-2xl font-bold">All Content</h1>
             </div>
-            <Button onClick={() => navigate("/admin/blog/new")}>
-              <Plus className="h-4 w-4 mr-2" />
-              New Blog Post
-            </Button>
+            <div className="flex gap-2 items-center">
+              <Select value={contentTypeFilter} onValueChange={setContentTypeFilter}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  <SelectItem value="article">Articles</SelectItem>
+                  <SelectItem value="case-study">Case Studies</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button onClick={() => navigate("/admin/blog/new")}>
+                <Plus className="h-4 w-4 mr-2" />
+                New Content
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -135,7 +149,9 @@ const BlogPosts = () => {
           </Card>
         ) : (
           <div className="grid gap-6">
-            {posts.map((post) => (
+            {posts
+              .filter(post => contentTypeFilter === "all" || post.content_type === contentTypeFilter)
+              .map((post) => (
               <Card key={post.id}>
                 <CardHeader>
                   <div className="flex items-start justify-between">
@@ -145,6 +161,9 @@ const BlogPosts = () => {
                         <Badge variant={getStatusColor(post.publish_state)}>
                           {post.publish_state}
                         </Badge>
+                        {post.content_type === "case-study" && (
+                          <Badge variant="outline">Case Study</Badge>
+                        )}
                       </div>
                       <CardDescription>{post.summary || post.seo_description}</CardDescription>
                     </div>

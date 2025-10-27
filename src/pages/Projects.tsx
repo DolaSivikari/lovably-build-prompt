@@ -115,7 +115,7 @@ const Projects = () => {
   const visibleProjects = regularProjects.slice(0, visibleCount);
 
   const handleViewDetails = (slug: string) => {
-    navigate(`/case-study/${slug}`);
+    navigate(`/blog/${slug}`);
   };
 
   const loadMore = () => {

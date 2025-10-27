@@ -15,7 +15,7 @@ const NotFound = () => {
     }
 
     // Detect if this looks like a project/case study URL
-    if (location.pathname.startsWith('/projects/') || location.pathname.startsWith('/case-study/')) {
+    if (location.pathname.startsWith('/projects/')) {
       loadSuggestions();
     }
   }, [location.pathname]);
@@ -41,14 +41,14 @@ const NotFound = () => {
   };
 
   const getErrorMessage = () => {
-    if (location.pathname.startsWith('/projects/') || location.pathname.startsWith('/case-study/')) {
+    if (location.pathname.startsWith('/projects/')) {
       return "This project or case study doesn't exist";
     }
     return "Oops! Page not found";
   };
 
   const getHelpText = () => {
-    if (location.pathname.startsWith('/projects/') || location.pathname.startsWith('/case-study/')) {
+    if (location.pathname.startsWith('/projects/')) {
       return "The project you're looking for may have been moved or deleted.";
     }
     return "The page you're looking for doesn't exist or may have been moved.";

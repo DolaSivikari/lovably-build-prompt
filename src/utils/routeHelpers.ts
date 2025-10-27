@@ -8,7 +8,7 @@ export const ADMIN_ROUTES = {
   services: '/admin/services',
   projects: '/admin/projects',
   blog: '/admin/blog',
-  caseStudies: '/admin/case-studies',
+  
   media: '/admin/media',
   users: '/admin/users',
   securityCenter: '/admin/security-center',
@@ -30,7 +30,7 @@ export const getAdminEditRoute = (type: string, id: string): string => {
     service: `/admin/services/${id}`,
     project: `/admin/projects/${id}`,
     blog: `/admin/blog/${id}`,
-    'case-study': `/admin/case-studies/${id}`,
+    'case-study': `/admin/blog/${id}`,
   };
   return routes[type] || `/admin/${type}/${id}`;
 };
@@ -43,7 +43,7 @@ export const getPublicRoute = (type: string, slug: string): string => {
     service: `/services/${slug}`,
     project: `/projects/${slug}`,
     blog: `/blog/${slug}`,
-    'case-study': `/case-study/${slug}`,
+    'case-study': `/blog/${slug}`,
     home: '/',
   };
   return routes[type] || `/${slug}`;

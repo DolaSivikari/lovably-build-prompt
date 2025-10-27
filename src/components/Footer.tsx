@@ -80,7 +80,7 @@ const Footer = () => {
 
   const resourceLinks = [
     { to: "/blog", label: "Blog" },
-    { to: "/case-studies", label: "Case Studies" },
+    { to: "/blog", label: "Blog & Case Studies" },
     { to: "/faq", label: "FAQ" },
     { to: "/projects", label: "Projects" },
   ];
@@ -162,7 +162,7 @@ const Footer = () => {
                   <li><Link to="/company/certifications-insurance" className="text-sm text-muted-foreground hover:text-primary transition-colors">Certifications</Link></li>
                   <li><Link to="/company/equipment-resources" className="text-sm text-muted-foreground hover:text-primary transition-colors">Equipment</Link></li>
                   <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
-                  <li><Link to="/case-studies" className="text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</Link></li>
+                  <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog & Case Studies</Link></li>
                 </ul>
               </nav>
             </div>
