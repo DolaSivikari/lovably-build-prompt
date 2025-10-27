@@ -88,7 +88,15 @@ const Dashboard = () => {
     try {
       const { data, error } = await supabase.rpc('get_admin_dashboard_stats' as any);
       
-      if (error) throw error;
+      if (error) {
+        console.error('RPC Error:', error);
+        toast({
+          variant: "destructive",
+          title: "Failed to load dashboard stats",
+          description: "Please refresh the page to try again.",
+        });
+        return;
+      }
       
       if (data && typeof data === 'object') {
         const stats = data as any;
@@ -107,6 +115,11 @@ const Dashboard = () => {
       }
     } catch (error) {
       console.error('Error loading stats:', error);
+      toast({
+        variant: "destructive",
+        title: "Error loading dashboard",
+        description: "An unexpected error occurred. Please try again.",
+      });
     }
   };
 
@@ -159,36 +172,63 @@ const Dashboard = () => {
         </div>
 
         {/* KPI Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <MetricCard
-            title="Published Projects"
-            value={stats.projects}
-            icon={Briefcase}
-            trend={{ value: `${stats.draftProjects} drafts`, isPositive: false }}
-            onClick={() => navigate("/admin/projects")}
-          />
-          <MetricCard
-            title="Published Blog Posts"
-            value={stats.blogPosts}
-            icon={FileText}
-            trend={{ value: `${stats.draftPosts} drafts`, isPositive: false }}
-            onClick={() => navigate("/admin/blog")}
-          />
-          <MetricCard
-            title="Contact Forms"
-            value={stats.contactSubmissions}
-            icon={Mail}
-            badge={stats.newSubmissions}
-            onClick={() => navigate("/admin/contacts")}
-          />
-          <MetricCard
-            title="Resume Inbox"
-            value={stats.resumeSubmissions}
-            icon={Users}
-            badge={stats.newResumes}
-            onClick={() => navigate("/admin/resumes")}
-          />
-        </div>
+        {stats.projects === 0 && stats.blogPosts === 0 && stats.services === 0 ? (
+          <Card className="mb-8">
+            <CardContent className="pt-6">
+              <div className="text-center space-y-4 py-8">
+                <Briefcase className="h-16 w-16 mx-auto text-muted-foreground" />
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">No content yet</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Get started by creating your first project, blog post, or service
+                  </p>
+                  <div className="flex gap-3 justify-center flex-wrap">
+                    <Button onClick={() => navigate("/admin/projects")}>
+                      Create Project
+                    </Button>
+                    <Button variant="outline" onClick={() => navigate("/admin/blog-posts")}>
+                      Write Blog Post
+                    </Button>
+                    <Button variant="outline" onClick={() => navigate("/admin/services")}>
+                      Add Service
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <MetricCard
+              title="Published Projects"
+              value={stats.projects}
+              icon={Briefcase}
+              trend={{ value: `${stats.draftProjects} drafts`, isPositive: false }}
+              onClick={() => navigate("/admin/projects")}
+            />
+            <MetricCard
+              title="Published Blog Posts"
+              value={stats.blogPosts}
+              icon={FileText}
+              trend={{ value: `${stats.draftPosts} drafts`, isPositive: false }}
+              onClick={() => navigate("/admin/blog")}
+            />
+            <MetricCard
+              title="Contact Forms"
+              value={stats.contactSubmissions}
+              icon={Mail}
+              badge={stats.newSubmissions}
+              onClick={() => navigate("/admin/contacts")}
+            />
+            <MetricCard
+              title="Resume Inbox"
+              value={stats.resumeSubmissions}
+              icon={Users}
+              badge={stats.newResumes}
+              onClick={() => navigate("/admin/resumes")}
+            />
+          </div>
+        )}
 
         {/* Secondary Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -270,6 +310,15 @@ const Dashboard = () => {
               >
                 <Settings className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">Site Settings</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/homepage-settings")}
+                aria-label="Edit Homepage Content"
+              >
+                <LayoutDashboard className="h-5 w-5 mr-3 text-primary" />
+                <span className="text-sm font-medium">Homepage Content</span>
               </Button>
             </div>
           </CardContent>

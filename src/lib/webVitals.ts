@@ -14,8 +14,24 @@ const performanceMetrics: PerformanceMetrics = {};
 
 // Log metrics to database (only in production)
 const logToDatabase = async (metric: any) => {
-  // TODO: Create performance_metrics table and enable this
-  // Disabled for now to prevent errors
+  if (import.meta.env.MODE !== 'production') return;
+  
+  try {
+    await supabase.from('performance_metrics').insert({
+      metric_type: 'web-vital',
+      metric_name: metric.name,
+      value: metric.value,
+      unit: metric.name === 'CLS' ? 'score' : 'ms',
+      metadata: {
+        id: metric.id,
+        rating: metric.rating,
+        navigationType: metric.navigationType,
+        page_path: window.location.pathname,
+      }
+    });
+  } catch (error) {
+    console.error('Failed to log web vital:', error);
+  }
 };
 
 // Send Web Vitals metrics to Google Analytics
