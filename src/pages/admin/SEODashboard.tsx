@@ -200,25 +200,29 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
 
   const connectGoogleSearchConsole = async () => {
     try {
-      const clientId = import.meta.env.VITE_GOOGLE_SEARCH_CONSOLE_CLIENT_ID;
-      const redirectUri = import.meta.env.VITE_GOOGLE_SEARCH_CONSOLE_REDIRECT_URI || 
-        `${window.location.origin}/admin/seo`;
+      const { data, error } = await supabase.functions.invoke('google-search-console-auth');
       
-      const scope = 'https://www.googleapis.com/auth/webmasters.readonly';
-      const { data: { session } } = await supabase.auth.getSession();
-      const state = session?.user?.id || '';
-
-      const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
-      authUrl.searchParams.set('client_id', clientId);
-      authUrl.searchParams.set('redirect_uri', redirectUri);
-      authUrl.searchParams.set('response_type', 'code');
-      authUrl.searchParams.set('scope', scope);
-      authUrl.searchParams.set('access_type', 'offline');
-      authUrl.searchParams.set('state', state);
-      authUrl.searchParams.set('prompt', 'consent');
-
-      window.location.href = authUrl.toString();
+      if (error) {
+        console.error('Error getting auth URL:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Failed to initiate Google Search Console connection',
+        });
+        return;
+      }
+      
+      if (data?.authUrl) {
+        window.location.href = data.authUrl;
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Failed to get authorization URL',
+        });
+      }
     } catch (error: any) {
+      console.error('Error connecting to Google Search Console:', error);
       toast({
         variant: 'destructive',
         title: 'Error',
