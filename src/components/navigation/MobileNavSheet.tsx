@@ -89,7 +89,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 Stucco
               </Link>
               <Link
-                to="/services/parking-garage-restoration"
+                to="/services/parking-garage"
                 onClick={handleLinkClick}
                 className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
               >

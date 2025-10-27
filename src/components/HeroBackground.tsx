@@ -25,20 +25,20 @@ const HeroBackground = () => {
   return (
     <>
       {/* Geometric Grid Pattern */}
-      <div className="absolute inset-0 grid-pattern opacity-30" />
+      <div className="absolute inset-0 grid-pattern opacity-30 hidden md:block" />
 
       {/* Diagonal Accent Stripe */}
-      <div className="absolute inset-0 diagonal-stripe opacity-20" />
+      <div className="absolute inset-0 diagonal-stripe opacity-20 hidden md:block" />
 
       {/* Animated Gradient Orbs */}
       <div
         ref={orb1Ref}
-        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-40 blur-3xl transition-transform duration-700 ease-out"
+        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-40 blur-3xl transition-transform duration-700 ease-out hidden md:block"
         style={{ background: "var(--gradient-orb)" }}
       />
       <div
         ref={orb2Ref}
-        className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-30 blur-3xl transition-transform duration-700 ease-out"
+        className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-30 blur-3xl transition-transform duration-700 ease-out hidden md:block"
         style={{ background: "radial-gradient(circle, hsl(var(--primary-light) / 0.3) 0%, transparent 70%)" }}
       />
     </>

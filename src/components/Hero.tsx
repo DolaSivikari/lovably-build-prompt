@@ -58,10 +58,10 @@ const Hero = () => {
           priority={true}
           width={1920}
           height={1080}
-          className="w-full h-full"
+          className="w-full h-full opacity-20 md:opacity-100"
           objectFit="cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
+        <div className="absolute inset-0 bg-white md:bg-gradient-to-r md:from-primary/95 md:via-primary/80 md:to-primary/60" />
         <HeroBackground />
       </motion.div>
 
@@ -69,34 +69,34 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl">
           {/* Premium Badge */}
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-full animate-fade-in">
-            <div className="w-2 h-2 bg-secondary rounded-full animate-pulse-glow" />
-            <span className="text-primary-foreground font-semibold text-sm tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-primary/10 md:bg-primary-foreground/10 backdrop-blur-sm border border-primary/20 md:border-primary-foreground/20 rounded-full animate-fade-in">
+            <div className="w-2 h-2 bg-primary md:bg-secondary rounded-full animate-pulse-glow" />
+            <span className="text-primary md:text-primary-foreground font-semibold text-sm tracking-wider uppercase">
               <Sparkles className="inline-block w-4 h-4 mr-1" />
               {badgeText}
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-slide-up">
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground md:text-primary-foreground mb-6 animate-slide-up">
             {headline.split(',')[0]},
-            <span className="block text-secondary relative">
+            <span className="block text-primary md:text-secondary relative">
               {headline.split(',')[1] || "Crafting Legacy"}
-              <span className="absolute bottom-2 left-0 w-full h-1 bg-gradient-to-r from-secondary to-transparent" />
+              <span className="absolute bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary md:from-secondary to-transparent" />
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 animate-fade-in">
+          <p className="text-lg md:text-xl text-muted-foreground md:text-primary-foreground/90 mb-8 animate-fade-in">
             {subheadline}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <Button size="lg" variant="secondary" asChild className="group hover:shadow-glow transition-all">
+            <Button size="lg" variant="default" asChild className="group hover:shadow-glow transition-all md:variant-secondary">
               <Link to={primaryCtaUrl}>
                 {primaryCtaText}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all" asChild>
+            <Button size="lg" variant="outline" className="border-2 md:bg-transparent md:border-primary-foreground md:text-primary-foreground md:hover:bg-primary-foreground md:hover:text-primary transition-all" asChild>
               <Link to={secondaryCtaUrl}>{secondaryCtaText}</Link>
             </Button>
           </div>
@@ -105,7 +105,7 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-        <div className="flex flex-col items-center gap-2 text-primary-foreground/70">
+        <div className="flex flex-col items-center gap-2 text-muted-foreground md:text-primary-foreground/70">
           <span className="text-xs uppercase tracking-wider">Scroll to explore</span>
           <ChevronDown className="h-6 w-6" />
         </div>
