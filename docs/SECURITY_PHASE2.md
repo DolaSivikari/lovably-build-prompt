@@ -7,16 +7,18 @@ Phase 2 has been successfully implemented, adding enterprise-grade authenticatio
 
 ### 1. Multi-Factor Authentication (MFA) with TOTP
 - **Page**: `/admin/security-settings`
+- **Backend**: Lovable Cloud Auth Settings
 - **Features**:
   - QR code generation for authenticator apps
   - Manual secret key entry option
   - Backup codes support
   - MFA verification during enrollment
   - Enable/disable toggle for admins
-- **Status**: ✅ Complete (requires manual Supabase configuration)
+- **Status**: ✅ Complete (requires manual backend configuration)
 
 ### 2. Enhanced Password Requirements
 - **Component**: `PasswordStrengthIndicator`
+- **Backend**: Lovable Cloud Email Settings
 - **Features**:
   - Real-time password strength validation
   - Visual strength indicator
@@ -25,9 +27,10 @@ Phase 2 has been successfully implemented, adding enterprise-grade authenticatio
     - Uppercase letter
     - Lowercase letter
     - Number
-    - Special character
+    - Special character (!@#$%^&*(),.?":{}|<>)
+  - Leaked password protection (HIBP database)
   - Color-coded feedback (Weak/Fair/Good/Strong)
-- **Status**: ✅ Complete (requires manual Supabase configuration)
+- **Status**: ✅ Complete (requires manual backend configuration)
 
 ### 3. Account Lockout Protection
 - **Edge Function**: `check-login-attempt`
@@ -46,13 +49,14 @@ Phase 2 has been successfully implemented, adding enterprise-grade authenticatio
 ### 4. Session Timeout (15-minute Inactivity)
 - **Hook**: `useIdleTimeout`
 - **Component**: `SessionWarningDialog`
+- **Backend**: Lovable Cloud JWT Settings
 - **Features**:
   - Automatic logout after 15 minutes of inactivity
   - Warning dialog at 14 minutes (60 seconds remaining)
   - "Continue Session" button to extend
   - Cross-tab synchronization
   - Countdown timer display
-- **Status**: ✅ Complete (requires JWT expiry configuration)
+- **Status**: ✅ Complete (requires JWT expiry configuration in backend)
 
 ### 5. Security Center Dashboard
 - **Page**: `/admin/security-center`
@@ -133,38 +137,43 @@ All tables have Row-Level Security enabled with admin-only access:
 
 ## 📋 Manual Configuration Required
 
-### CRITICAL: Supabase Dashboard Settings
+### CRITICAL: Lovable Cloud Backend Settings
 
-You MUST configure these settings in your Supabase Dashboard:
+You MUST configure these settings in your Lovable Cloud backend:
 
-#### 1. Enable MFA
-1. Go to **Authentication → Settings → Multi-Factor Authentication**
+#### 1. Configure Password Security (Email Settings)
+1. Click **Cloud** in the top navigation
+2. Navigate to **Users** section
+3. Click **Auth settings** button (top right)
+4. Scroll to **Email Settings** section
+5. Configure the following:
+   - **Password HIBP Check**: Toggle to **ON** (prevents leaked passwords)
+   - **Minimum Password Length**: Set to **12**
+   - **Required Password Characters**: Update to include special characters:
+     ```
+     ABCDEFGHIJKLMNOPQRSTUVWXYZ,abcdefghijklmnopqrstuvwxyz,0123456789,!@#$%^&*(),.?":{}|<>
+     ```
+6. Click **Save**
+
+#### 2. Enable MFA (Multi-Factor Authentication)
+1. In **Auth settings**, scroll to **MFA** section
 2. Toggle **Enable TOTP** to ON
 3. Click **Save**
 
-#### 2. Set Password Requirements
-1. Go to **Authentication → Settings → Password Security**
-2. Set **Minimum password length**: 12
-3. Enable **Require uppercase letter**
-4. Enable **Require lowercase letter**
-5. Enable **Require number**
-6. Enable **Require special character**
-7. Toggle **Leaked password protection** to ON
-8. Click **Save**
-
-#### 3. Configure JWT Expiry (Session Timeout)
-1. Go to **Authentication → Settings → JWT Settings**
-2. Set **JWT expiry limit**: 900 seconds (15 minutes)
+#### 3. Configure Session Settings
+1. In **Auth settings**, scroll to **JWT Settings** section
+2. Set **JWT Expiry**: 900 seconds (15 minutes)
 3. Click **Save**
 
-#### 4. Set Rate Limiting
-1. Go to **API → Settings**
-2. Set **Rate limit**: 50 requests per minute
-3. Click **Save**
+#### 4. Configure Sign-in Methods
+1. In **Auth settings**, review **Sign in methods**
+2. Ensure **Email** is enabled
+3. Optional: Enable other methods (Phone, Google) as needed
+4. Click **Save**
 
-### Access the Supabase Dashboard
+### Access Your Backend
 <lov-actions>
-  <lov-open-backend>Open Supabase Dashboard</lov-open-backend>
+  <lov-open-backend>Open Backend Settings</lov-open-backend>
 </lov-actions>
 
 ## 🎯 Usage Guide
@@ -311,7 +320,10 @@ SELECT cron.schedule(
 
 ## ✅ Testing Checklist
 
-- [ ] Manual Supabase configurations completed
+- [ ] Manual backend configurations completed (Email Settings)
+- [ ] Password HIBP Check enabled
+- [ ] Minimum password length set to 12
+- [ ] Special characters required in password
 - [ ] MFA enrollment works correctly
 - [ ] Password strength validation displays properly
 - [ ] Failed login attempts are tracked
@@ -328,7 +340,9 @@ SELECT cron.schedule(
 After completing Phase 2:
 
 1. **Verify Configuration**
-   - Test all Supabase Dashboard settings
+   - Complete all backend settings (Email Settings, Auth Settings)
+   - Test password strength requirements
+   - Test leaked password protection (HIBP)
    - Confirm MFA works end-to-end
    - Validate session timeout behavior
 
@@ -336,9 +350,11 @@ After completing Phase 2:
    - Announce new security features
    - Provide MFA setup guide
    - Explain session timeout policy
+   - Document strong password requirements
 
 3. **Monitor & Adjust**
    - Watch for user feedback
+   - Monitor failed login patterns
    - Adjust lockout thresholds if needed
    - Fine-tune session timeout duration
 
@@ -349,20 +365,26 @@ After completing Phase 2:
 
 ## 🆘 Troubleshooting
 
+### Password Requirements Not Enforcing
+- Verify Email Settings are saved in backend
+- Check Password HIBP Check is enabled
+- Confirm Required Password Characters includes special chars
+- Test with a new signup/password change
+
 ### MFA Not Working
-- Ensure TOTP is enabled in Supabase Dashboard
+- Ensure TOTP is enabled in backend Auth settings
 - Check authenticator app time sync
 - Verify 6-digit code is entered correctly
 
 ### Account Stays Locked
-- Check `auth_account_lockouts` table
+- Check `auth_account_lockouts` table in backend
 - Verify `locked_until` timestamp
-- Use admin unlock feature
+- Use admin unlock feature in Security Center
 
 ### Session Not Timing Out
-- Verify JWT expiry is set to 900 seconds
+- Verify JWT expiry is set to 900 seconds in backend
 - Check browser console for errors
-- Ensure `useIdleTimeout` hook is active
+- Ensure `useIdleTimeout` hook is active in admin pages
 
 ### Security Center Not Loading
 - Confirm user has admin role
