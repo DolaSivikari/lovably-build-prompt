@@ -7,13 +7,9 @@ import SEO from "@/components/SEO";
 import SocialProof from "@/components/SocialProof";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
-import TrustBar from "@/components/homepage/TrustBar";
 import ClientSelector from "@/components/homepage/ClientSelector";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
-import CertificationsBar from "@/components/homepage/CertificationsBar";
-import PrequalPackage from "@/components/homepage/PrequalPackage";
 
-import DirectAnswer from "@/components/seo/DirectAnswer";
 import SkipLink from "@/components/SkipLink";
 import InteractiveCTA from "@/components/homepage/InteractiveCTA";
 import AchievementShowcase from "@/components/homepage/AchievementShowcase";
@@ -149,20 +145,12 @@ const Index = () => {
       <MobileStickyCTA />
       <main id="main-content" role="main">
         <NumberedLandingHero />
-        <TrustBar />
-        
-        {/* Direct Answer for AEO/GEO */}
-        <DirectAnswer />
-        
         <CompanyOverviewHub />
         <ClientSelector />
         <WhyChooseUs />
         <ServicesExplorer />
         <AchievementShowcase />
-        <CertificationsBar />
-        
         <SocialProof />
-        <PrequalPackage />
         <ContentHub />
         <InteractiveCTA />
       </main>

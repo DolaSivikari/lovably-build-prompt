@@ -122,110 +122,35 @@ const SocialProof = () => {
 
   return (
     <>
-      <SEO structuredData={[aggregateRatingSchema, ...googleReviewSchemas, ...testimonialSchemas]} />
-      <section ref={sectionRef} className="py-16 bg-muted/30">
+      <SEO structuredData={[aggregateRatingSchema, ...testimonialSchemas]} />
+      <section ref={sectionRef} className="py-16 bg-background">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="max-w-6xl mx-auto">
-            {/* Header with Google Rating */}
+            {/* Section Header */}
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                What Our Clients Say
+                Client Outcomes
               </h2>
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star
-                      key={star}
-                      className={`h-6 w-6 ${
-                        star <= Math.floor(averageRating)
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-gray-300"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-2xl font-bold text-foreground">
-                  {averageRating}
-                </span>
-              </div>
-              <p className="text-muted-foreground">
-                Based on {totalReviews} Google reviews
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Construction partnerships delivering measurable results
               </p>
             </div>
 
-            {/* Google Reviews Grid */}
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
-              {googleReviews.map((review, idx) => (
-                <Card key={idx} className="hover:shadow-lg transition-shadow">
+            {/* Client Testimonials */}
+            <div className="grid md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial) => (
+                <Card key={testimonial.author} className="border-2 hover:border-primary/50 hover:shadow-lg transition-all">
                   <CardContent className="p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
-                      {review.avatar}
+                    <Quote className="h-8 w-8 text-primary mb-4" />
+                    <p className="text-base mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                    <div className="border-t pt-4">
+                      <p className="font-semibold text-foreground">{testimonial.author}</p>
+                      <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                      <p className="text-sm text-muted-foreground">{testimonial.company}</p>
                     </div>
-                    <div>
-                      <div className="font-semibold text-foreground">
-                        {review.author}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {review.date}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex mb-3">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star
-                        key={star}
-                        className={`h-4 w-4 ${
-                          star <= review.rating
-                            ? "fill-yellow-400 text-yellow-400"
-                            : "text-gray-300"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {review.text}
-                    </p>
                   </CardContent>
                 </Card>
               ))}
-            </div>
-
-            {/* Featured Testimonials */}
-            <div className="border-t border-border pt-12">
-              <h3 className="text-2xl md:text-3xl font-bold text-center mb-8">
-                Featured Client Stories
-              </h3>
-              <div className="grid md:grid-cols-3 gap-8">
-                {testimonials.map((testimonial, index) => (
-                  <Card key={testimonial.author} className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-8">
-                      <Quote className="h-8 w-8 text-primary mb-4" />
-                      <p className="text-base mb-6 italic">"{testimonial.quote}"</p>
-                      <div className="border-t pt-4">
-                        <p className="font-semibold">{testimonial.author}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.position}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.company}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Google Link */}
-            <div className="text-center mt-8">
-              <a
-                href="https://g.page/r/CdXlZgT9HqKhEAI/review"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
-              >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
-                </svg>
-                Read more reviews on Google
-              </a>
             </div>
           </div>
         </div>

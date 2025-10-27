@@ -1,28 +1,24 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { 
   Phone, 
   Mail, 
-  MapPin, 
+  MapPin,
   ArrowRight, 
   CheckCircle2, 
   Clock, 
   ShieldCheck,
-  Building2,
-  Award,
-  TrendingUp
+  Building2
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { useCountUp } from "@/hooks/useCountUp";
 import { z } from "zod";
 
 const contactSchema = z.object({
@@ -36,48 +32,34 @@ const contactSchema = z.object({
 const WHY_REQUEST = [
   {
     icon: Clock,
-    title: "Fast Response Time",
-    description: "Receive your detailed estimate within 24-48 hours, not weeks. Our team conducts thorough on-site assessments across Toronto and the GTA with transparent, itemized pricing and no hidden costs.",
+    title: "Detailed Project Assessment",
+    description: "Thorough on-site evaluation with itemized pricing for all construction requirements across Toronto and the GTA.",
     highlights: [
-      "24-48 hour turnaround time",
-      "Comprehensive on-site assessments",
-      "Transparent, itemized pricing"
+      "Comprehensive site analysis",
+      "Transparent pricing structure",
+      "Professional consultation"
     ]
   },
   {
     icon: ShieldCheck,
     title: "Licensed & Insured Professionals",
-    description: "Fully licensed Ontario contractor with $5M liability coverage. WSIB compliant with comprehensive safety protocols and 15+ years serving commercial and residential clients throughout the Greater Toronto Area.",
+    description: "Fully licensed Ontario contractor with comprehensive liability coverage and WSIB compliance.",
     highlights: [
-      "$5M comprehensive liability coverage",
+      "$5M liability coverage",
       "WSIB compliant operations",
-      "15+ years proven experience"
+      "15+ years construction experience"
     ]
   },
   {
     icon: Building2,
     title: "Comprehensive Service Coverage",
-    description: "21+ specialized construction services from one trusted partner. From commercial painting and masonry restoration to EIFS installation and metal cladding, serving Toronto, Mississauga, Brampton, Vaughan, and Markham.",
+    description: "Complete construction solutions from a single trusted partner throughout Ontario.",
     highlights: [
       "21+ specialized services",
-      "All construction trades under one roof",
-      "Complete Toronto & GTA coverage"
+      "Commercial and residential",
+      "Toronto & GTA service area"
     ]
   }
-];
-
-const SERVICE_BADGES = [
-  { label: "500+ Projects in Ontario", icon: CheckCircle2, count: 500 },
-  { label: "24/7 Emergency Response", icon: Clock, count: null },
-  { label: "98% Client Satisfaction", icon: Award, count: 98 },
-  { label: "15+ Years Experience", icon: TrendingUp, count: 15 },
-  { label: "Toronto & GTA Coverage", icon: MapPin, count: null }
-];
-
-const LOCATIONS = [
-  "Toronto", "Mississauga", "Brampton", "Vaughan", 
-  "Markham", "Richmond Hill", "Oakville", "Burlington",
-  "Etobicoke", "Scarborough", "North York", "Ajax"
 ];
 
 const InteractiveCTA = () => {
@@ -96,16 +78,6 @@ const InteractiveCTA = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
-  // Animated count for projects badge
-  const projectCount = useCountUp(500, 2000, isVisible);
-
-  // Calculate form completion progress
-  const formProgress = useMemo(() => {
-    const fields = [formData.name, formData.email, formData.phone, formData.projectType];
-    const filledFields = fields.filter(field => field.trim().length > 0).length;
-    return (filledFields / fields.length) * 100;
-  }, [formData]);
-
   // Email validation helper
   const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -114,90 +86,121 @@ const InteractiveCTA = () => {
   const handleQuickContact = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (isSubmittingRef.current) return;
-    isSubmittingRef.current = true;
-    setIsSubmitting(true);
+    // Prevent duplicate submissions
+    if (isSubmittingRef.current || isSubmitting) {
+      return;
+    }
+
+    // Clear previous errors
     setErrors({});
 
+    // Validate form data using Zod schema
     try {
-      const validatedData = contactSchema.parse(formData);
-
-      const { error: dbError } = await supabase
-        .from("contact_submissions")
-        .insert({
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          message: validatedData.message || `Project Type: ${validatedData.projectType || "Not specified"}`,
-          submission_type: "quote",
+      contactSchema.parse(formData);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0] as string] = err.message;
+          }
         });
+        setErrors(newErrors);
+        return;
+      }
+    }
+
+    // Set submitting state
+    isSubmittingRef.current = true;
+    setIsSubmitting(true);
+
+    try {
+      // Insert into contact_submissions table
+      const { error: dbError } = await supabase
+        .from('contact_submissions')
+        .insert([{
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          project_type: formData.projectType || null,
+          message: formData.message?.trim() || null,
+          source: 'homepage_cta'
+        }]);
 
       if (dbError) throw dbError;
 
-      await supabase.functions.invoke("send-contact-notification", {
-        body: {
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          message: validatedData.message || `Project Type: ${validatedData.projectType || "Not specified"}`,
-        },
-      });
-
-      toast({
-        title: "Request Sent Successfully!",
-        description: "We'll contact you within 24-48 hours with your detailed estimate.",
-      });
-
-      setFormData({ name: "", email: "", phone: "", projectType: "", message: "" });
-      
-      setTimeout(() => {
-        navigate("/estimate");
-      }, 1500);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const fieldErrors: Record<string, string> = {};
-        error.errors.forEach(err => {
-          if (err.path[0]) {
-            fieldErrors[err.path[0] as string] = err.message;
+      // Trigger notification edge function
+      try {
+        await supabase.functions.invoke('send-contact-notification', {
+          body: {
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim(),
+            projectType: formData.projectType || 'Not specified',
+            message: formData.message?.trim() || 'No message provided',
+            source: 'Homepage CTA'
           }
         });
-        setErrors(fieldErrors);
-      } else {
-        console.error("Form submission error:", error);
-        toast({
-          title: "Submission Error",
-          description: "Failed to submit request. Please try again or call us directly.",
-          variant: "destructive",
-        });
+      } catch (notificationError) {
+        console.error('Notification error:', notificationError);
       }
+
+      // Success toast
+      toast({
+        title: "Request Received!",
+        description: "We'll contact you shortly to discuss your project.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        projectType: "",
+        message: "",
+      });
+
+      // Navigate to thank you page after short delay
+      setTimeout(() => {
+        navigate('/contact?submitted=true');
+      }, 1500);
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Submission Failed",
+        description: "Please try again or call us directly.",
+        variant: "destructive",
+      });
     } finally {
-      setIsSubmitting(false);
       isSubmittingRef.current = false;
+      setIsSubmitting(false);
     }
   };
 
   return (
     <section 
       ref={sectionRef}
-      className="relative py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden"
+      id="cta-contact"
       aria-labelledby="cta-heading"
+      className="relative py-20 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden"
     >
-      {/* Decorative Background - Subtle Blur Circles */}
+      {/* Decorative Background */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-10 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12 space-y-4">
-          <Badge variant="outline" className="text-sm px-4 py-2">
-            <MapPin className="h-4 w-4 mr-2 inline" />
+        <div className="text-center mb-12">
+          <Badge variant="outline" className="mb-4 px-4 py-1.5">
+            <MapPin className="h-3 w-3 mr-2" />
             Toronto & GTA's Trusted Contractor
           </Badge>
           
-          <h2 id="cta-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Get Your Free Construction Estimate
+          <h2 id="cta-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground">
+            Request a Consultation
           </h2>
           
           <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -258,35 +261,10 @@ const InteractiveCTA = () => {
               </div>
             </div>
 
-            {/* Service Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-              {SERVICE_BADGES.map((badge, index) => {
-                const Icon = badge.icon;
-                const displayCount = badge.count === 500 ? projectCount : badge.count;
-                
-                return (
-                  <div 
-                    key={index}
-                    className="bg-card rounded-lg p-4 border border-border text-center hover:border-primary/50 transition-colors"
-                  >
-                    <Icon className="h-5 w-5 text-primary mx-auto mb-2" />
-                    <div className="text-xs text-muted-foreground leading-tight">
-                      {badge.count !== null ? (
-                        <span className="font-bold text-foreground block mb-1">
-                          {displayCount}{badge.count === 98 ? '%' : '+'}
-                        </span>
-                      ) : null}
-                      {badge.label.replace(/\d+\+?\s*/, '').replace(/\d+%\s*/, '')}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
             {/* Trust Paragraph */}
             <div className="bg-muted/30 rounded-xl p-6 border border-border">
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Ascent Group Construction has been Ontario's go-to contractor since 2009, specializing in commercial and industrial construction services. Our municipally licensed team serves property managers, facility directors, and homeowners throughout Toronto, Mississauga, Brampton, Vaughan, Markham, Richmond Hill, and the entire Greater Toronto Area. From small maintenance projects to large-scale renovations, we deliver quality craftsmanship backed by comprehensive warranties. Contact us today for your free, no-obligation estimate.
+                Ascent Group Construction has been Ontario's contractor since 2009, specializing in commercial and industrial construction services. Our municipally licensed team serves property managers, facility directors, and homeowners throughout Toronto, Mississauga, Brampton, Vaughan, Markham, Richmond Hill, and the entire Greater Toronto Area. From small maintenance projects to large-scale renovations, we deliver quality craftsmanship backed by comprehensive warranties.
               </p>
             </div>
           </div>
@@ -296,22 +274,12 @@ const InteractiveCTA = () => {
             <div className="bg-card rounded-2xl shadow-xl p-6 sm:p-8 border-2 border-border">
               <div className="mb-6">
                 <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                  Request Your Free Estimate
+                  Request Your Estimate
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Detailed quote within 24-48 hours. No obligation.
+                  Detailed consultation for your project. No obligation.
                 </p>
               </div>
-
-              {/* Form Progress */}
-              {formProgress > 0 && formProgress < 100 && (
-                <div className="mb-4">
-                  <Progress value={formProgress} className="h-1.5" />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {Math.round(formProgress)}% complete
-                  </p>
-                </div>
-              )}
 
               <form onSubmit={handleQuickContact} className="space-y-4">
                 <div>
@@ -426,7 +394,7 @@ const InteractiveCTA = () => {
                     "Sending Request..."
                   ) : (
                     <>
-                      Request Free Estimate
+                      Request Estimate
                       <ArrowRight className="h-5 w-5" />
                     </>
                   )}
@@ -460,68 +428,7 @@ const InteractiveCTA = () => {
             </div>
           </div>
         </div>
-
-        {/* Bottom CTA / Location Banner */}
-        <div className="mt-12 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 rounded-xl p-6 border border-border">
-          <div className="text-center mb-4">
-            <h3 className="text-lg font-bold text-foreground mb-2">
-              Serving Communities Across the Greater Toronto Area
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Professional construction services available in your area
-            </p>
-          </div>
-          
-          {/* Location Marquee */}
-          <div className="overflow-hidden relative">
-            <div className="flex gap-4 animate-marquee whitespace-nowrap">
-              {LOCATIONS.concat(LOCATIONS).map((city, i) => (
-                <span 
-                  key={i} 
-                  className="inline-flex items-center gap-2 text-sm text-muted-foreground px-3 py-1 bg-background/50 rounded-full border border-border"
-                >
-                  <MapPin className="h-3 w-3 text-primary" />
-                  {city}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-3 mt-6">
-            <Button asChild variant="outline" className="gap-2">
-              <Link to="/resources/service-areas">
-                <MapPin className="h-4 w-4" />
-                View All Service Areas
-              </Link>
-            </Button>
-            <Button asChild className="gap-2">
-              <a href="tel:+14165551234">
-                <Phone className="h-4 w-4" />
-                Call: (416) 555-1234
-              </a>
-            </Button>
-          </div>
-        </div>
       </div>
-
-      <style>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-        
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 };
