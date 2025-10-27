@@ -10,18 +10,10 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProcessTimelineStep from "@/components/ProcessTimelineStep";
-import { 
-  MapPin, 
-  Calendar, 
-  Ruler, 
-  DollarSign, 
-  Building2, 
-  Tag,
-  ArrowLeft,
-  Phone,
-  Mail
-} from "lucide-react";
+import { ProjectSidebar } from "@/components/ProjectSidebar";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
+import OptimizedImage from "@/components/OptimizedImage";
 
 interface ProcessStep {
   type: string;
@@ -53,6 +45,8 @@ interface ProjectData {
   after_images?: Array<{ url: string; alt: string; caption?: string }>;
   content_blocks?: ProcessStep[];
   description?: string;
+  challenge?: string;
+  results?: string;
   seo_title?: string;
   seo_description?: string;
   seo_keywords?: string[];
@@ -93,17 +87,21 @@ export default function ProjectDetail() {
 
   if (loading) {
     return (
-      <>
+      <div className="min-h-screen">
         <Navigation />
-        <main className="min-h-screen pt-20">
-          <div className="container mx-auto px-4 py-8">
-            <Skeleton className="h-96 w-full mb-8" />
-            <Skeleton className="h-32 w-full mb-8" />
-            <Skeleton className="h-64 w-full" />
+        <div className="container mx-auto px-4 py-8">
+          <Skeleton className="h-8 w-64 mb-4" />
+          <Skeleton className="h-64 w-full mb-8" />
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <Skeleton className="h-96" />
+            <div className="lg:col-span-3 space-y-4">
+              <Skeleton className="h-48" />
+              <Skeleton className="h-64" />
+            </div>
           </div>
-        </main>
+        </div>
         <Footer />
-      </>
+      </div>
     );
   }
 
@@ -119,221 +117,214 @@ export default function ProjectDetail() {
     <>
       <SEO
         title={project.seo_title || project.title}
-        description={project.seo_description || project.summary}
-        keywords={Array.isArray(project.seo_keywords) ? project.seo_keywords.join(', ') : project.seo_keywords}
+        description={project.seo_description || project.summary || ""}
+        keywords={project.seo_keywords?.join(", ")}
         ogImage={project.featured_image}
       />
-      <Navigation />
       
-      <main className="min-h-screen pt-20">
-        {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[400px] bg-gradient-to-br from-primary/20 to-primary/5">
-          {project.featured_image && (
-            <img
-              src={project.featured_image}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-          
-          <div className="relative h-full container mx-auto px-4 flex flex-col justify-end pb-12">
-            <Button
-              variant="ghost"
-              onClick={() => navigate("/projects")}
-              className="mb-4 w-fit"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Projects
-            </Button>
-            
-            <div className="space-y-4">
+      <div className="min-h-screen flex flex-col">
+        <Navigation />
+        
+        {/* Breadcrumb */}
+        <div className="border-b border-border/50 bg-muted/30">
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <button onClick={() => navigate("/")} className="hover:text-foreground transition-colors">
+                Home
+              </button>
+              <ChevronRight className="h-4 w-4" />
+              <button onClick={() => navigate("/projects")} className="hover:text-foreground transition-colors">
+                Projects
+              </button>
+              <ChevronRight className="h-4 w-4" />
+              <span className="text-foreground">{project.title}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Compact Header */}
+        <div className="border-b border-border/50 bg-gradient-to-b from-muted/30 to-background">
+          <div className="container mx-auto px-4 py-8 md:py-12">
+            <div className="max-w-4xl">
               {project.category && (
-                <Badge variant="secondary" className="text-sm">
+                <Badge variant="secondary" className="mb-4">
                   {project.category}
                 </Badge>
               )}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3">
                 {project.title}
               </h1>
               {project.subtitle && (
-                <p className="text-xl text-muted-foreground max-w-3xl">
+                <p className="text-lg md:text-xl text-muted-foreground">
                   {project.subtitle}
                 </p>
               )}
             </div>
           </div>
-        </section>
+        </div>
 
-        <div className="container mx-auto px-4 py-12">
-          {/* Project Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-            {project.location && (
-              <Card>
-                <CardContent className="flex items-start gap-3 p-6">
-                  <MapPin className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-semibold">{project.location}</p>
+        {/* Featured Image */}
+        {project.featured_image && (
+          <div className="container mx-auto px-4 py-8">
+            <OptimizedImage
+              src={project.featured_image}
+              alt={project.title}
+              width={1200}
+              height={600}
+              className="rounded-lg"
+              priority
+            />
+          </div>
+        )}
+
+        {/* Main Content - Two Column Layout */}
+        <div className="container mx-auto px-4 py-8 md:py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
+            {/* Sidebar */}
+            <aside className="lg:col-span-1">
+              <ProjectSidebar
+                clientName={project.client_name}
+                location={project.location}
+                startDate={project.start_date}
+                completionDate={project.completion_date}
+                projectSize={project.project_size}
+                budgetRange={project.budget_range}
+                category={project.category}
+                status={project.status}
+              />
+            </aside>
+
+            {/* Main Content */}
+            <main className="lg:col-span-3 space-y-12">
+              {/* Project Summary */}
+              {project.summary && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Project Overview</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    {project.summary}
+                  </p>
+                </section>
+              )}
+
+              {/* The Challenge */}
+              {project.challenge && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">The Challenge</h2>
+                  <div 
+                    className="prose prose-lg max-w-none text-muted-foreground"
+                    dangerouslySetInnerHTML={{ __html: project.challenge }}
+                  />
+                </section>
+              )}
+
+              {/* The Solution */}
+              {project.description && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">The Solution</h2>
+                  <div 
+                    className="prose prose-lg max-w-none text-muted-foreground"
+                    dangerouslySetInnerHTML={{ __html: project.description }}
+                  />
+                </section>
+              )}
+
+              {/* The Results */}
+              {project.results && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">The Results</h2>
+                  <div 
+                    className="prose prose-lg max-w-none text-muted-foreground"
+                    dangerouslySetInnerHTML={{ __html: project.results }}
+                  />
+                </section>
+              )}
+
+              {/* Before & After Gallery */}
+              {project.before_images && project.before_images.length > 0 && 
+               project.after_images && project.after_images.length > 0 && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-6">Before & After</h2>
+                  <div className="space-y-8">
+                    {project.before_images.map((beforeImg: any, index: number) => {
+                      const afterImg = project.after_images?.[index];
+                      if (!afterImg) return null;
+                      
+                      return (
+                        <div key={index} className="space-y-4">
+                          <BeforeAfterSlider
+                            beforeImage={beforeImg.url}
+                            afterImage={afterImg.url}
+                            altBefore={beforeImg.alt || "Before image"}
+                            altAfter={afterImg.alt || "After image"}
+                          />
+                          {(beforeImg.caption || afterImg.caption) && (
+                            <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
+                              <div className="text-center italic">{beforeImg.caption}</div>
+                              <div className="text-center italic">{afterImg.caption}</div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                </CardContent>
-              </Card>
-            )}
-            
-            {project.duration && (
-              <Card>
-                <CardContent className="flex items-start gap-3 p-6">
-                  <Calendar className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Duration</p>
-                    <p className="font-semibold">{project.duration}</p>
+                </section>
+              )}
+
+              {/* Project Process Timeline */}
+              {processSteps.length > 0 && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-6">Project Process</h2>
+                  <div className="space-y-6">
+                    {processSteps.map((step: ProcessStep) => (
+                      <ProcessTimelineStep
+                        key={step.step_number}
+                        step={step.step_number}
+                        title={step.title}
+                        duration={step.duration || ""}
+                        description={step.description}
+                        details={[]}
+                        deliverables={[]}
+                        image={step.image_url}
+                      />
+                    ))}
                   </div>
-                </CardContent>
-              </Card>
-            )}
-            
-            {project.project_size && (
-              <Card>
-                <CardContent className="flex items-start gap-3 p-6">
-                  <Ruler className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Project Size</p>
-                    <p className="font-semibold">{project.project_size}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-            
-            {project.budget_range && (
-              <Card>
-                <CardContent className="flex items-start gap-3 p-6">
-                  <DollarSign className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Budget Range</p>
-                    <p className="font-semibold">{project.budget_range}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-            
-            {project.client_name && (
-              <Card>
-                <CardContent className="flex items-start gap-3 p-6">
-                  <Building2 className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Client</p>
-                    <p className="font-semibold">{project.client_name}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-            
-            {project.status && (
-              <Card>
-                <CardContent className="flex items-start gap-3 p-6">
-                  <Tag className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Status</p>
-                    <p className="font-semibold capitalize">{project.status}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                </section>
+              )}
+            </main>
           </div>
 
-          {/* Project Summary */}
-          {(project.summary || project.description) && (
-            <section className="mb-12">
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold mb-4">Project Overview</h2>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {project.summary || project.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </section>
-          )}
-
-          {/* Before & After Gallery */}
-          {project.before_images && project.before_images.length > 0 && 
-           project.after_images && project.after_images.length > 0 && (
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold mb-6">Before & After</h2>
-              <div className="grid gap-6">
-                {project.before_images.map((beforeImg, idx) => {
-                  const afterImg = project.after_images?.[idx];
-                  if (!afterImg) return null;
-                  
-                  return (
-                    <Card key={idx}>
-                      <CardContent className="p-6">
-                        <BeforeAfterSlider
-                          beforeImage={beforeImg.url}
-                          afterImage={afterImg.url}
-                          altBefore={beforeImg.alt || "Before"}
-                          altAfter={afterImg.alt || "After"}
-                        />
-                        {(beforeImg.caption || afterImg.caption) && (
-                          <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-muted-foreground">
-                            {beforeImg.caption && <p><strong>Before:</strong> {beforeImg.caption}</p>}
-                            {afterImg.caption && <p><strong>After:</strong> {afterImg.caption}</p>}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {/* Process Steps Timeline */}
-          {processSteps.length > 0 && (
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold mb-6">Project Process</h2>
-              <div className="space-y-6">
-                {processSteps.map((step: ProcessStep) => (
-                  <ProcessTimelineStep
-                    key={step.step_number}
-                    step={step.step_number}
-                    title={step.title}
-                    duration={step.duration || ""}
-                    description={step.description}
-                    details={[]}
-                    deliverables={[]}
-                    image={step.image_url}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-
           {/* CTA Section */}
-          <section className="mt-16">
-            <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
-              <CardContent className="p-8 md:p-12 text-center">
-                <h2 className="text-3xl font-bold mb-4">Need a Similar Project?</h2>
-                <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                  Let's discuss how we can bring your vision to life with the same quality and attention to detail.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" onClick={() => navigate("/estimate")}>
-                    <Mail className="mr-2 h-5 w-5" />
-                    Request Estimate
-                  </Button>
-                  <Button size="lg" variant="outline" onClick={() => navigate("/contact")}>
-                    <Phone className="mr-2 h-5 w-5" />
-                    Contact Us
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
+          <Card className="mt-16 bg-gradient-to-br from-primary/10 via-background to-primary/5 border-primary/20">
+            <CardContent className="py-12 text-center">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                Need a Similar Project?
+              </h2>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Let's discuss how we can bring your vision to life with the same quality and professionalism
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  onClick={() => navigate("/estimate")}
+                  className="group"
+                >
+                  Request Free Estimate
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  onClick={() => navigate("/contact")}
+                >
+                  Contact Our Team
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 }
