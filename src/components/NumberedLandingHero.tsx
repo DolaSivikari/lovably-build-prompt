@@ -112,14 +112,12 @@ const NumberedLandingHero = () => {
               onLoadedData={handleVideo1Loaded}
               onEnded={handleVideo1Ended}
               onTimeUpdate={() => handleTimeUpdate(1)}
-              className={`w-full h-full object-cover absolute inset-0 transition-all duration-[4000ms] ${
+              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
                 activeVideo === 1 && videosLoaded.video1 
-                  ? 'opacity-100 scale-100' 
-                  : activeVideo !== 1 && videosLoaded.video1 
-                  ? 'opacity-0 scale-105' 
-                  : 'opacity-0 scale-100'
+                  ? 'opacity-100' 
+                  : 'opacity-0'
               }`}
-              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)' }}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.6, 1)' }}
             >
               <source src={heroPremiumVideo} type="video/mp4" />
             </video>
@@ -131,14 +129,12 @@ const NumberedLandingHero = () => {
               onLoadedData={handleVideo2Loaded}
               onEnded={handleVideo2Ended}
               onTimeUpdate={() => handleTimeUpdate(2)}
-              className={`w-full h-full object-cover absolute inset-0 transition-all duration-[4000ms] ${
+              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
                 activeVideo === 2 && videosLoaded.video2 
-                  ? 'opacity-100 scale-100' 
-                  : activeVideo !== 2 && videosLoaded.video2 
-                  ? 'opacity-0 scale-105' 
-                  : 'opacity-0 scale-100'
+                  ? 'opacity-100' 
+                  : 'opacity-0'
               }`}
-              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)' }}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.6, 1)' }}
             >
               <source src={homeHeroVideo} type="video/mp4" />
             </video>
@@ -150,14 +146,12 @@ const NumberedLandingHero = () => {
               onLoadedData={handleVideo3Loaded}
               onEnded={handleVideo3Ended}
               onTimeUpdate={() => handleTimeUpdate(3)}
-              className={`w-full h-full object-cover absolute inset-0 transition-all duration-[4000ms] ${
+              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
                 activeVideo === 3 && videosLoaded.video3 
-                  ? 'opacity-100 scale-100' 
-                  : activeVideo !== 3 && videosLoaded.video3 
-                  ? 'opacity-0 scale-105' 
-                  : 'opacity-0 scale-100'
+                  ? 'opacity-100' 
+                  : 'opacity-0'
               }`}
-              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)' }}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.6, 1)' }}
             >
               <source src={heroClipchampVideo} type="video/mp4" />
             </video>
