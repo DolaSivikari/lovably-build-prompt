@@ -90,11 +90,27 @@ const Dashboard = () => {
       
       if (error) {
         console.error('RPC Error:', error);
-        toast({
-          variant: "destructive",
-          title: "Failed to load dashboard stats",
-          description: "Please refresh the page to try again.",
-        });
+        
+        // Show specific error messages
+        if (error.message?.includes('does not exist')) {
+          toast({
+            variant: "destructive",
+            title: "Database Setup Incomplete",
+            description: "Dashboard statistics function not found. Please contact support.",
+          });
+        } else if (error.message?.includes('Access denied')) {
+          toast({
+            variant: "destructive",
+            title: "Access Denied",
+            description: "You don't have permission to view dashboard statistics.",
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Failed to load dashboard stats",
+            description: error.message || "Please refresh the page to try again.",
+          });
+        }
         return;
       }
       
@@ -186,7 +202,7 @@ const Dashboard = () => {
                     <Button onClick={() => navigate("/admin/projects")}>
                       Create Project
                     </Button>
-                    <Button variant="outline" onClick={() => navigate("/admin/blog-posts")}>
+                    <Button variant="outline" onClick={() => navigate("/admin/blog")}>
                       Write Blog Post
                     </Button>
                     <Button variant="outline" onClick={() => navigate("/admin/services")}>
@@ -218,14 +234,14 @@ const Dashboard = () => {
               value={stats.contactSubmissions}
               icon={Mail}
               badge={stats.newSubmissions}
-              onClick={() => navigate("/admin/contacts")}
+              onClick={() => navigate("/admin/contact-submissions")}
             />
             <MetricCard
               title="Resume Inbox"
               value={stats.resumeSubmissions}
               icon={Users}
               badge={stats.newResumes}
-              onClick={() => navigate("/admin/resumes")}
+              onClick={() => navigate("/admin/resume-submissions")}
             />
           </div>
         )}

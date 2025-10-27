@@ -571,6 +571,48 @@ export type Database = {
         }
         Relationships: []
       }
+      homepage_settings: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          headline: string
+          hero_description: string | null
+          id: string
+          is_active: boolean | null
+          services_intro: string | null
+          subheadline: string
+          updated_at: string | null
+          updated_by: string | null
+          why_choose_content: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          headline?: string
+          hero_description?: string | null
+          id?: string
+          is_active?: boolean | null
+          services_intro?: string | null
+          subheadline?: string
+          updated_at?: string | null
+          updated_by?: string | null
+          why_choose_content?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          headline?: string
+          hero_description?: string | null
+          id?: string
+          is_active?: boolean | null
+          services_intro?: string | null
+          subheadline?: string
+          updated_at?: string | null
+          updated_by?: string | null
+          why_choose_content?: string | null
+        }
+        Relationships: []
+      }
       job_postings: {
         Row: {
           closing_date: string | null
@@ -1950,6 +1992,7 @@ export type Database = {
         }
         Returns: string
       }
+      get_admin_dashboard_stats: { Args: never; Returns: Json }
       get_security_audit_log: {
         Args: { limit_count?: number }
         Returns: {
