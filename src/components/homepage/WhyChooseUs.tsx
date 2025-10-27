@@ -72,12 +72,12 @@ const WhyChooseUs = () => {
         {/* Section Header */}
         <div className="text-center mb-16 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-            What Sets Us Apart
+            Why Choose Ascent Group Construction in Toronto & the GTA
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
             With over 15 years of experience serving Toronto, Mississauga, Brampton, Vaughan, and Markham, 
-            we deliver complex projects through licensed expertise, comprehensive service offerings, 
-            and unwavering commitment to quality across Ontario.
+            we combine licensed expertise, comprehensive services, and unwavering commitment to deliver 
+            exceptional construction results on every commercial and residential project across Ontario.
           </p>
         </div>
 
@@ -112,9 +112,16 @@ const WhyChooseUs = () => {
                         {item.title}
                       </h3>
                       
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                         {item.fullDesc}
                       </p>
+                    </div>
+
+                    {/* Stats Badge */}
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+                        {item.stats}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -123,6 +130,36 @@ const WhyChooseUs = () => {
           })}
         </div>
 
+        {/* Bottom CTA Section */}
+        <div className="text-center max-w-2xl mx-auto">
+          <div className="bg-card/80 backdrop-blur-sm rounded-2xl border-2 border-primary/20 p-8 shadow-xl">
+            <h3 className="text-2xl font-bold mb-4 text-foreground">
+              Ready to Start Your Project?
+            </h3>
+            <p className="text-muted-foreground mb-6">
+              Get a detailed, itemized estimate for your construction project in Toronto or the GTA
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="min-w-[200px]">
+                <Link to="/estimate">Get Free Estimate</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="min-w-[200px]">
+                <Link to="/projects">View Our Projects</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* SEO-Rich Bottom Content */}
+        <div className="mt-12 text-center text-sm text-muted-foreground max-w-4xl mx-auto">
+          <p className="leading-relaxed">
+            Serving the Greater Toronto Area including Toronto, North York, Etobicoke, Scarborough, 
+            Mississauga, Brampton, Vaughan, Markham, Richmond Hill, and surrounding Ontario communities 
+            with professional construction services including commercial painting, residential painting, 
+            EIFS installation, stucco repair, masonry restoration, metal cladding, parking garage 
+            restoration, waterproofing, and specialty construction solutions.
+          </p>
+        </div>
       </div>
     </section>
   );

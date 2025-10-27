@@ -68,6 +68,15 @@ const Hero = () => {
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl">
+          {/* Premium Badge */}
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-primary/10 md:bg-primary-foreground/10 backdrop-blur-sm border border-primary/20 md:border-primary-foreground/20 rounded-full animate-fade-in">
+            <div className="w-2 h-2 bg-primary md:bg-secondary rounded-full animate-pulse-glow" />
+            <span className="text-primary md:text-primary-foreground font-semibold text-sm tracking-wider uppercase">
+              <Sparkles className="inline-block w-4 h-4 mr-1" />
+              {badgeText}
+            </span>
+          </div>
+
           <h1 className="text-4xl md:text-6xl font-bold text-foreground md:text-primary-foreground mb-6 animate-slide-up">
             {headline.split(',')[0]},
             <span className="block text-primary md:text-secondary relative">
@@ -80,11 +89,25 @@ const Hero = () => {
             {subheadline}
           </p>
 
-          <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            <Button size="lg" variant="default" asChild className="group hover:shadow-glow transition-all md:variant-secondary">
+              <Link to={primaryCtaUrl}>
+                {primaryCtaText}
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
             <Button size="lg" variant="outline" className="border-2 md:bg-transparent md:border-primary-foreground md:text-primary-foreground md:hover:bg-primary-foreground md:hover:text-primary transition-all" asChild>
               <Link to={secondaryCtaUrl}>{secondaryCtaText}</Link>
             </Button>
           </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+        <div className="flex flex-col items-center gap-2 text-muted-foreground md:text-primary-foreground/70">
+          <span className="text-xs uppercase tracking-wider">Scroll to explore</span>
+          <ChevronDown className="h-6 w-6" />
         </div>
       </div>
     </section>

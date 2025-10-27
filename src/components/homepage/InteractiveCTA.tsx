@@ -1,429 +1,325 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { 
-  Phone, 
-  Mail, 
-  MapPin,
-  ArrowRight, 
-  CheckCircle2, 
-  Clock, 
-  ShieldCheck,
-  Building2
-} from "lucide-react";
+import { Phone, Mail, MapPin, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { z } from "zod";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email address").max(255),
   phone: z.string().trim().min(1, "Phone is required").max(20),
-  projectType: z.string().optional(),
   message: z.string().trim().max(1000).optional(),
 });
 
-const WHY_REQUEST = [
+const stories = [
   {
+    stat: "500+",
+    label: "Projects Completed",
+    detail: "From small renovations to major restorations",
+    icon: CheckCircle2,
+  },
+  {
+    stat: "15+",
+    label: "Years Experience",
+    detail: "Trusted by Ontario property owners since 2009",
     icon: Clock,
-    title: "Detailed Project Assessment",
-    description: "Thorough on-site evaluation with itemized pricing for all construction requirements across Toronto and the GTA.",
-    highlights: [
-      "Comprehensive site analysis",
-      "Transparent pricing structure",
-      "Professional consultation"
-    ]
   },
   {
-    icon: ShieldCheck,
-    title: "Licensed & Insured Professionals",
-    description: "Fully licensed Ontario contractor with comprehensive liability coverage and WSIB compliance.",
-    highlights: [
-      "$5M liability coverage",
-      "WSIB compliant operations",
-      "15+ years construction experience"
-    ]
+    stat: "98%",
+    label: "Client Satisfaction",
+    detail: "Based on verified reviews and repeat business",
+    icon: Shield,
   },
-  {
-    icon: Building2,
-    title: "Comprehensive Service Coverage",
-    description: "Complete construction solutions from a single trusted partner throughout Ontario.",
-    highlights: [
-      "21+ specialized services",
-      "Commercial and residential",
-      "Toronto & GTA service area"
-    ]
-  }
 ];
 
 const InteractiveCTA = () => {
   const navigate = useNavigate();
-  const sectionRef = useRef<HTMLElement>(null);
-  const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.1 });
+  const [currentStory, setCurrentStory] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    projectType: "",
     message: "",
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
-  // Email validation helper
-  const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
+  // Rotate stories every 4 seconds (fixed memory leak)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStory((prev) => (prev + 1) % stories.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleQuickContact = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Prevent duplicate submissions
-    if (isSubmittingRef.current || isSubmitting) {
-      return;
-    }
-
-    // Clear previous errors
-    setErrors({});
-
-    // Validate form data using Zod schema
-    try {
-      contactSchema.parse(formData);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
-          if (err.path[0]) {
-            newErrors[err.path[0] as string] = err.message;
-          }
-        });
-        setErrors(newErrors);
-        return;
-      }
-    }
-
-    // Set submitting state
+    // Prevent duplicate submissions with synchronous check
+    if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
     setIsSubmitting(true);
 
-    try {
-      // Insert into contact_submissions table
-      const { error: dbError } = await supabase
-        .from('contact_submissions')
-        .insert([{
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          phone: formData.phone.trim(),
-          project_type: formData.projectType || null,
-          message: formData.message?.trim() || null,
-          source: 'homepage_cta'
-        }]);
+    // Cancel any pending requests
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
 
+    try {
+      // Validate form data
+      const validatedData = contactSchema.parse(formData);
+
+      // Insert into database with timeout
+      const dbPromise = supabase
+        .from("contact_submissions")
+        .insert({
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          message: validatedData.message || "Quick estimate request",
+          submission_type: "quote",
+        });
+
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Database request timeout")), 10000)
+      );
+
+      const { error: dbError } = await Promise.race([dbPromise, timeoutPromise]) as any;
       if (dbError) throw dbError;
 
-      // Trigger notification edge function
-      try {
-        await supabase.functions.invoke('send-contact-notification', {
-          body: {
-            name: formData.name.trim(),
-            email: formData.email.trim(),
-            phone: formData.phone.trim(),
-            projectType: formData.projectType || 'Not specified',
-            message: formData.message?.trim() || 'No message provided',
-            source: 'Homepage CTA'
-          }
-        });
-      } catch (notificationError) {
-        console.error('Notification error:', notificationError);
-      }
+      // Send notification email with timeout
+      const emailPromise = supabase.functions.invoke("send-contact-notification", {
+        body: {
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          message: validatedData.message || "Quick estimate request",
+        },
+      });
 
-      // Success toast
+      await Promise.race([
+        emailPromise,
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Email notification timeout")), 10000)
+        ),
+      ]);
+
       toast({
-        title: "Request Received!",
-        description: "We'll contact you shortly to discuss your project.",
+        title: "Request Sent!",
+        description: "We'll contact you within 24 hours.",
       });
 
       // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        projectType: "",
-        message: "",
-      });
-
-      // Navigate to thank you page after short delay
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      
+      // Use navigate instead of window.location for proper routing
       setTimeout(() => {
-        navigate('/contact?submitted=true');
+        navigate("/estimate");
       }, 1500);
-
     } catch (error) {
-      console.error('Form submission error:', error);
-      toast({
-        title: "Submission Failed",
-        description: "Please try again or call us directly.",
-        variant: "destructive",
-      });
+      if (error instanceof Error && error.message.includes("timeout")) {
+        toast({
+          title: "Request Timeout",
+          description: "The request is taking longer than expected. We'll still process it.",
+          variant: "destructive",
+        });
+      } else {
+        console.error("Form submission error:", error);
+        toast({
+          title: "Error",
+          description: "Failed to submit request. Please try again.",
+          variant: "destructive",
+        });
+      }
     } finally {
-      isSubmittingRef.current = false;
       setIsSubmitting(false);
+      isSubmittingRef.current = false;
+      abortControllerRef.current = null;
     }
   };
 
   return (
-    <section 
-      ref={sectionRef}
-      id="cta-contact"
-      aria-labelledby="cta-heading"
-      className="relative py-20 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden"
-    >
-      {/* Decorative Background */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-10 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
+    <section className="relative py-20 bg-gradient-to-br from-primary to-primary/90 overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-diagonal-stripes"></div>
       </div>
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4 px-4 py-1.5">
-            <MapPin className="h-3 w-3 mr-2" />
-            Toronto & GTA's Trusted Contractor
-          </Badge>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           
-          <h2 id="cta-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Request a Consultation
-          </h2>
-          
-          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Partner with Ontario's trusted construction experts serving Toronto, Mississauga, Brampton, Vaughan, and the Greater Toronto Area. Whether you're planning commercial painting, masonry restoration, EIFS installation, or structural repairs, our licensed and insured team delivers exceptional results on time and within budget. Request your detailed, no-obligation estimate today and discover why 500+ property owners across Ontario choose Ascent Group Construction.
-          </p>
-        </div>
-
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-[1.2fr,1fr] gap-8 lg:gap-12 items-start">
-          
-          {/* Left Column - Info Cards */}
-          <div className="space-y-8">
-            
-            {/* Why Request Section */}
+          {/* Left Column - Rotating Visual Story */}
+          <div className="text-white space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">
-                Why Request an Estimate from Ascent Group
-              </h3>
-              
-              <div className="space-y-6">
-                {WHY_REQUEST.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <article 
-                      key={index}
-                      className="relative bg-card rounded-xl p-6 border-2 border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 group"
-                    >
-                      {/* Icon Container */}
-                      <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                        <Icon className="h-7 w-7 text-primary" />
-                      </div>
-                      
-                      {/* Title */}
-                      <h3 className="text-xl font-bold mb-3 text-foreground">
-                        {item.title}
-                      </h3>
-                      
-                      {/* Description */}
-                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                        {item.description}
-                      </p>
-                      
-                      {/* Highlights */}
-                      <ul className="space-y-2">
-                        {item.highlights.map((highlight, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                            <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      
-                      {/* Hover Gradient Overlay */}
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-transparent transition-all duration-300 pointer-events-none"></div>
-                    </article>
-                  );
-                })}
-              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                Your Construction Partner For Success
+              </h2>
+              <p className="text-xl text-white/90 leading-relaxed">
+                From concept to completion, we deliver exceptional results with transparent communication and expert craftsmanship.
+              </p>
             </div>
 
-            {/* Trust Paragraph */}
-            <div className="bg-muted/30 rounded-xl p-6 border border-border">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Ascent Group Construction has been Ontario's contractor since 2009, specializing in commercial and industrial construction services. Our municipally licensed team serves property managers, facility directors, and homeowners throughout Toronto, Mississauga, Brampton, Vaughan, Markham, Richmond Hill, and the entire Greater Toronto Area. From small maintenance projects to large-scale renovations, we deliver quality craftsmanship backed by comprehensive warranties.
-              </p>
+            {/* Animated Story Cards */}
+            <AnimatePresence mode="wait">
+              {(() => {
+                const CurrentIcon = stories[currentStory].icon;
+                return (
+                  <motion.div
+                    key={currentStory}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="bg-secondary/20 rounded-full p-3 flex-shrink-0">
+                        {CurrentIcon && <CurrentIcon className="h-8 w-8 text-secondary" />}
+                      </div>
+                      <div>
+                        <div className="text-5xl font-bold mb-2 text-secondary">
+                          {stories[currentStory].stat}
+                        </div>
+                        <div className="text-xl font-semibold mb-1">
+                          {stories[currentStory].label}
+                        </div>
+                        <p className="text-white/80 text-sm">
+                          {stories[currentStory].detail}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })()}
+            </AnimatePresence>
+
+            {/* Story Navigation Dots */}
+            <div className="flex gap-2">
+              {stories.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentStory(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentStory
+                      ? "w-8 bg-secondary"
+                      : "w-2 bg-white/30 hover:bg-white/50"
+                  }`}
+                  aria-label={`View story ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/20">
+              <div className="text-center">
+                <Shield className="h-6 w-6 mx-auto mb-2 text-secondary" />
+                <div className="text-xs text-white/80">Fully Licensed</div>
+              </div>
+              <div className="text-center">
+                <CheckCircle2 className="h-6 w-6 mx-auto mb-2 text-secondary" />
+                <div className="text-xs text-white/80">WSIB Compliant</div>
+              </div>
+              <div className="text-center">
+                <Clock className="h-6 w-6 mx-auto mb-2 text-secondary" />
+                <div className="text-xs text-white/80">24/7 Support</div>
+              </div>
             </div>
           </div>
 
-          {/* Right Column - Sticky Contact Form */}
-          <div className="lg:sticky lg:top-24">
-            <div className="bg-card rounded-2xl shadow-xl p-6 sm:p-8 border-2 border-border">
-              <div className="mb-6">
-                <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                  Request Your Estimate
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Detailed consultation for your project. No obligation.
-                </p>
+          {/* Right Column - Quick Contact Form */}
+          <div className="bg-background rounded-2xl shadow-2xl p-8 lg:p-10">
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Get Your Free Estimate
+              </h3>
+              <p className="text-muted-foreground">
+                Detailed quote within 24-48 hours. No obligation.
+              </p>
+            </div>
+
+            <form onSubmit={handleQuickContact} className="space-y-4">
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Your Name"
+                  required
+                  className="h-12"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
               </div>
+              <div>
+                <Input
+                  type="email"
+                  placeholder="Email Address"
+                  required
+                  className="h-12"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                />
+              </div>
+              <div>
+                <Input
+                  type="tel"
+                  placeholder="Phone Number"
+                  required
+                  className="h-12"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                />
+              </div>
+              <div>
+                <Textarea
+                  placeholder="Tell us about your project..."
+                  rows={4}
+                  className="resize-none"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                />
+              </div>
+              
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full h-12 text-base gap-2"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  "Sending..."
+                ) : (
+                  <>
+                    Request Free Estimate
+                    <ArrowRight className="h-5 w-5" />
+                  </>
+                )}
+              </Button>
+            </form>
 
-              <form onSubmit={handleQuickContact} className="space-y-4">
-                <div>
-                  <Label htmlFor="name" className="sr-only">Your Name</Label>
-                  <div className="relative">
-                    <Input
-                      id="name"
-                      type="text"
-                      placeholder="Your Name *"
-                      required
-                      className="h-12"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      aria-invalid={!!errors.name}
-                      aria-describedby={errors.name ? "name-error" : undefined}
-                    />
-                    {formData.name.trim().length > 2 && (
-                      <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-green-500" />
-                    )}
-                  </div>
-                  {errors.name && (
-                    <p id="name-error" role="alert" className="text-destructive text-xs mt-1">{errors.name}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="email" className="sr-only">Email Address</Label>
-                  <div className="relative">
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="Email Address *"
-                      required
-                      className="h-12"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      aria-invalid={!!errors.email}
-                      aria-describedby={errors.email ? "email-error" : undefined}
-                    />
-                    {formData.email && isValidEmail(formData.email) && (
-                      <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-green-500" />
-                    )}
-                  </div>
-                  {errors.email && (
-                    <p id="email-error" role="alert" className="text-destructive text-xs mt-1">{errors.email}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="phone" className="sr-only">Phone Number</Label>
-                  <div className="relative">
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="Phone Number *"
-                      required
-                      className="h-12"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      aria-invalid={!!errors.phone}
-                      aria-describedby={errors.phone ? "phone-error" : undefined}
-                    />
-                    {formData.phone.trim().length >= 10 && (
-                      <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-green-500" />
-                    )}
-                  </div>
-                  {errors.phone && (
-                    <p id="phone-error" role="alert" className="text-destructive text-xs mt-1">{errors.phone}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="projectType" className="sr-only">Project Type</Label>
-                  <Select 
-                    value={formData.projectType} 
-                    onValueChange={(value) => setFormData({...formData, projectType: value})}
-                  >
-                    <SelectTrigger id="projectType" className="h-12">
-                      <SelectValue placeholder="Select Project Type (Optional)" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="commercial-painting">Commercial Painting</SelectItem>
-                      <SelectItem value="masonry-restoration">Masonry Restoration</SelectItem>
-                      <SelectItem value="eifs-installation">EIFS Installation</SelectItem>
-                      <SelectItem value="metal-cladding">Metal Cladding</SelectItem>
-                      <SelectItem value="parking-garage">Parking Garage Restoration</SelectItem>
-                      <SelectItem value="waterproofing">Waterproofing Services</SelectItem>
-                      <SelectItem value="other">Other Services</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="message" className="sr-only">Project Details</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Tell us about your project... (Optional)"
-                    rows={4}
-                    className="resize-none"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  />
-                </div>
-                
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full h-12 text-base gap-2"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    "Sending Request..."
-                  ) : (
-                    <>
-                      Request Estimate
-                      <ArrowRight className="h-5 w-5" />
-                    </>
-                  )}
+            <div className="mt-6 pt-6 border-t border-border">
+              <p className="text-sm text-muted-foreground mb-3 text-center">
+                Prefer to talk directly?
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                <Button variant="outline" asChild className="gap-2">
+                  <a href="tel:+14165551234">
+                    <Phone className="h-4 w-4" />
+                    Call Now
+                  </a>
                 </Button>
-
-                <div className="flex items-center gap-2 text-xs text-muted-foreground justify-center">
-                  <ShieldCheck className="h-4 w-4 text-primary" />
-                  <span>Your information is secure and confidential</span>
-                </div>
-              </form>
-
-              <div className="mt-6 pt-6 border-t border-border">
-                <p className="text-sm text-muted-foreground mb-3 text-center">
-                  Prefer to talk directly?
-                </p>
-                <div className="grid grid-cols-2 gap-3">
-                  <Button variant="outline" asChild className="gap-2 h-11">
-                    <a href="tel:+14165551234">
-                      <Phone className="h-4 w-4" />
-                      Call Now
-                    </a>
-                  </Button>
-                  <Button variant="outline" asChild className="gap-2 h-11">
-                    <Link to="/contact">
-                      <Mail className="h-4 w-4" />
-                      Email Us
-                    </Link>
-                  </Button>
-                </div>
+                <Button variant="outline" asChild className="gap-2">
+                  <Link to="/contact">
+                    <Mail className="h-4 w-4" />
+                    Email Us
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>

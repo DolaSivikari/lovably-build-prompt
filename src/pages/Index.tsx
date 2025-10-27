@@ -7,9 +7,13 @@ import SEO from "@/components/SEO";
 import SocialProof from "@/components/SocialProof";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
+import TrustBar from "@/components/homepage/TrustBar";
 import ClientSelector from "@/components/homepage/ClientSelector";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
+import CertificationsBar from "@/components/homepage/CertificationsBar";
+import PrequalPackage from "@/components/homepage/PrequalPackage";
 
+import DirectAnswer from "@/components/seo/DirectAnswer";
 import SkipLink from "@/components/SkipLink";
 import InteractiveCTA from "@/components/homepage/InteractiveCTA";
 import AchievementShowcase from "@/components/homepage/AchievementShowcase";
@@ -103,54 +107,28 @@ const Index = () => {
 
   const siteSearchSchema = createSiteSearchSchema("https://ascentgroupconstruction.com");
 
-  // CTA Contact Page Schema
-  const ctaContactSchema = {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "name": "Get Free Construction Estimate - Ascent Group Construction",
-    "description": "Request your free construction estimate in Toronto & GTA. Licensed contractor serving Mississauga, Brampton, Vaughan, Markham. 24-48 hour response time.",
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Ascent Group Construction",
-      "@id": "https://ascentgroupconstruction.com/#organization",
-      "telephone": "+14165551234",
-      "email": "info@ascentgroupconstruction.com",
-      "areaServed": [
-        { "@type": "City", "name": "Toronto", "containedInPlace": { "@type": "State", "name": "Ontario" } },
-        { "@type": "City", "name": "Mississauga", "containedInPlace": { "@type": "State", "name": "Ontario" } },
-        { "@type": "City", "name": "Brampton", "containedInPlace": { "@type": "State", "name": "Ontario" } },
-        { "@type": "City", "name": "Vaughan", "containedInPlace": { "@type": "State", "name": "Ontario" } },
-        { "@type": "City", "name": "Markham", "containedInPlace": { "@type": "State", "name": "Ontario" } }
-      ]
-    },
-    "mainEntity": {
-      "@type": "Service",
-      "name": "Free Construction Estimate",
-      "description": "Detailed construction estimates within 24-48 hours for commercial painting, masonry restoration, EIFS installation, and all construction services",
-      "provider": { "@id": "https://ascentgroupconstruction.com/#organization" },
-      "areaServed": "Greater Toronto Area",
-      "availableChannel": {
-        "@type": "ServiceChannel",
-        "serviceUrl": "https://ascentgroupconstruction.com/estimate",
-        "servicePhone": "+14165551234"
-      }
-    }
-  };
-
   return (
     <div className="min-h-screen">
       <SkipLink />
-      <SEO structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema, ctaContactSchema]} />
+      <SEO structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} />
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">
         <NumberedLandingHero />
+        <TrustBar />
+        
+        {/* Direct Answer for AEO/GEO */}
+        <DirectAnswer />
+        
         <CompanyOverviewHub />
         <ClientSelector />
         <WhyChooseUs />
         <ServicesExplorer />
         <AchievementShowcase />
+        <CertificationsBar />
+        
         <SocialProof />
+        <PrequalPackage />
         <ContentHub />
         <InteractiveCTA />
       </main>
