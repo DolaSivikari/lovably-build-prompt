@@ -16,7 +16,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 45 50% 98%;   /* Light cream background */
+    --background: 0 0% 100%;   /* Light cream background */
     --foreground: 0 0% 17%;     /* Charcoal text */
 
     --card: 0 0% 100%;          /* White cards */
@@ -45,7 +45,7 @@ All colors MUST be HSL.
     --secondary: 25 95% 53%;    /* Construction Orange */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 45 30% 94%;        /* Cream-based muted */
+    --muted: 0 0% 96%;        /* Cream-based muted */
     --muted-foreground: 0 0% 35%; /* Charcoal-based muted text */
     
     /* Accessible color variants for WCAG AA compliance */
