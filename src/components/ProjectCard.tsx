@@ -13,10 +13,11 @@ interface ProjectCardProps {
   year: string;
   size: string;
   image: string;
+  slug: string;
   tags?: string[];
   description: string;
   highlights?: string[];
-  onViewDetails: () => void;
+  onViewDetails: (slug: string) => void;
 }
 
 const ProjectCard = ({
@@ -26,6 +27,7 @@ const ProjectCard = ({
   year,
   size,
   image,
+  slug,
   tags,
   description,
   highlights,
@@ -38,7 +40,7 @@ const ProjectCard = ({
       className="group overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onViewDetails}
+      onClick={() => onViewDetails(slug)}
     >
       {/* Image Container - PCL style */}
       <div className="relative h-64 overflow-hidden">

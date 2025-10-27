@@ -7,19 +7,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Save, Eye } from "lucide-react";
+import { ArrowLeft, Save, Eye, RefreshCw } from "lucide-react";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { MultiImageUpload, GalleryImage } from "@/components/admin/MultiImageUpload";
 import { ProcessStepsEditor, ProcessStep } from "@/components/admin/ProcessStepsEditor";
 import { generatePreviewToken } from "@/utils/routeHelpers";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 const ProjectEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [slugStatus, setSlugStatus] = useState<{
+    isChecking: boolean;
+    isAvailable: boolean;
+    message: string;
+  }>({ isChecking: false, isAvailable: true, message: "" });
   const [formData, setFormData] = useState<any>({
     slug: "",
     title: "",
@@ -46,6 +52,57 @@ const ProjectEditor = () => {
     after_images: [],
     content_blocks: [],
   });
+
+  // Auto-generate slug from title when title changes and slug is empty
+  useEffect(() => {
+    if (formData.title && !formData.slug && id === "new") {
+      const autoSlug = formData.title
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-]/g, "");
+      setFormData((prev: any) => ({ ...prev, slug: autoSlug }));
+    }
+  }, [formData.title, id]);
+
+  // Debounced slug uniqueness check
+  useEffect(() => {
+    const checkSlugUniqueness = async () => {
+      if (!formData.slug) {
+        setSlugStatus({ isChecking: false, isAvailable: true, message: "" });
+        return;
+      }
+      
+      setSlugStatus({ isChecking: true, isAvailable: true, message: "Checking..." });
+      
+      const { data, error } = await supabase
+        .from("projects")
+        .select("id, slug")
+        .eq("slug", formData.slug);
+      
+      if (error) {
+        setSlugStatus({ 
+          isChecking: false, 
+          isAvailable: false, 
+          message: "Error checking slug" 
+        });
+        return;
+      }
+      
+      // If editing existing project, ignore current project's slug
+      const isDuplicate = data && data.some((p: any) => p.id !== id);
+      
+      setSlugStatus({
+        isChecking: false,
+        isAvailable: !isDuplicate,
+        message: isDuplicate 
+          ? "⚠️ This slug is already in use" 
+          : "✓ Available"
+      });
+    };
+    
+    const timer = setTimeout(checkSlugUniqueness, 500);
+    return () => clearTimeout(timer);
+  }, [formData.slug, id]);
 
   useEffect(() => {
     if (id && id !== "new") {
@@ -98,6 +155,17 @@ const ProjectEditor = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Check slug availability before saving
+    if (!slugStatus.isAvailable) {
+      toast({
+        title: "Error",
+        description: "Please choose a unique slug before saving",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
 
     const { data: { user } } = await supabase.auth.getUser();
@@ -225,12 +293,29 @@ const ProjectEditor = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="slug">Slug *</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="slug">URL Slug *</Label>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    const autoSlug = formData.title
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")
+                      .replace(/[^a-z0-9-]/g, "");
+                    setFormData({ ...formData, slug: autoSlug });
+                  }}
+                  disabled={!formData.title}
+                >
+                  <RefreshCw className="w-3 h-3 mr-1" />
+                  Generate from Title
+                </Button>
+              </div>
               <Input
                 id="slug"
                 value={formData.slug}
                 onChange={(e) => {
-                  // Sanitize slug: lowercase, replace spaces with hyphens, remove special characters
                   const sanitized = e.target.value
                     .toLowerCase()
                     .replace(/\s+/g, "-")
@@ -238,11 +323,29 @@ const ProjectEditor = () => {
                   setFormData({ ...formData, slug: sanitized });
                 }}
                 required
-                placeholder="project-name-example"
+                placeholder="95-calvington-drive"
+                className={!slugStatus.isAvailable ? "border-destructive" : ""}
               />
-              <p className="text-sm text-muted-foreground">
-                URL: /case-study/{formData.slug || "project-name-example"}
-              </p>
+              
+              {/* Status indicator */}
+              <div className="flex items-center justify-between text-sm">
+                <p className="text-muted-foreground">
+                  URL: https://ascentgroupconstruction.com/case-study/
+                  <span className="font-semibold text-foreground">
+                    {formData.slug || "project-slug"}
+                  </span>
+                </p>
+                {formData.slug && (
+                  <p className={cn(
+                    "text-xs font-medium",
+                    slugStatus.isChecking && "text-muted-foreground",
+                    slugStatus.isAvailable && !slugStatus.isChecking && "text-green-600",
+                    !slugStatus.isAvailable && !slugStatus.isChecking && "text-destructive"
+                  )}>
+                    {slugStatus.message}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
 

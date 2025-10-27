@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -6,7 +7,6 @@ import PageHeader from "@/components/PageHeader";
 import FilterBar from "@/components/FilterBar";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
-import ProjectDetailModal from "@/components/ProjectDetailModal";
 import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,11 +24,10 @@ const categories = [
 const years = ["All", "2024", "2023", "2022", "2021"];
 
 const Projects = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All");
-  const [selectedProject, setSelectedProject] = useState<any>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [visibleCount, setVisibleCount] = useState(6);
   const [allProjects, setAllProjects] = useState<any[]>([]);
@@ -115,9 +114,8 @@ const Projects = () => {
   const regularProjects = filteredProjects.filter(p => !p.featured);
   const visibleProjects = regularProjects.slice(0, visibleCount);
 
-  const handleViewDetails = (project: any) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
+  const handleViewDetails = (slug: string) => {
+    navigate(`/case-study/${slug}`);
   };
 
   const loadMore = () => {
@@ -210,7 +208,8 @@ const Projects = () => {
                   <ProjectCard
                     key={project.slug}
                     {...project}
-                    onViewDetails={() => handleViewDetails(project)}
+                    slug={project.slug}
+                    onViewDetails={handleViewDetails}
                   />
                 ))}
               </div>
@@ -230,13 +229,6 @@ const Projects = () => {
           )}
         </div>
       </section>
-
-      {/* Project Detail Modal */}
-      <ProjectDetailModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        project={selectedProject}
-      />
 
       <Footer />
     </div>
