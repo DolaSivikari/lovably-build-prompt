@@ -416,7 +416,7 @@ const Navigation = () => {
 
           {/* Mobile Menu Button - Animated Hamburger */}
           <button
-            className="md:hidden text-foreground relative touch-target flex items-center justify-center"
+            className="md:hidden text-foreground relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md hover:bg-muted"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}

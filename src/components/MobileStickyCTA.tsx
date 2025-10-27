@@ -49,28 +49,28 @@ const MobileStickyCTA = () => {
       )}
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <div className="bg-background/95 backdrop-blur-md border-t border-border shadow-lg px-4 py-3">
+      <div className="bg-background/95 backdrop-blur-md border-t border-border shadow-lg px-4 py-3 safe-area-bottom">
         <div className="flex gap-3">
           <Button
             asChild
             size="lg"
-            className="flex-1 gap-2"
+            className="flex-1 gap-2 min-h-[48px]"
             variant="default"
           >
             <a href="tel:+14165551234">
               <Phone className="h-5 w-5" />
-              Call Now
+              <span className="text-sm">Call Now</span>
             </a>
           </Button>
           <Button
             asChild
             size="lg"
-            className="flex-1 gap-2"
+            className="flex-1 gap-2 min-h-[48px]"
             variant="secondary"
           >
             <Link to="/estimate">
               <MessageSquare className="h-5 w-5" />
-              Get Quote
+              <span className="text-sm">Get Quote</span>
             </Link>
           </Button>
         </div>
