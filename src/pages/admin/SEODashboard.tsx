@@ -52,6 +52,8 @@ export default function SEODashboard() {
   const [robotsTxt, setRobotsTxt] = useState('');
   const [generatingKeywords, setGeneratingKeywords] = useState(false);
   const [selectedContent, setSelectedContent] = useState('');
+  const [siteUrl, setSiteUrl] = useState('');
+  const [fetchingData, setFetchingData] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -194,6 +196,79 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
     if (score >= 80) return 'text-primary';
     if (score >= 60) return 'text-warning';
     return 'text-destructive';
+  };
+
+  const connectGoogleSearchConsole = async () => {
+    try {
+      const clientId = import.meta.env.VITE_GOOGLE_SEARCH_CONSOLE_CLIENT_ID;
+      const redirectUri = import.meta.env.VITE_GOOGLE_SEARCH_CONSOLE_REDIRECT_URI || 
+        `${window.location.origin}/admin/seo`;
+      
+      const scope = 'https://www.googleapis.com/auth/webmasters.readonly';
+      const { data: { session } } = await supabase.auth.getSession();
+      const state = session?.user?.id || '';
+
+      const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+      authUrl.searchParams.set('client_id', clientId);
+      authUrl.searchParams.set('redirect_uri', redirectUri);
+      authUrl.searchParams.set('response_type', 'code');
+      authUrl.searchParams.set('scope', scope);
+      authUrl.searchParams.set('access_type', 'offline');
+      authUrl.searchParams.set('state', state);
+      authUrl.searchParams.set('prompt', 'consent');
+
+      window.location.href = authUrl.toString();
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: error.message || 'Failed to connect to Google Search Console',
+      });
+    }
+  };
+
+  const fetchSearchConsoleData = async () => {
+    if (!siteUrl) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Please enter a website URL',
+      });
+      return;
+    }
+
+    try {
+      setFetchingData(true);
+      toast({
+        title: 'Fetching Data',
+        description: 'Retrieving Search Console data...',
+      });
+
+      const { data, error } = await supabase.functions.invoke('fetch-search-console-data', {
+        body: { 
+          siteUrl,
+          startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          endDate: new Date().toISOString().split('T')[0],
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: 'Success',
+        description: `Fetched ${data.rowCount || 0} rows of Search Console data`,
+      });
+
+      loadSEOData();
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: error.message || 'Failed to fetch Search Console data',
+      });
+    } finally {
+      setFetchingData(false);
+    }
   };
 
   if (loading) {
@@ -422,11 +497,32 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
               <CardTitle>Search Console Integration</CardTitle>
               <CardDescription>Connect Google Search Console for enhanced analytics</CardDescription>
             </CardHeader>
-            <CardContent>
-              <Button variant="outline">
-                <LinkIcon className="mr-2 h-4 w-4" />
-                Connect Google Search Console
-              </Button>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="siteUrl">Website URL</Label>
+                <Input
+                  id="siteUrl"
+                  type="url"
+                  value={siteUrl}
+                  onChange={(e) => setSiteUrl(e.target.value)}
+                  placeholder="https://example.com"
+                  className="max-w-md"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" onClick={connectGoogleSearchConsole}>
+                  <LinkIcon className="mr-2 h-4 w-4" />
+                  Connect Google Search Console
+                </Button>
+                <Button variant="secondary" onClick={fetchSearchConsoleData} disabled={fetchingData}>
+                  {fetchingData ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <RefreshCw className="mr-2 h-4 w-4" />
+                  )}
+                  Fetch Data
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

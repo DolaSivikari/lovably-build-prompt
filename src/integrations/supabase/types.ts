@@ -703,6 +703,39 @@ export type Database = {
         }
         Relationships: []
       }
+      google_auth_tokens: {
+        Row: {
+          access_token: string
+          created_at: string | null
+          id: string
+          refresh_token: string | null
+          scope: string
+          token_expiry: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token: string
+          created_at?: string | null
+          id?: string
+          refresh_token?: string | null
+          scope: string
+          token_expiry: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string
+          created_at?: string | null
+          id?: string
+          refresh_token?: string | null
+          scope?: string
+          token_expiry?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       job_postings: {
         Row: {
           closing_date: string | null
@@ -1422,6 +1455,57 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      search_console_data: {
+        Row: {
+          clicks: number | null
+          country: string | null
+          created_at: string | null
+          ctr: number | null
+          date: string
+          device: string | null
+          id: string
+          impressions: number | null
+          page_path: string | null
+          position: number | null
+          query: string | null
+          site_url: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          clicks?: number | null
+          country?: string | null
+          created_at?: string | null
+          ctr?: number | null
+          date: string
+          device?: string | null
+          id?: string
+          impressions?: number | null
+          page_path?: string | null
+          position?: number | null
+          query?: string | null
+          site_url: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          clicks?: number | null
+          country?: string | null
+          created_at?: string | null
+          ctr?: number | null
+          date?: string
+          device?: string | null
+          id?: string
+          impressions?: number | null
+          page_path?: string | null
+          position?: number | null
+          query?: string | null
+          site_url?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
       }
       security_alerts: {
         Row: {
