@@ -366,6 +366,27 @@ All colors MUST be HSL.
     color: hsl(var(--primary-foreground));
   }
 
+  /* Mobile-safe text utilities */
+  .text-mobile-safe {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+  
+  .whitespace-mobile-safe {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+  
+  /* Prevent layout shift from images */
+  .img-mobile-safe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
   /* === Multi-Level Mega-Menu with Sections === */
   
   /* Mega-menu container with sections */

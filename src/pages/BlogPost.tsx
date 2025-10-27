@@ -149,10 +149,10 @@ const BlogPost = () => {
         />
 
         {/* Content */}
-        <article className="container mx-auto px-4 py-16">
+        <article className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-4xl mx-auto">
             <div 
-              className="prose prose-lg max-w-none"
+              className="prose prose-sm sm:prose-lg max-w-none break-words"
               dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(formatContent(post.content || '')).sanitized }}
             />
 
@@ -167,7 +167,7 @@ const BlogPost = () => {
             {/* FAQ Section */}
             {faqs.length > 0 && (
               <section className="mt-12">
-                <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-6">Frequently Asked Questions</h2>
                 <Accordion type="single" collapsible className="w-full">
                   {faqs.map((faq, index) => (
                     <AccordionItem key={index} value={`item-${index}`}>
@@ -185,11 +185,11 @@ const BlogPost = () => {
 
             {/* CTA */}
             <div className="mt-12 p-8 bg-primary/5 border border-primary/20 rounded-lg text-center">
-              <h3 className="text-2xl font-bold mb-4">Need Professional Help?</h3>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4">Need Professional Help?</h3>
               <p className="text-muted-foreground mb-6">
                 Our team is ready to bring your project to life with expert craftsmanship and attention to detail.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Link to="/estimate">
                   <Button size="lg">
                     Get Free Estimate

@@ -29,7 +29,7 @@ const ContentPageHeader = ({
   ];
 
   return (
-    <section className={cn("relative h-[60vh] min-h-[500px]", className)}>
+    <section className={cn("relative h-[50vh] sm:h-[60vh] min-h-[400px] sm:min-h-[500px]", className)}>
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -41,11 +41,11 @@ const ContentPageHeader = ({
       </div>
 
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-center container mx-auto px-4">
+      <div className="relative h-full flex flex-col justify-center container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl">
           {/* Breadcrumbs */}
-          <nav aria-label="breadcrumb" className="mb-6">
-            <ol className="flex flex-wrap items-center gap-2 text-sm text-white/80">
+          <nav aria-label="breadcrumb" className="mb-4 sm:mb-6">
+            <ol className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-white/80">
               {finalBreadcrumbs.map((crumb, index) => (
                 <li key={index} className="flex items-center gap-2">
                   {crumb.href ? (
@@ -68,7 +68,7 @@ const ContentPageHeader = ({
           </nav>
 
           {/* Title */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 break-words">
             {title}
           </h1>
 
@@ -77,7 +77,7 @@ const ContentPageHeader = ({
 
           {/* Subtitle */}
           {subtitle && (
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl break-words">
               {subtitle}
             </p>
           )}

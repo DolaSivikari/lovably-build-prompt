@@ -157,16 +157,16 @@ const CaseStudy = () => {
           ]}
         />
 
-        <div className="container mx-auto px-4 py-16">
-          <div className="grid lg:grid-cols-3 gap-12">
+        <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-12">
+            <div className="lg:col-span-2 space-y-8 sm:space-y-12">
               {/* Project Story */}
               {caseStudy.description && (
                 <section>
-                  <h2 className="text-3xl font-bold mb-4">Project Story</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-4">Project Story</h2>
                   <div className="prose prose-lg max-w-none">
-                    <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                    <p className="text-base sm:text-lg text-muted-foreground leading-relaxed whitespace-mobile-safe break-words">
                       {caseStudy.description}
                     </p>
                   </div>
@@ -176,8 +176,8 @@ const CaseStudy = () => {
               {/* Before Images */}
               {caseStudy.before_images && caseStudy.before_images.length > 0 && (
                 <section>
-                  <h2 className="text-3xl font-bold mb-6">Before Renovation</h2>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-6">Before Renovation</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {caseStudy.before_images.map((image: any, idx: number) => (
                       <div 
                         key={idx} 
@@ -206,7 +206,7 @@ const CaseStudy = () => {
               {/* Process Steps Timeline */}
               {caseStudy.content_blocks && caseStudy.content_blocks.length > 0 && (
                 <section>
-                  <h2 className="text-3xl font-bold mb-8">Project Process</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-8">Project Process</h2>
                   <div className="space-y-12">
                     {caseStudy.content_blocks.map((step: any, idx: number) => (
                       <div key={idx} className="relative">
@@ -215,10 +215,10 @@ const CaseStudy = () => {
                           <div className="absolute left-8 top-20 bottom-0 w-0.5 bg-primary/20" />
                         )}
 
-                        <div className="flex gap-6">
+                        <div className="flex gap-3 sm:gap-6">
                           {/* Step number badge */}
                           <div className="flex-shrink-0">
-                            <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold z-10 relative shadow-lg">
+                            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-lg sm:text-2xl font-bold z-10 relative shadow-lg">
                               {step.step_number || idx + 1}
                             </div>
                           </div>
@@ -226,14 +226,14 @@ const CaseStudy = () => {
                           {/* Step content */}
                           <div className="flex-1">
                             <div className="flex items-start justify-between mb-3">
-                              <h3 className="text-2xl font-semibold">{step.title}</h3>
+                              <h3 className="text-xl sm:text-2xl font-semibold">{step.title}</h3>
                               {step.duration && (
                                 <Badge variant="secondary" className="ml-4">
                                   {step.duration}
                                 </Badge>
                               )}
                             </div>
-                            <p className="text-muted-foreground mb-4 leading-relaxed whitespace-pre-wrap">
+                            <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed whitespace-mobile-safe break-words">
                               {step.description}
                             </p>
                             {step.image_url && (
@@ -264,8 +264,8 @@ const CaseStudy = () => {
               {/* After Images */}
               {caseStudy.after_images && caseStudy.after_images.length > 0 && (
                 <section>
-                  <h2 className="text-3xl font-bold mb-6">Final Results</h2>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-6">Final Results</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {caseStudy.after_images.map((image: any, idx: number) => (
                       <div 
                         key={idx} 
@@ -351,7 +351,7 @@ const CaseStudy = () => {
           {/* FAQ Section */}
           {faqs.length > 0 && (
             <div className="mt-16 max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold mb-6">Project FAQs</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Project FAQs</h2>
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
                   <AccordionItem key={index} value={`item-${index}`}>
