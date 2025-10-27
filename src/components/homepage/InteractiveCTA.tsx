@@ -148,11 +148,6 @@ const InteractiveCTA = () => {
 
   return (
     <section className="relative py-20 bg-gradient-to-br from-primary to-primary/90 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-diagonal-stripes"></div>
-      </div>
-
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           
