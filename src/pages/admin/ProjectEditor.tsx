@@ -229,9 +229,20 @@ const ProjectEditor = () => {
               <Input
                 id="slug"
                 value={formData.slug}
-                onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
+                onChange={(e) => {
+                  // Sanitize slug: lowercase, replace spaces with hyphens, remove special characters
+                  const sanitized = e.target.value
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")
+                    .replace(/[^a-z0-9-]/g, "");
+                  setFormData({ ...formData, slug: sanitized });
+                }}
                 required
+                placeholder="project-name-example"
               />
+              <p className="text-sm text-muted-foreground">
+                URL: /case-study/{formData.slug || "project-name-example"}
+              </p>
             </div>
           </div>
 
