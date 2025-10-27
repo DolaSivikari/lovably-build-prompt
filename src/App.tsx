@@ -69,6 +69,12 @@ const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager
 const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Stats Manager</p></div>
 })));
+const FooterSettings = lazy(() => import("./pages/admin/FooterSettings").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Footer Settings</p></div>
+})));
+const ContactPageSettings = lazy(() => import("./pages/admin/ContactPageSettings").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Contact Page Settings</p></div>
+})));
 const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Posts</p></div>
 })));
@@ -214,6 +220,8 @@ const App = () => (
                   <Route path="/admin/homepage-settings" element={<HomepageSettings />} />
                   <Route path="/admin/testimonials" element={<TestimonialsManager />} />
                   <Route path="/admin/stats" element={<StatsManager />} />
+                  <Route path="/admin/footer-settings" element={<FooterSettings />} />
+                  <Route path="/admin/contact-page-settings" element={<ContactPageSettings />} />
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />

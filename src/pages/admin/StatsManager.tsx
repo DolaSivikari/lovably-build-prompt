@@ -120,16 +120,17 @@ const StatsManager = () => {
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" onClick={() => navigate('/admin/dashboard')}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
-            </Button>
             <h1 className="text-3xl font-bold">Manage Statistics</h1>
           </div>
-          <Button onClick={newStat}>
-            <Plus className="h-4 w-4 mr-2" />
-            Add Stat
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => navigate('/admin')}>
+              Back to Dashboard
+            </Button>
+            <Button onClick={newStat}>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Stat
+            </Button>
+          </div>
         </div>
 
         <Card>

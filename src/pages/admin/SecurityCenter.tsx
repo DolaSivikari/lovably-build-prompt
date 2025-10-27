@@ -226,12 +226,17 @@ export default function SecurityCenter() {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="flex items-center gap-3 mb-6">
-        <Shield className="h-8 w-8 text-primary" />
-        <div>
-          <h1 className="text-3xl font-bold">Security Center</h1>
-          <p className="text-muted-foreground">Monitor and manage authentication security</p>
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <Shield className="h-8 w-8 text-primary" />
+          <div>
+            <h1 className="text-3xl font-bold">Security Center</h1>
+            <p className="text-muted-foreground">Monitor and manage authentication security</p>
+          </div>
         </div>
+        <Button variant="outline" onClick={() => navigate('/admin')}>
+          Back to Dashboard
+        </Button>
       </div>
 
       {/* Security Metrics */}

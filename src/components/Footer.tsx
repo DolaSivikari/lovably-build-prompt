@@ -12,19 +12,20 @@ import companyCredentials from "@/data/company-credentials.json";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
+  const [footerSettings, setFooterSettings] = useState<any>(null);
 
   useEffect(() => {
-    const fetchSiteSettings = async () => {
-      const { data } = await supabase
-        .from('site_settings')
-        .select('*')
-        .eq('is_active', true)
-        .single();
+    const fetchSettings = async () => {
+      const [siteData, footerData] = await Promise.all([
+        supabase.from('site_settings').select('*').eq('is_active', true).single(),
+        supabase.from('footer_settings').select('*').eq('is_active', true).single()
+      ]);
       
-      if (data) setSiteSettings(data);
+      if (siteData.data) setSiteSettings(siteData.data);
+      if (footerData.data) setFooterSettings(footerData.data);
     };
 
-    fetchSiteSettings();
+    fetchSettings();
   }, []);
   // Enhanced ProfessionalService schema
   const citationSchema = {

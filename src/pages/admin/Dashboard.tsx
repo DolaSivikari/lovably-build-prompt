@@ -17,6 +17,7 @@ import {
   Settings,
   Activity,
   Search,
+  Layout,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
@@ -369,6 +370,24 @@ const Dashboard = () => {
               >
                 <LayoutDashboard className="h-5 w-5 mr-3 text-primary" />
                 <span className="text-sm font-medium">Homepage Content</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/footer-settings")}
+                aria-label="Edit Footer Content"
+              >
+                <Layout className="h-5 w-5 mr-3 text-primary" />
+                <span className="text-sm font-medium">Footer Content</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start h-auto py-4"
+                onClick={() => navigate("/admin/contact-page-settings")}
+                aria-label="Edit Contact Page"
+              >
+                <Mail className="h-5 w-5 mr-3 text-primary" />
+                <span className="text-sm font-medium">Contact Page</span>
               </Button>
             </div>
           </CardContent>

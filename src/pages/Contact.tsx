@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";

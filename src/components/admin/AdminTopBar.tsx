@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Home, LayoutDashboard, LogOut, RefreshCw } from "lucide-react";
+import { ExternalLink, Home, LogOut, RefreshCw } from "lucide-react";
+import ascentLogo from "@/assets/ascent-logo.png";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { bustCache } from "@/utils/cacheBuster";
@@ -37,9 +38,7 @@ export const AdminTopBar = () => {
         <div className="flex items-center justify-between">
           {/* Left: Logo + Title */}
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
-              <LayoutDashboard className="h-6 w-6 text-white" />
-            </div>
+            <img src={ascentLogo} alt="Ascent Group Construction" className="h-10" />
             <div>
               <h1 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
                 Ascent Group Construction
@@ -101,7 +100,7 @@ export const AdminTopBar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => navigate("/admin")}>
-                  <LayoutDashboard className="h-4 w-4 mr-2" />
+                  <Home className="h-4 w-4 mr-2" />
                   Dashboard
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />

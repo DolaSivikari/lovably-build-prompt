@@ -365,6 +365,63 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_page_settings: {
+        Row: {
+          careers_email: string | null
+          created_at: string | null
+          created_by: string | null
+          general_email: string | null
+          id: string
+          is_active: boolean | null
+          main_phone: string | null
+          map_embed_url: string | null
+          office_address: string | null
+          projects_email: string | null
+          saturday_hours: string | null
+          sunday_hours: string | null
+          toll_free_phone: string | null
+          updated_at: string | null
+          updated_by: string | null
+          weekday_hours: string | null
+        }
+        Insert: {
+          careers_email?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          general_email?: string | null
+          id?: string
+          is_active?: boolean | null
+          main_phone?: string | null
+          map_embed_url?: string | null
+          office_address?: string | null
+          projects_email?: string | null
+          saturday_hours?: string | null
+          sunday_hours?: string | null
+          toll_free_phone?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          weekday_hours?: string | null
+        }
+        Update: {
+          careers_email?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          general_email?: string | null
+          id?: string
+          is_active?: boolean | null
+          main_phone?: string | null
+          map_embed_url?: string | null
+          office_address?: string | null
+          projects_email?: string | null
+          saturday_hours?: string | null
+          sunday_hours?: string | null
+          toll_free_phone?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          weekday_hours?: string | null
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           admin_notes: string | null
@@ -517,6 +574,48 @@ export type Database = {
           stack?: string | null
           url?: string | null
           user_agent?: string | null
+        }
+        Relationships: []
+      }
+      footer_settings: {
+        Row: {
+          contact_info: Json | null
+          created_at: string | null
+          created_by: string | null
+          id: string
+          is_active: boolean | null
+          quick_links: Json | null
+          sectors_links: Json | null
+          social_media: Json | null
+          trust_bar_items: Json | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          contact_info?: Json | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          quick_links?: Json | null
+          sectors_links?: Json | null
+          social_media?: Json | null
+          trust_bar_items?: Json | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          contact_info?: Json | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          quick_links?: Json | null
+          sectors_links?: Json | null
+          social_media?: Json | null
+          trust_bar_items?: Json | null
+          updated_at?: string | null
+          updated_by?: string | null
         }
         Relationships: []
       }
