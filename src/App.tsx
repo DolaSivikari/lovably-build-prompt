@@ -99,6 +99,9 @@ const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboa
 const TemplateManager = lazy(() => import("./pages/admin/TemplateManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Template Manager</p></div>
 })));
+const HomepageSettings = lazy(() => import("./pages/admin/HomepageSettings").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Settings</p></div>
+})));
 
 // Lazy load heavy content pages with error handling
 const Blog = lazy(() => import("./pages/Blog").catch(() => ({
@@ -208,6 +211,7 @@ const App = () => (
                   <Route path="/admin/template-manager" element={<TemplateManager />} />
                   <Route path="/admin/hero" element={<HeroEditor />} />
                   <Route path="/admin/site-settings" element={<SiteSettings />} />
+                  <Route path="/admin/homepage-settings" element={<HomepageSettings />} />
                   <Route path="/admin/testimonials" element={<TestimonialsManager />} />
                   <Route path="/admin/stats" element={<StatsManager />} />
                   

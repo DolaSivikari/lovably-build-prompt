@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { NotificationBell } from "./NotificationBell";
 
 export const AdminTopBar = () => {
   const navigate = useNavigate();
@@ -87,6 +88,8 @@ export const AdminTopBar = () => {
               <Home className="h-4 w-4" />
               <span className="hidden sm:inline">Edit Homepage</span>
             </Button>
+
+            <NotificationBell />
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

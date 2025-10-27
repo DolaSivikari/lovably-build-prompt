@@ -29,7 +29,10 @@ export const NotificationBell = () => {
 
   useEffect(() => {
     loadNotifications();
-    subscribeToNotifications();
+    const cleanup = subscribeToNotifications();
+    return () => {
+      cleanup?.then(fn => fn?.());
+    };
   }, []);
 
   const loadNotifications = async () => {
@@ -49,15 +52,19 @@ export const NotificationBell = () => {
     }
   };
 
-  const subscribeToNotifications = () => {
+  const subscribeToNotifications = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
     const channel = supabase
-      .channel('notifications')
+      .channel('user-notifications')
       .on(
         'postgres_changes',
         {
           event: 'INSERT',
           schema: 'public',
           table: 'notifications',
+          filter: `user_id=eq.${user.id}`,
         },
         (payload) => {
           setNotifications((prev) => [payload.new as Notification, ...prev.slice(0, 9)]);

@@ -85,30 +85,29 @@ const Dashboard = () => {
   };
 
   const loadStats = async () => {
-    const [projects, draftProjects, services, blogPosts, draftPosts, contacts, newContacts, resumes, newResumes] = await Promise.all([
-      supabase.from("projects").select("id", { count: "exact", head: true }).eq("publish_state", "published"),
-      supabase.from("projects").select("id", { count: "exact", head: true }).eq("publish_state", "draft"),
-      supabase.from("services").select("id", { count: "exact", head: true }),
-      supabase.from("blog_posts").select("id", { count: "exact", head: true }).eq("publish_state", "published"),
-      supabase.from("blog_posts").select("id", { count: "exact", head: true }).eq("publish_state", "draft"),
-      supabase.from("contact_submissions").select("id", { count: "exact", head: true }),
-      supabase.from("contact_submissions").select("id", { count: "exact", head: true }).eq("status", "new"),
-      supabase.from("resume_submissions").select("id", { count: "exact", head: true }),
-      supabase.from("resume_submissions").select("id", { count: "exact", head: true }).eq("status", "new"),
-    ]);
-
-    setStats({
-      projects: projects.count || 0,
-      services: services.count || 0,
-      blogPosts: blogPosts.count || 0,
-      caseStudies: projects.count || 0,
-      contactSubmissions: contacts.count || 0,
-      newSubmissions: newContacts.count || 0,
-      resumeSubmissions: resumes.count || 0,
-      newResumes: newResumes.count || 0,
-      draftProjects: draftProjects.count || 0,
-      draftPosts: draftPosts.count || 0,
-    });
+    try {
+      const { data, error } = await supabase.rpc('get_admin_dashboard_stats' as any);
+      
+      if (error) throw error;
+      
+      if (data && typeof data === 'object') {
+        const stats = data as any;
+        setStats({
+          projects: (stats.projects_published || 0) + (stats.projects_draft || 0),
+          services: stats.services_total || 0,
+          blogPosts: (stats.blog_posts_published || 0) + (stats.blog_posts_draft || 0),
+          caseStudies: (stats.projects_published || 0) + (stats.projects_draft || 0),
+          contactSubmissions: stats.contact_submissions_total || 0,
+          newSubmissions: stats.contact_submissions_new || 0,
+          resumeSubmissions: stats.resume_submissions_total || 0,
+          newResumes: stats.resume_submissions_new || 0,
+          draftProjects: stats.projects_draft || 0,
+          draftPosts: stats.blog_posts_draft || 0,
+        });
+      }
+    } catch (error) {
+      console.error('Error loading stats:', error);
+    }
   };
 
   const loadRecentSubmissions = async () => {

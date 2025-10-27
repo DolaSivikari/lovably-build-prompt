@@ -77,7 +77,7 @@ const SiteSettings = () => {
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" onClick={() => navigate('/admin/dashboard')}>
+          <Button variant="ghost" onClick={() => navigate('/admin')}>
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Button>
@@ -197,7 +197,7 @@ const SiteSettings = () => {
           </Card>
 
           <div className="flex justify-end gap-4">
-            <Button variant="outline" onClick={() => navigate('/admin/dashboard')}>
+            <Button variant="outline" onClick={() => navigate('/admin')}>
               Cancel
             </Button>
             <Button variant="default" onClick={handleSave} disabled={saving}>
