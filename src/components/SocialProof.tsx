@@ -13,20 +13,6 @@ const SocialProof = () => {
   const averageRating = parseFloat(aggregateRating.ratingValue);
   const totalReviews = parseInt(aggregateRating.reviewCount);
 
-  // Generate aggregate rating schema
-  const aggregateRatingSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Ascent Group Construction",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: aggregateRating.ratingValue,
-      reviewCount: aggregateRating.reviewCount,
-      bestRating: aggregateRating.bestRating,
-      worstRating: aggregateRating.worstRating
-    }
-  };
-
   // Google Reviews
   const googleReviews = [
     {
@@ -122,7 +108,7 @@ const SocialProof = () => {
 
   return (
     <>
-      <SEO structuredData={[aggregateRatingSchema, ...googleReviewSchemas, ...testimonialSchemas]} />
+      <SEO structuredData={[...googleReviewSchemas, ...testimonialSchemas]} />
       <section ref={sectionRef} className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="max-w-6xl mx-auto">

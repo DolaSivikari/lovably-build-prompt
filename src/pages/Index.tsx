@@ -109,7 +109,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SkipLink />
-      <SEO structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} />
+      <SEO structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} includeRating={true} />
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">

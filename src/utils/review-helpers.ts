@@ -61,8 +61,8 @@ export const inferServiceFromReview = (reviewText: string): { name: string; type
  */
 export const getConsistentAggregateRating = () => {
   return {
-    ratingValue: "4.8",
-    reviewCount: "143",
+    ratingValue: "4.9",
+    reviewCount: "127",
     bestRating: "5",
     worstRating: "1"
   };

@@ -7,6 +7,7 @@ interface SEOProps {
   ogImage?: string;
   canonical?: string;
   structuredData?: object | object[];
+  includeRating?: boolean;
 }
 
 const SEO = ({
@@ -16,6 +17,7 @@ const SEO = ({
   ogImage = "/og-image.jpg",
   canonical,
   structuredData,
+  includeRating = false,
 }: SEOProps) => {
   const fullTitle = title.includes("Ascen") ? title : `${title} | Ascen Group Construction`;
   const siteUrl = window.location.origin;
@@ -128,13 +130,15 @@ const SEO = ({
       "WSIB Certified Contractor",
       "Licensed General Contractor Ontario"
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "127",
-      bestRating: "5",
-      worstRating: "1"
-    },
+    ...(includeRating && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        reviewCount: "127",
+        bestRating: "5",
+        worstRating: "1"
+      }
+    }),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Painting & Exterior Finishing Services",
