@@ -18,8 +18,10 @@ let flushTimeout: any;
 
 // Log metrics to database with batching
 const logToDatabase = async (metric: any) => {
-  // Optional flag to disable tracking (default: enabled)
-  const enableTracking = import.meta.env.VITE_ENABLE_PERFORMANCE_TRACKING !== 'false';
+  // In production: default OFF (requires explicit enable). In dev: default ON (requires explicit disable)
+  const enableTracking = import.meta.env.PROD 
+    ? import.meta.env.VITE_ENABLE_PERFORMANCE_TRACKING === 'true'
+    : import.meta.env.VITE_ENABLE_PERFORMANCE_TRACKING !== 'false';
   if (!enableTracking) return;
   
   const metricData = {

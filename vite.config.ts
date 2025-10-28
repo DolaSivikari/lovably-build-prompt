@@ -21,7 +21,8 @@ export default defineConfig(({ mode }) => ({
       webp: { quality: 85 },
       avif: { quality: 75 },
     }),
-    mode === "production" && viteImagemin({
+    // Gate imagemin behind env flag (known to fail in CI)
+    mode === "production" && process.env.ENABLE_IMAGEMIN === 'true' && viteImagemin({
       gifsicle: { optimizationLevel: 7 },
       optipng: { optimizationLevel: 7 },
       mozjpeg: { quality: 80 },
