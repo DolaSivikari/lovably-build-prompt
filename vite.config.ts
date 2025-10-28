@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
-import viteImagemin from "vite-plugin-imagemin";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -14,6 +13,8 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(), 
     mode === "development" && componentTagger(),
+    // ViteImageOptimizer handles image optimization reliably in production
+    // Removed vite-plugin-imagemin due to CI build failures
     mode === "production" && ViteImageOptimizer({
       jpeg: { quality: 80 },
       jpg: { quality: 80 },
@@ -21,16 +22,6 @@ export default defineConfig(({ mode }) => ({
       webp: { quality: 85 },
       avif: { quality: 75 },
     }),
-    // Gate imagemin behind env flag (known to fail in CI)
-    mode === "production" && process.env.ENABLE_IMAGEMIN === 'true' && viteImagemin({
-      gifsicle: { optimizationLevel: 7 },
-      optipng: { optimizationLevel: 7 },
-      mozjpeg: { quality: 80 },
-      webp: { quality: 85 },
-      svgo: {
-        plugins: [{ name: 'removeViewBox', active: false }]
-      },
-    })
   ].filter(Boolean),
   resolve: {
     alias: {

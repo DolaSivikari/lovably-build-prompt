@@ -24,6 +24,13 @@ const logToDatabase = async (metric: any) => {
     : import.meta.env.VITE_ENABLE_PERFORMANCE_TRACKING !== 'false';
   if (!enableTracking) return;
   
+  // Verify we have a valid session before attempting to write
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    console.log('[Web Vitals] Skipping metric logging - no authenticated session');
+    return;
+  }
+  
   const metricData = {
     metric_type: 'web-vital',
     metric_name: metric.name,
