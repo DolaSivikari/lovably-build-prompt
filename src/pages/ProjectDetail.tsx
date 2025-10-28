@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { sanitizeAndValidate } from '@/utils/sanitize';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -212,7 +213,7 @@ export default function ProjectDetail() {
                   <h2 className="text-2xl md:text-3xl font-bold mb-4">The Challenge</h2>
                   <div 
                     className="prose prose-lg max-w-none text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: project.challenge }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.challenge || '').sanitized }}
                   />
                 </section>
               )}
@@ -223,7 +224,7 @@ export default function ProjectDetail() {
                   <h2 className="text-2xl md:text-3xl font-bold mb-4">The Solution</h2>
                   <div 
                     className="prose prose-lg max-w-none text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: project.description }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.description || '').sanitized }}
                   />
                 </section>
               )}
@@ -234,7 +235,7 @@ export default function ProjectDetail() {
                   <h2 className="text-2xl md:text-3xl font-bold mb-4">The Results</h2>
                   <div 
                     className="prose prose-lg max-w-none text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: project.results }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.results || '').sanitized }}
                   />
                 </section>
               )}

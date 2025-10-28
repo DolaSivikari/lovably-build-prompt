@@ -1,4 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.74.0';
+import { createErrorResponse, logSecurityError } from '../_shared/errorHandler.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -8,33 +9,6 @@ const corsHeaders = {
 interface LoginAttemptRequest {
   email: string;
   success: boolean;
-}
-
-// Helper function for safe error responses
-function createErrorResponse(error: any) {
-  console.error('Function error:', {
-    message: error.message,
-    stack: error.stack,
-    timestamp: new Date().toISOString()
-  });
-  
-  const isValidationError = error.message.includes('required') || 
-                           error.message.includes('invalid');
-  
-  const clientMessage = isValidationError 
-    ? error.message
-    : 'An error occurred processing your request. Please try again later.';
-  
-  return new Response(
-    JSON.stringify({ 
-      error: clientMessage,
-      timestamp: new Date().toISOString()
-    }),
-    { 
-      status: isValidationError ? 400 : 500, 
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-    }
-  );
 }
 
 Deno.serve(async (req) => {
@@ -50,9 +24,11 @@ Deno.serve(async (req) => {
     const { email, success }: LoginAttemptRequest = await req.json();
 
     if (!email) {
-      return new Response(
-        JSON.stringify({ error: 'Email is required' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      return createErrorResponse(
+        new Error('Email is required'),
+        'Email is required',
+        400,
+        'check-login-attempt-validation'
       );
     }
 
@@ -99,7 +75,7 @@ Deno.serve(async (req) => {
         .gte('attempt_time', fifteenMinutesAgo);
 
       if (countError) {
-        console.error('Error counting attempts:', countError);
+        logSecurityError('failed_attempt_count', countError, { email, ip_address: ipAddress });
       }
 
       const attemptCount = recentAttempts?.length || 0;
@@ -162,6 +138,12 @@ Deno.serve(async (req) => {
       );
     }
   } catch (error: any) {
-    return createErrorResponse(error);
+    logSecurityError('check_login_attempt', error, { timestamp: new Date().toISOString() });
+    return createErrorResponse(
+      error,
+      'Failed to process login attempt',
+      500,
+      'check-login-attempt'
+    );
   }
 });

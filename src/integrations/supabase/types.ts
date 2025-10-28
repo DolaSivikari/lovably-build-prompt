@@ -291,6 +291,8 @@ export type Database = {
           featured_image: string | null
           id: string
           preview_token: string | null
+          preview_token_created_by: string | null
+          preview_token_expires_at: string | null
           process_steps: Json | null
           project_duration: string | null
           project_location: string | null
@@ -328,6 +330,8 @@ export type Database = {
           featured_image?: string | null
           id?: string
           preview_token?: string | null
+          preview_token_created_by?: string | null
+          preview_token_expires_at?: string | null
           process_steps?: Json | null
           project_duration?: string | null
           project_location?: string | null
@@ -365,6 +369,8 @@ export type Database = {
           featured_image?: string | null
           id?: string
           preview_token?: string | null
+          preview_token_created_by?: string | null
+          preview_token_expires_at?: string | null
           process_steps?: Json | null
           project_duration?: string | null
           project_location?: string | null
@@ -1264,6 +1270,8 @@ export type Database = {
           id: string
           location: string | null
           preview_token: string | null
+          preview_token_created_by: string | null
+          preview_token_expires_at: string | null
           process_notes: string | null
           project_size: string | null
           project_status: string | null
@@ -1302,6 +1310,8 @@ export type Database = {
           id?: string
           location?: string | null
           preview_token?: string | null
+          preview_token_created_by?: string | null
+          preview_token_expires_at?: string | null
           process_notes?: string | null
           project_size?: string | null
           project_status?: string | null
@@ -1340,6 +1350,8 @@ export type Database = {
           id?: string
           location?: string | null
           preview_token?: string | null
+          preview_token_created_by?: string | null
+          preview_token_expires_at?: string | null
           process_notes?: string | null
           project_size?: string | null
           project_status?: string | null
@@ -1623,6 +1635,8 @@ export type Database = {
           long_description: string | null
           name: string
           preview_token: string | null
+          preview_token_created_by: string | null
+          preview_token_expires_at: string | null
           process_steps: Json | null
           project_types: string[] | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
@@ -1656,6 +1670,8 @@ export type Database = {
           long_description?: string | null
           name: string
           preview_token?: string | null
+          preview_token_created_by?: string | null
+          preview_token_expires_at?: string | null
           process_steps?: Json | null
           project_types?: string[] | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
@@ -1689,6 +1705,8 @@ export type Database = {
           long_description?: string | null
           name?: string
           preview_token?: string | null
+          preview_token_created_by?: string | null
+          preview_token_expires_at?: string | null
           process_steps?: Json | null
           project_types?: string[] | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
