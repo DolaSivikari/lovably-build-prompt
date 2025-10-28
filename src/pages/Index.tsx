@@ -114,7 +114,6 @@ const Index = () => {
       <MobileStickyCTA />
       <main id="main-content" role="main">
         <NumberedLandingHero />
-        <TrustBar />
         
         {/* Direct Answer for AEO/GEO */}
         <DirectAnswer />
