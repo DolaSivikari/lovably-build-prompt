@@ -167,14 +167,17 @@ export default function ProjectDetail() {
         {/* Featured Image */}
         {project.featured_image && (
           <div className="container mx-auto px-4 py-8">
-            <OptimizedImage
-              src={project.featured_image}
-              alt={project.title}
-              width={1200}
-              height={600}
-              className="rounded-lg"
-              priority
-            />
+            <div className="relative w-full aspect-[4/3] md:aspect-[2/1] overflow-hidden rounded-lg">
+              <OptimizedImage
+                src={project.featured_image}
+                alt={project.title}
+                width={1200}
+                height={600}
+                className="w-full h-full object-cover object-center rounded-lg"
+                objectFit="cover"
+                priority
+              />
+            </div>
           </div>
         )}
 
