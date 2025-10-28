@@ -12,25 +12,58 @@ interface PerformanceMetrics {
 
 const performanceMetrics: PerformanceMetrics = {};
 
-// Log metrics to database (only in production)
+// Batch queue for metrics
+let metricsQueue: any[] = [];
+let flushTimeout: any;
+
+// Log metrics to database with batching
 const logToDatabase = async (metric: any) => {
-  if (import.meta.env.MODE !== 'production') return;
+  // Optional flag to disable tracking (default: enabled)
+  const enableTracking = import.meta.env.VITE_ENABLE_PERFORMANCE_TRACKING !== 'false';
+  if (!enableTracking) return;
+  
+  const metricData = {
+    metric_type: 'web-vital',
+    metric_name: metric.name,
+    value: metric.value,
+    unit: metric.name === 'CLS' ? 'score' : 'ms',
+    metadata: {
+      id: metric.id,
+      rating: metric.rating,
+      navigationType: metric.navigationType,
+      page_path: window.location.pathname,
+      environment: import.meta.env.MODE
+    }
+  };
+  
+  queueMetric(metricData);
+};
+
+const queueMetric = (metricData: any) => {
+  metricsQueue.push(metricData);
+  
+  // Flush after 5 seconds or when 10 metrics collected
+  clearTimeout(flushTimeout);
+  if (metricsQueue.length >= 10) {
+    flushMetrics();
+  } else {
+    flushTimeout = setTimeout(flushMetrics, 5000);
+  }
+};
+
+const flushMetrics = async () => {
+  if (metricsQueue.length === 0) return;
+  
+  const batch = [...metricsQueue];
+  metricsQueue = [];
   
   try {
-    await supabase.from('performance_metrics').insert({
-      metric_type: 'web-vital',
-      metric_name: metric.name,
-      value: metric.value,
-      unit: metric.name === 'CLS' ? 'score' : 'ms',
-      metadata: {
-        id: metric.id,
-        rating: metric.rating,
-        navigationType: metric.navigationType,
-        page_path: window.location.pathname,
-      }
-    });
+    await supabase.from('performance_metrics').insert(batch);
+    console.log(`[Web Vitals] Flushed ${batch.length} metrics to database`);
   } catch (error) {
-    console.error('Failed to log web vital:', error);
+    console.error('Failed to flush metrics:', error);
+    // Re-queue failed metrics
+    metricsQueue.push(...batch);
   }
 };
 

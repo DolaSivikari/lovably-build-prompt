@@ -18,6 +18,7 @@ import {
   Clock,
 } from 'lucide-react';
 import { format } from 'date-fns';
+import PerformanceChart from '@/components/admin/PerformanceChart';
 
 interface PerformanceMetric {
   id: string;
@@ -135,10 +136,76 @@ export default function PerformanceDashboard() {
     }
   };
 
-  const getAverageMetric = (type: string, name: string) => {
-    const filtered = metrics.filter((m) => m.metric_type === type && m.metric_name === name);
-    if (filtered.length === 0) return 0;
-    return filtered.reduce((sum, m) => sum + m.value, 0) / filtered.length;
+  const getWebVital = (name: string) => {
+    const filtered = metrics.filter((m) => 
+      m.metric_type === 'web-vital' && 
+      m.metric_name === name
+    );
+    if (filtered.length === 0) return null;
+    const average = filtered.reduce((sum, m) => sum + m.value, 0) / filtered.length;
+    return {
+      average,
+      count: filtered.length,
+      latest: filtered[0]?.value || 0,
+      rating: getRating(name, average)
+    };
+  };
+
+  const getRating = (metricName: string, value: number): 'good' | 'needs-improvement' | 'poor' => {
+    const thresholds: Record<string, { good: number; needsImprovement: number }> = {
+      'LCP': { good: 2500, needsImprovement: 4000 },
+      'FCP': { good: 1800, needsImprovement: 3000 },
+      'CLS': { good: 0.1, needsImprovement: 0.25 },
+      'INP': { good: 200, needsImprovement: 500 },
+      'TTFB': { good: 800, needsImprovement: 1800 },
+      'TBT': { good: 200, needsImprovement: 600 },
+      'TTI': { good: 3800, needsImprovement: 7300 }
+    };
+    
+    const threshold = thresholds[metricName];
+    if (!threshold) return 'good';
+    
+    if (value <= threshold.good) return 'good';
+    if (value <= threshold.needsImprovement) return 'needs-improvement';
+    return 'poor';
+  };
+
+  const getRatingColor = (rating: string) => {
+    switch (rating) {
+      case 'good': return 'text-green-600 dark:text-green-400';
+      case 'needs-improvement': return 'text-yellow-600 dark:text-yellow-400';
+      case 'poor': return 'text-red-600 dark:text-red-400';
+      default: return 'text-muted-foreground';
+    }
+  };
+
+  const getRatingIcon = (rating: string) => {
+    switch (rating) {
+      case 'good': return <TrendingUp className="h-3 w-3" />;
+      case 'needs-improvement': return <AlertTriangle className="h-3 w-3" />;
+      case 'poor': return <TrendingDown className="h-3 w-3" />;
+      default: return null;
+    }
+  };
+
+  const analyzePerformance = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('analyze-performance');
+      if (error) throw error;
+      
+      toast({
+        title: 'Analysis Complete',
+        description: 'Performance recommendations have been generated',
+      });
+      
+      loadPerformanceData();
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: error.message || 'Failed to analyze performance',
+      });
+    }
   };
 
   const getPriorityColor = (priority: string) => {
@@ -168,9 +235,13 @@ export default function PerformanceDashboard() {
     );
   }
 
-  const avgPageLoad = getAverageMetric('page_load', 'initial_load');
-  const avgApiResponse = getAverageMetric('api_response', 'average');
-  const avgDbQuery = getAverageMetric('database_query', 'average');
+  const lcp = getWebVital('LCP');
+  const fcp = getWebVital('FCP');
+  const cls = getWebVital('CLS');
+  const inp = getWebVital('INP');
+  const ttfb = getWebVital('TTFB');
+  const tbt = getWebVital('TBT');
+  const tti = getWebVital('TTI');
 
   return (
     <div className="container mx-auto p-6">
@@ -182,82 +253,175 @@ export default function PerformanceDashboard() {
             <p className="text-muted-foreground">Monitor and optimize your site's performance</p>
           </div>
         </div>
-        <Button variant="outline" onClick={() => navigate('/admin')}>
-          Back to Dashboard
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={analyzePerformance}>
+            Analyze Performance
+          </Button>
+          <Button variant="outline" onClick={() => navigate('/admin')}>
+            Back to Dashboard
+          </Button>
+        </div>
       </div>
 
-      {/* Performance Metrics */}
-      <div className="grid gap-4 md:grid-cols-3 mb-6">
+      {/* Core Web Vitals */}
+      <div className="grid gap-4 md:grid-cols-4 mb-6">
+        {/* LCP */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Page Load</CardTitle>
+            <CardTitle className="text-sm font-medium">LCP</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{avgPageLoad.toFixed(0)}ms</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
-              {avgPageLoad < 1500 ? (
-                <>
-                  <TrendingUp className="h-3 w-3 text-primary" />
-                  Excellent
-                </>
-              ) : (
-                <>
-                  <TrendingDown className="h-3 w-3 text-destructive" />
-                  Needs improvement
-                </>
-              )}
-            </p>
+            <div className="text-2xl font-bold">
+              {lcp ? `${(lcp.average).toFixed(0)}ms` : 'N/A'}
+            </div>
+            {lcp && (
+              <p className={`text-xs flex items-center gap-1 ${getRatingColor(lcp.rating)}`}>
+                {getRatingIcon(lcp.rating)}
+                {lcp.rating === 'good' ? 'Excellent' : lcp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+                <span className="text-muted-foreground ml-1">({lcp.count} samples)</span>
+              </p>
+            )}
+            <p className="text-xs text-muted-foreground mt-1">Target: &lt;2.5s</p>
           </CardContent>
         </Card>
 
+        {/* FCP */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg API Response</CardTitle>
+            <CardTitle className="text-sm font-medium">FCP</CardTitle>
             <Zap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{avgApiResponse.toFixed(0)}ms</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
-              {avgApiResponse < 500 ? (
-                <>
-                  <TrendingUp className="h-3 w-3 text-primary" />
-                  Fast
-                </>
-              ) : (
-                <>
-                  <TrendingDown className="h-3 w-3 text-destructive" />
-                  Slow
-                </>
-              )}
-            </p>
+            <div className="text-2xl font-bold">
+              {fcp ? `${(fcp.average).toFixed(0)}ms` : 'N/A'}
+            </div>
+            {fcp && (
+              <p className={`text-xs flex items-center gap-1 ${getRatingColor(fcp.rating)}`}>
+                {getRatingIcon(fcp.rating)}
+                {fcp.rating === 'good' ? 'Excellent' : fcp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+                <span className="text-muted-foreground ml-1">({fcp.count} samples)</span>
+              </p>
+            )}
+            <p className="text-xs text-muted-foreground mt-1">Target: &lt;1.8s</p>
           </CardContent>
         </Card>
 
+        {/* CLS */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg DB Query</CardTitle>
-            <Database className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">CLS</CardTitle>
+            <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{avgDbQuery.toFixed(0)}ms</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
-              {avgDbQuery < 100 ? (
-                <>
-                  <TrendingUp className="h-3 w-3 text-primary" />
-                  Optimized
-                </>
-              ) : (
-                <>
-                  <TrendingDown className="h-3 w-3 text-destructive" />
-                  Needs indexing
-                </>
-              )}
-            </p>
+            <div className="text-2xl font-bold">
+              {cls ? `${(cls.average / 1000).toFixed(3)}` : 'N/A'}
+            </div>
+            {cls && (
+              <p className={`text-xs flex items-center gap-1 ${getRatingColor(cls.rating)}`}>
+                {getRatingIcon(cls.rating)}
+                {cls.rating === 'good' ? 'Excellent' : cls.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+                <span className="text-muted-foreground ml-1">({cls.count} samples)</span>
+              </p>
+            )}
+            <p className="text-xs text-muted-foreground mt-1">Target: &lt;0.1</p>
+          </CardContent>
+        </Card>
+
+        {/* INP */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">INP</CardTitle>
+            <Activity className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {inp ? `${(inp.average).toFixed(0)}ms` : 'N/A'}
+            </div>
+            {inp && (
+              <p className={`text-xs flex items-center gap-1 ${getRatingColor(inp.rating)}`}>
+                {getRatingIcon(inp.rating)}
+                {inp.rating === 'good' ? 'Excellent' : inp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+                <span className="text-muted-foreground ml-1">({inp.count} samples)</span>
+              </p>
+            )}
+            <p className="text-xs text-muted-foreground mt-1">Target: &lt;200ms</p>
           </CardContent>
         </Card>
       </div>
+
+      {/* Additional Metrics */}
+      <div className="grid gap-4 md:grid-cols-3 mb-6">
+        {/* TTFB */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">TTFB</CardTitle>
+            <Database className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {ttfb ? `${(ttfb.average).toFixed(0)}ms` : 'N/A'}
+            </div>
+            {ttfb && (
+              <p className={`text-xs flex items-center gap-1 ${getRatingColor(ttfb.rating)}`}>
+                {getRatingIcon(ttfb.rating)}
+                {ttfb.rating === 'good' ? 'Excellent' : ttfb.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+                <span className="text-muted-foreground ml-1">({ttfb.count} samples)</span>
+              </p>
+            )}
+            <p className="text-xs text-muted-foreground mt-1">Target: &lt;800ms</p>
+          </CardContent>
+        </Card>
+
+        {/* TBT */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">TBT</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {tbt ? `${(tbt.average).toFixed(0)}ms` : 'N/A'}
+            </div>
+            {tbt && (
+              <p className={`text-xs flex items-center gap-1 ${getRatingColor(tbt.rating)}`}>
+                {getRatingIcon(tbt.rating)}
+                {tbt.rating === 'good' ? 'Excellent' : tbt.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+                <span className="text-muted-foreground ml-1">({tbt.count} samples)</span>
+              </p>
+            )}
+            <p className="text-xs text-muted-foreground mt-1">Target: &lt;200ms</p>
+          </CardContent>
+        </Card>
+
+        {/* TTI */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">TTI</CardTitle>
+            <CheckCircle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {tti ? `${(tti.average).toFixed(0)}ms` : 'N/A'}
+            </div>
+            {tti && (
+              <p className={`text-xs flex items-center gap-1 ${getRatingColor(tti.rating)}`}>
+                {getRatingIcon(tti.rating)}
+                {tti.rating === 'good' ? 'Excellent' : tti.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+                <span className="text-muted-foreground ml-1">({tti.count} samples)</span>
+              </p>
+            )}
+            <p className="text-xs text-muted-foreground mt-1">Target: &lt;3.8s</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Performance Trends */}
+      {metrics.length > 0 && (
+        <div className="mb-6">
+          <PerformanceChart metrics={metrics} />
+        </div>
+      )}
 
       {/* Optimization Recommendations */}
       <Card>
