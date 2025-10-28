@@ -29,7 +29,7 @@ const ContentPageHeader = ({
   ];
 
   return (
-    <section className={cn("relative h-[40vh] sm:h-[50vh] md:h-[60vh] min-h-[350px] sm:min-h-[400px] md:min-h-[500px]", className)}>
+    <section className={cn("relative h-[40vh] sm:h-[50vh] md:h-[60vh] min-h-[350px] sm:min-h-[400px] md:min-h-[500px] pt-20", className)}>
       {/* Background Image */}
       <div className="absolute inset-0">
         <img

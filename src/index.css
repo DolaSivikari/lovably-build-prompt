@@ -516,7 +516,7 @@ All colors MUST be HSL.
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 5%;
+  padding: 80px 5% 0; /* 80px top padding for fixed navigation */
 }
 
 .landing-hero__background {
