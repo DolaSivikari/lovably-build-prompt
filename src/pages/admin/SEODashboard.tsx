@@ -652,34 +652,58 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         {/* Search Analytics Tab */}
         <TabsContent value="analytics" className="space-y-6">
           {/* Connection Status & Controls */}
-          <Card>
+          <Card className={isConnected ? 'border-green-500/50' : 'border-yellow-500/50'}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                Google Search Console
-                {checkingConnection ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : isConnected ? (
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                ) : (
-                  <XCircle className="h-4 w-4 text-red-500" />
-                )}
-              </CardTitle>
-              <CardDescription>
-                {isConnected ? (
-                  <div className="flex items-center gap-2">
-                    <span>Connected</span>
-                    {lastSyncTime && <span className="text-xs">• Last synced: {lastSyncTime}</span>}
-                  </div>
-                ) : (
-                  'Connect your Google Search Console account to view analytics'
-                )}
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    Google Search Console
+                    {checkingConnection ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : isConnected ? (
+                      <Badge className="bg-green-500 hover:bg-green-600">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        Connected
+                      </Badge>
+                    ) : (
+                      <Badge variant="destructive">
+                        <AlertCircle className="h-3 w-3 mr-1" />
+                        Not Connected
+                      </Badge>
+                    )}
+                  </CardTitle>
+                  <CardDescription className="mt-2">
+                    {isConnected ? (
+                      <div className="flex items-center gap-2">
+                        <span>Your account is connected and ready to fetch analytics</span>
+                        {lastSyncTime && <span className="text-xs">• Last synced: {lastSyncTime}</span>}
+                      </div>
+                    ) : (
+                      'Connect your Google Search Console account to view search analytics and performance data'
+                    )}
+                  </CardDescription>
+                </div>
+              </div>
             </CardHeader>
             <CardContent className="space-y-4">
               {!isConnected ? (
-                <Button onClick={connectGoogleSearchConsole}>
-                  Connect Google Search Console
-                </Button>
+                <div className="space-y-4">
+                  <div className="p-4 bg-muted/50 rounded-lg">
+                    <p className="text-sm mb-3">
+                      Connect your Google Search Console to access:
+                    </p>
+                    <ul className="text-sm space-y-1 ml-4 list-disc text-muted-foreground">
+                      <li>Search performance data and click metrics</li>
+                      <li>Top-performing pages and queries</li>
+                      <li>Average position and CTR tracking</li>
+                      <li>Historical trend analysis</li>
+                    </ul>
+                  </div>
+                  <Button onClick={connectGoogleSearchConsole} size="lg" className="w-full sm:w-auto">
+                    <LinkIcon className="h-4 w-4 mr-2" />
+                    Connect Google Search Console
+                  </Button>
+                </div>
               ) : (
                 <div className="space-y-4">
                   <div className="flex gap-4 items-end">
