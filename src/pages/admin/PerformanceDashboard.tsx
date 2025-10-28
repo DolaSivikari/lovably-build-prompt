@@ -43,6 +43,7 @@ export default function PerformanceDashboard() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
+  const [analyzing, setAnalyzing] = useState(false);
   const [metrics, setMetrics] = useState<PerformanceMetric[]>([]);
   const [recommendations, setRecommendations] = useState<OptimizationRecommendation[]>([]);
 
@@ -189,22 +190,51 @@ export default function PerformanceDashboard() {
   };
 
   const analyzePerformance = async () => {
+    if (analyzing) return;
+    
     try {
-      const { data, error } = await supabase.functions.invoke('analyze-performance');
-      if (error) throw error;
+      setAnalyzing(true);
+      
+      const { data, error } = await supabase.functions.invoke('analyze-performance', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (error) {
+        console.error('Edge function error:', error);
+        throw new Error(
+          error.message || 
+          'Failed to connect to performance analyzer. The function may not be deployed yet.'
+        );
+      }
       
       toast({
         title: 'Analysis Complete',
-        description: 'Performance recommendations have been generated',
+        description: data?.message || `Generated ${data?.recommendations || 0} recommendations`,
       });
       
-      loadPerformanceData();
+      await loadPerformanceData();
     } catch (error: any) {
+      console.error('Performance analysis error:', error);
+      
+      let description = 'Failed to analyze performance';
+      
+      if (error.message?.includes('fetch')) {
+        description = 'Could not reach the performance analyzer. Please ensure the edge function is deployed.';
+      } else if (error.message?.includes('CORS')) {
+        description = 'CORS error: Edge function may need to be redeployed.';
+      } else if (error.message) {
+        description = error.message;
+      }
+      
       toast({
         variant: 'destructive',
-        title: 'Error',
-        description: error.message || 'Failed to analyze performance',
+        title: 'Analysis Failed',
+        description: `${description} Click "Analyze Performance" to retry.`,
       });
+    } finally {
+      setAnalyzing(false);
     }
   };
 
@@ -254,8 +284,19 @@ export default function PerformanceDashboard() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={analyzePerformance}>
-            Analyze Performance
+          <Button 
+            variant="outline" 
+            onClick={analyzePerformance}
+            disabled={analyzing}
+          >
+            {analyzing ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Analyzing...
+              </>
+            ) : (
+              'Analyze Performance'
+            )}
           </Button>
           <Button variant="outline" onClick={() => navigate('/admin')}>
             Back to Dashboard
