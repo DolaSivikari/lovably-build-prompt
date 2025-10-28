@@ -31,9 +31,9 @@ const ProjectFeaturedCard = ({
   return (
     <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500">
       {/* Hero Image with Parallax Effect */}
-      <div className="relative h-96 overflow-hidden">
+      <div className="relative aspect-[3/4] sm:aspect-[4/3] md:h-96 overflow-hidden">
         <div
-          className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full bg-cover bg-center object-center transition-transform duration-700 group-hover:scale-110"
           style={{ backgroundImage: `url(${resolveAssetPath(image) || image})` }}
         />
         

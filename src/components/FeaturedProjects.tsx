@@ -22,13 +22,13 @@ const ProjectCard = ({ project }: { project: Project }) => (
   <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
     <Link to={`/blog/${project.slug}`}>
       {project.featured_image && (
-        <div className="relative overflow-hidden h-64">
+        <div className="relative overflow-hidden aspect-[4/3] md:aspect-[16/9] md:h-64">
           <OptimizedImage
             src={project.featured_image}
             alt={project.title}
             width={800}
             height={600}
-            className="w-full h-full transition-transform hover:scale-105 duration-300"
+            className="w-full h-full object-center transition-transform hover:scale-105 duration-300"
             objectFit="cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
