@@ -89,6 +89,7 @@ export default function SEODashboard() {
   const [loading, setLoading] = useState(true);
   const [seoSettings, setSeoSettings] = useState<SEOSettings[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsSnapshot[]>([]);
+  const [contentItems, setContentItems] = useState<any[]>([]);
   const [robotsTxt, setRobotsTxt] = useState('');
   const [generatingKeywords, setGeneratingKeywords] = useState(false);
   const [selectedContent, setSelectedContent] = useState('');
@@ -212,28 +213,142 @@ export default function SEODashboard() {
     }
   };
 
+  const calculateSEOScore = (item: any, type: string) => {
+    let score = 0;
+    const recommendations: string[] = [];
+
+    // Meta title check (30/100)
+    if (item.seo_title) {
+      if (item.seo_title.length >= 30 && item.seo_title.length <= 60) {
+        score += 30;
+      } else if (item.seo_title.length > 0) {
+        score += 15;
+        recommendations.push(`${type === 'blog' ? 'Title' : 'SEO title'} should be 30-60 characters (currently ${item.seo_title.length})`);
+      }
+    } else {
+      recommendations.push('Add an SEO title');
+    }
+
+    // Meta description check (30/100)
+    if (item.seo_description) {
+      if (item.seo_description.length >= 120 && item.seo_description.length <= 160) {
+        score += 30;
+      } else if (item.seo_description.length > 0) {
+        score += 15;
+        recommendations.push(`Meta description should be 120-160 characters (currently ${item.seo_description.length})`);
+      }
+    } else {
+      recommendations.push('Add a meta description');
+    }
+
+    // Keywords check (20/100)
+    if (item.seo_keywords && item.seo_keywords.length > 0) {
+      score += 20;
+    } else {
+      recommendations.push('Add SEO keywords');
+    }
+
+    // Featured image check (10/100)
+    if (item.featured_image) {
+      score += 10;
+    } else {
+      recommendations.push('Add a featured image');
+    }
+
+    // Content check (10/100)
+    if (type === 'blog' && item.content && item.content.length > 300) {
+      score += 10;
+    } else if ((type === 'service' || type === 'project') && item.long_description && item.long_description.length > 150) {
+      score += 10;
+    } else {
+      recommendations.push('Add more content for better SEO');
+    }
+
+    return { score, recommendations };
+  };
+
   const loadSEOData = async () => {
     try {
       setLoading(true);
 
-      // Load SEO settings
-      const { data: seoData } = await supabase
-        .from('seo_settings')
-        .select('*')
-        .order('updated_at', { ascending: false })
-        .limit(20);
+      // Load actual content items with SEO data
+      const [blogRes, servicesRes, projectsRes, analyticsRes] = await Promise.all([
+        supabase
+          .from('blog_posts')
+          .select('id, slug, title, seo_title, seo_description, seo_keywords, featured_image, content, publish_state, updated_at')
+          .eq('publish_state', 'published')
+          .order('updated_at', { ascending: false })
+          .limit(10),
+        supabase
+          .from('services')
+          .select('id, slug, name, seo_title, seo_description, seo_keywords, featured_image, long_description, publish_state, updated_at')
+          .eq('publish_state', 'published')
+          .order('updated_at', { ascending: false })
+          .limit(10),
+        supabase
+          .from('projects')
+          .select('id, slug, title, seo_title, seo_description, seo_keywords, featured_image, description, publish_state, updated_at')
+          .eq('publish_state', 'published')
+          .order('updated_at', { ascending: false })
+          .limit(10),
+        supabase
+          .from('analytics_snapshots')
+          .select('*')
+          .gte('snapshot_date', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+          .order('page_views', { ascending: false })
+          .limit(10)
+      ]);
 
-      if (seoData) setSeoSettings(seoData);
+      // Process content items with SEO scores
+      const items: any[] = [];
 
-      // Load analytics snapshots
-      const { data: analyticsData } = await supabase
-        .from('analytics_snapshots')
-        .select('*')
-        .gte('snapshot_date', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
-        .order('page_views', { ascending: false })
-        .limit(10);
+      if (blogRes.data) {
+        blogRes.data.forEach((post) => {
+          const { score, recommendations } = calculateSEOScore(post, 'blog');
+          items.push({
+            ...post,
+            type: 'Blog Post',
+            displayTitle: post.title,
+            seoScore: score,
+            recommendations,
+            url: `/blog/${post.slug}`
+          });
+        });
+      }
 
-      if (analyticsData) setAnalytics(analyticsData);
+      if (servicesRes.data) {
+        servicesRes.data.forEach((service) => {
+          const { score, recommendations } = calculateSEOScore(service, 'service');
+          items.push({
+            ...service,
+            type: 'Service',
+            displayTitle: service.name,
+            seoScore: score,
+            recommendations,
+            url: `/services/${service.slug}`
+          });
+        });
+      }
+
+      if (projectsRes.data) {
+        projectsRes.data.forEach((project) => {
+          const { score, recommendations } = calculateSEOScore(project, 'project');
+          items.push({
+            ...project,
+            type: 'Project',
+            displayTitle: project.title,
+            seoScore: score,
+            recommendations,
+            url: `/projects/${project.slug}`
+          });
+        });
+      }
+
+      // Sort by updated_at
+      items.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+
+      setContentItems(items);
+      if (analyticsRes.data) setAnalytics(analyticsRes.data);
 
       // Load robots.txt
       setRobotsTxt(`User-agent: *
@@ -576,9 +691,9 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {seoSettings.length > 0
+                  {contentItems.length > 0
                     ? Math.round(
-                        seoSettings.reduce((sum, s) => sum + s.seo_score, 0) / seoSettings.length
+                        contentItems.reduce((sum, item) => sum + item.seoScore, 0) / contentItems.length
                       )
                     : 0}
                 </div>
@@ -605,8 +720,8 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
                 <CheckCircle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{seoSettings.length}</div>
-                <p className="text-xs text-muted-foreground">In sitemap</p>
+                <div className="text-2xl font-bold">{contentItems.length}</div>
+                <p className="text-xs text-muted-foreground">Published content</p>
               </CardContent>
             </Card>
           </div>
@@ -618,29 +733,43 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
               <CardDescription>Recent pages and their SEO scores</CardDescription>
             </CardHeader>
             <CardContent>
-              {seoSettings.length === 0 ? (
+              {contentItems.length === 0 ? (
                 <div className="text-center space-y-3 py-8">
                   <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <p className="text-lg font-medium">No SEO data available yet</p>
+                  <p className="text-lg font-medium">No content available yet</p>
                   <p className="text-sm text-muted-foreground max-w-md mx-auto">
                     Create blog posts, projects, and services to start tracking SEO performance.
                   </p>
                 </div>
               ) : (
-                <div className="space-y-4">
-                  {seoSettings.slice(0, 5).map((setting) => (
-                    <div key={setting.id} className="flex items-center justify-between p-3 border rounded-lg">
-                      <div className="flex-1">
-                        <p className="font-medium">{setting.meta_title || 'Untitled'}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {setting.entity_type} • {setting.focus_keyword || 'No focus keyword'}
-                        </p>
+                <div className="space-y-3">
+                  {contentItems.slice(0, 10).map((item) => (
+                    <div key={item.id} className="border rounded-lg p-4 space-y-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Badge variant="outline" className="text-xs">{item.type}</Badge>
+                            <Badge variant={item.seoScore >= 80 ? 'default' : item.seoScore >= 60 ? 'secondary' : 'destructive'}>
+                              {item.seoScore}/100
+                            </Badge>
+                          </div>
+                          <p className="font-medium truncate">{item.displayTitle}</p>
+                          <p className="text-xs text-muted-foreground truncate">{item.url}</p>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <Badge variant={setting.seo_score >= 80 ? 'default' : 'secondary'}>
-                          {setting.seo_score}/100
-                        </Badge>
-                      </div>
+                      {item.recommendations.length > 0 && (
+                        <div className="space-y-1">
+                          <p className="text-xs font-medium text-muted-foreground">Recommendations:</p>
+                          <ul className="text-xs space-y-1 text-muted-foreground">
+                            {item.recommendations.slice(0, 3).map((rec: string, idx: number) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0" />
+                                <span>{rec}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
