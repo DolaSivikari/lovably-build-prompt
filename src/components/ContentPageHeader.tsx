@@ -29,23 +29,23 @@ const ContentPageHeader = ({
   ];
 
   return (
-    <section className={cn("relative h-[50vh] sm:h-[60vh] min-h-[400px] sm:min-h-[500px]", className)}>
+    <section className={cn("relative h-[40vh] sm:h-[50vh] md:h-[60vh] min-h-[350px] sm:min-h-[400px] md:min-h-[500px]", className)}>
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-[center_30%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/65 to-black/80 sm:from-black/70 sm:via-black/50 sm:to-black/70" />
       </div>
 
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-center container mx-auto px-4 sm:px-6">
+      <div className="relative h-full flex flex-col justify-center container mx-auto px-6 sm:px-6">
         <div className="max-w-4xl">
           {/* Breadcrumbs */}
           <nav aria-label="breadcrumb" className="mb-4 sm:mb-6">
-            <ol className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-white/80">
+            <ol className="flex flex-wrap items-center gap-2 sm:gap-2 text-sm sm:text-sm text-white/80">
               {finalBreadcrumbs.map((crumb, index) => (
                 <li key={index} className="flex items-center gap-2">
                   {crumb.href ? (
@@ -68,7 +68,7 @@ const ContentPageHeader = ({
           </nav>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 break-words">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 break-words leading-tight">
             {title}
           </h1>
 

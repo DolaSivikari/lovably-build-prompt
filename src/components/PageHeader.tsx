@@ -50,7 +50,7 @@ const PageHeader = ({
 
   return (
     <section className={cn("pt-24 pb-16 bg-background", className)}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6 sm:px-4">
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumbs */}
           <nav aria-label="breadcrumb" className="mb-6">
@@ -60,13 +60,13 @@ const PageHeader = ({
                   {crumb.href ? (
                     <Link 
                       to={crumb.href} 
-                      className="hover:text-foreground transition-colors"
+                      className="hover:text-foreground transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center -m-2 p-2"
                       aria-label={`Navigate to ${crumb.label}`}
                     >
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span className="text-foreground font-medium">{crumb.label}</span>
+                    <span className="text-foreground font-medium min-h-[44px] flex items-center">{crumb.label}</span>
                   )}
                   {index < finalBreadcrumbs.length - 1 && (
                     <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -87,7 +87,7 @@ const PageHeader = ({
               )}
 
               {/* Title */}
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                 {title}
               </h1>
 
