@@ -1,7 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Deferred Google Analytics (GA4) - Loads 1500ms after page load -->
+    <!-- Critical inline CSS for hero section -->
+    <style>
+      .landing-hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+      .landing-hero__background{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+      .landing-hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(28,47,67,0.9) 100%);z-index:1}
+      .landing-hero__content{position:relative;z-index:2;width:100%;padding:2rem}
+      body{margin:0;font-family:system-ui,-apple-system,sans-serif}
+    </style>
+    
+    <!-- Deferred Google Analytics (GA4) - Loads 3000ms after page load for better performance -->
     <script>
       window.addEventListener('load', function() {
         setTimeout(function() {
@@ -16,7 +25,7 @@
             gtag('js', new Date());
             gtag('config', 'G-42L85RG6M6');
           };
-        }, 1500);
+        }, 3000);
       });
     </script>
     <!-- End Google Analytics -->
@@ -29,23 +38,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://xdowuirheazerlwatwja.supabase.co">
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://www.google.com">
     
-    <!-- Prefetch critical routes for faster navigation -->
-    <link rel="prefetch" href="/services">
-    <link rel="prefetch" href="/projects">
-    <link rel="prefetch" href="/estimate">
+    <!-- Preload critical hero poster for instant display -->
+    <link rel="preload" as="image" href="/hero-poster-1.webp" type="image/webp">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" as="image" href="/assets/hero-construction.jpg">
-    
-    <!-- Preload font files for better performance -->
-    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/playfairdisplay/v36/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQZNLo.woff2" crossorigin>
-    
-    <!-- Load fonts asynchronously to prevent render blocking -->
+    <!-- Load fonts with optimized strategy -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet"></noscript>
     

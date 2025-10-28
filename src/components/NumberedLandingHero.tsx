@@ -24,6 +24,8 @@ const NumberedLandingHero = () => {
   const [shouldUseVideo, setShouldUseVideo] = useState(true);
   const [activeVideo, setActiveVideo] = useState<1 | 2 | 3>(1);
   const [videosLoaded, setVideosLoaded] = useState({ video1: false, video2: false, video3: false });
+  const [shouldLoadVideo2, setShouldLoadVideo2] = useState(false);
+  const [shouldLoadVideo3, setShouldLoadVideo3] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
   useEffect(() => {
@@ -76,6 +78,7 @@ const NumberedLandingHero = () => {
   };
 
   const handleVideo1Ended = () => {
+    setShouldLoadVideo2(true);
     const video2 = video2Ref.current;
     if (video2) {
       video2.currentTime = 0;
@@ -83,14 +86,25 @@ const NumberedLandingHero = () => {
       setActiveVideo(2);
     }
   };
+  
+  const handleVideo1Playing = () => {
+    // Pre-load video 2 when video 1 starts playing
+    setShouldLoadVideo2(true);
+  };
 
   const handleVideo2Ended = () => {
+    setShouldLoadVideo3(true);
     const video3 = video3Ref.current;
     if (video3) {
       video3.currentTime = 0;
       video3.play();
       setActiveVideo(3);
     }
+  };
+  
+  const handleVideo2Playing = () => {
+    // Pre-load video 3 when video 2 starts playing
+    setShouldLoadVideo3(true);
   };
 
   const handleVideo3Ended = () => {
@@ -135,10 +149,11 @@ const NumberedLandingHero = () => {
               autoPlay
               muted
               playsInline
-              preload="auto"
-              poster={heroConstruction}
+              preload="metadata"
+              poster="/hero-poster-1.webp"
               onLoadedData={handleVideo1Loaded}
               onEnded={handleVideo1Ended}
+              onPlaying={handleVideo1Playing}
               onTimeUpdate={() => handleTimeUpdate(1)}
               className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
                 activeVideo === 1 && videosLoaded.video1 
@@ -149,40 +164,47 @@ const NumberedLandingHero = () => {
             >
               <source src={heroPremiumVideo} type="video/mp4" />
             </video>
-            <video
-              ref={video2Ref}
-              muted
-              playsInline
-              preload="metadata"
-              onLoadedData={handleVideo2Loaded}
-              onEnded={handleVideo2Ended}
-              onTimeUpdate={() => handleTimeUpdate(2)}
-              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
-                activeVideo === 2 && videosLoaded.video2 
-                  ? 'opacity-100' 
-                  : 'opacity-0'
-              }`}
-              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.6, 1)' }}
-            >
-              <source src={homeHeroVideo} type="video/mp4" />
-            </video>
-            <video
-              ref={video3Ref}
-              muted
-              playsInline
-              preload="metadata"
-              onLoadedData={handleVideo3Loaded}
-              onEnded={handleVideo3Ended}
-              onTimeUpdate={() => handleTimeUpdate(3)}
-              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
-                activeVideo === 3 && videosLoaded.video3 
-                  ? 'opacity-100' 
-                  : 'opacity-0'
-              }`}
-              style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.6, 1)' }}
-            >
-              <source src={heroClipchampVideo} type="video/mp4" />
-            </video>
+            {shouldLoadVideo2 && (
+              <video
+                ref={video2Ref}
+                muted
+                playsInline
+                preload="metadata"
+                poster="/hero-poster-2.webp"
+                onLoadedData={handleVideo2Loaded}
+                onEnded={handleVideo2Ended}
+                onPlaying={handleVideo2Playing}
+                onTimeUpdate={() => handleTimeUpdate(2)}
+                className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
+                  activeVideo === 2 && videosLoaded.video2 
+                    ? 'opacity-100' 
+                    : 'opacity-0'
+                }`}
+                style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.6, 1)' }}
+              >
+                <source src={homeHeroVideo} type="video/mp4" />
+              </video>
+            )}
+            {shouldLoadVideo3 && (
+              <video
+                ref={video3Ref}
+                muted
+                playsInline
+                preload="metadata"
+                poster="/hero-poster-3.webp"
+                onLoadedData={handleVideo3Loaded}
+                onEnded={handleVideo3Ended}
+                onTimeUpdate={() => handleTimeUpdate(3)}
+                className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
+                  activeVideo === 3 && videosLoaded.video3 
+                    ? 'opacity-100' 
+                    : 'opacity-0'
+                }`}
+                style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0.0, 0.6, 1)' }}
+              >
+                <source src={heroClipchampVideo} type="video/mp4" />
+              </video>
+            )}
           </>
         ) : (
           <OptimizedImage

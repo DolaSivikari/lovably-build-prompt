@@ -8,12 +8,13 @@ module.exports = {
     assert: {
       preset: 'lighthouse:recommended',
       assertions: {
-        // Performance
-        'first-contentful-paint': ['warn', { maxNumericValue: 2000 }],
-        'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }],
-        'cumulative-layout-shift': ['warn', { maxNumericValue: 0.1 }],
-        'total-blocking-time': ['warn', { maxNumericValue: 300 }],
-        'speed-index': ['warn', { maxNumericValue: 3000 }],
+        // Performance - Stricter thresholds for optimization
+        'first-contentful-paint': ['error', { maxNumericValue: 1800 }],
+        'largest-contentful-paint': ['error', { maxNumericValue: 2200 }],
+        'cumulative-layout-shift': ['error', { maxNumericValue: 0.08 }],
+        'total-blocking-time': ['warn', { maxNumericValue: 250 }],
+        'speed-index': ['warn', { maxNumericValue: 2800 }],
+        'interactive': ['warn', { maxNumericValue: 3500 }],
         
         // Accessibility - WCAG 2.1 AA Compliance
         'categories:accessibility': ['error', { minScore: 0.95 }],
@@ -37,9 +38,14 @@ module.exports = {
         'canonical': 'warn',
         
         // Best Practices
-        'categories:best-practices': ['warn', { minScore: 0.9 }],
+        'categories:best-practices': ['error', { minScore: 0.92 }],
         'errors-in-console': 'error',
-        'no-vulnerable-libraries': 'warn',
+        'no-vulnerable-libraries': 'error',
+        'uses-http2': 'warn',
+        'uses-optimized-images': 'warn',
+        'modern-image-formats': 'warn',
+        'uses-text-compression': 'error',
+        'uses-responsive-images': 'warn',
       },
     },
     upload: {
