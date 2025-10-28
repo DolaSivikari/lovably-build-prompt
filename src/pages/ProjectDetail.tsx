@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProcessTimelineStep from "@/components/ProcessTimelineStep";
 import { ProjectSidebar } from "@/components/ProjectSidebar";
+import { InteractiveLightbox } from "@/components/InteractiveLightbox";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -58,6 +59,7 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const [project, setProject] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -167,17 +169,49 @@ export default function ProjectDetail() {
         {/* Featured Image */}
         {project.featured_image && (
           <div className="container mx-auto px-4 py-8">
-            <div className="relative w-full aspect-[4/3] md:aspect-[2/1] overflow-hidden rounded-lg">
+            <div 
+              className="relative w-full aspect-[4/3] md:aspect-[2/1] overflow-hidden rounded-lg cursor-pointer group"
+              onClick={() => setLightboxOpen(true)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setLightboxOpen(true);
+                }
+              }}
+              aria-label="Click to view full image"
+            >
               <OptimizedImage
                 src={project.featured_image}
                 alt={project.title}
                 width={1200}
                 height={600}
-                className="w-full h-full object-cover object-center rounded-lg"
-                objectFit="cover"
+                className="w-full h-full object-contain object-center rounded-lg transition-transform duration-300 group-hover:scale-105"
+                objectFit="contain"
                 priority
               />
+              {/* Overlay hint */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-lg flex items-center justify-center">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 px-4 py-2 rounded-full text-sm font-medium">
+                  Click to expand
+                </div>
+              </div>
             </div>
+
+            {/* Lightbox for full-screen view */}
+            <InteractiveLightbox
+              images={[
+                {
+                  src: project.featured_image,
+                  alt: project.title,
+                  caption: project.title,
+                },
+              ]}
+              isOpen={lightboxOpen}
+              onClose={() => setLightboxOpen(false)}
+              initialIndex={0}
+            />
           </div>
         )}
 
