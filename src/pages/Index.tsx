@@ -112,7 +112,7 @@ const Index = () => {
       <SEO structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} includeRating={true} />
       <Navigation />
       <MobileStickyCTA />
-      <main id="main-content" role="main">
+      <main id="main-content" role="main" className="pt-20">
         <NumberedLandingHero />
         
         {/* Direct Answer for AEO/GEO */}

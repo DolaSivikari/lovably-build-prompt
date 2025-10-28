@@ -123,7 +123,7 @@ export default function ProjectDetail() {
         ogImage={project.featured_image}
       />
       
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col pt-20">
         <Navigation />
         
         {/* Breadcrumb */}
