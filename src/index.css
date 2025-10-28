@@ -516,7 +516,7 @@ All colors MUST be HSL.
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 80px 5% 0; /* 80px top padding for fixed navigation */
+  padding: 100px 5% 60px; /* 100px top clearance for fixed nav + 20px buffer */
 }
 
 .landing-hero__background {
@@ -733,7 +733,7 @@ All colors MUST be HSL.
 
 @media (max-width: 768px) {
   .landing-hero {
-    padding: 0 6%;
+    padding: 100px 6% 40px; /* Maintain top clearance, reduce bottom padding */
     align-items: center;
   }
 
@@ -744,12 +744,10 @@ All colors MUST be HSL.
   .landing-menu-item {
     grid-template-columns: auto 1fr;
     gap: 1rem;
-    padding: 1.75rem 0;
+    padding: 1.25rem 1rem; /* Reduced from 1.75rem for more compact layout */
     backdrop-filter: blur(8px);
     background: hsl(var(--background) / 0.05);
     border-radius: 8px;
-    padding-left: 1rem;
-    padding-right: 1rem;
     margin-bottom: 0.5rem;
   }
 
@@ -807,7 +805,7 @@ All colors MUST be HSL.
   }
   
   .landing-menu-item {
-    padding: 1.5rem 0.75rem;
+    padding: 1rem 0.75rem; /* Tighter spacing for small screens */
   }
 
   .landing-menu-item__cta {
