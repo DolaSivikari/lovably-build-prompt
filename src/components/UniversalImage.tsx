@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { resolveAssetPath } from '@/utils/assetResolver';
+import { addCacheBuster } from '@/utils/cacheBuster';
 
 interface UniversalImageProps {
   src: string | null | undefined;
@@ -48,8 +49,12 @@ export const UniversalImage = ({
       return src;
     }
     
-    // 2. Return if absolute path to public folder
+    // 2. Public folder path - add cache-busting
     if (src.startsWith('/')) {
+      // Don't cache-bust Vite-hashed build assets
+      if (!src.includes('/assets/')) {
+        return addCacheBuster(src);
+      }
       return src;
     }
     

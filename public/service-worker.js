@@ -3,13 +3,11 @@
  * Implements network-first caching strategy for optimal freshness
  */
 
-const CACHE_NAME = 'ascent-v1';
+const CACHE_NAME = 'ascent-v2';
 const RUNTIME_CACHE = 'ascent-runtime';
 
-// Assets to precache
+// Assets to precache (minimal - HTML is handled separately)
 const PRECACHE_URLS = [
-  '/',
-  '/index.html',
   '/manifest.json',
 ];
 

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useImageLoad } from "@/hooks/useImageLoad";
 import { cn } from "@/lib/utils";
+import { addCacheBuster } from "@/utils/cacheBuster";
 
 interface OptimizedImageProps {
   src: string;
@@ -31,7 +32,29 @@ const OptimizedImage = ({
   fetchPriority = "auto",
   loading,
 }: OptimizedImageProps) => {
-  const [imgSrc, setImgSrc] = useState(src);
+  // Add cache-busting for public assets (not Vite-hashed build assets)
+  const bustedSrc = useMemo(() => {
+    if (src.startsWith('/') && !src.includes('/assets/')) {
+      return addCacheBuster(src);
+    }
+    return src;
+  }, [src]);
+  
+  const bustedSrcAvif = useMemo(() => {
+    if (srcAvif && srcAvif.startsWith('/') && !srcAvif.includes('/assets/')) {
+      return addCacheBuster(srcAvif);
+    }
+    return srcAvif;
+  }, [srcAvif]);
+  
+  const bustedSrcWebp = useMemo(() => {
+    if (srcWebp && srcWebp.startsWith('/') && !srcWebp.includes('/assets/')) {
+      return addCacheBuster(srcWebp);
+    }
+    return srcWebp;
+  }, [srcWebp]);
+
+  const [imgSrc, setImgSrc] = useState(bustedSrc);
   const [hasError, setHasError] = useState(false);
   const { isLoaded, isInView, imageRef } = useImageLoad({
     rootMargin: "50px",
@@ -62,19 +85,19 @@ const OptimizedImage = ({
       )}
 
       {/* Modern image formats with picture element */}
-      {shouldLoad && (srcAvif || srcWebp) ? (
+      {shouldLoad && (bustedSrcAvif || bustedSrcWebp) ? (
         <picture>
-          {srcAvif && (
+          {bustedSrcAvif && (
             <source
               type="image/avif"
-              srcSet={srcAvif}
+              srcSet={bustedSrcAvif}
               sizes={sizes}
             />
           )}
-          {srcWebp && (
+          {bustedSrcWebp && (
             <source
               type="image/webp"
-              srcSet={srcWebp}
+              srcSet={bustedSrcWebp}
               sizes={sizes}
             />
           )}
