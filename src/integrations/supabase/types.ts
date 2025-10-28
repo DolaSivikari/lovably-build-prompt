@@ -1739,6 +1739,7 @@ export type Database = {
           meta_title: string | null
           og_image: string | null
           phone: string
+          robots_txt: string | null
           social_links: Json | null
           updated_at: string | null
           updated_by: string | null
@@ -1758,6 +1759,7 @@ export type Database = {
           meta_title?: string | null
           og_image?: string | null
           phone: string
+          robots_txt?: string | null
           social_links?: Json | null
           updated_at?: string | null
           updated_by?: string | null
@@ -1777,6 +1779,7 @@ export type Database = {
           meta_title?: string | null
           og_image?: string | null
           phone?: string
+          robots_txt?: string | null
           social_links?: Json | null
           updated_at?: string | null
           updated_by?: string | null

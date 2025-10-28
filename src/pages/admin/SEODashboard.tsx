@@ -26,6 +26,7 @@ import {
   MousePointerClick,
   Eye,
   XCircle,
+  Save,
 } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -101,6 +102,7 @@ export default function SEODashboard() {
   const [dateRange, setDateRange] = useState<'7' | '30' | '90'>('30');
   const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [isSavingRobotsTxt, setIsSavingRobotsTxt] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -350,10 +352,21 @@ export default function SEODashboard() {
       setContentItems(items);
       if (analyticsRes.data) setAnalytics(analyticsRes.data);
 
-      // Load robots.txt
-      setRobotsTxt(`User-agent: *
+      // Load robots.txt from site_settings
+      const { data: settings } = await supabase
+        .from('site_settings')
+        .select('robots_txt')
+        .eq('is_active', true)
+        .single();
+      
+      if (settings?.robots_txt) {
+        setRobotsTxt(settings.robots_txt);
+      } else {
+        // Fallback to default
+        setRobotsTxt(`User-agent: *
 Allow: /
 Sitemap: ${window.location.origin}/sitemap.xml`);
+      }
     } catch (error: any) {
       console.error('Error loading SEO data:', error);
       toast({
@@ -398,6 +411,103 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
     } finally {
       setGeneratingKeywords(false);
     }
+  };
+
+  const saveRobotsTxt = async () => {
+    try {
+      setIsSavingRobotsTxt(true);
+      
+      // Validate robots.txt content
+      if (!robotsTxt.includes('User-agent:')) {
+        toast({
+          variant: 'destructive',
+          title: 'Invalid robots.txt',
+          description: 'Must contain at least one User-agent directive',
+        });
+        return;
+      }
+      
+      if (!robotsTxt.includes('Sitemap:')) {
+        toast({
+          title: 'Warning',
+          description: 'robots.txt should include a Sitemap directive',
+        });
+      }
+
+      // Update site_settings with new robots.txt content
+      const { error } = await supabase
+        .from('site_settings')
+        .update({ 
+          robots_txt: robotsTxt,
+          updated_at: new Date().toISOString()
+        })
+        .eq('is_active', true);
+
+      if (error) throw error;
+
+      toast({
+        title: 'Success',
+        description: 'Robots.txt updated successfully! Changes will be live after next deployment.',
+      });
+    } catch (error: any) {
+      console.error('Error saving robots.txt:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to save robots.txt',
+      });
+    } finally {
+      setIsSavingRobotsTxt(false);
+    }
+  };
+
+  const resetRobotsTxtToDefault = () => {
+    const defaultRobotsTxt = `User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# AI Crawlers for AEO/GEO Optimization
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ascentgroupconstruction.com/sitemap.xml
+
+# Block access to admin pages
+User-agent: *
+Disallow: /admin
+Disallow: /auth`;
+    setRobotsTxt(defaultRobotsTxt);
+    toast({
+      title: 'Reset Complete',
+      description: 'Robots.txt reset to default. Click Save to apply changes.',
+    });
   };
 
   const regenerateSitemap = async () => {
@@ -1098,22 +1208,51 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
           <Card>
             <CardHeader>
               <CardTitle>Robots.txt</CardTitle>
-              <CardDescription>Configure search engine crawler behavior</CardDescription>
+              <CardDescription>Configure crawler access rules - Changes take effect after deployment</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="robots">Robots.txt Content</Label>
+                <Label htmlFor="robots">Edit robots.txt content:</Label>
                 <Textarea
                   id="robots"
                   value={robotsTxt}
                   onChange={(e) => setRobotsTxt(e.target.value)}
-                  rows={8}
+                  rows={12}
                   className="font-mono text-sm"
+                  disabled={isSavingRobotsTxt}
+                  placeholder="Loading robots.txt..."
                 />
               </div>
-              <p className="text-sm text-muted-foreground">
-                Make sure to update the actual robots.txt file in your public folder to match these settings.
+              <p className="text-xs text-muted-foreground">
+                ⚠️ Changes will be stored in the database and applied to your live site on next deployment.
+                Make sure to include proper User-agent directives and your Sitemap URL.
               </p>
+              <div className="flex gap-2">
+                <Button 
+                  onClick={saveRobotsTxt} 
+                  disabled={isSavingRobotsTxt}
+                  className="flex items-center gap-2"
+                >
+                  {isSavingRobotsTxt ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="h-4 w-4" />
+                      Save Changes
+                    </>
+                  )}
+                </Button>
+                <Button 
+                  onClick={resetRobotsTxtToDefault}
+                  variant="outline"
+                  disabled={isSavingRobotsTxt}
+                >
+                  Reset to Default
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
