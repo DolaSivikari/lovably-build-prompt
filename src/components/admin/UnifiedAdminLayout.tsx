@@ -9,6 +9,7 @@ import '@/styles/admin-theme.css';
 export const UnifiedAdminLayout = () => {
   const { isLoading, isAdmin } = useAdminAuth();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
@@ -43,9 +44,14 @@ export const UnifiedAdminLayout = () => {
       <UnifiedSidebar 
         collapsed={sidebarCollapsed} 
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        mobileOpen={mobileMenuOpen}
+        onMobileClose={() => setMobileMenuOpen(false)}
       />
       <div className={`business-main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-        <BusinessHeader user={user} />
+        <BusinessHeader 
+          user={user} 
+          onMenuClick={() => setMobileMenuOpen(true)}
+        />
         <div className="business-page-content">
           <Outlet />
         </div>

@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Search, Bell, LogOut } from 'lucide-react';
+import { Search, Bell, LogOut, Menu } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 
 interface BusinessHeaderProps {
   user: any;
+  onMenuClick?: () => void;
 }
 
-export const BusinessHeader = ({ user }: BusinessHeaderProps) => {
+export const BusinessHeader = ({ user, onMenuClick }: BusinessHeaderProps) => {
   const navigate = useNavigate();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -19,6 +20,15 @@ export const BusinessHeader = ({ user }: BusinessHeaderProps) => {
   return (
     <header className="business-header">
       <div className="business-header-content">
+        {/* Mobile Hamburger Menu */}
+        <button 
+          className="business-hamburger-btn"
+          onClick={onMenuClick}
+          aria-label="Toggle menu"
+        >
+          <Menu size={24} />
+        </button>
+
         {/* Search */}
         <div className="business-header-search">
           <Search size={18} className="business-search-icon" />

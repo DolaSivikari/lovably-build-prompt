@@ -17,20 +17,30 @@ import {
   ChevronRight,
   Folder,
   UserCircle,
-  FileCheck
+  FileCheck,
+  X
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 interface UnifiedSidebarProps {
   collapsed: boolean;
   onToggle: () => void;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
 }
 
-export const UnifiedSidebar = ({ collapsed, onToggle }: UnifiedSidebarProps) => {
+export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose }: UnifiedSidebarProps) => {
   const location = useLocation();
   const currentPath = location.pathname;
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    if (mobileOpen && onMobileClose) {
+      onMobileClose();
+    }
+  }, [currentPath]);
 
   // Check if any route in a group is active to keep it open
   const isBusinessActive = currentPath.startsWith('/admin/business');
@@ -56,8 +66,28 @@ export const UnifiedSidebar = ({ collapsed, onToggle }: UnifiedSidebarProps) => 
   );
 
   return (
-    <aside className={`business-sidebar ${collapsed ? 'collapsed' : ''}`}>
-      <div className="business-sidebar-content">
+    <>
+      {/* Mobile Backdrop */}
+      {mobileOpen && (
+        <div 
+          className="business-sidebar-backdrop"
+          onClick={onMobileClose}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`business-sidebar ${collapsed ? 'collapsed' : ''} ${mobileOpen ? 'mobile-open' : ''}`}>
+        {/* Mobile Close Button */}
+        <button 
+          className="business-sidebar-mobile-close"
+          onClick={onMobileClose}
+          aria-label="Close menu"
+        >
+          <X size={24} />
+        </button>
+
+        <div className="business-sidebar-content">
         {/* Logo */}
         <div className="business-logo">
           {collapsed ? (
@@ -176,11 +206,12 @@ export const UnifiedSidebar = ({ collapsed, onToggle }: UnifiedSidebarProps) => 
         </Collapsible>
       </div>
 
-      {/* Toggle Button */}
-      <button className="business-sidebar-toggle" onClick={onToggle}>
-        {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-      </button>
-    </aside>
+        {/* Toggle Button */}
+        <button className="business-sidebar-toggle" onClick={onToggle}>
+          {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+        </button>
+      </aside>
+    </>
   );
 };
 
