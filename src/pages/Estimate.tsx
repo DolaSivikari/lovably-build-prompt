@@ -11,7 +11,9 @@ import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import EstimatorStep1 from "@/components/estimator/EstimatorStep1";
-import EstimatorStep2 from "@/components/estimator/EstimatorStep2";
+import EstimatorStep2Enhanced from "@/components/estimator/EstimatorStep2Enhanced";
+import { QuoteRequestDialog } from "@/components/estimator/QuoteRequestDialog";
+import { requiresQuote, getServiceMessage, isEstimatable } from "@/utils/estimator";
 import EstimatorStep3 from "@/components/estimator/EstimatorStep3";
 import EstimatorStep4 from "@/components/estimator/EstimatorStep4";
 import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
@@ -45,6 +47,13 @@ const Estimate = () => {
     prepComplexity: "",
     finishQuality: "",
     region: "",
+    // Service-specific fields
+    buildingType: "",
+    accessibility: "",
+    businessHoursConstraint: "",
+    unitCount: "",
+    includeCommonAreas: false,
+    materialType: "",
     // Step 3
     scaffolding: "",
     colorConsultation: false,
@@ -60,7 +69,34 @@ const Estimate = () => {
     notes: "",
   });
 
+  const [showQuoteDialog, setShowQuoteDialog] = useState(false);
+  const [selectedServiceInfo, setSelectedServiceInfo] = useState<{
+    name: string;
+    message: ReturnType<typeof getServiceMessage>;
+  } | null>(null);
+
   const handleInputChange = (field: string, value: any) => {
+    // Special handling for service selection
+    if (field === "service" && value) {
+      // Check if this service requires a quote instead of estimate
+      if (requiresQuote(value)) {
+        const serviceMessage = getServiceMessage(value);
+        const serviceName = value
+          .split("_")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+        
+        setSelectedServiceInfo({
+          name: serviceName,
+          message: serviceMessage,
+        });
+        setShowQuoteDialog(true);
+        
+        // Don't update form data - keep service empty so user must pick estimatable service
+        return;
+      }
+    }
+    
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -85,12 +121,19 @@ const Estimate = () => {
     }
 
     const estimateInput: EstimateInput = {
-      service: formData.service as "residential_painting" | "stucco_eifs",
+      service: formData.service as any,
       sqft: parseInt(formData.sqft) || 0,
       stories: formData.stories as "1" | "2" | "3_plus",
       prepComplexity: formData.prepComplexity as any,
       finishQuality: formData.finishQuality as any,
       region: formData.region as any,
+      // Service-specific fields
+      buildingType: formData.buildingType as any,
+      accessibility: formData.accessibility as any,
+      businessHoursConstraint: formData.businessHoursConstraint as any,
+      unitCount: formData.unitCount as any,
+      includeCommonAreas: formData.includeCommonAreas,
+      materialType: formData.materialType as any,
       addOns: {
         scaffolding: formData.scaffolding as any,
         colorConsultation: formData.colorConsultation,
@@ -106,9 +149,28 @@ const Estimate = () => {
   const canProceed = () => {
     switch (currentStep) {
       case 1:
-        return formData.service && formData.sqft && formData.stories;
+        return (
+          formData.service &&
+          isEstimatable(formData.service) &&
+          formData.sqft &&
+          formData.stories
+        );
       case 2:
-        return formData.prepComplexity && formData.finishQuality && formData.region;
+        // Base fields required for all services
+        let baseValid = formData.prepComplexity && formData.finishQuality && formData.region;
+        
+        // Service-specific required fields
+        if (formData.service === "commercial_painting") {
+          return baseValid && formData.buildingType && formData.accessibility && formData.businessHoursConstraint;
+        }
+        if (formData.service === "condo_multi_unit_painting") {
+          return baseValid && formData.unitCount;
+        }
+        if (formData.service === "exterior_siding_cladding") {
+          return baseValid && formData.materialType;
+        }
+        
+        return baseValid;
       case 3:
         return true; // Optional step
       case 4:
@@ -284,11 +346,18 @@ Add-ons:
               )}
 
               {currentStep === 2 && (
-                <EstimatorStep2
+                <EstimatorStep2Enhanced
+                  service={formData.service}
                   data={{
                     prepComplexity: formData.prepComplexity,
                     finishQuality: formData.finishQuality,
                     region: formData.region,
+                    buildingType: formData.buildingType,
+                    accessibility: formData.accessibility,
+                    businessHoursConstraint: formData.businessHoursConstraint,
+                    unitCount: formData.unitCount,
+                    includeCommonAreas: formData.includeCommonAreas,
+                    materialType: formData.materialType,
                   }}
                   onChange={handleInputChange}
                 />
@@ -371,6 +440,16 @@ Add-ons:
           </div>
         </div>
       </main>
+
+      {/* Quote Request Dialog for Complex Services */}
+      {showQuoteDialog && selectedServiceInfo && (
+        <QuoteRequestDialog
+          open={showQuoteDialog}
+          onOpenChange={setShowQuoteDialog}
+          serviceName={selectedServiceInfo.name}
+          serviceMessage={selectedServiceInfo.message}
+        />
+      )}
 
       <Footer />
     </div>

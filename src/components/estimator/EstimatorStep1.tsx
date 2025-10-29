@@ -2,7 +2,9 @@ import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -29,12 +31,45 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
             <SelectValue placeholder="Select project type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="residential_painting">Residential Painting</SelectItem>
-            <SelectItem value="stucco_eifs">Stucco / EIFS</SelectItem>
-            <SelectItem value="commercial_painting">Commercial Painting</SelectItem>
-            <SelectItem value="condo_multi_unit_painting">Condo / Multi-Unit Painting</SelectItem>
-            <SelectItem value="exterior_siding_cladding">Exterior Siding & Cladding</SelectItem>
-            <SelectItem value="drywall_interior_finishing">Drywall & Interior Finishing</SelectItem>
+            <SelectGroup>
+              <SelectLabel>Painting Services (Instant Estimate)</SelectLabel>
+              <SelectItem value="residential_painting">Residential Painting</SelectItem>
+              <SelectItem value="commercial_painting">Commercial Painting</SelectItem>
+              <SelectItem value="condo_multi_unit_painting">Condo / Multi-Unit Painting</SelectItem>
+              <SelectItem value="stucco_eifs">Stucco / EIFS</SelectItem>
+            </SelectGroup>
+            
+            <SelectGroup>
+              <SelectLabel>Exterior Services (Instant Estimate)</SelectLabel>
+              <SelectItem value="exterior_siding_cladding">Exterior Siding & Cladding</SelectItem>
+              <SelectItem value="drywall_interior_finishing">Drywall & Interior Finishing</SelectItem>
+            </SelectGroup>
+            
+            <SelectGroup>
+              <SelectLabel>Complex Services (Quote Required)</SelectLabel>
+              <SelectItem value="masonry">Masonry</SelectItem>
+              <SelectItem value="roofing">Roofing Services</SelectItem>
+              <SelectItem value="metal_cladding">Metal Cladding & Panels</SelectItem>
+              <SelectItem value="waterproofing">Waterproofing & Restoration</SelectItem>
+              <SelectItem value="sealants">Sealants & Caulking</SelectItem>
+              <SelectItem value="parking_garage">Parking Garage Coating</SelectItem>
+              <SelectItem value="windows_doors">Window & Door Installation</SelectItem>
+            </SelectGroup>
+            
+            <SelectGroup>
+              <SelectLabel>Construction Management (Quote Required)</SelectLabel>
+              <SelectItem value="general_contracting">General Contracting</SelectItem>
+              <SelectItem value="design_build">Design-Build Solutions</SelectItem>
+              <SelectItem value="construction_management">Construction Management</SelectItem>
+              <SelectItem value="preconstruction">Preconstruction & Advisory</SelectItem>
+            </SelectGroup>
+            
+            <SelectGroup>
+              <SelectLabel>Specialty Services (Quote Required)</SelectLabel>
+              <SelectItem value="suite_buildouts">Suite Buildouts</SelectItem>
+              <SelectItem value="tile_flooring">Tile & Flooring</SelectItem>
+              <SelectItem value="sustainable_building">Sustainable Building</SelectItem>
+            </SelectGroup>
           </SelectContent>
         </Select>
       </div>
