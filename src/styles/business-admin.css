@@ -1,0 +1,476 @@
+/* ============================================================================
+   ASCENT BUSINESS ADMIN PANEL - STYLES
+   ============================================================================ */
+
+:root {
+  /* Business Admin Theme - Dark Glassmorphism */
+  --business-primary: #2563eb;
+  --business-primary-dark: #1d4ed8;
+  --business-accent-orange: #f97316;
+  --business-accent-green: #10b981;
+  --business-accent-red: #ef4444;
+  --business-accent-yellow: #f59e0b;
+  
+  --business-bg-darker: #020617;
+  --business-bg-dark: #0f172a;
+  --business-bg-card: #1e293b;
+  --business-bg-hover: #334155;
+  
+  --business-text-primary: #f1f5f9;
+  --business-text-secondary: #94a3b8;
+  --business-text-muted: #64748b;
+  
+  --business-border: #334155;
+  --business-glass-bg: rgba(30, 41, 59, 0.7);
+  --business-glass-border: rgba(148, 163, 184, 0.1);
+  
+  --business-sidebar-width: 280px;
+  --business-sidebar-collapsed: 80px;
+  --business-header-height: 70px;
+}
+
+/* Business Admin Container */
+.business-admin-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--business-bg-darker);
+  position: relative;
+}
+
+/* Animated Background */
+.business-admin-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Sidebar */
+.business-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: var(--business-sidebar-width);
+  background: var(--business-glass-bg);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--business-glass-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: width 0.3s ease;
+}
+
+.business-sidebar.collapsed {
+  width: var(--business-sidebar-collapsed);
+}
+
+.business-sidebar-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+  overflow-y: auto;
+}
+
+/* Logo */
+.business-logo {
+  padding: 0 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.business-logo-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.business-logo-icon svg {
+  display: block;
+}
+
+.business-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.business-logo-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--business-text-primary);
+  letter-spacing: -0.025em;
+}
+
+.business-logo-subtitle {
+  font-size: 0.75rem;
+  color: var(--business-text-secondary);
+  font-weight: 500;
+}
+
+/* Navigation */
+.business-nav {
+  flex: 1;
+  padding: 0 1rem;
+}
+
+.business-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.25rem;
+  border-radius: 8px;
+  color: var(--business-text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.business-nav-item:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+.business-nav-item.active {
+  background: rgba(37, 99, 235, 0.15);
+  color: var(--business-primary);
+}
+
+.business-nav-icon {
+  flex-shrink: 0;
+}
+
+.business-nav-label {
+  flex: 1;
+}
+
+.business-nav-badge {
+  background: var(--business-accent-orange);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  min-width: 1.25rem;
+  text-align: center;
+}
+
+/* Sidebar collapsed state */
+.business-sidebar.collapsed .business-logo-text,
+.business-sidebar.collapsed .business-nav-label,
+.business-sidebar.collapsed .business-nav-badge {
+  display: none;
+}
+
+/* Toggle Button */
+.business-sidebar-toggle {
+  position: absolute;
+  right: -12px;
+  top: 2rem;
+  width: 24px;
+  height: 24px;
+  background: var(--business-bg-card);
+  border: 1px solid var(--business-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--business-text-secondary);
+  transition: all 0.15s ease;
+}
+
+.business-sidebar-toggle:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+/* Main Content Area */
+.business-main-content {
+  flex: 1;
+  margin-left: var(--business-sidebar-width);
+  transition: margin-left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.business-main-content.sidebar-collapsed {
+  margin-left: var(--business-sidebar-collapsed);
+}
+
+/* Header */
+.business-header {
+  position: sticky;
+  top: 0;
+  height: var(--business-header-height);
+  background: var(--business-glass-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--business-glass-border);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 50;
+}
+
+.business-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Search */
+.business-header-search {
+  flex: 1;
+  max-width: 500px;
+  position: relative;
+}
+
+.business-search-input {
+  width: 100%;
+  padding: 0.625rem 1rem 0.625rem 2.5rem;
+  background: var(--business-bg-dark);
+  border: 1px solid var(--business-border);
+  border-radius: 8px;
+  color: var(--business-text-primary);
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+}
+
+.business-search-input:focus {
+  outline: none;
+  border-color: var(--business-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.business-search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--business-text-muted);
+}
+
+.business-search-kbd {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.125rem 0.375rem;
+  background: var(--business-bg-card);
+  border: 1px solid var(--business-border);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--business-text-muted);
+}
+
+/* Header Actions */
+.business-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.business-action-button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid var(--business-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--business-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.business-action-button:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+.business-notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  background: var(--business-accent-red);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* User Button */
+.business-user-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--business-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.business-user-button:hover {
+  background: var(--business-bg-hover);
+}
+
+.business-user-avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--business-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.business-user-name {
+  color: var(--business-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Page Content */
+.business-page-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* Glass Cards */
+.business-glass-card {
+  background: var(--business-glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--business-glass-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.business-glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+/* Stats Grid */
+.business-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Page Title */
+.business-page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--business-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.business-page-subtitle {
+  font-size: 1rem;
+  color: var(--business-text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* Buttons */
+.business-btn {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.business-btn-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.business-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.business-btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.business-btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.business-btn-ghost {
+  background: transparent;
+  color: var(--business-text-secondary);
+  border: 1px solid var(--business-border);
+}
+
+.business-btn-ghost:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+/* Scrollbar */
+.business-sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.business-sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.business-sidebar-content::-webkit-scrollbar-thumb {
+  background: var(--business-bg-hover);
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .business-sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .business-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .business-main-content {
+    margin-left: 0;
+  }
+}

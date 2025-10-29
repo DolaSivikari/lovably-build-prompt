@@ -112,6 +112,26 @@ const AboutPageSettings = lazy(() => import("./pages/admin/AboutPageSettings").c
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load About Page Settings</p></div>
 })));
 
+// Business Admin Pages
+const BusinessLayout = lazy(() => import("./pages/admin/business/BusinessLayout").then(m => ({ default: m.BusinessLayout })).catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Layout</p></div>
+})));
+const BusinessDashboard = lazy(() => import("./pages/admin/business/BusinessDashboard").then(m => ({ default: m.BusinessDashboard })).catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Dashboard</p></div>
+})));
+const BusinessClients = lazy(() => import("./pages/admin/business/BusinessClients").then(m => ({ default: m.BusinessClients })).catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Clients</p></div>
+})));
+const BusinessProjects = lazy(() => import("./pages/admin/business/BusinessProjects").then(m => ({ default: m.BusinessProjects })).catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Projects</p></div>
+})));
+const BusinessEstimates = lazy(() => import("./pages/admin/business/BusinessEstimates").then(m => ({ default: m.BusinessEstimates })).catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Estimates</p></div>
+})));
+const BusinessInvoices = lazy(() => import("./pages/admin/business/BusinessInvoices").then(m => ({ default: m.BusinessInvoices })).catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Invoices</p></div>
+})));
+
 // Lazy load heavy content pages with error handling
 const Blog = lazy(() => import("./pages/Blog").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog</p></div>
@@ -229,6 +249,16 @@ const App = () => (
                   <Route path="/admin/stats" element={<StatsManager />} />
                   <Route path="/admin/footer-settings" element={<FooterSettings />} />
                   <Route path="/admin/contact-page-settings" element={<ContactPageSettings />} />
+                  
+                  {/* Business Admin Routes */}
+                  <Route path="/admin/business" element={<BusinessLayout />}>
+                    <Route index element={<BusinessDashboard />} />
+                    <Route path="dashboard" element={<BusinessDashboard />} />
+                    <Route path="clients" element={<BusinessClients />} />
+                    <Route path="projects" element={<BusinessProjects />} />
+                    <Route path="estimates" element={<BusinessEstimates />} />
+                    <Route path="invoices" element={<BusinessInvoices />} />
+                  </Route>
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
