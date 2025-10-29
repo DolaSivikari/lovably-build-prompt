@@ -24,6 +24,8 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
       case "quote": return "Quote Request";
       case "estimate": return "Estimate Request";
       case "starter_package": return "Starter Package";
+      case "prequal_request": return "Prequalification Request";
+      case "resume": return "Resume Submission";
       default: return "General Contact";
     }
   };
@@ -55,19 +57,29 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
                 className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/50 transition-colors ${
                   submission.status === 'new' ? 'bg-primary/5 border-primary/30' : 'bg-background'
                 }`}
-                onClick={() => navigate("/admin/contacts")}
+                onClick={() => {
+                  if (submission.submission_type === 'prequal_request') {
+                    navigate("/admin/prequalifications");
+                  } else if (submission.submission_type === 'resume') {
+                    navigate("/admin/resume-submissions");
+                  } else {
+                    navigate("/admin/contacts");
+                  }
+                }}
               >
                 <div className={`mt-1 p-2 rounded-full ${
                   submission.status === 'new' ? 'bg-secondary/10' : 'bg-muted'
                 }`}>
                   {getSubmissionIcon(submission.status)}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <div className="flex-1">
-                      <p className="font-medium text-sm truncate">{submission.name}</p>
-                      <p className="text-xs text-muted-foreground truncate">{submission.email}</p>
-                    </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <div className="flex-1">
+                        <p className="font-medium text-sm truncate">
+                          {submission.name || submission.company_name || submission.applicant_name}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">{submission.email}</p>
+                      </div>
                     <Badge variant="outline" className="text-xs shrink-0">
                       {getSubmissionTypeLabel(submission.submission_type)}
                     </Badge>

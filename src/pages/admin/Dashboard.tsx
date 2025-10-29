@@ -181,17 +181,65 @@ const Dashboard = () => {
 
   const loadRecentSubmissions = async () => {
     try {
-      const { data, error } = await supabase
+      // Load contact submissions
+      const { data: contactData, error: contactError } = await supabase
         .from("contact_submissions")
-        .select("*")
+        .select("id, name, email, message, status, created_at, submission_type")
         .order("created_at", { ascending: false })
-        .limit(5);
+        .limit(10);
 
-      if (error) {
-        console.error('Error loading recent submissions:', error);
+      // Load prequalification requests
+      const { data: prequalData, error: prequalError } = await supabase
+        .from("prequalification_downloads")
+        .select("id, company_name, contact_name, email, message, status, downloaded_at")
+        .order("downloaded_at", { ascending: false })
+        .limit(10);
+
+      // Load resume submissions
+      const { data: resumeData, error: resumeError } = await supabase
+        .from("resume_submissions")
+        .select("id, applicant_name, email, cover_message, status, created_at")
+        .order("created_at", { ascending: false })
+        .limit(10);
+
+      if (contactError || prequalError || resumeError) {
+        console.error('Error loading submissions:', { contactError, prequalError, resumeError });
       }
+
+      // Normalize and merge all submissions
+      const allSubmissions = [
+        ...(contactData || []).map(s => ({
+          ...s,
+          created_at: s.created_at,
+          submission_type: s.submission_type || 'contact'
+        })),
+        ...(prequalData || []).map(s => ({
+          ...s,
+          id: s.id,
+          company_name: s.company_name,
+          email: s.email,
+          message: s.message,
+          status: s.status,
+          created_at: s.downloaded_at,
+          submission_type: 'prequal_request'
+        })),
+        ...(resumeData || []).map(s => ({
+          ...s,
+          applicant_name: s.applicant_name,
+          email: s.email,
+          message: s.cover_message,
+          status: s.status,
+          created_at: s.created_at,
+          submission_type: 'resume'
+        }))
+      ];
+
+      // Sort by created_at and take top 5
+      const sorted = allSubmissions
+        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+        .slice(0, 5);
       
-      setRecentSubmissions(data || []);
+      setRecentSubmissions(sorted);
     } catch (error) {
       console.error('Error loading recent submissions:', error);
       setRecentSubmissions([]);

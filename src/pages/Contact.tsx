@@ -52,13 +52,28 @@ const Contact = () => {
     phone: "",
     company: "",
     message: "",
+    honeypot: "", // Honeypot field for bot detection
   });
+
+  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Prevent duplicate submissions
     if (isSubmittingRef.current) return;
+
+    // Client-side rate limiting (10 seconds between submissions)
+    const now = Date.now();
+    if (now - lastSubmitTime < 10000) {
+      toast({
+        title: "Slow down!",
+        description: "Please wait a moment before submitting again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     isSubmittingRef.current = true;
     setIsSubmitting(true);
 
@@ -66,18 +81,33 @@ const Contact = () => {
       // Validate input to prevent XSS/injection attacks
       const validatedData = contactSchema.parse(formData);
 
-      const { error } = await supabase
-        .from("contact_submissions")
-        .insert([{
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone || null,
-          company: validatedData.company || null,
-          message: validatedData.message,
-          submission_type: "contact",
-        }]);
+      // Submit via edge function with bot protection
+      const { data, error } = await supabase.functions.invoke('submit-form', {
+        body: {
+          formType: 'contact',
+          data: {
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            company: validatedData.company,
+            message: validatedData.message,
+            submission_type: 'contact'
+          },
+          honeypot: formData.honeypot
+        }
+      });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message?.includes('Rate limit exceeded')) {
+          toast({
+            title: "Too many submissions",
+            description: "Please try again in a few minutes.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
 
       // Track conversion
       trackConversion('contact_form_submit', {
@@ -119,7 +149,8 @@ const Contact = () => {
         description: "We'll get back to you within 24 hours. Check your email for confirmation.",
       });
 
-      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", company: "", message: "", honeypot: "" });
+      setLastSubmitTime(now);
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Display validation errors
@@ -306,6 +337,20 @@ const Contact = () => {
                         required
                         placeholder="Tell us about your project requirements, timeline, and budget..."
                         className="min-h-[150px]"
+                      />
+                    </div>
+
+                    {/* Honeypot field - hidden from users, catches bots */}
+                    <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                      <Label htmlFor="website">Website</Label>
+                      <Input
+                        id="website"
+                        name="honeypot"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={formData.honeypot}
+                        onChange={handleChange}
                       />
                     </div>
 

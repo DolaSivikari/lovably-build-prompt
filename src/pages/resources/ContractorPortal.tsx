@@ -29,7 +29,10 @@ const ContractorPortal = () => {
     phone: "",
     projectDetails: "",
     documents: [] as string[],
+    honeypot: "" // Honeypot for bot detection
   });
+
+  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
   const documents = [
     { name: "Certificate of Insurance", icon: Shield, size: "2MB", description: "Current liability coverage" },
@@ -44,6 +47,18 @@ const ContractorPortal = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Client-side rate limiting
+    const now = Date.now();
+    if (now - lastSubmitTime < 10000) {
+      toast({
+        title: "Slow down!",
+        description: "Please wait a moment before submitting again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -57,19 +72,33 @@ const ContractorPortal = () => {
         ? `${formData.projectDetails}\n\n${documentsRequested}`
         : documentsRequested;
 
-      // Insert into prequalification_downloads table
-      const { error } = await supabase
-        .from("prequalification_downloads")
-        .insert({
-          contact_name: formData.name,
-          company_name: formData.company,
-          email: formData.email,
-          phone: formData.phone || null,
-          project_type: "custom_package",
-          message: fullMessage,
-        });
+      // Submit via edge function with bot protection
+      const { error } = await supabase.functions.invoke('submit-form', {
+        body: {
+          formType: 'prequalification',
+          data: {
+            contactName: formData.name,
+            companyName: formData.company,
+            email: formData.email,
+            phone: formData.phone,
+            projectType: "custom_package",
+            message: fullMessage
+          },
+          honeypot: formData.honeypot
+        }
+      });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message?.includes('Rate limit exceeded')) {
+          toast({
+            title: "Too many submissions",
+            description: "Please try again in a few minutes.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
 
       toast({
         title: "Request submitted!",
@@ -84,7 +113,9 @@ const ContractorPortal = () => {
         phone: "",
         projectDetails: "",
         documents: [],
+        honeypot: ""
       });
+      setLastSubmitTime(now);
     } catch (error) {
       console.error("Error submitting request:", error);
       toast({
@@ -278,6 +309,18 @@ const ContractorPortal = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* Honeypot field - hidden from users */}
+              <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                <Input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.honeypot}
+                  onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                />
               </div>
 
               <Button type="submit" size="lg" className="w-full md:w-auto" disabled={isSubmitting}>

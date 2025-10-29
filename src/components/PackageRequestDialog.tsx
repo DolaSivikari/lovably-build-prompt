@@ -26,26 +26,55 @@ const PackageRequestDialog = ({ open, onOpenChange, packageName }: PackageReques
     name: "",
     email: "",
     phone: "",
-    notes: ""
+    notes: "",
+    honeypot: "" // Honeypot for bot detection
   });
+
+  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Client-side rate limiting
+    const now = Date.now();
+    if (now - lastSubmitTime < 10000) {
+      toast({
+        title: "Slow down!",
+        description: "Please wait a moment before submitting again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
-        .from("contact_submissions")
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          message: `Package Requested: ${packageName}\n\nAdditional Notes:\n${formData.notes}`,
-          submission_type: "starter_package",
-          status: "new"
-        }]);
+      // Submit via edge function with bot protection
+      const { error } = await supabase.functions.invoke('submit-form', {
+        body: {
+          formType: 'contact',
+          data: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: `Package Requested: ${packageName}\n\nAdditional Notes:\n${formData.notes}`,
+            submission_type: 'starter_package'
+          },
+          honeypot: formData.honeypot
+        }
+      });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message?.includes('Rate limit exceeded')) {
+          toast({
+            title: "Too many submissions",
+            description: "Please try again in a few minutes.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
 
       // Send email notifications
       try {
@@ -69,7 +98,8 @@ const PackageRequestDialog = ({ open, onOpenChange, packageName }: PackageReques
       });
 
       // Reset form and close dialog
-      setFormData({ name: "", email: "", phone: "", notes: "" });
+      setFormData({ name: "", email: "", phone: "", notes: "", honeypot: "" });
+      setLastSubmitTime(now);
       onOpenChange(false);
     } catch (error) {
       toast({
@@ -135,6 +165,18 @@ const PackageRequestDialog = ({ open, onOpenChange, packageName }: PackageReques
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               placeholder="Tell us more about your project..."
               className="min-h-[100px]"
+            />
+          </div>
+
+          {/* Honeypot field - hidden from users */}
+          <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+            <Input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData.honeypot}
+              onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
             />
           </div>
 

@@ -32,26 +32,56 @@ const PrequalPackage = () => {
     projectType: "",
     projectValueRange: "",
     message: "",
+    honeypot: "" // Honeypot for bot detection
   });
+
+  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Client-side rate limiting
+    const now = Date.now();
+    if (now - lastSubmitTime < 10000) {
+      toast({
+        title: "Slow down!",
+        description: "Please wait a moment before submitting again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const { error } = await supabase
-        .from('prequalification_downloads')
-        .insert({
-          company_name: formData.companyName,
-          contact_name: formData.contactName,
-          email: formData.email,
-          phone: formData.phone,
-          project_type: formData.projectType,
-          project_value_range: formData.projectValueRange,
-          message: formData.message,
-        });
+      // Submit via edge function with bot protection
+      const { error } = await supabase.functions.invoke('submit-form', {
+        body: {
+          formType: 'prequalification',
+          data: {
+            companyName: formData.companyName,
+            contactName: formData.contactName,
+            email: formData.email,
+            phone: formData.phone,
+            projectType: formData.projectType,
+            projectValueRange: formData.projectValueRange,
+            message: formData.message
+          },
+          honeypot: formData.honeypot
+        }
+      });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message?.includes('Rate limit exceeded')) {
+          toast({
+            title: "Too many submissions",
+            description: "Please try again in a few minutes.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
 
       toast({
         title: "Request Submitted",
@@ -67,7 +97,9 @@ const PrequalPackage = () => {
         projectType: "",
         projectValueRange: "",
         message: "",
+        honeypot: ""
       });
+      setLastSubmitTime(now);
     } catch (error) {
       toast({
         title: "Submission Failed",
@@ -197,6 +229,19 @@ const PrequalPackage = () => {
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         />
                       </div>
+
+                      {/* Honeypot field - hidden from users */}
+                      <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                        <Input
+                          type="text"
+                          name="website"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={formData.honeypot}
+                          onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                        />
+                      </div>
+
                       <Button type="submit" className="w-full" disabled={loading}>
                         {loading ? "Submitting..." : "Request Package"}
                       </Button>

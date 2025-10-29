@@ -28,11 +28,26 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
     email: "",
     phone: "",
     coverMessage: "",
-    portfolioLinks: ""
+    portfolioLinks: "",
+    honeypot: "" // Honeypot for bot detection
   });
+
+  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Client-side rate limiting
+    const now = Date.now();
+    if (now - lastSubmitTime < 10000) {
+      toast({
+        title: "Slow down!",
+        description: "Please wait a moment before submitting again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -42,19 +57,32 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
         .map(link => link.trim())
         .filter(link => link.length > 0);
 
-      const { error } = await supabase
-        .from("resume_submissions")
-        .insert([{
-          applicant_name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          cover_message: formData.coverMessage || null,
-          portfolio_links: portfolioArray.length > 0 ? portfolioArray : null,
-          job_id: null, // Can be linked to specific job postings in the future
-          status: "new"
-        }]);
+      // Submit via edge function with bot protection
+      const { error } = await supabase.functions.invoke('submit-form', {
+        body: {
+          formType: 'resume',
+          data: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            coverMessage: formData.coverMessage,
+            portfolioLinks: portfolioArray.length > 0 ? portfolioArray : null
+          },
+          honeypot: formData.honeypot
+        }
+      });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message?.includes('Rate limit exceeded')) {
+          toast({
+            title: "Too many submissions",
+            description: "Please try again in a few minutes.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
 
       // Send email notifications
       try {
@@ -78,7 +106,8 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
       });
 
       // Reset form and close dialog
-      setFormData({ name: "", email: "", phone: "", coverMessage: "", portfolioLinks: "" });
+      setFormData({ name: "", email: "", phone: "", coverMessage: "", portfolioLinks: "", honeypot: "" });
+      setLastSubmitTime(now);
       onOpenChange(false);
     } catch (error) {
       console.error("Error submitting resume:", error);
@@ -165,6 +194,18 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
             <p className="text-xs text-muted-foreground">
               Add links to your LinkedIn, resume, portfolio, or other relevant documents
             </p>
+          </div>
+
+          {/* Honeypot field - hidden from users */}
+          <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+            <Input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData.honeypot}
+              onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+            />
           </div>
 
           <div className="flex gap-3 pt-4">
