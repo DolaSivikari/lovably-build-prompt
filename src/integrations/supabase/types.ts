@@ -416,6 +416,628 @@ export type Database = {
           },
         ]
       }
+      business_activity_log: {
+        Row: {
+          action: string
+          created_at: string | null
+          details: Json | null
+          entity_id: string
+          entity_type: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string | null
+          details?: Json | null
+          entity_id: string
+          entity_type: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string | null
+          details?: Json | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      business_clients: {
+        Row: {
+          address_line1: string | null
+          address_line2: string | null
+          city: string | null
+          client_type:
+            | Database["public"]["Enums"]["business_client_type"]
+            | null
+          company_name: string | null
+          contact_name: string
+          created_at: string | null
+          created_by: string | null
+          email: string
+          id: string
+          is_active: boolean | null
+          lifetime_value_cents: number | null
+          notes: string | null
+          phone: string
+          postal_code: string | null
+          province: string | null
+          rating: number | null
+          secondary_phone: string | null
+          source: string | null
+          total_projects: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          client_type?:
+            | Database["public"]["Enums"]["business_client_type"]
+            | null
+          company_name?: string | null
+          contact_name: string
+          created_at?: string | null
+          created_by?: string | null
+          email: string
+          id?: string
+          is_active?: boolean | null
+          lifetime_value_cents?: number | null
+          notes?: string | null
+          phone: string
+          postal_code?: string | null
+          province?: string | null
+          rating?: number | null
+          secondary_phone?: string | null
+          source?: string | null
+          total_projects?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          client_type?:
+            | Database["public"]["Enums"]["business_client_type"]
+            | null
+          company_name?: string | null
+          contact_name?: string
+          created_at?: string | null
+          created_by?: string | null
+          email?: string
+          id?: string
+          is_active?: boolean | null
+          lifetime_value_cents?: number | null
+          notes?: string | null
+          phone?: string
+          postal_code?: string | null
+          province?: string | null
+          rating?: number | null
+          secondary_phone?: string | null
+          source?: string | null
+          total_projects?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      business_documents: {
+        Row: {
+          document_name: string
+          document_type: string | null
+          entity_id: string
+          entity_type: string
+          file_path: string
+          file_size_bytes: number | null
+          id: string
+          uploaded_at: string | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          document_name: string
+          document_type?: string | null
+          entity_id: string
+          entity_type: string
+          file_path: string
+          file_size_bytes?: number | null
+          id?: string
+          uploaded_at?: string | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          document_name?: string
+          document_type?: string | null
+          entity_id?: string
+          entity_type?: string
+          file_path?: string
+          file_size_bytes?: number | null
+          id?: string
+          uploaded_at?: string | null
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
+      business_estimate_line_items: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string
+          estimate_id: string | null
+          id: string
+          line_number: number
+          line_total_cents: number
+          quantity: number
+          unit: string | null
+          unit_price_cents: number
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description: string
+          estimate_id?: string | null
+          id?: string
+          line_number: number
+          line_total_cents: number
+          quantity?: number
+          unit?: string | null
+          unit_price_cents: number
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string
+          estimate_id?: string | null
+          id?: string
+          line_number?: number
+          line_total_cents?: number
+          quantity?: number
+          unit?: string | null
+          unit_price_cents?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_estimate_line_items_estimate_id_fkey"
+            columns: ["estimate_id"]
+            isOneToOne: false
+            referencedRelation: "business_estimates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_estimates: {
+        Row: {
+          client_id: string | null
+          converted_to_invoice_id: string | null
+          created_at: string | null
+          created_by: string | null
+          discount_amount_cents: number | null
+          discount_percentage: number | null
+          discount_type: string | null
+          estimate_date: string
+          estimate_number: string
+          id: string
+          internal_notes: string | null
+          notes: string | null
+          project_id: string | null
+          status: Database["public"]["Enums"]["business_estimate_status"] | null
+          subtotal_cents: number | null
+          tax_amount_cents: number | null
+          tax_rate: number | null
+          terms_and_conditions: string | null
+          total_cents: number | null
+          updated_at: string | null
+          valid_until: string
+        }
+        Insert: {
+          client_id?: string | null
+          converted_to_invoice_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          discount_amount_cents?: number | null
+          discount_percentage?: number | null
+          discount_type?: string | null
+          estimate_date?: string
+          estimate_number: string
+          id?: string
+          internal_notes?: string | null
+          notes?: string | null
+          project_id?: string | null
+          status?:
+            | Database["public"]["Enums"]["business_estimate_status"]
+            | null
+          subtotal_cents?: number | null
+          tax_amount_cents?: number | null
+          tax_rate?: number | null
+          terms_and_conditions?: string | null
+          total_cents?: number | null
+          updated_at?: string | null
+          valid_until: string
+        }
+        Update: {
+          client_id?: string | null
+          converted_to_invoice_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          discount_amount_cents?: number | null
+          discount_percentage?: number | null
+          discount_type?: string | null
+          estimate_date?: string
+          estimate_number?: string
+          id?: string
+          internal_notes?: string | null
+          notes?: string | null
+          project_id?: string | null
+          status?:
+            | Database["public"]["Enums"]["business_estimate_status"]
+            | null
+          subtotal_cents?: number | null
+          tax_amount_cents?: number | null
+          tax_rate?: number | null
+          terms_and_conditions?: string | null
+          total_cents?: number | null
+          updated_at?: string | null
+          valid_until?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_estimates_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "business_clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "business_estimates_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "business_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_invoice_line_items: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string
+          id: string
+          invoice_id: string | null
+          line_number: number
+          line_total_cents: number
+          quantity: number
+          unit: string | null
+          unit_price_cents: number
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description: string
+          id?: string
+          invoice_id?: string | null
+          line_number: number
+          line_total_cents: number
+          quantity?: number
+          unit?: string | null
+          unit_price_cents: number
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string
+          id?: string
+          invoice_id?: string | null
+          line_number?: number
+          line_total_cents?: number
+          quantity?: number
+          unit?: string | null
+          unit_price_cents?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_invoice_line_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "business_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_invoices: {
+        Row: {
+          amount_due_cents: number | null
+          amount_paid_cents: number | null
+          client_id: string | null
+          created_at: string | null
+          created_by: string | null
+          discount_amount_cents: number | null
+          discount_percentage: number | null
+          discount_type: string | null
+          due_date: string
+          estimate_id: string | null
+          id: string
+          invoice_date: string
+          invoice_number: string
+          invoice_type:
+            | Database["public"]["Enums"]["business_invoice_type"]
+            | null
+          late_fee_cents: number | null
+          notes: string | null
+          payment_instructions: string | null
+          payment_terms: string | null
+          project_id: string | null
+          status: Database["public"]["Enums"]["business_invoice_status"] | null
+          subtotal_cents: number | null
+          tax_amount_cents: number | null
+          tax_rate: number | null
+          total_cents: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount_due_cents?: number | null
+          amount_paid_cents?: number | null
+          client_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          discount_amount_cents?: number | null
+          discount_percentage?: number | null
+          discount_type?: string | null
+          due_date: string
+          estimate_id?: string | null
+          id?: string
+          invoice_date?: string
+          invoice_number: string
+          invoice_type?:
+            | Database["public"]["Enums"]["business_invoice_type"]
+            | null
+          late_fee_cents?: number | null
+          notes?: string | null
+          payment_instructions?: string | null
+          payment_terms?: string | null
+          project_id?: string | null
+          status?: Database["public"]["Enums"]["business_invoice_status"] | null
+          subtotal_cents?: number | null
+          tax_amount_cents?: number | null
+          tax_rate?: number | null
+          total_cents?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount_due_cents?: number | null
+          amount_paid_cents?: number | null
+          client_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          discount_amount_cents?: number | null
+          discount_percentage?: number | null
+          discount_type?: string | null
+          due_date?: string
+          estimate_id?: string | null
+          id?: string
+          invoice_date?: string
+          invoice_number?: string
+          invoice_type?:
+            | Database["public"]["Enums"]["business_invoice_type"]
+            | null
+          late_fee_cents?: number | null
+          notes?: string | null
+          payment_instructions?: string | null
+          payment_terms?: string | null
+          project_id?: string | null
+          status?: Database["public"]["Enums"]["business_invoice_status"] | null
+          subtotal_cents?: number | null
+          tax_amount_cents?: number | null
+          tax_rate?: number | null
+          total_cents?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_invoices_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "business_clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "business_invoices_estimate_id_fkey"
+            columns: ["estimate_id"]
+            isOneToOne: false
+            referencedRelation: "business_estimates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "business_invoices_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "business_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_payments: {
+        Row: {
+          amount_cents: number
+          created_at: string | null
+          created_by: string | null
+          id: string
+          invoice_id: string | null
+          notes: string | null
+          payment_date: string
+          payment_method: Database["public"]["Enums"]["business_payment_method"]
+          reference_number: string | null
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          invoice_id?: string | null
+          notes?: string | null
+          payment_date?: string
+          payment_method: Database["public"]["Enums"]["business_payment_method"]
+          reference_number?: string | null
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          invoice_id?: string | null
+          notes?: string | null
+          payment_date?: string
+          payment_method?: Database["public"]["Enums"]["business_payment_method"]
+          reference_number?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_payments_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "business_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_projects: {
+        Row: {
+          actual_completion_date: string | null
+          actual_value_cents: number | null
+          client_id: string | null
+          created_at: string | null
+          created_by: string | null
+          crew_assignment: string | null
+          description: string | null
+          estimated_completion_date: string | null
+          estimated_value_cents: number | null
+          id: string
+          inquiry_date: string | null
+          notes: string | null
+          priority:
+            | Database["public"]["Enums"]["business_project_priority"]
+            | null
+          project_name: string
+          project_number: string
+          project_type: string | null
+          quote_date: string | null
+          scheduled_start_date: string | null
+          site_address_line1: string | null
+          site_address_line2: string | null
+          site_city: string | null
+          site_postal_code: string | null
+          site_province: string | null
+          square_footage: number | null
+          status: Database["public"]["Enums"]["business_project_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          actual_completion_date?: string | null
+          actual_value_cents?: number | null
+          client_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          crew_assignment?: string | null
+          description?: string | null
+          estimated_completion_date?: string | null
+          estimated_value_cents?: number | null
+          id?: string
+          inquiry_date?: string | null
+          notes?: string | null
+          priority?:
+            | Database["public"]["Enums"]["business_project_priority"]
+            | null
+          project_name: string
+          project_number: string
+          project_type?: string | null
+          quote_date?: string | null
+          scheduled_start_date?: string | null
+          site_address_line1?: string | null
+          site_address_line2?: string | null
+          site_city?: string | null
+          site_postal_code?: string | null
+          site_province?: string | null
+          square_footage?: number | null
+          status?: Database["public"]["Enums"]["business_project_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          actual_completion_date?: string | null
+          actual_value_cents?: number | null
+          client_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          crew_assignment?: string | null
+          description?: string | null
+          estimated_completion_date?: string | null
+          estimated_value_cents?: number | null
+          id?: string
+          inquiry_date?: string | null
+          notes?: string | null
+          priority?:
+            | Database["public"]["Enums"]["business_project_priority"]
+            | null
+          project_name?: string
+          project_number?: string
+          project_type?: string | null
+          quote_date?: string | null
+          scheduled_start_date?: string | null
+          site_address_line1?: string | null
+          site_address_line2?: string | null
+          site_city?: string | null
+          site_postal_code?: string | null
+          site_province?: string | null
+          square_footage?: number | null
+          status?: Database["public"]["Enums"]["business_project_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_projects_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "business_clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_unit_costs: {
+        Row: {
+          category: string
+          cost_cents: number
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          unit: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          cost_cents: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          unit?: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          cost_cents?: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          unit?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       certifications: {
         Row: {
           created_at: string | null
@@ -2232,6 +2854,9 @@ export type Database = {
         }
         Returns: string
       }
+      generate_estimate_number: { Args: never; Returns: string }
+      generate_invoice_number: { Args: never; Returns: string }
+      generate_project_number: { Args: never; Returns: string }
       get_admin_dashboard_stats: { Args: never; Returns: Json }
       get_security_audit_log: {
         Args: { limit_count?: number }
@@ -2278,6 +2903,38 @@ export type Database = {
         | "contacted"
         | "rejected"
         | "hired"
+      business_client_type: "residential" | "commercial"
+      business_estimate_status:
+        | "draft"
+        | "sent"
+        | "viewed"
+        | "accepted"
+        | "rejected"
+        | "expired"
+        | "converted"
+      business_invoice_status:
+        | "draft"
+        | "sent"
+        | "partially_paid"
+        | "paid"
+        | "overdue"
+        | "cancelled"
+      business_invoice_type: "standard" | "progress" | "final" | "deposit"
+      business_payment_method:
+        | "cash"
+        | "check"
+        | "credit_card"
+        | "e_transfer"
+        | "wire_transfer"
+        | "other"
+      business_project_priority: "low" | "normal" | "high" | "urgent"
+      business_project_status:
+        | "lead"
+        | "quoted"
+        | "scheduled"
+        | "in_progress"
+        | "completed"
+        | "cancelled"
       employment_type: "full_time" | "part_time" | "contract" | "internship"
       post_content_type: "article" | "case_study" | "insight" | "case-study"
       publish_state: "draft" | "scheduled" | "published" | "archived"
@@ -2410,6 +3067,42 @@ export const Constants = {
     Enums: {
       app_role: ["super_admin", "admin", "editor", "contributor", "viewer"],
       application_status: ["new", "reviewed", "contacted", "rejected", "hired"],
+      business_client_type: ["residential", "commercial"],
+      business_estimate_status: [
+        "draft",
+        "sent",
+        "viewed",
+        "accepted",
+        "rejected",
+        "expired",
+        "converted",
+      ],
+      business_invoice_status: [
+        "draft",
+        "sent",
+        "partially_paid",
+        "paid",
+        "overdue",
+        "cancelled",
+      ],
+      business_invoice_type: ["standard", "progress", "final", "deposit"],
+      business_payment_method: [
+        "cash",
+        "check",
+        "credit_card",
+        "e_transfer",
+        "wire_transfer",
+        "other",
+      ],
+      business_project_priority: ["low", "normal", "high", "urgent"],
+      business_project_status: [
+        "lead",
+        "quoted",
+        "scheduled",
+        "in_progress",
+        "completed",
+        "cancelled",
+      ],
       employment_type: ["full_time", "part_time", "contract", "internship"],
       post_content_type: ["article", "case_study", "insight", "case-study"],
       publish_state: ["draft", "scheduled", "published", "archived"],
