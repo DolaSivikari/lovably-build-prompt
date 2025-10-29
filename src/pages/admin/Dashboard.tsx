@@ -18,6 +18,7 @@ import {
   Activity,
   Search,
   Layout,
+  Package,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
@@ -42,6 +43,8 @@ const Dashboard = () => {
     newSubmissions: 0,
     resumeSubmissions: 0,
     newResumes: 0,
+    prequalRequests: 0,
+    newPrequalRequests: 0,
     draftProjects: 0,
     draftPosts: 0,
   });
@@ -71,6 +74,21 @@ const Dashboard = () => {
           });
           loadStats();
           loadRecentSubmissions();
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'prequalification_downloads'
+        },
+        (payload) => {
+          toast({
+            title: "New Prequalification Request! 📦",
+            description: `${payload.new.company_name} requested a package`,
+          });
+          loadStats();
         }
       )
       .subscribe();
@@ -125,6 +143,15 @@ const Dashboard = () => {
       
       if (data && typeof data === 'object') {
         const stats = data as any;
+        
+        // Load prequalification stats separately
+        const { data: prequalData } = await supabase
+          .from("prequalification_downloads")
+          .select("status", { count: 'exact' });
+        
+        const prequalTotal = prequalData?.length || 0;
+        const prequalNew = prequalData?.filter(p => p.status === 'new').length || 0;
+        
         setStats({
           projects: (stats.projects_published || 0) + (stats.projects_draft || 0),
           services: stats.services_total || 0,
@@ -134,6 +161,8 @@ const Dashboard = () => {
           newSubmissions: stats.contact_submissions_new || 0,
           resumeSubmissions: stats.resume_submissions_total || 0,
           newResumes: stats.resume_submissions_new || 0,
+          prequalRequests: prequalTotal,
+          newPrequalRequests: prequalNew,
           draftProjects: stats.projects_draft || 0,
           draftPosts: stats.blog_posts_draft || 0,
         });
@@ -288,6 +317,13 @@ const Dashboard = () => {
             value={stats.services}
             icon={TrendingUp}
             onClick={() => navigate("/admin/services")}
+          />
+          <MetricCard
+            title="Prequalification Requests"
+            value={stats.prequalRequests}
+            icon={Package}
+            badge={stats.newPrequalRequests}
+            onClick={() => navigate("/admin/prequalifications")}
           />
         </div>
 

@@ -81,6 +81,9 @@ const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor").catch((
 const ResumeSubmissions = lazy(() => import("./pages/admin/ResumeSubmissions").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Resume Submissions</p></div>
 })));
+const PrequalificationSubmissions = lazy(() => import("./pages/admin/PrequalificationSubmissions").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Prequalification Submissions</p></div>
+})));
 const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Media Library</p></div>
 })));
@@ -211,6 +214,7 @@ const App = () => (
                   <Route path="/admin/blog" element={<AdminBlogPosts />} />
                   <Route path="/admin/blog/:id" element={<BlogPostEditor />} />
                   <Route path="/admin/resumes" element={<ResumeSubmissions />} />
+                  <Route path="/admin/prequalifications" element={<PrequalificationSubmissions />} />
                   <Route path="/admin/media" element={<MediaLibrary />} />
                   <Route path="/admin/users" element={<Users />} />
                   <Route path="/admin/security-center" element={<SecurityCenter />} />

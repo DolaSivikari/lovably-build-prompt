@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import SEO from "@/components/SEO";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Accordion,
   AccordionContent,
@@ -20,6 +21,7 @@ import {
 
 const ContractorPortal = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -40,20 +42,59 @@ const ContractorPortal = () => {
     { name: "Equipment Inventory", icon: Truck, size: "2MB", description: "Available equipment and resources" },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Request submitted!",
-      description: "We'll send your custom package within 24 hours.",
-    });
-    setFormData({
-      name: "",
-      company: "",
-      email: "",
-      phone: "",
-      projectDetails: "",
-      documents: [],
-    });
+    setIsSubmitting(true);
+
+    try {
+      // Format documents list
+      const documentsRequested = formData.documents.length > 0
+        ? `Requested Documents:\n${formData.documents.map(doc => `• ${doc}`).join('\n')}`
+        : "Complete package requested";
+
+      // Combine project details with documents
+      const fullMessage = formData.projectDetails
+        ? `${formData.projectDetails}\n\n${documentsRequested}`
+        : documentsRequested;
+
+      // Insert into prequalification_downloads table
+      const { error } = await supabase
+        .from("prequalification_downloads")
+        .insert({
+          contact_name: formData.name,
+          company_name: formData.company,
+          email: formData.email,
+          phone: formData.phone || null,
+          project_type: "custom_package",
+          message: fullMessage,
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Request submitted!",
+        description: "We'll send your custom package within 24 hours.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        projectDetails: "",
+        documents: [],
+      });
+    } catch (error) {
+      console.error("Error submitting request:", error);
+      toast({
+        title: "Submission failed",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const toggleDocument = (docName: string) => {
@@ -239,8 +280,8 @@ const ContractorPortal = () => {
                 </div>
               </div>
 
-              <Button type="submit" size="lg" className="w-full md:w-auto">
-                Submit Request
+              <Button type="submit" size="lg" className="w-full md:w-auto" disabled={isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Submit Request"}
               </Button>
             </form>
           </section>

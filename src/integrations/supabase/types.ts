@@ -1165,6 +1165,7 @@ export type Database = {
           phone: string | null
           project_type: string | null
           project_value_range: string | null
+          status: string | null
         }
         Insert: {
           company_name: string
@@ -1176,6 +1177,7 @@ export type Database = {
           phone?: string | null
           project_type?: string | null
           project_value_range?: string | null
+          status?: string | null
         }
         Update: {
           company_name?: string
@@ -1187,6 +1189,7 @@ export type Database = {
           phone?: string | null
           project_type?: string | null
           project_value_range?: string | null
+          status?: string | null
         }
         Relationships: []
       }
