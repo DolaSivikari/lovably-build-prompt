@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, Mail, Phone, Building2, AlertCircle, CheckCircle2, Clock } from "lucide-react";
+import { Mail, Phone, Building2, AlertCircle, CheckCircle2, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
@@ -22,7 +22,6 @@ const ContactSubmissions = () => {
     if (isAdmin) {
       loadSubmissions();
 
-    // Set up real-time subscription
     const channel = supabase
       .channel('contact-submissions-list')
       .on(
@@ -125,10 +124,8 @@ const ContactSubmissions = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
-        <div className="text-center">
-          <p>Verifying admin access...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-screen">
+        <p>Verifying admin access...</p>
       </div>
     );
   }
@@ -138,160 +135,147 @@ const ContactSubmissions = () => {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="border-b bg-background">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/admin")}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
-            <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
-              Forms Inbox
-            </h1>
-          </div>
+    <div>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="business-page-title">Contact Submissions</h1>
+          <p className="business-page-subtitle">Manage inquiries and messages</p>
         </div>
-      </header>
+      </div>
 
-      <main className="container mx-auto px-4 py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-          <TabsList className="grid w-full max-w-md grid-cols-4">
-            <TabsTrigger value="all" className="relative">
-              All
-              {submissions.length > 0 && (
-                <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 text-xs">
-                  {submissions.length}
-                </Badge>
-              )}
-            </TabsTrigger>
-            <TabsTrigger value="new" className="relative">
-              New
-              {newCount > 0 && (
-                <Badge className="ml-2 h-5 w-5 rounded-full p-0 text-xs bg-secondary">
-                  {newCount}
-                </Badge>
-              )}
-            </TabsTrigger>
-            <TabsTrigger value="quotes">
-              Quotes
-              {quotesCount > 0 && (
-                <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 text-xs">
-                  {quotesCount}
-                </Badge>
-              )}
-            </TabsTrigger>
-            <TabsTrigger value="contact">Contact</TabsTrigger>
-          </TabsList>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+        <TabsList className="grid w-full max-w-md grid-cols-4">
+          <TabsTrigger value="all" className="relative">
+            All
+            {submissions.length > 0 && (
+              <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 text-xs">
+                {submissions.length}
+              </Badge>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="new" className="relative">
+            New
+            {newCount > 0 && (
+              <Badge className="ml-2 h-5 w-5 rounded-full p-0 text-xs bg-secondary">
+                {newCount}
+              </Badge>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="quotes">
+            Quotes
+            {quotesCount > 0 && (
+              <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 text-xs">
+                {quotesCount}
+              </Badge>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="contact">Contact</TabsTrigger>
+        </TabsList>
 
-          <TabsContent value={activeTab} className="mt-6">
-            {isLoading ? (
-              <div className="text-center py-12">Loading submissions...</div>
-            ) : filteredSubmissions.length === 0 ? (
-              <Card>
-                <CardContent className="py-12 text-center">
-                  <p className="text-muted-foreground">No submissions in this category.</p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid gap-4">
-                {filteredSubmissions.map((submission) => (
-                  <Card 
-                    key={submission.id}
-                    className={`${
-                      submission.status === 'new' 
-                        ? 'border-secondary border-2 bg-primary/5'
-                        : ''
-                    }`}
-                  >
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            {submission.status === 'new' && (
-                              <AlertCircle className="h-5 w-5 text-secondary" />
-                            )}
-                            <CardTitle className="text-lg">{submission.name}</CardTitle>
-                            <Badge variant="outline" className="text-xs">
-                              {getSubmissionTypeLabel(submission.submission_type)}
-                            </Badge>
-                          </div>
-                          <CardDescription>
-                            {format(new Date(submission.created_at), 'MMMM d, yyyy • h:mm a')}
-                          </CardDescription>
-                        </div>
-                        <Badge className={getStatusColor(submission.status)}>
-                          <span className="flex items-center gap-1">
-                            {getStatusIcon(submission.status)}
-                            {submission.status}
-                          </span>
+        <TabsContent value={activeTab} className="mt-6">
+          {isLoading ? (
+            <div className="text-center py-12">Loading submissions...</div>
+          ) : filteredSubmissions.length === 0 ? (
+            <div className="business-glass-card p-12 text-center">
+              <p className="text-muted-foreground">No submissions in this category.</p>
+            </div>
+          ) : (
+            <div className="grid gap-4">
+              {filteredSubmissions.map((submission) => (
+                <div
+                  key={submission.id}
+                  className={`business-glass-card p-6 ${
+                    submission.status === 'new' 
+                      ? 'border-secondary border-2'
+                      : ''
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        {submission.status === 'new' && (
+                          <AlertCircle className="h-5 w-5 text-secondary" />
+                        )}
+                        <h3 className="text-lg font-semibold">{submission.name}</h3>
+                        <Badge variant="outline" className="text-xs">
+                          {getSubmissionTypeLabel(submission.submission_type)}
                         </Badge>
                       </div>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid md:grid-cols-3 gap-4 text-sm">
+                      <p className="text-sm text-muted-foreground">
+                        {format(new Date(submission.created_at), 'MMMM d, yyyy • h:mm a')}
+                      </p>
+                    </div>
+                    <Badge className={getStatusColor(submission.status)}>
+                      <span className="flex items-center gap-1">
+                        {getStatusIcon(submission.status)}
+                        {submission.status}
+                      </span>
+                    </Badge>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="grid md:grid-cols-3 gap-4 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        <a href={`mailto:${submission.email}`} className="text-primary hover:underline">
+                          {submission.email}
+                        </a>
+                      </div>
+                      {submission.phone && (
                         <div className="flex items-center gap-2">
-                          <Mail className="h-4 w-4 text-muted-foreground" />
-                          <a href={`mailto:${submission.email}`} className="text-primary hover:underline">
-                            {submission.email}
+                          <Phone className="h-4 w-4 text-muted-foreground" />
+                          <a href={`tel:${submission.phone}`} className="text-primary hover:underline">
+                            {submission.phone}
                           </a>
                         </div>
-                        {submission.phone && (
-                          <div className="flex items-center gap-2">
-                            <Phone className="h-4 w-4 text-muted-foreground" />
-                            <a href={`tel:${submission.phone}`} className="text-primary hover:underline">
-                              {submission.phone}
-                            </a>
-                          </div>
-                        )}
-                        {submission.company && (
-                          <div className="flex items-center gap-2">
-                            <Building2 className="h-4 w-4 text-muted-foreground" />
-                            <span>{submission.company}</span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="bg-muted p-4 rounded-lg">
-                        <p className="text-sm whitespace-pre-wrap">{submission.message}</p>
-                      </div>
-                      <div className="flex gap-2">
-                        {submission.status === 'new' && (
-                          <Button
-                            size="sm"
-                            className="bg-primary hover:bg-primary/90"
-                            onClick={() => updateStatus(submission.id, "contacted")}
-                          >
-                            <Mail className="h-4 w-4 mr-2" />
-                            Mark Contacted
-                          </Button>
-                        )}
-                        {submission.status === 'contacted' && (
-                          <Button
-                            size="sm"
-                            className="bg-green-600 hover:bg-green-700"
-                            onClick={() => updateStatus(submission.id, "resolved")}
-                          >
-                            <CheckCircle2 className="h-4 w-4 mr-2" />
-                            Mark Resolved
-                          </Button>
-                        )}
-                        {submission.status === 'resolved' && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => updateStatus(submission.id, "new")}
-                          >
-                            Reopen
-                          </Button>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
-      </main>
+                      )}
+                      {submission.company && (
+                        <div className="flex items-center gap-2">
+                          <Building2 className="h-4 w-4 text-muted-foreground" />
+                          <span>{submission.company}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="bg-muted/50 p-4 rounded-lg">
+                      <p className="text-sm whitespace-pre-wrap">{submission.message}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      {submission.status === 'new' && (
+                        <Button
+                          size="sm"
+                          className="business-btn-primary"
+                          onClick={() => updateStatus(submission.id, "contacted")}
+                        >
+                          <Mail className="h-4 w-4 mr-2" />
+                          Mark Contacted
+                        </Button>
+                      )}
+                      {submission.status === 'contacted' && (
+                        <Button
+                          size="sm"
+                          className="business-btn-success"
+                          onClick={() => updateStatus(submission.id, "resolved")}
+                        >
+                          <CheckCircle2 className="h-4 w-4 mr-2" />
+                          Mark Resolved
+                        </Button>
+                      )}
+                      {submission.status === 'resolved' && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => updateStatus(submission.id, "new")}
+                        >
+                          Reopen
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

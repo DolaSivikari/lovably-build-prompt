@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Edit, Trash2, ArrowLeft, Eye, Filter } from "lucide-react";
+import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
 import { generatePreviewToken } from "@/utils/previewToken";
-import { AdminTopBar } from "@/components/admin/AdminTopBar";
 
 const BlogPosts = () => {
   const navigate = useNavigate();
@@ -79,10 +77,8 @@ const BlogPosts = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
-        <div className="text-center">
-          <p>Verifying admin access...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-screen">
+        <p>Verifying admin access...</p>
       </div>
     );
   }
@@ -95,105 +91,64 @@ const BlogPosts = () => {
     if (post.publish_state === 'published') {
       window.open(`/blog/${post.slug}`, '_blank');
     } else {
-      // Draft: open with preview mode
       const token = generatePreviewToken();
       window.open(`/blog/${post.slug}?preview=true&token=${token}`, '_blank');
     }
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <AdminTopBar />
-      <header className="border-b bg-background">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/admin")}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-              <h1 className="text-2xl font-bold">All Content</h1>
-            </div>
-            <div className="flex gap-2 items-center">
-              <Select value={contentTypeFilter} onValueChange={setContentTypeFilter}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="article">Articles</SelectItem>
-                  <SelectItem value="case-study">Case Studies</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button onClick={() => navigate("/admin/blog/new")}>
-                <Plus className="h-4 w-4 mr-2" />
-                New Content
-              </Button>
-            </div>
-          </div>
+    <div>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="business-page-title">Blog Posts</h1>
+          <p className="business-page-subtitle">Manage articles and case studies</p>
         </div>
-      </header>
+        <div className="flex gap-2 items-center">
+          <Select value={contentTypeFilter} onValueChange={setContentTypeFilter}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              <SelectItem value="article">Articles</SelectItem>
+              <SelectItem value="case-study">Case Studies</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button className="business-btn-primary" onClick={() => navigate("/admin/blog/new")}>
+            <Plus className="h-4 w-4 mr-2" />
+            New Post
+          </Button>
+        </div>
+      </div>
 
-      <main className="container mx-auto px-4 py-8">
-        {isLoading ? (
-          <div className="text-center py-12">Loading blog posts...</div>
-        ) : posts.length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground mb-4">No blog posts yet. Create your first post to get started.</p>
-              <Button onClick={() => navigate("/admin/blog/new")}>
-                <Plus className="h-4 w-4 mr-2" />
-                Create Blog Post
-              </Button>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="grid gap-6">
-            {posts
-              .filter(post => contentTypeFilter === "all" || post.content_type === contentTypeFilter)
-              .map((post) => (
-              <Card key={post.id}>
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <CardTitle className="text-xl">{post.title}</CardTitle>
-                        <Badge variant={getStatusColor(post.publish_state)}>
-                          {post.publish_state}
-                        </Badge>
-                        {post.content_type === "case-study" && (
-                          <Badge variant="outline">Case Study</Badge>
-                        )}
-                      </div>
-                      <CardDescription>{post.summary || post.seo_description}</CardDescription>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleViewPost(post)}
-                        title={post.publish_state === 'published' ? 'View published post' : 'Preview draft'}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => navigate(`/admin/blog/${post.id}`)}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleDelete(post.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+      {isLoading ? (
+        <div className="text-center py-12">Loading blog posts...</div>
+      ) : posts.length === 0 ? (
+        <div className="business-glass-card p-12 text-center">
+          <p className="text-muted-foreground mb-4">No blog posts yet. Create your first post to get started.</p>
+          <Button className="business-btn-primary" onClick={() => navigate("/admin/blog/new")}>
+            <Plus className="h-4 w-4 mr-2" />
+            Create Blog Post
+          </Button>
+        </div>
+      ) : (
+        <div className="grid gap-6">
+          {posts
+            .filter(post => contentTypeFilter === "all" || post.content_type === contentTypeFilter)
+            .map((post) => (
+            <div key={post.id} className="business-glass-card p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h2 className="text-xl font-semibold">{post.title}</h2>
+                    <Badge variant={getStatusColor(post.publish_state)}>
+                      {post.publish_state}
+                    </Badge>
+                    {post.content_type === "case-study" && (
+                      <Badge variant="outline">Case Study</Badge>
+                    )}
                   </div>
-                </CardHeader>
-                <CardContent>
+                  <p className="text-muted-foreground mb-4">{post.summary || post.seo_description}</p>
                   <div className="flex gap-4 text-sm text-muted-foreground">
                     {post.category && (
                       <span>Category: {post.category}</span>
@@ -217,12 +172,36 @@ const BlogPosts = () => {
                       ))}
                     </div>
                   )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
-      </main>
+                </div>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleViewPost(post)}
+                    title={post.publish_state === 'published' ? 'View published post' : 'Preview draft'}
+                  >
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => navigate(`/admin/blog/${post.id}`)}
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleDelete(post.id)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
