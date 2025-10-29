@@ -31,6 +31,10 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
           <SelectContent>
             <SelectItem value="residential_painting">Residential Painting</SelectItem>
             <SelectItem value="stucco_eifs">Stucco / EIFS</SelectItem>
+            <SelectItem value="commercial_painting">Commercial Painting</SelectItem>
+            <SelectItem value="condo_multi_unit_painting">Condo / Multi-Unit Painting</SelectItem>
+            <SelectItem value="exterior_siding_cladding">Exterior Siding & Cladding</SelectItem>
+            <SelectItem value="drywall_interior_finishing">Drywall & Interior Finishing</SelectItem>
           </SelectContent>
         </Select>
       </div>

@@ -14,6 +14,34 @@
         "min": 8,
         "max": 18
       }
+    },
+    "commercial_painting": {
+      "name": "Commercial Painting",
+      "base_per_sqft": {
+        "min": 4,
+        "max": 10
+      }
+    },
+    "condo_multi_unit_painting": {
+      "name": "Condo / Multi-Unit Painting",
+      "base_per_sqft": {
+        "min": 3,
+        "max": 7
+      }
+    },
+    "exterior_siding_cladding": {
+      "name": "Exterior Siding & Cladding",
+      "base_per_sqft": {
+        "min": 6,
+        "max": 15
+      }
+    },
+    "drywall_interior_finishing": {
+      "name": "Drywall & Interior Finishing",
+      "base_per_sqft": {
+        "min": 2,
+        "max": 6
+      }
     }
   },
   "modifiers": {

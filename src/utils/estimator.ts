@@ -1,7 +1,13 @@
 import estimatorModel from "@/data/estimator-model.json";
 
 export interface EstimateInput {
-  service: "residential_painting" | "stucco_eifs";
+  service: 
+    | "residential_painting" 
+    | "stucco_eifs"
+    | "commercial_painting"
+    | "condo_multi_unit_painting"
+    | "exterior_siding_cladding"
+    | "drywall_interior_finishing";
   sqft: number;
   stories?: "1" | "2" | "3_plus";
   prepComplexity?: "none" | "standard" | "heavy" | "structural_repair_required";
