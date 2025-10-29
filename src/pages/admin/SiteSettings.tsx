@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowLeft, Save } from "lucide-react";
+import { Save } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 const SiteSettings = () => {
   const { isLoading: authLoading } = useAdminAuth();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState<any>(null);
@@ -24,9 +21,6 @@ const SiteSettings = () => {
       setUserId(user?.id || null);
     };
     getUser();
-  }, []);
-
-  useEffect(() => {
     fetchSettings();
   }, []);
 
@@ -70,141 +64,163 @@ const SiteSettings = () => {
   };
 
   if (authLoading || loading) {
-    return <div className="p-8">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{ borderColor: 'var(--primary-accent)' }} />
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" onClick={() => navigate('/admin')}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Dashboard
-          </Button>
-          <h1 className="text-3xl font-bold">Site Settings</h1>
+    <div>
+      <h1 className="business-page-title" style={{ marginBottom: '2rem' }}>Site Settings</h1>
+
+      <div className="space-y-6">
+        {/* Contact Information */}
+        <div className="business-glass-card">
+          <h2 style={{ 
+            fontSize: '1.25rem', 
+            fontWeight: '600', 
+            marginBottom: '1.5rem',
+            color: 'var(--text-primary)' 
+          }}>
+            Contact Information
+          </h2>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="company_name">Company Name *</Label>
+              <Input
+                id="company_name"
+                value={settings?.company_name || ''}
+                onChange={(e) => setSettings({ ...settings, company_name: e.target.value })}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="phone">Phone *</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={settings?.phone || ''}
+                  onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
+                  placeholder="(416) 555-1234"
+                />
+              </div>
+              <div>
+                <Label htmlFor="email">Email *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={settings?.email || ''}
+                  onChange={(e) => setSettings({ ...settings, email: e.target.value })}
+                  placeholder="info@example.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="address">Address</Label>
+              <Input
+                id="address"
+                value={settings?.address || ''}
+                onChange={(e) => setSettings({ ...settings, address: e.target.value })}
+                placeholder="Greater Toronto Area, Ontario"
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Contact Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+        {/* Business Hours */}
+        <div className="business-glass-card">
+          <h2 style={{ 
+            fontSize: '1.25rem', 
+            fontWeight: '600', 
+            marginBottom: '1.5rem',
+            color: 'var(--text-primary)' 
+          }}>
+            Business Hours
+          </h2>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="company_name">Company Name *</Label>
+                <Label htmlFor="weekday_hours">Weekday Hours</Label>
                 <Input
-                  id="company_name"
-                  value={settings?.company_name || ''}
-                  onChange={(e) => setSettings({ ...settings, company_name: e.target.value })}
+                  id="weekday_hours"
+                  value={settings?.business_hours?.weekday || ''}
+                  onChange={(e) => setSettings({
+                    ...settings,
+                    business_hours: { ...settings?.business_hours, weekday: e.target.value }
+                  })}
+                  placeholder="Mon-Fri: 8AM-6PM"
                 />
               </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="phone">Phone *</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={settings?.phone || ''}
-                    onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
-                    placeholder="(416) 555-1234"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="email">Email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={settings?.email || ''}
-                    onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                    placeholder="info@example.com"
-                  />
-                </div>
-              </div>
-
               <div>
-                <Label htmlFor="address">Address</Label>
+                <Label htmlFor="saturday_hours">Saturday Hours</Label>
                 <Input
-                  id="address"
-                  value={settings?.address || ''}
-                  onChange={(e) => setSettings({ ...settings, address: e.target.value })}
-                  placeholder="Greater Toronto Area, Ontario"
+                  id="saturday_hours"
+                  value={settings?.business_hours?.saturday || ''}
+                  onChange={(e) => setSettings({
+                    ...settings,
+                    business_hours: { ...settings?.business_hours, saturday: e.target.value }
+                  })}
+                  placeholder="Sat: 9AM-4PM"
                 />
               </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Business Hours</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="weekday_hours">Weekday Hours</Label>
-                  <Input
-                    id="weekday_hours"
-                    value={settings?.business_hours?.weekday || ''}
-                    onChange={(e) => setSettings({
-                      ...settings,
-                      business_hours: { ...settings?.business_hours, weekday: e.target.value }
-                    })}
-                    placeholder="Mon-Fri: 8AM-6PM"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="saturday_hours">Saturday Hours</Label>
-                  <Input
-                    id="saturday_hours"
-                    value={settings?.business_hours?.saturday || ''}
-                    onChange={(e) => setSettings({
-                      ...settings,
-                      business_hours: { ...settings?.business_hours, saturday: e.target.value }
-                    })}
-                    placeholder="Sat: 9AM-4PM"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>SEO Defaults</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label htmlFor="meta_title">Default Meta Title</Label>
-                <Input
-                  id="meta_title"
-                  value={settings?.meta_title || ''}
-                  onChange={(e) => setSettings({ ...settings, meta_title: e.target.value })}
-                  maxLength={60}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="meta_description">Default Meta Description</Label>
-                <Textarea
-                  id="meta_description"
-                  value={settings?.meta_description || ''}
-                  onChange={(e) => setSettings({ ...settings, meta_description: e.target.value })}
-                  rows={3}
-                  maxLength={160}
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="flex justify-end gap-4">
-            <Button variant="outline" onClick={() => navigate('/admin')}>
-              Cancel
-            </Button>
-            <Button variant="default" onClick={handleSave} disabled={saving}>
-              <Save className="h-4 w-4 mr-2" />
-              {saving ? 'Saving...' : 'Save Changes'}
-            </Button>
+            </div>
           </div>
+        </div>
+
+        {/* SEO Defaults */}
+        <div className="business-glass-card">
+          <h2 style={{ 
+            fontSize: '1.25rem', 
+            fontWeight: '600', 
+            marginBottom: '1.5rem',
+            color: 'var(--text-primary)' 
+          }}>
+            SEO Defaults
+          </h2>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="meta_title">Default Meta Title</Label>
+              <Input
+                id="meta_title"
+                value={settings?.meta_title || ''}
+                onChange={(e) => setSettings({ ...settings, meta_title: e.target.value })}
+                maxLength={60}
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="meta_description">Default Meta Description</Label>
+              <Textarea
+                id="meta_description"
+                value={settings?.meta_description || ''}
+                onChange={(e) => setSettings({ ...settings, meta_description: e.target.value })}
+                rows={3}
+                maxLength={160}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', paddingTop: '1rem' }}>
+          <button 
+            className="business-btn business-btn-ghost"
+            disabled={saving}
+          >
+            Cancel
+          </button>
+          <button 
+            className="business-btn business-btn-primary"
+            onClick={handleSave} 
+            disabled={saving}
+          >
+            <Save className="h-4 w-4 mr-2" />
+            {saving ? 'Saving...' : 'Save Changes'}
+          </button>
         </div>
       </div>
     </div>

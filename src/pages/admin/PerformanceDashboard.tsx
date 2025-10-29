@@ -48,33 +48,8 @@ export default function PerformanceDashboard() {
   const [recommendations, setRecommendations] = useState<OptimizationRecommendation[]>([]);
 
   useEffect(() => {
-    checkAuth();
     loadPerformanceData();
   }, []);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      navigate('/auth');
-      return;
-    }
-
-    const { data: roleData } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', session.user.id)
-      .single();
-
-    if (!roleData || !['admin', 'super_admin'].includes(roleData.role)) {
-      navigate('/admin');
-      toast({
-        variant: 'destructive',
-        title: 'Access Denied',
-        description: 'You do not have permission to access the Performance Dashboard',
-      });
-    }
-  };
 
   const loadPerformanceData = async () => {
     try {
@@ -259,8 +234,8 @@ export default function PerformanceDashboard() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin" />
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -274,121 +249,119 @@ export default function PerformanceDashboard() {
   const tti = getWebVital('TTI');
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <Activity className="h-8 w-8 text-primary" />
+    <div>
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between', 
+        marginBottom: '2rem' 
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Activity className="h-8 w-8" style={{ color: 'var(--primary-accent)' }} />
           <div>
-            <h1 className="text-3xl font-bold">Performance Dashboard</h1>
-            <p className="text-muted-foreground">Monitor and optimize your site's performance</p>
+            <h1 className="business-page-title">Performance Dashboard</h1>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+              Monitor and optimize your site's performance
+            </p>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button 
-            variant="outline" 
-            onClick={analyzePerformance}
-            disabled={analyzing}
-          >
-            {analyzing ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Analyzing...
-              </>
-            ) : (
-              'Analyze Performance'
-            )}
-          </Button>
-          <Button variant="outline" onClick={() => navigate('/admin')}>
-            Back to Dashboard
-          </Button>
-        </div>
+        <Button 
+          variant="outline" 
+          onClick={analyzePerformance}
+          disabled={analyzing}
+          style={{ 
+            background: analyzing ? 'var(--glass-primary)' : 'var(--glass-accent)',
+            border: '1px solid var(--border-glass)',
+          }}
+        >
+          {analyzing ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Analyzing...
+            </>
+          ) : (
+            'Analyze Performance'
+          )}
+        </Button>
       </div>
 
       {/* Core Web Vitals */}
-      <div className="grid gap-4 md:grid-cols-4 mb-6">
+      <div className="business-stats-grid" style={{ marginBottom: '2rem' }}>
         {/* LCP */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">LCP</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {lcp ? `${(lcp.average).toFixed(0)}ms` : 'N/A'}
-            </div>
-            {lcp && (
-              <p className={`text-xs flex items-center gap-1 ${getRatingColor(lcp.rating)}`}>
-                {getRatingIcon(lcp.rating)}
-                {lcp.rating === 'good' ? 'Excellent' : lcp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
-                <span className="text-muted-foreground ml-1">({lcp.count} samples)</span>
-              </p>
-            )}
-            <p className="text-xs text-muted-foreground mt-1">Target: &lt;2.5s</p>
-          </CardContent>
-        </Card>
+        <div className="business-glass-card">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-primary)' }}>LCP</span>
+            <Clock className="h-4 w-4" style={{ color: 'var(--text-secondary)' }} />
+          </div>
+          <div style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+            {lcp ? `${(lcp.average).toFixed(0)}ms` : 'N/A'}
+          </div>
+          {lcp && (
+            <p className={`text-xs flex items-center gap-1 ${getRatingColor(lcp.rating)}`}>
+              {getRatingIcon(lcp.rating)}
+              {lcp.rating === 'good' ? 'Excellent' : lcp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+              <span style={{ marginLeft: '0.25rem', color: 'var(--text-secondary)' }}>({lcp.count} samples)</span>
+            </p>
+          )}
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>Target: &lt;2.5s</p>
+        </div>
 
         {/* FCP */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">FCP</CardTitle>
-            <Zap className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {fcp ? `${(fcp.average).toFixed(0)}ms` : 'N/A'}
-            </div>
-            {fcp && (
-              <p className={`text-xs flex items-center gap-1 ${getRatingColor(fcp.rating)}`}>
-                {getRatingIcon(fcp.rating)}
-                {fcp.rating === 'good' ? 'Excellent' : fcp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
-                <span className="text-muted-foreground ml-1">({fcp.count} samples)</span>
-              </p>
-            )}
-            <p className="text-xs text-muted-foreground mt-1">Target: &lt;1.8s</p>
-          </CardContent>
-        </Card>
+        <div className="business-glass-card">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-primary)' }}>FCP</span>
+            <Zap className="h-4 w-4" style={{ color: 'var(--text-secondary)' }} />
+          </div>
+          <div style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+            {fcp ? `${(fcp.average).toFixed(0)}ms` : 'N/A'}
+          </div>
+          {fcp && (
+            <p className={`text-xs flex items-center gap-1 ${getRatingColor(fcp.rating)}`}>
+              {getRatingIcon(fcp.rating)}
+              {fcp.rating === 'good' ? 'Excellent' : fcp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+              <span style={{ marginLeft: '0.25rem', color: 'var(--text-secondary)' }}>({fcp.count} samples)</span>
+            </p>
+          )}
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>Target: &lt;1.8s</p>
+        </div>
 
         {/* CLS */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">CLS</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {cls ? `${(cls.average / 1000).toFixed(3)}` : 'N/A'}
-            </div>
-            {cls && (
-              <p className={`text-xs flex items-center gap-1 ${getRatingColor(cls.rating)}`}>
-                {getRatingIcon(cls.rating)}
-                {cls.rating === 'good' ? 'Excellent' : cls.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
-                <span className="text-muted-foreground ml-1">({cls.count} samples)</span>
-              </p>
-            )}
-            <p className="text-xs text-muted-foreground mt-1">Target: &lt;0.1</p>
-          </CardContent>
-        </Card>
+        <div className="business-glass-card">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-primary)' }}>CLS</span>
+            <Activity className="h-4 w-4" style={{ color: 'var(--text-secondary)' }} />
+          </div>
+          <div style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+            {cls ? `${(cls.average / 1000).toFixed(3)}` : 'N/A'}
+          </div>
+          {cls && (
+            <p className={`text-xs flex items-center gap-1 ${getRatingColor(cls.rating)}`}>
+              {getRatingIcon(cls.rating)}
+              {cls.rating === 'good' ? 'Excellent' : cls.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+              <span style={{ marginLeft: '0.25rem', color: 'var(--text-secondary)' }}>({cls.count} samples)</span>
+            </p>
+          )}
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>Target: &lt;0.1</p>
+        </div>
 
         {/* INP */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">INP</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {inp ? `${(inp.average).toFixed(0)}ms` : 'N/A'}
-            </div>
-            {inp && (
-              <p className={`text-xs flex items-center gap-1 ${getRatingColor(inp.rating)}`}>
-                {getRatingIcon(inp.rating)}
-                {inp.rating === 'good' ? 'Excellent' : inp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
-                <span className="text-muted-foreground ml-1">({inp.count} samples)</span>
-              </p>
-            )}
-            <p className="text-xs text-muted-foreground mt-1">Target: &lt;200ms</p>
-          </CardContent>
-        </Card>
+        <div className="business-glass-card">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-primary)' }}>INP</span>
+            <Activity className="h-4 w-4" style={{ color: 'var(--text-secondary)' }} />
+          </div>
+          <div style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+            {inp ? `${(inp.average).toFixed(0)}ms` : 'N/A'}
+          </div>
+          {inp && (
+            <p className={`text-xs flex items-center gap-1 ${getRatingColor(inp.rating)}`}>
+              {getRatingIcon(inp.rating)}
+              {inp.rating === 'good' ? 'Excellent' : inp.rating === 'needs-improvement' ? 'Fair' : 'Poor'}
+              <span style={{ marginLeft: '0.25rem', color: 'var(--text-secondary)' }}>({inp.count} samples)</span>
+            </p>
+          )}
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>Target: &lt;200ms</p>
+        </div>
       </div>
 
       {/* Additional Metrics */}
