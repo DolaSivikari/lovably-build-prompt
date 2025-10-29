@@ -26,12 +26,13 @@ interface LineItemEditorProps {
   lineItems: LineItem[];
   onChange: (items: LineItem[]) => void;
   onOpenUnitCosts?: () => void;
+  showUnitCostsButton?: boolean;
 }
 
 const UNITS = ['each', 'sqft', 'hour', 'gallon', 'linear ft', 'day', 'project'];
 const CATEGORIES = ['labor', 'material', 'equipment', 'other'];
 
-export const LineItemEditor = ({ lineItems, onChange, onOpenUnitCosts }: LineItemEditorProps) => {
+export const LineItemEditor = ({ lineItems, onChange, onOpenUnitCosts, showUnitCostsButton = true }: LineItemEditorProps) => {
   const addLineItem = () => {
     const newItem: LineItem = {
       id: `temp-${Date.now()}`,
