@@ -9,6 +9,8 @@ import { formatCurrency } from '@/utils/currency';
 import { Edit, FileDown, Copy, FileText, Trash2, Search } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
+import { PDFDownloadButton } from './PDFDownloadButton';
+import { EstimatePDF } from './EstimatePDF';
 
 interface Estimate {
   id: string;
@@ -33,6 +35,7 @@ export const EstimateList = ({ onEdit, onConvertToInvoice, onRefresh }: Estimate
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [pdfData, setPdfData] = useState<Record<string, any>>({});
 
   useEffect(() => {
     loadEstimates();
@@ -147,6 +150,42 @@ export const EstimateList = ({ onEdit, onConvertToInvoice, onRefresh }: Estimate
     return matchesSearch && matchesStatus;
   });
 
+  const loadEstimateForPDF = async (estimateId: string) => {
+    try {
+      const { data: estimate, error: estimateError } = await supabase
+        .from('business_estimates')
+        .select('*, business_clients(*)')
+        .eq('id', estimateId)
+        .maybeSingle();
+
+      if (estimateError) throw estimateError;
+      if (!estimate) return null;
+
+      const { data: project } = await supabase
+        .from('business_projects')
+        .select('*')
+        .eq('id', estimate.project_id)
+        .maybeSingle();
+
+      const { data: lineItems } = await supabase
+        .from('business_estimate_line_items')
+        .select('*')
+        .eq('estimate_id', estimateId)
+        .order('line_number');
+
+      return {
+        estimate,
+        client: estimate.business_clients,
+        project: project || null,
+        lineItems: lineItems || [],
+      };
+    } catch (error) {
+      console.error('Error loading estimate for PDF:', error);
+      toast.error('Failed to load estimate data');
+      return null;
+    }
+  };
+
   if (loading) {
     return (
       <div className="business-glass-card p-6">
@@ -239,6 +278,20 @@ export const EstimateList = ({ onEdit, onConvertToInvoice, onRefresh }: Estimate
                       >
                         <Copy className="h-4 w-4" />
                       </Button>
+                      <PDFDownloadButton
+                        document={
+                          <EstimatePDF
+                            estimate={pdfData[estimate.id]?.estimate || estimate}
+                            client={pdfData[estimate.id]?.client || estimate.business_clients}
+                            project={pdfData[estimate.id]?.project || null}
+                            lineItems={pdfData[estimate.id]?.lineItems || []}
+                          />
+                        }
+                        filename={estimate.estimate_number}
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0"
+                      />
                       {estimate.status === 'accepted' && (
                         <Button
                           variant="ghost"

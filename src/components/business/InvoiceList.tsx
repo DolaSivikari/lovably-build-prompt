@@ -9,6 +9,8 @@ import { formatCurrency } from '@/utils/currency';
 import { Edit, DollarSign, Trash2, Search, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
+import { PDFDownloadButton } from './PDFDownloadButton';
+import { InvoicePDF } from './InvoicePDF';
 
 interface Invoice {
   id: string;
@@ -33,6 +35,7 @@ export const InvoiceList = ({ onEdit, onRecordPayment, onRefresh }: InvoiceListP
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [pdfData, setPdfData] = useState<Record<string, any>>({});
 
   useEffect(() => {
     loadInvoices();
@@ -98,6 +101,42 @@ export const InvoiceList = ({ onEdit, onRecordPayment, onRefresh }: InvoiceListP
     
     return matchesSearch && matchesStatus;
   });
+
+  const loadInvoiceForPDF = async (invoiceId: string) => {
+    try {
+      const { data: invoice, error: invoiceError } = await supabase
+        .from('business_invoices')
+        .select('*, business_clients(*)')
+        .eq('id', invoiceId)
+        .maybeSingle();
+
+      if (invoiceError) throw invoiceError;
+      if (!invoice) return null;
+
+      const { data: project } = await supabase
+        .from('business_projects')
+        .select('*')
+        .eq('id', invoice.project_id)
+        .maybeSingle();
+
+      const { data: lineItems } = await supabase
+        .from('business_invoice_line_items')
+        .select('*')
+        .eq('invoice_id', invoiceId)
+        .order('line_number');
+
+      return {
+        invoice,
+        client: invoice.business_clients,
+        project: project || null,
+        lineItems: lineItems || [],
+      };
+    } catch (error) {
+      console.error('Error loading invoice for PDF:', error);
+      toast.error('Failed to load invoice data');
+      return null;
+    }
+  };
 
   if (loading) {
     return (
@@ -213,6 +252,20 @@ export const InvoiceList = ({ onEdit, onRecordPayment, onRefresh }: InvoiceListP
                             <DollarSign className="h-4 w-4" />
                           </Button>
                         )}
+                        <PDFDownloadButton
+                          document={
+                            <InvoicePDF
+                              invoice={pdfData[invoice.id]?.invoice || invoice}
+                              client={pdfData[invoice.id]?.client || invoice.business_clients}
+                              project={pdfData[invoice.id]?.project || null}
+                              lineItems={pdfData[invoice.id]?.lineItems || []}
+                            />
+                          }
+                          filename={invoice.invoice_number}
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0"
+                        />
                         <Button
                           variant="ghost"
                           size="sm"

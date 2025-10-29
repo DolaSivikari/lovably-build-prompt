@@ -1,173 +1,219 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Plus, Search, Grid, List } from 'lucide-react';
-import { ProjectForm } from '@/components/business/ProjectForm';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Plus, Search } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 import { ProjectCard } from '@/components/business/ProjectCard';
+import { ProjectForm } from '@/components/business/ProjectForm';
+import { ProjectDetail } from '@/components/business/ProjectDetail';
+import { EstimateEditor } from '@/components/business/EstimateEditor';
+import { InvoiceEditor } from '@/components/business/InvoiceEditor';
 import { toast } from 'sonner';
-
-const STATUS_FILTERS = [
-  { value: 'all', label: 'All Projects' },
-  { value: 'lead', label: 'Leads' },
-  { value: 'quoted', label: 'Quoted' },
-  { value: 'scheduled', label: 'Scheduled' },
-  { value: 'in_progress', label: 'In Progress' },
-  { value: 'completed', label: 'Completed' },
-];
 
 export const BusinessProjects = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  
   const [showForm, setShowForm] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<string | undefined>();
+  const [editingId, setEditingId] = useState<string | undefined>();
+  
+  const [viewingProjectId, setViewingProjectId] = useState<string | null>(null);
+  const [creatingEstimateForProject, setCreatingEstimateForProject] = useState<string | null>(null);
+  const [creatingInvoiceForProject, setCreatingInvoiceForProject] = useState<string | null>(null);
 
   useEffect(() => {
     loadProjects();
   }, []);
 
   const loadProjects = async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from('business_projects')
-      .select('*')
-      .order('created_at', { ascending: false });
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('business_projects')
+        .select('*, business_clients(company_name, contact_name)')
+        .order('created_at', { ascending: false });
 
-    if (error) {
-      toast.error('Failed to load projects');
-    } else {
+      if (error) throw error;
       setProjects(data || []);
+    } catch (error) {
+      console.error('Error loading projects:', error);
+      toast.error('Failed to load projects');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-  const filteredProjects = projects.filter(project => {
-    const matchesSearch = project.project_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.project_number.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || project.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
+  const handleNewProject = () => {
+    setEditingId(undefined);
+    setShowForm(true);
+  };
 
-  const handleFormSuccess = () => {
+  const handleEdit = (id: string) => {
+    setEditingId(id);
+    setShowForm(true);
+  };
+
+  const handleSuccess = () => {
     setShowForm(false);
-    setSelectedProject(undefined);
+    setEditingId(undefined);
+    setViewingProjectId(null);
+    setCreatingEstimateForProject(null);
+    setCreatingInvoiceForProject(null);
     loadProjects();
   };
 
-  const handleEditProject = (projectId: string) => {
-    setSelectedProject(projectId);
-    setShowForm(true);
+  const handleViewProject = (id: string) => {
+    setViewingProjectId(id);
   };
+
+  const filteredProjects = projects.filter((project) => {
+    const matchesSearch =
+      project.project_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.project_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.business_clients?.company_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.business_clients?.contact_name?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesStatus = statusFilter === 'all' || project.status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  if (loading) {
+    return (
+      <div>
+        <h1 className="business-page-title">Projects</h1>
+        <p className="business-page-subtitle">Manage project pipeline</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="business-glass-card p-6 animate-pulse">
+              <div className="h-40" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="business-page-title">Projects</h1>
-          <p className="business-page-subtitle">Track and manage construction projects</p>
+          <p className="business-page-subtitle">Manage project pipeline</p>
         </div>
-        <Button onClick={() => setShowForm(true)} style={{ background: 'var(--business-accent)' }}>
-          <Plus className="h-4 w-4 mr-2" />
+        <Button onClick={handleNewProject} className="gap-2">
+          <Plus className="h-4 w-4" />
           New Project
         </Button>
       </div>
 
-      <div className="business-glass-card mb-6" style={{ padding: '1.5rem' }}>
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: 'var(--business-text-secondary)' }} />
+      {/* Filters */}
+      <div className="business-glass-card p-4 mb-6">
+        <div className="flex gap-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder="Search projects..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
-              style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: 'var(--business-text-primary)',
-              }}
             />
           </div>
-          
-          <div className="flex gap-2">
-            {STATUS_FILTERS.map((filter) => (
-              <Button
-                key={filter.value}
-                variant={statusFilter === filter.value ? 'default' : 'outline'}
-                onClick={() => setStatusFilter(filter.value)}
-                size="sm"
-              >
-                {filter.label}
-              </Button>
-            ))}
-          </div>
-
-          <div className="flex gap-2">
-            <Button
-              variant={viewMode === 'grid' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('grid')}
-            >
-              <Grid className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={viewMode === 'list' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('list')}
-            >
-              <List className="h-4 w-4" />
-            </Button>
-          </div>
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-48">
+              <SelectValue placeholder="All Statuses" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Statuses</SelectItem>
+              <SelectItem value="lead">Lead</SelectItem>
+              <SelectItem value="quoted">Quoted</SelectItem>
+              <SelectItem value="scheduled">Scheduled</SelectItem>
+              <SelectItem value="in_progress">In Progress</SelectItem>
+              <SelectItem value="completed">Completed</SelectItem>
+              <SelectItem value="on_hold">On Hold</SelectItem>
+              <SelectItem value="cancelled">Cancelled</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
-      {loading ? (
-        <div className="business-glass-card" style={{ padding: '3rem', textAlign: 'center' }}>
-          <p style={{ color: 'var(--business-text-secondary)' }}>Loading projects...</p>
-        </div>
-      ) : filteredProjects.length === 0 ? (
-        <div className="business-glass-card" style={{ padding: '3rem', textAlign: 'center' }}>
+      {/* Projects Grid */}
+      {filteredProjects.length === 0 ? (
+        <div className="business-glass-card p-12 text-center">
           <p style={{ color: 'var(--business-text-secondary)' }}>
-            {searchTerm || statusFilter !== 'all' ? 'No projects match your filters' : 'No projects yet'}
+            {searchTerm || statusFilter !== 'all' ? 'No projects found' : 'No projects yet'}
           </p>
-          {!searchTerm && statusFilter === 'all' && (
-            <Button onClick={() => setShowForm(true)} className="mt-4">
-              <Plus className="h-4 w-4 mr-2" />
-              Create First Project
-            </Button>
-          )}
         </div>
       ) : (
-        <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-4'}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => (
             <ProjectCard
               key={project.id}
               project={project}
-              onClick={() => handleEditProject(project.id)}
+              onClick={() => handleViewProject(project.id)}
             />
           ))}
         </div>
       )}
 
-      <Dialog open={showForm} onOpenChange={(open) => {
-        setShowForm(open);
-        if (!open) setSelectedProject(undefined);
-      }}>
+      {/* Project Form Dialog */}
+      <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{selectedProject ? 'Edit Project' : 'New Project'}</DialogTitle>
+            <DialogTitle>{editingId ? 'Edit Project' : 'New Project'}</DialogTitle>
           </DialogHeader>
           <ProjectForm
-            projectId={selectedProject}
-            onSuccess={handleFormSuccess}
-            onCancel={() => {
-              setShowForm(false);
-              setSelectedProject(undefined);
-            }}
+            projectId={editingId}
+            onSuccess={handleSuccess}
+            onCancel={() => setShowForm(false)}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* Project Detail Dialog */}
+      <Dialog open={!!viewingProjectId} onOpenChange={() => setViewingProjectId(null)}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          {viewingProjectId && (
+            <ProjectDetail
+              projectId={viewingProjectId}
+              onEdit={() => {
+                setEditingId(viewingProjectId);
+                setViewingProjectId(null);
+                setShowForm(true);
+              }}
+              onCreateEstimate={() => {
+                setCreatingEstimateForProject(viewingProjectId);
+                setViewingProjectId(null);
+              }}
+              onCreateInvoice={() => {
+                setCreatingInvoiceForProject(viewingProjectId);
+                setViewingProjectId(null);
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Create Estimate Dialog */}
+      <Dialog open={!!creatingEstimateForProject} onOpenChange={() => setCreatingEstimateForProject(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <EstimateEditor
+            onSuccess={handleSuccess}
+            onCancel={() => setCreatingEstimateForProject(null)}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* Create Invoice Dialog */}
+      <Dialog open={!!creatingInvoiceForProject} onOpenChange={() => setCreatingInvoiceForProject(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <InvoiceEditor
+            onSuccess={handleSuccess}
+            onCancel={() => setCreatingInvoiceForProject(null)}
           />
         </DialogContent>
       </Dialog>

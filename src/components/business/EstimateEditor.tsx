@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { calculateInvoiceTotals } from '@/utils/calculations';
 import { formatCurrency } from '@/utils/currency';
 import { toast } from 'sonner';
+import { UnitCostsModal } from './UnitCostsModal';
 
 interface EstimateEditorProps {
   estimateId?: string;
@@ -24,6 +25,7 @@ export const EstimateEditor = ({ estimateId, onSuccess, onCancel }: EstimateEdit
   const [lineItems, setLineItems] = useState<LineItem[]>([
     { id: crypto.randomUUID(), description: '', quantity: 1, unit: 'each', unit_price_cents: 0, line_total_cents: 0, category: 'labor' }
   ]);
+  const [showUnitCosts, setShowUnitCosts] = useState(false);
   const [formData, setFormData] = useState({
     client_id: '',
     project_id: '',
@@ -188,6 +190,19 @@ export const EstimateEditor = ({ estimateId, onSuccess, onCancel }: EstimateEdit
     onSuccess();
   };
 
+  const handleUnitCostSelect = (unitCost: any) => {
+    const newItem = {
+      id: crypto.randomUUID(),
+      description: unitCost.name + (unitCost.description ? ` - ${unitCost.description}` : ''),
+      quantity: 1,
+      unit: unitCost.unit,
+      unit_price_cents: unitCost.cost_cents,
+      line_total_cents: unitCost.cost_cents,
+      category: unitCost.category,
+    };
+    setLineItems([...lineItems, newItem]);
+  };
+
   const totals = calculateInvoiceTotals(
     lineItems,
     formData.tax_rate,
@@ -260,8 +275,18 @@ export const EstimateEditor = ({ estimateId, onSuccess, onCancel }: EstimateEdit
 
       <div className="space-y-3">
         <Label>Line Items *</Label>
-        <LineItemEditor lineItems={lineItems} onChange={setLineItems} />
+        <LineItemEditor
+          lineItems={lineItems}
+          onChange={setLineItems}
+          onOpenUnitCosts={() => setShowUnitCosts(true)}
+        />
       </div>
+
+      <UnitCostsModal
+        open={showUnitCosts}
+        onClose={() => setShowUnitCosts(false)}
+        onSelect={handleUnitCostSelect}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
