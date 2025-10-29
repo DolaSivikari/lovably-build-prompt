@@ -153,8 +153,7 @@ export const ProjectForm = ({ projectId, onSuccess, onCancel }: ProjectFormProps
           <Label>Client *</Label>
           <ClientSelector
             value={formData.client_id}
-            onChange={(clientId) => setFormData({ ...formData, client_id: clientId })}
-            required
+            onChange={(clientId) => setFormData({ ...formData, client_id: clientId || '' })}
           />
         </div>
 

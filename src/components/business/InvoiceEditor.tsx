@@ -221,8 +221,7 @@ export const InvoiceEditor = ({ invoiceId, onSuccess, onCancel }: InvoiceEditorP
           <Label>Client *</Label>
           <ClientSelector
             value={formData.client_id}
-            onChange={(clientId) => setFormData({ ...formData, client_id: clientId, project_id: '', estimate_id: '' })}
-            required
+            onChange={(clientId) => setFormData({ ...formData, client_id: clientId || '', project_id: '', estimate_id: '' })}
           />
         </div>
 
