@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   DollarSign, 
   FileText, 
@@ -21,6 +22,7 @@ interface Stats {
 }
 
 export const BusinessDashboard = () => {
+  const navigate = useNavigate();
   const [stats, setStats] = useState<Stats>({
     totalRevenue: 0,
     pendingInvoices: 0,
@@ -165,19 +167,31 @@ export const BusinessDashboard = () => {
           Quick Actions
         </h2>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <button className="business-btn business-btn-primary">
+          <button 
+            className="business-btn business-btn-primary"
+            onClick={() => navigate('/admin/business/estimates')}
+          >
             <FileText size={18} />
             New Estimate
           </button>
-          <button className="business-btn business-btn-success">
+          <button 
+            className="business-btn business-btn-success"
+            onClick={() => navigate('/admin/business/invoices')}
+          >
             <DollarSign size={18} />
             Create Invoice
           </button>
-          <button className="business-btn business-btn-ghost">
+          <button 
+            className="business-btn business-btn-ghost"
+            onClick={() => navigate('/admin/business/clients')}
+          >
             <Users size={18} />
             Add Client
           </button>
-          <button className="business-btn business-btn-ghost">
+          <button 
+            className="business-btn business-btn-ghost"
+            onClick={() => navigate('/admin/business/projects')}
+          >
             <Briefcase size={18} />
             New Project
           </button>
