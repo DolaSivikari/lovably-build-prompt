@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { BusinessSidebar } from '@/components/business/BusinessSidebar';
+import { UnifiedSidebar } from './UnifiedSidebar';
 import { BusinessHeader } from '@/components/business/BusinessHeader';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { supabase } from '@/integrations/supabase/client';
 import '@/styles/admin-theme.css';
 
-export const BusinessLayout = () => {
+export const UnifiedAdminLayout = () => {
   const { isLoading, isAdmin } = useAdminAuth();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -40,7 +40,7 @@ export const BusinessLayout = () => {
 
   return (
     <div className="business-admin-container">
-      <BusinessSidebar 
+      <UnifiedSidebar 
         collapsed={sidebarCollapsed} 
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />

@@ -72,13 +72,7 @@ const Projects = () => {
   };
 
   if (authLoading) {
-    return (
-      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
-        <div className="text-center">
-          <p>Verifying admin access...</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   if (!isAdmin) {
@@ -86,87 +80,95 @@ const Projects = () => {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="border-b bg-background">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/admin")}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-              <h1 className="text-2xl font-bold">Projects</h1>
-            </div>
-            <Button onClick={() => navigate("/admin/projects/new")}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Project
-            </Button>
-          </div>
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <div>
+          <h1 className="business-page-title">Projects</h1>
+          <p className="business-page-subtitle">Manage your portfolio projects</p>
         </div>
-      </header>
+        <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/projects/new")}>
+          <Plus className="h-4 w-4 mr-2" />
+          Add Project
+        </button>
+      </div>
 
-      <main className="container mx-auto px-4 py-8">
+      <div>
         {isLoading ? (
-          <div className="text-center py-12">Loading projects...</div>
+          <div className="text-center py-12" style={{ color: 'var(--business-text-secondary)' }}>Loading projects...</div>
         ) : projects.length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground mb-4">No projects yet. Create your first project to get started.</p>
-              <Button onClick={() => navigate("/admin/projects/new")}>
-                <Plus className="h-4 w-4 mr-2" />
-                Create Project
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="business-glass-card" style={{ padding: '2rem', textAlign: 'center' }}>
+            <p style={{ color: 'var(--business-text-secondary)', marginBottom: '1rem' }}>
+              No projects yet. Create your first project to get started.
+            </p>
+            <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/projects/new")}>
+              <Plus className="h-4 w-4 mr-2" />
+              Create Project
+            </button>
+          </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
-              <Card key={project.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <Badge variant={getStatusColor(project.publish_state)}>
-                      {project.publish_state}
-                    </Badge>
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => navigate(`/admin/projects/${project.id}`)}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => handleDelete(project.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+              <div key={project.id} className="business-glass-card" style={{ padding: '1.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                  <Badge variant={getStatusColor(project.publish_state)}>
+                    {project.publish_state}
+                  </Badge>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button 
+                      className="business-btn business-btn-ghost"
+                      style={{ padding: '0.5rem' }}
+                      onClick={() => navigate(`/admin/projects/${project.id}`)}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </button>
+                    <button 
+                      className="business-btn business-btn-ghost"
+                      style={{ padding: '0.5rem' }}
+                      onClick={() => handleDelete(project.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
                   </div>
-                  <CardTitle className="text-lg">{project.title}</CardTitle>
-                  {project.subtitle && (
-                    <CardDescription>{project.subtitle}</CardDescription>
+                </div>
+                <h3 style={{ 
+                  fontSize: '1.125rem', 
+                  fontWeight: '700', 
+                  color: 'var(--business-text-primary)',
+                  marginBottom: '0.5rem'
+                }}>
+                  {project.title}
+                </h3>
+                {project.subtitle && (
+                  <p style={{ 
+                    fontSize: '0.875rem', 
+                    color: 'var(--business-text-secondary)',
+                    marginBottom: '1rem'
+                  }}>
+                    {project.subtitle}
+                  </p>
+                )}
+                <div style={{ 
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
+                  fontSize: '0.875rem',
+                  color: 'var(--business-text-secondary)'
+                }}>
+                  {project.client_name && (
+                    <div>Client: {project.client_name}</div>
                   )}
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm text-muted-foreground">
-                    {project.client_name && (
-                      <div>Client: {project.client_name}</div>
-                    )}
-                    {project.location && (
-                      <div>Location: {project.location}</div>
-                    )}
-                    {project.category && (
-                      <Badge variant="outline">{project.category}</Badge>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+                  {project.location && (
+                    <div>Location: {project.location}</div>
+                  )}
+                  {project.category && (
+                    <Badge variant="outline">{project.category}</Badge>
+                  )}
+                </div>
+              </div>
             ))}
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 };

@@ -72,13 +72,7 @@ const Services = () => {
   };
 
   if (authLoading) {
-    return (
-      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
-        <div className="text-center">
-          <p>Verifying admin access...</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   if (!isAdmin) {
@@ -86,89 +80,95 @@ const Services = () => {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="border-b bg-background">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/admin")}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-              <h1 className="text-2xl font-bold">Services</h1>
-            </div>
-            <Button onClick={() => navigate("/admin/services/new")}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Service
-            </Button>
-          </div>
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <div>
+          <h1 className="business-page-title">Services</h1>
+          <p className="business-page-subtitle">Manage your service offerings</p>
         </div>
-      </header>
+        <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/services/new")}>
+          <Plus className="h-4 w-4 mr-2" />
+          Add Service
+        </button>
+      </div>
 
-      <main className="container mx-auto px-4 py-8">
+      <div>
         {isLoading ? (
-          <div className="text-center py-12">Loading services...</div>
+          <div className="text-center py-12" style={{ color: 'var(--business-text-secondary)' }}>Loading services...</div>
         ) : services.length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground mb-4">No services yet. Create your first service to get started.</p>
-              <Button onClick={() => navigate("/admin/services/new")}>
-                <Plus className="h-4 w-4 mr-2" />
-                Create Service
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="business-glass-card" style={{ padding: '2rem', textAlign: 'center' }}>
+            <p style={{ color: 'var(--business-text-secondary)', marginBottom: '1rem' }}>
+              No services yet. Create your first service to get started.
+            </p>
+            <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/services/new")}>
+              <Plus className="h-4 w-4 mr-2" />
+              Create Service
+            </button>
+          </div>
         ) : (
           <div className="grid gap-6">
             {services.map((service) => (
-              <Card key={service.id}>
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <CardTitle className="text-xl">{service.name}</CardTitle>
-                        <Badge variant={getStatusColor(service.publish_state)}>
-                          {service.publish_state}
-                        </Badge>
-                      </div>
-                      <CardDescription>{service.short_description}</CardDescription>
+              <div key={service.id} className="business-glass-card" style={{ padding: '1.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                      <h3 style={{ 
+                        fontSize: '1.25rem', 
+                        fontWeight: '700', 
+                        color: 'var(--business-text-primary)'
+                      }}>
+                        {service.name}
+                      </h3>
+                      <Badge variant={getStatusColor(service.publish_state)}>
+                        {service.publish_state}
+                      </Badge>
                     </div>
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => navigate(`/admin/services/${service.id}`)}
-                        aria-label={`Edit ${service.name}`}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleDelete(service.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+                    <p style={{ 
+                      fontSize: '0.875rem', 
+                      color: 'var(--business-text-secondary)',
+                      marginBottom: '1rem'
+                    }}>
+                      {service.short_description}
+                    </p>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex gap-4 text-sm text-muted-foreground">
-                    {service.pricing_range_min && service.pricing_range_max && (
-                      <span>
-                        Price: ${service.pricing_range_min} - ${service.pricing_range_max}
-                      </span>
-                    )}
-                    {service.estimated_timeline && (
-                      <span>Timeline: {service.estimated_timeline}</span>
-                    )}
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button 
+                      className="business-btn business-btn-ghost"
+                      style={{ padding: '0.5rem' }}
+                      onClick={() => navigate(`/admin/services/${service.id}`)}
+                      aria-label={`Edit ${service.name}`}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </button>
+                    <button 
+                      className="business-btn business-btn-ghost"
+                      style={{ padding: '0.5rem' }}
+                      onClick={() => handleDelete(service.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+                <div style={{ 
+                  display: 'flex', 
+                  gap: '1rem', 
+                  fontSize: '0.875rem', 
+                  color: 'var(--business-text-secondary)'
+                }}>
+                  {service.pricing_range_min && service.pricing_range_max && (
+                    <span>
+                      Price: ${service.pricing_range_min} - ${service.pricing_range_max}
+                    </span>
+                  )}
+                  {service.estimated_timeline && (
+                    <span>Timeline: {service.estimated_timeline}</span>
+                  )}
+                </div>
+              </div>
             ))}
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,186 @@
+import { NavLink } from 'react-router-dom';
+import { 
+  LayoutDashboard, 
+  Briefcase, 
+  FileText, 
+  Users, 
+  DollarSign,
+  Receipt,
+  Package,
+  Mail,
+  Image,
+  Settings,
+  Shield,
+  Search,
+  Activity,
+  ChevronLeft,
+  ChevronRight,
+  Folder,
+  UserCircle,
+  FileCheck
+} from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+interface UnifiedSidebarProps {
+  collapsed: boolean;
+  onToggle: () => void;
+}
+
+export const UnifiedSidebar = ({ collapsed, onToggle }: UnifiedSidebarProps) => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  // Check if any route in a group is active to keep it open
+  const isBusinessActive = currentPath.startsWith('/admin/business');
+  const isContentActive = ['/admin/projects', '/admin/services', '/admin/blog', '/admin/media'].some(p => currentPath.startsWith(p));
+  const isInboxActive = ['/admin/contacts', '/admin/resumes', '/admin/prequalifications'].some(p => currentPath.startsWith(p));
+  const isSettingsActive = ['/admin/site-settings', '/admin/users', '/admin/security', '/admin/seo', '/admin/performance'].some(p => currentPath.startsWith(p));
+
+  const [businessOpen, setBusinessOpen] = useState(isBusinessActive);
+  const [contentOpen, setContentOpen] = useState(isContentActive);
+  const [inboxOpen, setInboxOpen] = useState(isInboxActive);
+  const [settingsOpen, setSettingsOpen] = useState(isSettingsActive);
+
+  const isActive = (path: string) => currentPath === path || currentPath.startsWith(path + '/');
+
+  const NavItem = ({ to, icon: Icon, label }: { to: string; icon: any; label: string }) => (
+    <NavLink
+      to={to}
+      className={`business-nav-item ${isActive(to) ? 'active' : ''}`}
+    >
+      <Icon className="business-nav-icon" />
+      {!collapsed && <span>{label}</span>}
+    </NavLink>
+  );
+
+  return (
+    <aside className={`business-sidebar ${collapsed ? 'collapsed' : ''}`}>
+      <div className="business-sidebar-content">
+        {/* Logo */}
+        <div className="business-logo">
+          {collapsed ? (
+            <div style={{ 
+              fontSize: '1.5rem', 
+              fontWeight: '700', 
+              background: 'linear-gradient(135deg, #2563eb 0%, #f97316 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textAlign: 'center'
+            }}>
+              A
+            </div>
+          ) : (
+            <>
+              <div style={{ 
+                fontSize: '1.5rem', 
+                fontWeight: '700', 
+                background: 'linear-gradient(135deg, #2563eb 0%, #f97316 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}>
+                Ascent
+              </div>
+              <span style={{ fontSize: '0.875rem', color: 'var(--business-text-secondary)' }}>
+                Admin Panel
+              </span>
+            </>
+          )}
+        </div>
+
+        {/* Main Dashboard */}
+        <nav style={{ marginBottom: '1.5rem' }}>
+          <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
+        </nav>
+
+        {/* Business Tools Section */}
+        <Collapsible open={businessOpen} onOpenChange={setBusinessOpen}>
+          <CollapsibleTrigger className="business-nav-group-label">
+            {!collapsed && (
+              <>
+                <Briefcase size={16} />
+                <span>Business</span>
+              </>
+            )}
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <nav className="business-nav-group">
+              <NavItem to="/admin/business/dashboard" icon={LayoutDashboard} label="Overview" />
+              <NavItem to="/admin/business/clients" icon={Users} label="Clients" />
+              <NavItem to="/admin/business/projects" icon={Briefcase} label="Projects" />
+              <NavItem to="/admin/business/estimates" icon={FileText} label="Estimates" />
+              <NavItem to="/admin/business/invoices" icon={Receipt} label="Invoices" />
+            </nav>
+          </CollapsibleContent>
+        </Collapsible>
+
+        {/* Content Management Section */}
+        <Collapsible open={contentOpen} onOpenChange={setContentOpen}>
+          <CollapsibleTrigger className="business-nav-group-label">
+            {!collapsed && (
+              <>
+                <FileText size={16} />
+                <span>Content</span>
+              </>
+            )}
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <nav className="business-nav-group">
+              <NavItem to="/admin/projects" icon={Folder} label="Projects" />
+              <NavItem to="/admin/services" icon={Package} label="Services" />
+              <NavItem to="/admin/blog" icon={FileText} label="Blog Posts" />
+              <NavItem to="/admin/media" icon={Image} label="Media" />
+            </nav>
+          </CollapsibleContent>
+        </Collapsible>
+
+        {/* Inbox Section */}
+        <Collapsible open={inboxOpen} onOpenChange={setInboxOpen}>
+          <CollapsibleTrigger className="business-nav-group-label">
+            {!collapsed && (
+              <>
+                <Mail size={16} />
+                <span>Inbox</span>
+              </>
+            )}
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <nav className="business-nav-group">
+              <NavItem to="/admin/contacts" icon={Mail} label="Contact Forms" />
+              <NavItem to="/admin/resumes" icon={FileCheck} label="Resumes" />
+              <NavItem to="/admin/prequalifications" icon={Package} label="Prequal" />
+            </nav>
+          </CollapsibleContent>
+        </Collapsible>
+
+        {/* Settings Section */}
+        <Collapsible open={settingsOpen} onOpenChange={setSettingsOpen}>
+          <CollapsibleTrigger className="business-nav-group-label">
+            {!collapsed && (
+              <>
+                <Settings size={16} />
+                <span>Settings</span>
+              </>
+            )}
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <nav className="business-nav-group">
+              <NavItem to="/admin/site-settings" icon={Settings} label="Site" />
+              <NavItem to="/admin/users" icon={UserCircle} label="Users" />
+              <NavItem to="/admin/security-center" icon={Shield} label="Security" />
+              <NavItem to="/admin/seo-dashboard" icon={Search} label="SEO" />
+              <NavItem to="/admin/performance-dashboard" icon={Activity} label="Performance" />
+            </nav>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+
+      {/* Toggle Button */}
+      <button className="business-sidebar-toggle" onClick={onToggle}>
+        {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+      </button>
+    </aside>
+  );
+};
+

@@ -112,9 +112,9 @@ const AboutPageSettings = lazy(() => import("./pages/admin/AboutPageSettings").c
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load About Page Settings</p></div>
 })));
 
-// Business Admin Pages
-const BusinessLayout = lazy(() => import("./pages/admin/business/BusinessLayout").then(m => ({ default: m.BusinessLayout })).catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Layout</p></div>
+// Unified Admin Layout
+const UnifiedAdminLayout = lazy(() => import("./components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
 })));
 const BusinessDashboard = lazy(() => import("./pages/admin/business/BusinessDashboard").then(m => ({ default: m.BusinessDashboard })).catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Dashboard</p></div>
@@ -224,40 +224,39 @@ const App = () => (
                   <Route path="/projects/:slug" element={<ProjectDetail />} />
                   <Route path="/seo-dashboard" element={<SEODashboard />} />
                   
-                  {/* Admin pages - lazy loaded */}
-                  <Route path="/admin" element={<Dashboard />} />
-                  <Route path="/admin/services" element={<AdminServices />} />
-                  <Route path="/admin/services/:id" element={<ServiceEditor />} />
-                  <Route path="/admin/projects" element={<AdminProjects />} />
-                  <Route path="/admin/projects/:id" element={<ProjectEditor />} />
-                  <Route path="/admin/contacts" element={<ContactSubmissions />} />
-                  <Route path="/admin/blog" element={<AdminBlogPosts />} />
-                  <Route path="/admin/blog/:id" element={<BlogPostEditor />} />
-                  <Route path="/admin/resumes" element={<ResumeSubmissions />} />
-                  <Route path="/admin/prequalifications" element={<PrequalificationSubmissions />} />
-                  <Route path="/admin/media" element={<MediaLibrary />} />
-                  <Route path="/admin/users" element={<Users />} />
-                  <Route path="/admin/security-center" element={<SecurityCenter />} />
-                  <Route path="/admin/security-settings" element={<SecuritySettings />} />
-                  <Route path="/admin/seo-dashboard" element={<AdminSEODashboard />} />
-                  <Route path="/admin/performance-dashboard" element={<PerformanceDashboard />} />
-                  <Route path="/admin/template-manager" element={<TemplateManager />} />
-                  <Route path="/admin/site-settings" element={<SiteSettings />} />
-                  <Route path="/admin/landing-menu" element={<LandingMenuEditor />} />
-                  <Route path="/admin/about-page" element={<AboutPageSettings />} />
-                  <Route path="/admin/testimonials" element={<TestimonialsManager />} />
-                  <Route path="/admin/stats" element={<StatsManager />} />
-                  <Route path="/admin/footer-settings" element={<FooterSettings />} />
-                  <Route path="/admin/contact-page-settings" element={<ContactPageSettings />} />
-                  
-                  {/* Business Admin Routes */}
-                  <Route path="/admin/business" element={<BusinessLayout />}>
-                    <Route index element={<BusinessDashboard />} />
-                    <Route path="dashboard" element={<BusinessDashboard />} />
-                    <Route path="clients" element={<BusinessClients />} />
-                    <Route path="projects" element={<BusinessProjects />} />
-                    <Route path="estimates" element={<BusinessEstimates />} />
-                    <Route path="invoices" element={<BusinessInvoices />} />
+                  {/* Admin pages - unified layout */}
+                  <Route path="/admin" element={<UnifiedAdminLayout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path="services" element={<AdminServices />} />
+                    <Route path="services/:id" element={<ServiceEditor />} />
+                    <Route path="projects" element={<AdminProjects />} />
+                    <Route path="projects/:id" element={<ProjectEditor />} />
+                    <Route path="contacts" element={<ContactSubmissions />} />
+                    <Route path="blog" element={<AdminBlogPosts />} />
+                    <Route path="blog/:id" element={<BlogPostEditor />} />
+                    <Route path="resumes" element={<ResumeSubmissions />} />
+                    <Route path="prequalifications" element={<PrequalificationSubmissions />} />
+                    <Route path="media" element={<MediaLibrary />} />
+                    <Route path="users" element={<Users />} />
+                    <Route path="security-center" element={<SecurityCenter />} />
+                    <Route path="security-settings" element={<SecuritySettings />} />
+                    <Route path="seo-dashboard" element={<AdminSEODashboard />} />
+                    <Route path="performance-dashboard" element={<PerformanceDashboard />} />
+                    <Route path="template-manager" element={<TemplateManager />} />
+                    <Route path="site-settings" element={<SiteSettings />} />
+                    <Route path="landing-menu" element={<LandingMenuEditor />} />
+                    <Route path="about-page" element={<AboutPageSettings />} />
+                    <Route path="testimonials" element={<TestimonialsManager />} />
+                    <Route path="stats" element={<StatsManager />} />
+                    <Route path="footer-settings" element={<FooterSettings />} />
+                    <Route path="contact-page-settings" element={<ContactPageSettings />} />
+                    
+                    {/* Business Admin Routes */}
+                    <Route path="business/dashboard" element={<BusinessDashboard />} />
+                    <Route path="business/clients" element={<BusinessClients />} />
+                    <Route path="business/projects" element={<BusinessProjects />} />
+                    <Route path="business/estimates" element={<BusinessEstimates />} />
+                    <Route path="business/invoices" element={<BusinessInvoices />} />
                   </Route>
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
