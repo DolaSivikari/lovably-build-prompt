@@ -262,7 +262,7 @@ export const BusinessClients = () => {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="bg-slate-900 border-slate-700 max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-slate-200">
+            <DialogTitle className="text-white">
               {editingClient ? 'Edit Client' : 'New Client'}
             </DialogTitle>
           </DialogHeader>

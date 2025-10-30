@@ -123,40 +123,45 @@ export const NotificationBell = () => {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80">
-        <div className="flex items-center justify-between p-2 border-b">
-          <span className="font-semibold">Notifications</span>
+      <DropdownMenuContent align="end" className="w-80 bg-slate-900 border-slate-700 text-white">
+        <div className="flex items-center justify-between p-2 border-b border-slate-700">
+          <span className="font-semibold text-white">Notifications</span>
           {unreadCount > 0 && (
-            <Button variant="ghost" size="sm" onClick={markAllAsRead}>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={markAllAsRead}
+              className="text-slate-300 hover:text-white hover:bg-slate-800"
+            >
               Mark all read
             </Button>
           )}
         </div>
         <div className="max-h-96 overflow-y-auto">
           {notifications.length === 0 ? (
-            <div className="p-4 text-center text-muted-foreground">
+            <div className="p-4 text-center text-slate-400">
               No notifications
             </div>
           ) : (
             notifications.map((notification) => (
               <DropdownMenuItem
                 key={notification.id}
-                className={`p-3 cursor-pointer ${
-                  !notification.read ? 'bg-muted/50' : ''
+                className={`p-3 cursor-pointer hover:bg-slate-800 ${
+                  !notification.read ? 'bg-slate-800/50' : ''
                 }`}
                 onClick={() => markAsRead(notification.id, notification.link)}
               >
                 <div className="flex flex-col gap-1 w-full">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm">{notification.title}</span>
+                    <span className="font-medium text-sm text-white">{notification.title}</span>
                     {!notification.read && (
                       <span className="h-2 w-2 bg-primary rounded-full" />
                     )}
                   </div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-slate-400">
                     {notification.message}
                   </p>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-slate-500">
                     {format(new Date(notification.created_at), 'MMM dd, HH:mm')}
                   </span>
                 </div>

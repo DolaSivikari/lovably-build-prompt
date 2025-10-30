@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Plus } from 'lucide-react';
 import { EstimateStats } from '@/components/business/EstimateStats';
 import { EstimateList } from '@/components/business/EstimateList';
@@ -73,7 +73,12 @@ export const BusinessEstimates = () => {
       />
 
       <Dialog open={showEditor} onOpenChange={setShowEditor}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-white">
+              {editingId ? 'Edit Estimate' : 'New Estimate'}
+            </DialogTitle>
+          </DialogHeader>
           <EstimateEditor
             estimateId={editingId}
             onSuccess={handleSuccess}
@@ -84,16 +89,17 @@ export const BusinessEstimates = () => {
 
       {convertingEstimate && (
         <Dialog open={true} onOpenChange={() => setConvertingEstimate(null)}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">
+          <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-white">Convert to Invoice</DialogTitle>
+              <DialogDescription className="text-slate-400">
                 Converting estimate {convertingEstimate.estimate_number} to invoice...
-              </p>
-              <InvoiceEditor
-                onSuccess={handleSuccess}
-                onCancel={() => setConvertingEstimate(null)}
-              />
-            </div>
+              </DialogDescription>
+            </DialogHeader>
+            <InvoiceEditor
+              onSuccess={handleSuccess}
+              onCancel={() => setConvertingEstimate(null)}
+            />
           </DialogContent>
         </Dialog>
       )}

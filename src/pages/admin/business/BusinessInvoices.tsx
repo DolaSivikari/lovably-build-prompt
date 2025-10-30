@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Plus } from 'lucide-react';
 import { InvoiceStats } from '@/components/business/InvoiceStats';
 import { InvoiceList } from '@/components/business/InvoiceList';
@@ -68,7 +68,12 @@ export const BusinessInvoices = () => {
       />
 
       <Dialog open={showEditor} onOpenChange={setShowEditor}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-white">
+              {editingId ? 'Edit Invoice' : 'New Invoice'}
+            </DialogTitle>
+          </DialogHeader>
           <InvoiceEditor
             invoiceId={editingId}
             onSuccess={handleSuccess}
