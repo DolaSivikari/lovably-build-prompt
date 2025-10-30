@@ -212,7 +212,7 @@ export const ProjectForm = ({ projectId, onSuccess, onCancel }: ProjectFormProps
       </div>
 
       <div className="space-y-4">
-        <h3 className="font-medium">Site Address</h3>
+        <h3 className="font-medium text-white">Site Address</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2 md:col-span-2">
             <Label htmlFor="site_address_line1">Address Line 1</Label>

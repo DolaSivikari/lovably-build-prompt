@@ -144,7 +144,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="contact_name" className="text-slate-200">
+          <Label htmlFor="contact_name">
             Contact Name *
           </Label>
           <Input
@@ -157,7 +157,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-slate-200">
+          <Label htmlFor="email">
             Email *
           </Label>
           <Input
@@ -171,7 +171,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="phone" className="text-slate-200">
+          <Label htmlFor="phone">
             Phone *
           </Label>
           <Input
@@ -185,7 +185,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="secondary_phone" className="text-slate-200">
+          <Label htmlFor="secondary_phone">
             Secondary Phone
           </Label>
           <Input
@@ -198,7 +198,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="company_name" className="text-slate-200">
+          <Label htmlFor="company_name">
             Company Name
           </Label>
           <Input
@@ -210,7 +210,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="client_type" className="text-slate-200">
+          <Label htmlFor="client_type">
             Client Type *
           </Label>
           <Select
@@ -220,7 +220,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
             <SelectTrigger className="bg-slate-800 border-slate-700">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700">
+            <SelectContent className="bg-slate-800 border-slate-700 text-white">
               <SelectItem value="residential">Residential</SelectItem>
               <SelectItem value="commercial">Commercial</SelectItem>
             </SelectContent>
@@ -228,7 +228,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="source" className="text-slate-200">
+          <Label htmlFor="source">
             Source
           </Label>
           <Select
@@ -238,7 +238,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
             <SelectTrigger className="bg-slate-800 border-slate-700">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700">
+            <SelectContent className="bg-slate-800 border-slate-700 text-white">
               {SOURCES.map(source => (
                 <SelectItem key={source} value={source} className="capitalize">
                   {source.replace('_', ' ')}
@@ -249,7 +249,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="rating" className="text-slate-200">
+          <Label htmlFor="rating">
             Rating (1-5)
           </Label>
           <Input
@@ -265,10 +265,10 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-lg font-medium text-slate-200">Address</h3>
+        <h3 className="text-lg font-medium text-white">Address</h3>
         
         <div className="space-y-2">
-          <Label htmlFor="address_line1" className="text-slate-200">
+          <Label htmlFor="address_line1">
             Address Line 1
           </Label>
           <Input
@@ -280,7 +280,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="address_line2" className="text-slate-200">
+          <Label htmlFor="address_line2">
             Address Line 2
           </Label>
           <Input
@@ -293,7 +293,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="city" className="text-slate-200">
+            <Label htmlFor="city">
               City
             </Label>
             <Input
@@ -305,7 +305,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="province" className="text-slate-200">
+            <Label htmlFor="province">
               Province
             </Label>
             <Select
@@ -315,7 +315,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
               <SelectTrigger className="bg-slate-800 border-slate-700">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-700">
+              <SelectContent className="bg-slate-800 border-slate-700 text-white">
                 {PROVINCES.map(prov => (
                   <SelectItem key={prov} value={prov}>
                     {prov}
@@ -326,7 +326,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="postal_code" className="text-slate-200">
+            <Label htmlFor="postal_code">
               Postal Code
             </Label>
             <Input
@@ -341,7 +341,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="notes" className="text-slate-200">
+        <Label htmlFor="notes">
           Notes
         </Label>
         <Textarea
