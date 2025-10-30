@@ -69,7 +69,7 @@ const AchievementShowcase = () => {
             <span className="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
               Built on Excellence
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
               Numbers That Speak For Themselves
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

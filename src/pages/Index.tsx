@@ -7,11 +7,11 @@ import SEO from "@/components/SEO";
 import SocialProof from "@/components/SocialProof";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
-import TrustBar from "@/components/homepage/TrustBar";
 import ClientSelector from "@/components/homepage/ClientSelector";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
+import ClientLogoBar from "@/components/homepage/ClientLogoBar";
 
 import DirectAnswer from "@/components/seo/DirectAnswer";
 import SkipLink from "@/components/SkipLink";
@@ -119,11 +119,27 @@ const Index = () => {
         {/* Direct Answer for AEO/GEO */}
         <DirectAnswer />
         
-        <CompanyOverviewHub />
+        {/* PHASE 1: Client Logo Bar */}
+        <ClientLogoBar />
+        
+        <div className="py-24">
+          <CompanyOverviewHub />
+        </div>
+        
         <ClientSelector />
-        <WhyChooseUs />
-        <ServicesExplorer />
-        <AchievementShowcase />
+        
+        <div className="py-24">
+          <WhyChooseUs />
+        </div>
+        
+        <div className="py-24">
+          <ServicesExplorer />
+        </div>
+        
+        <div className="py-24">
+          <AchievementShowcase />
+        </div>
+        
         <CertificationsBar />
         <Testimonials />
         

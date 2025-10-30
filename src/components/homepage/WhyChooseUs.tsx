@@ -71,7 +71,7 @@ const WhyChooseUs = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
             Why Choose Ascent Group Construction in Toronto & the GTA
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">

@@ -14,6 +14,7 @@ import {
 import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle } from "lucide-react";
 import companyData from "@/data/company-info.json";
 import teamWork from "@/assets/team-work.jpg";
+import CompanyTimeline from "@/components/homepage/CompanyTimeline";
 
 const iconMap: { [key: string]: any } = {
   award: Award,
@@ -51,10 +52,10 @@ const About = () => {
       <main>
 
         {/* Company Story */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <div>
-              <h2 className="text-4xl font-bold mb-6">Our Story</h2>
+              <h2 className="text-5xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
                   Founded in 2009, Ascent Group Construction began with a simple mission: deliver exceptional painting and exterior finishing services with uncompromising quality and integrity.
@@ -83,11 +84,14 @@ const About = () => {
           </div>
         </section>
 
+        {/* PHASE 1: Company Timeline */}
+        <CompanyTimeline />
+
         {/* Values */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-24 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Our Core Values</h2>
+              <h2 className="text-5xl font-bold mb-4">Our Core Values</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 The principles that guide every decision and every project
               </p>
@@ -115,12 +119,12 @@ const About = () => {
 
 
         {/* Sustainability */}
-        <section className="bg-muted py-16">
+        <section className="bg-muted py-24">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 mb-4">
-                <Leaf className="w-8 h-8 text-primary" />
-                <h2 className="text-4xl font-bold">Sustainability Commitment</h2>
+                <Leaf className="w-8 h-8 text-sustainability" />
+                <h2 className="text-5xl font-bold">Sustainability Commitment</h2>
               </div>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
                 {companyData.sustainability.commitment}
@@ -147,12 +151,12 @@ const About = () => {
         </section>
 
         {/* Safety */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-24">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 mb-4">
                 <Shield className="w-8 h-8 text-primary" />
-                <h2 className="text-4xl font-bold">Safety First, Always</h2>
+                <h2 className="text-5xl font-bold">Safety First, Always</h2>
               </div>
               <p className="text-lg text-muted-foreground">
                 {companyData.safety.commitment}
@@ -190,12 +194,12 @@ const About = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-24 bg-muted/30">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 mb-4">
                 <HelpCircle className="w-8 h-8 text-primary" />
-                <h2 className="text-4xl font-bold">Frequently Asked Questions</h2>
+                <h2 className="text-5xl font-bold">Frequently Asked Questions</h2>
               </div>
               <p className="text-lg text-muted-foreground">
                 Find answers to the most common questions about our services, pricing, and process
