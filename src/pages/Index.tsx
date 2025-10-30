@@ -17,6 +17,7 @@ import DirectAnswer from "@/components/seo/DirectAnswer";
 import SkipLink from "@/components/SkipLink";
 import AchievementShowcase from "@/components/homepage/AchievementShowcase";
 import ContentHub from "@/components/homepage/ContentHub";
+import Testimonials from "@/components/Testimonials";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 
 const Index = () => {
@@ -124,6 +125,7 @@ const Index = () => {
         <ServicesExplorer />
         <AchievementShowcase />
         <CertificationsBar />
+        <Testimonials />
         
         <SocialProof />
         <PrequalPackage />

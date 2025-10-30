@@ -387,7 +387,7 @@ const ProjectEditor = () => {
           />
 
           {/* Before Images Section */}
-          <Card className="p-6">
+          <Card className="p-6 border-l-4 border-l-blue-500">
             <MultiImageUpload
               images={formData.before_images}
               onChange={(images) => setFormData({ ...formData, before_images: images })}
@@ -398,6 +398,11 @@ const ProjectEditor = () => {
             <p className="text-sm text-muted-foreground mt-2">
               Upload 3-5 images showing the original state before work began
             </p>
+            <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-md border border-blue-200 dark:border-blue-800">
+              <p className="text-xs font-medium text-blue-900 dark:text-blue-100">
+                💡 Pairing Tip: Upload the same number of before and after images for best results. These will be paired sequentially in the before/after slider.
+              </p>
+            </div>
           </Card>
 
           {/* Process Steps Section */}
@@ -409,7 +414,7 @@ const ProjectEditor = () => {
           </Card>
 
           {/* After Images Section */}
-          <Card className="p-6">
+          <Card className="p-6 border-l-4 border-l-green-500">
             <MultiImageUpload
               images={formData.after_images}
               onChange={(images) => setFormData({ ...formData, after_images: images })}
@@ -420,6 +425,14 @@ const ProjectEditor = () => {
             <p className="text-sm text-muted-foreground mt-2">
               Upload 3-5 images showing the completed project from various angles
             </p>
+            <div className="mt-3 p-3 bg-green-50 dark:bg-green-950/20 rounded-md border border-green-200 dark:border-green-800">
+              <p className="text-xs font-medium text-green-900 dark:text-green-100">
+                ✓ Image Pairing: {formData.before_images.length} before ↔ {formData.after_images.length} after
+                {formData.before_images.length !== formData.after_images.length && (
+                  <span className="block mt-1 text-yellow-700 dark:text-yellow-300">⚠️ Consider matching the count for optimal pairing</span>
+                )}
+              </p>
+            </div>
           </Card>
 
           <div className="grid md:grid-cols-2 gap-6">

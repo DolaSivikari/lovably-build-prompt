@@ -98,6 +98,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Sustainability accent colors (use sparingly in eco-related sections only)
+        sustainability: {
+          light: "hsl(80 25% 70%)",  // Sage green
+          DEFAULT: "hsl(80 47% 40%)", // Olive drab
+          dark: "hsl(80 43% 27%)",    // Dark olive
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

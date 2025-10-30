@@ -39,13 +39,13 @@ const Sustainability = () => {
       icon: Recycle,
       value: "90%",
       label: "Waste Diverted from Landfills",
-      color: "text-green-600"
+      color: "text-sustainability"
     },
     {
       icon: Sun,
       value: "100%",
       label: "Low-VOC Materials Used",
-      color: "text-orange-600"
+      color: "text-sustainability-dark"
     },
     {
       icon: Droplet,
@@ -57,7 +57,7 @@ const Sustainability = () => {
       icon: Award,
       value: "50+",
       label: "Eco-Friendly Projects",
-      color: "text-primary"
+      color: "text-sustainability"
     }
   ];
 
@@ -109,16 +109,18 @@ const Sustainability = () => {
       />
       <Navigation />
 
-      <PageHeader
-        eyebrow="Sustainability"
-        title="Building a Greener Future"
-        description="Our commitment to environmental responsibility through sustainable practices and eco-friendly solutions"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Sustainability" }
-        ]}
-        variant="standard"
-      />
+      <div className="bg-gradient-to-br from-sustainability/10 via-background to-background">
+        <PageHeader
+          eyebrow="Sustainability"
+          title="Building a Greener Future"
+          description="Our commitment to environmental responsibility through sustainable practices and eco-friendly solutions"
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Sustainability" }
+          ]}
+          variant="standard"
+        />
+      </div>
       
       <main>
 
@@ -192,7 +194,7 @@ const Sustainability = () => {
             </div>
 
             {/* Carbon Offset Calculator */}
-            <Card className="bg-gradient-to-br from-green-50 to-teal-50 border-green-200">
+            <Card className="bg-gradient-to-br from-sustainability-light/20 to-sustainability/10 border-sustainability/30">
               <CardContent className="p-8 md:p-12">
                 <div className="max-w-2xl mx-auto">
                   <h3 className="text-2xl font-bold mb-4 text-center">Carbon Offset Calculator</h3>
@@ -216,7 +218,7 @@ const Sustainability = () => {
                     {co2Offset > 0 && (
                       <div className="bg-white p-6 rounded-lg text-center animate-fade-in">
                         <div className="text-sm text-muted-foreground mb-2">Estimated CO₂ Offset</div>
-                        <div className="text-4xl font-bold text-green-600 mb-2">
+                        <div className="text-4xl font-bold text-sustainability-dark mb-2">
                           {co2Offset} kg
                         </div>
                         <div className="text-xs text-muted-foreground">
@@ -250,8 +252,8 @@ const Sustainability = () => {
               {certifications.map((cert, index) => (
                 <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                   <CardContent className="p-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-                      <cert.icon className="w-8 h-8 text-green-600" />
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-sustainability-light/20 rounded-full mb-4">
+                      <cert.icon className="w-8 h-8 text-sustainability-dark" />
                     </div>
                     <h3 className="text-xl font-bold mb-3">{cert.title}</h3>
                     <p className="text-sm text-muted-foreground">{cert.description}</p>
