@@ -5,9 +5,7 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, MapPin, DollarSign, Users, Clock } from "lucide-react";
-import BeforeAfterSlider from "@/components/BeforeAfterSlider";
-import { motion } from "framer-motion";
+import { ArrowRight, MapPin, DollarSign, Clock } from "lucide-react";
 
 interface Project {
   id: string;
@@ -26,18 +24,24 @@ const FeaturedProjects = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const { data } = await supabase
-        .from('projects')
-        .select('id, slug, title, category, location, featured_image')
-        .eq('publish_state', 'published')
-        .eq('is_featured', true)
-        .order('display_order')
-        .limit(3);
+      try {
+        // @ts-expect-error - Bypassing Supabase's deep type inference (known TS2589 issue)
+        const { data, error } = await supabase
+          .from('projects')
+          .select('id, slug, title, category, location, featured_image')
+          .eq('publish_state', 'published')
+          .eq('is_featured', true)
+          .order('display_order')
+          .limit(3);
 
-      if (data) {
-        setProjects(data);
+        if (data && !error) {
+          setProjects(data as Project[]);
+        }
+      } catch (err) {
+        console.error('Error fetching projects:', err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchProjects();
@@ -68,11 +72,14 @@ const FeaturedProjects = () => {
 
         <div className="space-y-12 max-w-6xl mx-auto">
           {projects.map((project, index) => (
-            <motion.div
+            <div
               key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className={`transition-all duration-700 ${
+                isVisible 
+                  ? "opacity-100 translate-y-0" 
+                  : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: `${index * 200}ms` }}
             >
               <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 hover:border-primary/50">
                 <div className="grid md:grid-cols-2 gap-0">
@@ -123,7 +130,7 @@ const FeaturedProjects = () => {
                   </CardContent>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
 
