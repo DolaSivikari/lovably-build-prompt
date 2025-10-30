@@ -642,3 +642,55 @@ body:has(.business-sidebar.mobile-open) {
     display: none;
   }
 }
+
+/* ============================================================================
+   ADMIN DARK THEME WRAPPER - Override CSS Variables for Unified Dark Theme
+   ============================================================================ */
+
+.admin-dark-theme {
+  /* Force dark backgrounds */
+  --background: 222 47% 11%;        /* slate-900 */
+  --foreground: 210 40% 98%;        /* slate-50 */
+  
+  /* Force dark cards */
+  --card: 217 33% 17%;              /* slate-800 */
+  --card-foreground: 210 40% 98%;   /* slate-50 */
+  
+  /* Force dark popovers and dropdowns */
+  --popover: 217 33% 17%;           /* slate-800 */
+  --popover-foreground: 210 40% 98%; /* slate-50 */
+  
+  /* Force dark inputs */
+  --input: 215 25% 27%;             /* slate-700 */
+  
+  /* Force dark muted backgrounds */
+  --muted: 215 25% 27%;             /* slate-700 */
+  --muted-foreground: 214 32% 91%;  /* slate-200 */
+  
+  /* Force dark borders */
+  --border: 215 25% 27%;            /* slate-700 */
+  
+  /* Ensure ring color is visible */
+  --ring: 217 91% 60%;              /* blue-400 */
+}
+
+/* Ensure all form inputs in admin have dark backgrounds */
+.admin-dark-theme input,
+.admin-dark-theme textarea,
+.admin-dark-theme select {
+  background-color: hsl(217 33% 17%); /* slate-800 */
+  border-color: hsl(215 25% 27%);     /* slate-700 */
+  color: hsl(210 40% 98%);            /* slate-50 - white text */
+}
+
+.admin-dark-theme input::placeholder,
+.admin-dark-theme textarea::placeholder {
+  color: hsl(214 32% 91% / 0.5);      /* slate-200 with opacity */
+}
+
+/* Ensure all Cards in admin have dark backgrounds */
+.admin-dark-theme .card {
+  background-color: hsl(217 33% 17%); /* slate-800 */
+  border-color: hsl(215 25% 27%);     /* slate-700 */
+  color: hsl(210 40% 98%);            /* slate-50 */
+}

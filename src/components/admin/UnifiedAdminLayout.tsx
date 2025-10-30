@@ -40,8 +40,8 @@ export const UnifiedAdminLayout = () => {
   }
 
   return (
-    <div className="business-admin-container">
-      <UnifiedSidebar 
+    <div className="business-admin-container admin-dark-theme">
+      <UnifiedSidebar
         collapsed={sidebarCollapsed} 
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
         mobileOpen={mobileMenuOpen}

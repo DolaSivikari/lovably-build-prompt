@@ -39,8 +39,8 @@ export const BusinessLayout = () => {
   }
 
   return (
-    <div className="business-admin-container">
-      <BusinessSidebar 
+    <div className="business-admin-container admin-dark-theme">
+      <BusinessSidebar
         collapsed={sidebarCollapsed} 
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />

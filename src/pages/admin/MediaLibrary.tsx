@@ -127,8 +127,8 @@ const MediaLibrary = () => {
   });
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="border-b bg-background">
+    <div className="min-h-screen admin-dark-theme">
+      <header className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm" onClick={() => navigate("/admin")}>
@@ -189,9 +189,9 @@ const MediaLibrary = () => {
         {isLoading ? (
           <div className="text-center py-12">Loading files...</div>
         ) : filteredFiles.length === 0 ? (
-          <Card>
+          <Card className="bg-card border-border">
             <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground">No files found. Upload your first file to get started.</p>
+              <p className="text-foreground">No files found. Upload your first file to get started.</p>
             </CardContent>
           </Card>
         ) : (
