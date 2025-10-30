@@ -731,3 +731,78 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme label {
   color: hsl(210 40% 98%) !important;            /* WHITE TEXT */
 }
+
+/* Extra specificity for inputs with inline bg classes */
+.admin-dark-theme input.bg-slate-800,
+.admin-dark-theme textarea.bg-slate-800,
+.admin-dark-theme input[class*="bg-slate"],
+.admin-dark-theme textarea[class*="bg-slate"] {
+  color: hsl(210 40% 98%) !important;
+  background-color: hsl(217 33% 17%) !important;
+  border-color: hsl(215 25% 27%) !important;
+}
+
+/* Force white text on Select components with bg classes */
+.admin-dark-theme button[role="combobox"].bg-slate-800,
+.admin-dark-theme button[class*="bg-slate"][role="combobox"] {
+  color: hsl(210 40% 98%) !important;
+  background-color: hsl(217 33% 17%) !important;
+}
+
+/* Ensure SelectContent and options are readable and on top */
+.admin-dark-theme [data-radix-select-content],
+.admin-dark-theme [role="listbox"] {
+  background-color: hsl(217 33% 17%) !important;
+  border: 1px solid hsl(215 25% 27%) !important;
+  color: hsl(210 40% 98%) !important;
+  z-index: 100 !important;
+}
+
+.admin-dark-theme [role="option"],
+.admin-dark-theme [role="listbox"] > *,
+.admin-dark-theme [data-radix-select-content] * {
+  color: hsl(210 40% 98%) !important;
+}
+
+/* Fallback: any dark slate background inside admin gets white text */
+.admin-dark-theme [class*="bg-slate-8"],
+.admin-dark-theme [class*="bg-slate-9"] {
+  color: hsl(210 40% 98%) !important;
+}
+
+/* Admin portal: body-level variables for portals */
+body.admin-dark-portal {
+  --background: 222 47% 11%;        /* slate-900 */
+  --foreground: 210 40% 98%;        /* slate-50 */
+  --card: 217 33% 17%;              /* slate-800 */
+  --card-foreground: 210 40% 98%;   /* slate-50 */
+  --popover: 217 33% 17%;           /* slate-800 */
+  --popover-foreground: 210 40% 98%; /* slate-50 */
+  --input: 215 25% 27%;             /* slate-700 */
+  --muted: 215 25% 27%;             /* slate-700 */
+  --muted-foreground: 214 32% 91%;  /* slate-200 */
+  --border: 215 25% 27%;            /* slate-700 */
+  --ring: 217 91% 60%;              /* blue-400 */
+}
+
+/* Portals: dropdowns/menus/popovers should be opaque and on top */
+body.admin-dark-portal [data-radix-select-content],
+body.admin-dark-portal [data-radix-popper-content-wrapper],
+body.admin-dark-portal [role="listbox"],
+body.admin-dark-portal .radix-select-content,
+body.admin-dark-portal .radix-popover-content,
+body.admin-dark-portal .radix-dropdown-menu-content {
+  background-color: hsl(217 33% 17%) !important;
+  color: hsl(210 40% 98%) !important;
+  border: 1px solid hsl(215 25% 27%) !important;
+  z-index: 9999 !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Ensure options inside portals are white */
+body.admin-dark-portal [role="option"],
+body.admin-dark-portal [role="menuitem"],
+body.admin-dark-portal [data-radix-select-content] *,
+body.admin-dark-portal .radix-dropdown-menu-content * {
+  color: hsl(210 40% 98%) !important;
+}

@@ -20,6 +20,14 @@ export const UnifiedAdminLayout = () => {
     getUser();
   }, []);
 
+  // Apply body-level dark theme variables for portal-based components (Radix portals)
+  useEffect(() => {
+    document.body.classList.add('admin-dark-portal');
+    return () => {
+      document.body.classList.remove('admin-dark-portal');
+    };
+  }, []);
+
   if (isLoading) {
     return (
       <div style={{
