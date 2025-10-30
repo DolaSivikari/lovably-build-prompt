@@ -3,112 +3,74 @@ import { Button } from "@/components/ui/button";
 import { Shield, Award, CheckCircle, ArrowRight } from "lucide-react";
 import heroPremiumVideo from "@/assets/hero-premium.mp4";
 import heroConstructionImage from "@/assets/hero-construction.jpg";
-import { motion, useScroll, useTransform } from "framer-motion";
 
 const SimplifiedHero = () => {
-  const { scrollY } = useScroll();
-  const videoY = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background with Parallax */}
-      <motion.div 
-        style={{ y: videoY }}
-        className="absolute inset-0 w-full h-full"
+      {/* Video Background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="absolute inset-0 w-full h-full object-cover"
+        poster={heroConstructionImage}
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover scale-110"
-          poster={heroConstructionImage}
-        >
-          <source src={heroPremiumVideo} type="video/mp4" />
-        </video>
-      </motion.div>
+        <source src={heroPremiumVideo} type="video/mp4" />
+      </video>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
 
-      {/* Content with Fade on Scroll */}
-      <motion.div 
-        style={{ opacity }}
-        className="relative z-10 container mx-auto px-4 text-center text-white"
-      >
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 text-center text-white">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-6"
-        >
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-6 animate-fade-in">
           <Award className="w-4 h-4 text-accent" />
           <span className="text-sm font-semibold">15+ Years of Excellence in the GTA</span>
-        </motion.div>
+        </div>
 
         {/* Main Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-        >
-          Ontario's Premier Construction Partner
-          <span className="block text-accent mt-3">for Complex Commercial Projects</span>
-        </motion.h1>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up leading-tight">
+          Your Trusted Construction Partner
+          <span className="block text-accent mt-2">Across Ontario</span>
+        </h1>
 
         {/* Subheading */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed opacity-90"
-        >
-          Trusted by EllisDon, PCL, and Madison Group for $10M+ projects—delivering excellence on time, on budget, since 2009
-        </motion.p>
+        <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up opacity-90" style={{ animationDelay: "0.2s" }}>
+          From heritage restorations to modern commercial projects—delivering excellence on time, on budget, every time.
+        </p>
 
         {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
-        >
-          <Button size="lg" asChild className="group bg-accent hover:bg-accent/90 text-primary shadow-xl hover:shadow-2xl transition-all">
-            <Link to="/projects" className="flex items-center gap-2">
-              View $20M+ Projects
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+          <Button size="lg" asChild className="group bg-accent hover:bg-accent/90 text-primary">
+            <Link to="/estimate" className="flex items-center gap-2">
+              Get Free Estimate
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
-          <Button size="lg" variant="outline" asChild className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm shadow-xl">
-            <Link to="/estimate">Request Proposal</Link>
+          <Button size="lg" variant="outline" asChild className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm">
+            <Link to="/projects">View Our Work</Link>
           </Button>
-        </motion.div>
+        </div>
 
         {/* Trust Indicators */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="flex flex-wrap gap-8 justify-center text-sm"
-        >
-          <div className="flex items-center gap-2 group cursor-default">
-            <Shield className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
+        <div className="flex flex-wrap gap-8 justify-center text-sm animate-fade-in" style={{ animationDelay: "0.6s" }}>
+          <div className="flex items-center gap-2">
+            <Shield className="w-5 h-5 text-accent" />
             <span>Licensed & Insured</span>
           </div>
-          <div className="flex items-center gap-2 group cursor-default">
-            <Award className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
-            <span>500+ Projects</span>
+          <div className="flex items-center gap-2">
+            <Award className="w-5 h-5 text-accent" />
+            <span>500+ Projects Completed</span>
           </div>
-          <div className="flex items-center gap-2 group cursor-default">
-            <CheckCircle className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
-            <span>$50M+ Delivered</span>
+          <div className="flex items-center gap-2">
+            <CheckCircle className="w-5 h-5 text-accent" />
+            <span>98% Satisfaction Rate</span>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">

@@ -1,16 +1,24 @@
-import SkipLink from "@/components/SkipLink";
-import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import SimplifiedHero from "@/components/SimplifiedHero";
-import EnhancedTrustBar from "@/components/homepage/EnhancedTrustBar";
-import ClientSelector from "@/components/homepage/ClientSelector";
-import EnhancedWhyChooseUs from "@/components/homepage/EnhancedWhyChooseUs";
-import FeaturedProjects from "@/components/homepage/FeaturedProjects";
-import TestimonialsSocialProof from "@/components/homepage/TestimonialsSocialProof";
-import FinalCTA from "@/components/homepage/FinalCTA";
-import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
+import NumberedLandingHero from "@/components/NumberedLandingHero";
+import { ServicesExplorer } from "@/components/services/ServicesExplorer";
+
+import SEO from "@/components/SEO";
+import SocialProof from "@/components/SocialProof";
+import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
+import ClientSelector from "@/components/homepage/ClientSelector";
+import WhyChooseUs from "@/components/homepage/WhyChooseUs";
+import CertificationsBar from "@/components/homepage/CertificationsBar";
+import PrequalPackage from "@/components/homepage/PrequalPackage";
+import ClientLogoBar from "@/components/homepage/ClientLogoBar";
+
+import DirectAnswer from "@/components/seo/DirectAnswer";
+import SkipLink from "@/components/SkipLink";
+import AchievementShowcase from "@/components/homepage/AchievementShowcase";
+import ContentHub from "@/components/homepage/ContentHub";
+import Testimonials from "@/components/Testimonials";
+import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 
 const Index = () => {
   // AEO/GEO Structured Data
@@ -106,13 +114,38 @@ const Index = () => {
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">
-        <SimplifiedHero />
-        <EnhancedTrustBar />
+        <NumberedLandingHero />
+        
+        {/* Direct Answer for AEO/GEO */}
+        <DirectAnswer />
+        
+        {/* PHASE 1: Client Logo Bar */}
+        <ClientLogoBar />
+        
+        <div className="py-24">
+          <CompanyOverviewHub />
+        </div>
+        
         <ClientSelector />
-        <EnhancedWhyChooseUs />
-        <FeaturedProjects />
-        <TestimonialsSocialProof />
-        <FinalCTA />
+        
+        <div className="py-24">
+          <WhyChooseUs />
+        </div>
+        
+        <div className="py-24">
+          <ServicesExplorer />
+        </div>
+        
+        <div className="py-24">
+          <AchievementShowcase />
+        </div>
+        
+        <CertificationsBar />
+        <Testimonials />
+        
+        <SocialProof />
+        <PrequalPackage />
+        <ContentHub />
       </main>
       <Footer />
     </div>
