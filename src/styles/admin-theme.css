@@ -674,23 +674,60 @@ body:has(.business-sidebar.mobile-open) {
   --ring: 217 91% 60%;              /* blue-400 */
 }
 
-/* Ensure all form inputs in admin have dark backgrounds */
+/* FORCE white text on all form inputs - override any inline classes */
 .admin-dark-theme input,
 .admin-dark-theme textarea,
-.admin-dark-theme select {
-  background-color: hsl(217 33% 17%); /* slate-800 */
-  border-color: hsl(215 25% 27%);     /* slate-700 */
-  color: hsl(210 40% 98%);            /* slate-50 - white text */
+.admin-dark-theme select,
+.admin-dark-theme input[type="text"],
+.admin-dark-theme input[type="email"],
+.admin-dark-theme input[type="tel"],
+.admin-dark-theme input[type="number"],
+.admin-dark-theme input[type="password"],
+.admin-dark-theme input[type="url"],
+.admin-dark-theme input[type="search"] {
+  background-color: hsl(217 33% 17%) !important; /* slate-800 */
+  border-color: hsl(215 25% 27%) !important;     /* slate-700 */
+  color: hsl(210 40% 98%) !important;            /* slate-50 - WHITE TEXT - FORCED */
 }
 
+/* Force white placeholder text */
 .admin-dark-theme input::placeholder,
 .admin-dark-theme textarea::placeholder {
-  color: hsl(214 32% 91% / 0.5);      /* slate-200 with opacity */
+  color: hsl(214 32% 91% / 0.5) !important;      /* slate-200 with opacity */
 }
 
-/* Ensure all Cards in admin have dark backgrounds */
+/* Force white text on select trigger (the displayed value) */
+.admin-dark-theme [role="combobox"],
+.admin-dark-theme button[role="combobox"] {
+  color: hsl(210 40% 98%) !important;            /* WHITE TEXT */
+}
+
+/* Force white text inside select dropdown options */
+.admin-dark-theme [role="option"] {
+  color: hsl(210 40% 98%) !important;            /* WHITE TEXT */
+}
+
+/* Ensure all Cards in admin have dark backgrounds and white text */
 .admin-dark-theme .card {
-  background-color: hsl(217 33% 17%); /* slate-800 */
-  border-color: hsl(215 25% 27%);     /* slate-700 */
-  color: hsl(210 40% 98%);            /* slate-50 */
+  background-color: hsl(217 33% 17%) !important; /* slate-800 */
+  border-color: hsl(215 25% 27%) !important;     /* slate-700 */
+  color: hsl(210 40% 98%) !important;            /* slate-50 - WHITE TEXT */
+}
+
+/* Force white text on all heading and paragraph elements in admin */
+.admin-dark-theme h1,
+.admin-dark-theme h2,
+.admin-dark-theme h3,
+.admin-dark-theme h4,
+.admin-dark-theme h5,
+.admin-dark-theme h6,
+.admin-dark-theme p,
+.admin-dark-theme span,
+.admin-dark-theme div {
+  color: inherit; /* Inherit from parent which is white */
+}
+
+/* Ensure labels are white */
+.admin-dark-theme label {
+  color: hsl(210 40% 98%) !important;            /* WHITE TEXT */
 }
