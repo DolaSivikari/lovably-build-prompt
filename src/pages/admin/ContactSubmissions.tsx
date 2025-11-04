@@ -26,6 +26,10 @@ import { MultiSelectFilter, FilterOption } from "@/components/admin/filters/Mult
 import { useTableFilters } from "@/hooks/useTableFilters";
 import { useUrlFilters } from "@/hooks/useUrlFilters";
 import { ExportButton, ExportColumn } from "@/components/admin/ExportButton";
+import { FilterPresets } from "@/components/admin/FilterPresets";
+import { BulkActionsBar } from "@/components/admin/BulkActionsBar";
+import { useBulkSelection } from "@/hooks/useBulkSelection";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft } from "lucide-react";
 
 const ContactSubmissions = () => {
@@ -204,6 +208,19 @@ const ContactSubmissions = () => {
 
     return result;
   }, [submissions, activeTab, filters, applyFilters]);
+
+  // Bulk selection (must be after filteredSubmissions)
+  const {
+    selectedIds,
+    selectedItems,
+    selectedCount,
+    toggleItem,
+    toggleAll,
+    clearSelection,
+    isSelected,
+    isAllSelected,
+    isSomeSelected,
+  } = useBulkSelection(filteredSubmissions);
 
   const newCount = submissions.filter(s => s.status === "new").length;
   const quotesCount = submissions.filter(s => s.submission_type === "quote" || s.submission_type === "estimate").length;
