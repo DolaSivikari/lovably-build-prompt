@@ -5,48 +5,67 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import { useSettingsData } from "@/hooks/useSettingsData";
+
+interface License {
+  name: string;
+  description: string;
+}
+
+interface Insurance {
+  liability?: string;
+  wsib?: string;
+  bonding?: string;
+}
+
+interface AboutPageSettings {
+  licenses?: License[];
+  memberships?: string[];
+  insurance?: Insurance;
+  certifications?: Array<{ name: string; description: string }>;
+}
 
 const CertificationsInsurance = () => {
-  const insuranceCoverage = [
-    { label: "Commercial General Liability", value: "$5,000,000", icon: Shield },
-    { label: "WSIB Coverage", value: "Fully Compliant", icon: CheckCircle2 },
-    { label: "Umbrella Policy", value: "$10,000,000", icon: Shield },
-    { label: "Professional Liability", value: "$2,000,000", icon: Building2 },
-  ];
+  const { data: aboutSettings, loading } = useSettingsData<AboutPageSettings>('about_page_settings');
 
-  const bondingCapacity = [
+  // Parse insurance data from database
+  const insuranceCoverage = aboutSettings?.insurance ? [
+    { 
+      label: "Commercial General Liability", 
+      value: aboutSettings.insurance.liability || "$5,000,000", 
+      icon: Shield 
+    },
+    { 
+      label: "WSIB Coverage", 
+      value: aboutSettings.insurance.wsib || "Fully Compliant", 
+      icon: CheckCircle2 
+    },
+    { 
+      label: "Umbrella Policy", 
+      value: "$10,000,000", 
+      icon: Shield 
+    },
+    { 
+      label: "Professional Liability", 
+      value: "$2,000,000", 
+      icon: Building2 
+    },
+  ] : [];
+
+  const bondingCapacity = aboutSettings?.insurance?.bonding ? [
     { label: "Single Project Bonding", value: "Up to $10M", icon: Award },
     { label: "Aggregate Bonding", value: "Up to $25M", icon: Award },
     { label: "Surety Company", value: "A-Rated Provider", icon: CheckCircle2 },
-  ];
+  ] : [];
 
-  const certifications = [
-    {
-      title: "WSIB Certificate of Clearance",
-      description: "Current and active Workplace Safety & Insurance Board clearance certificate",
-      icon: Shield,
-    },
-    {
-      title: "COR (Certificate of Recognition)",
-      description: "Safety Excellence certification demonstrating commitment to workplace safety",
-      icon: Award,
-    },
-    {
-      title: "BILD Member",
-      description: "Building Industry & Land Development Association member in good standing",
-      icon: Building2,
-    },
-    {
-      title: "GVCA Member",
-      description: "Georgian & Verulam Construction Association active member",
-      icon: CheckCircle2,
-    },
-    {
-      title: "Master Painters Association",
-      description: "Certified member of the Master Painters Association",
-      icon: Award,
-    },
-  ];
+  // Use licenses from database
+  const licenses = aboutSettings?.licenses || [];
+
+  // Use certifications from database
+  const dbCertifications = aboutSettings?.certifications || [];
+
+  // Use memberships from database
+  const memberships = aboutSettings?.memberships || [];
 
   const documents = [
     { name: "Certificate of Insurance", size: "2MB" },
@@ -55,6 +74,29 @@ const CertificationsInsurance = () => {
     { name: "Bonding Letter", size: "500KB" },
     { name: "Company Profile", size: "3MB" },
   ];
+
+  if (loading) {
+    return (
+      <>
+        <SEO 
+          title="Certifications & Insurance Coverage | Ascent Group Construction"
+          description="Licensed, bonded, and fully insured with $5M liability coverage. View our certifications including WSIB, COR, and industry memberships."
+          keywords="insurance, certifications, WSIB, bonded, licensed, COR certificate"
+        />
+        <div className="min-h-screen bg-background">
+          <Navigation />
+          <PageHeader
+            title="Certifications & Insurance Coverage"
+            description="Licensed, Bonded, and Fully Insured for Your Peace of Mind"
+          />
+          <main id="main-content" className="container mx-auto px-4 py-12">
+            <div className="text-center">Loading...</div>
+          </main>
+          <Footer />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -110,17 +152,38 @@ const CertificationsInsurance = () => {
             </div>
           </section>
 
-          {/* Active Certifications Section */}
-          <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Active Certifications</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {certifications.map((cert, index) => {
-                const Icon = cert.icon;
-                return (
+          {/* Licenses Section */}
+          {licenses.length > 0 && (
+            <section>
+              <h2 className="text-3xl font-bold text-foreground mb-8">Active Licenses</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {licenses.map((license, index) => (
                   <Card key={index}>
                     <CardContent className="p-6">
-                      <Icon className="h-8 w-8 text-primary mb-4" />
-                      <h3 className="text-lg font-semibold text-foreground mb-2">{cert.title}</h3>
+                      <Shield className="h-8 w-8 text-primary mb-4" />
+                      <h3 className="text-lg font-semibold text-foreground mb-2">{license.name}</h3>
+                      <p className="text-sm text-muted-foreground mb-4">{license.description}</p>
+                      <Button variant="outline" size="sm" className="w-full">
+                        <Download className="h-4 w-4 mr-2" />
+                        Download License
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Active Certifications Section */}
+          {dbCertifications.length > 0 && (
+            <section>
+              <h2 className="text-3xl font-bold text-foreground mb-8">Active Certifications</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {dbCertifications.map((cert, index) => (
+                  <Card key={index}>
+                    <CardContent className="p-6">
+                      <Award className="h-8 w-8 text-primary mb-4" />
+                      <h3 className="text-lg font-semibold text-foreground mb-2">{cert.name}</h3>
                       <p className="text-sm text-muted-foreground mb-4">{cert.description}</p>
                       <Button variant="outline" size="sm" className="w-full">
                         <Download className="h-4 w-4 mr-2" />
@@ -128,10 +191,27 @@ const CertificationsInsurance = () => {
                       </Button>
                     </CardContent>
                   </Card>
-                );
-              })}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Industry Memberships Section */}
+          {memberships.length > 0 && (
+            <section>
+              <h2 className="text-3xl font-bold text-foreground mb-8">Industry Memberships</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {memberships.map((membership, index) => (
+                  <Card key={index}>
+                    <CardContent className="p-6 text-center">
+                      <Building2 className="h-10 w-10 text-primary mx-auto mb-4" />
+                      <h3 className="text-lg font-semibold text-foreground">{membership}</h3>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Manufacturer Certifications Section */}
           <section>

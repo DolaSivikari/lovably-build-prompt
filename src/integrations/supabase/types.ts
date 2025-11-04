@@ -18,11 +18,16 @@ export type Database = {
         Row: {
           created_at: string | null
           created_by: string | null
+          credentials_cta_headline: string | null
+          credentials_cta_text: string | null
           cta_headline: string | null
           cta_subheadline: string | null
           faq_items: Json | null
           id: string
+          insurance: Json | null
           is_active: boolean | null
+          licenses: Json | null
+          memberships: string[] | null
           safety_commitment: string | null
           safety_headline: string | null
           safety_programs: Json | null
@@ -45,11 +50,16 @@ export type Database = {
         Insert: {
           created_at?: string | null
           created_by?: string | null
+          credentials_cta_headline?: string | null
+          credentials_cta_text?: string | null
           cta_headline?: string | null
           cta_subheadline?: string | null
           faq_items?: Json | null
           id?: string
+          insurance?: Json | null
           is_active?: boolean | null
+          licenses?: Json | null
+          memberships?: string[] | null
           safety_commitment?: string | null
           safety_headline?: string | null
           safety_programs?: Json | null
@@ -72,11 +82,16 @@ export type Database = {
         Update: {
           created_at?: string | null
           created_by?: string | null
+          credentials_cta_headline?: string | null
+          credentials_cta_text?: string | null
           cta_headline?: string | null
           cta_subheadline?: string | null
           faq_items?: Json | null
           id?: string
+          insurance?: Json | null
           is_active?: boolean | null
+          licenses?: Json | null
+          memberships?: string[] | null
           safety_commitment?: string | null
           safety_headline?: string | null
           safety_programs?: Json | null
@@ -2417,16 +2432,20 @@ export type Database = {
           business_hours: Json | null
           certifications: string[] | null
           company_name: string
+          company_tagline: string | null
           created_at: string | null
           email: string
+          founded_year: number | null
           google_analytics_id: string | null
           id: string
           is_active: boolean | null
+          knows_about: string[] | null
           meta_description: string | null
           meta_title: string | null
           og_image: string | null
           phone: string
           robots_txt: string | null
+          service_areas: string[] | null
           social_links: Json | null
           updated_at: string | null
           updated_by: string | null
@@ -2437,16 +2456,20 @@ export type Database = {
           business_hours?: Json | null
           certifications?: string[] | null
           company_name?: string
+          company_tagline?: string | null
           created_at?: string | null
           email: string
+          founded_year?: number | null
           google_analytics_id?: string | null
           id?: string
           is_active?: boolean | null
+          knows_about?: string[] | null
           meta_description?: string | null
           meta_title?: string | null
           og_image?: string | null
           phone: string
           robots_txt?: string | null
+          service_areas?: string[] | null
           social_links?: Json | null
           updated_at?: string | null
           updated_by?: string | null
@@ -2457,16 +2480,20 @@ export type Database = {
           business_hours?: Json | null
           certifications?: string[] | null
           company_name?: string
+          company_tagline?: string | null
           created_at?: string | null
           email?: string
+          founded_year?: number | null
           google_analytics_id?: string | null
           id?: string
           is_active?: boolean | null
+          knows_about?: string[] | null
           meta_description?: string | null
           meta_title?: string | null
           og_image?: string | null
           phone?: string
           robots_txt?: string | null
+          service_areas?: string[] | null
           social_links?: Json | null
           updated_at?: string | null
           updated_by?: string | null

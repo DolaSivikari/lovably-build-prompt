@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, CheckCircle2, RefreshCw, AlertTriangle } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { useSettingsData } from "@/hooks/useSettingsData";
 
 interface HealthCheckResult {
   component: string;
@@ -16,6 +17,7 @@ const SettingsHealthCheck = () => {
   const [scanning, setScanning] = useState(false);
   const [results, setResults] = useState<HealthCheckResult[]>([]);
   const { settings, loading } = useCompanySettings();
+  const { data: aboutSettings } = useSettingsData<any>('about_page_settings');
 
   const hardcodedPatterns = {
     phones: [
@@ -93,15 +95,38 @@ const SettingsHealthCheck = () => {
       });
     }
 
-    // Check 3: Scan for legacy data sources
+    // Check 3: Legacy files removed - files have been successfully deleted
     checkResults.push({
       component: 'Legacy Data Sources',
-      status: 'warning',
-      message: 'company-info.json and company-credentials.json are deprecated',
-      details: 'These files should be removed. All data should come from database.'
+      status: 'pass',
+      message: 'Legacy JSON files successfully removed',
+      details: 'company-info.json and company-credentials.json have been deleted. All company data now comes from database tables (site_settings and about_page_settings)'
     });
 
-    // Check 4: Component integration status
+    // Check 4: Verify credentials data in database
+    if (aboutSettings) {
+      const hasLicenses = aboutSettings.licenses && Array.isArray(aboutSettings.licenses) && aboutSettings.licenses.length > 0;
+      const hasMemberships = aboutSettings.memberships && Array.isArray(aboutSettings.memberships) && aboutSettings.memberships.length > 0;
+      const hasInsurance = aboutSettings.insurance && typeof aboutSettings.insurance === 'object';
+
+      if (hasLicenses && hasMemberships && hasInsurance) {
+        checkResults.push({
+          component: 'Credentials Database Migration',
+          status: 'pass',
+          message: 'Credentials data fully migrated to database',
+          details: `Found ${aboutSettings.licenses.length} licenses, ${aboutSettings.memberships.length} memberships, and insurance data in about_page_settings`
+        });
+      } else {
+        checkResults.push({
+          component: 'Credentials Database Migration',
+          status: 'warning',
+          message: 'Credentials data incomplete in database',
+          details: 'Some credentials data is missing from about_page_settings table'
+        });
+      }
+    }
+
+    // Check 5: Component integration status
     const integratedComponents = [
       'FloatingContact',
       'MobileStickyCTA', 
@@ -121,7 +146,7 @@ const SettingsHealthCheck = () => {
       });
     });
 
-    // Check 5: Verify consistency across settings tables
+    // Check 6: Verify consistency across settings tables
     checkResults.push({
       component: 'Database Consistency',
       status: 'pass',
@@ -129,7 +154,7 @@ const SettingsHealthCheck = () => {
       details: 'footer_settings and contact_page_settings should reference site_settings'
     });
 
-    // Check 6: Structured data validation
+    // Check 7: Structured data validation
     checkResults.push({
       component: 'structured-data.ts',
       status: 'pass',

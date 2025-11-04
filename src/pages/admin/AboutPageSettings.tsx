@@ -36,6 +36,12 @@ interface AboutPageSettings {
   safety_programs: Array<{ title: string; description: string }>;
   cta_headline: string;
   cta_subheadline: string | null;
+  licenses: Array<{ name: string; description: string }>;
+  memberships: string[];
+  insurance: { liability?: string; wsib?: string; bonding?: string };
+  certifications: Array<{ name: string; description: string }>;
+  credentials_cta_headline: string;
+  credentials_cta_text: string;
 }
 
 const AboutPageSettings = () => {
@@ -100,6 +106,12 @@ const AboutPageSettings = () => {
           safety_programs: settings.safety_programs,
           cta_headline: settings.cta_headline,
           cta_subheadline: settings.cta_subheadline,
+          licenses: settings.licenses,
+          memberships: settings.memberships,
+          insurance: settings.insurance,
+          certifications: settings.certifications,
+          credentials_cta_headline: settings.credentials_cta_headline,
+          credentials_cta_text: settings.credentials_cta_text,
           updated_at: new Date().toISOString(),
         })
         .eq('id', settings.id);
@@ -239,6 +251,117 @@ const AboutPageSettings = () => {
                   <Input
                     value={settings.cta_subheadline || ''}
                     onChange={(e) => setSettings({ ...settings, cta_subheadline: e.target.value })}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </AccordionContent>
+        </AccordionItem>
+
+        {/* Credentials Section */}
+        <AccordionItem value="credentials">
+          <AccordionTrigger className="text-lg font-semibold">Credentials & Insurance</AccordionTrigger>
+          <AccordionContent>
+            <Card>
+              <CardContent className="pt-6 space-y-6">
+                <div>
+                  <Label>Credentials CTA Headline</Label>
+                  <Input
+                    value={settings.credentials_cta_headline || 'Our Credentials'}
+                    onChange={(e) => setSettings({ ...settings, credentials_cta_headline: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label>Credentials CTA Text</Label>
+                  <Input
+                    value={settings.credentials_cta_text || ''}
+                    onChange={(e) => setSettings({ ...settings, credentials_cta_text: e.target.value })}
+                  />
+                </div>
+                
+                <div className="pt-4 border-t">
+                  <Label className="text-base font-semibold">Insurance Coverage</Label>
+                  <div className="grid grid-cols-3 gap-4 mt-3">
+                    <div>
+                      <Label className="text-sm">Liability Coverage</Label>
+                      <Input
+                        value={settings.insurance?.liability || ''}
+                        onChange={(e) => setSettings({ 
+                          ...settings, 
+                          insurance: { ...settings.insurance, liability: e.target.value }
+                        })}
+                        placeholder="$5,000,000"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-sm">WSIB Coverage</Label>
+                      <Input
+                        value={settings.insurance?.wsib || ''}
+                        onChange={(e) => setSettings({ 
+                          ...settings, 
+                          insurance: { ...settings.insurance, wsib: e.target.value }
+                        })}
+                        placeholder="Active"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-sm">Bonding</Label>
+                      <Input
+                        value={settings.insurance?.bonding || ''}
+                        onChange={(e) => setSettings({ 
+                          ...settings, 
+                          insurance: { ...settings.insurance, bonding: e.target.value }
+                        })}
+                        placeholder="Available"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t">
+                  <Label className="text-base font-semibold">Licenses (JSON format)</Label>
+                  <Textarea
+                    rows={6}
+                    value={JSON.stringify(settings.licenses || [], null, 2)}
+                    onChange={(e) => {
+                      try {
+                        setSettings({ ...settings, licenses: JSON.parse(e.target.value) });
+                      } catch (err) {
+                        // Invalid JSON, don't update
+                      }
+                    }}
+                    placeholder='[{"name": "License Name", "description": "Description"}]'
+                    className="font-mono text-xs"
+                  />
+                </div>
+
+                <div className="pt-4 border-t">
+                  <Label className="text-base font-semibold">Memberships (one per line)</Label>
+                  <Textarea
+                    rows={4}
+                    value={(settings.memberships || []).join('\n')}
+                    onChange={(e) => setSettings({ 
+                      ...settings, 
+                      memberships: e.target.value.split('\n').filter(m => m.trim())
+                    })}
+                    placeholder="Ontario General Contractors Association&#10;Toronto Construction Association"
+                  />
+                </div>
+
+                <div className="pt-4 border-t">
+                  <Label className="text-base font-semibold">Certifications (JSON format)</Label>
+                  <Textarea
+                    rows={6}
+                    value={JSON.stringify(settings.certifications || [], null, 2)}
+                    onChange={(e) => {
+                      try {
+                        setSettings({ ...settings, certifications: JSON.parse(e.target.value) });
+                      } catch (err) {
+                        // Invalid JSON, don't update
+                      }
+                    }}
+                    placeholder='[{"name": "Certification Name", "description": "Description"}]'
+                    className="font-mono text-xs"
                   />
                 </div>
               </CardContent>
