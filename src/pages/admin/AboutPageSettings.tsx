@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -7,8 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Save, Loader2 } from "lucide-react";
+import { Save, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import {
   Accordion,
   AccordionContent,
@@ -39,7 +39,6 @@ interface AboutPageSettings {
 }
 
 const AboutPageSettings = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const { isLoading: authLoading } = useAdminAuth();
   
@@ -123,38 +122,27 @@ const AboutPageSettings = () => {
     }
   };
 
-  if (authLoading || loading) {
+  if (authLoading || loading || !settings) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (!settings) {
-    return (
-      <div className="container mx-auto p-6">
-        <p>No settings found</p>
-      </div>
+      <AdminPageLayout title="About Page Settings" description="Configure content for the About Us page">
+        <div className="flex items-center justify-center p-8">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        </div>
+      </AdminPageLayout>
     );
   }
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex items-center gap-4 mb-6">
-        <Button variant="outline" size="icon" onClick={() => navigate('/admin')}>
-          <ArrowLeft className="h-4 w-4" />
+    <AdminPageLayout
+      title="About Page Settings"
+      description="Manage content for the About Us page including stats, story, and CTA sections"
+      actions={
+        <Button onClick={handleSave} disabled={saving}>
+          <Save className="h-4 w-4 mr-2" />
+          {saving ? 'Saving...' : 'Save Changes'}
         </Button>
-        <div>
-          <h1 className="text-3xl font-bold">About Page Settings</h1>
-          <p className="text-muted-foreground">Manage content for the About Us page</p>
-        </div>
-        <Button onClick={handleSave} disabled={saving} className="ml-auto">
-          {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-          Save Changes
-        </Button>
-      </div>
-
+      }
+    >
       <Accordion type="single" collapsible defaultValue="header-stats" className="space-y-4">
         {/* Header Stats */}
         <AccordionItem value="header-stats">
@@ -258,14 +246,7 @@ const AboutPageSettings = () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-
-      <div className="mt-6 flex justify-end">
-        <Button onClick={handleSave} disabled={saving}>
-          {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-          Save Changes
-        </Button>
-      </div>
-    </div>
+    </AdminPageLayout>
   );
 };
 
