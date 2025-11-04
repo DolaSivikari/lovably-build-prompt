@@ -12,9 +12,16 @@ import {
   Award,
   CheckCircle2
 } from "lucide-react";
-import companyData from "@/data/company-info.json";
+import { useSettingsData } from "@/hooks/useSettingsData";
 
 const Safety = () => {
+  const { data: aboutSettings } = useSettingsData('about_page_settings');
+  
+  const safetyData = {
+    commitment: aboutSettings?.safety_commitment || 'Our comprehensive safety program protects our team, your property, and everyone on site.',
+    stats: (aboutSettings?.safety_stats as any[]) || [],
+    programs: (aboutSettings?.safety_programs as any[]) || []
+  };
   const safetyFeatures = [
     {
       icon: HardHat,
@@ -92,7 +99,7 @@ const Safety = () => {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                {companyData.safety.programs.map((program, index) => (
+                {safetyData.programs.map((program, index) => (
                   <Card key={index} className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">

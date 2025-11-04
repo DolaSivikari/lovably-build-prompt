@@ -3,10 +3,14 @@ import { Phone, MessageCircle, X, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { useContactValidation } from "@/utils/devContactValidation";
 
 const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { settings } = useCompanySettings();
+
+  // Development-only validation
+  useContactValidation('FloatingContact', [settings]);
 
   const sanitizePhoneNumber = (rawPhone: string): string | null => {
     // Remove all non-digits except +

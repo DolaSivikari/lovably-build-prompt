@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, MessageCircle, Shield, Heart, Users, Target } from "lucide-react";
-import companyData from "@/data/company-info.json";
+import { useSettingsData } from "@/hooks/useSettingsData";
 
 const iconMap: { [key: string]: any } = {
   award: Award,
@@ -14,6 +14,9 @@ const iconMap: { [key: string]: any } = {
 };
 
 const Values = () => {
+  const { data: aboutSettings } = useSettingsData('about_page_settings');
+  
+  const values = (aboutSettings?.values as any[]) || [];
   const coreValues = [
     {
       icon: Target,
@@ -82,7 +85,7 @@ const Values = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {companyData.values.map((value, index) => {
+                {values.map((value, index) => {
                   const IconComponent = iconMap[value.icon];
                   return (
                     <Card key={index} className="text-center hover:shadow-xl transition-all duration-300 border-2 group">

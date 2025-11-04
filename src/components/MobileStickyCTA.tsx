@@ -4,12 +4,16 @@ import { Button } from "./ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { useContactValidation } from "@/utils/devContactValidation";
 
 const MobileStickyCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { settings } = useCompanySettings();
+  
+  // Development-only validation
+  useContactValidation('MobileStickyCTA', [settings]);
   
   const telLink = settings?.phone ? `tel:${settings.phone}` : '#';
 

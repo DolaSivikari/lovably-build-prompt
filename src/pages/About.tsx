@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/accordion";
 import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
-import companyData from "@/data/company-info.json";
 import teamWork from "@/assets/team-work.jpg";
 import CompanyTimeline from "@/components/homepage/CompanyTimeline";
 
@@ -29,20 +28,20 @@ const iconMap: { [key: string]: any } = {
 const About = () => {
   const { data: aboutSettings, loading } = useSettingsData('about_page_settings');
 
-  // Merge database settings with fallback data
+  // All data comes from database - no fallbacks to JSON
   const yearsInBusiness = aboutSettings?.years_in_business || 15;
   const totalProjects = aboutSettings?.total_projects || 500;
   const satisfactionRate = aboutSettings?.satisfaction_rate || 98;
 
-  const values = (aboutSettings?.values as any[]) || companyData.values;
+  const values = (aboutSettings?.values as any[]) || [];
   const sustainabilityData = {
-    commitment: aboutSettings?.sustainability_commitment || companyData.sustainability.commitment,
-    initiatives: (aboutSettings?.sustainability_initiatives as any[]) || companyData.sustainability.initiatives
+    commitment: aboutSettings?.sustainability_commitment || '',
+    initiatives: (aboutSettings?.sustainability_initiatives as any[]) || []
   };
   const safetyData = {
-    commitment: aboutSettings?.safety_commitment || companyData.safety.commitment,
+    commitment: aboutSettings?.safety_commitment || '',
     stats: (aboutSettings?.safety_stats as any[]) || [],
-    programs: (aboutSettings?.safety_programs as any[]) || companyData.safety.programs
+    programs: (aboutSettings?.safety_programs as any[]) || []
   };
 
   return (
@@ -136,7 +135,7 @@ const About = () => {
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              {companyData.values.map((value, index) => {
+              {values.map((value, index) => {
                 const IconComponent = iconMap[value.icon];
                 return (
                   <Card key={index} className="text-center hover:shadow-lg transition-shadow">
@@ -166,11 +165,11 @@ const About = () => {
                 <h2 className="text-5xl font-bold">Sustainability Commitment</h2>
               </div>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                {companyData.sustainability.commitment}
+                {sustainabilityData.commitment}
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {companyData.sustainability.initiatives.map((initiative, index) => (
+              {sustainabilityData.initiatives.map((initiative, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <h3 className="text-lg font-bold mb-2">{initiative.title}</h3>
@@ -198,27 +197,21 @@ const About = () => {
                 <h2 className="text-5xl font-bold">Safety First, Always</h2>
               </div>
               <p className="text-lg text-muted-foreground">
-                {companyData.safety.commitment}
+                {safetyData.commitment}
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <Card className="text-center p-6 bg-primary text-primary-foreground">
-                <div className="text-3xl font-bold mb-2">500+</div>
-                <p className="text-sm opacity-90">Projects with Zero Lost-Time Incidents</p>
-              </Card>
-              <Card className="text-center p-6 bg-primary text-primary-foreground">
-                <div className="text-3xl font-bold mb-2">2,000+</div>
-                <p className="text-sm opacity-90">Hours of Safety Training Annually</p>
-              </Card>
-              <Card className="text-center p-6 bg-primary text-primary-foreground">
-                <div className="text-3xl font-bold mb-2">100%</div>
-                <p className="text-sm opacity-90">OSHA Compliance Rate</p>
-              </Card>
+              {safetyData.stats.map((stat, index) => (
+                <Card key={index} className="text-center p-6 bg-primary text-primary-foreground">
+                  <div className="text-3xl font-bold mb-2">{stat.value}</div>
+                  <p className="text-sm opacity-90">{stat.label}</p>
+                </Card>
+              ))}
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
-              {companyData.safety.programs.map((program, index) => (
+              {safetyData.programs.map((program, index) => (
                 <Card key={index}>
                   <CardContent className="p-4">
                     <h3 className="font-bold mb-2">{program.title}</h3>
