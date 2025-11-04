@@ -1120,6 +1120,350 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 /* ============================================================================
+   TABLE STYLING - CONSISTENT ADMIN DATA TABLES
+   ============================================================================ */
+
+/* Table wrapper for responsive scrolling */
+.admin-dark-theme .table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--business-border);
+  background: var(--business-bg-card);
+}
+
+/* Base table styling */
+.admin-dark-theme table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--business-bg-card);
+  color: white !important;
+}
+
+/* Table header */
+.admin-dark-theme thead {
+  background: var(--business-bg-dark);
+  border-bottom: 2px solid var(--business-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.admin-dark-theme th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.75rem;        /* 12px */
+  font-weight: 600;          /* Semi-bold */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--business-text-secondary) !important;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--business-border);
+}
+
+/* First and last header cells */
+.admin-dark-theme th:first-child {
+  padding-left: 1.5rem;
+  border-top-left-radius: 12px;
+}
+
+.admin-dark-theme th:last-child {
+  padding-right: 1.5rem;
+  border-top-right-radius: 12px;
+}
+
+/* Table body */
+.admin-dark-theme tbody {
+  background: var(--business-bg-card);
+}
+
+/* Table rows */
+.admin-dark-theme tbody tr {
+  border-bottom: 1px solid var(--business-border);
+  transition: all 0.15s ease;
+}
+
+.admin-dark-theme tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Row hover effect */
+.admin-dark-theme tbody tr:hover {
+  background: var(--business-bg-hover);
+  transform: translateX(2px);
+}
+
+/* Table cells */
+.admin-dark-theme td {
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  color: white !important;
+  vertical-align: middle;
+  min-height: 60px;
+}
+
+/* First and last cells */
+.admin-dark-theme td:first-child {
+  padding-left: 1.5rem;
+}
+
+.admin-dark-theme td:last-child {
+  padding-right: 1.5rem;
+}
+
+/* Compact table variant */
+.admin-dark-theme .table-compact th {
+  padding: 0.75rem 1rem;
+}
+
+.admin-dark-theme .table-compact td {
+  padding: 0.75rem 1rem;
+  min-height: 48px;
+}
+
+/* Striped rows variant */
+.admin-dark-theme .table-striped tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.admin-dark-theme .table-striped tbody tr:nth-child(even):hover {
+  background: var(--business-bg-hover);
+}
+
+/* Bordered table variant */
+.admin-dark-theme .table-bordered td,
+.admin-dark-theme .table-bordered th {
+  border-right: 1px solid var(--business-border);
+}
+
+.admin-dark-theme .table-bordered td:last-child,
+.admin-dark-theme .table-bordered th:last-child {
+  border-right: none;
+}
+
+/* Table cell alignments */
+.admin-dark-theme .text-center,
+.admin-dark-theme td[align="center"],
+.admin-dark-theme th[align="center"] {
+  text-align: center;
+}
+
+.admin-dark-theme .text-right,
+.admin-dark-theme td[align="right"],
+.admin-dark-theme th[align="right"] {
+  text-align: right;
+}
+
+/* Action cells with buttons */
+.admin-dark-theme td.actions {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.admin-dark-theme td.actions > div {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Status badges in tables */
+.admin-dark-theme td [class*="badge"],
+.admin-dark-theme td [class*="Badge"] {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Empty state */
+.admin-dark-theme .table-empty {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--business-text-muted) !important;
+  font-size: 0.875rem;
+}
+
+.admin-dark-theme .table-empty-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  opacity: 0.5;
+}
+
+/* Loading state */
+.admin-dark-theme .table-loading {
+  position: relative;
+  min-height: 300px;
+}
+
+.admin-dark-theme .table-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 3px solid var(--business-border);
+  border-top-color: var(--business-primary);
+  border-radius: 50%;
+  animation: table-loading-spinner 0.8s linear infinite;
+}
+
+@keyframes table-loading-spinner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Sortable column headers */
+.admin-dark-theme th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 2rem;
+}
+
+.admin-dark-theme th.sortable:hover {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-dark-theme th.sortable::after {
+  content: '⇅';
+  position: absolute;
+  right: 0.75rem;
+  opacity: 0.5;
+  font-size: 0.875rem;
+}
+
+.admin-dark-theme th.sortable.sorted-asc::after {
+  content: '↑';
+  opacity: 1;
+  color: var(--business-primary);
+}
+
+.admin-dark-theme th.sortable.sorted-desc::after {
+  content: '↓';
+  opacity: 1;
+  color: var(--business-primary);
+}
+
+/* Selected row state */
+.admin-dark-theme tbody tr.selected {
+  background: rgba(37, 99, 235, 0.15);
+  border-left: 3px solid var(--business-primary);
+}
+
+.admin-dark-theme tbody tr.selected:hover {
+  background: rgba(37, 99, 235, 0.25);
+}
+
+/* Checkbox column */
+.admin-dark-theme th.checkbox-cell,
+.admin-dark-theme td.checkbox-cell {
+  width: 48px;
+  padding: 1rem 0.75rem;
+  text-align: center;
+}
+
+/* Responsive behavior - Mobile */
+@media (max-width: 768px) {
+  .admin-dark-theme th,
+  .admin-dark-theme td {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.8125rem;    /* 13px */
+  }
+
+  .admin-dark-theme th:first-child,
+  .admin-dark-theme td:first-child {
+    padding-left: 1rem;
+  }
+
+  .admin-dark-theme th:last-child,
+  .admin-dark-theme td:last-child {
+    padding-right: 1rem;
+  }
+
+  /* Hide less important columns on mobile */
+  .admin-dark-theme th.hide-mobile,
+  .admin-dark-theme td.hide-mobile {
+    display: none;
+  }
+}
+
+/* Responsive behavior - Tablet */
+@media (max-width: 1024px) {
+  .admin-dark-theme th.hide-tablet,
+  .admin-dark-theme td.hide-tablet {
+    display: none;
+  }
+}
+
+/* Card-style table for mobile (alternative responsive pattern) */
+@media (max-width: 640px) {
+  .admin-dark-theme .table-card-mobile thead {
+    display: none;
+  }
+
+  .admin-dark-theme .table-card-mobile tbody,
+  .admin-dark-theme .table-card-mobile tr,
+  .admin-dark-theme .table-card-mobile td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-dark-theme .table-card-mobile tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--business-border);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--business-bg-card);
+  }
+
+  .admin-dark-theme .table-card-mobile td {
+    padding: 0.5rem 0;
+    border: none;
+  }
+
+  .admin-dark-theme .table-card-mobile td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--business-text-secondary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Pagination for tables */
+.admin-dark-theme .table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--business-border);
+  background: var(--business-bg-dark);
+  border-radius: 0 0 12px 12px;
+}
+
+.admin-dark-theme .table-pagination-info {
+  font-size: 0.875rem;
+  color: var(--business-text-secondary) !important;
+}
+
+.admin-dark-theme .table-pagination-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ============================================================================
    UNIVERSAL WHITE TEXT OVERRIDE - COMPREHENSIVE
    ============================================================================ */
 
