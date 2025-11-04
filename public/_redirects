@@ -8,6 +8,15 @@
 /services/sealants        /services/sealants-caulking    301
 /services/parking-garage  /services/parking-garage-coating 301
 
+# Consolidated service redirects
+/services/residential-painting  /services/painting#residential  301
+/services/commercial-painting   /services/painting#commercial   301
+/services/condo-multi-unit      /services/painting#multi-unit   301
+/services/exterior-siding       /services/exterior-cladding#siding      301
+/services/metal-cladding        /services/exterior-cladding#metal-cladding  301
+/services/suite-buildouts       /services/interior-buildouts#buildouts  301
+/services/drywall-finishing     /services/interior-buildouts#drywall    301
+
 # 301 redirects for old case study URLs to blog
 /case-studies             /blog                         301
 /case-study/*             /blog/:splat                  301

@@ -28,6 +28,9 @@ import Values from "./pages/Values";
 import HowWeWork from "./pages/HowWeWork";
 import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
+import PaintingServices from "./pages/services/PaintingServices";
+import ExteriorCladding from "./pages/services/ExteriorCladding";
+import InteriorBuildouts from "./pages/services/InteriorBuildouts";
 import FAQ from "./pages/FAQ";
 import CertificationsInsurance from "./pages/company/CertificationsInsurance";
 import ContractorPortal from "./pages/resources/ContractorPortal";
@@ -196,8 +199,11 @@ const App = () => (
                   <Route path="/safety" element={<Safety />} />
                   <Route path="/how-we-work" element={<HowWeWork />} />
                   <Route path="/careers" element={<Careers />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/painting" element={<PaintingServices />} />
+            <Route path="/services/exterior-cladding" element={<ExteriorCladding />} />
+            <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
