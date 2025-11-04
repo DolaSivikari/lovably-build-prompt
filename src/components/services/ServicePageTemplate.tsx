@@ -112,7 +112,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pt-20">
       <SEO
         title={service.seoTitle || service.name}
         description={service.seoDescription || service.tagline}
