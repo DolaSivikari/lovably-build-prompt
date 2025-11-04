@@ -1842,6 +1842,50 @@ export type Database = {
         }
         Relationships: []
       }
+      project_images: {
+        Row: {
+          caption: string | null
+          category: string
+          created_at: string | null
+          display_order: number
+          featured: boolean | null
+          id: string
+          project_id: string
+          updated_at: string | null
+          url: string
+        }
+        Insert: {
+          caption?: string | null
+          category: string
+          created_at?: string | null
+          display_order?: number
+          featured?: boolean | null
+          id?: string
+          project_id: string
+          updated_at?: string | null
+          url: string
+        }
+        Update: {
+          caption?: string | null
+          category?: string
+          created_at?: string | null
+          display_order?: number
+          featured?: boolean | null
+          id?: string
+          project_id?: string
+          updated_at?: string | null
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_images_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       project_services: {
         Row: {
           id: string

@@ -13,6 +13,7 @@ import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProcessTimelineStep from "@/components/ProcessTimelineStep";
 import { ProjectSidebar } from "@/components/ProjectSidebar";
 import { InteractiveLightbox } from "@/components/InteractiveLightbox";
+import { ProjectGallery } from "@/components/ProjectGallery";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -25,6 +26,15 @@ interface ProcessStep {
   duration?: string;
   image_url?: string;
   image_alt?: string;
+}
+
+interface GalleryImage {
+  id: string;
+  url: string;
+  category: 'before' | 'after' | 'process' | 'gallery';
+  caption?: string;
+  order: number;
+  featured: boolean;
 }
 
 interface ProjectData {
@@ -52,6 +62,7 @@ interface ProjectData {
   seo_title?: string;
   seo_description?: string;
   seo_keywords?: string[];
+  project_images?: GalleryImage[]; // New unified gallery
 }
 
 export default function ProjectDetail() {
@@ -66,6 +77,7 @@ export default function ProjectDetail() {
       if (!slug) return;
 
       try {
+        // Fetch project
         const { data, error } = await supabase
           .from("projects")
           .select("*")
@@ -75,7 +87,30 @@ export default function ProjectDetail() {
 
         if (error) throw error;
 
-        setProject(data as any);
+        // Fetch project images
+        const { data: images, error: imagesError } = await supabase
+          .from("project_images")
+          .select("*")
+          .eq("project_id", data.id)
+          .order("display_order");
+
+        const projectData: ProjectData = {
+          ...(data as any),
+          before_images: (data.before_images as any) || [],
+          after_images: (data.after_images as any) || [],
+          content_blocks: (data.content_blocks as any) || [],
+          seo_keywords: (data.seo_keywords as any) || [],
+          project_images: images?.map((img: any) => ({
+            id: img.id,
+            url: img.url,
+            category: img.category,
+            caption: img.caption,
+            order: img.display_order,
+            featured: img.featured
+          })) || []
+        };
+
+        setProject(projectData);
       } catch (error: any) {
         console.error("Error fetching project:", error);
         toast.error("Failed to load project");
@@ -277,8 +312,19 @@ export default function ProjectDetail() {
                 </section>
               )}
 
-              {/* Before & After Gallery */}
-              {project.before_images && project.before_images.length > 0 && 
+              {/* Enhanced Project Gallery - New unified gallery system */}
+              {project.project_images && project.project_images.length > 0 && (
+                <ProjectGallery
+                  images={project.project_images}
+                  projectTitle={project.title}
+                  showBeforeAfter={true}
+                  showProcessSteps={true}
+                />
+              )}
+
+              {/* Legacy Before & After (fallback for old projects) */}
+              {(!project.project_images || project.project_images.length === 0) &&
+               project.before_images && project.before_images.length > 0 && 
                project.after_images && project.after_images.length > 0 && (
                 <section>
                   <h2 className="text-2xl md:text-3xl font-bold mb-6">Before & After</h2>

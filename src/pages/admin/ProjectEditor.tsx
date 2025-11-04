@@ -11,10 +11,20 @@ import { ArrowLeft, Save, Eye, RefreshCw } from "lucide-react";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { MultiImageUpload, GalleryImage } from "@/components/admin/MultiImageUpload";
 import { ProcessStepsEditor, ProcessStep } from "@/components/admin/ProcessStepsEditor";
+import { ProjectImageManager } from "@/components/admin/ProjectImageManager";
 import { generatePreviewToken } from "@/utils/routeHelpers";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+
+interface ProjectImage {
+  id: string;
+  url: string;
+  category: 'before' | 'after' | 'process' | 'gallery';
+  caption?: string;
+  order: number;
+  featured: boolean;
+}
 
 const ProjectEditor = () => {
   const { id } = useParams();
@@ -51,6 +61,7 @@ const ProjectEditor = () => {
     before_images: [],
     after_images: [],
     content_blocks: [],
+    project_images: [] as ProjectImage[], // New unified gallery
   });
 
   // Auto-generate slug from title when title changes and slug is empty
@@ -111,6 +122,7 @@ const ProjectEditor = () => {
   }, [id]);
 
   const loadProject = async () => {
+    // Fetch project and its images
     const { data, error } = await supabase
       .from("projects")
       .select("*")
@@ -123,7 +135,17 @@ const ProjectEditor = () => {
         description: "Failed to load project",
         variant: "destructive",
       });
-    } else if (data) {
+      return;
+    }
+
+    // Fetch project images from new table
+    const { data: images, error: imagesError } = await supabase
+      .from("project_images")
+      .select("*")
+      .eq("project_id", id)
+      .order("display_order");
+
+    if (data) {
       setFormData({
         slug: data.slug || "",
         title: data.title || "",
@@ -149,6 +171,14 @@ const ProjectEditor = () => {
         before_images: data.before_images || [],
         after_images: data.after_images || [],
         content_blocks: data.content_blocks || [],
+        project_images: images?.map((img: any) => ({
+          id: img.id,
+          url: img.url,
+          category: img.category,
+          caption: img.caption,
+          order: img.display_order,
+          featured: img.featured
+        })) || []
       });
     }
   };
@@ -170,39 +200,62 @@ const ProjectEditor = () => {
 
     const { data: { user } } = await supabase.auth.getUser();
     
-    // Auto-generate complete gallery from all sections
-    const completeGallery = [
-      ...formData.before_images.map((img: GalleryImage, idx: number) => ({ 
-        ...img, 
-        category: 'before',
-        order: idx 
-      })),
-      ...formData.content_blocks
-        .filter((step: ProcessStep) => step.image_url)
-        .map((step: ProcessStep, idx: number) => ({
-          url: step.image_url!,
-          caption: step.title,
-          alt: step.image_alt || step.title,
-          order: formData.before_images.length + idx,
-          category: 'process'
-        })),
-      ...formData.after_images.map((img: GalleryImage, idx: number) => ({
-        ...img,
-        order: formData.before_images.length + formData.content_blocks.length + idx,
-        category: 'after'
-      }))
-    ];
+    // Remove project_images from projectData (handled separately)
+    const { project_images, ...projectData } = formData;
     
-    const projectData: any = {
-      ...formData,
-      gallery: completeGallery,
+    const finalProjectData: any = {
+      ...projectData,
       updated_by: user?.id,
       ...(id === "new" && { created_by: user?.id }),
     };
 
     const { error, data } = id === "new"
-      ? await supabase.from("projects").insert([projectData]).select().single()
-      : await supabase.from("projects").update(projectData).eq("id", id).select().single();
+      ? await supabase.from("projects").insert([finalProjectData]).select().single()
+      : await supabase.from("projects").update(finalProjectData).eq("id", id).select().single();
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    // Save project images to project_images table
+    const projectId = data.id;
+    
+    // Delete existing images
+    await supabase
+      .from("project_images")
+      .delete()
+      .eq("project_id", projectId);
+    
+    // Insert new images
+    if (formData.project_images.length > 0) {
+      const imagesToInsert = formData.project_images.map((img, idx) => ({
+        project_id: projectId,
+        url: img.url,
+        category: img.category,
+        caption: img.caption,
+        display_order: idx,
+        featured: img.featured,
+      }));
+
+      const { error: imagesError } = await supabase
+        .from("project_images")
+        .insert(imagesToInsert);
+
+      if (imagesError) {
+        console.error("Error saving images:", imagesError);
+        toast({
+          title: "Warning",
+          description: "Project saved but some images failed to save",
+          variant: "destructive",
+        });
+      }
+    }
 
     if (error) {
       toast({
@@ -386,53 +439,13 @@ const ProjectEditor = () => {
             label="Featured Image (Main hero image for cards)"
           />
 
-          {/* Before Images Section */}
-          <Card className="p-6 border-l-4 border-l-blue-500">
-            <MultiImageUpload
-              images={formData.before_images}
-              onChange={(images) => setFormData({ ...formData, before_images: images })}
-              title="Before Images"
-              maxImages={10}
-              bucket="project-images"
-            />
-            <p className="text-sm text-muted-foreground mt-2">
-              Upload 3-5 images showing the original state before work began
-            </p>
-            <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-md border border-blue-200 dark:border-blue-800">
-              <p className="text-xs font-medium text-blue-900 dark:text-blue-100">
-                💡 Pairing Tip: Upload the same number of before and after images for best results. These will be paired sequentially in the before/after slider.
-              </p>
-            </div>
-          </Card>
-
-          {/* Process Steps Section */}
+          {/* Enhanced Project Gallery Manager - Unified Image Management */}
           <Card className="p-6">
-            <ProcessStepsEditor
-              steps={formData.content_blocks}
-              onChange={(steps) => setFormData({ ...formData, content_blocks: steps })}
+            <ProjectImageManager
+              projectId={id || 'new'}
+              images={formData.project_images}
+              onImagesUpdate={(images) => setFormData({ ...formData, project_images: images })}
             />
-          </Card>
-
-          {/* After Images Section */}
-          <Card className="p-6 border-l-4 border-l-green-500">
-            <MultiImageUpload
-              images={formData.after_images}
-              onChange={(images) => setFormData({ ...formData, after_images: images })}
-              title="After Images"
-              maxImages={10}
-              bucket="project-images"
-            />
-            <p className="text-sm text-muted-foreground mt-2">
-              Upload 3-5 images showing the completed project from various angles
-            </p>
-            <div className="mt-3 p-3 bg-green-50 dark:bg-green-950/20 rounded-md border border-green-200 dark:border-green-800">
-              <p className="text-xs font-medium text-green-900 dark:text-green-100">
-                ✓ Image Pairing: {formData.before_images.length} before ↔ {formData.after_images.length} after
-                {formData.before_images.length !== formData.after_images.length && (
-                  <span className="block mt-1 text-yellow-700 dark:text-yellow-300">⚠️ Consider matching the count for optimal pairing</span>
-                )}
-              </p>
-            </div>
           </Card>
 
           <div className="grid md:grid-cols-2 gap-6">
