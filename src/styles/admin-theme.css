@@ -719,6 +719,181 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 /* ============================================================================
+   TYPOGRAPHY SCALE - CONSISTENT SIZES & WEIGHTS
+   ============================================================================ */
+
+/* Headings - Clear hierarchy with proper scaling */
+.admin-dark-theme h1 {
+  font-size: 2rem;           /* 32px */
+  font-weight: 700;          /* Bold */
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.admin-dark-theme h2 {
+  font-size: 1.5rem;         /* 24px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.admin-dark-theme h3 {
+  font-size: 1.25rem;        /* 20px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.4;
+}
+
+.admin-dark-theme h4 {
+  font-size: 1.125rem;       /* 18px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.4;
+}
+
+.admin-dark-theme h5 {
+  font-size: 1rem;           /* 16px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.5;
+}
+
+.admin-dark-theme h6 {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.5;
+}
+
+/* Body text - Base sizes */
+.admin-dark-theme p {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+.admin-dark-theme span {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+/* Form labels - Clear and readable */
+.admin-dark-theme label {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 500;          /* Medium */
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+/* Input text - Comfortable reading */
+.admin-dark-theme input,
+.admin-dark-theme textarea,
+.admin-dark-theme select {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.5;
+}
+
+/* Button text - Clear and actionable */
+.admin-dark-theme button {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 500;          /* Medium */
+  line-height: 1.5;
+}
+
+/* Table text - Dense but readable */
+.admin-dark-theme th {
+  font-size: 0.75rem;        /* 12px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-dark-theme td {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.5;
+}
+
+/* Links - Distinguishable but subtle */
+.admin-dark-theme a {
+  font-size: inherit;
+  font-weight: 500;          /* Medium */
+  line-height: inherit;
+}
+
+/* Small text - Captions, metadata */
+.admin-dark-theme small,
+.admin-dark-theme .text-xs {
+  font-size: 0.75rem;        /* 12px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.5;
+}
+
+/* Large text - Emphasized content */
+.admin-dark-theme .text-lg {
+  font-size: 1.125rem;       /* 18px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+.admin-dark-theme .text-xl {
+  font-size: 1.25rem;        /* 20px */
+  font-weight: 500;          /* Medium */
+  line-height: 1.4;
+}
+
+/* Strong/Bold emphasis */
+.admin-dark-theme strong,
+.admin-dark-theme b {
+  font-weight: 600;          /* Semi-bold */
+}
+
+/* Code - Monospace with proper sizing */
+.admin-dark-theme code {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.8125rem;      /* 13px - slightly smaller */
+  font-weight: 400;          /* Regular */
+  line-height: 1.5;
+}
+
+.admin-dark-theme pre {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.8125rem;      /* 13px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+/* List items - Match body text */
+.admin-dark-theme li {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+/* Badge text - Small and bold */
+.admin-dark-theme [class*="badge"],
+.admin-dark-theme [class*="Badge"] {
+  font-size: 0.75rem;        /* 12px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1;
+  letter-spacing: 0.025em;
+}
+
+/* Card titles and descriptions */
+.admin-dark-theme [class*="CardTitle"],
+.admin-dark-theme .card-title {
+  font-size: 1.125rem;       /* 18px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.4;
+}
+
+.admin-dark-theme [class*="CardDescription"],
+.admin-dark-theme .card-description {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+/* ============================================================================
    UNIVERSAL WHITE TEXT OVERRIDE - COMPREHENSIVE
    ============================================================================ */
 
