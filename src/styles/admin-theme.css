@@ -894,6 +894,232 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 /* ============================================================================
+   BUTTON VARIANTS - CONSISTENT ADMIN STYLING
+   ============================================================================ */
+
+/* Base button reset for admin panel */
+.admin-dark-theme button {
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+/* Primary Button - Main actions (blue) */
+.admin-dark-theme button[class*="default"]:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme .button-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white !important;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+.admin-dark-theme button[class*="default"]:hover:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme .button-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.admin-dark-theme button[class*="default"]:active:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme .button-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.2);
+}
+
+/* Secondary Button - Alternative actions (slate) */
+.admin-dark-theme button[class*="secondary"],
+.admin-dark-theme .button-secondary {
+  background: var(--business-bg-card);
+  color: white !important;
+  border: 1px solid var(--business-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.admin-dark-theme button[class*="secondary"]:hover,
+.admin-dark-theme .button-secondary:hover {
+  background: var(--business-bg-hover);
+  border-color: #475569;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.admin-dark-theme button[class*="secondary"]:active,
+.admin-dark-theme .button-secondary:active {
+  background: #334155;
+}
+
+/* Danger Button - Destructive actions (red) */
+.admin-dark-theme button[class*="destructive"],
+.admin-dark-theme .button-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white !important;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.admin-dark-theme button[class*="destructive"]:hover,
+.admin-dark-theme .button-danger:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+  transform: translateY(-1px);
+}
+
+.admin-dark-theme button[class*="destructive"]:active,
+.admin-dark-theme .button-danger:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(239, 68, 68, 0.2);
+}
+
+/* Ghost Button - Minimal actions (transparent) */
+.admin-dark-theme button[class*="ghost"],
+.admin-dark-theme .button-ghost {
+  background: transparent;
+  color: var(--business-text-secondary) !important;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.admin-dark-theme button[class*="ghost"]:hover,
+.admin-dark-theme .button-ghost:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary) !important;
+}
+
+.admin-dark-theme button[class*="ghost"]:active,
+.admin-dark-theme .button-ghost:active {
+  background: #334155;
+}
+
+/* Outline Button - Secondary with border emphasis */
+.admin-dark-theme button[class*="outline"],
+.admin-dark-theme .button-outline {
+  background: transparent;
+  color: #60a5fa !important;
+  border: 1.5px solid #60a5fa;
+  box-shadow: none;
+}
+
+.admin-dark-theme button[class*="outline"]:hover,
+.admin-dark-theme .button-outline:hover {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: #93c5fd;
+  color: #93c5fd !important;
+}
+
+.admin-dark-theme button[class*="outline"]:active,
+.admin-dark-theme .button-outline:active {
+  background: rgba(96, 165, 250, 0.15);
+}
+
+/* Success Button - Positive actions (green) */
+.admin-dark-theme .button-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white !important;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+}
+
+.admin-dark-theme .button-success:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+  transform: translateY(-1px);
+}
+
+.admin-dark-theme .button-success:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(16, 185, 129, 0.2);
+}
+
+/* Warning Button - Caution actions (orange) */
+.admin-dark-theme .button-warning {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white !important;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25);
+}
+
+.admin-dark-theme .button-warning:hover {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
+  transform: translateY(-1px);
+}
+
+.admin-dark-theme .button-warning:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(249, 115, 22, 0.2);
+}
+
+/* Button Sizes - Consistent touch targets */
+.admin-dark-theme button[class*="default"],
+.admin-dark-theme button[class*="secondary"],
+.admin-dark-theme button[class*="destructive"],
+.admin-dark-theme button[class*="ghost"],
+.admin-dark-theme button[class*="outline"] {
+  min-height: 44px;          /* Touch-friendly */
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 500;          /* Medium */
+}
+
+/* Small buttons */
+.admin-dark-theme button[class*="sm"] {
+  min-height: 40px;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;      /* 13px */
+}
+
+/* Large buttons */
+.admin-dark-theme button[class*="lg"] {
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;      /* 15px */
+  font-weight: 600;          /* Semi-bold */
+}
+
+/* Icon buttons */
+.admin-dark-theme button[class*="icon"] {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.625rem;
+}
+
+/* Disabled state for all buttons */
+.admin-dark-theme button:disabled,
+.admin-dark-theme button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Loading state indicator */
+.admin-dark-theme button[data-loading="true"] {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.admin-dark-theme button[data-loading="true"]::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: button-loading-spinner 0.6s linear infinite;
+  color: white;
+}
+
+@keyframes button-loading-spinner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================================
    UNIVERSAL WHITE TEXT OVERRIDE - COMPREHENSIVE
    ============================================================================ */
 
