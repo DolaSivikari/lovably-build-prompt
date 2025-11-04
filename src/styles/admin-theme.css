@@ -650,28 +650,98 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme {
   /* Force dark backgrounds */
   --background: 222 47% 11%;        /* slate-900 */
-  --foreground: 210 40% 98%;        /* slate-50 */
+  --foreground: 0 0% 100%;          /* PURE WHITE */
   
   /* Force dark cards */
   --card: 217 33% 17%;              /* slate-800 */
-  --card-foreground: 210 40% 98%;   /* slate-50 */
+  --card-foreground: 0 0% 100%;     /* PURE WHITE */
   
   /* Force dark popovers and dropdowns */
   --popover: 217 33% 17%;           /* slate-800 */
-  --popover-foreground: 210 40% 98%; /* slate-50 */
+  --popover-foreground: 0 0% 100%;  /* PURE WHITE */
   
   /* Force dark inputs */
   --input: 215 25% 27%;             /* slate-700 */
   
   /* Force dark muted backgrounds */
   --muted: 215 25% 27%;             /* slate-700 */
-  --muted-foreground: 214 32% 91%;  /* slate-200 */
+  --muted-foreground: 0 0% 100%;    /* PURE WHITE - NO MORE GRAY */
   
   /* Force dark borders */
   --border: 215 25% 27%;            /* slate-700 */
   
   /* Ensure ring color is visible */
   --ring: 217 91% 60%;              /* blue-400 */
+}
+
+/* ============================================================================
+   UNIVERSAL WHITE TEXT OVERRIDE - COMPREHENSIVE
+   ============================================================================ */
+
+/* Force ALL text elements to white */
+.admin-dark-theme *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
+  color: white !important;
+}
+
+/* Override all Tailwind text utility classes */
+.admin-dark-theme .text-muted-foreground,
+.admin-dark-theme .text-foreground,
+.admin-dark-theme .text-slate-200,
+.admin-dark-theme .text-slate-300,
+.admin-dark-theme .text-slate-400,
+.admin-dark-theme .text-gray-200,
+.admin-dark-theme .text-gray-300,
+.admin-dark-theme .text-gray-400,
+.admin-dark-theme .text-sm,
+.admin-dark-theme .text-xs,
+.admin-dark-theme .text-base,
+.admin-dark-theme .text-lg,
+.admin-dark-theme .text-xl,
+.admin-dark-theme .text-2xl {
+  color: white !important;
+}
+
+/* Card components - force white text */
+.admin-dark-theme [class*="CardTitle"],
+.admin-dark-theme [class*="CardDescription"],
+.admin-dark-theme .card-title,
+.admin-dark-theme .card-description {
+  color: white !important;
+}
+
+/* Badge components - force white text */
+.admin-dark-theme [class*="badge"],
+.admin-dark-theme [class*="Badge"] {
+  color: white !important;
+}
+
+/* Alert components */
+.admin-dark-theme [class*="alert"],
+.admin-dark-theme [class*="Alert"] {
+  color: white !important;
+}
+
+/* Tab components */
+.admin-dark-theme [role="tab"],
+.admin-dark-theme [class*="tab"] {
+  color: white !important;
+}
+
+/* Dialog/Modal components */
+.admin-dark-theme [role="dialog"] *,
+.admin-dark-theme [class*="dialog"] *,
+.admin-dark-theme [class*="Dialog"] * {
+  color: white !important;
+}
+
+/* Table components */
+.admin-dark-theme table,
+.admin-dark-theme thead,
+.admin-dark-theme tbody,
+.admin-dark-theme tr,
+.admin-dark-theme th,
+.admin-dark-theme td {
+  color: white !important;
 }
 
 /* FORCE white text on all form inputs - override any inline classes */
@@ -687,31 +757,31 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme input[type="search"] {
   background-color: hsl(217 33% 17%) !important; /* slate-800 */
   border-color: hsl(215 25% 27%) !important;     /* slate-700 */
-  color: hsl(210 40% 98%) !important;            /* slate-50 - WHITE TEXT - FORCED */
+  color: white !important;                       /* PURE WHITE TEXT */
 }
 
 /* Force white placeholder text */
 .admin-dark-theme input::placeholder,
 .admin-dark-theme textarea::placeholder {
-  color: hsl(214 32% 91% / 0.5) !important;      /* slate-200 with opacity */
+  color: rgba(255, 255, 255, 0.5) !important;    /* white with opacity */
 }
 
 /* Force white text on select trigger (the displayed value) */
 .admin-dark-theme [role="combobox"],
 .admin-dark-theme button[role="combobox"] {
-  color: hsl(210 40% 98%) !important;            /* WHITE TEXT */
+  color: white !important;                       /* PURE WHITE TEXT */
 }
 
 /* Force white text inside select dropdown options */
 .admin-dark-theme [role="option"] {
-  color: hsl(210 40% 98%) !important;            /* WHITE TEXT */
+  color: white !important;                       /* PURE WHITE TEXT */
 }
 
 /* Ensure all Cards in admin have dark backgrounds and white text */
 .admin-dark-theme .card {
   background-color: hsl(217 33% 17%) !important; /* slate-800 */
   border-color: hsl(215 25% 27%) !important;     /* slate-700 */
-  color: hsl(210 40% 98%) !important;            /* slate-50 - WHITE TEXT */
+  color: white !important;                       /* PURE WHITE TEXT */
 }
 
 /* Force white text on all heading and paragraph elements in admin */
@@ -724,12 +794,12 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme p,
 .admin-dark-theme span,
 .admin-dark-theme div {
-  color: inherit; /* Inherit from parent which is white */
+  color: white !important;                       /* PURE WHITE TEXT */
 }
 
 /* Ensure labels are white */
 .admin-dark-theme label {
-  color: hsl(210 40% 98%) !important;            /* WHITE TEXT */
+  color: white !important;                       /* PURE WHITE TEXT */
 }
 
 /* Extra specificity for inputs with inline bg classes */
@@ -773,14 +843,14 @@ body:has(.business-sidebar.mobile-open) {
 /* Admin portal: body-level variables for portals */
 body.admin-dark-portal {
   --background: 222 47% 11%;        /* slate-900 */
-  --foreground: 210 40% 98%;        /* slate-50 */
+  --foreground: 0 0% 100%;          /* PURE WHITE */
   --card: 217 33% 17%;              /* slate-800 */
-  --card-foreground: 210 40% 98%;   /* slate-50 */
+  --card-foreground: 0 0% 100%;     /* PURE WHITE */
   --popover: 217 33% 17%;           /* slate-800 */
-  --popover-foreground: 210 40% 98%; /* slate-50 */
+  --popover-foreground: 0 0% 100%;  /* PURE WHITE */
   --input: 215 25% 27%;             /* slate-700 */
   --muted: 215 25% 27%;             /* slate-700 */
-  --muted-foreground: 214 32% 91%;  /* slate-200 */
+  --muted-foreground: 0 0% 100%;    /* PURE WHITE */
   --border: 215 25% 27%;            /* slate-700 */
   --ring: 217 91% 60%;              /* blue-400 */
 }
@@ -793,7 +863,7 @@ body.admin-dark-portal .radix-select-content,
 body.admin-dark-portal .radix-popover-content,
 body.admin-dark-portal .radix-dropdown-menu-content {
   background-color: hsl(217 33% 17%) !important;
-  color: hsl(210 40% 98%) !important;
+  color: white !important;                       /* PURE WHITE TEXT */
   border: 1px solid hsl(215 25% 27%) !important;
   z-index: 9999 !important;
   backdrop-filter: blur(8px);
@@ -804,5 +874,10 @@ body.admin-dark-portal [role="option"],
 body.admin-dark-portal [role="menuitem"],
 body.admin-dark-portal [data-radix-select-content] *,
 body.admin-dark-portal .radix-dropdown-menu-content * {
-  color: hsl(210 40% 98%) !important;
+  color: white !important;                       /* PURE WHITE TEXT */
+}
+
+/* Portal universal white text override */
+body.admin-dark-portal *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
+  color: white !important;
 }
