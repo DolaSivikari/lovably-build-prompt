@@ -361,46 +361,6 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </div>
       </section>
 
-      {/* Related Services */}
-      {service.relatedServices.length > 0 && (
-        <section className="bg-muted/30 py-12 md:py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-              Related Services
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {service.relatedServices.map((related) => (
-                <Link
-                  key={related.slug}
-                  to={`/services/${related.slug}`}
-                  className="group"
-                >
-                  <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                    {related.image && (
-                      <div className="aspect-video relative overflow-hidden bg-muted">
-                        <img
-                          src={related.image}
-                          alt={related.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-                    <CardContent className="p-6">
-                      <h3 className="text-lg md:text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                        {related.name}
-                      </h3>
-                      <div className="flex items-center gap-2 text-primary font-semibold mt-3">
-                        <span>Learn More</span>
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Testimonial */}
       {service.testimonial && (
