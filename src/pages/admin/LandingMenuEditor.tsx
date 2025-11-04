@@ -7,8 +7,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowLeft, Save, GripVertical } from "lucide-react";
+import { Save, GripVertical } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -182,56 +183,39 @@ const LandingMenuEditor = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" onClick={() => navigate('/admin')}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Dashboard
-          </Button>
-          <h1 className="text-3xl font-bold">Edit Home Hero Menu</h1>
-        </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Numbered Landing Menu Items</CardTitle>
-            <CardDescription>
-              Drag to reorder. These items appear overlaid on the homepage hero videos.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
+    <AdminPageLayout
+      title="Edit Home Hero Menu"
+      description="Drag to reorder. These items appear overlaid on the homepage hero videos."
+      actions={
+        <Button onClick={handleSave} disabled={saving}>
+          <Save className="h-4 w-4 mr-2" />
+          {saving ? 'Saving...' : 'Save Changes'}
+        </Button>
+      }
+    >
+      <Card>
+        <CardContent className="p-6">
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={menuItems.map(item => item.id)}
+              strategy={verticalListSortingStrategy}
             >
-              <SortableContext
-                items={menuItems.map(item => item.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                {menuItems.map((item) => (
-                  <SortableMenuItem
-                    key={item.id}
-                    item={item}
-                    onUpdate={handleUpdate}
-                  />
-                ))}
-              </SortableContext>
-            </DndContext>
-
-            <div className="flex justify-end gap-4 pt-6">
-              <Button variant="outline" onClick={() => navigate('/admin')}>
-                Cancel
-              </Button>
-              <Button variant="default" onClick={handleSave} disabled={saving}>
-                <Save className="h-4 w-4 mr-2" />
-                {saving ? 'Saving...' : 'Save Changes'}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+              {menuItems.map((item) => (
+                <SortableMenuItem
+                  key={item.id}
+                  item={item}
+                  onUpdate={handleUpdate}
+                />
+              ))}
+            </SortableContext>
+          </DndContext>
+        </CardContent>
+      </Card>
+    </AdminPageLayout>
   );
 };
 

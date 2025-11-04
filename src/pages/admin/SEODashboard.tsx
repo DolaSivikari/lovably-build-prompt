@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { AdminPageLayout } from '@/components/admin/AdminPageLayout';
 import {
   Search,
   TrendingUp,
@@ -22,7 +23,6 @@ import {
   AlertCircle,
   BarChart3,
   Settings,
-  ArrowLeft,
   MousePointerClick,
   Eye,
   XCircle,
@@ -752,26 +752,19 @@ Disallow: /auth`;
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
+      <AdminPageLayout title="SEO Dashboard" description="Optimize your content for search engines">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </AdminPageLayout>
     );
   }
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex items-center gap-4 mb-6">
-        <Button variant="ghost" onClick={() => navigate('/admin')}>
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Dashboard
-        </Button>
-        <Search className="h-8 w-8 text-primary" />
-        <div>
-          <h1 className="text-3xl font-bold">SEO Dashboard</h1>
-          <p className="text-muted-foreground">Optimize your content for search engines</p>
-        </div>
-      </div>
-
+    <AdminPageLayout
+      title="SEO Dashboard"
+      description="Optimize your content for search engines and monitor search performance"
+    >
       <Tabs defaultValue="overview" className="space-y-6">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -1257,6 +1250,6 @@ Disallow: /auth`;
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </AdminPageLayout>
   );
 }

@@ -1,28 +1,29 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Building2, Wrench, BookOpen, Clock, Shield, Award, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Shield } from "lucide-react";
 import ascentLogo from "@/assets/ascent-logo.png";
 import SEO from "@/components/SEO";
-import FooterNavCard from "@/components/footer/FooterNavCard";
-import SocialMediaButton from "@/components/footer/SocialMediaButton";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
-import companyCredentials from "@/data/company-credentials.json";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
   const [footerSettings, setFooterSettings] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSettings = async () => {
-      const [siteData, footerData] = await Promise.all([
-        supabase.from('site_settings').select('*').eq('is_active', true).single(),
-        supabase.from('footer_settings').select('*').eq('is_active', true).single()
-      ]);
-      
-      if (siteData.data) setSiteSettings(siteData.data);
-      if (footerData.data) setFooterSettings(footerData.data);
+      try {
+        const [siteData, footerData] = await Promise.all([
+          supabase.from('site_settings').select('*').eq('is_active', true).single(),
+          supabase.from('footer_settings').select('*').eq('is_active', true).single()
+        ]);
+        
+        if (siteData.data) setSiteSettings(siteData.data);
+        if (footerData.data) setFooterSettings(footerData.data);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchSettings();
@@ -64,6 +65,7 @@ const Footer = () => {
   const facebookUrl = socialMedia.facebook || 'https://www.facebook.com/ascentgroupconstruction';
   const twitterUrl = socialMedia.twitter || 'https://twitter.com/ascentgroupca';
   const instagramUrl = socialMedia.instagram || 'https://www.instagram.com/ascentgroupconstruction';
+
   // Enhanced ProfessionalService schema
   const citationSchema = {
     "@context": "https://schema.org",
@@ -108,37 +110,28 @@ const Footer = () => {
     priceRange: "$$-$$$",
   };
 
-  const companyLinks = [
-    { to: "/about", label: "About Us" },
-    { to: "/values", label: "Our Values" },
-    { to: "/our-process", label: "Our Process" },
-    { to: "/sustainability", label: "Sustainability" },
-    { to: "/safety", label: "Safety" },
-  ];
-
-  const resourceLinks = [
-    { to: "/blog", label: "Blog" },
-    { to: "/blog", label: "Blog & Case Studies" },
-    { to: "/faq", label: "FAQ" },
-    { to: "/projects", label: "Projects" },
-  ];
-
-  const clientTypes = [
-    { to: "/homeowners", label: "Homeowners", icon: Building2 },
-    { to: "/property-managers", label: "Property Managers", icon: Building2 },
-    { to: "/commercial-clients", label: "Commercial Clients", icon: Building2 },
-  ];
-
-  const contactLinks = [
-    { to: "/contact", label: "Contact Us" },
-    { to: "/estimate", label: "Get Estimate" },
-  ];
-
-  const careersLinks = [
-    { to: "/careers", label: "Careers" },
-    { to: "/careers#benefits", label: "Benefits" },
-    { to: "/careers#positions", label: "Open Positions" },
-  ];
+  // Show loading skeleton
+  if (loading) {
+    return (
+      <>
+        <SEO structuredData={citationSchema} />
+        <footer className="w-full bg-white border-t border-border relative" role="contentinfo">
+          <div className="container mx-auto px-4 py-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="space-y-4">
+                  <Skeleton className="h-6 w-32" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-3/4" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </footer>
+      </>
+    );
+  }
 
   return (
     <>

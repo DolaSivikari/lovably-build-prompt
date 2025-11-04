@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { AdminPageLayout } from '@/components/admin/AdminPageLayout';
 import {
   Activity,
   Zap,
@@ -234,9 +235,11 @@ export default function PerformanceDashboard() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
+      <AdminPageLayout title="Performance Dashboard" description="Monitor and optimize your site's performance">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </AdminPageLayout>
     );
   }
 
@@ -249,30 +252,14 @@ export default function PerformanceDashboard() {
   const tti = getWebVital('TTI');
 
   return (
-    <div>
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'space-between', 
-        marginBottom: '2rem' 
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Activity className="h-8 w-8" style={{ color: 'var(--primary-accent)' }} />
-          <div>
-            <h1 className="business-page-title">Performance Dashboard</h1>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-              Monitor and optimize your site's performance
-            </p>
-          </div>
-        </div>
+    <AdminPageLayout
+      title="Performance Dashboard"
+      description="Monitor and optimize your site's performance"
+      actions={
         <Button 
           variant="outline" 
           onClick={analyzePerformance}
           disabled={analyzing}
-          style={{ 
-            background: analyzing ? 'var(--glass-primary)' : 'var(--glass-accent)',
-            border: '1px solid var(--border-glass)',
-          }}
         >
           {analyzing ? (
             <>
@@ -283,8 +270,8 @@ export default function PerformanceDashboard() {
             'Analyze Performance'
           )}
         </Button>
-      </div>
-
+      }
+    >
       {/* Core Web Vitals */}
       <div className="business-stats-grid" style={{ marginBottom: '2rem' }}>
         {/* LCP */}
@@ -533,6 +520,6 @@ export default function PerformanceDashboard() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </AdminPageLayout>
   );
 }

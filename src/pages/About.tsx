@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -5,6 +6,7 @@ import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Accordion,
   AccordionContent,
@@ -12,6 +14,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle } from "lucide-react";
+import { useSettingsData } from "@/hooks/useSettingsData";
 import companyData from "@/data/company-info.json";
 import teamWork from "@/assets/team-work.jpg";
 import CompanyTimeline from "@/components/homepage/CompanyTimeline";
@@ -24,6 +27,24 @@ const iconMap: { [key: string]: any } = {
 };
 
 const About = () => {
+  const { data: aboutSettings, loading } = useSettingsData('about_page_settings');
+
+  // Merge database settings with fallback data
+  const yearsInBusiness = aboutSettings?.years_in_business || 15;
+  const totalProjects = aboutSettings?.total_projects || 500;
+  const satisfactionRate = aboutSettings?.satisfaction_rate || 98;
+
+  const values = (aboutSettings?.values as any[]) || companyData.values;
+  const sustainabilityData = {
+    commitment: aboutSettings?.sustainability_commitment || companyData.sustainability.commitment,
+    initiatives: (aboutSettings?.sustainability_initiatives as any[]) || companyData.sustainability.initiatives
+  };
+  const safetyData = {
+    commitment: aboutSettings?.safety_commitment || companyData.safety.commitment,
+    stats: (aboutSettings?.safety_stats as any[]) || [],
+    programs: (aboutSettings?.safety_programs as any[]) || companyData.safety.programs
+  };
+
   return (
     <div className="min-h-screen">
       <SEO 
@@ -33,21 +54,39 @@ const About = () => {
       />
       <Navigation />
 
-      <PageHeader
-        eyebrow="About Us"
-        title="Building Excellence Since 2009"
-        description="We're not just another construction company. We're your partners in creating lasting value through quality craftsmanship and innovative solutions."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "About Us" }
-        ]}
-        variant="with-stats"
-        stats={[
-          { value: "15+", label: "Years" },
-          { value: "500+", label: "Projects" },
-          { value: "98%", label: "Satisfaction" }
-        ]}
-      />
+      {loading ? (
+        <>
+          <div className="h-[400px] bg-muted animate-pulse" />
+          <div className="container mx-auto px-4 py-24">
+            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+              <div className="space-y-4">
+                <Skeleton className="h-12 w-3/4" />
+                <Skeleton className="h-24 w-full" />
+                <Skeleton className="h-24 w-full" />
+              </div>
+              <Skeleton className="h-96 w-full rounded-lg" />
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <PageHeader
+            eyebrow="About Us"
+            title="Building Excellence Since 2009"
+            description="We're not just another construction company. We're your partners in creating lasting value through quality craftsmanship and innovative solutions."
+            breadcrumbs={[
+              { label: "Home", href: "/" },
+              { label: "About Us" }
+            ]}
+            variant="with-stats"
+            stats={[
+              { value: `${yearsInBusiness}+`, label: "Years" },
+              { value: `${totalProjects}+`, label: "Projects" },
+              { value: `${satisfactionRate}%`, label: "Satisfaction" }
+            ]}
+          />
+        </>
+      )}
       
       <main>
 
