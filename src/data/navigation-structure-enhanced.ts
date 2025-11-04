@@ -30,33 +30,30 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       sectionLink: "/services",
       categories: [
         {
-          title: "General Contracting",
-          description: "Full-service project management and construction oversight",
+          title: "Painting Services",
+          description: "Commercial, residential, multi-unit & parking garage solutions",
           subItems: [
-            { name: "General Contracting", link: "/services/general-contracting", description: "Complete project delivery", badge: "new" },
-            { name: "Construction Management", link: "/services/construction-management", description: "Expert oversight & coordination", badge: "new" },
-            { name: "Design-Build Services", link: "/services/design-build", description: "Integrated project delivery", badge: "new" },
+            { name: "Painting Services", link: "/services/painting", description: "Complete painting & coating solutions", badge: "popular" },
           ],
         },
         {
-          title: "Self-Perform Trades",
-          description: "In-house specialty construction services",
+          title: "Exterior Systems",
+          description: "Complete exterior cladding and building envelope solutions",
           subItems: [
-            { name: "Painting Services", link: "/services/painting", description: "Commercial & multi-unit painting", badge: "popular" },
+            { name: "Exterior Cladding Systems", link: "/services/exterior-cladding", description: "Siding and metal cladding solutions", badge: "popular" },
             { name: "Exterior Envelope Systems", link: "/services/exterior-envelope", description: "Stucco, EIFS & weatherproofing", badge: "popular" },
-            { name: "Exterior Cladding Systems", link: "/services/exterior-cladding", description: "Metal cladding & siding", badge: "popular" },
-            { name: "Interior Buildouts & Finishing", link: "/services/interior-buildouts", description: "Complete interior construction" },
+            { name: "Masonry", link: "/services/masonry", description: "Professional masonry services" },
+            { name: "Waterproofing", link: "/services/waterproofing", description: "Complete waterproofing solutions" },
+            { name: "Roofing Services", link: "/services/roofing", description: "Professional roofing installation" },
           ],
         },
         {
           title: "Specialty Services",
-          description: "Additional construction capabilities",
+          description: "Interior buildouts and specialized construction services",
           subItems: [
-            { name: "Masonry", link: "/services/masonry", description: "Repair & restoration" },
-            { name: "Waterproofing", link: "/services/waterproofing", description: "Complete waterproofing" },
-            { name: "Roofing Services", link: "/services/roofing", description: "Professional roofing" },
-            { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Flooring installation" },
-            { name: "Windows & Doors", link: "/services/windows-doors", description: "Installation services" },
+            { name: "Interior Buildouts & Finishing", link: "/services/interior-buildouts", description: "Complete interior construction", badge: "popular" },
+            { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional flooring installation" },
+            { name: "Windows & Doors", link: "/services/windows-doors", description: "Expert installation services" },
             { name: "Sustainable Building", link: "/services/sustainable-construction", description: "Eco-friendly construction" },
           ],
         },
@@ -91,7 +88,6 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             { name: "About Us", link: "/about" },
             { name: "Our Team", link: "/company/team", badge: "new" },
             { name: "Our Process", link: "/our-process" },
-            { name: "Capabilities", link: "/capabilities", badge: "new" },
           ],
         },
       ],
@@ -102,10 +98,10 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         {
           title: "Client Types",
           subItems: [
-            { name: "Developers & Contractors", link: "/company/developers", badge: "important" },
+            { name: "Homeowners", link: "/homeowners" },
             { name: "Property Managers", link: "/property-managers" },
             { name: "Commercial Clients", link: "/commercial-clients" },
-            { name: "Homeowners", link: "/homeowners" },
+            { name: "Developers & Contractors", link: "/company/developers", badge: "new" },
           ],
         },
       ],
@@ -116,28 +112,11 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         {
           title: "Excellence",
           subItems: [
-            { name: "Pre-Qualification Package", link: "/prequalification", badge: "important" },
-            { name: "Safety & Compliance", link: "/safety", badge: "new" },
-            { name: "Certifications & Insurance", link: "/company/certifications-insurance" },
-            { name: "Equipment & Resources", link: "/company/equipment-resources" },
+            { name: "Safety & Compliance", link: "/safety" },
             { name: "Sustainability", link: "/sustainability" },
+            { name: "Certifications & Insurance", link: "/company/certifications-insurance", badge: "important" },
+            { name: "Equipment & Resources", link: "/company/equipment-resources" },
             { name: "Careers", link: "/careers" },
-          ],
-        },
-      ],
-    },
-  ],
-  markets: [
-    {
-      sectionTitle: "Markets We Serve",
-      categories: [
-        {
-          title: "Industry Sectors",
-          subItems: [
-            { name: "Multi-Family Residential", link: "/markets/multi-family-residential", description: "Condos, apartments & multi-unit", badge: "popular" },
-            { name: "Commercial Construction", link: "/markets/commercial-construction", description: "Office, retail & mixed-use", badge: "popular" },
-            { name: "Institutional Projects", link: "/markets/institutional", description: "Schools, healthcare & civic" },
-            { name: "Industrial Facilities", link: "/markets/industrial", description: "Warehouses & manufacturing" },
           ],
         },
       ],
