@@ -110,7 +110,7 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
         image: '/project-commercial.jpg'
       },
       {
-        slug: 'condo-multi-unit-painting',
+        slug: 'condo-multi-unit',
         name: 'Condo & Multi-Unit Painting',
         image: '/project-industrial.jpg'
       },
@@ -219,7 +219,7 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
         image: '/project-commercial.jpg'
       },
       {
-        slug: 'condo-multi-unit-painting',
+        slug: 'condo-multi-unit',
         name: 'Condo & Multi-Unit Painting',
         image: '/project-industrial.jpg'
       },
@@ -237,8 +237,8 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
     }
   },
 
-  'condo-multi-unit-painting': {
-    slug: 'condo-multi-unit-painting',
+  'condo-multi-unit': {
+    slug: 'condo-multi-unit',
     name: 'Condo & Multi-Unit Painting',
     category: 'Painting Services',
     tagline: 'Specialized painting for condos, apartments, and multi-residential buildings',
