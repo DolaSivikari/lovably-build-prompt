@@ -1,8 +1,9 @@
 # 301 redirects for old service URLs to new database slugs
-/services/stucco          /services/building-envelope#stucco-eifs         301
-/services/stucco-eifs     /services/building-envelope#stucco-eifs         301
-/services/sealants        /services/building-envelope#sealants            301
-/services/sealants-caulking /services/building-envelope#sealants          301
+/services/stucco          /services/exterior-envelope#stucco-eifs         301
+/services/stucco-eifs     /services/exterior-envelope#stucco-eifs         301
+/services/sealants        /services/exterior-envelope#sealants            301
+/services/sealants-caulking /services/exterior-envelope#sealants          301
+/services/building-envelope /services/exterior-envelope                   301
 /services/painting        /services/painting#commercial                   301
 /services/parking-garage  /services/painting#parking-garage               301
 /services/commercial      /services/painting#commercial                   301

@@ -41,7 +41,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           description: "Complete exterior cladding and building envelope solutions",
           subItems: [
             { name: "Exterior Cladding Systems", link: "/services/exterior-cladding", description: "Siding and metal cladding solutions", badge: "popular" },
-            { name: "Building Envelope Systems", link: "/services/building-envelope", description: "Stucco, EIFS & weatherproofing", badge: "popular" },
+            { name: "Exterior Envelope Systems", link: "/services/exterior-envelope", description: "Stucco, EIFS & weatherproofing", badge: "popular" },
             { name: "Masonry", link: "/services/masonry", description: "Professional masonry services" },
             { name: "Waterproofing", link: "/services/waterproofing", description: "Complete waterproofing solutions" },
             { name: "Roofing Services", link: "/services/roofing", description: "Professional roofing installation" },

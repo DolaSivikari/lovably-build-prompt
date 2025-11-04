@@ -9,9 +9,9 @@ import { buildingEnvelopeVariants } from '@/data/merged-services-data';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 
-const BuildingEnvelope = () => {
+const ExteriorEnvelope = () => {
   const serviceSchema = createServiceSchema({
-    serviceType: 'Building Envelope Systems',
+    serviceType: 'Exterior Envelope Systems',
     areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
     priceRange: '$$-$$$',
     subServices: ['Stucco & EIFS', 'Sealants & Caulking']
@@ -20,15 +20,15 @@ const BuildingEnvelope = () => {
   const breadcrumbSchemaData = breadcrumbSchema([
     { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
     { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Building Envelope Systems', url: 'https://ascentgroupconstruction.com/services/building-envelope' }
+    { name: 'Exterior Envelope Systems', url: 'https://ascentgroupconstruction.com/services/exterior-envelope' }
   ]);
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Building Envelope Systems: Stucco, EIFS & Sealants | Ascent Group"
-        description="Expert building envelope protection including stucco application, EIFS installation, and professional sealant services. Waterproofing and weatherproofing across the GTA."
-        keywords="building envelope, stucco, EIFS, sealants, caulking, waterproofing, weatherproofing, exterior insulation, building protection"
+        title="Exterior Envelope Systems: Stucco, EIFS & Sealants | Ascent Group"
+        description="Expert exterior envelope protection including stucco application, EIFS installation, and professional sealant services. Waterproofing and weatherproofing across the GTA."
+        keywords="exterior envelope, building envelope, stucco, EIFS, sealants, caulking, waterproofing, weatherproofing, exterior insulation, building protection"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />
@@ -39,10 +39,10 @@ const BuildingEnvelope = () => {
         <div className="relative z-20 container mx-auto px-4 text-primary-foreground">
           <div className="max-w-3xl">
             <div className="inline-block px-4 py-2 bg-background/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4">
-              Building Envelope Systems
+              Exterior Envelope Systems
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Protect Your Building Envelope
+              Protect Your Exterior Envelope
             </h1>
             <p className="text-xl mb-8 text-primary-foreground/90">
               Expert stucco, EIFS, and sealant services to protect and enhance your building's exterior
@@ -63,7 +63,7 @@ const BuildingEnvelope = () => {
           {/* Introduction */}
           <div className="mb-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Complete Building Envelope Protection
+              Complete Exterior Envelope Protection
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               From stucco and EIFS installation to comprehensive sealant services, we protect your building 
@@ -78,7 +78,7 @@ const BuildingEnvelope = () => {
           <div className="mt-16 bg-card border-2 rounded-2xl p-8 text-center">
             <h3 className="text-2xl font-bold mb-4">Protect Your Investment</h3>
             <p className="text-muted-foreground mb-6">
-              Contact us today for a comprehensive building envelope assessment
+              Contact us today for a comprehensive exterior envelope assessment
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
@@ -108,4 +108,4 @@ const BuildingEnvelope = () => {
   );
 };
 
-export default BuildingEnvelope;
+export default ExteriorEnvelope;

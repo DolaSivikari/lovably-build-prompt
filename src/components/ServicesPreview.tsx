@@ -44,8 +44,8 @@ const categoryConfig: Record<string, CategoryConfig> = {
     image: "/src/assets/project-industrial.jpg"
   },
   "Building Envelope": {
-    name: "Building Envelope Systems",
-    slug: "building-envelope",
+    name: "Exterior Envelope Systems",
+    slug: "exterior-envelope",
     icon: "Shield",
     color: "sage",
     description: "Stucco, EIFS, sealants, and comprehensive weatherproofing",
