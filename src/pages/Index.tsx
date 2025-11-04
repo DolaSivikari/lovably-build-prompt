@@ -1,13 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import NumberedLandingHero from "@/components/NumberedLandingHero";
+import GCHero from "@/components/homepage/GCHero";
+import GCTrustStrip from "@/components/homepage/GCTrustStrip";
+import WhoWeServe from "@/components/homepage/WhoWeServe";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 
 import SEO from "@/components/SEO";
 import SocialProof from "@/components/SocialProof";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
-import ClientSelector from "@/components/homepage/ClientSelector";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
@@ -113,16 +114,17 @@ const Index = () => {
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">
-        <NumberedLandingHero />
+        <GCHero />
+        <GCTrustStrip />
         
         {/* Direct Answer for AEO/GEO */}
         <DirectAnswer />
         
+        <WhoWeServe />
+        
         <div className="py-24">
           <CompanyOverviewHub />
         </div>
-        
-        <ClientSelector />
         
         <div className="py-24">
           <WhyChooseUs />
