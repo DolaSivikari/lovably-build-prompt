@@ -11,6 +11,7 @@ import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { PDFDownloadButton } from './PDFDownloadButton';
 import { EstimatePDF } from './EstimatePDF';
+import { useCompanySettings } from '@/hooks/useCompanySettings';
 
 interface Estimate {
   id: string;
@@ -36,6 +37,14 @@ export const EstimateList = ({ onEdit, onConvertToInvoice, onRefresh }: Estimate
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [pdfData, setPdfData] = useState<Record<string, any>>({});
+  const { settings } = useCompanySettings();
+
+  const companyInfo = settings ? {
+    name: settings.companyName,
+    address: settings.address,
+    phone: settings.phone,
+    email: settings.email,
+  } : undefined;
 
   useEffect(() => {
     loadEstimates();
@@ -285,6 +294,7 @@ export const EstimateList = ({ onEdit, onConvertToInvoice, onRefresh }: Estimate
                             client={pdfData[estimate.id]?.client || estimate.business_clients}
                             project={pdfData[estimate.id]?.project || null}
                             lineItems={pdfData[estimate.id]?.lineItems || []}
+                            companyInfo={companyInfo}
                           />
                         }
                         filename={estimate.estimate_number}

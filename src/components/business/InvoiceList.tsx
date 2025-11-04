@@ -11,6 +11,7 @@ import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { PDFDownloadButton } from './PDFDownloadButton';
 import { InvoicePDF } from './InvoicePDF';
+import { useCompanySettings } from '@/hooks/useCompanySettings';
 
 interface Invoice {
   id: string;
@@ -36,6 +37,14 @@ export const InvoiceList = ({ onEdit, onRecordPayment, onRefresh }: InvoiceListP
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [pdfData, setPdfData] = useState<Record<string, any>>({});
+  const { settings } = useCompanySettings();
+
+  const companyInfo = settings ? {
+    name: settings.companyName,
+    address: settings.address,
+    phone: settings.phone,
+    email: settings.email,
+  } : undefined;
 
   useEffect(() => {
     loadInvoices();
@@ -259,6 +268,7 @@ export const InvoiceList = ({ onEdit, onRecordPayment, onRefresh }: InvoiceListP
                               client={pdfData[invoice.id]?.client || invoice.business_clients}
                               project={pdfData[invoice.id]?.project || null}
                               lineItems={pdfData[invoice.id]?.lineItems || []}
+                              companyInfo={companyInfo}
                             />
                           }
                           filename={invoice.invoice_number}

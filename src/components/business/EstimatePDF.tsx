@@ -149,9 +149,22 @@ interface EstimatePDFProps {
   client: any;
   project: any;
   lineItems: any[];
+  companyInfo?: {
+    name: string;
+    address: string;
+    phone: string;
+    email: string;
+  };
 }
 
-export const EstimatePDF = ({ estimate, client, project, lineItems }: EstimatePDFProps) => {
+export const EstimatePDF = ({ estimate, client, project, lineItems, companyInfo }: EstimatePDFProps) => {
+  const company = companyInfo || {
+    name: 'Ascent Group Construction',
+    address: '7895 Tranmere Drive, Unit #22\nMississauga, ON L5S 1V9',
+    phone: '647-528-6804',
+    email: 'info@ascentgroupconstruction.com',
+  };
+  
   const clientName = client?.company_name || client?.contact_name || 'N/A';
   const clientAddress = [
     client?.address_line1,
@@ -171,12 +184,11 @@ export const EstimatePDF = ({ estimate, client, project, lineItems }: EstimatePD
         {/* Header */}
         <View style={styles.header}>
           <View>
-            <Text style={styles.logo}>ASCENT GROUP</Text>
+            <Text style={styles.logo}>{company.name.toUpperCase()}</Text>
             <Text style={styles.companyInfo}>
-              123 Business Street{'\n'}
-              Toronto, ON M5H 2N2{'\n'}
-              Tel: (416) 555-0100{'\n'}
-              info@ascentgroup.ca
+              {company.address}{'\n'}
+              Tel: {company.phone}{'\n'}
+              {company.email}
             </Text>
           </View>
         </View>

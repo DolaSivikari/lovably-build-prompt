@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, MapPin, Shield, ArrowRight, Phone } from "lucide-react";
+import { useCompanySettings } from "@/hooks/useCompanySettings";
 
 interface DirectAnswerProps {
   children?: React.ReactNode;
@@ -12,6 +13,10 @@ interface DirectAnswerProps {
  * Presents content in a format that AI engines can easily extract and cite
  */
 const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
+  const { settings } = useCompanySettings();
+  const displayPhone = settings?.phone ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') : '(647) 528-6804';
+  const telLink = settings?.phone ? `tel:${settings.phone}` : 'tel:6475286804';
+  
   return (
     <section className={`py-12 sm:py-16 bg-background border-y border-border/40 ${className}`}>
       <div className="container max-w-6xl mx-auto px-4 sm:px-6">
@@ -83,11 +88,11 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
 
               <div className="pt-3 border-t border-border">
                 <a 
-                  href="tel:+14165551234" 
+                  href={telLink}
                   className="flex items-center justify-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
                 >
                   <Phone className="h-4 w-4" />
-                  Call: (416) 555-1234
+                  Call: {displayPhone}
                 </a>
               </div>
             </div>

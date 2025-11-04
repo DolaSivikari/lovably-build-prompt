@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Phone, MessageCircle, X, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
+import { useCompanySettings } from "@/hooks/useCompanySettings";
 
 const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const phone = "14165557246";
+  const { settings } = useCompanySettings();
 
   const sanitizePhoneNumber = (rawPhone: string): string | null => {
     // Remove all non-digits except +
@@ -35,7 +36,9 @@ const FloatingContact = () => {
   };
 
   const handleWhatsAppClick = () => {
-    const validPhone = sanitizePhoneNumber(phone);
+    if (!settings?.phone) return;
+    
+    const validPhone = sanitizePhoneNumber(settings.phone);
     
     if (!validPhone) {
       console.error('Cannot open WhatsApp with invalid phone number');
@@ -45,6 +48,9 @@ const FloatingContact = () => {
     const message = encodeURIComponent("Hi, I'd like to inquire about your construction services.");
     window.open(`https://wa.me/${validPhone}?text=${message}`, '_blank', 'noopener,noreferrer');
   };
+
+  const displayPhone = settings?.phone ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') : '';
+  const telLink = settings?.phone ? `tel:${settings.phone}` : '#';
 
   return (
     <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-fixed">
@@ -61,7 +67,7 @@ const FloatingContact = () => {
           <h3 className="font-semibold text-foreground pr-6">Contact Us</h3>
           
           <a
-            href="tel:4165557246"
+            href={telLink}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors group min-h-[48px]"
           >
             <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary/20 shrink-0">
@@ -69,7 +75,7 @@ const FloatingContact = () => {
             </div>
             <div className="text-left">
               <div className="text-sm font-medium text-foreground">Call Us</div>
-              <div className="text-sm text-muted-foreground">(416) 555-PAINT</div>
+              <div className="text-sm text-muted-foreground">{displayPhone}</div>
             </div>
           </a>
 

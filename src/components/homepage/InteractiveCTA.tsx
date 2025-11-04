@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { useCompanySettings } from "@/hooks/useCompanySettings";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -39,6 +40,7 @@ const stories = [
 
 const InteractiveCTA = () => {
   const navigate = useNavigate();
+  const { settings } = useCompanySettings();
   const [currentStory, setCurrentStory] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
@@ -50,6 +52,9 @@ const InteractiveCTA = () => {
     message: "",
   });
   const { toast } = useToast();
+  
+  const displayPhone = settings?.phone ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') : '(647) 528-6804';
+  const telLink = settings?.phone ? `tel:${settings.phone}` : 'tel:6475286804';
 
   // Rotate stories every 4 seconds (fixed memory leak)
   useEffect(() => {
@@ -304,9 +309,9 @@ const InteractiveCTA = () => {
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <Button variant="outline" asChild className="gap-2">
-                  <a href="tel:+14165551234">
+                  <a href={telLink}>
                     <Phone className="h-4 w-4" />
-                    Call Now
+                    {displayPhone}
                   </a>
                 </Button>
                 <Button variant="outline" asChild className="gap-2">

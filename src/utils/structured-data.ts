@@ -11,14 +11,16 @@ export const organizationSchema = (options?: OrganizationSchemaOptions) => {
   return {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
-    name: options?.name || "Ascen Group Construction",
+    name: options?.name || "Ascent Group Construction",
     description: options?.description || "Professional construction management services in Ontario. Specializing in commercial, industrial, and institutional projects with LEED certification support.",
     url: options?.url || siteUrl,
     logo: options?.logo || `${siteUrl}/logo.png`,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Toronto",
+      streetAddress: "7895 Tranmere Drive, Unit #22",
+      addressLocality: "Mississauga",
       addressRegion: "ON",
+      postalCode: "L5S 1V9",
       addressCountry: "CA",
     },
     areaServed: {
@@ -27,15 +29,13 @@ export const organizationSchema = (options?: OrganizationSchemaOptions) => {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+1-416-555-7246",
+      telephone: "+1-647-528-6804",
       contactType: "customer service",
-      email: "info@ascengroup.ca",
+      email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
     },
     sameAs: [
-      "https://www.linkedin.com/company/ascengroup",
-      "https://www.facebook.com/ascengroup",
-      "https://twitter.com/ascengroup",
+      "https://www.linkedin.com/company/ascent-group-construction",
     ],
     priceRange: "$$$$",
   };
@@ -59,7 +59,7 @@ export const serviceSchema = (options: ServiceSchemaOptions) => {
     description: options.description,
     provider: {
       "@type": "Organization",
-      name: options.provider || "Ascen Group Construction",
+      name: options.provider || "Ascent Group Construction",
       url: siteUrl,
     },
     areaServed: {
@@ -90,11 +90,11 @@ export const articleSchema = (options: ArticleSchemaOptions) => {
     description: options.description,
     author: {
       "@type": "Organization",
-      name: options.author || "Ascen Group Construction",
+      name: options.author || "Ascent Group Construction",
     },
     publisher: {
       "@type": "Organization",
-      name: "Ascen Group Construction",
+      name: "Ascent Group Construction",
       logo: {
         "@type": "ImageObject",
         url: `${siteUrl}/logo.png`,

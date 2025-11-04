@@ -2,8 +2,10 @@ import { Star, CheckCircle2 } from "lucide-react";
 import { Card } from "./ui/card";
 import SEO from "./SEO";
 import { calculateISODate, inferServiceFromReview, getConsistentAggregateRating } from "@/utils/review-helpers";
+import { useCompanySettings } from "@/hooks/useCompanySettings";
 
 const GoogleReviews = () => {
+  const { settings } = useCompanySettings();
   const aggregateRating = getConsistentAggregateRating();
   const averageRating = parseFloat(aggregateRating.ratingValue);
   const totalReviews = parseInt(aggregateRating.reviewCount);
@@ -59,15 +61,15 @@ const GoogleReviews = () => {
       {
         "@type": "LocalBusiness",
         "@id": "https://ascentgroupconstruction.com/#localbusiness",
-        "name": "Ascent Group Construction",
+        "name": settings?.companyName || "Ascent Group Construction",
         "url": "https://ascentgroupconstruction.com/",
-        "telephone": "+1-416-555-7246",
+        "telephone": settings?.phone ? `+1-${settings.phone}` : "+1-647-528-6804",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "123 Construction Way",
-          "addressLocality": "Toronto",
+          "streetAddress": "7895 Tranmere Drive, Unit #22",
+          "addressLocality": "Mississauga",
           "addressRegion": "ON",
-          "postalCode": "M5H 2N2",
+          "postalCode": "L5S 1V9",
           "addressCountry": "CA"
         },
         "aggregateRating": {

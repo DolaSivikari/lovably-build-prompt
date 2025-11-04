@@ -3,11 +3,15 @@ import { Phone, MessageSquare } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useCompanySettings } from "@/hooks/useCompanySettings";
 
 const MobileStickyCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { settings } = useCompanySettings();
+  
+  const telLink = settings?.phone ? `tel:${settings.phone}` : '#';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +61,7 @@ const MobileStickyCTA = () => {
             className="flex-1 gap-2 min-h-[48px]"
             variant="default"
           >
-            <a href="tel:+14165551234">
+            <a href={telLink}>
               <Phone className="h-5 w-5" />
               <span className="text-sm">Call Now</span>
             </a>
