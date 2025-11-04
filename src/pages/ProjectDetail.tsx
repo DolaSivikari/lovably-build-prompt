@@ -37,6 +37,13 @@ interface GalleryImage {
   featured: boolean;
 }
 
+interface Service {
+  id: string;
+  name: string;
+  slug: string;
+  category?: string;
+}
+
 interface ProjectData {
   id: string;
   title: string;
@@ -63,6 +70,7 @@ interface ProjectData {
   seo_description?: string;
   seo_keywords?: string[];
   project_images?: GalleryImage[]; // New unified gallery
+  services?: Service[]; // Services provided
 }
 
 export default function ProjectDetail() {
@@ -94,6 +102,12 @@ export default function ProjectDetail() {
           .eq("project_id", data.id)
           .order("display_order");
 
+        // Fetch project services
+        const { data: projectServices } = await supabase
+          .from("project_services")
+          .select("service_id, services(id, name, slug, category)")
+          .eq("project_id", data.id);
+
         const projectData: ProjectData = {
           ...(data as any),
           before_images: (data.before_images as any) || [],
@@ -107,7 +121,8 @@ export default function ProjectDetail() {
             caption: img.caption,
             order: img.display_order,
             featured: img.featured
-          })) || []
+          })) || [],
+          services: projectServices?.map((ps: any) => ps.services).filter(Boolean) || []
         };
 
         setProject(projectData);
@@ -184,11 +199,27 @@ export default function ProjectDetail() {
         <div className="border-b border-border/50 bg-gradient-to-b from-muted/30 to-background">
           <div className="container mx-auto px-4 py-8 md:py-12">
             <div className="max-w-4xl">
-              {project.category && (
-                <Badge variant="secondary" className="mb-4">
-                  {project.category}
-                </Badge>
-              )}
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                {project.category && (
+                  <Badge variant="secondary">
+                    {project.category}
+                  </Badge>
+                )}
+                {project.services && project.services.length > 0 && (
+                  <>
+                    {project.services.map((service) => (
+                      <Badge 
+                        key={service.id} 
+                        variant="outline"
+                        className="cursor-pointer hover:bg-accent"
+                        onClick={() => navigate(`/services/${service.slug}`)}
+                      >
+                        {service.name}
+                      </Badge>
+                    ))}
+                  </>
+                )}
+              </div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3">
                 {project.title}
               </h1>

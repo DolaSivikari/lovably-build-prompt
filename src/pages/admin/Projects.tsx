@@ -14,11 +14,26 @@ const Projects = () => {
   const { isLoading: authLoading, isAdmin } = useAdminAuth();
   const [projects, setProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [services, setServices] = useState<any[]>([]);
+  const [selectedService, setSelectedService] = useState<string>('all');
 
   useEffect(() => {
     if (!isAdmin) return;
     loadProjects();
+    loadServices();
   }, [isAdmin]);
+
+  const loadServices = async () => {
+    const { data } = await supabase
+      .from("services")
+      .select("id, name, category")
+      .eq("publish_state", "published")
+      .order("name");
+    
+    if (data) {
+      setServices(data);
+    }
+  };
 
   const loadProjects = async () => {
     setIsLoading(true);
@@ -34,7 +49,22 @@ const Projects = () => {
         variant: "destructive",
       });
     } else {
-      setProjects(data || []);
+      // Load services for each project
+      const projectsWithServices = await Promise.all(
+        (data || []).map(async (project) => {
+          const { data: projectServices } = await supabase
+            .from("project_services")
+            .select("service_id, services(id, name, category)")
+            .eq("project_id", project.id);
+          
+          return {
+            ...project,
+            services: projectServices?.map((ps: any) => ps.services) || []
+          };
+        })
+      );
+      
+      setProjects(projectsWithServices);
     }
     setIsLoading(false);
   };
@@ -71,6 +101,13 @@ const Projects = () => {
     }
   };
 
+  // Filter projects by service
+  const filteredProjects = selectedService === 'all'
+    ? projects
+    : projects.filter(project => 
+        project.services?.some((s: any) => s.id === selectedService)
+      );
+
   if (authLoading) {
     return null;
   }
@@ -92,22 +129,64 @@ const Projects = () => {
         </button>
       </div>
 
+      {/* Service Filter */}
+      {services.length > 0 && (
+        <div className="business-glass-card" style={{ padding: '1rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <label style={{ fontWeight: '500', color: 'var(--business-text-primary)' }}>
+              Filter by Service:
+            </label>
+            <select
+              value={selectedService}
+              onChange={(e) => setSelectedService(e.target.value)}
+              className="business-input"
+              style={{ maxWidth: '300px' }}
+            >
+              <option value="all">All Services ({projects.length})</option>
+              {services.map(service => {
+                const count = projects.filter(p => 
+                  p.services?.some((s: any) => s.id === service.id)
+                ).length;
+                return (
+                  <option key={service.id} value={service.id}>
+                    {service.name} ({count})
+                  </option>
+                );
+              })}
+            </select>
+            {selectedService !== 'all' && (
+              <Badge variant="secondary">
+                {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
+              </Badge>
+            )}
+          </div>
+        </div>
+      )}
+
       <div>
         {isLoading ? (
           <div className="text-center py-12" style={{ color: 'var(--business-text-secondary)' }}>Loading projects...</div>
-        ) : projects.length === 0 ? (
+        ) : filteredProjects.length === 0 ? (
           <div className="business-glass-card" style={{ padding: '2rem', textAlign: 'center' }}>
             <p style={{ color: 'var(--business-text-secondary)', marginBottom: '1rem' }}>
-              No projects yet. Create your first project to get started.
+              {selectedService === 'all' 
+                ? 'No projects yet. Create your first project to get started.'
+                : 'No projects found with this service. Try a different filter.'}
             </p>
-            <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/projects/new")}>
-              <Plus className="h-4 w-4 mr-2" />
-              Create Project
-            </button>
+            {selectedService === 'all' ? (
+              <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/projects/new")}>
+                <Plus className="h-4 w-4 mr-2" />
+                Create Project
+              </button>
+            ) : (
+              <button className="business-btn business-btn-secondary" onClick={() => setSelectedService('all')}>
+                Clear Filter
+              </button>
+            )}
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
+            {filteredProjects.map((project) => (
               <div key={project.id} className="business-glass-card" style={{ padding: '1.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                   <Badge variant={getStatusColor(project.publish_state)}>
@@ -162,6 +241,24 @@ const Projects = () => {
                   )}
                   {project.category && (
                     <Badge variant="outline">{project.category}</Badge>
+                  )}
+                  {project.services && project.services.length > 0 && (
+                    <div style={{ 
+                      display: 'flex', 
+                      flexWrap: 'wrap', 
+                      gap: '0.5rem',
+                      marginTop: '0.5rem'
+                    }}>
+                      {project.services.map((service: any) => (
+                        <Badge 
+                          key={service.id} 
+                          variant="secondary"
+                          style={{ fontSize: '0.75rem' }}
+                        >
+                          {service.name}
+                        </Badge>
+                      ))}
+                    </div>
                   )}
                 </div>
               </div>
