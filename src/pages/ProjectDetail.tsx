@@ -226,12 +226,6 @@ export default function ProjectDetail() {
                 objectFit="contain"
                 priority
               />
-              {/* Overlay hint */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-lg flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 px-4 py-2 rounded-full text-sm font-medium">
-                  Click to expand
-                </div>
-              </div>
             </div>
 
             {/* Lightbox for full-screen view */}
