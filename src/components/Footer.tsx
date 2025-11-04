@@ -27,6 +27,38 @@ const Footer = () => {
 
     fetchSettings();
   }, []);
+
+  // Use database settings with fallbacks
+  const quickLinks = (footerSettings?.quick_links as any[]) || [
+    { label: "Services", href: "/services" },
+    { label: "Projects", href: "/projects" },
+    { label: "About Us", href: "/about" },
+    { label: "Our Process", href: "/our-process" },
+    { label: "Certifications", href: "/company/certifications-insurance" },
+    { label: "Equipment", href: "/company/equipment-resources" },
+    { label: "Blog", href: "/blog" },
+  ];
+
+  const sectorsLinks = (footerSettings?.sectors_links as any[]) || [
+    { label: "Homeowners", href: "/homeowners" },
+    { label: "Property Managers", href: "/property-managers" },
+    { label: "Commercial Clients", href: "/commercial-clients" },
+    { label: "Service Areas", href: "/resources/service-areas" },
+    { label: "Contractor Portal", href: "/resources/contractor-portal" },
+    { label: "Careers", href: "/careers" },
+  ];
+
+  const contactInfo = footerSettings?.contact_info || {};
+  const socialMedia = footerSettings?.social_media || {};
+  const trustBarData = (footerSettings?.trust_bar_items as any[]) || companyCredentials.credentials;
+
+  const address = siteSettings?.address || contactInfo.address || 'Greater Toronto Area, Ontario';
+  const phone = siteSettings?.phone || contactInfo.phone || '(416) 555-1234';
+  const email = siteSettings?.email || contactInfo.email || 'info@ascentgroupconstruction.com';
+  const linkedinUrl = socialMedia.linkedin || 'https://www.linkedin.com/company/ascent-group-construction';
+  const facebookUrl = socialMedia.facebook || 'https://www.facebook.com/ascentgroupconstruction';
+  const twitterUrl = socialMedia.twitter || 'https://twitter.com/ascentgroupca';
+  const instagramUrl = socialMedia.instagram || 'https://www.instagram.com/ascentgroupconstruction';
   // Enhanced ProfessionalService schema
   const citationSchema = {
     "@context": "https://schema.org",
@@ -108,26 +140,16 @@ const Footer = () => {
       <SEO structuredData={citationSchema} />
       <footer className="w-full bg-white border-t border-border relative" role="contentinfo">
         
-        {/* Trust Bar - Company Credentials */}
+        {/* Trust Bar */}
         <div className="border-b border-border">
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
-              <div className="flex items-center gap-2">
-                <Shield className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">WSIB Certified</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Award className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">15+ Years Excellence</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">Licensed & Insured</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">$5M Liability Coverage</span>
-              </div>
+              {trustBarData.map((item: any, index: number) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-primary" />
+                  <span className="text-muted-foreground">{item.label || item.value}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -156,14 +178,13 @@ const Footer = () => {
               </h3>
               <nav aria-label="Quick links">
                 <ul className="space-y-2">
-                  <li><Link to="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">Services</Link></li>
-                  <li><Link to="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">Projects</Link></li>
-                  <li><Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
-                  <li><Link to="/our-process" className="text-sm text-muted-foreground hover:text-primary transition-colors">Our Process</Link></li>
-                  <li><Link to="/company/certifications-insurance" className="text-sm text-muted-foreground hover:text-primary transition-colors">Certifications</Link></li>
-                  <li><Link to="/company/equipment-resources" className="text-sm text-muted-foreground hover:text-primary transition-colors">Equipment</Link></li>
-                  <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
-                  <li><Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog & Case Studies</Link></li>
+                  {quickLinks.map((link: any, index: number) => (
+                    <li key={index}>
+                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </nav>
             </div>
@@ -175,12 +196,13 @@ const Footer = () => {
               </h3>
               <nav aria-label="Client sectors">
                 <ul className="space-y-2">
-                  <li><Link to="/homeowners" className="text-sm text-muted-foreground hover:text-primary transition-colors">Homeowners</Link></li>
-                  <li><Link to="/property-managers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Property Managers</Link></li>
-                  <li><Link to="/commercial-clients" className="text-sm text-muted-foreground hover:text-primary transition-colors">Commercial Clients</Link></li>
-                  <li><Link to="/resources/service-areas" className="text-sm text-muted-foreground hover:text-primary transition-colors">Service Areas</Link></li>
-                  <li><Link to="/resources/contractor-portal" className="text-sm font-semibold text-primary hover:text-sage transition-colors flex items-center gap-1"><Shield className="h-3 w-3" />Contractor Portal</Link></li>
-                  <li><Link to="/careers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
+                  {sectorsLinks.map((link: any, index: number) => (
+                    <li key={index}>
+                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </nav>
             </div>
@@ -193,33 +215,33 @@ const Footer = () => {
               <div className="space-y-3 text-sm text-muted-foreground">
                 <div className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
-                  <span>{siteSettings?.address || 'Greater Toronto Area, Ontario'}</span>
+                  <span>{address}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                  <a href={`tel:${siteSettings?.phone?.replace(/[^0-9+]/g, '') || '+14165551234'}`} className="hover:text-primary transition-colors">
-                    {siteSettings?.phone || '(416) 555-1234'}
+                  <a href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-primary transition-colors">
+                    {phone}
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                  <a href={`mailto:${siteSettings?.email || 'info@ascentgroupconstruction.com'}`} className="hover:text-primary transition-colors break-all">
-                    {siteSettings?.email || 'info@ascentgroupconstruction.com'}
+                  <a href={`mailto:${email}`} className="hover:text-primary transition-colors break-all">
+                    {email}
                   </a>
                 </div>
                 
                 {/* Social Icons */}
                 <div className="flex gap-3 pt-2">
-                  <a href="https://www.linkedin.com/company/ascent-group-construction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
+                  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="https://www.facebook.com/ascentgroupconstruction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
+                  <a href={facebookUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
                     <Facebook className="h-5 w-5" />
                   </a>
-                  <a href="https://twitter.com/ascentgroupca" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
+                  <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
                     <Twitter className="h-5 w-5" />
                   </a>
-                  <a href="https://www.instagram.com/ascentgroupconstruction" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
+                  <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
                     <Instagram className="h-5 w-5" />
                   </a>
                 </div>

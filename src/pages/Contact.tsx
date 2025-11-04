@@ -12,7 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Loader2 } from "lucide-react";
+import { useSettingsData } from "@/hooks/useSettingsData";
 
 // Input validation schema to prevent XSS/injection attacks
 const contactSchema = z.object({
@@ -44,6 +45,7 @@ const contactSchema = z.object({
 
 const Contact = () => {
   const { toast } = useToast();
+  const { data: contactSettings, loading } = useSettingsData('contact_page_settings');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
   const [formData, setFormData] = useState({
@@ -52,7 +54,7 @@ const Contact = () => {
     phone: "",
     company: "",
     message: "",
-    honeypot: "", // Honeypot field for bot detection
+    honeypot: "",
   });
 
   const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
@@ -60,10 +62,8 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Prevent duplicate submissions
     if (isSubmittingRef.current) return;
 
-    // Client-side rate limiting (10 seconds between submissions)
     const now = Date.now();
     if (now - lastSubmitTime < 10000) {
       toast({
@@ -78,10 +78,8 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Validate input to prevent XSS/injection attacks
       const validatedData = contactSchema.parse(formData);
 
-      // Submit via edge function with bot protection
       const { data, error } = await supabase.functions.invoke('submit-form', {
         body: {
           formType: 'contact',
@@ -109,7 +107,6 @@ const Contact = () => {
         throw error;
       }
 
-      // Track conversion
       trackConversion('contact_form_submit', {
         form_type: 'contact',
         submission_type: formData.company ? 'business' : 'individual',
@@ -120,7 +117,6 @@ const Contact = () => {
         has_phone: !!formData.phone,
       });
 
-      // Send email notifications with timeout
       try {
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error('Email notification timeout')), 10000)
@@ -141,7 +137,6 @@ const Contact = () => {
         ]);
       } catch (emailError) {
         console.error('Email notification failed:', emailError);
-        // Don't fail the submission if email fails
       }
 
       toast({
@@ -153,7 +148,6 @@ const Contact = () => {
       setLastSubmitTime(now);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        // Display validation errors
         const firstError = error.errors[0];
         toast({
           title: "Validation Error",
@@ -177,6 +171,18 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Fallback values if database hasn't loaded
+  const officeAddress = contactSettings?.office_address || '123 Industrial Parkway\nMississauga, ON L5T 1A1\nCanada';
+  const mainPhone = contactSettings?.main_phone || '(416) 555-PAINT';
+  const tollFreePhone = contactSettings?.toll_free_phone || '1-800-555-ASCENT';
+  const generalEmail = contactSettings?.general_email || 'info@ascentgroupconstruction.com';
+  const projectsEmail = contactSettings?.projects_email || 'projects@ascentgroupconstruction.com';
+  const careersEmail = contactSettings?.careers_email || 'careers@ascentgroupconstruction.com';
+  const weekdayHours = contactSettings?.weekday_hours || 'Monday - Friday: 8:00 AM - 6:00 PM';
+  const saturdayHours = contactSettings?.saturday_hours || 'Saturday: 9:00 AM - 2:00 PM';
+  const sundayHours = contactSettings?.sunday_hours || 'Sunday: Closed';
+  const mapEmbedUrl = contactSettings?.map_embed_url || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184551.90977289474!2d-79.51814069999999!3d43.7184038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1234567890123!5m2!1sen!2sca';
+
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
@@ -199,6 +205,13 @@ const Contact = () => {
       {/* Contact Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
+          {loading && (
+            <div className="flex items-center justify-center gap-2 text-muted-foreground mb-4">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span>Loading contact information...</span>
+            </div>
+          )}
+
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Contact Info */}
             <div className="space-y-6">
@@ -210,10 +223,8 @@ const Contact = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    123 Industrial Parkway<br />
-                    Mississauga, ON L5T 1A1<br />
-                    Canada
+                  <p className="text-sm text-muted-foreground whitespace-pre-line">
+                    {officeAddress}
                   </p>
                 </CardContent>
               </Card>
@@ -227,8 +238,8 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Main: (416) 555-PAINT<br />
-                    Toll Free: 1-800-555-ASCENT
+                    Main: {mainPhone}<br />
+                    Toll Free: {tollFreePhone}
                   </p>
                 </CardContent>
               </Card>
@@ -242,9 +253,9 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    General: info@ascentgroupconstruction.com<br />
-                    Projects: projects@ascentgroupconstruction.com<br />
-                    Careers: careers@ascentgroupconstruction.com
+                    General: {generalEmail}<br />
+                    Projects: {projectsEmail}<br />
+                    Careers: {careersEmail}
                   </p>
                 </CardContent>
               </Card>
@@ -258,9 +269,9 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Monday - Friday: 8:00 AM - 6:00 PM<br />
-                    Saturday: 9:00 AM - 2:00 PM<br />
-                    Sunday: Closed
+                    {weekdayHours}<br />
+                    {saturdayHours}<br />
+                    {sundayHours}
                   </p>
                 </CardContent>
               </Card>
@@ -340,7 +351,6 @@ const Contact = () => {
                       />
                     </div>
 
-                    {/* Honeypot field - hidden from users, catches bots */}
                     <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
                       <Label htmlFor="website">Website</Label>
                       <Input
@@ -376,7 +386,7 @@ const Contact = () => {
           </div>
           <div className="aspect-video bg-card rounded-lg overflow-hidden">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184551.90977289474!2d-79.51814069999999!3d43.7184038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1234567890123!5m2!1sen!2sca"
+              src={mapEmbedUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}

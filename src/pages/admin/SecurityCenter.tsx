@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,18 +6,15 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import {
   Shield,
-  Activity,
   AlertTriangle,
   Users,
   Lock,
   Unlock,
-  Loader2,
   XCircle,
   CheckCircle,
-  Clock,
-  Monitor,
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { AdminPageLayout } from '@/components/admin/AdminPageLayout';
 
 interface SecurityAlert {
   id: string;
@@ -55,7 +51,6 @@ interface UserSession {
 }
 
 export default function SecurityCenter() {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [alerts, setAlerts] = useState<SecurityAlert[]>([]);
@@ -64,40 +59,13 @@ export default function SecurityCenter() {
   const [sessions, setSessions] = useState<UserSession[]>([]);
 
   useEffect(() => {
-    checkAuth();
     loadSecurityData();
   }, []);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      navigate('/auth');
-      return;
-    }
-
-    // Check if user is admin
-    const { data: roleData } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', session.user.id)
-      .single();
-
-    if (!roleData || !['admin', 'super_admin'].includes(roleData.role)) {
-      navigate('/admin');
-      toast({
-        variant: 'destructive',
-        title: 'Access Denied',
-        description: 'You do not have permission to access the Security Center',
-      });
-    }
-  };
 
   const loadSecurityData = async () => {
     try {
       setLoading(true);
 
-      // Load security alerts
       const { data: alertsData } = await supabase
         .from('security_alerts')
         .select('*')
@@ -106,7 +74,6 @@ export default function SecurityCenter() {
 
       if (alertsData) setAlerts(alertsData as SecurityAlert[]);
 
-      // Load recent failed attempts
       const { data: attemptsData } = await supabase
         .from('auth_failed_attempts')
         .select('*')
@@ -115,7 +82,6 @@ export default function SecurityCenter() {
 
       if (attemptsData) setFailedAttempts(attemptsData);
 
-      // Load active lockouts
       const { data: lockoutsData } = await supabase
         .from('auth_account_lockouts')
         .select('*')
@@ -124,7 +90,6 @@ export default function SecurityCenter() {
 
       if (lockoutsData) setLockouts(lockoutsData);
 
-      // Load active sessions
       const { data: sessionsData } = await supabase
         .from('user_sessions')
         .select('*')
@@ -213,34 +178,17 @@ export default function SecurityCenter() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
-  }
-
   const unresolvedAlerts = alerts.filter(a => !a.resolved);
   const activeLockouts = lockouts.filter(l => !l.unlocked_at && new Date(l.locked_until) > new Date());
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <Shield className="h-8 w-8 text-primary" />
-          <div>
-            <h1 className="text-3xl font-bold">Security Center</h1>
-            <p className="text-muted-foreground">Monitor and manage authentication security</p>
-          </div>
-        </div>
-        <Button variant="outline" onClick={() => navigate('/admin')}>
-          Back to Dashboard
-        </Button>
-      </div>
-
+    <AdminPageLayout
+      title="Security Center"
+      description="Monitor and manage authentication security"
+      loading={loading}
+    >
       {/* Security Metrics */}
-      <div className="grid gap-4 md:grid-cols-4 mb-6">
+      <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
@@ -287,7 +235,7 @@ export default function SecurityCenter() {
       </div>
 
       {/* Security Alerts */}
-      <Card className="mb-6">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5" />
@@ -405,39 +353,6 @@ export default function SecurityCenter() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Active Sessions */}
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Monitor className="h-5 w-5" />
-            Active Sessions
-          </CardTitle>
-          <CardDescription>Currently logged in users</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {sessions.length === 0 ? (
-            <p className="text-muted-foreground text-center py-4">No active sessions</p>
-          ) : (
-            <div className="space-y-3">
-              {sessions.map((session) => (
-                <div key={session.id} className="flex items-start justify-between p-3 border rounded-lg">
-                  <div className="flex-1">
-                    <p className="font-medium flex items-center gap-2">
-                      <Activity className="h-4 w-4 text-primary" />
-                      User ID: {session.user_id.slice(0, 8)}...
-                    </p>
-                    <p className="text-sm text-muted-foreground">IP: {session.ip_address}</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Last activity: {format(new Date(session.last_activity), 'MMM dd, yyyy HH:mm:ss')}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+    </AdminPageLayout>
   );
 }

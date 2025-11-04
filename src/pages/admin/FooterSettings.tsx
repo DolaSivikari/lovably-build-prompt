@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Trash2, Save } from "lucide-react";
+import { Plus, Trash2, Save, Loader2 } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 interface FooterLink {
   label: string;
@@ -21,8 +21,8 @@ interface TrustBarItem {
 
 const FooterSettings = () => {
   const { isLoading: authLoading } = useAdminAuth();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [settingsId, setSettingsId] = useState<string | null>(null);
   const [quickLinks, setQuickLinks] = useState<FooterLink[]>([]);
   const [sectorsLinks, setSectorsLinks] = useState<FooterLink[]>([]);
@@ -61,6 +61,7 @@ const FooterSettings = () => {
 
   const handleSave = async () => {
     try {
+      setSaving(true);
       const { data: { user } } = await supabase.auth.getUser();
 
       const settingsData = {
@@ -92,6 +93,8 @@ const FooterSettings = () => {
       toast.success("Footer settings saved successfully");
     } catch (error: any) {
       toast.error("Failed to save footer settings");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -119,203 +122,196 @@ const FooterSettings = () => {
     setTrustBarItems(updated);
   };
 
-  if (authLoading || loading) {
-    return <div className="p-8">Loading...</div>;
-  }
-
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold">Footer Settings</h1>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => navigate('/admin')}>
-              Back to Dashboard
-            </Button>
-            <Button onClick={handleSave}>
+    <AdminPageLayout
+      title="Footer Settings"
+      description="Manage footer links, contact information, and social media"
+      loading={authLoading || loading}
+      actions={
+        <Button onClick={handleSave} disabled={saving}>
+          {saving ? (
+            <>
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            <>
               <Save className="h-4 w-4 mr-2" />
               Save Changes
-            </Button>
+            </>
+          )}
+        </Button>
+      }
+    >
+      <Card>
+        <CardHeader>
+          <CardTitle>Quick Links</CardTitle>
+          <CardDescription>Manage footer navigation links</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {quickLinks.map((link, index) => (
+            <div key={index} className="flex gap-2">
+              <Input
+                placeholder="Label"
+                value={link.label}
+                onChange={(e) => updateQuickLink(index, 'label', e.target.value)}
+              />
+              <Input
+                placeholder="URL (e.g., /services)"
+                value={link.href}
+                onChange={(e) => updateQuickLink(index, 'href', e.target.value)}
+              />
+              <Button variant="ghost" size="icon" onClick={() => removeQuickLink(index)}>
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
+          <Button variant="outline" onClick={addQuickLink}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Link
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Sectors / Client Types</CardTitle>
+          <CardDescription>Links to different client segment pages</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {sectorsLinks.map((link, index) => (
+            <div key={index} className="flex gap-2">
+              <Input
+                placeholder="Label"
+                value={link.label}
+                onChange={(e) => updateSectorLink(index, 'label', e.target.value)}
+              />
+              <Input
+                placeholder="URL"
+                value={link.href}
+                onChange={(e) => updateSectorLink(index, 'href', e.target.value)}
+              />
+              <Button variant="ghost" size="icon" onClick={() => removeSectorLink(index)}>
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
+          <Button variant="outline" onClick={addSectorLink}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Link
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Contact Information</CardTitle>
+          <CardDescription>Company contact details displayed in footer</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label>Office Address</Label>
+            <Input
+              value={contactInfo.address}
+              onChange={(e) => setContactInfo({ ...contactInfo, address: e.target.value })}
+              placeholder="Street address, city, province, postal code"
+            />
           </div>
-        </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label>Phone Number</Label>
+              <Input
+                value={contactInfo.phone}
+                onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
+                placeholder="(123) 456-7890"
+              />
+            </div>
+            <div>
+              <Label>Email Address</Label>
+              <Input
+                type="email"
+                value={contactInfo.email}
+                onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
+                placeholder="info@company.com"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-        <div className="space-y-6">
-          {/* Quick Links */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Links</CardTitle>
-              <CardDescription>Manage footer navigation links</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {quickLinks.map((link, index) => (
-                <div key={index} className="flex gap-2">
-                  <Input
-                    placeholder="Label"
-                    value={link.label}
-                    onChange={(e) => updateQuickLink(index, 'label', e.target.value)}
-                  />
-                  <Input
-                    placeholder="URL (e.g., /services)"
-                    value={link.href}
-                    onChange={(e) => updateQuickLink(index, 'href', e.target.value)}
-                  />
-                  <Button variant="ghost" size="icon" onClick={() => removeQuickLink(index)}>
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
-              <Button variant="outline" onClick={addQuickLink}>
-                <Plus className="h-4 w-4 mr-2" />
-                Add Link
+      <Card>
+        <CardHeader>
+          <CardTitle>Social Media Links</CardTitle>
+          <CardDescription>Connect your social media profiles</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label>LinkedIn URL</Label>
+              <Input
+                value={socialMedia.linkedin}
+                onChange={(e) => setSocialMedia({ ...socialMedia, linkedin: e.target.value })}
+                placeholder="https://linkedin.com/company/..."
+              />
+            </div>
+            <div>
+              <Label>Facebook URL</Label>
+              <Input
+                value={socialMedia.facebook}
+                onChange={(e) => setSocialMedia({ ...socialMedia, facebook: e.target.value })}
+                placeholder="https://facebook.com/..."
+              />
+            </div>
+            <div>
+              <Label>Twitter URL</Label>
+              <Input
+                value={socialMedia.twitter}
+                onChange={(e) => setSocialMedia({ ...socialMedia, twitter: e.target.value })}
+                placeholder="https://twitter.com/..."
+              />
+            </div>
+            <div>
+              <Label>Instagram URL</Label>
+              <Input
+                value={socialMedia.instagram}
+                onChange={(e) => setSocialMedia({ ...socialMedia, instagram: e.target.value })}
+                placeholder="https://instagram.com/..."
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Trust Bar / Credentials</CardTitle>
+          <CardDescription>Display company credentials and certifications</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {trustBarItems.map((item, index) => (
+            <div key={index} className="flex gap-2">
+              <Input
+                placeholder="Label (e.g., WSIB Certified)"
+                value={item.label}
+                onChange={(e) => updateTrustBarItem(index, 'label', e.target.value)}
+              />
+              <Input
+                placeholder="Value (e.g., Certified)"
+                value={item.value}
+                onChange={(e) => updateTrustBarItem(index, 'value', e.target.value)}
+              />
+              <Button variant="ghost" size="icon" onClick={() => removeTrustBarItem(index)}>
+                <Trash2 className="h-4 w-4" />
               </Button>
-            </CardContent>
-          </Card>
-
-          {/* Sectors Links */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Sectors / Client Types</CardTitle>
-              <CardDescription>Links to different client segment pages</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {sectorsLinks.map((link, index) => (
-                <div key={index} className="flex gap-2">
-                  <Input
-                    placeholder="Label"
-                    value={link.label}
-                    onChange={(e) => updateSectorLink(index, 'label', e.target.value)}
-                  />
-                  <Input
-                    placeholder="URL"
-                    value={link.href}
-                    onChange={(e) => updateSectorLink(index, 'href', e.target.value)}
-                  />
-                  <Button variant="ghost" size="icon" onClick={() => removeSectorLink(index)}>
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
-              <Button variant="outline" onClick={addSectorLink}>
-                <Plus className="h-4 w-4 mr-2" />
-                Add Link
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Contact Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Contact Information</CardTitle>
-              <CardDescription>Company contact details displayed in footer</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label>Office Address</Label>
-                <Input
-                  value={contactInfo.address}
-                  onChange={(e) => setContactInfo({ ...contactInfo, address: e.target.value })}
-                  placeholder="Street address, city, province, postal code"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>Phone Number</Label>
-                  <Input
-                    value={contactInfo.phone}
-                    onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
-                    placeholder="(123) 456-7890"
-                  />
-                </div>
-                <div>
-                  <Label>Email Address</Label>
-                  <Input
-                    type="email"
-                    value={contactInfo.email}
-                    onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
-                    placeholder="info@company.com"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Social Media */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Social Media Links</CardTitle>
-              <CardDescription>Connect your social media profiles</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>LinkedIn URL</Label>
-                  <Input
-                    value={socialMedia.linkedin}
-                    onChange={(e) => setSocialMedia({ ...socialMedia, linkedin: e.target.value })}
-                    placeholder="https://linkedin.com/company/..."
-                  />
-                </div>
-                <div>
-                  <Label>Facebook URL</Label>
-                  <Input
-                    value={socialMedia.facebook}
-                    onChange={(e) => setSocialMedia({ ...socialMedia, facebook: e.target.value })}
-                    placeholder="https://facebook.com/..."
-                  />
-                </div>
-                <div>
-                  <Label>Twitter URL</Label>
-                  <Input
-                    value={socialMedia.twitter}
-                    onChange={(e) => setSocialMedia({ ...socialMedia, twitter: e.target.value })}
-                    placeholder="https://twitter.com/..."
-                  />
-                </div>
-                <div>
-                  <Label>Instagram URL</Label>
-                  <Input
-                    value={socialMedia.instagram}
-                    onChange={(e) => setSocialMedia({ ...socialMedia, instagram: e.target.value })}
-                    placeholder="https://instagram.com/..."
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Trust Bar Items */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Trust Bar / Credentials</CardTitle>
-              <CardDescription>Display company credentials and certifications</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {trustBarItems.map((item, index) => (
-                <div key={index} className="flex gap-2">
-                  <Input
-                    placeholder="Label (e.g., WSIB Certified)"
-                    value={item.label}
-                    onChange={(e) => updateTrustBarItem(index, 'label', e.target.value)}
-                  />
-                  <Input
-                    placeholder="Value (e.g., Certified)"
-                    value={item.value}
-                    onChange={(e) => updateTrustBarItem(index, 'value', e.target.value)}
-                  />
-                  <Button variant="ghost" size="icon" onClick={() => removeTrustBarItem(index)}>
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
-              <Button variant="outline" onClick={addTrustBarItem}>
-                <Plus className="h-4 w-4 mr-2" />
-                Add Credential
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </div>
+            </div>
+          ))}
+          <Button variant="outline" onClick={addTrustBarItem}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Credential
+          </Button>
+        </CardContent>
+      </Card>
+    </AdminPageLayout>
   );
 };
 
