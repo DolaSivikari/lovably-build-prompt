@@ -43,7 +43,7 @@ const ProjectCard = ({
       onClick={() => onViewDetails(slug)}
     >
       {/* Image Container - PCL style */}
-      <div className="relative aspect-[4/3] md:h-64 overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={resolveAssetPath(image) || "/placeholder.svg"}
           alt={title}
