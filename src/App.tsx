@@ -31,6 +31,7 @@ import ServiceDetail from "./pages/ServiceDetail";
 import PaintingServices from "./pages/services/PaintingServices";
 import ExteriorCladding from "./pages/services/ExteriorCladding";
 import InteriorBuildouts from "./pages/services/InteriorBuildouts";
+import BuildingEnvelope from "./pages/services/BuildingEnvelope";
 import FAQ from "./pages/FAQ";
 import CertificationsInsurance from "./pages/company/CertificationsInsurance";
 import ContractorPortal from "./pages/resources/ContractorPortal";
@@ -203,6 +204,7 @@ const App = () => (
             <Route path="/services/painting" element={<PaintingServices />} />
             <Route path="/services/exterior-cladding" element={<ExteriorCladding />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
+            <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />

@@ -136,6 +136,51 @@ export const paintingVariants = [
       timeline: '2-8 weeks for buildings',
       certifications: ['Property Management Preferred', 'High-Rise Certified', 'Tenant Insurance']
     }
+  },
+  {
+    id: 'parking-garage',
+    title: 'Parking Garage',
+    tagline: 'Heavy-Duty Parking Structure Solutions',
+    description: 'Specialized protective coatings and waterproofing systems for parking structures. Expert traffic coatings, line striping, concrete repair, and waterproofing for underground and above-ground facilities.',
+    benefits: [
+      'Heavy-duty traffic coatings',
+      'Waterproofing and moisture protection',
+      'Concrete repair and restoration',
+      'Line striping and safety markings',
+      'Chemical-resistant finishes',
+      'Extended structure lifespan'
+    ],
+    process: [
+      {
+        step: 1,
+        title: 'Structure Assessment',
+        description: 'Evaluate parking facility condition',
+        details: 'Our team conducts a thorough structural assessment, identifying areas of concrete damage, water infiltration, and coating failure to develop a comprehensive restoration plan.'
+      },
+      {
+        step: 2,
+        title: 'Surface Preparation & Repair',
+        description: 'Prepare and repair concrete surfaces',
+        details: 'We repair concrete cracks and spalls, clean and prepare surfaces through shot blasting or grinding, and ensure proper substrate conditions for coating application.'
+      },
+      {
+        step: 3,
+        title: 'Coating Application',
+        description: 'Apply heavy-duty protective systems',
+        details: 'We apply specialized parking garage coatings including primers, base coats, and traffic coatings designed to withstand vehicle traffic, de-icing salts, and moisture.'
+      },
+      {
+        step: 4,
+        title: 'Striping & Final Protection',
+        description: 'Complete with line striping and sealing',
+        details: 'We apply high-visibility line striping, stall markings, and signage, then seal the system to ensure long-lasting protection and safe, organized parking.'
+      }
+    ],
+    quickFacts: {
+      projectTypes: ['Underground Parkades', 'Above-Ground Structures', 'Commercial Parking', 'Residential Garages', 'Public Facilities'],
+      timeline: '3-8 weeks depending on size',
+      certifications: ['Concrete Restoration Certified', 'Coating Manufacturer Approved', 'Safety Compliance']
+    }
   }
 ];
 
@@ -323,6 +368,100 @@ export const interiorbuildoutsVariants = [
       projectTypes: ['New Construction', 'Renovations', 'Repairs', 'Ceiling Installation', 'Soundproofing'],
       timeline: '1-3 weeks for most projects',
       certifications: ['Journeyman Certified', 'Level 5 Finish Capable', 'WSIB Certified']
+    }
+  }
+];
+
+// Building Envelope Systems Variants
+export const buildingEnvelopeVariants = [
+  {
+    id: 'stucco-eifs',
+    title: 'Stucco & EIFS',
+    tagline: 'Premium Stucco & EIFS Installation',
+    description: 'Expert application of traditional stucco and modern EIFS (Exterior Insulation and Finish System). Transform your building\'s exterior with durable, attractive finishes that provide excellent insulation and weather resistance.',
+    benefits: [
+      'Superior weather resistance',
+      'Enhanced energy efficiency',
+      'Attractive, customizable finishes',
+      'Crack repair and color matching',
+      'Manufacturer-certified installation',
+      'Long-lasting durability'
+    ],
+    process: [
+      {
+        step: 1,
+        title: 'Surface Assessment & Design',
+        description: 'Evaluate and plan your exterior',
+        details: 'We assess the building substrate, evaluate moisture protection needs, and design a stucco or EIFS system that meets structural and aesthetic requirements.'
+      },
+      {
+        step: 2,
+        title: 'Substrate Preparation',
+        description: 'Prepare the building envelope',
+        details: 'We install or repair weather barriers, moisture protection layers, and ensure proper structural support for the stucco or EIFS system.'
+      },
+      {
+        step: 3,
+        title: 'Base Coat Application',
+        description: 'Apply reinforced base layers',
+        details: 'For EIFS, we install insulation boards and apply reinforced base coats. For stucco, we apply scratch and brown coats, ensuring proper cure times between applications.'
+      },
+      {
+        step: 4,
+        title: 'Finish Coat & Detailing',
+        description: 'Complete with color and texture',
+        details: 'We apply the final finish coat in your chosen color and texture, install trim and details, and ensure all joints are properly sealed for lasting protection.'
+      }
+    ],
+    quickFacts: {
+      projectTypes: ['Commercial Buildings', 'Residential Homes', 'Multi-Unit Properties', 'Heritage Restoration', 'New Construction'],
+      timeline: '4-10 weeks depending on scope',
+      certifications: ['EIFS Manufacturer Certified', 'Stucco Trade Certified', 'Building Envelope Specialist']
+    }
+  },
+  {
+    id: 'sealants',
+    title: 'Sealants & Caulking',
+    tagline: 'Professional Weatherproofing Solutions',
+    description: 'Complete caulking and sealant services including waterproofing, air sealing, joint sealing, and building envelope protection. Protect your building from water infiltration and air leakage.',
+    benefits: [
+      'Prevent water infiltration',
+      'Improve energy efficiency',
+      'Extend building lifespan',
+      'Multiple sealant types for every application',
+      'Warranty-backed installations',
+      'Expert joint design consultation'
+    ],
+    process: [
+      {
+        step: 1,
+        title: 'Joint Inspection & Analysis',
+        description: 'Assess existing sealant conditions',
+        details: 'We inspect all building joints, identify failed sealants, evaluate joint design, and determine the appropriate sealant materials for each application.'
+      },
+      {
+        step: 2,
+        title: 'Removal & Surface Prep',
+        description: 'Remove old sealant and prepare joints',
+        details: 'We carefully remove deteriorated sealant, clean joint surfaces, install backer rods where needed, and ensure proper joint dimensions for new sealant.'
+      },
+      {
+        step: 3,
+        title: 'Sealant Application',
+        description: 'Apply new weatherproofing sealants',
+        details: 'We apply high-performance sealants using professional techniques, ensuring proper adhesion, tooling, and joint fill to create lasting weatherproof seals.'
+      },
+      {
+        step: 4,
+        title: 'Quality Inspection & Testing',
+        description: 'Verify seal integrity',
+        details: 'We inspect all sealed joints for proper adhesion and finish, conduct water testing where applicable, and provide documentation of completed work.'
+      }
+    ],
+    quickFacts: {
+      projectTypes: ['Window & Door Perimeters', 'Expansion Joints', 'Building Panels', 'Roof Penetrations', 'Curtain Walls'],
+      timeline: '1-4 weeks typical',
+      certifications: ['Sealant Manufacturer Approved', 'Building Envelope Certified', 'Warranty Backed']
     }
   }
 ];

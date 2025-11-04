@@ -32,7 +32,7 @@ const categoryConfig: Record<string, CategoryConfig> = {
     slug: "painting",
     icon: "Paintbrush",
     color: "primary",
-    description: "Commercial, residential, and multi-unit painting solutions across Ontario",
+    description: "Commercial, residential, multi-unit, and parking garage coating solutions",
     image: "/src/assets/project-commercial.jpg"
   },
   "Exterior Systems": {
@@ -40,14 +40,22 @@ const categoryConfig: Record<string, CategoryConfig> = {
     slug: "exterior-cladding",
     icon: "Building2",
     color: "terracotta",
-    description: "Complete exterior cladding, siding, and building envelope solutions",
+    description: "Complete exterior cladding, siding, and metal panel solutions",
     image: "/src/assets/project-industrial.jpg"
+  },
+  "Building Envelope": {
+    name: "Building Envelope Systems",
+    slug: "building-envelope",
+    icon: "Shield",
+    color: "sage",
+    description: "Stucco, EIFS, sealants, and comprehensive weatherproofing",
+    image: "/src/assets/case-heritage-building.jpg"
   },
   "Specialty Services": {
     name: "Interior & Specialty Services",
     slug: "interior-buildouts",
     icon: "Layers",
-    color: "sage",
+    color: "accent",
     description: "Interior buildouts, drywall finishing, and specialized construction",
     image: "/src/assets/project-institutional.jpg"
   }
@@ -110,18 +118,18 @@ const ServicesPreview = () => {
             Our Services
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive construction solutions backed by decades of experience
+            Comprehensive construction solutions for every project type
           </p>
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[1, 2, 3, 4].map((i) => (
               <Card key={i} className="h-[500px] animate-pulse bg-muted" />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {Object.entries(categoryConfig).map(([categoryName, config]) => {
               const IconComponent = LucideIcons[config.icon] as React.ComponentType<{ className?: string }>;
               const featuredService = getCategoryService(categoryName);

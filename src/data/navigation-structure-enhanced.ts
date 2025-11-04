@@ -31,9 +31,9 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       categories: [
         {
           title: "Painting Services",
-          description: "Commercial, residential, and multi-unit painting solutions",
+          description: "Commercial, residential, multi-unit & parking garage solutions",
           subItems: [
-            { name: "Painting Services", link: "/services/painting", description: "All painting solutions in one place", badge: "popular" },
+            { name: "Painting Services", link: "/services/painting", description: "Complete painting & coating solutions", badge: "popular" },
           ],
         },
         {
@@ -41,9 +41,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           description: "Complete exterior cladding and building envelope solutions",
           subItems: [
             { name: "Exterior Cladding Systems", link: "/services/exterior-cladding", description: "Siding and metal cladding solutions", badge: "popular" },
-            { name: "Stucco & EIFS", link: "/services/stucco-eifs", description: "Expert stucco application and repair" },
+            { name: "Building Envelope Systems", link: "/services/building-envelope", description: "Stucco, EIFS & weatherproofing", badge: "popular" },
             { name: "Masonry", link: "/services/masonry", description: "Professional masonry services" },
-            { name: "Sealants & Caulking", link: "/services/sealants", description: "Weather-resistant sealing solutions" },
             { name: "Waterproofing", link: "/services/waterproofing", description: "Complete waterproofing solutions" },
             { name: "Roofing Services", link: "/services/roofing", description: "Professional roofing installation" },
           ],
@@ -53,7 +52,6 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           description: "Interior buildouts and specialized construction services",
           subItems: [
             { name: "Interior Buildouts & Finishing", link: "/services/interior-buildouts", description: "Complete interior construction", badge: "popular" },
-            { name: "Parking Garage Coating", link: "/services/parking-garage", description: "Complete parking structure restoration" },
             { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional flooring installation" },
             { name: "Windows & Doors", link: "/services/windows-doors", description: "Expert installation services" },
             { name: "Sustainable Building", link: "/services/sustainable-construction", description: "Eco-friendly construction" },
