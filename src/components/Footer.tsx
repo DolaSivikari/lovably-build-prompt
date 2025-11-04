@@ -50,7 +50,12 @@ const Footer = () => {
 
   const contactInfo = footerSettings?.contact_info || {};
   const socialMedia = footerSettings?.social_media || {};
-  const trustBarData = (footerSettings?.trust_bar_items as any[]) || companyCredentials.credentials;
+  const trustBarData = (footerSettings?.trust_bar_items as any[]) || [
+    { label: "$5M Liability Insurance" },
+    { label: "WSIB Compliant" },
+    { label: "Licensed & Bonded" },
+    { label: "15+ Years Experience" }
+  ];
 
   const address = siteSettings?.address || contactInfo.address || 'Greater Toronto Area, Ontario';
   const phone = siteSettings?.phone || contactInfo.phone || '(416) 555-1234';
