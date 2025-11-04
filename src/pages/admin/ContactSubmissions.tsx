@@ -24,6 +24,9 @@ import { SearchInput } from "@/components/admin/filters/SearchInput";
 import { DateRangePicker } from "@/components/admin/filters/DateRangePicker";
 import { MultiSelectFilter, FilterOption } from "@/components/admin/filters/MultiSelectFilter";
 import { useTableFilters } from "@/hooks/useTableFilters";
+import { useUrlFilters } from "@/hooks/useUrlFilters";
+import { ExportButton, ExportColumn } from "@/components/admin/ExportButton";
+import { ArrowLeft } from "lucide-react";
 
 const ContactSubmissions = () => {
   const navigate = useNavigate();
@@ -37,6 +40,7 @@ const ContactSubmissions = () => {
   
   // Advanced filters
   const { filters, updateFilter, clearFilters, hasActiveFilters, applyFilters } = useTableFilters();
+  useUrlFilters(filters, updateFilter);
 
   useEffect(() => {
     if (isAdmin) {
@@ -204,6 +208,18 @@ const ContactSubmissions = () => {
   const newCount = submissions.filter(s => s.status === "new").length;
   const quotesCount = submissions.filter(s => s.submission_type === "quote" || s.submission_type === "estimate").length;
 
+  const exportColumns: ExportColumn[] = [
+    { key: 'created_at', label: 'Date Submitted', enabled: true },
+    { key: 'name', label: 'Name', enabled: true },
+    { key: 'email', label: 'Email', enabled: true },
+    { key: 'phone', label: 'Phone', enabled: true },
+    { key: 'company', label: 'Company', enabled: true },
+    { key: 'submission_type', label: 'Type', enabled: true },
+    { key: 'message', label: 'Message', enabled: true },
+    { key: 'status', label: 'Status', enabled: true },
+    { key: 'admin_notes', label: 'Admin Notes', enabled: false },
+  ];
+
   if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -223,6 +239,11 @@ const ContactSubmissions = () => {
           <h1 className="business-page-title">Contact Submissions</h1>
           <p className="business-page-subtitle">Manage inquiries and messages</p>
         </div>
+        <ExportButton
+          data={filteredSubmissions}
+          filename={`contact-submissions-${new Date().toISOString().split('T')[0]}`}
+          columns={exportColumns}
+        />
       </div>
 
       {/* Advanced Filters */}

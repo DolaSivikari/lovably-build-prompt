@@ -4,6 +4,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useTableFilters } from "@/hooks/useTableFilters";
+import { useUrlFilters } from "@/hooks/useUrlFilters";
+import { SearchInput } from "@/components/admin/filters/SearchInput";
+import { DateRangePicker } from "@/components/admin/filters/DateRangePicker";
+import { MultiSelectFilter } from "@/components/admin/filters/MultiSelectFilter";
+import { FilterBar } from "@/components/admin/filters/FilterBar";
+import { ExportButton, ExportColumn } from "@/components/admin/ExportButton";
 import {
   Select,
   SelectContent,
@@ -46,6 +53,9 @@ const ResumeSubmissions = () => {
   const [selectedSubmission, setSelectedSubmission] = useState<ResumeSubmission | null>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
+  
+  const { filters, updateFilter, clearFilters, hasActiveFilters, applyFilters } = useTableFilters();
+  useUrlFilters(filters, updateFilter);
 
   useEffect(() => {
     checkAuth();
@@ -170,41 +180,102 @@ const ResumeSubmissions = () => {
     return status.charAt(0).toUpperCase() + status.slice(1);
   };
 
+  const filteredSubmissions = applyFilters(
+    submissions,
+    ['applicant_name', 'email', 'phone', 'cover_message'],
+    'created_at',
+    'status'
+  );
+
+  const statusOptions = [
+    { label: 'New', value: 'new', count: submissions.filter(s => s.status === 'new').length },
+    { label: 'Reviewed', value: 'reviewed', count: submissions.filter(s => s.status === 'reviewed').length },
+    { label: 'Contacted', value: 'contacted', count: submissions.filter(s => s.status === 'contacted').length },
+    { label: 'Hired', value: 'hired', count: submissions.filter(s => s.status === 'hired').length },
+    { label: 'Rejected', value: 'rejected', count: submissions.filter(s => s.status === 'rejected').length },
+  ];
+
+  const exportColumns: ExportColumn[] = [
+    { key: 'created_at', label: 'Date Applied', enabled: true },
+    { key: 'applicant_name', label: 'Name', enabled: true },
+    { key: 'email', label: 'Email', enabled: true },
+    { key: 'phone', label: 'Phone', enabled: true },
+    { key: 'cover_message', label: 'Cover Message', enabled: true },
+    { key: 'portfolio_links', label: 'Portfolio Links', enabled: true },
+    { key: 'status', label: 'Status', enabled: true },
+    { key: 'admin_notes', label: 'Admin Notes', enabled: false },
+  ];
+
   return (
     <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" onClick={() => navigate("/admin")}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
-            <div>
-              <h1 className="text-2xl font-bold">Resume Submissions</h1>
-              <p className="text-sm text-muted-foreground">
-                Manage job applications and candidate communications
-              </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" onClick={() => navigate("/admin")}>
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Dashboard
+              </Button>
+              <div>
+                <h1 className="text-2xl font-bold">Resume Submissions</h1>
+                <p className="text-sm text-muted-foreground">
+                  Manage job applications and candidate communications
+                </p>
+              </div>
             </div>
+            <ExportButton
+              data={filteredSubmissions}
+              filename={`resume-submissions-${new Date().toISOString().split('T')[0]}`}
+              columns={exportColumns}
+            />
           </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
+        {/* Filters */}
+        <FilterBar onClearAll={clearFilters} hasActiveFilters={hasActiveFilters} className="mb-6">
+          <SearchInput
+            value={filters.search}
+            onChange={(value) => updateFilter('search', value)}
+            placeholder="Search by name, email, or message..."
+            className="w-full md:w-[300px]"
+          />
+          <DateRangePicker
+            value={filters.dateRange}
+            onChange={(range) => updateFilter('dateRange', range)}
+            placeholder="Filter by date"
+          />
+          <MultiSelectFilter
+            options={statusOptions}
+            selected={filters.status}
+            onChange={(selected) => updateFilter('status', selected)}
+            label="Status"
+          />
+        </FilterBar>
+
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Submissions List */}
           <div className="lg:col-span-1 space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Applications ({submissions.length})</CardTitle>
-                <CardDescription>Click an application to view details</CardDescription>
+                <CardTitle>Applications ({filteredSubmissions.length})</CardTitle>
+                <CardDescription>
+                  {hasActiveFilters 
+                    ? `Showing ${filteredSubmissions.length} of ${submissions.length} applications` 
+                    : 'Click an application to view details'
+                  }
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2 max-h-[calc(100vh-300px)] overflow-y-auto">
                 {loading ? (
                   <p className="text-sm text-muted-foreground">Loading...</p>
-                ) : submissions.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No applications yet</p>
+                ) : filteredSubmissions.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">
+                    {hasActiveFilters ? 'No applications match your filters' : 'No applications yet'}
+                  </p>
                 ) : (
-                  submissions.map((submission) => (
+                  filteredSubmissions.map((submission) => (
                     <Card
                       key={submission.id}
                       className={`cursor-pointer hover:shadow-md transition-shadow ${

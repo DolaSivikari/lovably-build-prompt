@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTableFilters } from "@/hooks/useTableFilters";
+import { useUrlFilters } from "@/hooks/useUrlFilters";
+import { SearchInput } from "@/components/admin/filters/SearchInput";
+import { DateRangePicker } from "@/components/admin/filters/DateRangePicker";
+import { MultiSelectFilter } from "@/components/admin/filters/MultiSelectFilter";
+import { FilterBar } from "@/components/admin/filters/FilterBar";
+import { ExportButton, ExportColumn } from "@/components/admin/ExportButton";
 import { ArrowLeft, Mail, Phone, Building2, AlertCircle, CheckCircle2, Clock, Package, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -29,6 +36,9 @@ const PrequalificationSubmissions = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
+
+  const { filters, updateFilter, clearFilters, hasActiveFilters, applyFilters } = useTableFilters();
+  useUrlFilters(filters, updateFilter);
 
   useEffect(() => {
     if (isAdmin) {
@@ -145,13 +155,38 @@ const PrequalificationSubmissions = () => {
     }
   };
 
-  const filteredSubmissions = submissions.filter(sub => {
+  const tabFilteredSubmissions = submissions.filter(sub => {
     if (activeTab === "all") return true;
     if (activeTab === "new") return sub.status === "new";
     if (activeTab === "contacted") return sub.status === "contacted";
     if (activeTab === "completed") return sub.status === "completed";
     return true;
   });
+
+  const filteredSubmissions = applyFilters(
+    tabFilteredSubmissions,
+    ['company_name', 'contact_name', 'email', 'phone', 'message'],
+    'downloaded_at',
+    'status'
+  );
+
+  const statusOptions = [
+    { label: 'New', value: 'new', count: submissions.filter(s => s.status === 'new').length },
+    { label: 'Contacted', value: 'contacted', count: submissions.filter(s => s.status === 'contacted').length },
+    { label: 'Completed', value: 'completed', count: submissions.filter(s => s.status === 'completed').length },
+  ];
+
+  const exportColumns: ExportColumn[] = [
+    { key: 'downloaded_at', label: 'Date Submitted', enabled: true },
+    { key: 'company_name', label: 'Company', enabled: true },
+    { key: 'contact_name', label: 'Contact Name', enabled: true },
+    { key: 'email', label: 'Email', enabled: true },
+    { key: 'phone', label: 'Phone', enabled: true },
+    { key: 'project_type', label: 'Project Type', enabled: true },
+    { key: 'project_value_range', label: 'Project Value', enabled: true },
+    { key: 'message', label: 'Message', enabled: true },
+    { key: 'status', label: 'Status', enabled: true },
+  ];
 
   const newCount = submissions.filter(s => s.status === "new").length;
   const contactedCount = submissions.filter(s => s.status === "contacted").length;
@@ -174,17 +209,24 @@ const PrequalificationSubmissions = () => {
     <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/admin")}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
-            <div className="flex items-center gap-3">
-              <Package className="h-6 w-6 text-primary" />
-              <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Prequalification Requests
-              </h1>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/admin")}>
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Dashboard
+              </Button>
+              <div className="flex items-center gap-3">
+                <Package className="h-6 w-6 text-primary" />
+                <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  Prequalification Requests
+                </h1>
+              </div>
             </div>
+            <ExportButton
+              data={filteredSubmissions}
+              filename={`prequalification-requests-${new Date().toISOString().split('T')[0]}`}
+              columns={exportColumns}
+            />
           </div>
         </div>
       </header>
@@ -219,6 +261,27 @@ const PrequalificationSubmissions = () => {
             </CardHeader>
           </Card>
         </div>
+
+        {/* Filters */}
+        <FilterBar onClearAll={clearFilters} hasActiveFilters={hasActiveFilters} className="mb-6">
+          <SearchInput
+            value={filters.search}
+            onChange={(value) => updateFilter('search', value)}
+            placeholder="Search by company, contact, or message..."
+            className="w-full md:w-[300px]"
+          />
+          <DateRangePicker
+            value={filters.dateRange}
+            onChange={(range) => updateFilter('dateRange', range)}
+            placeholder="Filter by date"
+          />
+          <MultiSelectFilter
+            options={statusOptions}
+            selected={filters.status}
+            onChange={(selected) => updateFilter('status', selected)}
+            label="Status"
+          />
+        </FilterBar>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
           <TabsList className="grid w-full max-w-md grid-cols-4">
@@ -256,7 +319,12 @@ const PrequalificationSubmissions = () => {
               <Card>
                 <CardContent className="py-12 text-center">
                   <Package className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="text-muted-foreground">No prequalification requests in this category.</p>
+                  <p className="text-muted-foreground">
+                    {hasActiveFilters 
+                      ? 'No prequalification requests match your filters' 
+                      : 'No prequalification requests in this category'
+                    }
+                  </p>
                 </CardContent>
               </Card>
             ) : (
