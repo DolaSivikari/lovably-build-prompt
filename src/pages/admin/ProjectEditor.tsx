@@ -12,6 +12,7 @@ import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { MultiImageUpload, GalleryImage } from "@/components/admin/MultiImageUpload";
 import { ProcessStepsEditor, ProcessStep } from "@/components/admin/ProcessStepsEditor";
 import { ProjectImageManager } from "@/components/admin/ProjectImageManager";
+import { ServiceMultiSelect } from "@/components/admin/ServiceMultiSelect";
 import { generatePreviewToken } from "@/utils/routeHelpers";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { Card } from "@/components/ui/card";
@@ -62,6 +63,7 @@ const ProjectEditor = () => {
     after_images: [],
     content_blocks: [],
     project_images: [] as ProjectImage[], // New unified gallery
+    service_ids: [] as string[], // Services provided
   });
 
   // Auto-generate slug from title when title changes and slug is empty
@@ -145,6 +147,12 @@ const ProjectEditor = () => {
       .eq("project_id", id)
       .order("display_order");
 
+    // Fetch associated services
+    const { data: projectServices } = await supabase
+      .from("project_services")
+      .select("service_id")
+      .eq("project_id", id);
+
     if (data) {
       setFormData({
         slug: data.slug || "",
@@ -178,7 +186,8 @@ const ProjectEditor = () => {
           caption: img.caption,
           order: img.display_order,
           featured: img.featured
-        })) || []
+        })) || [],
+        service_ids: projectServices?.map((ps: any) => ps.service_id) || []
       });
     }
   };
@@ -200,8 +209,8 @@ const ProjectEditor = () => {
 
     const { data: { user } } = await supabase.auth.getUser();
     
-    // Remove project_images from projectData (handled separately)
-    const { project_images, ...projectData } = formData;
+    // Remove project_images and service_ids from projectData (handled separately)
+    const { project_images, service_ids, ...projectData } = formData;
     
     const finalProjectData: any = {
       ...projectData,
@@ -255,6 +264,40 @@ const ProjectEditor = () => {
           variant: "destructive",
         });
       }
+    }
+
+    // Save project-service relationships
+    if (formData.service_ids.length > 0) {
+      // Delete existing relationships
+      await supabase
+        .from("project_services")
+        .delete()
+        .eq("project_id", projectId);
+
+      // Insert new relationships
+      const serviceLinks = formData.service_ids.map(serviceId => ({
+        project_id: projectId,
+        service_id: serviceId
+      }));
+
+      const { error: servicesError } = await supabase
+        .from("project_services")
+        .insert(serviceLinks);
+
+      if (servicesError) {
+        console.error("Error saving services:", servicesError);
+        toast({
+          title: "Warning",
+          description: "Project saved but some services failed to link",
+          variant: "destructive",
+        });
+      }
+    } else {
+      // If no services selected, remove all existing relationships
+      await supabase
+        .from("project_services")
+        .delete()
+        .eq("project_id", projectId);
     }
 
     if (error) {
@@ -485,6 +528,7 @@ const ProjectEditor = () => {
                   <SelectItem value="Residential">Residential</SelectItem>
                 </SelectContent>
               </Select>
+              <p className="text-xs text-muted-foreground">Project sector/market</p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="project_size">Project Size</Label>
@@ -505,6 +549,17 @@ const ProjectEditor = () => {
               />
             </div>
           </div>
+
+          {/* Service Type Selection */}
+          <Card className="p-6 bg-card">
+            <ServiceMultiSelect
+              selectedServiceIds={formData.service_ids}
+              onChange={(ids) => setFormData({ ...formData, service_ids: ids })}
+            />
+            <p className="text-xs text-muted-foreground mt-2">
+              Select all services that were provided for this project (e.g., Stucco, Painting, Metal Cladding, etc.)
+            </p>
+          </Card>
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="space-y-2">

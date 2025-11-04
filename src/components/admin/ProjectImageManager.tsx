@@ -172,7 +172,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   return (
     <div className="space-y-6">
       {/* Header with Stats */}
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 p-6 rounded-xl border border-border">
+      <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold">📸 Project Gallery Manager</h2>
           <div className="flex gap-2">
@@ -401,7 +401,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
       )}
 
       {/* Summary Stats */}
-      <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-4 rounded-lg border border-border">
+      <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
             <p className="text-2xl font-bold text-blue-600">
