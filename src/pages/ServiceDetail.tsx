@@ -20,6 +20,8 @@ import { servicePeopleAlsoAsk } from "@/data/service-people-ask";
 import { serviceAreaCities } from "@/data/service-area-cities";
 import { createServiceSchema, createHowToSchema } from "@/utils/schema-injector";
 import { breadcrumbSchema } from "@/utils/structured-data";
+import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
+import { priorityServicesData } from "@/data/priority-services-data";
 
 interface ProcessStep {
   step_number: number;
@@ -105,8 +107,23 @@ const ServiceDetail = () => {
     return <Navigate to="/404" replace />;
   }
 
-  // Generate slug-safe key for data lookups
+  // Check if this service has new template data
   const serviceKey = service.slug || "";
+  const hasNewTemplate = serviceKey in priorityServicesData;
+
+  // If new template exists, use it
+  if (hasNewTemplate) {
+    const templateData = priorityServicesData[serviceKey];
+    return (
+      <>
+        <Navigation />
+        <ServicePageTemplate service={templateData} />
+        <Footer />
+      </>
+    );
+  }
+
+  // Otherwise, use legacy layout
   const quickFacts = serviceQuickFacts[serviceKey] || [];
   const peopleAsk = servicePeopleAlsoAsk[serviceKey] || [];
 
