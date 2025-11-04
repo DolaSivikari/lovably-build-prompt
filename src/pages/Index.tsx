@@ -11,7 +11,6 @@ import ClientSelector from "@/components/homepage/ClientSelector";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
-import ClientLogoBar from "@/components/homepage/ClientLogoBar";
 
 import DirectAnswer from "@/components/seo/DirectAnswer";
 import SkipLink from "@/components/SkipLink";
@@ -118,9 +117,6 @@ const Index = () => {
         
         {/* Direct Answer for AEO/GEO */}
         <DirectAnswer />
-        
-        {/* PHASE 1: Client Logo Bar */}
-        <ClientLogoBar />
         
         <div className="py-24">
           <CompanyOverviewHub />

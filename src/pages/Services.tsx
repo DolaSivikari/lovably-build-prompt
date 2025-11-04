@@ -4,7 +4,6 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
-import StarterPackages from "@/components/StarterPackages";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
@@ -435,9 +434,6 @@ const Services = () => {
             </div>
           </div>
         </section>
-
-        {/* Starter Packages */}
-        <StarterPackages />
 
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
