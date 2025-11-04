@@ -1464,6 +1464,533 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 /* ============================================================================
+   BADGE & STATUS INDICATOR STYLING
+   ============================================================================ */
+
+/* Base badge styling */
+.admin-dark-theme [class*="badge"],
+.admin-dark-theme [class*="Badge"],
+.admin-dark-theme .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;       /* 12px */
+  font-weight: 600;         /* Semi-bold */
+  line-height: 1;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+/* Status badge variants with semantic colors */
+.admin-dark-theme .badge-success,
+.admin-dark-theme [data-status="approved"],
+.admin-dark-theme [data-status="completed"],
+.admin-dark-theme [data-status="active"],
+.admin-dark-theme [data-status="paid"] {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.admin-dark-theme .badge-warning,
+.admin-dark-theme [data-status="pending"],
+.admin-dark-theme [data-status="in_progress"],
+.admin-dark-theme [data-status="draft"] {
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c !important;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.admin-dark-theme .badge-danger,
+.admin-dark-theme [data-status="rejected"],
+.admin-dark-theme [data-status="failed"],
+.admin-dark-theme [data-status="overdue"],
+.admin-dark-theme [data-status="cancelled"] {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.admin-dark-theme .badge-info,
+.admin-dark-theme [data-status="new"],
+.admin-dark-theme [data-status="unread"] {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa !important;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.admin-dark-theme .badge-neutral,
+.admin-dark-theme [data-status="archived"],
+.admin-dark-theme [data-status="inactive"] {
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Badge with icon */
+.admin-dark-theme .badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Badge sizes */
+.admin-dark-theme .badge-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.6875rem;     /* 11px */
+}
+
+.admin-dark-theme .badge-lg {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;      /* 14px */
+}
+
+/* Dot indicator variant */
+.admin-dark-theme .badge-dot::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+  margin-right: 0.375rem;
+}
+
+/* Pulse animation for live indicators */
+.admin-dark-theme .badge-pulse::before {
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Outlined badge variant */
+.admin-dark-theme .badge-outline {
+  background: transparent;
+  border-width: 1.5px;
+}
+
+/* ============================================================================
+   FORM FIELD STYLING - CONSISTENT INPUTS & VALIDATION
+   ============================================================================ */
+
+/* Form group container */
+.admin-dark-theme .form-group,
+.admin-dark-theme .space-y-2 > div {
+  margin-bottom: 1.25rem;
+}
+
+/* Form labels */
+.admin-dark-theme label,
+.admin-dark-theme .form-label {
+  display: block;
+  font-size: 0.875rem;      /* 14px */
+  font-weight: 500;         /* Medium */
+  color: white !important;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+/* Required field indicator */
+.admin-dark-theme label.required::after,
+.admin-dark-theme .form-label.required::after {
+  content: '*';
+  color: #f87171;
+  margin-left: 0.25rem;
+  font-weight: 700;
+}
+
+/* Input fields */
+.admin-dark-theme input[type="text"],
+.admin-dark-theme input[type="email"],
+.admin-dark-theme input[type="tel"],
+.admin-dark-theme input[type="number"],
+.admin-dark-theme input[type="password"],
+.admin-dark-theme input[type="url"],
+.admin-dark-theme input[type="search"],
+.admin-dark-theme input[type="date"],
+.admin-dark-theme input[type="datetime-local"],
+.admin-dark-theme textarea,
+.admin-dark-theme select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 0.875rem;
+  background: var(--business-bg-dark) !important;
+  border: 1.5px solid var(--business-border) !important;
+  border-radius: 8px;
+  color: white !important;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: all 0.15s ease;
+}
+
+/* Textarea specific */
+.admin-dark-theme textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Input focus state */
+.admin-dark-theme input:focus,
+.admin-dark-theme textarea:focus,
+.admin-dark-theme select:focus {
+  outline: none;
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+  background: var(--business-bg-card) !important;
+}
+
+/* Placeholder styling */
+.admin-dark-theme input::placeholder,
+.admin-dark-theme textarea::placeholder {
+  color: var(--business-text-muted) !important;
+  opacity: 0.6;
+}
+
+/* Disabled state */
+.admin-dark-theme input:disabled,
+.admin-dark-theme textarea:disabled,
+.admin-dark-theme select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(15, 23, 42, 0.5) !important;
+}
+
+/* Error state */
+.admin-dark-theme input.error,
+.admin-dark-theme textarea.error,
+.admin-dark-theme select.error,
+.admin-dark-theme input[aria-invalid="true"],
+.admin-dark-theme textarea[aria-invalid="true"],
+.admin-dark-theme select[aria-invalid="true"] {
+  border-color: #f87171 !important;
+  background: rgba(239, 68, 68, 0.05) !important;
+}
+
+.admin-dark-theme input.error:focus,
+.admin-dark-theme textarea.error:focus,
+.admin-dark-theme select.error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+/* Success state */
+.admin-dark-theme input.success,
+.admin-dark-theme textarea.success,
+.admin-dark-theme select.success {
+  border-color: #34d399 !important;
+  background: rgba(16, 185, 129, 0.05) !important;
+}
+
+.admin-dark-theme input.success:focus,
+.admin-dark-theme textarea.success:focus,
+.admin-dark-theme select.success:focus {
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Helper text */
+.admin-dark-theme .form-helper,
+.admin-dark-theme .form-description {
+  display: block;
+  font-size: 0.8125rem;     /* 13px */
+  color: var(--business-text-muted) !important;
+  margin-top: 0.375rem;
+  line-height: 1.5;
+}
+
+/* Error message */
+.admin-dark-theme .form-error,
+.admin-dark-theme .error-message,
+.admin-dark-theme [role="alert"] {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;     /* 13px */
+  color: #f87171 !important;
+  margin-top: 0.375rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.admin-dark-theme .form-error svg,
+.admin-dark-theme .error-message svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Success message */
+.admin-dark-theme .form-success {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: #34d399 !important;
+  margin-top: 0.375rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Input with icon */
+.admin-dark-theme .input-with-icon {
+  position: relative;
+}
+
+.admin-dark-theme .input-with-icon input {
+  padding-left: 2.5rem;
+}
+
+.admin-dark-theme .input-icon {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--business-text-muted);
+  pointer-events: none;
+}
+
+.admin-dark-theme .input-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Checkbox and radio styling */
+.admin-dark-theme input[type="checkbox"],
+.admin-dark-theme input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  border: 1.5px solid var(--business-border);
+  background: var(--business-bg-dark);
+  cursor: pointer;
+  accent-color: #60a5fa;
+}
+
+.admin-dark-theme input[type="checkbox"]:checked,
+.admin-dark-theme input[type="radio"]:checked {
+  background: #60a5fa;
+  border-color: #60a5fa;
+}
+
+/* Form section headers */
+.admin-dark-theme .form-section-header {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white !important;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--business-border);
+}
+
+/* Form grid layout */
+.admin-dark-theme .form-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.admin-dark-theme .form-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* ============================================================================
+   MODAL/DIALOG STYLING - CONSISTENT POPUPS
+   ============================================================================ */
+
+/* Dialog backdrop */
+.admin-dark-theme [data-radix-dialog-overlay],
+.admin-dark-theme .dialog-overlay,
+.admin-dark-theme [role="dialog"] + div {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 9998;
+  animation: dialog-backdrop-in 0.2s ease;
+}
+
+@keyframes dialog-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Dialog content */
+.admin-dark-theme [data-radix-dialog-content],
+.admin-dark-theme .dialog-content,
+.admin-dark-theme [role="dialog"] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  background: var(--business-bg-card) !important;
+  border: 1px solid var(--business-border);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  overflow: hidden;
+  animation: dialog-content-in 0.25s ease;
+}
+
+@keyframes dialog-content-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Dialog close animation */
+.admin-dark-theme [data-state="closed"] {
+  animation: dialog-content-out 0.2s ease;
+}
+
+@keyframes dialog-content-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+}
+
+/* Dialog header */
+.admin-dark-theme .dialog-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--business-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-dark-theme .dialog-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white !important;
+  margin: 0;
+}
+
+.admin-dark-theme .dialog-description {
+  font-size: 0.875rem;
+  color: var(--business-text-secondary) !important;
+  margin-top: 0.375rem;
+}
+
+/* Dialog body */
+.admin-dark-theme .dialog-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(90vh - 180px);
+}
+
+/* Dialog footer */
+.admin-dark-theme .dialog-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--business-border);
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  background: var(--business-bg-dark);
+}
+
+/* Dialog close button */
+.admin-dark-theme .dialog-close,
+.admin-dark-theme [data-radix-dialog-close] {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--business-border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--business-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.admin-dark-theme .dialog-close:hover {
+  background: var(--business-bg-hover);
+  color: white !important;
+  border-color: #475569;
+}
+
+/* Large dialog variant */
+.admin-dark-theme .dialog-lg {
+  max-width: 720px;
+}
+
+/* Full screen dialog variant */
+.admin-dark-theme .dialog-fullscreen {
+  width: 95%;
+  max-width: 1200px;
+  height: 95vh;
+  max-height: 95vh;
+}
+
+.admin-dark-theme .dialog-fullscreen .dialog-body {
+  max-height: calc(95vh - 180px);
+}
+
+/* Alert dialog variant (destructive actions) */
+.admin-dark-theme .alert-dialog-content {
+  max-width: 420px;
+}
+
+.admin-dark-theme .alert-dialog-header {
+  padding: 1.25rem 1.5rem;
+}
+
+.admin-dark-theme .alert-dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #f87171 !important;
+}
+
+.admin-dark-theme .alert-dialog-title svg {
+  width: 24px;
+  height: 24px;
+  color: #f87171;
+}
+
+/* Responsive dialog sizing */
+@media (max-width: 640px) {
+  .admin-dark-theme [data-radix-dialog-content],
+  .admin-dark-theme .dialog-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .admin-dark-theme .dialog-header,
+  .admin-dark-theme .dialog-body,
+  .admin-dark-theme .dialog-footer {
+    padding: 1.25rem;
+  }
+
+  .admin-dark-theme .dialog-footer {
+    flex-direction: column;
+  }
+
+  .admin-dark-theme .dialog-footer button {
+    width: 100%;
+  }
+}
+
+/* ============================================================================
    UNIVERSAL WHITE TEXT OVERRIDE - COMPREHENSIVE
    ============================================================================ */
 
