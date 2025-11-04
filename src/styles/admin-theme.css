@@ -35,6 +35,7 @@
   min-height: 100vh;
   background: var(--business-bg-darker);
   position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* Animated Background */
@@ -675,6 +676,49 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 /* ============================================================================
+   UNIVERSAL INTER FONT ENFORCEMENT
+   ============================================================================ */
+
+/* Force Inter font on ALL admin elements */
+.admin-dark-theme,
+.admin-dark-theme * {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Explicit overrides for all text-bearing HTML elements */
+.admin-dark-theme h1,
+.admin-dark-theme h2,
+.admin-dark-theme h3,
+.admin-dark-theme h4,
+.admin-dark-theme h5,
+.admin-dark-theme h6,
+.admin-dark-theme p,
+.admin-dark-theme span,
+.admin-dark-theme div,
+.admin-dark-theme label,
+.admin-dark-theme button,
+.admin-dark-theme input,
+.admin-dark-theme textarea,
+.admin-dark-theme select,
+.admin-dark-theme option,
+.admin-dark-theme a,
+.admin-dark-theme li,
+.admin-dark-theme td,
+.admin-dark-theme th,
+.admin-dark-theme strong,
+.admin-dark-theme em,
+.admin-dark-theme code,
+.admin-dark-theme pre {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Override any Tailwind font utilities that might be applied */
+.admin-dark-theme .font-playfair,
+.admin-dark-theme [class*="font-"] {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* ============================================================================
    UNIVERSAL WHITE TEXT OVERRIDE - COMPREHENSIVE
    ============================================================================ */
 
@@ -842,6 +886,7 @@ body:has(.business-sidebar.mobile-open) {
 
 /* Admin portal: body-level variables for portals */
 body.admin-dark-portal {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   --background: 222 47% 11%;        /* slate-900 */
   --foreground: 0 0% 100%;          /* PURE WHITE */
   --card: 217 33% 17%;              /* slate-800 */
@@ -853,6 +898,12 @@ body.admin-dark-portal {
   --muted-foreground: 0 0% 100%;    /* PURE WHITE */
   --border: 215 25% 27%;            /* slate-700 */
   --ring: 217 91% 60%;              /* blue-400 */
+}
+
+/* Force Inter font on portal elements */
+body.admin-dark-portal,
+body.admin-dark-portal * {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
 }
 
 /* Portals: dropdowns/menus/popovers should be opaque and on top */
@@ -880,4 +931,5 @@ body.admin-dark-portal .radix-dropdown-menu-content * {
 /* Portal universal white text override */
 body.admin-dark-portal *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
   color: white !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
 }
