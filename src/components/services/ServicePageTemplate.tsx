@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Check, Phone, Mail, MapPin, Clock, Award, 
@@ -6,6 +6,12 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import QuickFacts from '@/components/seo/QuickFacts';
+import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
+import SEO from '@/components/SEO';
+import { createServiceSchema } from '@/utils/schema-injector';
+import { breadcrumbSchema } from '@/utils/structured-data';
 
 interface ServiceBenefit {
   icon: React.ComponentType<{ className?: string }>;
@@ -54,14 +60,65 @@ export interface ServicePageTemplateProps {
     quickFacts: QuickFacts;
     relatedServices: RelatedService[];
     testimonial?: Testimonial;
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: string[];
+    peopleAlsoAsk?: Array<{ question: string; answer: string }>;
   };
 }
 
 export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
+  const [showMobileCTA, setShowMobileCTA] = useState(false);
+  
+  // Refs for intersection observer
+  const heroRef = useRef<HTMLElement>(null);
+  const benefitsRef = useRef<HTMLElement>(null);
+  const processRef = useRef<HTMLElement>(null);
+  
+  // Intersection observer for scroll animations
+  const heroInView = useIntersectionObserver(heroRef, { threshold: 0.1 });
+  const benefitsInView = useIntersectionObserver(benefitsRef, { threshold: 0.1 });
+  const processInView = useIntersectionObserver(processRef, { threshold: 0.1 });
+
+  // Mobile CTA visibility on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowMobileCTA(window.scrollY > 500);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Structured data for SEO
+  const serviceSchema = createServiceSchema({
+    serviceType: service.name,
+    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham"],
+    priceRange: "$$-$$$",
+    subServices: service.quickFacts.projectTypes
+  });
+
+  const breadcrumbSchemaData = breadcrumbSchema([
+    { name: "Home", url: "https://ascentgroupconstruction.com/" },
+    { name: "Services", url: "https://ascentgroupconstruction.com/services" },
+    { name: service.name, url: `https://ascentgroupconstruction.com/services/${service.slug}` }
+  ]);
+
+  // Quick Facts data for SEO component
+  const quickFactsData = [
+    { label: "Timeline", value: service.quickFacts.timeline },
+    { label: "Service Area", value: service.quickFacts.serviceArea },
+    { label: "Project Types", value: service.quickFacts.projectTypes[0] + " and more" },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={service.seoTitle || service.name}
+        description={service.seoDescription || service.tagline}
+        keywords={service.seoKeywords?.join(", ") || ""}
+        structuredData={[serviceSchema, breadcrumbSchemaData]}
+      />
       {/* Breadcrumb */}
       <div className="bg-card border-b">
         <div className="container mx-auto px-4 py-4">
@@ -76,7 +133,10 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
+      <section 
+        ref={heroRef as React.RefObject<HTMLElement>}
+        className="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden"
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/80 z-10" />
         {service.heroImage && (
           <img 
@@ -86,7 +146,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
           />
         )}
         <div className="relative z-20 container mx-auto px-4 text-primary-foreground">
-          <div className="max-w-3xl animate-fade-in">
+          <div className={`max-w-3xl transition-all duration-700 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="inline-block px-4 py-2 bg-background/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4">
               {service.category}
             </div>
@@ -99,7 +159,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
             <Button 
               size="lg"
               variant="secondary"
-              className="group"
+              className="group hover:scale-105 transition-transform"
               asChild
             >
               <Link to="/contact">
@@ -198,9 +258,12 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
       </section>
 
       {/* Benefits Section */}
-      <section className="bg-muted/30 py-12 md:py-16">
+      <section 
+        ref={benefitsRef as React.RefObject<HTMLElement>}
+        className="bg-muted/30 py-12 md:py-16"
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 transition-all duration-700 ${benefitsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Why Choose Our {service.name} Services
             </h2>
@@ -215,10 +278,15 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               return (
                 <Card
                   key={index}
-                  className="group hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                  className={`group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 ${
+                    benefitsInView 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ transitionDelay: benefitsInView ? `${index * 100}ms` : '0ms' }}
                 >
                   <CardContent className="p-6 md:p-8">
-                    <IconComponent className="w-12 h-12 md:w-14 md:h-14 text-primary mb-4" />
+                    <IconComponent className="w-12 h-12 md:w-14 md:h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <h3 className="text-lg md:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                       {benefit.title}
                     </h3>
@@ -232,9 +300,12 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
       </section>
 
       {/* Process Section */}
-      <section className="py-12 md:py-16">
+      <section 
+        ref={processRef as React.RefObject<HTMLElement>}
+        className="py-12 md:py-16"
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 transition-all duration-700 ${processInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Our Process
             </h2>
@@ -253,10 +324,12 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                   onClick={() => setExpandedStep(
                     expandedStep === step.step ? null : step.step
                   )}
-                  className="w-full p-4 md:p-6 flex items-center justify-between hover:bg-muted/50 transition-colors text-left"
+                  className="w-full p-4 md:p-6 flex items-center justify-between hover:bg-muted/50 transition-all duration-300 text-left group"
+                  aria-expanded={expandedStep === step.step}
+                  aria-controls={`step-${step.step}-content`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-base md:text-lg flex-shrink-0">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-base md:text-lg flex-shrink-0 group-hover:scale-110 transition-transform">
                       {step.step}
                     </div>
                     <div>
@@ -273,7 +346,10 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                   />
                 </button>
                 {expandedStep === step.step && (
-                  <div className="px-4 md:px-6 pb-4 md:pb-6 animate-fade-in">
+                  <div 
+                    id={`step-${step.step}-content`}
+                    className="px-4 md:px-6 pb-4 md:pb-6 animate-fade-in"
+                  >
                     <div className="ml-0 md:ml-16 p-4 md:p-6 bg-muted/50 rounded-lg">
                       <p className="text-sm md:text-base text-muted-foreground">{step.details}</p>
                     </div>
@@ -352,6 +428,28 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </section>
       )}
 
+      {/* SEO Components */}
+      {quickFactsData.length > 0 && (
+        <section className="py-12 bg-muted/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <QuickFacts title={`${service.name} Quick Facts`} facts={quickFactsData} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* People Also Ask */}
+      {service.peopleAlsoAsk && service.peopleAlsoAsk.length > 0 && (
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <PeopleAlsoAsk questions={service.peopleAlsoAsk} />
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Final CTA */}
       <section className="py-12 md:py-16 bg-card">
         <div className="container mx-auto px-4">
@@ -363,18 +461,18 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               Contact us today for a free consultation and project quote
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
+              <Button size="lg" className="hover:scale-105 transition-transform" asChild>
                 <Link to="/contact">
                   Request Free Quote
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="hover:scale-105 transition-transform" asChild>
                 <a href="tel:+16471234567">
                   <Phone className="w-5 h-5 mr-2" />
                   Call Now
                 </a>
               </Button>
-              <Button size="lg" variant="secondary" asChild>
+              <Button size="lg" variant="secondary" className="hover:scale-105 transition-transform" asChild>
                 <Link to="/projects">
                   View Projects
                 </Link>
@@ -383,6 +481,38 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
           </div>
         </div>
       </section>
+
+      {/* Mobile Sticky CTA */}
+      <div 
+        className={`fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-2xl transition-transform duration-300 md:hidden ${
+          showMobileCTA ? 'translate-y-0' : 'translate-y-full'
+        }`}
+      >
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex gap-2">
+            <Button 
+              size="lg" 
+              className="flex-1 min-h-[48px] text-base font-semibold"
+              asChild
+            >
+              <Link to="/contact">
+                Get Quote
+              </Link>
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="flex-1 min-h-[48px] text-base font-semibold"
+              asChild
+            >
+              <a href="tel:+16471234567">
+                <Phone className="w-5 h-5 mr-2" />
+                Call
+              </a>
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
