@@ -12,9 +12,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Mail, Phone, ExternalLink, Calendar, User } from "lucide-react";
+import { ArrowLeft, Mail, Phone, ExternalLink, Calendar, User, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface ResumeSubmission {
   id: string;
@@ -34,6 +44,8 @@ const ResumeSubmissions = () => {
   const [submissions, setSubmissions] = useState<ResumeSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSubmission, setSelectedSubmission] = useState<ResumeSubmission | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     checkAuth();
@@ -109,6 +121,40 @@ const ResumeSubmissions = () => {
     }
   };
 
+  const handleDeleteClick = (id: string) => {
+    setSubmissionToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const deleteSubmission = async () => {
+    if (!submissionToDelete) return;
+
+    const { error } = await supabase
+      .from("resume_submissions")
+      .delete()
+      .eq("id", submissionToDelete);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete submission",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Deleted",
+        description: "Resume submission deleted successfully",
+      });
+      if (selectedSubmission?.id === submissionToDelete) {
+        setSelectedSubmission(null);
+      }
+      loadSubmissions();
+    }
+    
+    setDeleteDialogOpen(false);
+    setSubmissionToDelete(null);
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "new": return "bg-blue-500";
@@ -172,9 +218,22 @@ const ResumeSubmissions = () => {
                             <p className="font-semibold truncate">{submission.applicant_name}</p>
                             <p className="text-xs text-muted-foreground truncate">{submission.email}</p>
                           </div>
-                          <Badge className={`${getStatusColor(submission.status)} text-white text-xs`}>
-                            {getStatusLabel(submission.status)}
-                          </Badge>
+                          <div className="flex items-center gap-2">
+                            <Badge className={`${getStatusColor(submission.status)} text-white text-xs`}>
+                              {getStatusLabel(submission.status)}
+                            </Badge>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="h-6 w-6 p-0 hover:bg-destructive hover:text-destructive-foreground"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteClick(submission.id);
+                              }}
+                            >
+                              <Trash2 className="h-3 w-3" />
+                            </Button>
+                          </div>
                         </div>
                         <div className="flex items-center gap-1 text-xs text-muted-foreground">
                           <Calendar className="h-3 w-3" />
@@ -306,6 +365,23 @@ const ResumeSubmissions = () => {
           </div>
         </div>
       </main>
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Resume Submission</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this resume submission? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={deleteSubmission} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

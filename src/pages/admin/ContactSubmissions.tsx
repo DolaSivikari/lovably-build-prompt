@@ -5,10 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Mail, Phone, Building2, AlertCircle, CheckCircle2, Clock } from "lucide-react";
+import { Mail, Phone, Building2, AlertCircle, CheckCircle2, Clock, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const ContactSubmissions = () => {
   const navigate = useNavigate();
@@ -17,6 +27,8 @@ const ContactSubmissions = () => {
   const [submissions, setSubmissions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("all");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAdmin) {
@@ -81,6 +93,37 @@ const ContactSubmissions = () => {
       });
       loadSubmissions();
     }
+  };
+
+  const handleDeleteClick = (id: string) => {
+    setSubmissionToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const deleteSubmission = async () => {
+    if (!submissionToDelete) return;
+
+    const { error } = await supabase
+      .from("contact_submissions")
+      .delete()
+      .eq("id", submissionToDelete);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete submission",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Deleted",
+        description: "Submission deleted successfully",
+      });
+      loadSubmissions();
+    }
+    
+    setDeleteDialogOpen(false);
+    setSubmissionToDelete(null);
   };
 
   const getStatusColor = (status: string) => {
@@ -238,36 +281,45 @@ const ContactSubmissions = () => {
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <p className="text-sm whitespace-pre-wrap">{submission.message}</p>
                     </div>
-                    <div className="flex gap-2">
-                      {submission.status === 'new' && (
-                        <Button
-                          size="sm"
-                          className="business-btn-primary"
-                          onClick={() => updateStatus(submission.id, "contacted")}
-                        >
-                          <Mail className="h-4 w-4 mr-2" />
-                          Mark Contacted
-                        </Button>
-                      )}
-                      {submission.status === 'contacted' && (
-                        <Button
-                          size="sm"
-                          className="business-btn-success"
-                          onClick={() => updateStatus(submission.id, "resolved")}
-                        >
-                          <CheckCircle2 className="h-4 w-4 mr-2" />
-                          Mark Resolved
-                        </Button>
-                      )}
-                      {submission.status === 'resolved' && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => updateStatus(submission.id, "new")}
-                        >
-                          Reopen
-                        </Button>
-                      )}
+                    <div className="flex gap-2 justify-between">
+                      <div className="flex gap-2">
+                        {submission.status === 'new' && (
+                          <Button
+                            size="sm"
+                            className="business-btn-primary"
+                            onClick={() => updateStatus(submission.id, "contacted")}
+                          >
+                            <Mail className="h-4 w-4 mr-2" />
+                            Mark Contacted
+                          </Button>
+                        )}
+                        {submission.status === 'contacted' && (
+                          <Button
+                            size="sm"
+                            className="business-btn-success"
+                            onClick={() => updateStatus(submission.id, "resolved")}
+                          >
+                            <CheckCircle2 className="h-4 w-4 mr-2" />
+                            Mark Resolved
+                          </Button>
+                        )}
+                        {submission.status === 'resolved' && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => updateStatus(submission.id, "new")}
+                          >
+                            Reopen
+                          </Button>
+                        )}
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => handleDeleteClick(submission.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -276,6 +328,23 @@ const ContactSubmissions = () => {
           )}
         </TabsContent>
       </Tabs>
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Submission</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this submission? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={deleteSubmission} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
