@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { FilterBar } from "@/components/admin/filters/FilterBar";
+import { SearchInput } from "@/components/admin/filters/SearchInput";
+import { DateRangePicker } from "@/components/admin/filters/DateRangePicker";
+import { MultiSelectFilter, FilterOption } from "@/components/admin/filters/MultiSelectFilter";
+import { useTableFilters } from "@/hooks/useTableFilters";
 
 const ContactSubmissions = () => {
   const navigate = useNavigate();
@@ -29,6 +34,9 @@ const ContactSubmissions = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
+  
+  // Advanced filters
+  const { filters, updateFilter, clearFilters, hasActiveFilters, applyFilters } = useTableFilters();
 
   useEffect(() => {
     if (isAdmin) {
@@ -154,13 +162,44 @@ const ContactSubmissions = () => {
     }
   };
 
-  const filteredSubmissions = submissions.filter(sub => {
-    if (activeTab === "all") return true;
-    if (activeTab === "new") return sub.status === "new";
-    if (activeTab === "quotes") return sub.submission_type === "quote" || sub.submission_type === "estimate";
-    if (activeTab === "contact") return sub.submission_type === "contact" || sub.submission_type === "general";
-    return true;
-  });
+  // Filter options
+  const statusOptions: FilterOption[] = useMemo(() => [
+    { label: "New", value: "new", count: submissions.filter(s => s.status === "new").length },
+    { label: "Contacted", value: "contacted", count: submissions.filter(s => s.status === "contacted").length },
+    { label: "Resolved", value: "resolved", count: submissions.filter(s => s.status === "resolved").length },
+  ], [submissions]);
+
+  const typeOptions: FilterOption[] = useMemo(() => [
+    { label: "Quote Request", value: "quote", count: submissions.filter(s => s.submission_type === "quote").length },
+    { label: "Estimate Request", value: "estimate", count: submissions.filter(s => s.submission_type === "estimate").length },
+    { label: "Starter Package", value: "starter_package", count: submissions.filter(s => s.submission_type === "starter_package").length },
+    { label: "General Contact", value: "contact", count: submissions.filter(s => s.submission_type === "contact" || s.submission_type === "general").length },
+  ], [submissions]);
+
+  // Apply filters
+  const filteredSubmissions = useMemo(() => {
+    let result = submissions;
+
+    // Apply tab filter first
+    if (activeTab === "new") result = result.filter(sub => sub.status === "new");
+    else if (activeTab === "quotes") result = result.filter(sub => sub.submission_type === "quote" || sub.submission_type === "estimate");
+    else if (activeTab === "contact") result = result.filter(sub => sub.submission_type === "contact" || sub.submission_type === "general");
+
+    // Apply advanced filters
+    result = applyFilters(
+      result,
+      ["name", "email", "company", "message"] as any,
+      "created_at",
+      "status"
+    );
+
+    // Apply submission type filter (custom)
+    if (filters.customFilters.type && filters.customFilters.type.length > 0) {
+      result = result.filter(sub => filters.customFilters.type.includes(sub.submission_type));
+    }
+
+    return result;
+  }, [submissions, activeTab, filters, applyFilters]);
 
   const newCount = submissions.filter(s => s.status === "new").length;
   const quotesCount = submissions.filter(s => s.submission_type === "quote" || s.submission_type === "estimate").length;
@@ -185,6 +224,40 @@ const ContactSubmissions = () => {
           <p className="business-page-subtitle">Manage inquiries and messages</p>
         </div>
       </div>
+
+      {/* Advanced Filters */}
+      <FilterBar 
+        onClearAll={clearFilters} 
+        hasActiveFilters={hasActiveFilters}
+        className="mb-6"
+      >
+        <SearchInput
+          value={filters.search}
+          onChange={(value) => updateFilter("search", value)}
+          placeholder="Search by name, email, company, or message..."
+          className="min-w-[320px]"
+        />
+        
+        <DateRangePicker
+          value={filters.dateRange}
+          onChange={(range) => updateFilter("dateRange", range)}
+          placeholder="Filter by date"
+        />
+        
+        <MultiSelectFilter
+          options={statusOptions}
+          selected={filters.status}
+          onChange={(selected) => updateFilter("status", selected)}
+          label="Status"
+        />
+
+        <MultiSelectFilter
+          options={typeOptions}
+          selected={filters.customFilters.type || []}
+          onChange={(selected) => updateFilter("customFilters", { ...filters.customFilters, type: selected })}
+          label="Submission Type"
+        />
+      </FilterBar>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
         <TabsList className="grid w-full max-w-md grid-cols-4">
