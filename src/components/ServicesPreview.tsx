@@ -29,26 +29,26 @@ interface CategoryConfig {
 const categoryConfig: Record<string, CategoryConfig> = {
   "Painting Services": {
     name: "Painting Services",
-    slug: "painting-services",
+    slug: "painting",
     icon: "Paintbrush",
     color: "primary",
-    description: "Professional interior and exterior painting for all property types",
+    description: "Commercial, residential, and multi-unit painting solutions across Ontario",
     image: "/src/assets/project-commercial.jpg"
   },
   "Exterior Systems": {
-    name: "Exterior Systems",
-    slug: "exterior-systems",
+    name: "Exterior Cladding & Systems",
+    slug: "exterior-cladding",
     icon: "Building2",
     color: "terracotta",
-    description: "Comprehensive building envelope solutions and restoration",
+    description: "Complete exterior cladding, siding, and building envelope solutions",
     image: "/src/assets/project-industrial.jpg"
   },
   "Specialty Services": {
-    name: "Specialty Services",
-    slug: "specialty-services",
+    name: "Interior & Specialty Services",
+    slug: "interior-buildouts",
     icon: "Layers",
     color: "sage",
-    description: "Specialized construction and restoration services",
+    description: "Interior buildouts, drywall finishing, and specialized construction",
     image: "/src/assets/project-institutional.jpg"
   }
 };
@@ -90,9 +90,11 @@ const ServicesPreview = () => {
       return acc;
     }, {} as Record<string, Service[]>);
 
-  // Get top 4 services for each category
-  const getCategoryServices = (category: string) => {
-    return (groupedServices[category] || []).slice(0, 4);
+  // Get featured service or top service for each category
+  const getCategoryService = (category: string) => {
+    const categoryServices = groupedServices[category] || [];
+    // Return the featured service if it exists, otherwise return first service
+    return categoryServices.find(s => s.slug === categoryConfig[category]?.slug) || categoryServices[0];
   };
 
   return (
@@ -122,7 +124,7 @@ const ServicesPreview = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Object.entries(categoryConfig).map(([categoryName, config]) => {
               const IconComponent = LucideIcons[config.icon] as React.ComponentType<{ className?: string }>;
-              const categoryServices = getCategoryServices(categoryName);
+              const featuredService = getCategoryService(categoryName);
 
               return (
                 <Card
@@ -154,31 +156,29 @@ const ServicesPreview = () => {
                       {config.description}
                     </p>
 
-                    <div className="space-y-2 mb-6 flex-grow">
-                      {categoryServices.map((service) => (
+                    {featuredService && (
+                      <div className="mb-6 flex-grow">
                         <Link
-                          key={service.id}
-                          to={`/services/${service.slug}`}
-                          className="flex items-start gap-2 text-sm hover:text-primary transition-colors group/item"
+                          to={`/services/${featuredService.slug}`}
+                          className="block p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors group/card"
                         >
-                          <CheckCircle className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                          <span className="group-hover/item:underline">{service.name}</span>
+                          <h4 className="font-semibold text-foreground mb-2 group-hover/card:text-primary transition-colors">
+                            {featuredService.name}
+                          </h4>
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {featuredService.short_description}
+                          </p>
                         </Link>
-                      ))}
-                      {categoryServices.length === 0 && (
-                        <p className="text-sm text-muted-foreground italic">
-                          Services coming soon
-                        </p>
-                      )}
-                    </div>
+                      </div>
+                    )}
 
                     <Button
                       asChild
                       variant="outline"
                       className="w-full group/btn border-2 hover:border-primary"
                     >
-                      <Link to={`/services#${config.slug}`}>
-                        View All Services
+                      <Link to={`/services/${config.slug}`}>
+                        Learn More
                         <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
                       </Link>
                     </Button>

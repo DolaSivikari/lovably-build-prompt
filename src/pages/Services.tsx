@@ -107,8 +107,9 @@ const Services = () => {
       .from('services')
       .select('id, name, slug, short_description, icon_name, category, category_description, category_icon, category_color')
       .eq('publish_state', 'published')
+      .order('featured', { ascending: false })
       .order('category', { ascending: true })
-      .order('created_at', { ascending: true });
+      .order('name', { ascending: true });
 
     if (data) {
       // Group services by category
