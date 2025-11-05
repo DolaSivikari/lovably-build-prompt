@@ -64,13 +64,23 @@ const StatsManager = () => {
           .update(statData)
           .eq('id', editingStat.id);
         if (error) throw error;
-        toast.success("Stat updated");
+        toast.success("Stat updated", {
+          action: {
+            label: "View on Website →",
+            onClick: () => window.open('/', '_blank')
+          }
+        });
       } else {
         const { error } = await supabase
           .from('stats')
           .insert({ ...statData, created_by: userId });
         if (error) throw error;
-        toast.success("Stat created");
+        toast.success("Stat created", {
+          action: {
+            label: "View on Website →",
+            onClick: () => window.open('/', '_blank')
+          }
+        });
       }
 
       setDialogOpen(false);
@@ -145,6 +155,9 @@ const StatsManager = () => {
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => navigate('/admin')}>
               Back to Dashboard
+            </Button>
+            <Button variant="outline" onClick={() => window.open('/', '_blank')}>
+              View on Website
             </Button>
             <Button onClick={newStat}>
               <Plus className="h-4 w-4 mr-2" />

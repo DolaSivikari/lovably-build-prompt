@@ -110,14 +110,20 @@ const AwardsManager = () => {
           .eq('id', editingAward.id);
 
         if (error) throw error;
-        toast({ title: 'Success', description: 'Award updated successfully' });
+        toast({ 
+          title: 'Success', 
+          description: 'Award updated successfully. View on website to see changes.'
+        });
       } else {
         const { error } = await supabase
           .from('awards_certifications')
           .insert([payload]);
 
         if (error) throw error;
-        toast({ title: 'Success', description: 'Award created successfully' });
+        toast({ 
+          title: 'Success', 
+          description: 'Award created successfully. View on website to see changes.'
+        });
       }
 
       setDialogOpen(false);
@@ -209,6 +215,9 @@ const AwardsManager = () => {
         <Button onClick={newAward}>
           <Plus className="w-4 h-4 mr-2" />
           Add Award
+        </Button>
+        <Button variant="outline" onClick={() => window.open('/', '_blank')}>
+          View on Website
         </Button>
       </div>
 

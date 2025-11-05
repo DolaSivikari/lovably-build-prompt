@@ -151,12 +151,12 @@ export default function LeadershipTeam() {
           .update(payload)
           .eq('id', editingMember.id);
         if (error) throw error;
+        toast({ title: "Success", description: "Team member updated. View on website to see changes." });
       } else {
         const { error } = await supabase.from('leadership_team').insert([payload]);
         if (error) throw error;
+        toast({ title: "Success", description: "Team member added. View on website to see changes." });
       }
-
-      toast({ title: "Success", description: `Team member ${editingMember ? 'updated' : 'added'} successfully` });
       setDialogOpen(false);
       resetForm();
       fetchMembers();
@@ -228,11 +228,15 @@ export default function LeadershipTeam() {
             <h1 className="text-3xl font-bold">Leadership Team</h1>
             <p className="text-muted-foreground">Manage your leadership team profiles</p>
           </div>
-          <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
-            <DialogTrigger asChild>
-              <Button><Plus className="w-4 h-4 mr-2" />Add Team Member</Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => window.open('/company/team', '_blank')}>
+              View on Website
+            </Button>
+            <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
+              <DialogTrigger asChild>
+                <Button><Plus className="w-4 h-4 mr-2" />Add Team Member</Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>{editingMember ? 'Edit' : 'Add'} Team Member</DialogTitle>
               </DialogHeader>
@@ -297,6 +301,7 @@ export default function LeadershipTeam() {
               </form>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
 
         <Card>

@@ -326,7 +326,10 @@ const SettingsHealthCheck = () => {
       });
     }
 
-    // Check 9: Structured data validation
+    // Check 9: Content Availability
+    await checkContentAvailability(checkResults);
+
+    // Check 10: Structured data validation
     checkResults.push({
       component: 'structured-data.ts',
       status: 'pass',
@@ -336,6 +339,127 @@ const SettingsHealthCheck = () => {
     
     setResults(checkResults);
     setScanning(false);
+  };
+
+  const checkContentAvailability = async (checkResults: HealthCheckResult[]) => {
+    // Check active stats
+    const { count: statsCount, error: statsError } = await supabase
+      .from('stats')
+      .select('*', { count: 'exact', head: true })
+      .eq('is_active', true);
+
+    if (statsError) {
+      checkResults.push({
+        component: 'Stats Availability',
+        status: 'error',
+        message: 'Failed to check stats',
+        details: statsError.message
+      });
+    } else if (statsCount === 0) {
+      checkResults.push({
+        component: 'Stats Availability',
+        status: 'warning',
+        message: 'No active stats found',
+        details: 'Homepage metrics section will be empty. Add stats in Stats Manager.'
+      });
+    } else {
+      checkResults.push({
+        component: 'Stats Availability',
+        status: 'pass',
+        message: `${statsCount} active stat${statsCount > 1 ? 's' : ''} found`,
+        details: 'Metrics will display on homepage'
+      });
+    }
+
+    // Check homepage certifications
+    const { count: certsCount, error: certsError } = await supabase
+      .from('awards_certifications')
+      .select('*', { count: 'exact', head: true })
+      .eq('is_active', true)
+      .eq('show_on_homepage', true);
+
+    if (certsError) {
+      checkResults.push({
+        component: 'Certifications Availability',
+        status: 'error',
+        message: 'Failed to check certifications',
+        details: certsError.message
+      });
+    } else if (certsCount === 0) {
+      checkResults.push({
+        component: 'Certifications Availability',
+        status: 'warning',
+        message: 'No homepage certifications found',
+        details: 'Certifications section will not appear on homepage. Add awards in Awards Manager.'
+      });
+    } else {
+      checkResults.push({
+        component: 'Certifications Availability',
+        status: 'pass',
+        message: `${certsCount} homepage certification${certsCount > 1 ? 's' : ''} found`,
+        details: 'Certifications will display on homepage'
+      });
+    }
+
+    // Check team members
+    const { count: teamCount, error: teamError } = await supabase
+      .from('leadership_team')
+      .select('*', { count: 'exact', head: true })
+      .eq('is_active', true);
+
+    if (teamError) {
+      checkResults.push({
+        component: 'Team Availability',
+        status: 'error',
+        message: 'Failed to check team members',
+        details: teamError.message
+      });
+    } else if (teamCount === 0) {
+      checkResults.push({
+        component: 'Team Availability',
+        status: 'warning',
+        message: 'No active team members found',
+        details: 'Team page will be empty. Add team members in Leadership Team.'
+      });
+    } else {
+      checkResults.push({
+        component: 'Team Availability',
+        status: 'pass',
+        message: `${teamCount} active team member${teamCount > 1 ? 's' : ''} found`,
+        details: 'Team members will display on Team page'
+      });
+    }
+
+    // Check for expired certifications still active
+    const { data: expiredCerts, error: expiredError } = await supabase
+      .from('awards_certifications')
+      .select('id, title, expiry_date')
+      .eq('is_active', true)
+      .not('expiry_date', 'is', null)
+      .lt('expiry_date', new Date().toISOString());
+
+    if (expiredError) {
+      checkResults.push({
+        component: 'Expired Certifications',
+        status: 'error',
+        message: 'Failed to check expired certifications',
+        details: expiredError.message
+      });
+    } else if (expiredCerts && expiredCerts.length > 0) {
+      checkResults.push({
+        component: 'Expired Certifications',
+        status: 'error',
+        message: `${expiredCerts.length} expired certification${expiredCerts.length > 1 ? 's' : ''} still active`,
+        details: `Deactivate these: ${expiredCerts.map(c => c.title).join(', ')}`
+      });
+    } else {
+      checkResults.push({
+        component: 'Expired Certifications',
+        status: 'pass',
+        message: 'No expired certifications are active',
+        details: 'All active certifications are current'
+      });
+    }
   };
 
   const handleFix = async (result: HealthCheckResult) => {
