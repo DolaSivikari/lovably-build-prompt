@@ -8,7 +8,7 @@ import GCTrustStrip from "@/components/homepage/GCTrustStrip";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 
 import SEO from "@/components/SEO";
-import SocialProof from "@/components/SocialProof";
+
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
 import WhoWeServe from "@/components/homepage/WhoWeServe";
@@ -148,8 +148,6 @@ const Index = () => {
         
         {/* Social Proof */}
         <Testimonials />
-        
-        <SocialProof />
         <PrequalPackage />
         <ContentHub />
       </main>
