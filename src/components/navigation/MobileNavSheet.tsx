@@ -58,7 +58,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
           </div>
 
           {/* Popular Services Quick Links */}
-          <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg border border-primary/10">
+          <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[var(--radius-sm)] border border-primary/10">
             <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-primary" />
               Popular Services
@@ -67,7 +67,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               <Link
                 to="/services/commercial-painting"
                 onClick={handleLinkClick}
-                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary menu-item-hover"
               >
                 <Building className="h-3 w-3" />
                 Commercial
@@ -103,7 +103,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             <Link
               to="/"
               onClick={handleLinkClick}
-              className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
+              className={`block py-3 px-4 rounded-[var(--radius-xs)] text-base font-medium menu-item-hover ${
                 isActive("/")
                   ? "bg-[hsl(var(--sage))]/20 text-[hsl(var(--sage-dark))]"
                   : "hover:bg-muted"
@@ -127,8 +127,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
           {/* Accordion sections */}
           <Accordion type="multiple" className="space-y-2">
             {/* Services Section */}
-            <AccordionItem value="services" className="border rounded-md">
-              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
+            <AccordionItem value="services" className="border rounded-[var(--radius-xs)]">
+              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-[var(--radius-xs)] font-semibold">
                 Services
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
@@ -148,7 +148,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                   key={item.link}
                                   to={item.link}
                                   onClick={handleLinkClick}
-                                  className="block py-2 text-sm text-muted-foreground hover:text-[hsl(var(--sage-dark))] hover:bg-[hsl(var(--sage))]/10 px-2 rounded transition-colors"
+                                  className="block py-2 text-sm text-muted-foreground hover:text-[hsl(var(--sage-dark))] hover:bg-[hsl(var(--sage))]/10 px-2 rounded-[var(--radius-xs)] menu-item-hover"
                                 >
                                   {item.name}
                                 </Link>

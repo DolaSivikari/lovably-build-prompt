@@ -54,7 +54,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
         )}
       </div>
       <Link to={`/blog/${project.slug}`}>
-        <h3 className="text-xl font-bold mb-2 hover:text-primary transition-colors">
+      <h3 className="text-xl font-bold mb-2 hover:text-primary link-hover">
           {project.title}
         </h3>
       </Link>

@@ -136,9 +136,9 @@ const Blog = () => {
           </div>
           
           <Tabs defaultValue="all" className="w-full" onValueChange={setFilter}>
-            <TabsList className="mb-12 flex-wrap h-auto gap-2 bg-muted/50 p-2 rounded-xl">
+            <TabsList className="mb-12 flex-wrap h-auto gap-2 bg-muted/50 p-2 rounded-[var(--radius-sm)]">
               {categories.map((category) => (
-                <TabsTrigger key={category} value={category} className="capitalize rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <TabsTrigger key={category} value={category} className="capitalize rounded-[var(--radius-sm)] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                   {category === "all" ? "All Posts" : category}
                 </TabsTrigger>
               ))}
@@ -151,7 +151,7 @@ const Blog = () => {
                     {filteredPosts.slice(0, visiblePosts).map((post, index) => (
                       <div
                         key={post.id}
-                        className={`blog-card-animate transition-all duration-600 ${
+                        className={`blog-card-animate card-hover ${
                           animatedCards.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                         }`}
                         data-index={index}
@@ -168,7 +168,7 @@ const Blog = () => {
                         onClick={loadMore}
                         size="lg"
                         variant="outline"
-                        className="hover:bg-secondary hover:text-primary hover:border-secondary transition-all"
+                        className="hover:bg-secondary hover:text-primary hover:border-secondary card-hover"
                       >
                         Load More Articles
                       </Button>

@@ -51,7 +51,7 @@ export const PasswordStrengthIndicator = ({
           </div>
           <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
             <div
-              className={`h-full transition-all duration-300 ${strength.color}`}
+              className={`h-full card-hover ${strength.color}`}
               style={{ width: `${strengthPercentage}%` }}
             />
           </div>

@@ -261,9 +261,9 @@ const Services = () => {
                       key={category.slug}
                       onClick={() => handleCategoryClick(category.slug)}
                       className={cn(
-                        "group relative bg-card rounded-2xl p-6 md:p-8 cursor-pointer transition-all duration-300",
-                        "hover:shadow-2xl hover:-translate-y-2 border-2",
-                        isExpanded ? "ring-4 ring-primary/50 shadow-xl" : "border-border",
+                        "group relative bg-card rounded-[var(--radius-md)] p-6 md:p-8 cursor-pointer card-hover",
+                        "hover:[box-shadow:var(--shadow-card-elevated)] hover:-translate-y-2 border-2",
+                        isExpanded ? "ring-4 ring-primary/50 [box-shadow:var(--shadow-card-elevated)]" : "border-border",
                         "text-left w-full"
                       )}
                       style={{
@@ -293,7 +293,7 @@ const Services = () => {
                       <div className="flex items-center text-primary font-semibold text-sm md:text-base">
                         <span>{category.services.length} Services</span>
                         <ChevronRight className={cn(
-                          "w-5 h-5 ml-2 transition-transform duration-300",
+                          "w-5 h-5 ml-2 icon-rotate",
                           isExpanded && "rotate-90"
                         )} />
                       </div>
@@ -345,8 +345,8 @@ const Services = () => {
                                 }}
                               >
                                 <Card className={cn(
-                                  "h-full border-2 transition-all duration-300",
-                                  "hover:shadow-xl hover:border-primary/30"
+                                  "h-full border-2 card-hover",
+                                  "hover:[box-shadow:var(--shadow-card-elevated)] hover:border-primary/30"
                                 )}>
                                   <CardContent className="p-6">
                                     <div className="flex items-start justify-between">
@@ -354,14 +354,14 @@ const Services = () => {
                                       <div className="flex-1">
                                         {/* Service Icon */}
                                         <div className={cn(
-                                          "w-12 h-12 rounded-lg flex items-center justify-center mb-4",
+                                          "w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-4",
                                           categoryColors.bg
                                         )}>
                                           <ServiceIcon className={cn("w-6 h-6", categoryColors.iconColor)} />
                                         </div>
                                         
                                         {/* Service Name */}
-                                        <h4 className="text-lg md:text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                                        <h4 className="text-lg md:text-xl font-bold mb-2 text-foreground group-hover:text-primary link-hover">
                                           {service.name}
                                         </h4>
                                         
@@ -372,7 +372,7 @@ const Services = () => {
                                       </div>
 
                                       {/* Arrow Icon */}
-                                      <ArrowRight className="w-6 h-6 text-primary transform group-hover:translate-x-2 transition-transform flex-shrink-0 ml-4" />
+                                      <ArrowRight className="w-6 h-6 text-primary hover-translate-arrow flex-shrink-0 ml-4" />
                                     </div>
                                   </CardContent>
                                 </Card>
@@ -409,23 +409,23 @@ const Services = () => {
                     className="group"
                   >
                     <Card className={cn(
-                      "p-6 md:p-8 h-full transition-all duration-300 border-2",
-                      "hover:shadow-2xl hover:border-primary/30 hover:-translate-y-2",
+                      "p-6 md:p-8 h-full card-hover border-2",
+                      "hover:[box-shadow:var(--shadow-card-elevated)] hover:border-primary/30 hover:-translate-y-2",
                       "text-center animate-fade-in"
                     )}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 hover-scale-icon">
                         <audience.icon className="w-8 h-8 text-primary" />
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+                      <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground group-hover:text-primary link-hover">
                         {audience.title}
                       </h3>
                       <p className="text-sm md:text-base text-muted-foreground mb-4">
                         {audience.description}
                       </p>
-                      <div className="flex items-center justify-center gap-2 text-primary font-semibold text-sm md:text-base group-hover:gap-3 transition-all">
-                        Learn more <ArrowRight className="w-4 h-4" />
+                      <div className="flex items-center justify-center gap-2 text-primary font-semibold text-sm md:text-base group-hover:gap-3 card-hover">
+                        Learn more <ArrowRight className="w-4 h-4 hover-translate-arrow" />
                       </div>
                     </Card>
                   </Link>
