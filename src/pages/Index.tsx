@@ -132,8 +132,6 @@ const Index = () => {
         {/* Trust & Certifications - Consolidated */}
         <GCTrustStrip />
         
-        {/* Direct Answer for AEO/GEO */}
-        <DirectAnswer />
         
         {/* Target Audiences */}
         <WhoWeServe />
