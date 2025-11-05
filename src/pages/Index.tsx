@@ -125,33 +125,30 @@ const Index = () => {
       <main id="main-content" role="main">
         <EnhancedHero />
         <CompanyIntroduction />
+        
+        {/* Single Metrics Section - Consolidated */}
         <MetricsDashboard />
+        
+        {/* Trust & Certifications - Consolidated */}
         <GCTrustStrip />
         
         {/* Direct Answer for AEO/GEO */}
         <DirectAnswer />
         
-        <CertificationBadges />
-        
+        {/* Target Audiences */}
         <WhoWeServe />
         
-        <div className="py-24">
-          <CompanyOverviewHub />
-        </div>
-        
+        {/* Value Proposition */}
         <div className="py-24">
           <WhyChooseUs />
         </div>
         
+        {/* Services Explorer */}
         <div className="py-24">
           <ServicesExplorer />
         </div>
         
-        <div className="py-24">
-          <AchievementShowcase />
-        </div>
-        
-        <CertificationsBar />
+        {/* Social Proof */}
         <Testimonials />
         
         <SocialProof />

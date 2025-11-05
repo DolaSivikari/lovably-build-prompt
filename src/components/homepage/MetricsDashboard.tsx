@@ -5,12 +5,12 @@ import { Award, Shield, TrendingUp, Users } from "lucide-react";
 
 const metrics = [
   {
-    value: 2,
-    suffix: "B+",
-    prefix: "$",
+    value: 2000000000,
+    displayValue: "$2B+",
     label: "Total Project Value",
     icon: TrendingUp,
-    color: "text-accent"
+    color: "text-accent",
+    skipCounter: true
   },
   {
     value: 500,
@@ -66,6 +66,11 @@ interface MetricCardProps {
 const MetricCard = ({ metric, isVisible, delay }: MetricCardProps) => {
   const count = useCountUp(metric.value, 2000, isVisible);
   const Icon = metric.icon;
+  
+  // For large values like $2B+, use displayValue instead of counting
+  const displayText = (metric as any).skipCounter 
+    ? (metric as any).displayValue 
+    : `${(metric as any).prefix || ''}${count}${(metric as any).suffix || ''}`;
 
   return (
     <div 
@@ -79,7 +84,7 @@ const MetricCard = ({ metric, isVisible, delay }: MetricCardProps) => {
       </div>
       
       <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-        {metric.prefix}{count}{metric.suffix}
+        {displayText}
       </div>
       
       <div className="text-sm md:text-base text-white/90 font-medium">

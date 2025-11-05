@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import ascentLogo from "@/assets/ascent-logo.png";
-import { ChevronDown, Shield } from "lucide-react";
+import { ChevronDown, Shield, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
@@ -254,9 +254,24 @@ const Navigation = () => {
               Contact
             </Link>
 
-            <Button asChild variant="default" size="sm" className="ml-4">
-              <Link to="/contact?type=commercial">Request Proposal</Link>
-            </Button>
+            <div className="flex items-center gap-3 ml-4">
+              <Button asChild variant="default" size="sm">
+                <Link to="/submit-rfp">Submit RFP</Link>
+              </Button>
+              <Link 
+                to="/resources/contractor-portal" 
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap"
+              >
+                Client Portal
+              </Link>
+              <a 
+                href="tel:+14165551234" 
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap flex items-center gap-1"
+              >
+                <Phone className="w-4 h-4" />
+                <span className="hidden xl:inline">(416) 555-1234</span>
+              </a>
+            </div>
 
             {/* Admin Dropdown - Only visible to admin users */}
             {isAdmin && (

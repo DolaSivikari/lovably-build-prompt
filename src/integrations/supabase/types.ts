@@ -2551,6 +2551,7 @@ export type Database = {
           seo_keywords: string[] | null
           seo_title: string | null
           service_overview: string | null
+          service_tier: string | null
           short_description: string | null
           slug: string
           typical_applications: Json | null
@@ -2586,6 +2587,7 @@ export type Database = {
           seo_keywords?: string[] | null
           seo_title?: string | null
           service_overview?: string | null
+          service_tier?: string | null
           short_description?: string | null
           slug: string
           typical_applications?: Json | null
@@ -2621,6 +2623,7 @@ export type Database = {
           seo_keywords?: string[] | null
           seo_title?: string | null
           service_overview?: string | null
+          service_tier?: string | null
           short_description?: string | null
           slug?: string
           typical_applications?: Json | null
