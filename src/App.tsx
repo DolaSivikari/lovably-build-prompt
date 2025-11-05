@@ -50,7 +50,7 @@ import Team from "./pages/company/Team";
 import Developers from "./pages/company/Developers";
 import Warranties from "./pages/resources/Warranties";
 import Financing from "./pages/resources/Financing";
-import SubmitRFP from "./pages/SubmitRFP";
+import SubmitRFPNew from "./pages/SubmitRFPNew";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -243,7 +243,7 @@ const App = () => (
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
-                  <Route path="/submit-rfp" element={<SubmitRFP />} />
+                  <Route path="/submit-rfp" element={<SubmitRFPNew />} />
                   <Route path="/property-managers" element={<PropertyManagers />} />
                   <Route path="/homeowners" element={<Homeowners />} />
                   <Route path="/commercial-clients" element={<CommercialClients />} />

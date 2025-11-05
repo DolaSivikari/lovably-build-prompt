@@ -14,6 +14,7 @@ import ProcessTimelineStep from "@/components/ProcessTimelineStep";
 import { ProjectSidebar } from "@/components/ProjectSidebar";
 import { InteractiveLightbox } from "@/components/InteractiveLightbox";
 import { ProjectGallery } from "@/components/ProjectGallery";
+import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -428,38 +429,36 @@ export default function ProjectDetail() {
                 </section>
               )}
 
-              {/* The Challenge */}
-              {project.challenge && (
-                <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">The Challenge</h2>
-                  <div 
-                    className="prose prose-lg max-w-none text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.challenge || '').sanitized }}
-                  />
-                </section>
-              )}
-
-              {/* The Solution */}
-              {project.description && (
-                <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">The Solution</h2>
-                  <div 
-                    className="prose prose-lg max-w-none text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.description || '').sanitized }}
-                  />
-                </section>
-              )}
-
-              {/* The Results */}
-              {project.results && (
-                <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">The Results</h2>
-                  <div 
-                    className="prose prose-lg max-w-none text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.results || '').sanitized }}
-                  />
-                </section>
-              )}
+              {/* Enhanced Case Study Component */}
+              <ProjectCaseStudy
+                challenge={project.challenge ? sanitizeAndValidate(project.challenge).sanitized : undefined}
+                solution={project.description ? sanitizeAndValidate(project.description).sanitized : undefined}
+                results={project.results ? sanitizeAndValidate(project.results).sanitized : undefined}
+                metrics={[
+                  ...(project.project_value ? [{
+                    label: "Contract Value",
+                    value: `$${(project.project_value / 100).toLocaleString('en-US', { minimumFractionDigits: 0 })}`,
+                  }] : []),
+                  ...(project.square_footage ? [{
+                    label: "Square Footage",
+                    value: `${project.square_footage.toLocaleString()} sq ft`,
+                  }] : []),
+                  ...(project.trades_coordinated ? [{
+                    label: "Trades Coordinated",
+                    value: project.trades_coordinated.toString(),
+                  }] : []),
+                  ...(project.peak_workforce ? [{
+                    label: "Peak Workforce",
+                    value: `${project.peak_workforce} workers`,
+                  }] : []),
+                ]}
+                keyOutcomes={[
+                  ...(project.on_time_completion ? ["✓ Completed on-time as scheduled"] : []),
+                  ...(project.on_budget ? ["✓ Delivered on-budget without overruns"] : []),
+                  ...(project.safety_incidents === 0 ? ["✓ Zero safety incidents recorded"] : []),
+                  ...(project.duration ? [`✓ Project duration: ${project.duration}`] : []),
+                ]}
+              />
 
               {/* Enhanced Project Gallery - New unified gallery system */}
               {project.project_images && project.project_images.length > 0 && (
