@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/ui/Button';
 import { Download, Settings } from 'lucide-react';
 import {
   Dialog,

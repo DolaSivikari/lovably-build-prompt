@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/ui/Button';
 import {
   DropdownMenu,
   DropdownMenuContent,

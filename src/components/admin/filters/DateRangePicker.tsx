@@ -3,7 +3,7 @@ import { Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 
 interface DateRange {

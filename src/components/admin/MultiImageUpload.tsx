@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, X, Edit2, GripVertical, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/ui/Button';
+import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/ui/Textarea';
 import { Card } from '@/components/ui/card';
 import { uploadImage } from '@/utils/imageResolver';
 import { toast } from 'sonner';

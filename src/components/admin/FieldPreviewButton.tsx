@@ -1,5 +1,5 @@
 import { Eye } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/ui/Button';
 import {
   Tooltip,
   TooltipContent,

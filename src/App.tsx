@@ -231,6 +231,7 @@ const App = () => (
                   <Route path="/about" element={<About />} />
                   <Route path="/values" element={<Values />} />
                   <Route path="/safety" element={<SafetyCompliance />} />
+                  <Route path="/company/safety-and-compliance" element={<Navigate to="/safety" replace />} />
                   <Route path="/prequalification" element={<Prequalification />} />
                   <Route path="/capabilities" element={<Capabilities />} />
                   <Route path="/how-we-work" element={<HowWeWork />} />

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { FilterX } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 

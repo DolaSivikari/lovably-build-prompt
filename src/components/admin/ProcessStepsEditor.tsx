@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Plus, Trash2, GripVertical } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/ui/Button';
+import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/ui/Textarea';
 import { Card } from '@/components/ui/card';
 import { ImageUploadField } from './ImageUploadField';
 import {

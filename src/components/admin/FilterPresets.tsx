@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/ui/Button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Plus, Trash2 } from 'lucide-react';
 import {
@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
 import { TableFilters } from '@/hooks/useTableFilters';
 import { toast } from 'sonner';
