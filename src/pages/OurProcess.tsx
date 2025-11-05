@@ -2,7 +2,6 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -11,11 +10,9 @@ import {
   Hammer, 
   ShieldCheck, 
   Award, 
-  CheckCircle,
   ArrowRight,
   Calendar,
-  Users,
-  Sparkles
+  Users
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { generateHowToSchema } from "@/utils/faq-schema";
@@ -25,67 +22,68 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import AnimatedProcessTimeline from "@/components/timeline/AnimatedProcessTimeline";
 
 const processSteps = [
   {
-    step: "01",
-    icon: ClipboardCheck,
+    step: 1,
     title: "Consultation & Assessment",
-    timeframe: "1-2 Days",
-    description: "We start with a comprehensive site visit to understand your vision and requirements.",
+    duration: "1-2 days",
+    description: "We visit your site to understand your needs, assess the scope, and provide a detailed quote.",
     details: [
-      "Free on-site consultation with project specialist",
-      "Detailed surface inspection and condition assessment",
-      "Discuss your goals, timeline, and budget expectations",
-      "Take measurements and document existing conditions",
-      "Identify potential challenges or prep work needed"
+      "Comprehensive site inspection and measurement",
+      "Surface condition assessment and material identification",
+      "Discussion of your goals, timeline, and budget",
+      "Identification of any potential challenges or special requirements",
+      "Review of color options and material recommendations"
     ],
-    deliverable: "Detailed proposal with scope, timeline, and transparent pricing"
+    deliverables: ["Detailed Quote", "Project Timeline", "Material Samples"],
+    image: "/src/assets/team-work.jpg"
   },
   {
-    step: "02",
-    icon: Ruler,
-    title: "Planning & Preparation",
-    timeframe: "2-5 Days",
-    description: "Thorough planning and prep work ensures flawless execution and lasting results.",
+    step: 2,
+    title: "Preparation & Planning",
+    duration: "1-3 days",
+    description: "Our team prepares the site and surfaces to ensure the highest quality finish.",
     details: [
-      "Finalize color selections with professional guidance",
-      "Source premium materials from trusted suppliers",
-      "Schedule crew and coordinate timeline with you",
-      "Prepare work area: protect furniture, floors, landscaping",
-      "Surface prep: cleaning, sanding, patching, priming"
+      "Complete surface cleaning and preparation",
+      "Repair of cracks, holes, and surface imperfections",
+      "Priming and sealing as needed",
+      "Protection of surrounding areas and property",
+      "Setup of equipment and safety measures"
     ],
-    deliverable: "Signed contract, scheduled start date, and materials on-site"
+    deliverables: ["Site Protection", "Surface Repairs", "Quality Primer"],
+    image: "/src/assets/project-commercial.jpg"
   },
   {
-    step: "03",
-    icon: Hammer,
-    title: "Expert Execution",
-    timeframe: "3-14 Days",
-    description: "Our certified craftsmen bring your vision to life with precision and care.",
+    step: 3,
+    title: "Professional Application",
+    duration: "3-10 days",
+    description: "Expert application using premium materials and proven techniques for lasting results.",
     details: [
-      "Professional application by experienced, background-checked team",
-      "Daily progress updates and site cleanup",
-      "Quality control inspections at each phase",
-      "Work around your schedule (after-hours available)",
-      "Minimal disruption to your home or business operations"
+      "Application of high-quality coatings using professional techniques",
+      "Multiple coats applied with proper drying time between each",
+      "Attention to detail on edges, corners, and transitions",
+      "Regular quality checks throughout the process",
+      "Daily cleanup and site maintenance"
     ],
-    deliverable: "Beautiful, professionally finished surfaces that exceed expectations"
+    deliverables: ["Premium Finish", "Progress Updates", "Clean Worksite"],
+    image: "/src/assets/project-institutional.jpg"
   },
   {
-    step: "04",
-    icon: ShieldCheck,
-    title: "Quality Assurance & Warranty",
-    timeframe: "1 Day",
-    description: "We don't finish until you're thrilled with every detail.",
+    step: 4,
+    title: "Final Inspection & Warranty",
+    duration: "1 day",
+    description: "We ensure everything meets our high standards and provide comprehensive warranty coverage.",
     details: [
-      "Comprehensive walkthrough with you to review all work",
-      "Touch-ups and adjustments at no extra cost",
-      "Complete site cleanup and final inspection",
-      "2-10 year warranty documentation provided",
-      "Maintenance tips and care instructions"
+      "Thorough final inspection with you present",
+      "Touch-ups and corrections as needed",
+      "Complete site cleanup and debris removal",
+      "Walkthrough of maintenance recommendations",
+      "Provision of warranty documentation and care instructions"
     ],
-    deliverable: "Project sign-off, warranty certificate, and ongoing support"
+    deliverables: ["Final Walkthrough", "Warranty Certificate", "Care Guide"],
+    image: "/src/assets/project-industrial.jpg"
   }
 ];
 
@@ -197,7 +195,7 @@ const OurProcess = () => {
         </div>
       </section>
 
-      {/* Visual Timeline Section */}
+      {/* Animated Timeline Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -208,62 +206,7 @@ const OurProcess = () => {
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto space-y-12">
-            {processSteps.map((step, index) => (
-              <div 
-                key={index} 
-                className="relative animate-fade-in-up"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                {/* Connector Line */}
-                {index < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute left-[48px] top-[120px] w-0.5 h-[calc(100%+3rem)] bg-gradient-to-b from-primary to-primary/20" />
-                )}
-
-                <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/50 hover:-translate-y-1 group">
-                  <CardContent className="p-0">
-                    <div className="grid md:grid-cols-[auto_1fr] gap-0">
-                      {/* Left: Icon & Step Number */}
-                      <div className="bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground p-8 md:p-12 flex flex-col items-center justify-center text-center min-w-[200px] relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.1)_50%,transparent_75%)] bg-[length:250%_250%] animate-[shimmer_3s_linear_infinite]" />
-                        <div className="w-20 h-20 rounded-full bg-[hsl(var(--bg))]/20 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <step.icon className="w-10 h-10 text-secondary" />
-                        </div>
-                        <div className="text-6xl font-bold opacity-50 mb-2">{step.step}</div>
-                        <Badge variant="secondary" className="text-xs">
-                          <Calendar className="w-3 h-3 mr-1" />
-                          {step.timeframe}
-                        </Badge>
-                      </div>
-
-                      {/* Right: Content */}
-                      <div className="p-8 md:p-12">
-                        <h3 className="text-3xl font-bold mb-3 text-primary">{step.title}</h3>
-                        <p className="text-lg text-muted-foreground mb-6">{step.description}</p>
-
-                        <div className="space-y-3 mb-6">
-                          {step.details.map((detail, idx) => (
-                            <div key={idx} className="flex items-start gap-3">
-                              <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                              <span className="text-sm leading-relaxed">{detail}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="flex items-start gap-3 p-4 bg-secondary/10 rounded-lg border border-secondary/20">
-                          <Sparkles className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                          <div>
-                            <div className="font-semibold text-sm mb-1">Deliverable</div>
-                            <div className="text-sm text-muted-foreground">{step.deliverable}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
+          <AnimatedProcessTimeline steps={processSteps} />
         </div>
       </section>
 
