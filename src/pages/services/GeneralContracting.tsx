@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroImage from "@/assets/hero-general-contracting.jpg";
 
 const GeneralContracting = () => {
   const whatWeDeliver = [
@@ -94,7 +95,7 @@ const GeneralContracting = () => {
       />
       <Navigation />
       
-      <PageHero.Root backgroundImage="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80">
+      <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },

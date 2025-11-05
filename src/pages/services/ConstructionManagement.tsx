@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroImage from "@/assets/hero-construction-management.jpg";
 
 const ConstructionManagement = () => {
   const whatWeDeliver = [
@@ -31,7 +32,7 @@ const ConstructionManagement = () => {
     <div className="min-h-screen">
       <SEO title="Construction Management Toronto | CM Services Ontario" description="Expert construction management with budget stewardship, risk mitigation, and schedule control. CM-at-Risk and Agency CM delivery across commercial, multi-family, and institutional projects." keywords="construction management, CM-at-Risk, Agency CM, Toronto construction manager" />
       <Navigation />
-      <PageHero.Root backgroundImage="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80">
+      <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Construction Management" }]} />
         <PageHero.Title>Construction Management</PageHero.Title>
         <PageHero.Subtitle>Cost clarity, schedule certainty, and risk management throughout your project.</PageHero.Subtitle>

@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroImage from "@/assets/hero-design-build.jpg";
 
 const DesignBuild = () => {
   const whatWeDeliver = [
@@ -31,7 +32,7 @@ const DesignBuild = () => {
     <div className="min-h-screen">
       <SEO title="Design-Build Services Toronto | Integrated Project Delivery" description="Single-source design-build delivery combining architecture, engineering, and construction. Faster schedules, cost certainty, and seamless coordination for commercial and multi-family projects." keywords="design-build, integrated project delivery, Toronto design-build contractor" />
       <Navigation />
-      <PageHero.Root backgroundImage="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80">
+      <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Design-Build" }]} />
         <PageHero.Title>Design-Build</PageHero.Title>
         <PageHero.Subtitle>Single-source accountability from concept to completion.</PageHero.Subtitle>

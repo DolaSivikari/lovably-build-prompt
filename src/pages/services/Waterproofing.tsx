@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Droplets, Shield, Building, Layers, CheckCircle2, ArrowRight } from 'lucide-react';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
+import heroImage from '@/assets/hero-waterproofing.jpg';
 
 const Waterproofing = () => {
   const serviceSchema = createServiceSchema({
@@ -85,7 +86,7 @@ const Waterproofing = () => {
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage="/hero-poster-1.webp">
+      <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },

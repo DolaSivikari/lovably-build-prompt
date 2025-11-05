@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroImage from "@/assets/hero-building-envelope.jpg";
 
 const BuildingEnvelope = () => {
   const whatWeDeliver = [
@@ -105,7 +106,7 @@ const BuildingEnvelope = () => {
       />
       <Navigation />
       
-      <PageHero.Root backgroundImage="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80">
+      <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
