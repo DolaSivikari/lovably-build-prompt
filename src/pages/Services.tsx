@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
@@ -178,6 +179,16 @@ const Services = () => {
         canonical="https://ascentgroupconstruction.com/services"
       />
       <Navigation />
+
+      {/* Breadcrumb */}
+      <div className="pt-24 pb-0 bg-background">
+        <div className="container mx-auto px-4">
+          <Breadcrumb items={[
+            { label: "Home", href: "/" },
+            { label: "Services" }
+          ]} />
+        </div>
+      </div>
 
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
