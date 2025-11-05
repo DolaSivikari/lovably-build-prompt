@@ -69,8 +69,21 @@ interface ProjectData {
   seo_title?: string;
   seo_description?: string;
   seo_keywords?: string[];
-  project_images?: GalleryImage[]; // New unified gallery
-  services?: Service[]; // Services provided
+  project_images?: GalleryImage[];
+  services?: Service[];
+  // GC Tracking Metrics
+  project_value?: number;
+  square_footage?: number;
+  your_role?: string;
+  delivery_method?: string;
+  client_type?: string;
+  trades_coordinated?: number;
+  peak_workforce?: number;
+  on_time_completion?: boolean;
+  on_budget?: boolean;
+  safety_incidents?: number;
+  scope_of_work?: string;
+  team_credits?: Array<{ role: string; name: string; company?: string }>;
 }
 
 export default function ProjectDetail() {
@@ -279,7 +292,7 @@ export default function ProjectDetail() {
         <div className="container mx-auto px-4 py-8 md:py-12">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Sidebar */}
-            <aside className="lg:col-span-1">
+            <aside className="lg:col-span-1 space-y-6">
               <ProjectSidebar
                 clientName={project.client_name}
                 location={project.location}
@@ -290,6 +303,102 @@ export default function ProjectDetail() {
                 category={project.category}
                 status={project.status}
               />
+
+              {/* GC Metrics Card */}
+              {(project.project_value || project.square_footage || project.your_role || project.delivery_method) && (
+                <Card>
+                  <CardContent className="p-6 space-y-4">
+                    <h3 className="font-bold text-lg border-b pb-2">Project Metrics</h3>
+                    
+                    {project.project_value && (
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1">Contract Value</p>
+                        <p className="font-semibold text-lg">
+                          ${(project.project_value / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </p>
+                      </div>
+                    )}
+                    
+                    {project.square_footage && (
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1">Square Footage</p>
+                        <p className="font-semibold">{project.square_footage.toLocaleString()} sq ft</p>
+                      </div>
+                    )}
+                    
+                    {project.your_role && (
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1">Our Role</p>
+                        <Badge variant="secondary">{project.your_role}</Badge>
+                      </div>
+                    )}
+                    
+                    {project.delivery_method && (
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1">Delivery Method</p>
+                        <p className="font-semibold">{project.delivery_method}</p>
+                      </div>
+                    )}
+                    
+                    {project.client_type && (
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1">Client Type</p>
+                        <p className="font-semibold">{project.client_type}</p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Performance Metrics Card */}
+              {(project.trades_coordinated || project.peak_workforce || project.on_time_completion !== undefined || project.on_budget !== undefined || project.safety_incidents !== undefined) && (
+                <Card>
+                  <CardContent className="p-6 space-y-4">
+                    <h3 className="font-bold text-lg border-b pb-2">Performance</h3>
+                    
+                    {project.trades_coordinated && (
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm text-muted-foreground">Trades Coordinated</p>
+                        <p className="font-bold text-lg">{project.trades_coordinated}</p>
+                      </div>
+                    )}
+                    
+                    {project.peak_workforce && (
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm text-muted-foreground">Peak Workforce</p>
+                        <p className="font-bold text-lg">{project.peak_workforce}</p>
+                      </div>
+                    )}
+                    
+                    {project.on_time_completion !== undefined && (
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm text-muted-foreground">On-Time Completion</p>
+                        <Badge variant={project.on_time_completion ? "default" : "destructive"}>
+                          {project.on_time_completion ? "Yes" : "No"}
+                        </Badge>
+                      </div>
+                    )}
+                    
+                    {project.on_budget !== undefined && (
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm text-muted-foreground">On Budget</p>
+                        <Badge variant={project.on_budget ? "default" : "destructive"}>
+                          {project.on_budget ? "Yes" : "No"}
+                        </Badge>
+                      </div>
+                    )}
+                    
+                    {project.safety_incidents !== undefined && (
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm text-muted-foreground">Safety Incidents</p>
+                        <Badge variant={project.safety_incidents === 0 ? "default" : "secondary"}>
+                          {project.safety_incidents}
+                        </Badge>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
             </aside>
 
             {/* Main Content */}
@@ -301,6 +410,21 @@ export default function ProjectDetail() {
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     {project.summary}
                   </p>
+                </section>
+              )}
+
+              {/* Scope of Work */}
+              {project.scope_of_work && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Scope of Work</h2>
+                  <Card>
+                    <CardContent className="p-6">
+                      <div 
+                        className="prose prose-lg max-w-none text-muted-foreground"
+                        dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.scope_of_work || '').sanitized }}
+                      />
+                    </CardContent>
+                  </Card>
                 </section>
               )}
 
@@ -397,6 +521,35 @@ export default function ProjectDetail() {
                       />
                     ))}
                   </div>
+                </section>
+              )}
+
+              {/* Team Credits */}
+              {project.team_credits && project.team_credits.length > 0 && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-6">Project Team</h2>
+                  <Card>
+                    <CardContent className="p-6">
+                      <div className="grid md:grid-cols-2 gap-6">
+                        {project.team_credits.map((member, index) => (
+                          <div key={index} className="flex items-start gap-3">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                              <span className="text-primary font-bold text-sm">
+                                {member.name.split(' ').map(n => n[0]).join('')}
+                              </span>
+                            </div>
+                            <div>
+                              <p className="font-semibold">{member.name}</p>
+                              <p className="text-sm text-primary">{member.role}</p>
+                              {member.company && (
+                                <p className="text-xs text-muted-foreground">{member.company}</p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
                 </section>
               )}
             </main>

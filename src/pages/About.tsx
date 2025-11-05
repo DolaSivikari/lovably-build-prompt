@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -26,6 +26,7 @@ const iconMap: { [key: string]: any } = {
 };
 
 const About = () => {
+  const navigate = useNavigate();
   const { data: aboutSettings, loading } = useSettingsData('about_page_settings');
 
   // All data comes from database - no fallbacks to JSON
@@ -221,6 +222,216 @@ const About = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Leadership Team */}
+        <section className="container mx-auto px-4 py-24">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-5xl font-bold mb-4">Leadership Team</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Meet the experienced professionals leading our commitment to excellence
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Team Member 1 */}
+              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="aspect-[3/4] bg-muted relative">
+                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                    Professional Headshot
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-1">John Smith</h3>
+                  <p className="text-primary font-semibold mb-3">President & CEO</p>
+                  <div className="space-y-3 text-sm text-muted-foreground">
+                    <p>25+ years in construction management. Licensed General Contractor with expertise in commercial and multi-family projects.</p>
+                    <div className="pt-3 border-t">
+                      <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                      <ul className="list-disc list-inside space-y-1">
+                        <li>P.Eng, PMP Certified</li>
+                        <li>LEED AP, Gold Seal Certified</li>
+                      </ul>
+                    </div>
+                    <div className="pt-3 border-t">
+                      <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                      <p>Waterfront Condos, Heritage Office Tower</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Team Member 2 */}
+              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="aspect-[3/4] bg-muted relative">
+                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                    Professional Headshot
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-1">Sarah Johnson</h3>
+                  <p className="text-primary font-semibold mb-3">VP of Operations</p>
+                  <div className="space-y-3 text-sm text-muted-foreground">
+                    <p>20+ years managing complex construction operations. Expert in project delivery and quality control.</p>
+                    <div className="pt-3 border-t">
+                      <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                      <ul className="list-disc list-inside space-y-1">
+                        <li>B.Eng Civil, PMP</li>
+                        <li>CQM Certified Quality Manager</li>
+                      </ul>
+                    </div>
+                    <div className="pt-3 border-t">
+                      <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                      <p>School Renovation, Retail Plaza Expansion</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Team Member 3 */}
+              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="aspect-[3/4] bg-muted relative">
+                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                    Professional Headshot
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-1">Michael Chen</h3>
+                  <p className="text-primary font-semibold mb-3">Director of Safety & Compliance</p>
+                  <div className="space-y-3 text-sm text-muted-foreground">
+                    <p>15+ years specializing in construction safety and regulatory compliance. WSIB Certified Safety Professional.</p>
+                    <div className="pt-3 border-t">
+                      <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                      <ul className="list-disc list-inside space-y-1">
+                        <li>CRSP, NCSO Certified</li>
+                        <li>COR Auditor, JHSC Certified</li>
+                      </ul>
+                    </div>
+                    <div className="pt-3 border-t">
+                      <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                      <p>Industrial Warehouse, Parking Restoration</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Company Credentials */}
+        <section className="py-24 bg-muted">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-5xl font-bold mb-4">Company Credentials</h2>
+                <p className="text-lg text-muted-foreground">
+                  Our qualifications demonstrate our commitment to excellence and professionalism
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Bonding Capacity */}
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Shield className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-2">Bonding Capacity</h3>
+                        <p className="text-2xl font-bold text-primary mb-2">$5,000,000</p>
+                        <p className="text-sm text-muted-foreground">
+                          Fully bonded with approved surety for projects of all sizes
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Insurance Coverage */}
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Shield className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-2">Insurance Coverage</h3>
+                        <ul className="space-y-1 text-sm text-muted-foreground">
+                          <li>• General Liability: $5,000,000</li>
+                          <li>• WSIB Clearance Certificate</li>
+                          <li>• Comprehensive Auto Insurance</li>
+                          <li>• Tools & Equipment Coverage</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Certifications */}
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Award className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-2">Certifications</h3>
+                        <ul className="space-y-1 text-sm text-muted-foreground">
+                          <li>• COR™ Certified (Certificate of Recognition)</li>
+                          <li>• LEED Accredited Professional</li>
+                          <li>• WSIB Certified Safety Training</li>
+                          <li>• Gold Seal Certification</li>
+                          <li>• ISO 9001:2015 Quality Management</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Industry Affiliations */}
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Award className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-2">Industry Affiliations</h3>
+                        <ul className="space-y-1 text-sm text-muted-foreground">
+                          <li>• Ontario General Contractors Association (OGCA)</li>
+                          <li>• Canadian Construction Association (CCA)</li>
+                          <li>• Better Business Bureau (A+ Rating)</li>
+                          <li>• Greater Toronto Contractors Association</li>
+                          <li>• Building Industry & Land Development</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-12 text-center">
+                <Card className="bg-primary text-primary-foreground">
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bold mb-3">View Our Full Credentials Package</h3>
+                    <p className="mb-6 opacity-90">
+                      Download our complete prequalification package including insurance certificates, 
+                      bonding letters, safety records, and project references
+                    </p>
+                    <Button 
+                      size="lg" 
+                      variant="secondary"
+                      onClick={() => navigate("/prequalification")}
+                    >
+                      Download Credentials Package
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
         </section>
