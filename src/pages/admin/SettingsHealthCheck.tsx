@@ -6,6 +6,7 @@ import { AlertCircle, CheckCircle2, RefreshCw, AlertTriangle, Wrench } from "luc
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
+import { validateNavigationSync, getSyncIssuesDescription } from "@/utils/navigationSync";
 import { validateAdminUrl } from "@/utils/routeHelpers";
 import { useToast } from "@/hooks/use-toast";
 
@@ -210,7 +211,18 @@ const SettingsHealthCheck = () => {
         message: 'Successfully loaded company settings from database'
       });
 
-      // Check 2: Validate required fields
+      // Check 2: Navigation-Database Sync
+      const navSyncResult = await validateNavigationSync();
+      checkResults.push({
+        component: 'Navigation Sync',
+        status: navSyncResult.isValid ? 'pass' : 'error',
+        message: navSyncResult.isValid 
+          ? 'All navigation service links match published services'
+          : `${navSyncResult.missingSlugs.length + navSyncResult.unpublishedSlugs.length} service(s) need attention`,
+        details: navSyncResult.isValid ? 'Navigation menu dynamically loads all published services' : getSyncIssuesDescription(navSyncResult),
+      });
+
+      // Check 3: Validate required fields
       const requiredFields = [
         { key: 'companyName', label: 'Company Name' },
         { key: 'phone', label: 'Phone' },
