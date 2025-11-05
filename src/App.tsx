@@ -34,6 +34,13 @@ import PaintingServices from "./pages/services/PaintingServices";
 import ExteriorCladding from "./pages/services/ExteriorCladding";
 import InteriorBuildouts from "./pages/services/InteriorBuildouts";
 import ExteriorEnvelope from "./pages/services/ExteriorEnvelope";
+import GeneralContracting from "./pages/services/GeneralContracting";
+import ConstructionManagement from "./pages/services/ConstructionManagement";
+import DesignBuild from "./pages/services/DesignBuild";
+import MultiFamily from "./pages/markets/MultiFamily";
+import Commercial from "./pages/markets/Commercial";
+import Institutional from "./pages/markets/Institutional";
+import Industrial from "./pages/markets/Industrial";
 import FAQ from "./pages/FAQ";
 import CertificationsInsurance from "./pages/company/CertificationsInsurance";
 import ContractorPortal from "./pages/resources/ContractorPortal";
@@ -205,11 +212,18 @@ const App = () => (
                   <Route path="/how-we-work" element={<HowWeWork />} />
                   <Route path="/careers" element={<Careers />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/services/general-contracting" element={<GeneralContracting />} />
+            <Route path="/services/construction-management" element={<ConstructionManagement />} />
+            <Route path="/services/design-build" element={<DesignBuild />} />
             <Route path="/services/painting" element={<PaintingServices />} />
             <Route path="/services/exterior-cladding" element={<ExteriorCladding />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
             <Route path="/services/exterior-envelope" element={<ExteriorEnvelope />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/markets/multi-family" element={<MultiFamily />} />
+            <Route path="/markets/commercial" element={<Commercial />} />
+            <Route path="/markets/institutional" element={<Institutional />} />
+            <Route path="/markets/industrial" element={<Industrial />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />

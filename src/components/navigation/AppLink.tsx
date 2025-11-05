@@ -7,6 +7,13 @@ const KNOWN_ROUTES = [
   "/about",
   "/services",
   "/services/:slug",
+  "/services/general-contracting",
+  "/services/construction-management",
+  "/services/design-build",
+  "/markets/multi-family",
+  "/markets/commercial",
+  "/markets/institutional",
+  "/markets/industrial",
   "/projects",
   
   "/blog",
