@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Calendar, ArrowRight, Clock, BookOpen, MapPin, Ruler } from "lucide-react";
 import OptimizedImage from "../OptimizedImage";
 import { motion } from "framer-motion";
@@ -91,7 +91,7 @@ const ContentHub = () => {
           {categories.map((category) => (
             <Button
               key={category}
-              variant={activeCategory === category ? "default" : "outline"}
+              variant={activeCategory === category ? "primary" : "secondary"}
               size="sm"
               onClick={() => setActiveCategory(category)}
               className="rounded-full"
@@ -236,10 +236,10 @@ const ContentHub = () => {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Button asChild size="lg" className="gap-2">
+          <Button asChild size="lg">
             <Link to="/blog">
-              <BookOpen className="h-5 w-5" />
               View All Articles
+              <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </Button>
         </div>

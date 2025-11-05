@@ -189,8 +189,8 @@ const PropertyManagers = () => {
         <CTASection
           title="Let's Discuss Your Property Needs"
           description="Volume pricing available for multi-unit properties and ongoing maintenance contracts"
-          primaryCTA={{ label: "Request Volume Quote", href: "/estimate", variant: "secondary" }}
-          secondaryCTA={{ label: "View Our Portfolio", href: "/projects", variant: "outline" }}
+          primaryCTA={{ label: "Request Volume Quote", href: "/estimate" }}
+          secondaryCTA={{ label: "View Our Portfolio", href: "/projects", variant: "secondary" }}
         />
       </main>
       

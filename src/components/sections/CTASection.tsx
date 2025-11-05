@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
+import { ArrowRight } from "lucide-react";
 
 interface CTAButton {
   label: string;
   href: string;
-  variant?: "default" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "navy" | "ghost" | "danger";
 }
 
 interface CTASectionProps {
@@ -34,17 +35,18 @@ const CTASection = ({
         <div className="flex flex-wrap gap-4 justify-center">
           <Button 
             size="lg" 
-            variant={primaryCTA.variant || "secondary"}
+            variant={primaryCTA.variant || "primary"}
             asChild
           >
             <Link to={primaryCTA.href}>
               {primaryCTA.label}
+              <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </Button>
           {secondaryCTA && (
             <Button 
               size="lg" 
-              variant={secondaryCTA.variant || "outline"}
+              variant={secondaryCTA.variant || "secondary"}
               asChild
             >
               <Link to={secondaryCTA.href}>

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Textarea } from "@/ui/Textarea";
 import { Phone, Mail, MapPin, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
@@ -289,7 +289,7 @@ const InteractiveCTA = () => {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full h-12 text-base gap-2"
+                className="w-full h-12 text-base"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -297,7 +297,7 @@ const InteractiveCTA = () => {
                 ) : (
                   <>
                     Request Free Estimate
-                    <ArrowRight className="h-5 w-5" />
+                    <ArrowRight className="ml-2 w-4 h-4" />
                   </>
                 )}
               </Button>
@@ -308,13 +308,13 @@ const InteractiveCTA = () => {
                 Prefer to talk directly?
               </p>
               <div className="grid grid-cols-2 gap-3">
-                <Button variant="outline" asChild className="gap-2">
+                <Button variant="secondary" asChild>
                   <a href={telLink}>
                     <Phone className="h-4 w-4" />
                     {displayPhone}
                   </a>
                 </Button>
-                <Button variant="outline" asChild className="gap-2">
+                <Button variant="secondary" asChild>
                   <Link to="/contact">
                     <Mail className="h-4 w-4" />
                     Email Us

@@ -1,6 +1,6 @@
 import { FileText, Download, CheckCircle, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -142,8 +142,8 @@ const PrequalPackage = () => {
                   <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger asChild>
                       <Button size="lg" className="w-full sm:w-auto">
-                        <Download className="mr-2 w-5 h-5" />
                         Request Package
+                        <ArrowRight className="ml-2 w-4 h-4" />
                       </Button>
                     </DialogTrigger>
                   <DialogContent className="max-w-md">
@@ -248,10 +248,10 @@ const PrequalPackage = () => {
                     </form>
                   </DialogContent>
                 </Dialog>
-                <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
+                <Button size="lg" variant="secondary" asChild className="w-full sm:w-auto">
                   <a href="/resources/contractor-portal">
                     View All Documents
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <ArrowRight className="ml-2 w-4 h-4" />
                   </a>
                 </Button>
               </div>

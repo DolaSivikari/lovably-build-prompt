@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
@@ -222,11 +222,10 @@ export default function SubmitRFPNew() {
                   {currentStep > 1 ? (
                     <Button
                       type="button"
-                      variant="outline"
+                      variant="secondary"
                       onClick={handleBack}
-                      className="gap-2"
                     >
-                      <ArrowLeft className="w-4 h-4" />
+                      <ArrowLeft className="w-4 h-4 mr-2" />
                       Back
                     </Button>
                   ) : (
@@ -237,23 +236,21 @@ export default function SubmitRFPNew() {
                     <Button
                       type="button"
                       onClick={handleNext}
-                      className="gap-2"
                     >
                       Next
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   ) : (
                     <Button
                       type="submit"
                       disabled={submitting}
-                      className="gap-2 bg-accent hover:bg-accent/90"
                     >
                       {submitting ? (
                         "Submitting..."
                       ) : (
                         <>
-                          <Send className="w-4 h-4" />
                           Submit RFP
+                          <ArrowRight className="ml-2 w-4 h-4" />
                         </>
                       )}
                     </Button>

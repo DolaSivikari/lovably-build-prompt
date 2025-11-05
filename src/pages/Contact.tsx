@@ -8,12 +8,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit, trackConversion } from "@/lib/analytics";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Textarea } from "@/ui/Textarea";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MapPin, Phone, Mail, Clock, Loader2 } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 
 // Input validation schema to prevent XSS/injection attacks
@@ -397,7 +397,12 @@ const Contact = () => {
                     </div>
 
                     <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                      {isSubmitting ? "Sending..." : "Submit Request"}
+                      {isSubmitting ? "Sending..." : (
+                        <>
+                          Submit Request
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>

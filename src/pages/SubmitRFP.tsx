@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/ui/Textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Building2, DollarSign, Calendar, CheckCircle2 } from "lucide-react";
+import { FileText, Building2, DollarSign, Calendar, CheckCircle2, ArrowRight } from "lucide-react";
 
 export default function SubmitRFP() {
   const navigate = useNavigate();
@@ -300,7 +300,12 @@ export default function SubmitRFP() {
                       </div>
                     </div>
                     <Button type="submit" size="lg" className="w-full" disabled={submitting}>
-                      {submitting ? 'Submitting...' : 'Submit RFP'}
+                      {submitting ? 'Submitting...' : (
+                        <>
+                          Submit RFP
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>

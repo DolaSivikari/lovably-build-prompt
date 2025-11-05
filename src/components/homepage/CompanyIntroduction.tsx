@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { organizationSchema } from "@/utils/structured-data";
@@ -53,10 +53,10 @@ export default function CompanyIntroduction() {
             </div>
 
             <div className="mt-10 text-center">
-              <Button asChild size="lg" className="group">
+              <Button asChild size="lg">
                 <Link to="/about">
                   Learn About Our Team
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
             </div>

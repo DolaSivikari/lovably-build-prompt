@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 import { ChevronRight, ArrowRight } from "lucide-react";
 
@@ -111,14 +111,14 @@ const Stats = ({ stats }: StatsProps) => {
 const CTAs = ({ primaryText = "Request Proposal", primaryHref = "/contact", secondaryText, secondaryHref }: CTAsProps) => {
   return (
     <div className="flex flex-wrap items-center gap-4">
-      <Button asChild size="lg" className="shadow-lg">
+      <Button asChild size="lg">
         <Link to={primaryHref}>
           {primaryText}
           <ArrowRight className="ml-2 w-4 h-4" />
         </Link>
       </Button>
       {secondaryText && secondaryHref && (
-        <Button asChild variant="outline" size="lg">
+        <Button asChild variant="secondary" size="lg">
           <Link to={secondaryHref}>{secondaryText}</Link>
         </Button>
       )}

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import ascentLogo from "@/assets/ascent-logo.png";
-import { ChevronDown, Shield, Phone } from "lucide-react";
+import { ChevronDown, Shield, Phone, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
@@ -256,7 +256,10 @@ const Navigation = () => {
 
             <div className="flex items-center gap-3 ml-4">
               <Button asChild variant="primary" size="sm">
-                <Link to="/submit-rfp">Submit RFP</Link>
+                <Link to="/submit-rfp">
+                  Submit RFP
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
               </Button>
               <Link 
                 to="/resources/contractor-portal" 

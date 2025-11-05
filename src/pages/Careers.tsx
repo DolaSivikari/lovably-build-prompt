@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
 import { 
@@ -170,7 +170,7 @@ const Careers = () => {
                     </div>
                   </div>
                   <Button 
-                    className="bg-secondary hover:bg-secondary/90 text-primary whitespace-nowrap"
+                    variant="primary"
                     onClick={() => handleApply(position.title)}
                   >
                     Apply Now
@@ -231,12 +231,12 @@ const Careers = () => {
                       talented professionals. Send us your resume and let's talk about your future.
                     </p>
                     <Button 
-                      variant="secondary" 
                       size="lg" 
                       className="w-full"
                       onClick={() => handleApply("General Application")}
                     >
                       Submit Your Resume
+                      <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </CardContent>
                 </Card>

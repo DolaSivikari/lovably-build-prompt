@@ -2,10 +2,10 @@ import { forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost" | "danger";
-type Size = "sm" | "md" | "lg";
+type Variant = "primary" | "secondary" | "navy" | "ghost" | "danger" | "outline" | "destructive" | "link" | "default";
+type Size = "sm" | "md" | "lg" | "icon" | "default";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   as?: React.ElementType;
   asChild?: boolean;
   variant?: Variant;
@@ -17,16 +17,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : Tag;
     
     const variants = {
-      primary: "bg-[hsl(var(--brand-primary))] text-white hover:opacity-90",
-      secondary: "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--bg-soft))]",
+      primary: "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
+      default: "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
+      secondary: "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-transparent hover:bg-[hsl(var(--bg-soft))]",
+      outline: "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-transparent hover:bg-[hsl(var(--bg-soft))]",
+      navy: "bg-[hsl(var(--brand-primary))] text-white hover:opacity-90 shadow-lg",
       ghost: "text-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--bg-soft))]",
-      danger: "bg-[hsl(var(--danger))] text-white hover:opacity-90"
+      danger: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
+      destructive: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
+      link: "text-[hsl(var(--brand-primary))] underline-offset-4 hover:underline"
     };
 
     const sizes = {
       sm: "px-3 py-2 text-sm rounded-[var(--radius-xs)] min-h-[40px]",
       md: "px-4 py-2.5 text-sm rounded-[var(--radius-sm)] min-h-[44px]",
-      lg: "px-5 py-3 text-base rounded-[var(--radius-md)] min-h-[48px]"
+      default: "px-4 py-2.5 text-sm rounded-[var(--radius-sm)] min-h-[44px]",
+      lg: "px-5 py-3 text-base rounded-[var(--radius-md)] min-h-[48px]",
+      icon: "h-9 w-9 rounded-[var(--radius-sm)]"
     };
 
     return (
