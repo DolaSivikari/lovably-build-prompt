@@ -163,7 +163,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               asChild
             >
               <Link to="/contact">
-                Get Free Quote
+                Request Proposal
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -247,7 +247,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                   <Button variant="outline" className="w-full" asChild>
                     <Link to="/contact">
                       <Mail className="w-5 h-5 mr-2" />
-                      Get Quote via Email
+                      Request Proposal
                     </Link>
                   </Button>
                 </div>
@@ -423,7 +423,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="hover:scale-105 transition-transform" asChild>
                 <Link to="/contact">
-                  Request Free Quote
+                  Request Project Proposal
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="hover:scale-105 transition-transform" asChild>
@@ -456,7 +456,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               asChild
             >
               <Link to="/contact">
-                Get Quote
+                Request Proposal
               </Link>
             </Button>
             <Button 

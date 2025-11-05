@@ -16,65 +16,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;   /* Light cream background */
-    --foreground: 0 0% 17%;     /* Charcoal text */
+    --background: 0 0% 100%;   /* White background */
+    --foreground: 210 10% 30%;     /* Charcoal gray text */
 
     --card: 0 0% 100%;          /* White cards */
-    --card-foreground: 0 0% 17%; /* Charcoal on cards */
+    --card-foreground: 210 10% 30%; /* Charcoal on cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 210 10% 30%;
 
-    /* Ascent Brand Colors */
-    --sage: 100 23% 62%;        /* #9CAF88 */
-    --sage-dark: 100 25% 45%;   /* Darker sage for text */
-    --sage-light: 100 23% 75%;  /* Lighter sage for backgrounds */
-    --terracotta: 14 52% 55%;   /* #C96E4E */
-    --cream: 45 50% 95%;        /* #F6F1E9 */
-    --charcoal: 0 0% 17%;       /* #2C2C2C */
-    
-    /* Professional navy - sophisticated and approachable */
-    --primary: 210 74% 16%;     /* Navy Blue #1C2F43 */
+    /* GC Professional Color Palette */
+    --primary: 210 100% 20%;        /* Navy Blue #003366 */
     --primary-foreground: 0 0% 100%; /* White */
-    --primary-light: 210 74% 24%;
-    --primary-dark: 210 74% 10%;
-    --primary-glow: 210 74% 24%;
+    --primary-light: 210 100% 30%;
+    --primary-dark: 210 100% 15%;
+    --primary-glow: 210 100% 24%;
     
-    /* Construction orange - energy and action */
-    --accent-orange-light: 25 95% 63%;
-    --secondary: 45 94% 54%;    /* Light Gold #F8BF1A */
-    --secondary-foreground: 210 74% 16%; /* Navy on gold */
+    --secondary: 210 10% 30%;       /* Charcoal Gray #36454F */
+    --secondary-foreground: 0 0% 100%; /* White on charcoal */
 
-    --muted: 0 0% 96%;        /* Light gray muted */
-    --muted-foreground: 232 6% 36%; /* Steel gray muted text */
+    --accent: 14 100% 60%;          /* Safety Orange #FF6B35 */
+    --accent-foreground: 0 0% 100%; /* White text on orange */
+
+    --muted: 210 15% 96%;        /* Light gray-blue muted */
+    --muted-foreground: 210 10% 40%; /* Darker gray-blue text */
     
     /* Accessible color variants for WCAG AA compliance */
-    --safety-yellow-accessible: 48 100% 35%; /* 4.8:1 contrast on white */
-    --accent-orange-dark: 24 100% 40%; /* 5.2:1 contrast on white */
-    --text-on-yellow: 0 0% 18%; /* 6.8:1 contrast on yellow backgrounds */
-
-    --accent: 41 96% 48%;      /* Vibrant Gold #F1A608 */
-    --accent-foreground: 210 74% 16%; /* Navy on bright gold */
+    --accent-orange-dark: 14 100% 50%; /* Darker orange for contrast */
+    --text-on-orange: 0 0% 100%; /* White text on orange */
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 232 6% 90%;         /* Cool-toned light gray borders */
-    --input: 232 6% 90%;
-    --ring: 41 96% 48%;           /* Gold focus rings */
+    --border: 210 15% 90%;         /* Light gray-blue borders */
+    --input: 210 15% 90%;
+    --ring: 14 100% 60%;           /* Orange focus rings */
 
     --radius: 0.5rem;
     
-    /* Custom navy & gold theme variables */
-    --gradient-hero: linear-gradient(135deg, hsl(210 74% 16%) 0%, hsl(210 74% 24%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(41 96% 48%) 0%, hsl(45 94% 54%) 100%);
-    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(210 74% 16% / 0.9) 100%);
-    --gradient-orb: radial-gradient(circle, hsl(41 96% 48% / 0.3) 0%, transparent 70%);
-    --shadow-soft: 0 2px 10px hsl(210 74% 16% / 0.1);
-    --shadow-medium: 0 4px 20px hsl(210 74% 16% / 0.2);
-    --shadow-strong: 0 10px 40px -10px hsl(210 74% 16% / 0.3);
-    --shadow-accent: 0 8px 30px -8px hsl(41 96% 48% / 0.4);
-    --shadow-glow: 0 0 40px hsl(41 96% 48% / 0.5);
+    /* GC Professional theme variables */
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 20%) 0%, hsl(210 100% 30%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(14 100% 60%) 0%, hsl(14 100% 70%) 100%);
+    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(210 100% 20% / 0.9) 100%);
+    --gradient-orb: radial-gradient(circle, hsl(14 100% 60% / 0.3) 0%, transparent 70%);
+    --shadow-soft: 0 2px 10px hsl(210 100% 20% / 0.1);
+    --shadow-medium: 0 4px 20px hsl(210 100% 20% / 0.15);
+    --shadow-strong: 0 10px 40px -10px hsl(210 100% 20% / 0.25);
+    --shadow-accent: 0 8px 30px -8px hsl(14 100% 60% / 0.4);
+    --shadow-glow: 0 0 40px hsl(14 100% 60% / 0.4);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Card Shadows */
@@ -114,43 +103,41 @@ All colors MUST be HSL.
     --popover: 215 28% 12%;
     --popover-foreground: 210 20% 95%;
 
-    --primary: 210 74% 85%;        /* Light navy for dark mode */
-    --primary-foreground: 210 74% 10%; /* Dark navy text */
-    --primary-light: 210 74% 90%;
-    --primary-dark: 210 74% 75%;
-    --primary-glow: 210 74% 90%;
+    --primary: 210 100% 70%;        /* Light navy for dark mode */
+    --primary-foreground: 210 100% 10%; /* Dark navy text */
+    --primary-light: 210 100% 80%;
+    --primary-dark: 210 100% 60%;
+    --primary-glow: 210 100% 75%;
 
-    --secondary: 45 94% 60%;    /* Light gold */
-    --accent-orange-light: 45 94% 54%;
-    --secondary-foreground: 210 74% 10%;
+    --secondary: 210 10% 40%;    /* Light charcoal */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 232 6% 20%;
-    --muted-foreground: 232 6% 65%;
+    --accent: 14 100% 65%;      /* Bright orange for dark mode */
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 210 15% 20%;
+    --muted-foreground: 210 15% 65%;
     
     /* Accessible color variants for dark mode */
-    --safety-yellow-accessible: 48 100% 45%; /* Adjusted for dark backgrounds */
-    --accent-orange-dark: 24 100% 50%; /* Adjusted for dark backgrounds */
-    --text-on-yellow: 0 0% 95%; /* Light text for dark yellow backgrounds */
-
-    --accent: 41 96% 55%;      /* Vibrant gold for dark mode */
-    --accent-foreground: 210 74% 10%; /* Dark navy on gold */
+    --accent-orange-dark: 14 100% 55%;
+    --text-on-orange: 0 0% 100%;
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 232 6% 25%;
-    --input: 232 6% 25%;
-    --ring: 41 96% 55%;           /* Gold focus ring */
+    --border: 210 15% 25%;
+    --input: 210 15% 25%;
+    --ring: 14 100% 65%;
     
-    --gradient-hero: linear-gradient(135deg, hsl(210 74% 15%) 0%, hsl(210 74% 20%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(41 96% 55%) 0%, hsl(45 94% 60%) 100%);
-    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(210 74% 15% / 0.9) 100%);
-    --gradient-orb: radial-gradient(circle, hsl(41 96% 55% / 0.3) 0%, transparent 70%);
-    --shadow-soft: 0 2px 10px hsl(41 96% 55% / 0.2);
-    --shadow-medium: 0 4px 20px hsl(41 96% 55% / 0.3);
-    --shadow-strong: 0 10px 40px -10px hsl(41 96% 55% / 0.4);
-    --shadow-accent: 0 8px 30px -8px hsl(41 96% 55% / 0.5);
-    --shadow-glow: 0 0 40px hsl(41 96% 55% / 0.6);
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 18%) 0%, hsl(210 100% 25%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(14 100% 65%) 0%, hsl(14 100% 75%) 100%);
+    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(210 100% 18% / 0.9) 100%);
+    --gradient-orb: radial-gradient(circle, hsl(14 100% 65% / 0.3) 0%, transparent 70%);
+    --shadow-soft: 0 2px 10px hsl(14 100% 65% / 0.2);
+    --shadow-medium: 0 4px 20px hsl(14 100% 65% / 0.3);
+    --shadow-strong: 0 10px 40px -10px hsl(14 100% 65% / 0.4);
+    --shadow-accent: 0 8px 30px -8px hsl(14 100% 65% / 0.5);
+    --shadow-glow: 0 0 40px hsl(14 100% 65% / 0.6);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

@@ -11,9 +11,9 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Ascent Group Construction | Complete Construction Solutions Across Ontario - Commercial, Residential & Industrial",
-  description = "Ontario's trusted construction partner for 15+ years. Specializing in painting, exterior systems (stucco, EIFS, masonry), metal cladding, parking garage restoration, and specialty construction. Serving Toronto, Mississauga, Brampton, Vaughan, Markham. Licensed, insured, WSIB compliant. Free estimates available.",
-  keywords = "construction contractor ontario, commercial painting toronto, residential painting GTA, condo restoration, stucco EIFS installation ontario, masonry repair toronto, parking garage restoration, metal cladding installation, exterior finishing contractor, construction management ontario, LEED certified contractor, building restoration GTA, property maintenance contractor, construction services toronto, painting contractor mississauga, building envelope services",
+  title = "Ascent Group Construction | Ontario's Trusted General Contractor - Commercial, Multi-Family & Institutional",
+  description = "Ontario's trusted general contractor for 15+ years. Specializing in design-build, construction management, exterior systems, interior build-outs, and specialty construction. Serving Toronto, Mississauga, Brampton, Vaughan, Markham. Licensed, insured, WSIB compliant. Submit your RFP today.",
+  keywords = "general contractor ontario, construction management toronto, design build GTA, commercial construction toronto, multi-family construction, institutional construction ontario, construction services GTA, building contractor mississauga, construction manager ontario, project management construction, LEED certified contractor, building restoration GTA, exterior systems contractor, construction company toronto",
   ogImage = "/og-image.jpg",
   canonical,
   structuredData,
@@ -26,11 +26,11 @@ const SEO = ({
   // Enhanced organization schema with comprehensive service catalog + AEO/GEO optimization
   const defaultSchema = {
     "@context": "https://schema.org",
-    "@type": ["GeneralContractor", "LocalBusiness", "PaintingContractor"],
+    "@type": ["GeneralContractor", "LocalBusiness"],
     "@id": `${siteUrl}/#organization`,
     name: "Ascent Group Construction",
     alternateName: "Ascent Group",
-    slogan: "Your Complete Construction Partner Across Ontario",
+    slogan: "Ontario's Trusted General Contractor Since 2009",
     description: description,
     url: siteUrl,
     telephone: "+1-647-123-4567",

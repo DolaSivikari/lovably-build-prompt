@@ -289,6 +289,66 @@ export type Database = {
         }
         Relationships: []
       }
+      awards_certifications: {
+        Row: {
+          badge_image_url: string | null
+          category: string
+          created_at: string
+          created_by: string | null
+          credential_number: string | null
+          date_received: string
+          description: string | null
+          display_order: number
+          expiry_date: string | null
+          id: string
+          is_active: boolean
+          issuing_organization: string
+          show_on_homepage: boolean
+          title: string
+          updated_at: string
+          updated_by: string | null
+          verification_url: string | null
+        }
+        Insert: {
+          badge_image_url?: string | null
+          category: string
+          created_at?: string
+          created_by?: string | null
+          credential_number?: string | null
+          date_received: string
+          description?: string | null
+          display_order?: number
+          expiry_date?: string | null
+          id?: string
+          is_active?: boolean
+          issuing_organization: string
+          show_on_homepage?: boolean
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+          verification_url?: string | null
+        }
+        Update: {
+          badge_image_url?: string | null
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          credential_number?: string | null
+          date_received?: string
+          description?: string | null
+          display_order?: number
+          expiry_date?: string | null
+          id?: string
+          is_active?: boolean
+          issuing_organization?: string
+          show_on_homepage?: boolean
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+          verification_url?: string | null
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           after_images: Json | null

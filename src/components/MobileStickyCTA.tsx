@@ -78,7 +78,7 @@ const MobileStickyCTA = () => {
           >
             <Link to="/estimate">
               <MessageSquare className="h-5 w-5" />
-              <span className="text-sm">Get Quote</span>
+              <span className="text-sm">Request Proposal</span>
             </Link>
           </Button>
         </div>
