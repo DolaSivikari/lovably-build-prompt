@@ -110,7 +110,7 @@ const Navigation = () => {
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
         <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] items-center h-20 gap-8">
           {/* Left Navigation */}
-          <nav className="flex items-center gap-4 lg:gap-5 justify-end" aria-label="Main navigation">
+          <nav className="flex items-center gap-3 lg:gap-4 2xl:gap-5 justify-end" aria-label="Main navigation">
             <Link
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
@@ -178,21 +178,43 @@ const Navigation = () => {
             </div>
           </nav>
 
-          {/* Center Logo */}
-          <Link to="/" className="flex flex-col items-center gap-1 group relative z-navigation" aria-label="Ascent Group Construction - Home">
-            <img 
-              src={ascentLogo} 
-              alt="Ascent Group Construction Logo" 
-              className="h-14 md:h-16 w-auto transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
-            />
-            <div className="flex flex-col items-center leading-tight">
-              <span className="text-lg md:text-xl font-bold text-foreground">Ascent Group</span>
-              <span className="text-xs md:text-sm font-semibold text-primary uppercase tracking-wider">Construction</span>
-            </div>
-          </Link>
+          {/* Center: Logo + Company Name + Phone */}
+          <div className="flex items-center gap-4 lg:gap-6">
+            <Link to="/" className="flex items-center gap-3 group relative z-navigation" aria-label="Ascent Group Construction - Home">
+              <img 
+                src={ascentLogo} 
+                alt="Ascent Group Construction Logo" 
+                className="h-14 md:h-16 lg:h-18 w-auto transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
+              />
+              <div className="flex flex-col items-start leading-tight">
+                <span className="text-lg md:text-xl lg:text-2xl font-bold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                  Ascent Group
+                </span>
+                <span className="text-xs md:text-sm lg:text-base font-bold text-primary uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                  CONSTRUCTION
+                </span>
+              </div>
+            </Link>
+            
+            <div className={cn(
+              "h-8 w-px bg-border/50 hidden lg:block",
+              isAtTop ? "bg-white/30" : "bg-border/50"
+            )} />
+            
+            <a 
+              href="tel:+14165551234" 
+              className={cn(
+                "hidden lg:flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:scale-105 whitespace-nowrap group",
+                isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
+              )}
+            >
+              <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
+              <span>(416) 555-1234</span>
+            </a>
+          </div>
 
           {/* Right Navigation */}
-          <nav className="flex items-center gap-4 lg:gap-5 justify-start" aria-label="Secondary navigation">
+          <nav className="flex items-center gap-3 lg:gap-4 2xl:gap-5 justify-start" aria-label="Secondary navigation">
             {/* Projects Mega-Menu */}
             <div
               className="relative"
@@ -297,13 +319,6 @@ const Navigation = () => {
             >
               Client Portal
             </Link>
-            <a 
-              href="tel:+14165551234" 
-              className="text-sm font-medium text-foreground hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1"
-            >
-              <Phone className="w-4 h-4" />
-              <span className="hidden xl:inline">(416) 555-1234</span>
-            </a>
 
           {/* Admin Dropdown - Only visible to admin users */}
           {isAdmin && (
