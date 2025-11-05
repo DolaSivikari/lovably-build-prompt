@@ -284,7 +284,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
           >
             <Link to="/estimate" onClick={handleLinkClick}>
               <Phone className="h-5 w-5" />
-              Get Free Estimate
+              Request Proposal
             </Link>
           </Button>
         </div>

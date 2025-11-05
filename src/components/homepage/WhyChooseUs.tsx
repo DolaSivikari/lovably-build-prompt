@@ -141,7 +141,7 @@ const WhyChooseUs = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="min-w-[200px]">
-                <Link to="/estimate">Get Free Estimate</Link>
+                <Link to="/contact">Request Proposal</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="min-w-[200px]">
                 <Link to="/projects">View Our Projects</Link>
@@ -155,7 +155,7 @@ const WhyChooseUs = () => {
           <p className="leading-relaxed">
             Serving the Greater Toronto Area including Toronto, North York, Etobicoke, Scarborough, 
             Mississauga, Brampton, Vaughan, Markham, Richmond Hill, and surrounding Ontario communities 
-            with professional construction services including commercial painting, residential painting, 
+            with professional construction services including commercial construction, exterior systems, 
             EIFS installation, stucco repair, masonry restoration, metal cladding, parking garage 
             restoration, waterproofing, and specialty construction solutions.
           </p>

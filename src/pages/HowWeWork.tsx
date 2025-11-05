@@ -191,7 +191,7 @@ const HowWeWork = () => {
         <CTASection
           title="Ready to Get Started?"
           description="Experience the Ascent Group difference. Contact us today for your free consultation and detailed quote."
-          primaryCTA={{ label: "Get Free Estimate", href: "/estimate", variant: "secondary" }}
+          primaryCTA={{ label: "Request Proposal", href: "/contact", variant: "secondary" }}
           secondaryCTA={{ label: "Contact Us", href: "/contact", variant: "outline" }}
         />
       </main>

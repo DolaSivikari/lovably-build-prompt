@@ -331,7 +331,7 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       },
       {
         slug: 'residential-painting',
-        name: 'Residential Painting',
+        name: 'Commercial Construction',
         image: '/project-industrial.jpg'
       },
       {

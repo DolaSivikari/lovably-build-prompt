@@ -41,7 +41,7 @@ const Footer = () => {
   ];
 
   const sectorsLinks = (footerSettings?.sectors_links as any[]) || [
-    { label: "Homeowners", href: "/homeowners" },
+    { label: "Multi-Family", href: "/markets/multi-family" },
     { label: "Property Managers", href: "/property-managers" },
     { label: "Commercial Clients", href: "/commercial-clients" },
     { label: "Service Areas", href: "/resources/service-areas" },

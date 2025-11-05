@@ -9,7 +9,9 @@ interface Step4Props {
 
 const EstimatorStep4 = ({ estimate, formData }: Step4Props) => {
   const serviceLabels = {
-    residential_painting: "Residential Painting",
+    commercial_construction: "Commercial Construction",
+    multi_family_construction: "Multi-Family Construction",
+    institutional_construction: "Institutional Construction",
     stucco_eifs: "Stucco / EIFS",
   };
 

@@ -33,14 +33,14 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
                 <div className="space-y-4">
                   <p className="text-lg leading-relaxed">
                     <strong className="text-foreground">Ascent Group Construction is Ontario's complete construction partner</strong>, 
-                    specializing in commercial painting, residential painting, condo restoration, and exterior building systems 
+                    specializing in commercial construction, multi-family construction, institutional projects, and exterior building systems 
                     across the Greater Toronto Area. Our comprehensive services include stucco installation and repair, EIFS systems, 
                     masonry restoration, metal cladding, parking garage restoration, waterproofing, and specialty construction services.
                   </p>
                   
                   <p className="text-base leading-relaxed text-muted-foreground">
                     With over 15 years of hands-on experience, we serve property managers, commercial building owners, developers, 
-                    and homeowners throughout Toronto, Mississauga, Brampton, Vaughan, Markham, and surrounding GTA municipalities. 
+                    and property owners throughout Toronto, Mississauga, Brampton, Vaughan, Markham, and surrounding GTA municipalities. 
                     Our team delivers turnkey solutions from initial consultation through project completion, backed by comprehensive 
                     warranties and ongoing support.
                   </p>
@@ -75,7 +75,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
             <div className="space-y-3 pt-2">
               <Button size="lg" className="w-full group" asChild>
                 <Link to="/estimate">
-                  Get Free Estimate
+                  Request Proposal
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>

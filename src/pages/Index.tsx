@@ -59,7 +59,7 @@ const Index = () => {
 
   const whatDoesAscentDo = createQASchema(
     "What services does Ascent Group Construction provide?",
-    "Ascent Group Construction provides comprehensive construction services across Ontario including commercial and residential painting, exterior systems (stucco, EIFS, masonry repair), metal cladding installation, parking garage restoration, waterproofing, and specialty construction. We serve Toronto, Mississauga, Brampton, Vaughan, and Markham with 15+ years of experience."
+    "Ascent Group Construction provides comprehensive general contracting services across Ontario including commercial construction, multi-family projects, exterior systems (stucco, EIFS, masonry repair), metal cladding installation, parking garage restoration, waterproofing, and institutional construction. We serve Toronto, Mississauga, Brampton, Vaughan, and Markham with 15+ years of experience."
   );
 
   // Why Choose Us Structured Data

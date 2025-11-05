@@ -15,8 +15,8 @@ export const landingMenuItems: LandingMenuItem[] = [
   {
     number: "02",
     title: "WHO WE SERVE",
-    link: "/homeowners",
-    subtext: "Homeowners, Property Managers & Commercial Clients"
+    link: "/markets/multi-family",
+    subtext: "Property Owners, Managers & Commercial Clients"
   },
   {
     number: "03",

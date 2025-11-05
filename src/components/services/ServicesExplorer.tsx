@@ -222,7 +222,7 @@ export const ServicesExplorer = () => {
         <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg" className="shadow-lg">
             <Link to="/estimate">
-              Get Free Estimate
+              Request Proposal
               <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>

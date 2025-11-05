@@ -20,7 +20,7 @@ export const servicePeopleAlsoAsk: Record<string, Array<{ question: string; answ
   "residential-painting": [
     {
       question: "How much does it cost to paint a house in the GTA?",
-      answer: "Residential painting costs in the GTA range from $2,500 to $8,000 CAD for a typical 2,000-3,000 sq ft home. Interior-only projects average $3,000-$5,000, while full interior and exterior painting costs $6,000-$12,000. Final cost depends on home size, paint quality, surface condition, and whether trim and ceilings are included."
+      answer: "Commercial construction project costs in the GTA vary based on scope, size, and complexity. Typical ranges: Tenant improvements ($50-150/sq ft), building envelope work ($30-80/sq ft), exterior systems ($25-60/sq ft). Factors include site conditions, material specifications, and project timeline. Final cost depends on project requirements, accessibility, and coordination needs."
     },
     {
       question: "What's the best time of year to paint a house exterior in Ontario?",

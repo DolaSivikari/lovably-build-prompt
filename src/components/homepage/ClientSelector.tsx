@@ -7,13 +7,13 @@ import { useRef } from "react";
 
 const clientTypes = [
   {
-    icon: Home,
-    title: "Homeowners",
-    headline: "Residential Construction",
-    description: "Construction services for residential properties across Ontario",
-    benefits: ["Free project proposals", "Flexible scheduling", "Warranty protection"],
-    cta: "Request Your Proposal",
-    link: "/homeowners",
+    icon: Building2,
+    title: "Property Owners",
+    headline: "Multi-Family Solutions",
+    description: "Multi-family and residential property solutions",
+    benefits: ["Quality Construction", "Professional Service", "Reliable Delivery"],
+    cta: "Explore Solutions",
+    link: "/markets/multi-family",
     color: "from-blue-500/10 to-blue-600/5",
   },
   {

@@ -689,7 +689,7 @@ const About = () => {
                 </Link>
                 <Link to="/estimate">
                   <Button size="lg" variant="outline">
-                    Get Free Estimate
+                    Request Proposal
                   </Button>
                 </Link>
               </div>
@@ -709,7 +709,7 @@ const About = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/estimate">
                 <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-primary font-bold px-8">
-                  Get Free Estimate
+                  Request Proposal
                 </Button>
               </Link>
               <Link to="/projects">

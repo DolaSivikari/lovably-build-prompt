@@ -49,7 +49,7 @@ const ExteriorCladding = () => {
             </p>
             <Button size="lg" variant="secondary" className="group" asChild>
               <Link to="/contact">
-                Get Free Quote
+                Request Proposal
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -83,7 +83,7 @@ const ExteriorCladding = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
                 <Link to="/contact">
-                  Request Free Quote
+                  Request Proposal
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>

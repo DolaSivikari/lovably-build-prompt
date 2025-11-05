@@ -29,7 +29,7 @@ const KNOWN_ROUTES = [
   "/how-we-work",
   "/our-process",
   "/values",
-  "/homeowners",
+  "/markets/multi-family",
   "/commercial-clients",
   "/property-managers",
   "/company/team",

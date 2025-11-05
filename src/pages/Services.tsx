@@ -150,10 +150,10 @@ const Services = () => {
 
   const audiences = [
     {
-      title: "Homeowners",
-      description: "Personalized service for your most valuable investment",
-      icon: Home,
-      link: "/homeowners"
+      title: "Property Owners",
+      description: "Multi-family and residential property solutions",
+      icon: Building2,
+      link: "/markets/multi-family"
     },
     {
       title: "Property Managers",
@@ -202,7 +202,7 @@ const Services = () => {
                 asChild
                 className="w-full sm:w-auto min-w-[200px] text-base md:text-lg"
               >
-                <Link to="/estimate">Get Free Estimate</Link>
+                <Link to="/contact">Request Proposal</Link>
               </Button>
               <Button 
                 size="lg" 

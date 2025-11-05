@@ -174,7 +174,7 @@ const ServiceAreas = () => {
                 </a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a href="/estimate">Get Free Estimate</a>
+                <a href="/contact">Request Proposal</a>
               </Button>
             </div>
           </section>

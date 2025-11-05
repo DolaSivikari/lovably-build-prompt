@@ -83,7 +83,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             { name: "For Developers", link: "/company/developers", description: "New construction and repositioning", badge: "popular" },
             { name: "For Property Managers", link: "/property-managers", description: "Building maintenance and capital projects" },
             { name: "For Commercial Clients", link: "/commercial-clients", description: "Tenant improvements and renovations" },
-            { name: "For Homeowners", link: "/homeowners", description: "Residential construction services" },
+            { name: "Multi-Family", link: "/markets/multi-family", description: "Multi-family construction solutions" },
           ],
         },
       ],

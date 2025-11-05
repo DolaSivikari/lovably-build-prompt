@@ -255,7 +255,7 @@ const FAQ = () => {
     "How much does commercial painting cost in Toronto?",
     "What's the best time of year to paint exterior in Ontario?",
     "Do you offer volume pricing for multiple units?",
-    "How long does a typical residential painting project take?"
+    "How long does a typical commercial construction project take?"
   ];
 
   // Create FAQ schema from all questions
@@ -284,7 +284,7 @@ const FAQ = () => {
     <>
       <SEO
         title="Frequently Asked Questions - Painting & Construction | Ascent Group"
-        description="Get answers to 85+ questions about painting costs, timelines, processes, and services in Toronto and the GTA. Expert guidance for homeowners and property managers."
+        description="Get answers to 85+ questions about construction costs, timelines, processes, and services in Toronto and the GTA. Expert guidance for property owners and managers."
         keywords="painting FAQ Toronto, construction questions GTA, painting costs Ontario, EIFS repair, property management painting, commercial painting questions"
         structuredData={[generateFAQSchema(allFAQs), howToSchema]}
       />

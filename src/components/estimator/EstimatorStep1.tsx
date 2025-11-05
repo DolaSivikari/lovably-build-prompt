@@ -33,7 +33,9 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Construction Services (Instant Estimate)</SelectLabel>
-              <SelectItem value="residential_painting">Residential Painting</SelectItem>
+              <SelectItem value="commercial_construction">Commercial Construction</SelectItem>
+              <SelectItem value="multi_family_construction">Multi-Family Construction</SelectItem>
+              <SelectItem value="institutional_construction">Institutional Construction</SelectItem>
               <SelectItem value="commercial_painting">Commercial Painting</SelectItem>
               <SelectItem value="condo_multi_unit_painting">Condo / Multi-Unit Painting</SelectItem>
               <SelectItem value="stucco_eifs">Stucco / EIFS</SelectItem>

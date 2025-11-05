@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import FloatingContact from "./components/FloatingContact";
@@ -19,7 +19,6 @@ import Estimate from "./pages/Estimate";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import PropertyManagers from "./pages/PropertyManagers";
-import Homeowners from "./pages/Homeowners";
 import CommercialClients from "./pages/CommercialClients";
 import OurProcess from "./pages/OurProcess";
 import Sustainability from "./pages/Sustainability";
@@ -30,7 +29,6 @@ import Values from "./pages/Values";
 import HowWeWork from "./pages/HowWeWork";
 import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
-import PaintingServices from "./pages/services/PaintingServices";
 import ExteriorCladding from "./pages/services/ExteriorCladding";
 import InteriorBuildouts from "./pages/services/InteriorBuildouts";
 import ExteriorEnvelope from "./pages/services/ExteriorEnvelope";
@@ -235,7 +233,7 @@ const App = () => (
             <Route path="/services/general-contracting" element={<GeneralContracting />} />
             <Route path="/services/construction-management" element={<ConstructionManagement />} />
             <Route path="/services/design-build" element={<DesignBuild />} />
-            <Route path="/services/painting" element={<PaintingServices />} />
+            <Route path="/services/painting" element={<Navigate to="/services/exterior-envelope" replace />} />
             <Route path="/services/exterior-cladding" element={<ExteriorCladding />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
             <Route path="/services/exterior-envelope" element={<ExteriorEnvelope />} />
@@ -253,7 +251,7 @@ const App = () => (
                   <Route path="/estimate" element={<Estimate />} />
                   <Route path="/submit-rfp" element={<SubmitRFPNew />} />
                   <Route path="/property-managers" element={<PropertyManagers />} />
-                  <Route path="/homeowners" element={<Homeowners />} />
+                  <Route path="/homeowners" element={<Navigate to="/markets/multi-family" replace />} />
                   <Route path="/commercial-clients" element={<CommercialClients />} />
                   <Route path="/our-process" element={<OurProcess />} />
                   <Route path="/sustainability" element={<Sustainability />} />
