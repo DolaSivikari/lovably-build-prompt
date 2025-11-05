@@ -62,8 +62,21 @@ const ProjectEditor = () => {
     before_images: [],
     after_images: [],
     content_blocks: [],
-    project_images: [] as ProjectImage[], // New unified gallery
-    service_ids: [] as string[], // Services provided
+    project_images: [] as ProjectImage[],
+    service_ids: [] as string[],
+    // GC Tracking Metrics
+    project_value: "",
+    square_footage: "",
+    your_role: "",
+    delivery_method: "",
+    client_type: "",
+    trades_coordinated: "",
+    peak_workforce: "",
+    on_time_completion: false,
+    on_budget: false,
+    safety_incidents: "",
+    scope_of_work: "",
+    team_credits: [] as Array<{ role: string; name: string; company?: string }>,
   });
 
   // Auto-generate slug from title when title changes and slug is empty
@@ -187,7 +200,20 @@ const ProjectEditor = () => {
           order: img.display_order,
           featured: img.featured
         })) || [],
-        service_ids: projectServices?.map((ps: any) => ps.service_id) || []
+        service_ids: projectServices?.map((ps: any) => ps.service_id) || [],
+        // GC Tracking Metrics
+        project_value: data.project_value || "",
+        square_footage: data.square_footage || "",
+        your_role: data.your_role || "",
+        delivery_method: data.delivery_method || "",
+        client_type: data.client_type || "",
+        trades_coordinated: data.trades_coordinated || "",
+        peak_workforce: data.peak_workforce || "",
+        on_time_completion: data.on_time_completion || false,
+        on_budget: data.on_budget || false,
+        safety_incidents: data.safety_incidents || "",
+        scope_of_work: data.scope_of_work || "",
+        team_credits: data.team_credits || [],
       });
     }
   };
@@ -617,6 +643,248 @@ const ProjectEditor = () => {
               />
             </div>
           </div>
+
+          {/* GC Tracking Metrics Section */}
+          <Card className="p-6 bg-muted/30">
+            <h3 className="text-lg font-bold mb-4">GC Project Metrics</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              Track key project performance indicators and team information
+            </p>
+            
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="project_value">Contract Value ($)</Label>
+                  <Input
+                    id="project_value"
+                    type="number"
+                    step="0.01"
+                    value={formData.project_value}
+                    onChange={(e) => setFormData({ ...formData, project_value: e.target.value })}
+                    placeholder="e.g., 2500000.00"
+                  />
+                  <p className="text-xs text-muted-foreground">Total contract value in dollars</p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="square_footage">Square Footage</Label>
+                  <Input
+                    id="square_footage"
+                    type="number"
+                    value={formData.square_footage}
+                    onChange={(e) => setFormData({ ...formData, square_footage: e.target.value })}
+                    placeholder="e.g., 50000"
+                  />
+                  <p className="text-xs text-muted-foreground">Total building area in sq ft</p>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="your_role">Our Role</Label>
+                  <Select
+                    value={formData.your_role}
+                    onValueChange={(value) => setFormData({ ...formData, your_role: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="General Contractor">General Contractor</SelectItem>
+                      <SelectItem value="Construction Manager">Construction Manager</SelectItem>
+                      <SelectItem value="Design-Build">Design-Build</SelectItem>
+                      <SelectItem value="Trade Contractor">Trade Contractor</SelectItem>
+                      <SelectItem value="Subcontractor">Subcontractor</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="delivery_method">Delivery Method</Label>
+                  <Select
+                    value={formData.delivery_method}
+                    onValueChange={(value) => setFormData({ ...formData, delivery_method: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select method" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="General Contracting">General Contracting</SelectItem>
+                      <SelectItem value="Construction Management">Construction Management</SelectItem>
+                      <SelectItem value="Design-Build">Design-Build</SelectItem>
+                      <SelectItem value="CM at Risk">CM at Risk</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="client_type">Client Type</Label>
+                  <Select
+                    value={formData.client_type}
+                    onValueChange={(value) => setFormData({ ...formData, client_type: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select client" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Developer">Developer</SelectItem>
+                      <SelectItem value="Property Manager">Property Manager</SelectItem>
+                      <SelectItem value="Owner Direct">Owner Direct</SelectItem>
+                      <SelectItem value="General Contractor">General Contractor</SelectItem>
+                      <SelectItem value="Government">Government</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="trades_coordinated">Trades Coordinated</Label>
+                  <Input
+                    id="trades_coordinated"
+                    type="number"
+                    value={formData.trades_coordinated}
+                    onChange={(e) => setFormData({ ...formData, trades_coordinated: e.target.value })}
+                    placeholder="e.g., 12"
+                  />
+                  <p className="text-xs text-muted-foreground">Number of subcontractor trades managed</p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="peak_workforce">Peak Workforce</Label>
+                  <Input
+                    id="peak_workforce"
+                    type="number"
+                    value={formData.peak_workforce}
+                    onChange={(e) => setFormData({ ...formData, peak_workforce: e.target.value })}
+                    placeholder="e.g., 45"
+                  />
+                  <p className="text-xs text-muted-foreground">Maximum workers on site</p>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="on_time_completion">On-Time Completion</Label>
+                  <Select
+                    value={formData.on_time_completion ? "true" : "false"}
+                    onValueChange={(value) => setFormData({ ...formData, on_time_completion: value === "true" })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="true">Yes</SelectItem>
+                      <SelectItem value="false">No</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="on_budget">On Budget</Label>
+                  <Select
+                    value={formData.on_budget ? "true" : "false"}
+                    onValueChange={(value) => setFormData({ ...formData, on_budget: value === "true" })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="true">Yes</SelectItem>
+                      <SelectItem value="false">No</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="safety_incidents">Safety Incidents</Label>
+                  <Input
+                    id="safety_incidents"
+                    type="number"
+                    value={formData.safety_incidents}
+                    onChange={(e) => setFormData({ ...formData, safety_incidents: e.target.value })}
+                    placeholder="0"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="scope_of_work">Scope of Work</Label>
+                <Textarea
+                  id="scope_of_work"
+                  value={formData.scope_of_work}
+                  onChange={(e) => setFormData({ ...formData, scope_of_work: e.target.value })}
+                  rows={6}
+                  placeholder="Detailed description of all work performed..."
+                />
+                <p className="text-xs text-muted-foreground">
+                  Comprehensive description of work completed (supports HTML)
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Team Credits</Label>
+                <div className="space-y-3">
+                  {formData.team_credits.map((member: any, index: number) => (
+                    <div key={index} className="grid grid-cols-12 gap-3">
+                      <Input
+                        placeholder="Role (e.g., Project Manager)"
+                        value={member.role}
+                        onChange={(e) => {
+                          const updated = [...formData.team_credits];
+                          updated[index].role = e.target.value;
+                          setFormData({ ...formData, team_credits: updated });
+                        }}
+                        className="col-span-3"
+                      />
+                      <Input
+                        placeholder="Name"
+                        value={member.name}
+                        onChange={(e) => {
+                          const updated = [...formData.team_credits];
+                          updated[index].name = e.target.value;
+                          setFormData({ ...formData, team_credits: updated });
+                        }}
+                        className="col-span-3"
+                      />
+                      <Input
+                        placeholder="Company (optional)"
+                        value={member.company || ""}
+                        onChange={(e) => {
+                          const updated = [...formData.team_credits];
+                          updated[index].company = e.target.value;
+                          setFormData({ ...formData, team_credits: updated });
+                        }}
+                        className="col-span-5"
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const updated = formData.team_credits.filter((_: any, i: number) => i !== index);
+                          setFormData({ ...formData, team_credits: updated });
+                        }}
+                        className="col-span-1"
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setFormData({
+                        ...formData,
+                        team_credits: [...formData.team_credits, { role: "", name: "", company: "" }]
+                      });
+                    }}
+                  >
+                    + Add Team Member
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  List key team members and their roles on this project
+                </p>
+              </div>
+            </div>
+          </Card>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">

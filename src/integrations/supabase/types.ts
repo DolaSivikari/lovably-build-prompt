@@ -1968,6 +1968,7 @@ export type Database = {
           publish_state: Database["public"]["Enums"]["publish_state"] | null
           safety_incidents: number | null
           scheduled_publish_at: string | null
+          scope_of_work: string | null
           seo_description: string | null
           seo_keywords: string[] | null
           seo_title: string | null
@@ -1977,6 +1978,7 @@ export type Database = {
           subtitle: string | null
           summary: string | null
           tags: string[] | null
+          team_credits: Json | null
           title: string
           trades_coordinated: number | null
           updated_at: string | null
@@ -2018,6 +2020,7 @@ export type Database = {
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           safety_incidents?: number | null
           scheduled_publish_at?: string | null
+          scope_of_work?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
@@ -2027,6 +2030,7 @@ export type Database = {
           subtitle?: string | null
           summary?: string | null
           tags?: string[] | null
+          team_credits?: Json | null
           title: string
           trades_coordinated?: number | null
           updated_at?: string | null
@@ -2068,6 +2072,7 @@ export type Database = {
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
           safety_incidents?: number | null
           scheduled_publish_at?: string | null
+          scope_of_work?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
@@ -2077,6 +2082,7 @@ export type Database = {
           subtitle?: string | null
           summary?: string | null
           tags?: string[] | null
+          team_credits?: Json | null
           title?: string
           trades_coordinated?: number | null
           updated_at?: string | null

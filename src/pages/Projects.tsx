@@ -63,6 +63,12 @@ const Projects = () => {
           featured: project.featured,
           id: project.id,
           rawData: project,
+          // GC Metrics
+          project_value: project.project_value,
+          your_role: project.your_role,
+          on_time_completion: project.on_time_completion,
+          on_budget: project.on_budget,
+          safety_incidents: project.safety_incidents,
         }));
         setAllProjects(projects);
       }
@@ -93,6 +99,12 @@ const Projects = () => {
         featured: project.featured,
         id: project.id,
         rawData: project,
+        // GC Metrics
+        project_value: project.project_value,
+        your_role: project.your_role,
+        on_time_completion: project.on_time_completion,
+        on_budget: project.on_budget,
+        safety_incidents: project.safety_incidents,
       }));
       setAllProjects(transformed);
     }

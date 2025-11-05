@@ -18,6 +18,12 @@ interface ProjectCardProps {
   description: string;
   highlights?: string[];
   onViewDetails: (slug: string) => void;
+  // GC Metrics
+  project_value?: number;
+  your_role?: string;
+  on_time_completion?: boolean;
+  on_budget?: boolean;
+  safety_incidents?: number;
 }
 
 const ProjectCard = ({
@@ -32,6 +38,11 @@ const ProjectCard = ({
   description,
   highlights,
   onViewDetails,
+  project_value,
+  your_role,
+  on_time_completion,
+  on_budget,
+  safety_incidents,
 }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -90,6 +101,37 @@ const ProjectCard = ({
             <span>{year}</span>
           </div>
         </div>
+        
+        {/* GC Metrics Badges */}
+        {(project_value || your_role || on_time_completion !== undefined || on_budget !== undefined || safety_incidents !== undefined) && (
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {project_value && (
+              <Badge variant="outline" className="text-xs">
+                ${(project_value / 100 / 1000000).toFixed(1)}M
+              </Badge>
+            )}
+            {your_role && (
+              <Badge variant="outline" className="text-xs">
+                {your_role}
+              </Badge>
+            )}
+            {on_time_completion && (
+              <Badge variant="default" className="text-xs bg-green-600">
+                On-Time
+              </Badge>
+            )}
+            {on_budget && (
+              <Badge variant="default" className="text-xs bg-blue-600">
+                On-Budget
+              </Badge>
+            )}
+            {safety_incidents === 0 && (
+              <Badge variant="default" className="text-xs bg-green-700">
+                Zero Incidents
+              </Badge>
+            )}
+          </div>
+        )}
         
         <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
       </CardContent>
