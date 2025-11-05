@@ -109,18 +109,20 @@ const Navigation = () => {
       >
         <div className="w-full max-w-none pl-0 pr-6 md:pr-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 md:gap-3 group relative z-navigation ml-0" aria-label="Ascent Group Construction - Home">
-            <img 
-              src={ascentLogo} 
-              alt="Ascent Group Construction Logo" 
-              className="h-12 md:h-14 w-auto transition-transform group-hover:scale-105"
-            />
-            <div className="flex flex-col leading-tight">
-              <span className="text-lg md:text-xl font-bold text-foreground">Ascent Group</span>
-              <span className="text-xs md:text-sm font-semibold text-primary uppercase tracking-wider">Construction</span>
-            </div>
-          </Link>
+          {/* Logo - Centered in left section */}
+          <div className="flex justify-center" style={{ width: '280px' }}>
+            <Link to="/" className="flex items-center gap-2 md:gap-3 group relative z-navigation" aria-label="Ascent Group Construction - Home">
+              <img 
+                src={ascentLogo} 
+                alt="Ascent Group Construction Logo" 
+                className="h-12 md:h-14 w-auto transition-transform group-hover:scale-105"
+              />
+              <div className="flex flex-col leading-tight">
+                <span className="text-lg md:text-xl font-bold text-foreground">Ascent Group</span>
+                <span className="text-xs md:text-sm font-semibold text-primary uppercase tracking-wider">Construction</span>
+              </div>
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex flex-1 justify-end">
