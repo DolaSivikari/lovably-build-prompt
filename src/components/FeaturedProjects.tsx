@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "./ui/card";
-import { Button } from "./ui/button";
+import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/ui/Badge";
 
 interface Project {
   id: string;

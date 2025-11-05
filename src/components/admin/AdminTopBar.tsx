@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { ExternalLink, Home, LogOut, RefreshCw } from "lucide-react";
 import ascentLogo from "@/assets/ascent-logo.png";
 import { supabase } from "@/integrations/supabase/client";
