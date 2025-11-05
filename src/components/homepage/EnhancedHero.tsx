@@ -6,6 +6,7 @@ import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 import GeometricShapes from "./GeometricShapes";
 import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 
 const heroSlides = [
   {
@@ -85,6 +86,14 @@ const EnhancedHero = () => {
   const videoRefB = useRef<HTMLVideoElement>(null);
   const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Video preloader for seamless slide transitions
+  const videoUrls = heroSlides.map(slide => slide.video);
+  const { getVideoUrl, isPreloaded } = useVideoPreloader({
+    videoUrls,
+    currentIndex: currentSlide,
+    prefetchCount: 2, // Prefetch 2 videos ahead
+  });
 
   // Handle smooth poster-to-video transition
   const handleVideoReady = () => {
@@ -261,7 +270,7 @@ const EnhancedHero = () => {
           onLoadedData={handleVideoReady}
           style={{ opacity: videoOpacity.a }}
         >
-          <source src={slide.video} type="video/mp4" />
+          <source src={getVideoUrl(slide.video)} type="video/mp4" />
         </video>
         
         {/* Video B - for seamless crossfade loop */}
@@ -273,7 +282,7 @@ const EnhancedHero = () => {
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
           style={{ opacity: videoOpacity.b }}
         >
-          <source src={slide.video} type="video/mp4" />
+          <source src={getVideoUrl(slide.video)} type="video/mp4" />
         </video>
 
         {/* Poster Overlay - Fades out when video is ready */}
