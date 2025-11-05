@@ -9,7 +9,6 @@ const metrics = [
     displayValue: "$2B+",
     label: "Total Project Value",
     icon: TrendingUp,
-    color: "text-accent",
     skipCounter: true
   },
   {
@@ -17,21 +16,18 @@ const metrics = [
     suffix: "+",
     label: "Projects Completed",
     icon: Award,
-    color: "text-accent"
   },
   {
     value: 98,
     suffix: "%",
     label: "Client Satisfaction",
     icon: Users,
-    color: "text-accent"
   },
   {
     value: 0,
     label: "Safety Incidents",
     icon: Shield,
-    color: "text-accent",
-    description: "500+ projects with zero lost-time incidents"
+    description: "Zero lost-time incidents across 500+ projects"
   }
 ];
 
@@ -40,8 +36,18 @@ const MetricsDashboard = () => {
   const isVisible = useIntersectionObserver(ref);
 
   return (
-    <section ref={ref} className="py-16 bg-gradient-to-br from-primary via-primary/95 to-primary-dark border-y border-primary-light">
-      <div className="container mx-auto px-4">
+    <section ref={ref} className="py-20 md:py-24 bg-gradient-to-br from-navy-dark via-primary to-navy-dark">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+        
+        {/* Section Title */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            By The Numbers
+          </h2>
+          <div className="h-1 w-16 bg-steel-blue mx-auto"></div>
+        </div>
+
+        {/* Metrics Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {metrics.map((metric, index) => (
             <MetricCard 
@@ -73,26 +79,27 @@ const MetricCard = ({ metric, isVisible, delay }: MetricCardProps) => {
     : `${(metric as any).prefix || ''}${count}${(metric as any).suffix || ''}`;
 
   return (
-    <div 
-      className="text-center animate-fade-in"
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      <div className="flex justify-center mb-3">
-        <div className="p-3 rounded-full bg-accent/20 border border-accent/30">
-          <Icon className={`w-8 h-8 ${metric.color}`} />
+    <div className="text-center">
+      {/* Icon with Steel Blue Accent */}
+      <div className="flex justify-center mb-6">
+        <div className="w-16 h-16 rounded-lg bg-steel-blue/20 border border-steel-blue/30 flex items-center justify-center">
+          <Icon className="w-8 h-8 text-steel-blue" />
         </div>
       </div>
       
-      <div className="text-5xl md:text-6xl font-bold text-white mb-2 tracking-tight">
+      {/* Metric Value */}
+      <div className="text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
         {displayText}
       </div>
       
-      <div className="text-sm md:text-base text-white/90 font-medium">
+      {/* Metric Label */}
+      <div className="text-base md:text-lg text-white/90 font-semibold mb-2">
         {metric.label}
       </div>
       
+      {/* Description */}
       {metric.description && (
-        <div className="text-xs text-white/70 mt-1 max-w-[200px] mx-auto">
+        <div className="text-sm text-white/70 mt-2 max-w-[200px] mx-auto leading-relaxed">
           {metric.description}
         </div>
       )}
