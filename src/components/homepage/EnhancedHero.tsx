@@ -42,6 +42,7 @@ const EnhancedHero = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,10 +67,28 @@ const EnhancedHero = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      
+      // Calculate normalized position (-1 to 1)
+      const x = (clientX / innerWidth - 0.5) * 2;
+      const y = (clientY / innerHeight - 0.5) * 2;
+      
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const slide = heroSlides[currentSlide];
   const PrimaryIcon = slide.primaryCTA.icon;
 
   const parallaxOffset = scrollY * 0.5;
+  const mouseParallaxX = mousePosition.x * 20; // Max 20px movement
+  const mouseParallaxY = mousePosition.y * 20; // Max 20px movement
 
   return (
     <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden">
@@ -77,8 +96,8 @@ const EnhancedHero = () => {
       <div 
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
         style={{ 
-          transform: `translateY(${parallaxOffset}px)`,
-          transition: 'transform 0.1s ease-out'
+          transform: `translateY(${parallaxOffset}px) translateX(${mouseParallaxX}px) translateY(${mouseParallaxY}px)`,
+          transition: 'transform 0.3s ease-out'
         }}
       >
         <video
