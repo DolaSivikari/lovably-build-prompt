@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ChevronDown, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/ui/Badge";
+import { Button } from "@/ui/Button";
 import OptimizedImage from "@/components/OptimizedImage";
 
 interface ProcessTimelineStepProps {

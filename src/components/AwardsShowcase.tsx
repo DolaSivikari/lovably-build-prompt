@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/ui/Badge';
 import { Award, Shield, Star, CheckCircle2, ExternalLink } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 

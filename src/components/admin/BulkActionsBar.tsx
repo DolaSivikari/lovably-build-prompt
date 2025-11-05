@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/ui/Button';
+import { Badge } from '@/ui/Badge';
 import { Trash2, Download, Edit, X } from 'lucide-react';
 import {
   Select,

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Upload, X, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/ui/Button';
 import { uploadImage } from '@/utils/imageResolver';
 import { toast } from 'sonner';
 
