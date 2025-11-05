@@ -104,7 +104,27 @@ const StatsManager = () => {
       value: 0,
       suffix: '+',
       description: '',
-      icon_name: 'Building',
+      icon_name: 'Building2',
+      display_order: stats.length + 1,
+      is_active: true
+    });
+    setDialogOpen(true);
+  };
+
+  const gcStatTemplates = [
+    { label: 'Total Project Value', value: 50000000, suffix: 'M+', description: 'Million in completed projects', icon_name: 'DollarSign' },
+    { label: 'Square Footage', value: 2000000, suffix: '+', description: 'Sq ft of construction completed', icon_name: 'Building2' },
+    { label: 'Active Projects', value: 12, suffix: '', description: 'Currently under construction', icon_name: 'Hammer' },
+    { label: 'Safety Record', value: 500, suffix: '+', description: 'Days without incident', icon_name: 'Shield' },
+    { label: 'Projects Completed', value: 500, suffix: '+', description: 'Successfully delivered projects', icon_name: 'CheckCircle' },
+    { label: 'Client Satisfaction', value: 98, suffix: '%', description: 'Client satisfaction rate', icon_name: 'Award' },
+    { label: 'Years in Business', value: 15, suffix: '+', description: 'Years serving the GTA', icon_name: 'TrendingUp' },
+    { label: 'Licensed Trades', value: 50, suffix: '+', description: 'Certified tradespeople', icon_name: 'Users' },
+  ];
+
+  const applyTemplate = (template: any) => {
+    setEditingStat({
+      ...template,
       display_order: stats.length + 1,
       is_active: true
     });
@@ -128,10 +148,38 @@ const StatsManager = () => {
             </Button>
             <Button onClick={newStat}>
               <Plus className="h-4 w-4 mr-2" />
-              Add Stat
+              Add Custom Stat
             </Button>
           </div>
         </div>
+
+        {/* GC-Specific Templates */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>General Contractor Stat Templates</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              Click a template to quickly add GC-specific metrics to your homepage
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {gcStatTemplates.map((template, idx) => (
+                <Button
+                  key={idx}
+                  variant="outline"
+                  className="h-auto flex-col items-start p-4 text-left"
+                  onClick={() => applyTemplate(template)}
+                >
+                  <div className="font-semibold text-sm">{template.label}</div>
+                  <div className="text-2xl font-bold text-primary my-1">
+                    {template.value.toLocaleString()}{template.suffix}
+                  </div>
+                  <div className="text-xs text-muted-foreground">{template.description}</div>
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardContent className="pt-6">
@@ -239,17 +287,23 @@ const StatsManager = () => {
               <div>
                 <Label>Icon</Label>
                 <Select
-                  value={editingStat?.icon_name || 'Building'}
+                  value={editingStat?.icon_name || 'Building2'}
                   onValueChange={(value) => setEditingStat({ ...editingStat, icon_name: value })}
                 >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Building">Building</SelectItem>
-                    <SelectItem value="Users">Users</SelectItem>
-                    <SelectItem value="Award">Award</SelectItem>
-                    <SelectItem value="TrendingUp">TrendingUp</SelectItem>
+                    <SelectItem value="Building2">Building2 (Projects)</SelectItem>
+                    <SelectItem value="DollarSign">DollarSign (Revenue)</SelectItem>
+                    <SelectItem value="Hammer">Hammer (Construction)</SelectItem>
+                    <SelectItem value="Shield">Shield (Safety)</SelectItem>
+                    <SelectItem value="Users">Users (Team/Clients)</SelectItem>
+                    <SelectItem value="Award">Award (Recognition)</SelectItem>
+                    <SelectItem value="TrendingUp">TrendingUp (Growth)</SelectItem>
+                    <SelectItem value="CheckCircle">CheckCircle (Completion)</SelectItem>
+                    <SelectItem value="Zap">Zap (Speed)</SelectItem>
+                    <SelectItem value="Star">Star (Quality)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

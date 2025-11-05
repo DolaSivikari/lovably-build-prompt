@@ -91,8 +91,8 @@ const Blog = () => {
     <div className="min-h-screen">
       <SEO 
         title="Blog & Case Studies - Expert Insights & Success Stories"
-        description="Expert insights on painting, stucco, EIFS, construction best practices, and real-world case studies showcasing successful projects from Ascent Group Construction."
-        keywords="construction blog, painting tips, stucco guides, EIFS maintenance, property management, construction case studies, project success stories"
+        description="Expert insights on construction management, general contracting, building envelope systems, and real-world case studies showcasing successful projects from Ascent Group Construction."
+        keywords="construction blog, general contractor tips, building envelope guides, construction management, property management, construction case studies, project success stories"
       />
       <Navigation />
       

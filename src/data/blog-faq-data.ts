@@ -2,52 +2,52 @@
 export const blogFAQs: Record<string, Array<{ question: string; answer: string }>> = {
   "guide-commercial-painting": [
     {
-      question: "How much does commercial painting cost in the GTA?",
-      answer: "Commercial painting costs in the Greater Toronto Area typically range from $2-4 per square foot for interior work and $3-6 per square foot for exterior painting. Factors affecting price include building size, surface condition, height requirements, and paint quality. Our team at Ascent Group Construction provides free detailed estimates for projects in Toronto, Mississauga, Brampton, Vaughan, and Markham."
+      question: "How much does commercial construction cost in the GTA?",
+      answer: "Commercial construction costs in the Greater Toronto Area typically range from $150-300 per square foot for interior fit-outs and $200-400 per square foot for new construction. Factors affecting price include building size, complexity, finishes, and site conditions. Our team at Ascent Group Construction provides free detailed estimates for projects in Toronto, Mississauga, Brampton, Vaughan, and Markham."
     },
     {
-      question: "How long does it take to paint a commercial building in Toronto?",
-      answer: "A typical 10,000 sq ft commercial space takes 5-10 business days to complete, depending on prep work needed and the number of coats. Larger buildings or those requiring extensive surface preparation may take 2-4 weeks. We schedule projects to minimize disruption to your business operations across the GTA."
+      question: "How long does it take to complete a commercial construction project in Toronto?",
+      answer: "A typical 10,000 sq ft commercial tenant improvement takes 8-12 weeks to complete, depending on complexity and permitting. Larger ground-up construction projects may take 12-24 months. We provide detailed project schedules and manage timelines to minimize disruption to your business operations across the GTA."
     },
     {
-      question: "What type of paint is best for commercial buildings in Ontario's climate?",
-      answer: "For Ontario's climate with harsh winters and humid summers, we recommend high-quality acrylic latex paints with moisture resistance and UV protection. Brands like Benjamin Moore Aura or Sherwin-Williams Duration are ideal for GTA commercial properties. These paints withstand temperature fluctuations and resist fading."
+      question: "What construction methods are best for commercial buildings in Ontario's climate?",
+      answer: "For Ontario's climate with harsh winters and humid summers, we recommend robust building envelope systems with proper insulation, air barriers, and moisture management. Weather-resistant exterior systems like metal cladding, modern EIFS, and engineered stone are ideal for GTA commercial properties. These materials withstand temperature fluctuations and provide excellent energy efficiency."
     },
     {
-      question: "Do you offer after-hours painting services in Mississauga?",
-      answer: "Yes! Ascent Group Construction provides flexible scheduling including evenings, weekends, and overnight shifts for commercial clients in Mississauga, Toronto, and throughout the GTA. This allows your business to continue operating normally during the day while we complete your painting project."
+      question: "Do you offer design-build services in Mississauga?",
+      answer: "Yes! Ascent Group Construction provides comprehensive design-build services for commercial clients in Mississauga, Toronto, and throughout the GTA. This streamlined approach combines architectural design and construction under one contract, saving time and reducing coordination issues while ensuring your project stays on budget and on schedule."
     },
     {
-      question: "Is your commercial painting service bonded and insured in Ontario?",
-      answer: "Absolutely. Ascent Group Construction is fully licensed, bonded, and insured for commercial painting projects throughout Ontario. We carry comprehensive liability insurance and WSIB coverage, providing complete protection for property owners in Toronto, Mississauga, Brampton, Vaughan, and Markham."
+      question: "Is your general contracting service bonded and insured in Ontario?",
+      answer: "Absolutely. Ascent Group Construction is fully licensed, bonded, and insured for general contracting projects throughout Ontario. We carry comprehensive liability insurance and WSIB coverage, providing complete protection for property owners in Toronto, Mississauga, Brampton, Vaughan, and Markham."
     }
   ],
   "exterior-painting-cold-weather": [
     {
-      question: "Can you paint exterior surfaces in Toronto during winter?",
-      answer: "Exterior painting in Toronto winters is challenging but possible with the right conditions. We can paint when temperatures are consistently above 10°C (50°F) using specialized cold-weather paints. However, we typically recommend scheduling exterior painting between May and October for optimal results in the GTA."
+      question: "Can you work on building exteriors in Toronto during winter?",
+      answer: "Exterior construction in Toronto winters is challenging but possible with proper planning. We can work on certain exterior systems when temperatures are consistently above 5°C using specialized materials and enclosures. However, we typically recommend scheduling major exterior work between April and November for optimal results in the GTA."
     },
     {
-      question: "What's the best time of year for exterior painting in Mississauga?",
-      answer: "The ideal time for exterior painting in Mississauga is late spring through early fall (May through September). During these months, temperatures are consistently warm, humidity is moderate, and rainfall is less frequent. This ensures proper paint adhesion and curing for long-lasting results."
+      question: "What's the best time of year for exterior construction in Mississauga?",
+      answer: "The ideal time for exterior construction in Mississauga is late spring through mid-fall (May through October). During these months, temperatures are consistently warm, humidity is moderate, and weather is more predictable. This ensures proper material installation and curing for long-lasting results."
     },
     {
-      question: "How does GTA weather affect exterior paint longevity?",
-      answer: "The GTA's freeze-thaw cycles, UV exposure, and humidity can reduce paint lifespan to 5-7 years for average quality paint. However, premium paints with UV protection and proper surface preparation can extend this to 10-15 years. Regular maintenance inspections help maximize your exterior paint investment."
+      question: "How does GTA weather affect building envelope systems?",
+      answer: "The GTA's freeze-thaw cycles, UV exposure, and humidity require high-performance building envelope systems. Properly designed and installed exterior systems with quality materials can last 25-40 years. Regular maintenance inspections and proper detailing are crucial to maximize your building envelope investment in Ontario's climate."
     }
   ],
   "condo-painting-tips": [
     {
-      question: "How do I prepare my Toronto condo for painting?",
-      answer: "To prepare your Toronto condo: remove wall decorations and outlet covers, move furniture to the center of rooms, protect floors with drop cloths, and inform your building management. Ascent Group Construction handles all preparation work including patching, sanding, and priming for condos across Toronto, Mississauga, and the GTA."
+      question: "How do I prepare my Toronto condo for renovation?",
+      answer: "To prepare your Toronto condo: obtain necessary board approvals, notify building management, arrange contractor access, protect common areas, and coordinate with neighbors. Ascent Group Construction handles all preparation work and building coordination for condo renovations across Toronto, Mississauga, and the GTA."
     },
     {
-      question: "Do I need building approval to paint my condo in Mississauga?",
-      answer: "Most Mississauga condo buildings require approval for exterior changes but not interior painting. However, you should notify building management about contractors accessing the property. We're experienced working with condo boards throughout the GTA and handle all necessary coordination."
+      question: "Do I need building approval for condo renovations in Mississauga?",
+      answer: "Most Mississauga condo buildings require approval for any renovations that affect structure, plumbing, electrical, or exterior appearance. You should submit detailed plans to your condo board before starting work. We're experienced working with condo boards throughout the GTA and handle all necessary coordination and approvals."
     },
     {
-      question: "What's the average cost to paint a 2-bedroom condo in the GTA?",
-      answer: "Painting a 2-bedroom condo in the GTA typically costs $2,500-$4,500, depending on ceiling height, wall condition, and paint quality. This includes all prep work, two coats of premium paint, and cleanup. Ascent Group Construction offers free estimates for condo units in Toronto, Mississauga, Brampton, and Vaughan."
+      question: "What's the average cost for a 2-bedroom condo renovation in the GTA?",
+      answer: "Renovating a 2-bedroom condo in the GTA typically costs $40,000-$80,000 for a moderate renovation, depending on finishes, scope, and unit size. This includes kitchen, bathrooms, flooring, and finishes. Ascent Group Construction offers free estimates for condo renovations in Toronto, Mississauga, Brampton, and Vaughan."
     }
   ],
   "stucco-repair-guide": [
