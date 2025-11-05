@@ -39,23 +39,41 @@ export function useCompanySettings(): UseCompanySettingsResult {
         setLoading(true);
         setError(null);
         
+        // Try maybeSingle first
         const { data, error: fetchError } = await supabase
           .from('site_settings')
           .select('*')
           .eq('is_active', true)
-          .single();
+          .maybeSingle();
 
         if (fetchError) throw fetchError;
 
-        if (data) {
-          const businessHours = data.business_hours as any;
-          const socialLinks = data.social_links as any;
+        // If no result, try getting the latest
+        let settingsData = data;
+        if (!settingsData) {
+          const { data: latestData } = await supabase
+            .from('site_settings')
+            .select('*')
+            .eq('is_active', true)
+            .order('updated_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+          
+          if (latestData) {
+            console.warn('Multiple active rows in site_settings, using latest');
+            settingsData = latestData;
+          }
+        }
+
+        if (settingsData) {
+          const businessHours = settingsData.business_hours as any;
+          const socialLinks = settingsData.social_links as any;
           
           setSettings({
-            companyName: data.company_name || 'Ascent Group Construction',
-            phone: data.phone || '647-528-6804',
-            email: data.email || 'info@ascentgroupconstruction.com',
-            address: data.address || '7895 Tranmere Drive, Unit #22, Mississauga, ON L5S 1V9',
+            companyName: settingsData.company_name || 'Ascent Group Construction',
+            phone: settingsData.phone || '647-528-6804',
+            email: settingsData.email || 'info@ascentgroupconstruction.com',
+            address: settingsData.address || '7895 Tranmere Drive, Unit #22, Mississauga, ON L5S 1V9',
             businessHours: {
               weekday: businessHours?.weekday || 'Mon-Fri: 8AM-6PM',
               saturday: businessHours?.saturday || 'Sat: 9AM-4PM',
@@ -67,9 +85,9 @@ export function useCompanySettings(): UseCompanySettingsResult {
               instagram: socialLinks?.instagram || '',
               twitter: socialLinks?.twitter || '',
             },
-            certifications: (data.certifications as string[]) || [],
-            metaTitle: data.meta_title || 'Ascent Group Construction - Professional Painting & Restoration',
-            metaDescription: data.meta_description || 'Leading construction and project management services across the GTA',
+            certifications: (settingsData.certifications as string[]) || [],
+            metaTitle: settingsData.meta_title || 'Ascent Group Construction - Professional Painting & Restoration',
+            metaDescription: settingsData.meta_description || 'Leading construction and project management services across the GTA',
           });
         }
       } catch (err) {

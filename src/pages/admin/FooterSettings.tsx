@@ -64,6 +64,12 @@ const FooterSettings = () => {
       setSaving(true);
       const { data: { user } } = await supabase.auth.getUser();
 
+      // Deactivate all existing active rows
+      await supabase
+        .from('footer_settings')
+        .update({ is_active: false })
+        .eq('is_active', true);
+
       const settingsData = {
         quick_links: quickLinks as any,
         sectors_links: sectorsLinks as any,
@@ -71,7 +77,8 @@ const FooterSettings = () => {
         social_media: socialMedia as any,
         trust_bar_items: trustBarItems as any,
         updated_by: user?.id,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
+        is_active: true,
       };
 
       if (settingsId) {

@@ -103,6 +103,12 @@ export default function ContactPageSettings() {
       setSaving(true);
       const { data: { user } } = await supabase.auth.getUser();
 
+      // Deactivate all existing active rows
+      await supabase
+        .from('contact_page_settings')
+        .update({ is_active: false })
+        .eq('is_active', true);
+
       // Map our field names to database column names
       const settingsData = {
         office_address: settings.office_address,

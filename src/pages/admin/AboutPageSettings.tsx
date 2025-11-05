@@ -85,43 +85,63 @@ const AboutPageSettings = () => {
 
     setSaving(true);
     try {
-      const { error } = await supabase
-        .from('about_page_settings')
-        .update({
-          years_in_business: settings.years_in_business,
-          total_projects: settings.total_projects,
-          satisfaction_rate: settings.satisfaction_rate,
-          story_headline: settings.story_headline,
-          story_content: settings.story_content,
-          story_image_url: settings.story_image_url,
-          story_promise_title: settings.story_promise_title,
-          story_promise_text: settings.story_promise_text,
-          values: settings.values,
-          sustainability_headline: settings.sustainability_headline,
-          sustainability_commitment: settings.sustainability_commitment,
-          sustainability_initiatives: settings.sustainability_initiatives,
-          safety_headline: settings.safety_headline,
-          safety_commitment: settings.safety_commitment,
-          safety_stats: settings.safety_stats,
-          safety_programs: settings.safety_programs,
-          cta_headline: settings.cta_headline,
-          cta_subheadline: settings.cta_subheadline,
-          licenses: settings.licenses,
-          memberships: settings.memberships,
-          insurance: settings.insurance,
-          certifications: settings.certifications,
-          credentials_cta_headline: settings.credentials_cta_headline,
-          credentials_cta_text: settings.credentials_cta_text,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', settings.id);
+      const { data: { user } } = await supabase.auth.getUser();
 
-      if (error) throw error;
+      // Deactivate all existing active rows
+      await supabase
+        .from('about_page_settings')
+        .update({ is_active: false })
+        .eq('is_active', true);
+
+      const settingsData = {
+        years_in_business: settings.years_in_business,
+        total_projects: settings.total_projects,
+        satisfaction_rate: settings.satisfaction_rate,
+        story_headline: settings.story_headline,
+        story_content: settings.story_content,
+        story_image_url: settings.story_image_url,
+        story_promise_title: settings.story_promise_title,
+        story_promise_text: settings.story_promise_text,
+        values: settings.values,
+        sustainability_headline: settings.sustainability_headline,
+        sustainability_commitment: settings.sustainability_commitment,
+        sustainability_initiatives: settings.sustainability_initiatives,
+        safety_headline: settings.safety_headline,
+        safety_commitment: settings.safety_commitment,
+        safety_stats: settings.safety_stats,
+        safety_programs: settings.safety_programs,
+        cta_headline: settings.cta_headline,
+        cta_subheadline: settings.cta_subheadline,
+        licenses: settings.licenses,
+        memberships: settings.memberships,
+        insurance: settings.insurance,
+        certifications: settings.certifications,
+        credentials_cta_headline: settings.credentials_cta_headline,
+        credentials_cta_text: settings.credentials_cta_text,
+        updated_by: user?.id,
+        updated_at: new Date().toISOString(),
+        is_active: true,
+      };
+
+      if (settings.id) {
+        const { error } = await supabase
+          .from('about_page_settings')
+          .update(settingsData)
+          .eq('id', settings.id);
+        if (error) throw error;
+      } else {
+        // Create if doesn't exist
+        const { error } = await supabase
+          .from('about_page_settings')
+          .insert([{ ...settingsData, created_by: user?.id }]);
+        if (error) throw error;
+      }
 
       toast({
         title: "Success",
         description: "About page settings updated successfully",
       });
+      loadSettings(); // Reload
     } catch (error) {
       console.error('Error saving settings:', error);
       toast({

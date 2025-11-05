@@ -64,31 +64,51 @@ const HomepageSettings = () => {
 
     setSaving(true);
     try {
-      const { error } = await supabase
-        .from("homepage_settings")
-        .update({
-          headline: settings.headline,
-          subheadline: settings.subheadline,
-          hero_description: settings.hero_description,
-          cta_primary_text: settings.cta_primary_text,
-          cta_primary_url: settings.cta_primary_url,
-          cta_secondary_text: settings.cta_secondary_text,
-          cta_secondary_url: settings.cta_secondary_url,
-          cta_tertiary_text: settings.cta_tertiary_text,
-          cta_tertiary_url: settings.cta_tertiary_url,
-          value_prop_1: settings.value_prop_1,
-          value_prop_2: settings.value_prop_2,
-          value_prop_3: settings.value_prop_3,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", settings.id);
+      const { data: { user } } = await supabase.auth.getUser();
 
-      if (error) throw error;
+      // Deactivate all existing active rows
+      await supabase
+        .from("homepage_settings")
+        .update({ is_active: false })
+        .eq("is_active", true);
+
+      const settingsData = {
+        headline: settings.headline,
+        subheadline: settings.subheadline,
+        hero_description: settings.hero_description,
+        cta_primary_text: settings.cta_primary_text,
+        cta_primary_url: settings.cta_primary_url,
+        cta_secondary_text: settings.cta_secondary_text,
+        cta_secondary_url: settings.cta_secondary_url,
+        cta_tertiary_text: settings.cta_tertiary_text,
+        cta_tertiary_url: settings.cta_tertiary_url,
+        value_prop_1: settings.value_prop_1,
+        value_prop_2: settings.value_prop_2,
+        value_prop_3: settings.value_prop_3,
+        updated_by: user?.id,
+        updated_at: new Date().toISOString(),
+        is_active: true,
+      };
+
+      if (settings.id) {
+        const { error } = await supabase
+          .from("homepage_settings")
+          .update(settingsData)
+          .eq("id", settings.id);
+        if (error) throw error;
+      } else {
+        // Create if doesn't exist
+        const { error } = await supabase
+          .from("homepage_settings")
+          .insert([{ ...settingsData, created_by: user?.id }]);
+        if (error) throw error;
+      }
 
       toast({
         title: "Success",
         description: "Homepage settings updated successfully",
       });
+      loadSettings(); // Reload to get updated data
     } catch (error) {
       console.error("Error saving homepage settings:", error);
       toast({

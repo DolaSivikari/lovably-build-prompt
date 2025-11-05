@@ -74,6 +74,12 @@ export default function SiteSettings() {
     try {
       setSaving(true);
 
+      // First, deactivate all existing active rows
+      await supabase
+        .from('site_settings')
+        .update({ is_active: false })
+        .eq('is_active', true);
+
       const settingsData = {
         ...settings,
         updated_by: userId,
