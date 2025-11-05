@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X, ZoomIn, Download, Share2 } from 'lucide-react';
 import BeforeAfterSlider from './BeforeAfterSlider';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface GalleryImage {
   id: string;
@@ -27,6 +28,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedTab, setSelectedTab] = useState<'all' | 'before-after' | 'process'>('all');
+  const prefersReducedMotion = useReducedMotion();
 
   // Separate images by category
   const beforeImages = images.filter(img => img.category === 'before').sort((a, b) => a.order - b.order);
@@ -159,15 +161,15 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
         {displayImages.map((image, index) => (
           <div
             key={image.id}
-            className="group relative aspect-square bg-muted rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover-scale cursor-pointer"
-            style={{ transition: 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
+            className={`group relative aspect-square bg-muted rounded-xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer ${!prefersReducedMotion && 'hover-scale'}`}
+            style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
             onClick={() => openLightbox(index)}
           >
             <img
               src={image.url}
               alt={image.caption || `Gallery image ${index + 1}`}
-              className="w-full h-full object-cover group-hover:scale-110"
-              style={{ transition: 'var(--transition-transform)' }}
+              className={`w-full h-full object-cover ${!prefersReducedMotion && 'group-hover:scale-110'}`}
+              style={{ transition: prefersReducedMotion ? 'none' : 'var(--transition-transform)' }}
               loading="lazy"
             />
             

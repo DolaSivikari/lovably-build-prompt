@@ -283,8 +283,8 @@ const EnhancedHero = () => {
         <div className="max-w-5xl mx-auto">
           {/* Stat Callout */}
           <div 
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 animate-fade-in"
-            style={{ animationDelay: "0.2s" }}
+            className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
+            style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
           >
             <div className="flex flex-col items-center">
               <span className="text-3xl font-bold text-[hsl(var(--bg))]">{slide.stat}</span>
@@ -298,25 +298,25 @@ const EnhancedHero = () => {
 
           {/* Main Headline */}
           <h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight animate-slide-up"
+            className={`text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ 
-              animationDelay: '0.2s',
+              animationDelay: prefersReducedMotion ? "0s" : '0.2s',
               textShadow: '0 2px 20px rgba(0,0,0,0.3)'
             }}
           >
             {slide.headline}
           </h1>
           <p 
-            className="text-xl md:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed animate-slide-up"
-            style={{ animationDelay: "0.6s" }}
+            className={`text-xl md:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
+            style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
             {slide.subheadline}
           </p>
 
           {/* Dual CTAs */}
           <div 
-            className="flex flex-col sm:flex-row gap-4 mb-12 animate-slide-up"
-            style={{ animationDelay: "0.8s" }}
+            className={`flex flex-col sm:flex-row gap-4 mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
+            style={{ animationDelay: prefersReducedMotion ? "0s" : "0.8s" }}
           >
             <Button asChild size="lg" variant="primary" className="group shadow-accent">
               <Link to={slide.primaryCTA.href} className="gap-2">
@@ -334,7 +334,7 @@ const EnhancedHero = () => {
           </div>
 
           {/* Slide Indicators */}
-          <div className="flex gap-2 justify-center md:justify-start animate-fade-in" style={{ animationDelay: "1s" }}>
+          <div className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
             {heroSlides.map((_, index) => (
               <button
                 key={index}
@@ -378,11 +378,13 @@ const EnhancedHero = () => {
       </button>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-[hsl(var(--bg))]/30 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-3 bg-[hsl(var(--bg))]/60 rounded-full animate-slide-up" />
+      {!prefersReducedMotion && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-[hsl(var(--bg))]/30 rounded-full flex justify-center pt-2">
+            <div className="w-1 h-3 bg-[hsl(var(--bg))]/60 rounded-full animate-slide-up" />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };

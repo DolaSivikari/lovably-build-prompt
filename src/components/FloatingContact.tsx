@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { useContactValidation } from "@/utils/devContactValidation";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { settings } = useCompanySettings();
+  const prefersReducedMotion = useReducedMotion();
 
   // Development-only validation
   useContactValidation('FloatingContact', [settings]);
@@ -59,7 +61,7 @@ const FloatingContact = () => {
   return (
     <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-fixed">
       {isOpen && (
-        <div className="mb-4 bg-background border border-border rounded-lg shadow-2xl p-4 space-y-3 animate-scale-in w-[280px]">
+        <div className={`mb-4 bg-background border border-border rounded-lg shadow-2xl p-4 space-y-3 w-[280px] ${!prefersReducedMotion && 'animate-scale-in'}`}>
           <button
             onClick={() => setIsOpen(false)}
             className="absolute top-2 right-2 text-muted-foreground hover:text-foreground"
@@ -125,7 +127,7 @@ const FloatingContact = () => {
         {isOpen ? (
           <X className="h-6 w-6" />
         ) : (
-          <Phone className="h-6 w-6 animate-pulse" />
+          <Phone className={`h-6 w-6 ${!prefersReducedMotion && 'animate-pulse'}`} />
         )}
       </Button>
     </div>

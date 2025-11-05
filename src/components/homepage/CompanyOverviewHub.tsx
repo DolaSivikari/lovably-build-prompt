@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, Award, Users, Target, Shield, Lightbulb, Heart } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const COMPANY_VALUES = [
   {
@@ -58,6 +59,7 @@ const OUR_PROMISE = [
 const CompanyOverviewHub = () => {
   const [activeTab, setActiveTab] = useState("approach");
   const sectionRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   useIntersectionObserver(sectionRef, { threshold: 0.2 });
 
   return (
@@ -67,7 +69,7 @@ const CompanyOverviewHub = () => {
     >
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-12 animate-fade-in">
+        <div className={`text-center mb-12 ${!prefersReducedMotion && 'animate-fade-in'}`}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Your Complete Construction Partner Across Ontario
           </h2>
@@ -96,7 +98,7 @@ const CompanyOverviewHub = () => {
           </TabsList>
 
           {/* Our Approach Tab */}
-          <TabsContent value="approach" className="animate-fade-in">
+          <TabsContent value="approach" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
             <div className="bg-card rounded-2xl p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
@@ -122,7 +124,7 @@ const CompanyOverviewHub = () => {
           </TabsContent>
 
           {/* Our Values Tab */}
-          <TabsContent value="values" className="animate-fade-in">
+          <TabsContent value="values" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
             <div className="bg-card rounded-2xl p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
@@ -158,7 +160,7 @@ const CompanyOverviewHub = () => {
           </TabsContent>
 
           {/* Our Promise Tab */}
-          <TabsContent value="promise" className="animate-fade-in">
+          <TabsContent value="promise" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
             <div className="bg-card rounded-2xl p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
@@ -194,8 +196,8 @@ const CompanyOverviewHub = () => {
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 hover-scale font-semibold shadow-lg hover:shadow-xl group"
-            style={{ transition: 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
+            className={`inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-semibold shadow-lg hover:shadow-xl group ${!prefersReducedMotion && 'hover-scale'}`}
+            style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
           >
             Start Your Project
             <ArrowRight className="h-5 w-5 hover-translate-arrow" />

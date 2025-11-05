@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import * as LucideIcons from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
@@ -66,6 +67,7 @@ const ServicesPreview = () => {
   const isVisible = useIntersectionObserver(sectionRef);
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     loadServices();
@@ -108,8 +110,8 @@ const ServicesPreview = () => {
   return (
     <section
       ref={sectionRef}
-      className={`py-20 bg-gradient-to-b from-background to-muted/20 transition-opacity duration-1000 ${
-        isVisible ? "opacity-100" : "opacity-0"
+      className={`py-20 bg-gradient-to-b from-background to-muted/20 ${
+        prefersReducedMotion ? 'opacity-100' : `transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`
       }`}
     >
       <div className="container mx-auto px-4">
@@ -125,7 +127,7 @@ const ServicesPreview = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[1, 2, 3, 4].map((i) => (
-              <Card key={i} variant="elevated" className="h-[500px] animate-pulse bg-muted">
+              <Card key={i} variant="elevated" className={`h-[500px] bg-muted ${!prefersReducedMotion && 'animate-pulse'}`}>
                 <div />
               </Card>
             ))}
