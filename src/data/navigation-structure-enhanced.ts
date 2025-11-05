@@ -65,7 +65,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   markets: [
     {
       sectionTitle: "Markets We Serve",
-      sectionLink: "/projects",
+      sectionLink: "/markets",
       categories: [
         {
           title: "By Sector",
@@ -165,7 +165,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           title: "For Professionals",
           subItems: [
             { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Trade partner resources", badge: "important" },
-            { name: "Submit RFP", link: "/contact", description: "Request for proposal" },
+            { name: "Submit RFP", link: "/submit-rfp", description: "Request for proposal" },
             { name: "Request Proposal", link: "/estimate", description: "Get detailed estimate" },
           ],
         },

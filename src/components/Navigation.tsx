@@ -186,7 +186,7 @@ const Navigation = () => {
               onMouseLeave={handleMegaMenuLeave}
             >
               <Link
-                to="/projects"
+                to="/markets"
                 className={cn(
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
                   "link-underline",

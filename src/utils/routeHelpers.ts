@@ -92,6 +92,7 @@ export const VALID_PUBLIC_ROUTES = [
   '/company/certifications-insurance',
   '/company/equipment-resources',
   '/company/developers',
+  '/markets',
   '/markets/commercial',
   '/markets/multi-family',
   '/markets/industrial',

@@ -41,6 +41,7 @@ import MasonryRestoration from "./pages/services/MasonryRestoration";
 import MetalCladding from "./pages/services/MetalCladding";
 import Waterproofing from "./pages/services/Waterproofing";
 import ParkingRehabilitation from "./pages/services/ParkingRehabilitation";
+import Markets from "./pages/Markets";
 import MultiFamily from "./pages/markets/MultiFamily";
 import Commercial from "./pages/markets/Commercial";
 import Institutional from "./pages/markets/Institutional";
@@ -256,6 +257,7 @@ const App = () => (
             <Route path="/services/waterproofing" element={<Waterproofing />} />
             <Route path="/services/parking-rehabilitation" element={<ParkingRehabilitation />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/markets" element={<Markets />} />
             <Route path="/markets/multi-family" element={<MultiFamily />} />
             <Route path="/markets/commercial" element={<Commercial />} />
             <Route path="/markets/institutional" element={<Institutional />} />
