@@ -1,6 +1,5 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -29,9 +28,6 @@ const categories = [
 ];
 
 export const ServicesExplorer = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.1 });
-  
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("all");
@@ -110,28 +106,26 @@ export const ServicesExplorer = () => {
   const activeFilterCount = activeFilters.length + (searchQuery ? 1 : 0);
 
   return (
-    <section
-      ref={sectionRef}
-      className={`py-20 bg-gradient-to-b from-background to-muted/20 transition-opacity duration-1000 ${
-        isVisible ? "opacity-100" : "opacity-0"
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Explore Our Services
+    <section className="py-20 md:py-24 bg-background">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+        
+        {/* Section Header - Enterprise Style */}
+        <div className="max-w-3xl mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+            Construction Services & Capabilities
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover comprehensive construction solutions backed by decades of expertise
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            Comprehensive construction solutions delivered by licensed professionals with proven expertise across commercial, institutional, and multi-unit residential projects.
           </p>
         </div>
 
         {/* Stats Bar */}
-        <ServiceStats serviceCount={services.filter(s => s.category !== "Construction Management").length} />
+        <div className="mb-12">
+          <ServiceStats serviceCount={services.filter(s => s.category !== "Construction Management").length} />
+        </div>
 
-        {/* Search Bar */}
-        <div className="mb-8">
+        {/* Search & Filter Controls */}
+        <div className="mb-8 pb-8 border-b border-border">
           <SearchBar
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
@@ -140,8 +134,8 @@ export const ServicesExplorer = () => {
           />
         </div>
 
-        {/* Category Tabs */}
-        <div className="mb-8 flex justify-center">
+        {/* Category Tabs - Clean Design */}
+        <div className="mb-12">
           <CategoryTabs
             categories={categories}
             activeCategory={activeCategory}
@@ -150,49 +144,45 @@ export const ServicesExplorer = () => {
         </div>
 
         {/* Results Count */}
-        <div className="mb-6 text-center">
-          <p className="text-sm text-muted-foreground">
-            Showing {visibleServices.length} of {filteredServices.length} services
-            {activeFilterCount > 0 && (
-              <span className="ml-2 text-primary">
-                ({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active)
-              </span>
-            )}
-          </p>
-        </div>
+        {!loading && (
+          <div className="mb-8">
+            <p className="text-sm text-muted-foreground">
+              Showing {visibleServices.length} of {filteredServices.length} services
+              {activeFilterCount > 0 && (
+                <span className="ml-2 text-steel-blue font-semibold">
+                  ({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active)
+                </span>
+              )}
+            </p>
+          </div>
+        )}
 
         {/* Services Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[...Array(8)].map((_, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className="h-80 animate-pulse bg-muted rounded-lg"
+                className="h-80 bg-muted rounded-lg"
               />
             ))}
           </div>
         ) : visibleServices.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {visibleServices.map((service, index) => (
-                <div
-                  key={service.id}
-                  className="animate-fade-in"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <ServiceCard {...service} />
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {visibleServices.map((service) => (
+                <ServiceCard key={service.id} {...service} />
               ))}
             </div>
 
             {/* Load More Button */}
             {visibleServices.length < filteredServices.length && (
-              <div className="text-center mt-12">
+              <div className="text-center mt-12 mb-12">
                 <Button
                   onClick={handleLoadMore}
-                  variant="outline"
+                  variant="secondary"
                   size="lg"
-                  className="border-2"
+                  className="min-w-[200px]"
                 >
                   Load More Services
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -201,12 +191,12 @@ export const ServicesExplorer = () => {
             )}
           </>
         ) : (
-          <div className="text-center py-16">
-            <p className="text-lg text-muted-foreground mb-4">
+          <div className="text-center py-16 mb-12">
+            <p className="text-lg text-muted-foreground mb-6">
               No services found matching your criteria
             </p>
             <Button
-              variant="outline"
+              variant="secondary"
               onClick={() => {
                 setSearchQuery("");
                 setActiveFilters([]);
@@ -218,17 +208,19 @@ export const ServicesExplorer = () => {
           </div>
         )}
 
-        {/* Bottom CTAs */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button asChild size="lg" className="shadow-lg">
-            <Link to="/estimate">
-              Request Proposal
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="border-2">
-            <Link to="/services">View All Services</Link>
-          </Button>
+        {/* Bottom CTAs - Professional Design */}
+        <div className="pt-12 border-t border-border">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button asChild size="lg" variant="primary" className="min-w-[220px]">
+              <Link to="/estimate" className="inline-flex items-center gap-2">
+                Request Proposal
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </Button>
+            <Button asChild variant="secondary" size="lg" className="min-w-[220px]">
+              <Link to="/services">View All Services</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
