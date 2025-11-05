@@ -1,4 +1,4 @@
-import { FileText, Download, CheckCircle, ArrowRight } from "lucide-react";
+import { FileText, Download, CheckCircle, ArrowRight, Shield, Award, TrendingUp, Users, Building2, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -9,15 +9,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const packageItems = [
-  "Insurance certificates (liability, workers comp, bonding)",
-  "Safety certifications and track record",
-  "Financial statements and bonding capacity",
-  "Equipment and crew capacity details",
-  "References from similar projects",
-  "Quality management systems",
-  "Environmental compliance documentation",
+  { icon: Shield, label: "Insurance & Bonding Certificates", desc: "$5M liability, $5M bonding capacity" },
+  { icon: Award, label: "Safety Certifications", desc: "COR certified, zero lost-time incidents" },
+  { icon: TrendingUp, label: "Financial Statements", desc: "Audited financials & credit references" },
+  { icon: Users, label: "Crew & Equipment Details", desc: "Full-time crews & modern equipment fleet" },
+  { icon: Building2, label: "Project References", desc: "Recent projects with contact details" },
+  { icon: CheckCircle, label: "Quality Systems", desc: "ISO-compliant processes & documentation" },
+];
+
+const stats = [
+  { value: "15+", label: "Years Experience" },
+  { value: "$5M", label: "Bonding Capacity" },
+  { value: "500+", label: "Projects Completed" },
+  { value: "98%", label: "Client Satisfaction" },
 ];
 
 const PrequalPackage = () => {
@@ -112,40 +119,106 @@ const PrequalPackage = () => {
   };
 
   return (
-    <section id="prequalification" className="py-20 bg-background">
+    <section id="prequalification" className="py-24 bg-gradient-to-br from-background via-background to-primary/5">
       <div className="container mx-auto px-4">
-        <Card className="max-w-4xl mx-auto border-2 border-primary/20 shadow-lg">
-          <CardContent className="p-8 md:p-12">
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <FileText className="w-10 h-10 text-primary" />
-              </div>
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+            <FileText className="w-4 h-4" />
+            <span>Contractor Prequalification</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+            Ready to Evaluate Us?
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Access our complete prequalification package with all the documentation you need to make an informed decision
+          </p>
+        </div>
 
-              <div className="flex-1">
-                <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
-                  Contractor Prequalification Package
-                </h2>
-                <p className="text-muted-foreground mb-6">
-                  Everything you need to evaluate us as a subcontractor for your project
-                </p>
+        {/* Stats Bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+          {stats.map((stat, index) => (
+            <Card key={index} className="border-primary/20 bg-card/50 backdrop-blur">
+              <CardContent className="p-6 text-center">
+                <p className="text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</p>
+                <p className="text-sm text-muted-foreground">{stat.label}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
-                <div className="grid md:grid-cols-2 gap-3 mb-8">
-                  {packageItems.map((item, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">{item}</span>
+        {/* Main Content Card */}
+        <Card className="max-w-5xl mx-auto border-2 border-primary/20 shadow-2xl overflow-hidden">
+          <div className="grid md:grid-cols-2 gap-0">
+            {/* Left Side - Package Contents */}
+            <div className="p-8 md:p-10 bg-gradient-to-br from-primary/5 to-transparent">
+              <h3 className="text-2xl font-bold mb-6 text-foreground">Package Includes</h3>
+              <div className="space-y-4">
+                {packageItems.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={index} className="flex items-start gap-3 group">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                        <Icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground mb-0.5">{item.label}</p>
+                        <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      </div>
                     </div>
-                  ))}
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Side - CTA */}
+            <div className="p-8 md:p-10 flex flex-col justify-between bg-card">
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Download className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Instant Access</p>
+                    <p className="text-sm text-muted-foreground">Delivered within 24 hours</p>
+                  </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Dialog open={open} onOpenChange={setOpen}>
-                    <DialogTrigger asChild>
-                      <Button size="lg" className="w-full sm:w-auto">
-                        Request Package
-                        <ArrowRight className="ml-2 w-4 h-4" />
-                      </Button>
-                    </DialogTrigger>
+                <div className="bg-muted/30 rounded-lg p-4 mb-6">
+                  <div className="flex items-start gap-2 mb-2">
+                    <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm text-foreground mb-1">Quick Response Guarantee</p>
+                      <p className="text-sm text-muted-foreground">
+                        Request your package now and receive it via email within 24 hours. All documentation is current and ready for your review.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground">All certificates current & verified</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground">Financial statements included</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground">Reference list with contact info</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <Dialog open={open} onOpenChange={setOpen}>
+                  <DialogTrigger asChild>
+                    <Button size="lg" className="w-full">
+                      Request Full Package
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </DialogTrigger>
                   <DialogContent className="max-w-md">
                     <DialogHeader>
                       <DialogTitle>Request Prequalification Package</DialogTitle>
@@ -248,17 +321,36 @@ const PrequalPackage = () => {
                     </form>
                   </DialogContent>
                 </Dialog>
-                <Button size="lg" variant="secondary" asChild className="w-full sm:w-auto">
-                  <a href="/resources/contractor-portal">
-                    View All Documents
+
+                <Button size="lg" variant="outline" asChild className="w-full">
+                  <Link to="/prequalification">
+                    View Detailed Information
                     <ArrowRight className="ml-2 w-4 h-4" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
-              </div>
             </div>
-          </CardContent>
+          </div>
         </Card>
+
+        {/* Quick Links */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-muted-foreground mb-3">Looking for something specific?</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/company/certifications-insurance">View Certifications</Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/safety">Safety Record</Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/projects">Recent Projects</Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/submit-rfp">Submit RFP</Link>
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   );
