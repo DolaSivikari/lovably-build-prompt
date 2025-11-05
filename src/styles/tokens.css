@@ -1,18 +1,18 @@
 :root {
-  /* Brand Colors */
-  --brand-primary: 24 50 75; /* #18324B Navy */
-  --brand-accent: 249 115 22; /* #F97316 Construction Orange */
-  --ink: 17 24 39; /* #111827 Text */
-  --muted: 107 114 128; /* #6B7280 Secondary text */
-  --line: 229 231 235; /* #E5E7EB Borders */
-  --bg: 255 255 255; /* #FFFFFF */
-  --bg-soft: 243 244 246; /* #F3F4F6 */
+  /* Brand Colors - ALL IN HSL FORMAT */
+  --brand-primary: 210 100% 20%; /* Navy Blue #003366 */
+  --brand-accent: 25 95% 53%; /* Construction Orange #F97316 */
+  --ink: 215 25% 15%; /* Text */
+  --muted: 215 16% 47%; /* Secondary text */
+  --line: 220 13% 91%; /* Borders */
+  --bg: 0 0% 100%; /* White */
+  --bg-soft: 210 40% 98%; /* Soft background */
 
-  /* Feedback Colors */
-  --success: 22 163 74; /* #16A34A */
-  --warning: 217 119 6; /* #D97706 */
-  --danger: 220 38 38; /* #DC2626 */
-  --info: 37 99 235; /* #2563EB */
+  /* Feedback Colors - ALL IN HSL FORMAT */
+  --success: 142 76% 36%; /* Green #16A34A */
+  --warning: 38 92% 50%; /* Yellow #D97706 */
+  --danger: 0 84% 60%; /* Red #DC2626 */
+  --info: 217 91% 60%; /* Blue #2563EB */
 
   /* Elevation */
   --radius-xs: 8px;
