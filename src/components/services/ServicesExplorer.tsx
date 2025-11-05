@@ -22,7 +22,8 @@ interface Service {
 
 const categories = [
   { label: "All Services", value: "all" },
-  { label: "Construction Services", value: "Painting Services" },
+  { label: "Painting Services", value: "Painting Services" },
+  { label: "Exterior Cladding Systems", value: "Exterior Cladding Systems" },
   { label: "Exterior Systems", value: "Exterior Systems" },
   { label: "Specialty Services", value: "Specialty Services" },
 ];

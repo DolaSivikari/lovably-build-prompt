@@ -1,5 +1,3 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 interface CategoryTabsProps {
   categories: Array<{ label: string; value: string }>;
   activeCategory: string;
@@ -12,18 +10,22 @@ export const CategoryTabs = ({
   onCategoryChange,
 }: CategoryTabsProps) => {
   return (
-    <Tabs value={activeCategory} onValueChange={onCategoryChange} className="w-full">
-      <TabsList className="inline-flex h-12 items-center justify-start w-full md:w-auto bg-muted/50 p-1 rounded-lg overflow-x-auto">
-        {categories.map((category) => (
-          <TabsTrigger
-            key={category.value}
-            value={category.value}
-            className="px-6 py-2 data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap"
-          >
-            {category.label}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </Tabs>
+    <div className="flex flex-wrap gap-3">
+      {categories.map((category) => (
+        <button
+          key={category.value}
+          onClick={() => onCategoryChange(category.value)}
+          className={`
+            px-5 py-2.5 text-sm font-semibold rounded-md transition-all duration-200
+            ${activeCategory === category.value
+              ? 'bg-primary text-primary-foreground shadow-sm' 
+              : 'bg-background text-muted-foreground hover:bg-muted hover:text-foreground border border-border'
+            }
+          `}
+        >
+          {category.label}
+        </button>
+      ))}
+    </div>
   );
 };
