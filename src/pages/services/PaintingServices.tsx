@@ -11,24 +11,24 @@ import { breadcrumbSchema } from '@/utils/structured-data';
 
 const PaintingServices = () => {
   const serviceSchema = createServiceSchema({
-    serviceType: 'Painting Services',
+    serviceType: 'Construction & Finishing Services',
     areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
     priceRange: '$$-$$$',
-    subServices: ['Commercial Painting', 'Residential Painting', 'Condo & Multi-Unit Painting', 'Parking Garage Coating']
+    subServices: ['Commercial Construction', 'Residential Construction', 'Condo & Multi-Unit Projects', 'Parking Garage Restoration']
   });
 
   const breadcrumbSchemaData = breadcrumbSchema([
     { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
     { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Painting Services', url: 'https://ascentgroupconstruction.com/services/painting' }
+    { name: 'Construction Services', url: 'https://ascentgroupconstruction.com/services/painting' }
   ]);
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Professional Painting Services: Commercial, Residential & Parking Garage | Ascent Group"
-        description="Expert painting services for commercial buildings, residential homes, multi-unit properties, and parking garage facilities. Interior & exterior painting across the GTA."
-        keywords="painting services, commercial painting, residential painting, condo painting, multi-unit painting, parking garage coating, interior painting, exterior painting"
+        title="Professional Construction & Finishing Services: Commercial, Residential & Multi-Unit | Ascent Group"
+        description="Expert construction and finishing services for commercial buildings, residential homes, multi-unit properties, and parking garage facilities. Interior & exterior solutions across the GTA."
+        keywords="construction services, commercial construction, residential construction, condo construction, multi-unit construction, parking garage restoration, interior finishing, exterior finishing"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />
@@ -39,13 +39,13 @@ const PaintingServices = () => {
         <div className="relative z-20 container mx-auto px-4 text-primary-foreground">
           <div className="max-w-3xl">
             <div className="inline-block px-4 py-2 bg-background/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4">
-              Painting Services
+              Construction & Finishing
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Professional Painting Solutions
+              Professional Construction Solutions
             </h1>
             <p className="text-xl mb-8 text-primary-foreground/90">
-              Expert painting for commercial, residential, and multi-unit properties across Ontario
+              Expert construction and finishing for commercial, residential, and multi-unit properties across Ontario
             </p>
             <Button size="lg" variant="secondary" className="group" asChild>
               <Link to="/contact">
@@ -63,11 +63,11 @@ const PaintingServices = () => {
           {/* Introduction */}
           <div className="mb-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Complete Painting Services for Every Property Type
+              Complete Construction & Finishing Services for Every Property Type
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Whether you're refreshing a commercial space, transforming your home, managing a multi-unit property, or restoring a parking structure,
-              Ascent Group delivers exceptional painting and coating results with minimal disruption.
+              Ascent Group delivers exceptional construction and finishing results with minimal disruption.
             </p>
           </div>
 

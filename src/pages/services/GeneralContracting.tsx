@@ -145,7 +145,7 @@ const GeneralContracting = () => {
                 <p className="text-muted-foreground text-center max-w-3xl mx-auto">
                   Our self-perform capabilities give us superior control over schedules and quality compared to general 
                   contractors who subcontract all work. We directly employ skilled tradespeople for exterior envelope, 
-                  painting, and specialty systems—ensuring accountability and faster issue resolution.
+                  finishing, and specialty systems—ensuring accountability and faster issue resolution.
                 </p>
               </CardContent>
             </Card>
