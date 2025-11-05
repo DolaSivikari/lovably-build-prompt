@@ -166,6 +166,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
               <NavItem to="/admin/testimonials" icon={MessageSquare} label="Testimonials" />
               <NavItem to="/admin/stats" icon={BarChart} label="Stats" />
               <NavItem to="/admin/leadership-team" icon={Users} label="Leadership Team" />
+              <NavItem to="/admin/documents-library" icon={FileText} label="Documents Library" />
             </nav>
           </CollapsibleContent>
         </Collapsible>
@@ -185,6 +186,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
               <NavItem to="/admin/contacts" icon={Mail} label="Contact Forms" />
               <NavItem to="/admin/resumes" icon={FileCheck} label="Resumes" />
               <NavItem to="/admin/prequalifications" icon={Package} label="Prequal" />
+              <NavItem to="/admin/rfp-submissions" icon={FileText} label="RFP Submissions" />
             </nav>
           </CollapsibleContent>
         </Collapsible>

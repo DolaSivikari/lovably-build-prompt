@@ -1274,6 +1274,104 @@ export type Database = {
         }
         Relationships: []
       }
+      document_access_log: {
+        Row: {
+          accessed_at: string | null
+          document_id: string | null
+          id: string
+          ip_address: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          accessed_at?: string | null
+          document_id?: string | null
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          accessed_at?: string | null
+          document_id?: string | null
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_access_log_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents_library"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents_library: {
+        Row: {
+          category: string
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          display_order: number | null
+          download_count: number | null
+          expiry_date: string | null
+          file_name: string
+          file_size: number | null
+          file_type: string | null
+          file_url: string
+          id: string
+          is_active: boolean | null
+          requires_authentication: boolean | null
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+          version: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          display_order?: number | null
+          download_count?: number | null
+          expiry_date?: string | null
+          file_name: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url: string
+          id?: string
+          is_active?: boolean | null
+          requires_authentication?: boolean | null
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+          version?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          display_order?: number | null
+          download_count?: number | null
+          expiry_date?: string | null
+          file_name?: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          is_active?: boolean | null
+          requires_authentication?: boolean | null
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+          version?: string | null
+        }
+        Relationships: []
+      }
       error_logs: {
         Row: {
           context: Json | null
@@ -2241,6 +2339,78 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      rfp_submissions: {
+        Row: {
+          additional_requirements: string | null
+          admin_notes: string | null
+          assigned_to: string | null
+          bonding_required: boolean | null
+          company_name: string
+          contact_name: string
+          created_at: string | null
+          delivery_method: string | null
+          email: string
+          estimated_timeline: string | null
+          estimated_value_range: string
+          id: string
+          phone: string | null
+          prequalification_complete: boolean | null
+          project_location: string | null
+          project_name: string
+          project_start_date: string | null
+          project_type: string
+          scope_of_work: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          additional_requirements?: string | null
+          admin_notes?: string | null
+          assigned_to?: string | null
+          bonding_required?: boolean | null
+          company_name: string
+          contact_name: string
+          created_at?: string | null
+          delivery_method?: string | null
+          email: string
+          estimated_timeline?: string | null
+          estimated_value_range: string
+          id?: string
+          phone?: string | null
+          prequalification_complete?: boolean | null
+          project_location?: string | null
+          project_name: string
+          project_start_date?: string | null
+          project_type: string
+          scope_of_work: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          additional_requirements?: string | null
+          admin_notes?: string | null
+          assigned_to?: string | null
+          bonding_required?: boolean | null
+          company_name?: string
+          contact_name?: string
+          created_at?: string | null
+          delivery_method?: string | null
+          email?: string
+          estimated_timeline?: string | null
+          estimated_value_range?: string
+          id?: string
+          phone?: string | null
+          prequalification_complete?: boolean | null
+          project_location?: string | null
+          project_name?: string
+          project_start_date?: string | null
+          project_type?: string
+          scope_of_work?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       search_console_data: {
         Row: {

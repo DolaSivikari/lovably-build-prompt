@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Download, FileText, Shield, CheckCircle2, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -5,7 +6,146 @@ import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+
+interface Document {
+  id: string;
+  title: string;
+  description: string | null;
+  category: string;
+  file_url: string;
+  file_name: string;
+  version: string;
+}
+
+const categoryLabels: Record<string, string> = {
+  prequalification: "Pre-Qualification",
+  insurance: "Insurance",
+  "capability-statement": "Capability Statement",
+  safety: "Safety",
+  certifications: "Certifications",
+  other: "Other"
+};
+
+const categoryIcons: Record<string, any> = {
+  prequalification: FileText,
+  insurance: Shield,
+  "capability-statement": FileText,
+  safety: CheckCircle2,
+  certifications: Shield,
+  other: FileText
+};
+
+function DownloadableDocuments() {
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchDocuments();
+  }, []);
+
+  const fetchDocuments = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('documents_library')
+        .select('id, title, description, category, file_url, file_name, version')
+        .eq('is_active', true)
+        .eq('requires_authentication', false)
+        .order('category')
+        .order('display_order');
+
+      if (error) throw error;
+      setDocuments(data || []);
+    } catch (error: any) {
+      console.error('Error fetching documents:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDownload = async (doc: Document) => {
+    try {
+      // Log download
+      await supabase.from('document_access_log').insert({
+        document_id: doc.id,
+        ip_address: null,
+        user_agent: navigator.userAgent
+      });
+
+      // Increment download count
+      const { data: currentDoc } = await supabase
+        .from('documents_library')
+        .select('download_count')
+        .eq('id', doc.id)
+        .single();
+
+      if (currentDoc) {
+        await supabase
+          .from('documents_library')
+          .update({ download_count: (currentDoc.download_count || 0) + 1 })
+          .eq('id', doc.id);
+      }
+
+      // Open file
+      window.open(doc.file_url, '_blank');
+    } catch (error: any) {
+      toast({ title: "Error", description: "Failed to download document", variant: "destructive" });
+    }
+  };
+
+  return (
+    <section className="mb-16">
+      <h2 className="text-3xl font-bold mb-4 text-center">Downloadable Documentation</h2>
+      <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+        All required documentation for contractor pre-qualification and RFP submissions
+      </p>
+
+      {loading ? (
+        <div className="text-center py-8">Loading documents...</div>
+      ) : documents.length === 0 ? (
+        <div className="text-center py-8 text-muted-foreground">
+          Documents will be available soon. Please contact us for immediate needs.
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 gap-6">
+          {documents.map((doc) => {
+            const Icon = categoryIcons[doc.category] || FileText;
+            return (
+              <Card key={doc.id} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <Icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <CardTitle className="text-lg">{doc.title}</CardTitle>
+                        <Badge variant="outline" className="text-xs">v{doc.version}</Badge>
+                      </div>
+                      {doc.description && (
+                        <CardDescription>{doc.description}</CardDescription>
+                      )}
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {categoryLabels[doc.category]}
+                      </p>
+                    </div>
+                    <Button size="sm" variant="outline" onClick={() => handleDownload(doc)}>
+                      <Download className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+              </Card>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
 
 const Prequalification = () => {
   const companyStats = [
@@ -15,16 +155,6 @@ const Prequalification = () => {
     { label: "Insurance Coverage", value: "$5M Liability" },
     { label: "WSIB Status", value: "Current Clearance" },
     { label: "Service Area", value: "Greater Toronto Area" },
-  ];
-
-  const documents = [
-    { name: "Company Capability Statement", description: "Comprehensive overview of services and experience", icon: FileText },
-    { name: "Current Insurance Certificate", description: "$5M general liability coverage", icon: Shield },
-    { name: "WSIB Clearance Certificate", description: "Current compliance documentation", icon: CheckCircle2 },
-    { name: "Safety Program Summary", description: "COR certified safety protocols", icon: Shield },
-    { name: "Equipment & Resources List", description: "Self-perform capabilities", icon: FileText },
-    { name: "Reference List", description: "Recent client contacts and testimonials", icon: FileText },
-    { name: "Sample Project Portfolio", description: "Featured projects with details", icon: FileText },
   ];
 
   return (
@@ -60,43 +190,7 @@ const Prequalification = () => {
           </section>
 
           {/* Downloadable Documents */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-4 text-center">Downloadable Documentation</h2>
-            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-              All required documentation for contractor pre-qualification and RFP submissions
-            </p>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {documents.map((doc, index) => {
-                const Icon = doc.icon;
-                return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 rounded-lg bg-primary/10">
-                          <Icon className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <CardTitle className="text-lg">{doc.name}</CardTitle>
-                          <CardDescription>{doc.description}</CardDescription>
-                        </div>
-                        <Button size="sm" variant="outline">
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardHeader>
-                  </Card>
-                );
-              })}
-            </div>
-
-            <div className="mt-8 text-center">
-              <Button size="lg" className="gap-2">
-                <Download className="h-5 w-5" />
-                Download Complete Package (ZIP)
-              </Button>
-            </div>
-          </section>
+          <DownloadableDocuments />
 
           {/* RFP Submission */}
           <section className="mb-16">
@@ -128,7 +222,7 @@ const Prequalification = () => {
                 
                 <div className="flex justify-center pt-4">
                   <Button asChild size="lg" className="gap-2">
-                    <Link to="/contact">
+                    <Link to="/submit-rfp">
                       Submit RFP Now
                       <ArrowRight className="h-4 w-4" />
                     </Link>

@@ -50,6 +50,7 @@ import Team from "./pages/company/Team";
 import Developers from "./pages/company/Developers";
 import Warranties from "./pages/resources/Warranties";
 import Financing from "./pages/resources/Financing";
+import SubmitRFP from "./pages/SubmitRFP";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -81,6 +82,12 @@ const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() =>
 })));
 const LeadershipTeam = lazy(() => import("./pages/admin/LeadershipTeam").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Leadership Team</p></div>
+})));
+const RFPSubmissions = lazy(() => import("./pages/admin/RFPSubmissions").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load RFP Submissions</p></div>
+})));
+const DocumentsLibrary = lazy(() => import("./pages/admin/DocumentsLibrary").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Documents Library</p></div>
 })));
 const FooterSettings = lazy(() => import("./pages/admin/FooterSettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Footer Settings</p></div>
@@ -230,6 +237,7 @@ const App = () => (
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
+                  <Route path="/submit-rfp" element={<SubmitRFP />} />
                   <Route path="/property-managers" element={<PropertyManagers />} />
                   <Route path="/homeowners" element={<Homeowners />} />
                   <Route path="/commercial-clients" element={<CommercialClients />} />
@@ -273,6 +281,8 @@ const App = () => (
                     <Route path="stats" element={<StatsManager />} />
                     <Route path="testimonials" element={<TestimonialsManager />} />
                     <Route path="leadership-team" element={<LeadershipTeam />} />
+                    <Route path="rfp-submissions" element={<RFPSubmissions />} />
+                    <Route path="documents-library" element={<DocumentsLibrary />} />
                     <Route path="security-center" element={<SecurityCenter />} />
                     <Route path="security-settings" element={<SecuritySettings />} />
                     <Route path="seo-dashboard" element={<AdminSEODashboard />} />
