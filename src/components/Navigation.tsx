@@ -368,6 +368,57 @@ const Navigation = () => {
                   
                   <DropdownMenuSeparator />
                   <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                    Business Tools
+                  </DropdownMenuLabel>
+                  
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/business/dashboard" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Overview
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/business/clients" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Clients
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/business/projects" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Business Projects
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/business/estimates" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Estimates
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/business/invoices" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Invoices
+                    </Link>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
                     Content Management
                   </DropdownMenuLabel>
                   
@@ -414,6 +465,33 @@ const Navigation = () => {
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Stats
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/awards" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Awards & Certifications
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/leadership-team" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Leadership Team
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/documents-library" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Documents Library
                     </Link>
                   </DropdownMenuItem>
                   
@@ -482,12 +560,39 @@ const Navigation = () => {
                       Resume Submissions
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/rfp-submissions" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      RFP Submissions
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/prequalifications" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Prequalification Submissions
+                    </Link>
+                  </DropdownMenuItem>
                   
                   <DropdownMenuSeparator />
                   <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
                     Settings & Tools
                   </DropdownMenuLabel>
                   
+                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
+                    <Link 
+                      to="/admin/homepage-settings" 
+                      onClick={() => setAdminDropdownOpen(false)}
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                    >
+                      Homepage Settings
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
                       to="/admin/site-settings" 

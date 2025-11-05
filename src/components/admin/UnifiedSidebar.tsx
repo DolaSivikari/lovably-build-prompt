@@ -206,11 +206,16 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
           <CollapsibleContent>
             <nav className="business-nav-group">
               <NavItem to="/admin/homepage-settings" icon={Settings} label="Homepage" />
+              <NavItem to="/admin/landing-menu" icon={Settings} label="Landing Menu" />
+              <NavItem to="/admin/about-page" icon={Settings} label="About Page" />
+              <NavItem to="/admin/footer-settings" icon={Settings} label="Footer" />
+              <NavItem to="/admin/contact-page-settings" icon={Settings} label="Contact Page" />
               <NavItem to="/admin/site-settings" icon={Settings} label="Site" />
               <NavItem to="/admin/users" icon={UserCircle} label="Users" />
               <NavItem to="/admin/security-center" icon={Shield} label="Security" />
               <NavItem to="/admin/seo-dashboard" icon={Search} label="SEO" />
               <NavItem to="/admin/performance-dashboard" icon={Activity} label="Performance" />
+              <NavItem to="/admin/settings-health" icon={Activity} label="Health Check" />
             </nav>
           </CollapsibleContent>
         </Collapsible>
