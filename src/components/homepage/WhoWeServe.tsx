@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Building2, Users, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/ui/Button";
-import { Card } from "@/ui/Card";
+import { Card } from "@/components/ui/card";
 
 const WhoWeServe = () => {
   return (

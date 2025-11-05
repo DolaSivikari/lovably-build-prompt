@@ -1,5 +1,5 @@
 import { BadgeCheck, Building2, ShieldCheck, Clock, Users, Award } from "lucide-react";
-import { Card } from "@/ui/Card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 

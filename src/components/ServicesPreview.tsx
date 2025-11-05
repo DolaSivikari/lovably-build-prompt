@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import * as LucideIcons from "lucide-react";
-import { Card } from "@/ui/Card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";

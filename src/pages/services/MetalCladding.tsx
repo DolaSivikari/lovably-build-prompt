@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/ui/Button';
-import { Card } from '@/ui/Card';
+import { Card } from "@/components/ui/card";
 import { Layers, Zap, Shield, Wrench, CheckCircle2, ArrowRight } from 'lucide-react';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
