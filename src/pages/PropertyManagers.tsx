@@ -39,8 +39,8 @@ const PropertyManagers = () => {
 
   const services = [
     {
-      title: "Unit Turnovers",
-      description: "Fast, efficient painting between tenants",
+      title: "Unit Renovations",
+      description: "Fast, efficient unit renovations between tenants",
       roi: "Reduce vacancy time by 40%"
     },
     {
@@ -63,16 +63,16 @@ const PropertyManagers = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Services for Property Managers - Multi-Unit Specialists"
-        description="Trusted property management painting services across the GTA. Volume pricing, fast turnarounds, and minimal disruption for condos, apartments, and commercial properties."
-        keywords="property management, condo painting, multi-unit painting, property maintenance, GTA"
+        title="Services for Property Managers - Multi-Unit Construction Specialists"
+        description="Trusted property management construction services across the GTA. Volume pricing, fast turnarounds, and minimal disruption for condos, apartments, and commercial properties."
+        keywords="property management, condo construction, multi-unit construction, property maintenance, GTA"
       />
       <Navigation />
       
       <PageHeader
         eyebrow="For Property Managers"
         title="Your Trusted Property Maintenance Partner"
-        description="Maximize property value and tenant satisfaction with our specialized multi-unit painting and restoration services. We understand the unique challenges of property management."
+        description="Maximize property value and tenant satisfaction with our specialized multi-unit construction and restoration services. We understand the unique challenges of property management."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Property Managers" }

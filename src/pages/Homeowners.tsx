@@ -63,16 +63,16 @@ const Homeowners = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Services for Homeowners - Residential Painting & Stucco"
-        description="Trusted residential painting and stucco services for homeowners across the GTA. Quality craftsmanship, transparent pricing, and personalized service for your home."
-        keywords="residential painting, homeowner services, house painting, home improvement, GTA"
+        title="Services for Homeowners - Residential Construction & Renovation"
+        description="Trusted residential construction and renovation services for homeowners across the GTA. Quality craftsmanship, transparent pricing, and personalized service for your home."
+        keywords="residential construction, homeowner services, home renovation, home improvement, GTA"
       />
       <Navigation />
       
       <PageHeader
         eyebrow="For Homeowners"
         title="Your Home Deserves the Best"
-        description="Transform your house into your dream home with professional painting and finishing services. We combine quality craftsmanship with personalized service to exceed your expectations."
+        description="Transform your house into your dream home with professional construction and renovation services. We combine quality craftsmanship with personalized service to exceed your expectations."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Homeowners" }

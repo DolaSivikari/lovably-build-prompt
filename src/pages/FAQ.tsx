@@ -38,7 +38,7 @@ const FAQ = () => {
         },
         {
           question: "How do I know if you're the right contractor for my project?",
-          answer: "We specialize in commercial painting, residential painting, stucco/EIFS systems, masonry restoration, and parking garage work. If your project involves exterior or interior finishing, waterproofing, or building envelope systems in the GTA, we're likely a perfect fit. Schedule a free consultation to discuss your specific needs."
+          answer: "We specialize in general contracting, commercial construction, multi-family construction, design-build, stucco/EIFS systems, masonry restoration, and building envelope work. If your project involves construction management, exterior or interior finishing, waterproofing, or building systems in the GTA, we're likely a perfect fit. Schedule a free consultation to discuss your specific needs."
         },
       ],
     },
@@ -48,20 +48,20 @@ const FAQ = () => {
       count: 12,
       questions: [
         {
-          question: "How much does commercial painting cost in Toronto?",
-          answer: "Commercial painting in Toronto typically ranges from $2-$6 per square foot depending on surface prep, paint quality, building height, and access requirements. A 10,000 sq ft office space averages $25,000-$45,000. We provide detailed free estimates with line-item breakdowns."
+          question: "How much does commercial construction cost in Toronto?",
+          answer: "Commercial construction in Toronto varies widely by project scope. Tenant improvements range from $50-$200 per square foot, while new construction can exceed $250-$500 per square foot depending on complexity, finishes, and building systems. A 10,000 sq ft buildout averages $500,000-$1.5M. We provide detailed free estimates with line-item breakdowns."
         },
         {
-          question: "What's included in your painting estimates?",
-          answer: "Our estimates include all materials (primer, paint, supplies), labor, surface preparation, furniture protection, cleanup, project management, insurance, and warranty. We break down costs by area so you understand exactly what you're paying for. No hidden fees."
+          question: "What's included in your construction estimates?",
+          answer: "Our estimates include all materials, labor, equipment, permits, project management, insurance, and warranty. We break down costs by scope so you understand exactly what you're paying for. No hidden fees."
         },
         {
           question: "Do you offer free estimates?",
           answer: "Yes! We provide free, no-obligation estimates for all projects. For residential projects, we can often provide ballpark quotes with photos. For commercial projects, we conduct on-site visits to provide accurate, detailed estimates within 3-5 business days."
         },
         {
-          question: "How much does it cost to paint a condo unit in Mississauga?",
-          answer: "A typical 2-bedroom condo unit (800-1000 sq ft) in Mississauga costs $2,500-$4,500 for walls and ceilings with one coat primer and two coats premium paint. 3-bedroom units (1200+ sq ft) range from $3,500-$6,000. Price varies based on paint quality, ceiling height, and surface condition."
+          question: "How much does it cost to renovate a condo unit in Mississauga?",
+          answer: "A typical 2-bedroom condo unit (800-1000 sq ft) renovation in Mississauga costs $15,000-$35,000 for cosmetic updates (paint, flooring, fixtures). 3-bedroom units (1200+ sq ft) range from $25,000-$60,000. Full gut renovations can exceed $80,000-$150,000. Price varies based on finishes, scope, and structural changes."
         },
         {
           question: "What payment methods do you accept?",
@@ -79,12 +79,12 @@ const FAQ = () => {
       count: 11,
       questions: [
         {
-          question: "How long does a typical residential painting project take?",
-          answer: "Interior painting: 3-7 days for a 2000 sq ft home. Exterior painting: 5-10 days depending on weather. Condo units: 2-4 days. We provide detailed timelines during estimates and communicate daily updates throughout the project."
+          question: "How long does a typical residential construction project take?",
+          answer: "Interior renovations: 2-6 weeks for a 2000 sq ft home. Exterior renovations: 4-10 weeks depending on weather and scope. Condo unit renovations: 1-3 weeks. Major additions or new construction: 3-12 months. We provide detailed timelines during estimates and communicate daily updates throughout the project."
         },
         {
-          question: "What's the best time of year to paint exterior in Ontario?",
-          answer: "May through October is ideal for exterior painting in Ontario. We need temperatures above 10°C and dry conditions for 48 hours before and after application. Late spring (May-June) and early fall (September) offer the best weather. We don't recommend exterior painting November-March."
+          question: "What's the best time of year for exterior construction in Ontario?",
+          answer: "May through October is ideal for exterior construction in Ontario. We need suitable weather for concrete work, masonry, and exterior finishes. Late spring (May-June) and early fall (September) offer the best conditions. Some projects can proceed in winter with proper planning and temporary enclosures."
         },
         {
           question: "How long does EIFS or stucco repair take?",
@@ -110,8 +110,8 @@ const FAQ = () => {
       count: 10,
       questions: [
         {
-          question: "What brands of paint do you use?",
-          answer: "We work with premium brands: Benjamin Moore (Aura, Regal Select), Sherwin-Williams (Duration, Emerald), Dulux Professional, and PPG (Manor Hall, Speedhide). We select products based on your surface type, traffic level, and budget. All are low-VOC and eco-friendly."
+          question: "What brands and materials do you use?",
+          answer: "We use commercial-grade materials from trusted suppliers including Benjamin Moore paints, Sherwin-Williams coatings, Dryvit EIFS systems, Hardie siding, and industry-leading building envelope products. We select materials based on your project requirements, durability needs, and budget. All products meet or exceed Ontario Building Code standards."
         },
         {
           question: "Can I choose my own paint colors?",
@@ -126,8 +126,8 @@ const FAQ = () => {
           answer: "Contractor grade ($30-40/gallon): Basic coverage, 3-5 year lifespan, good for rentals. Mid-grade ($45-60/gallon): Better coverage, 5-8 years, recommended for homes. Premium ($60-85/gallon): Superior coverage, 10-15 years, best for high-traffic commercial. We recommend mid-grade or premium for most projects."
         },
         {
-          question: "How long will my paint job last in Ontario weather?",
-          answer: "Interior: 7-10 years with normal wear. Exterior: 5-10 years depending on sun exposure, surface, and paint quality. Ontario's freeze-thaw cycles are harsh, so we use flexible, weather-resistant formulas with proper surface prep. Premium exterior paints (Duration, Aura) last longest."
+          question: "How long will my construction project last in Ontario weather?",
+          answer: "With proper construction: Building envelope systems 20-30 years, roofing 15-25 years, exterior finishes 10-20 years, interior finishes 15-30 years. Ontario's freeze-thaw cycles are harsh, so we use weather-resistant materials with proper installation. Quality construction and regular maintenance maximize lifespan."
         },
         {
           question: "What warranty do you provide on workmanship?",

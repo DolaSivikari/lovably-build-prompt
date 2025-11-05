@@ -70,7 +70,7 @@ const About = () => {
     <div className="min-h-screen">
       <SEO 
         title="About Us"
-        description="Learn about Ascen Group Construction - 15+ years of excellence in residential painting and stucco/EIFS services across the GTA. Meet our team and discover our values."
+        description="Learn about Ascen Group Construction - 15+ years of excellence in residential construction and building envelope systems across the GTA. Meet our team and discover our values."
         keywords="about Ascen Group, construction company Mississauga, painting contractor team, company values, sustainability"
       />
       <Navigation />
@@ -118,7 +118,7 @@ const About = () => {
               <h2 className="text-5xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Founded in 2009, Ascent Group Construction began with a simple mission: deliver exceptional painting and exterior finishing services with uncompromising quality and integrity.
+                  Founded in 2009, Ascent Group Construction began with a simple mission: deliver exceptional construction and project management services with uncompromising quality and integrity.
                 </p>
                 <p>
                   What started as a small team of dedicated craftsmen has grown into one of the GTA's most trusted contractors. We've completed over 500 projects, built lasting relationships with hundreds of satisfied clients, and established a reputation for excellence that speaks for itself.

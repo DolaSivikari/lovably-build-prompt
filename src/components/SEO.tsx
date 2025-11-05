@@ -114,16 +114,16 @@ const SEO = ({
     currenciesAccepted: "CAD",
     foundingDate: "2009",
     knowsAbout: [
-      "Commercial Painting",
-      "Residential Painting", 
-      "Stucco Installation",
-      "EIFS Systems",
-      "Masonry Restoration",
-      "Metal Cladding",
-      "Parking Garage Waterproofing",
-      "Exterior Building Restoration",
+      "General Contracting",
+      "Design-Build Services",
+      "Construction Management",
+      "Commercial Construction",
+      "Multi-Family Construction",
+      "Institutional Construction",
+      "Building Envelope Systems",
+      "Exterior Systems",
       "Construction Project Management",
-      "Building Envelope Services"
+      "Sustainable Construction"
     ],
     award: [
       "15+ Years Excellence in Construction Services",
@@ -141,30 +141,30 @@ const SEO = ({
     }),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Painting & Exterior Finishing Services",
+      name: "Construction & Building Services",
       itemListElement: [
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Commercial Painting",
-            description: "Professional commercial painting services for offices, retail spaces, and industrial facilities"
+            name: "Commercial Construction",
+            description: "Professional commercial construction services for offices, retail spaces, and industrial facilities"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Residential Painting",
-            description: "Expert interior and exterior residential painting services"
+            name: "Residential Construction & Renovation",
+            description: "Expert interior and exterior residential construction services"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Condo Painting & Restoration",
-            description: "Specialized condo building painting and restoration services"
+            name: "Multi-Family Building Construction",
+            description: "Specialized multi-family and condo building construction services"
           }
         },
         {

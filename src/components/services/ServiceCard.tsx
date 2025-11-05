@@ -23,6 +23,7 @@ const projectTypeIcons = {
 };
 
 const categoryColors = {
+  "Construction Services": "bg-blue-500/10 text-blue-700 dark:text-blue-400",
   "Painting Services": "bg-blue-500/10 text-blue-700 dark:text-blue-400",
   "Exterior Systems": "bg-orange-500/10 text-orange-700 dark:text-orange-400",
   "Specialty Services": "bg-green-500/10 text-green-700 dark:text-green-400",

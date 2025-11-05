@@ -63,16 +63,16 @@ const CommercialClients = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Commercial Painting Services - Business & Industrial"
-        description="Professional commercial painting services for offices, retail, industrial, and institutional facilities. After-hours scheduling, minimal disruption, and quality results."
-        keywords="commercial painting, office painting, retail painting, industrial coatings, business painting, GTA"
+        title="Commercial Construction Services - Business & Industrial"
+        description="Professional commercial construction services for offices, retail, industrial, and institutional facilities. After-hours scheduling, minimal disruption, and quality results."
+        keywords="commercial construction, office construction, retail construction, industrial construction, business construction, GTA"
       />
       <Navigation />
       
       <PageHeader
         eyebrow="For Commercial Clients"
         title="Keep Your Business Running While We Work"
-        description="Professional commercial painting and coating services designed around your operations. We deliver quality results with minimal disruption to your business."
+        description="Professional commercial construction and project management services designed around your operations. We deliver quality results with minimal disruption to your business."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Commercial Clients" }

@@ -39,7 +39,7 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
 
   // Group services by category
   const categories = {
-    'Painting Services': services.filter(s => s.category === 'Painting Services'),
+    'Construction Services': services.filter(s => s.category === 'Painting Services'),
     'Exterior Systems': services.filter(s => s.category === 'Exterior Systems'),
     'Construction Management': services.filter(s => s.category === 'Construction Management'),
     'Specialty Services': services.filter(s => 
@@ -48,7 +48,7 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
   };
 
   const categoryDescriptions = {
-    'Painting Services': 'Professional interior and exterior painting for all property types',
+    'Construction Services': 'Professional construction and finishing for all property types',
     'Exterior Systems': 'Comprehensive building envelope solutions and restoration',
     'Construction Management': 'End-to-end project management and coordination',
     'Specialty Services': 'Specialized construction and restoration services',

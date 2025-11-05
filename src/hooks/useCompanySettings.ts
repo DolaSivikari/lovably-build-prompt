@@ -69,7 +69,7 @@ export function useCompanySettings(): UseCompanySettingsResult {
             },
             certifications: (data.certifications as string[]) || [],
             metaTitle: data.meta_title || 'Ascent Group Construction - Professional Painting & Restoration',
-            metaDescription: data.meta_description || 'Leading painting and exterior finishing services across the GTA',
+            metaDescription: data.meta_description || 'Leading construction and project management services across the GTA',
           });
         }
       } catch (err) {

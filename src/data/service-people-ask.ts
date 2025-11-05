@@ -9,8 +9,8 @@ export const servicePeopleAlsoAsk: Record<string, Array<{ question: string; answ
       answer: "Most commercial painting projects take 5-14 business days. Small offices can be completed in 3-5 days, medium buildings require 1-2 weeks, and large facilities may take 3-4 weeks depending on complexity and weather conditions. We schedule work to minimize disruption to your business operations."
     },
     {
-      question: "Do you provide after-hours painting services?",
-      answer: "Yes! We offer flexible scheduling including evenings, weekends, and overnight shifts for commercial clients. This allows your business to continue operating normally during the day while we complete your painting project in Toronto, Mississauga, Brampton, Vaughan, and throughout the GTA."
+      question: "Do you provide after-hours construction services?",
+      answer: "Yes! We offer flexible scheduling including evenings, weekends, and overnight shifts for commercial clients. This allows your business to continue operating normally during the day while we complete your construction project in Toronto, Mississauga, Brampton, Vaughan, and throughout the GTA."
     },
     {
       question: "What type of paint is best for commercial buildings?",

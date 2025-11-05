@@ -64,41 +64,41 @@ const Careers = () => {
 
   const openPositions = [
     {
-      title: "Senior Painter",
-      location: "Mississauga, ON",
+      title: "Project Superintendent",
+      location: "Greater Toronto Area",
       type: "Full-time",
-      description: "Experienced painter needed for residential and commercial projects. 5+ years experience required.",
-      requirements: ["5+ years painting experience", "Valid driver's license", "Own tools preferred"]
+      description: "Lead on-site construction operations for commercial and multi-family projects. Coordinate trades, manage schedules, ensure quality and safety compliance.",
+      requirements: ["5+ years construction supervision experience", "Strong leadership and communication skills", "Knowledge of Ontario Building Code and safety regulations", "Experience with commercial or multi-family projects", "OSHA/COR certification preferred"]
     },
     {
-      title: "Stucco/EIFS Specialist",
-      location: "GTA Region",
+      title: "Construction Project Coordinator",
+      location: "Mississauga Office",
       type: "Full-time",
-      description: "Skilled EIFS and stucco technician for exterior finishing projects.",
-      requirements: ["3+ years EIFS experience", "Knowledge of building envelope systems", "Safety certification"]
+      description: "Support project management team with scheduling, documentation, and client communication. Ideal for career growth into project management.",
+      requirements: ["1-3 years construction industry experience", "Strong organizational and computer skills", "Proficiency in MS Office and project management software", "Excellent communication skills", "Post-secondary education in construction management or related field preferred"]
     },
     {
-      title: "Project Estimator",
-      location: "Mississauga, ON",
+      title: "Construction Estimator",
+      location: "Hybrid - GTA",
       type: "Full-time",
-      description: "Detail-oriented estimator to prepare accurate project quotes and manage client consultations.",
-      requirements: ["Construction industry experience", "Strong communication skills", "Proficiency with estimation software"]
+      description: "Prepare detailed cost estimates for commercial and multi-family construction projects. Analyze plans, specifications, and scopes of work.",
+      requirements: ["3+ years construction estimating experience", "Proficiency in estimating software (ProEst, PlanSwift, or similar)", "Strong analytical and mathematical skills", "Knowledge of construction methods and materials", "Diploma or degree in construction management, engineering, or related field"]
     },
     {
-      title: "Apprentice Painter",
-      location: "GTA Region",
-      type: "Apprenticeship",
-      description: "Entry-level position for motivated individuals interested in learning the painting trade.",
-      requirements: ["Willingness to learn", "Physical fitness", "Reliable transportation"]
+      title: "Site Foreman - Multi-Family",
+      location: "Greater Toronto Area",
+      type: "Full-time",
+      description: "Supervise daily field operations for multi-family construction projects. Direct trade crews, ensure quality workmanship, and maintain safety standards.",
+      requirements: ["5+ years field supervision experience in construction", "Trade certification or equivalent experience", "Strong leadership and problem-solving skills", "Working at Heights and Fall Protection certified", "Valid Ontario driver's license"]
     }
   ];
 
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Careers | Join Our Team"
-        description="Join Ascent Group Construction and build a rewarding career in the trades. Competitive pay, comprehensive benefits, and opportunities for growth."
-        keywords="construction jobs, painter jobs, careers GTA, EIFS jobs, stucco jobs, trade careers"
+        title="Careers | Join Our Construction Team"
+        description="Join Ascent Group Construction and build your career. Project managers, superintendents, estimators, and skilled trades positions across the GTA. Competitive pay and growth opportunities."
+        keywords="construction careers GTA, project manager jobs toronto, construction superintendent, estimator jobs ontario, general contractor careers, construction management jobs, construction jobs toronto"
       />
       <Navigation />
 

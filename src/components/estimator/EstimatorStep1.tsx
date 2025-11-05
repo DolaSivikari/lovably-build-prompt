@@ -32,7 +32,7 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Painting Services (Instant Estimate)</SelectLabel>
+              <SelectLabel>Construction Services (Instant Estimate)</SelectLabel>
               <SelectItem value="residential_painting">Residential Painting</SelectItem>
               <SelectItem value="commercial_painting">Commercial Painting</SelectItem>
               <SelectItem value="condo_multi_unit_painting">Condo / Multi-Unit Painting</SelectItem>

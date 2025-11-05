@@ -43,7 +43,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           description: "Comprehensive building envelope and specialty trades",
           subItems: [
             { name: "Exterior Envelope Systems", link: "/services/exterior-envelope", description: "Complete building envelope solutions", badge: "popular" },
-            { name: "Painting Services", link: "/services/painting", description: "Commercial and multi-family painting" },
+            { name: "Construction & Finishing Services", link: "/services/painting", description: "Commercial and multi-family construction" },
             { name: "Exterior Cladding", link: "/services/exterior-cladding", description: "Metal cladding and masonry systems" },
             { name: "Interior Buildouts", link: "/services/interior-buildouts", description: "Commercial interior construction" },
           ],
