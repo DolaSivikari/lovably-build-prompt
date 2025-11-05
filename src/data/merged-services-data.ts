@@ -1,19 +1,19 @@
 import { Building2, Home, Building, Layers, Hammer } from 'lucide-react';
 
-// Painting Services Variants
+// Construction Services Variants
 export const paintingVariants = [
   {
     id: 'commercial',
     title: 'Commercial',
-    tagline: 'Professional Commercial Painting Solutions',
-    description: 'Expert painting services for offices, retail spaces, warehouses, and commercial facilities. Minimize disruption with flexible scheduling and efficient project management.',
+    tagline: 'Professional Commercial Construction Solutions',
+    description: 'Expert construction and finishing services for offices, retail spaces, warehouses, and commercial facilities. Minimize disruption with flexible scheduling and efficient project management.',
     benefits: [
       'Minimal business disruption with flexible scheduling',
-      'High-performance coatings for heavy traffic areas',
+      'High-performance materials for heavy traffic areas',
       'Compliance with commercial building codes',
       'Large-scale project management expertise',
       'Quick turnaround times',
-      'Warranty protection for commercial applications'
+      'Warranty protection for all work performed'
     ],
     process: [
       {
@@ -30,9 +30,9 @@ export const paintingVariants = [
       },
       {
         step: 3,
-        title: 'Application',
-        description: 'Premium paint application',
-        details: 'Using commercial-grade materials and proven techniques, we apply paint systematically to deliver consistent, professional results throughout your facility.'
+        title: 'Construction Execution',
+        description: 'Premium material application',
+        details: 'Using commercial-grade materials and proven techniques, we execute work systematically to deliver consistent, professional results throughout your facility.'
       },
       {
         step: 4,
@@ -50,12 +50,12 @@ export const paintingVariants = [
   {
     id: 'residential',
     title: 'Residential',
-    tagline: 'Transform Your Home with Expert Painting',
-    description: 'Premium residential painting services for interiors and exteriors. From single rooms to whole-home transformations, we deliver beautiful, lasting results.',
+    tagline: 'Transform Your Home with Expert Construction',
+    description: 'Premium residential construction and finishing services for interiors and exteriors. From single rooms to whole-home transformations, we deliver beautiful, lasting results.',
     benefits: [
-      'Personalized color consultation',
+      'Personalized design consultation',
       'Meticulous attention to detail',
-      'Premium paint products for durability',
+      'Premium materials for durability',
       'Respectful of your home and schedule',
       'Clean, organized worksite daily',
       'Satisfaction guaranteed'
@@ -63,9 +63,9 @@ export const paintingVariants = [
     process: [
       {
         step: 1,
-        title: 'Consultation & Color Selection',
-        description: 'Plan your perfect palette',
-        details: 'We meet with you to understand your vision, provide color recommendations, and create a detailed project plan that aligns with your timeline and budget.'
+        title: 'Consultation & Design Selection',
+        description: 'Plan your perfect project',
+        details: 'We meet with you to understand your vision, provide design recommendations, and create a detailed project plan that aligns with your timeline and budget.'
       },
       {
         step: 2,
@@ -75,19 +75,19 @@ export const paintingVariants = [
       },
       {
         step: 3,
-        title: 'Painting',
-        description: 'Expert application',
-        details: 'We apply premium paints using professional techniques to achieve smooth, even coverage with clean lines and beautiful finishes.'
+        title: 'Construction',
+        description: 'Expert execution',
+        details: 'We apply premium materials using professional techniques to achieve smooth, even coverage with clean lines and beautiful finishes.'
       },
       {
         step: 4,
         title: 'Final Walkthrough',
         description: 'Ensure your complete satisfaction',
-        details: 'We conduct a final walkthrough with you, address any concerns, and ensure you\'re delighted with your newly painted home.'
+        details: 'We conduct a final walkthrough with you, address any concerns, and ensure you\'re delighted with your newly completed project.'
       }
     ],
     quickFacts: {
-      projectTypes: ['Single Rooms', 'Whole Home Interior', 'Exterior Painting', 'Trim & Cabinets', 'Deck Staining'],
+      projectTypes: ['Single Rooms', 'Whole Home Interior', 'Exterior Finishes', 'Trim & Millwork', 'Deck & Outdoor'],
       timeline: '3-10 days for most projects',
       certifications: ['Licensed & Insured', 'Lead-Safe Certified', 'Warranty Backed']
     }
@@ -95,14 +95,14 @@ export const paintingVariants = [
   {
     id: 'multi-unit',
     title: 'Condo & Multi-Unit',
-    tagline: 'Specialized Painting for Multi-Residential Properties',
-    description: 'Comprehensive painting solutions for condominiums, apartment complexes, and multi-unit residential buildings. Expert coordination and tenant-friendly scheduling.',
+    tagline: 'Specialized Construction for Multi-Residential Properties',
+    description: 'Comprehensive construction and finishing solutions for condominiums, apartment complexes, and multi-unit residential buildings. Expert coordination and tenant-friendly scheduling.',
     benefits: [
       'Experience with condo board requirements',
       'Tenant-friendly scheduling options',
       'Common area specialists',
       'Balcony and exterior expertise',
-      'Unit turnover painting services',
+      'Unit turnover construction services',
       'Volume pricing for multiple units'
     ],
     process: [
@@ -120,9 +120,9 @@ export const paintingVariants = [
       },
       {
         step: 3,
-        title: 'Efficient Application',
-        description: 'Coordinated painting execution',
-        details: 'We paint multiple units simultaneously when possible, maintaining consistent quality while maximizing efficiency and minimizing overall project duration.'
+        title: 'Efficient Execution',
+        description: 'Coordinated construction execution',
+        details: 'We work on multiple units simultaneously when possible, maintaining consistent quality while maximizing efficiency and minimizing overall project duration.'
       },
       {
         step: 4,

@@ -23,11 +23,11 @@ import type { ServicePageTemplateProps } from '@/components/services/ServicePage
 export const priorityServicesData: Record<string, ServicePageTemplateProps['service']> = {
   'commercial-painting': {
     slug: 'commercial-painting',
-    name: 'Commercial Painting',
-    category: 'Painting Services',
-    tagline: 'Professional painting for offices, retail, and industrial spaces',
-    description: 'Transform your commercial space with professional painting services designed to minimize business disruption while delivering exceptional results.',
-    longDescription: 'Our commercial painting services are designed to minimize disruption to your business operations. We offer flexible scheduling including after-hours and weekend work to ensure your business continues running smoothly. Our experienced crews are equipped to handle large-scale projects efficiently, from office buildings to retail spaces and industrial facilities. We use low-VOC commercial-grade paints that meet industry standards while providing exceptional durability and aesthetics. Fast turnaround times and professional project management ensure your project is completed on schedule and within budget.',
+    name: 'Commercial Construction & Finishing',
+    category: 'Construction Services',
+    tagline: 'Professional construction for offices, retail, and industrial spaces',
+    description: 'Transform your commercial space with professional construction services designed to minimize business disruption while delivering exceptional results.',
+    longDescription: 'Our commercial construction services are designed to minimize disruption to your business operations. We offer flexible scheduling including after-hours and weekend work to ensure your business continues running smoothly. Our experienced crews are equipped to handle large-scale projects efficiently, from office buildings to retail spaces and industrial facilities. We use commercial-grade materials that meet industry standards while providing exceptional durability and aesthetics. Fast turnaround times and professional project management ensure your project is completed on schedule and within budget.',
     heroImage: '/hero-construction.jpg',
     benefits: [
       {
@@ -43,7 +43,7 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       {
         icon: Shield,
         title: 'Durability',
-        description: 'High-performance coatings designed to withstand heavy traffic and frequent cleaning'
+        description: 'High-performance materials designed to withstand heavy traffic and frequent use'
       },
       {
         icon: CheckCircle,
@@ -76,9 +76,9 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       },
       {
         step: 3,
-        title: 'Premium Application',
-        description: 'High-quality paint application with attention to detail',
-        details: 'Our skilled professionals apply paint using advanced techniques and commercial-grade products. We maintain strict timelines while ensuring even coverage, clean lines, and a flawless finish that enhances your commercial space.'
+        title: 'Premium Execution',
+        description: 'High-quality construction with attention to detail',
+        details: 'Our skilled professionals execute work using advanced techniques and commercial-grade products. We maintain strict timelines while ensuring even coverage, clean lines, and a flawless finish that enhances your commercial space.'
       },
       {
         step: 4,
@@ -107,13 +107,13 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
     },
     relatedServices: [
       {
-        slug: 'residential-painting',
-        name: 'Residential Painting',
+        slug: 'residential-construction',
+        name: 'Residential Construction',
         image: '/project-commercial.jpg'
       },
       {
         slug: 'condo-multi-unit',
-        name: 'Condo & Multi-Unit Painting',
+        name: 'Condo & Multi-Unit Construction',
         image: '/project-industrial.jpg'
       },
       {
@@ -123,7 +123,7 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       }
     ],
     testimonial: {
-      quote: 'Ascent Group completed our 15,000 sq ft office painting over a weekend. Zero disruption to our operations and the quality exceeded expectations. Their team was professional, efficient, and delivered exactly what they promised.',
+      quote: 'Ascent Group completed our 15,000 sq ft office renovation over a weekend. Zero disruption to our operations and the quality exceeded expectations. Their team was professional, efficient, and delivered exactly what they promised.',
       author: 'Michael Chen',
       project: 'Office Tower Renovation',
       location: 'Downtown Toronto'
@@ -132,11 +132,11 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
 
   'residential-painting': {
     slug: 'residential-painting',
-    name: 'Residential Painting',
-    category: 'Painting Services',
-    tagline: 'Transform your home with expert interior and exterior painting',
-    description: 'Comprehensive residential painting services that enhance your home\'s beauty and value with professional craftsmanship and attention to detail.',
-    longDescription: 'Our residential painting services provide comprehensive interior and exterior solutions that transform your home. We begin with professional color consultation to help you select the perfect palette, followed by meticulous surface preparation to ensure a flawless finish. Using premium paint products and advanced application techniques, we deliver results that enhance your home\'s beauty and value. Our team maintains a clean, organized workspace throughout the project and treats your home with the utmost respect.',
+    name: 'Residential Construction',
+    category: 'Construction Services',
+    tagline: 'Transform your home with expert interior and exterior construction',
+    description: 'Comprehensive residential construction and finishing services that enhance your home\'s beauty and value with professional craftsmanship and attention to detail.',
+    longDescription: 'Our residential construction services provide comprehensive interior and exterior solutions that transform your home. We begin with professional design consultation to help you select the perfect materials and finishes, followed by meticulous surface preparation to ensure a flawless result. Using premium products and advanced construction techniques, we deliver results that enhance your home\'s beauty and value. Our team maintains a clean, organized workspace throughout the project and treats your home with the utmost respect.',
     heroImage: '/hero-construction.jpg',
     benefits: [
       {
@@ -157,12 +157,12 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       {
         icon: Shield,
         title: 'Protection',
-        description: 'Quality paint protects surfaces from moisture, wear, and environmental damage'
+        description: 'Quality materials protect surfaces from moisture, wear, and environmental damage'
       },
       {
         icon: Award,
         title: 'Expert Craftsmanship',
-        description: 'Skilled painters ensure smooth, even coverage with clean lines and flawless finish'
+        description: 'Skilled tradespeople ensure smooth, even coverage with clean lines and flawless finish'
       },
       {
         icon: Heart,
@@ -173,21 +173,21 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
     process: [
       {
         step: 1,
-        title: 'Color Consultation',
-        description: 'Expert guidance on color selection and design',
-        details: 'Our professional color consultants help you select the perfect palette for your home. We provide samples, discuss finishes, and ensure your color choices complement your existing décor and achieve your vision.'
+        title: 'Design Consultation',
+        description: 'Expert guidance on material selection and design',
+        details: 'Our professional design consultants help you select the perfect materials and finishes for your home. We provide samples, discuss options, and ensure your selections complement your existing décor and achieve your vision.'
       },
       {
         step: 2,
-        title: 'Room Preparation',
+        title: 'Site Preparation',
         description: 'Careful protection and surface preparation',
-        details: 'We carefully protect your furniture, floors, and fixtures with professional-grade materials. All surfaces are thoroughly cleaned, repaired, and prepared to ensure optimal paint adhesion and a beautiful, lasting finish.'
+        details: 'We carefully protect your furniture, floors, and fixtures with professional-grade materials. All surfaces are thoroughly cleaned, repaired, and prepared to ensure optimal material adhesion and a beautiful, lasting finish.'
       },
       {
         step: 3,
-        title: 'Professional Painting',
-        description: 'Premium paint application with expert technique',
-        details: 'Using premium paints and advanced application techniques, our skilled painters deliver smooth, even coverage with precise edges and clean lines. We maintain a clean, organized workspace and respect your home throughout the project.'
+        title: 'Professional Construction',
+        description: 'Premium material application with expert technique',
+        details: 'Using premium materials and advanced construction techniques, our skilled tradespeople deliver smooth, even coverage with precise edges and clean lines. We maintain a clean, organized workspace and respect your home throughout the project.'
       },
       {
         step: 4,
@@ -198,12 +198,12 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
     ],
     quickFacts: {
       projectTypes: [
-        'Interior room painting',
-        'Exterior house painting',
-        'Cabinet refinishing',
+        'Interior room finishes',
+        'Exterior construction',
+        'Cabinet installation',
         'Trim and crown molding',
-        'Deck and fence staining',
-        'Garage floor coating'
+        'Deck and outdoor structures',
+        'Garage floor systems'
       ],
       timeline: '3-7 days for typical residential projects',
       serviceArea: 'Toronto, Mississauga, Brampton, Vaughan, Markham, and surrounding areas',
@@ -241,11 +241,11 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
 
   'condo-multi-unit': {
     slug: 'condo-multi-unit',
-    name: 'Condo & Multi-Unit Painting',
-    category: 'Painting Services',
-    tagline: 'Specialized painting for condos, apartments, and multi-residential buildings',
-    description: 'Expert painting services for multi-unit residential properties with coordinated scheduling, efficient execution, and minimal resident disruption.',
-    longDescription: 'We specialize in condo and multi-unit residential painting with extensive experience in coordinating large-scale projects across multiple units. Our team understands the unique challenges of multi-residential properties, including scheduling coordination with property managers, compliance with condo bylaws, and minimizing disruption to residents. We provide comprehensive project management, efficient crew deployment, and consistent quality across all units. Whether it\'s common area refreshes, individual unit turnover, or building-wide exterior painting, we deliver exceptional results on time and within budget.',
+    name: 'Condo & Multi-Unit Construction',
+    category: 'Construction Services',
+    tagline: 'Specialized construction for condos, apartments, and multi-residential buildings',
+    description: 'Expert construction services for multi-unit residential properties with coordinated scheduling, efficient execution, and minimal resident disruption.',
+    longDescription: 'We specialize in condo and multi-unit residential construction with extensive experience in coordinating large-scale projects across multiple units. Our team understands the unique challenges of multi-residential properties, including scheduling coordination with property managers, compliance with condo bylaws, and minimizing disruption to residents. We provide comprehensive project management, efficient crew deployment, and consistent quality across all units. Whether it\'s common area refreshes, individual unit turnover, or building-wide exterior construction, we deliver exceptional results on time and within budget.',
     heroImage: '/hero-construction.jpg',
     benefits: [
       {
@@ -295,7 +295,7 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       {
         step: 3,
         title: 'Systematic Execution',
-        description: 'Efficient multi-unit painting',
+        description: 'Efficient multi-unit construction',
         details: 'Our crews work systematically through units using consistent techniques and materials. We maintain organized workflows, protect common areas, and ensure uniform quality across all spaces while adhering to the project timeline.'
       },
       {
@@ -307,12 +307,12 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
     ],
     quickFacts: {
       projectTypes: [
-        'Condo common area painting',
+        'Condo common area finishing',
         'Individual unit turnover',
-        'Building exterior painting',
-        'Hallway and corridor painting',
-        'Parking garage coating',
-        'Amenity space refreshes'
+        'Building exterior construction',
+        'Hallway and corridor finishes',
+        'Parking garage systems',
+        'Amenity space renovations'
       ],
       timeline: '1-4 weeks depending on building size and unit count',
       serviceArea: 'GTA including Toronto, Mississauga, Brampton, Vaughan, and surrounding areas',
@@ -341,9 +341,9 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       }
     ],
     testimonial: {
-      quote: 'Managing a 200-unit condo building painting project seemed overwhelming, but Ascent Group made it seamless. They coordinated everything perfectly, communicated clearly with residents, and delivered consistent quality throughout. Highly recommended for any multi-unit property.',
+      quote: 'Managing a 200-unit condo building renovation project seemed overwhelming, but Ascent Group made it seamless. They coordinated everything perfectly, communicated clearly with residents, and delivered consistent quality throughout. Highly recommended for any multi-unit property.',
       author: 'David Thompson',
-      project: 'Condo Building Refresh',
+      project: 'Condo Building Renovation',
       location: 'North York'
     }
   },
