@@ -40,10 +40,16 @@ const heroSlides = [
 const EnhancedHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      setIsTransitioning(true);
+      
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+        setIsTransitioning(false);
+      }, 500); // Half of transition duration
     }, 8000);
 
     return () => clearInterval(interval);
@@ -73,7 +79,11 @@ const EnhancedHero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20">
+      <div 
+        className={`relative z-10 container mx-auto px-4 py-20 transition-opacity duration-1000 ${
+          isTransitioning ? 'opacity-0' : 'opacity-100'
+        }`}
+      >
         <div className="max-w-5xl mx-auto">
           {/* Stat Callout */}
           <div 
@@ -133,7 +143,13 @@ const EnhancedHero = () => {
             {heroSlides.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => {
+                  setIsTransitioning(true);
+                  setTimeout(() => {
+                    setCurrentSlide(index);
+                    setIsTransitioning(false);
+                  }, 500);
+                }}
                 className={`h-1 rounded-full transition-all duration-300 ${
                   index === currentSlide 
                     ? 'w-12 bg-accent' 
