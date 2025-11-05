@@ -1,55 +1,44 @@
+import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Linkedin, Mail } from "lucide-react";
-
-const teamMembers = [
-  {
-    name: "Michael Chen",
-    title: "President & Founder",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
-    bio: "With 20+ years in commercial construction and a passion for quality craftsmanship, Michael founded Ascent Group to deliver uncompromising excellence. Off-site, he coaches youth soccer and volunteers with Habitat for Humanity.",
-    linkedin: "#",
-    email: "michael@ascentgroupconstruction.com"
-  },
-  {
-    name: "Sarah Thompson",
-    title: "Vice President of Operations",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
-    bio: "Sarah brings 15 years of project management expertise, ensuring every job runs smoothly from estimate to completion. She's known for her meticulous planning and client communication. An avid hiker, she's summited 40+ peaks across Ontario.",
-    linkedin: "#",
-    email: "sarah@ascentgroupconstruction.com"
-  },
-  {
-    name: "David Rodriguez",
-    title: "Director of Commercial Projects",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
-    bio: "Specializing in high-rise and large-scale commercial work, David has overseen $50M+ in projects across the GTA. His technical expertise in EIFS and exterior systems is unmatched. He's also a licensed drone pilot and landscape photographer.",
-    linkedin: "#",
-    email: "david@ascentgroupconstruction.com"
-  },
-  {
-    name: "Jennifer Park",
-    title: "Chief Estimator",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop",
-    bio: "Jennifer's precise estimates have earned client trust for over a decade. Her attention to detail ensures accurate pricing and transparent proposals. When not crunching numbers, she's teaching financial literacy workshops in the community.",
-    linkedin: "#",
-    email: "jennifer@ascentgroupconstruction.com"
-  },
-  {
-    name: "Robert Martinez",
-    title: "Safety Director",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop",
-    bio: "A former OSHA inspector with 18 years of safety management experience, Robert maintains our zero-incident record through rigorous training and protocols. He's a certified safety instructor and mentor to new construction professionals.",
-    linkedin: "#",
-    email: "robert@ascentgroupconstruction.com"
-  }
-];
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Linkedin, Mail, User } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Team = () => {
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('leadership_team')
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+
+        if (error) throw error;
+        setTeamMembers(data || []);
+      } catch (error) {
+        console.error('Error fetching team:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeam();
+  }, []);
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
   return (
     <>
       <SEO 
@@ -84,69 +73,136 @@ const Team = () => {
               </div>
 
               {/* Team Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {teamMembers.map((member, index) => (
-                  <Card 
-                    key={index} 
-                    className="group hover:shadow-xl transition-all duration-300 overflow-hidden"
-                  >
-                    <CardContent className="p-0">
-                      {/* Photo */}
-                      <div className="relative overflow-hidden aspect-square">
-                        <img
-                          src={member.image}
-                          alt={`${member.name}, ${member.title}`}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--ink))]/60 via-[hsl(var(--ink))]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-6">
-                        <h3 className="text-2xl font-bold mb-1 group-hover:text-primary transition-colors">
-                          {member.name}
-                        </h3>
-                        <p className="text-sm font-semibold text-primary mb-4">
-                          {member.title}
-                        </p>
-                        <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                          {member.bio}
-                        </p>
-
-                        {/* Contact Buttons */}
-                        <div className="flex gap-3">
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className="flex-1"
-                            asChild
-                          >
-                            <a href={`mailto:${member.email}`} className="flex items-center justify-center gap-2">
-                              <Mail className="h-4 w-4" />
-                              Email
-                            </a>
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            asChild
-                          >
-                            <a 
-                              href={member.linkedin} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center"
-                              aria-label={`${member.name}'s LinkedIn profile`}
-                            >
-                              <Linkedin className="h-4 w-4" />
-                            </a>
-                          </Button>
+              {loading ? (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                  {[1, 2, 3].map((i) => (
+                    <Card key={i} className="overflow-hidden">
+                      <CardContent className="p-0">
+                        <Skeleton className="aspect-square w-full" />
+                        <div className="p-6">
+                          <Skeleton className="h-8 w-3/4 mb-2" />
+                          <Skeleton className="h-5 w-1/2 mb-4" />
+                          <Skeleton className="h-20 w-full mb-6" />
+                          <div className="flex gap-3">
+                            <Skeleton className="h-9 flex-1" />
+                            <Skeleton className="h-9 w-9" />
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : teamMembers.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground text-lg">
+                    No team members available at this time.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                  {teamMembers.map((member) => (
+                    <Card 
+                      key={member.id} 
+                      className="group hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    >
+                      <CardContent className="p-0">
+                        {/* Photo */}
+                        <div className="relative overflow-hidden aspect-square">
+                          {member.photo_url ? (
+                            <img
+                              src={member.photo_url}
+                              alt={`${member.full_name}, ${member.position}`}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-muted flex items-center justify-center">
+                              <div className="w-32 h-32 rounded-full bg-primary/20 flex items-center justify-center">
+                                <span className="text-4xl font-bold text-primary">
+                                  {getInitials(member.full_name)}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--ink))]/60 via-[hsl(var(--ink))]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6">
+                          <h3 className="text-2xl font-bold mb-1 group-hover:text-primary transition-colors">
+                            {member.full_name}
+                          </h3>
+                          <p className="text-sm font-semibold text-primary mb-4">
+                            {member.position}
+                          </p>
+                          
+                          {member.bio && (
+                            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                              {member.bio}
+                            </p>
+                          )}
+
+                          {/* Credentials */}
+                          {member.credentials && member.credentials.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mb-4">
+                              {member.credentials.map((cred: string, idx: number) => (
+                                <Badge key={idx} variant="secondary" className="text-xs">
+                                  {cred}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Notable Projects */}
+                          {member.notable_projects && member.notable_projects.length > 0 && (
+                            <div className="mb-4 text-xs">
+                              <p className="font-semibold text-muted-foreground mb-1">Notable Projects:</p>
+                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                {member.notable_projects.slice(0, 3).map((project: string, idx: number) => (
+                                  <li key={idx}>{project}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {/* Contact Buttons */}
+                          <div className="flex gap-3">
+                            {member.email && (
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="flex-1"
+                                asChild
+                              >
+                                <a href={`mailto:${member.email}`} className="flex items-center justify-center gap-2">
+                                  <Mail className="h-4 w-4" />
+                                  Email
+                                </a>
+                              </Button>
+                            )}
+                            {member.linkedin_url && (
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                asChild
+                              >
+                                <a 
+                                  href={member.linkedin_url} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="flex items-center justify-center"
+                                  aria-label={`${member.full_name}'s LinkedIn profile`}
+                                >
+                                  <Linkedin className="h-4 w-4" />
+                                </a>
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </div>
           </section>
 
