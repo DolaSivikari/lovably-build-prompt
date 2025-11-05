@@ -119,7 +119,7 @@ const Footer = () => {
                 <ul className="space-y-2">
                   {companyLinks.map((link, index) => (
                     <li key={index}>
-                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary link-hover">
                         {link.label}
                       </Link>
                     </li>
@@ -137,7 +137,7 @@ const Footer = () => {
                 <ul className="space-y-2 max-h-[300px] overflow-y-auto">
                   {services.map((service, index) => (
                     <li key={index}>
-                      <Link to={`/services/${service.slug}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      <Link to={`/services/${service.slug}`} className="text-sm text-muted-foreground hover:text-primary link-hover">
                         {service.name}
                       </Link>
                     </li>
@@ -155,7 +155,7 @@ const Footer = () => {
                 <ul className="space-y-2">
                   {marketLinks.map((link, index) => (
                     <li key={index}>
-                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary link-hover">
                         {link.label}
                       </Link>
                     </li>
@@ -173,7 +173,7 @@ const Footer = () => {
                 <ul className="space-y-2">
                   {projectLinks.map((link, index) => (
                     <li key={index}>
-                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary link-hover">
                         {link.label}
                       </Link>
                     </li>
@@ -225,18 +225,18 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4" />
-                  <a href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-primary transition-colors">
+                  <a href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-primary link-hover">
                     {phone}
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  <a href={`mailto:${email}`} className="hover:text-primary transition-colors">
+                  <a href={`mailto:${email}`} className="hover:text-primary link-hover">
                     {email}
                   </a>
                 </div>
                 <div className="flex gap-3 mt-2">
-                  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
+                  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary link-hover" aria-label="LinkedIn">
                     <Linkedin className="h-5 w-5" />
                   </a>
                 </div>
@@ -249,8 +249,8 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
               <p>&copy; {new Date().getFullYear()} Ascent Group Construction. All rights reserved.</p>
               <nav className="flex gap-6">
-                <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
-                <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>
+                <Link to="/privacy" className="hover:text-primary link-hover">Privacy</Link>
+                <Link to="/terms" className="hover:text-primary link-hover">Terms</Link>
               </nav>
             </div>
           </div>

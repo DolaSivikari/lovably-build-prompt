@@ -245,7 +245,7 @@ const ContentHub = () => {
 
                         <div className="flex items-center gap-2 text-sm text-steel-blue font-semibold pt-4 border-t border-border">
                           Read More
-                          <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="h-4 w-4 hover-translate-arrow" />
                         </div>
                       </CardContent>
                     </Card>

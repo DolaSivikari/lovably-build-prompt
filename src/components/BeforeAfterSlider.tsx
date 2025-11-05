@@ -58,7 +58,7 @@ const BeforeAfterSlider = ({
       </div>
 
       {/* Slider Control */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-64 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-64 opacity-0 group-hover:opacity-100 fade-transition">
         <Slider
           value={sliderPosition}
           onValueChange={setSliderPosition}

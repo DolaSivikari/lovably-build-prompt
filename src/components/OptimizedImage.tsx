@@ -112,13 +112,13 @@ const OptimizedImage = ({
             fetchPriority={fetchPriority}
             onError={handleError}
             className={cn(
-              "transition-opacity duration-500",
               isLoaded ? "opacity-100" : "opacity-0",
               `object-${objectFit}`,
               "w-full h-full"
             )}
             style={{
               objectFit,
+              transition: 'var(--transition-slow)'
             }}
           />
         </picture>
@@ -135,13 +135,13 @@ const OptimizedImage = ({
           fetchPriority={fetchPriority}
           onError={handleError}
           className={cn(
-            "transition-opacity duration-500",
             isLoaded ? "opacity-100" : "opacity-0",
             `object-${objectFit}`,
             "w-full h-full"
           )}
           style={{
             objectFit,
+            transition: 'var(--transition-slow)'
           }}
         />
       )}

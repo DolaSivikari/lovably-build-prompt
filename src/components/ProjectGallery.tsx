@@ -159,24 +159,34 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
         {displayImages.map((image, index) => (
           <div
             key={image.id}
-            className="group relative aspect-square bg-muted rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:scale-105"
+            className="group relative aspect-square bg-muted rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover-scale cursor-pointer"
+            style={{ transition: 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
             onClick={() => openLightbox(index)}
           >
             <img
               src={image.url}
               alt={image.caption || `Gallery image ${index + 1}`}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              className="w-full h-full object-cover group-hover:scale-110"
+              style={{ transition: 'var(--transition-transform)' }}
               loading="lazy"
             />
             
             {/* Overlay */}
-            <div className="absolute inset-0 bg-[hsl(var(--ink))]/0 group-hover:bg-[hsl(var(--ink))]/40 transition-all duration-300 flex items-center justify-center">
-              <ZoomIn className="text-[hsl(var(--bg))] opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12" />
+            <div 
+              className="absolute inset-0 bg-[hsl(var(--ink))]/0 group-hover:bg-[hsl(var(--ink))]/40 flex items-center justify-center"
+              style={{ transition: 'var(--transition-base)' }}
+            >
+              <ZoomIn 
+                className="text-[hsl(var(--bg))] opacity-0 group-hover:opacity-100 w-12 h-12 fade-transition" 
+              />
             </div>
 
             {/* Caption */}
             {image.caption && (
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[hsl(var(--ink))]/80 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <div 
+                className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[hsl(var(--ink))]/80 to-transparent p-4 translate-y-full group-hover:translate-y-0"
+                style={{ transition: 'var(--transition-transform)' }}
+              >
                 <p className="text-[hsl(var(--bg))] text-sm font-medium">{image.caption}</p>
               </div>
             )}

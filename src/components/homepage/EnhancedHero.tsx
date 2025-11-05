@@ -322,7 +322,7 @@ const EnhancedHero = () => {
               <Link to={slide.primaryCTA.href} className="gap-2">
                 <PrimaryIcon className="h-5 w-5" />
                 {slide.primaryCTA.label}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 hover-translate-arrow" />
               </Link>
             </Button>
             

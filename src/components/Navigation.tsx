@@ -98,7 +98,8 @@ const Navigation = () => {
       <ScrollProgress />
       <nav 
         className={cn(
-          "fixed top-0 left-0 right-0 z-navigation border-b transition-all duration-500 ease-in-out",
+          "fixed top-0 left-0 right-0 z-navigation border-b",
+          "transition-[transform,background-color,backdrop-filter,box-shadow,border-color] duration-500 ease-in-out",
           isAtTop 
             ? "bg-transparent backdrop-blur-none border-transparent" 
             : "bg-background/95 backdrop-blur-xl shadow-lg border-border/50",
@@ -114,18 +115,19 @@ const Navigation = () => {
             <img 
               src={ascentLogo} 
               alt="Ascent Group Construction Logo" 
-              className="h-12 md:h-14 lg:h-16 w-auto transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
+              className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
             />
             <div className="flex flex-col items-start leading-tight">
               <span className={cn(
-                "text-base md:text-lg lg:text-xl font-bold transition-all duration-300 relative",
-                "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 group-hover:after:scale-x-100 group-hover:after:origin-bottom-left",
+                "text-base md:text-lg lg:text-xl font-bold relative",
+                "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left",
+                "after:transition-[transform] after:duration-300 transition-[color] duration-300",
                 isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
               )}>
                 Ascent Group
               </span>
               <span className={cn(
-                "text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300",
+                "text-xs md:text-sm font-bold uppercase tracking-widest transition-[color] duration-300",
                 isAtTop ? "text-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-primary"
               )}>
                 CONSTRUCTION
@@ -139,7 +141,8 @@ const Navigation = () => {
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
               className={cn(
-                "text-sm font-medium transition-all duration-300 relative py-2 hover:scale-105 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100",
+                "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
+                "transition-[color,transform] duration-300 after:transition-[transform] after:duration-300",
                 isActive("/") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"),
                 !isActive("/") && "hover:text-primary"
               )}
@@ -156,7 +159,8 @@ const Navigation = () => {
               <Link
                 to="/services"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "transition-[color,transform] duration-300",
                   activeMegaMenu === "services" && "text-primary scale-105",
                   activeMegaMenu !== "services" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
@@ -165,7 +169,7 @@ const Navigation = () => {
               >
                 Services
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
+                  "w-4 h-4 transition-[transform] duration-200",
                   activeMegaMenu === "services" && "rotate-180"
                 )} />
               </Link>
@@ -184,7 +188,8 @@ const Navigation = () => {
               <Link
                 to="/projects"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "transition-[color,transform] duration-300",
                   activeMegaMenu === "markets" && "text-primary scale-105",
                   activeMegaMenu !== "markets" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
@@ -193,7 +198,7 @@ const Navigation = () => {
               >
                 Markets
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
+                  "w-4 h-4 transition-[transform] duration-200",
                   activeMegaMenu === "markets" && "rotate-180"
                 )} />
               </Link>
@@ -213,7 +218,8 @@ const Navigation = () => {
               <Link
                 to="/projects"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "transition-[color,transform] duration-300",
                   activeMegaMenu === "projects" && "text-primary scale-105",
                   activeMegaMenu !== "projects" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
@@ -222,7 +228,7 @@ const Navigation = () => {
               >
                 Projects
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
+                  "w-4 h-4 transition-[transform] duration-200",
                   activeMegaMenu === "projects" && "rotate-180"
                 )} />
               </Link>
@@ -241,7 +247,8 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "transition-[color,transform] duration-300",
                   activeMegaMenu === "company" && "text-primary scale-105",
                   activeMegaMenu !== "company" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
@@ -250,7 +257,7 @@ const Navigation = () => {
               >
                 Company
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
+                  "w-4 h-4 transition-[transform] duration-200",
                   activeMegaMenu === "company" && "rotate-180"
                 )} />
               </button>
@@ -269,7 +276,8 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "transition-[color,transform] duration-300",
                   activeMegaMenu === "resources" && "text-primary scale-105",
                   activeMegaMenu !== "resources" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
@@ -278,7 +286,7 @@ const Navigation = () => {
               >
                 Resources
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
+                  "w-4 h-4 transition-[transform] duration-200",
                   activeMegaMenu === "resources" && "rotate-180"
                 )} />
               </button>
@@ -292,7 +300,8 @@ const Navigation = () => {
             <Link
               to="/contact"
               className={cn(
-                "text-sm font-medium transition-all duration-300 relative py-2 hover:scale-105 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100",
+                "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
+                "transition-[color,transform] duration-300 after:transition-[transform] after:duration-300",
                 isActive("/contact") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"),
                 !isActive("/contact") && "hover:text-primary"
               )}
@@ -312,7 +321,8 @@ const Navigation = () => {
             <Link 
               to="/resources/contractor-portal" 
               className={cn(
-                "text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 whitespace-nowrap",
+                "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap",
+                "transition-[color,transform] duration-300",
                 isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
               )}
             >
@@ -326,7 +336,8 @@ const Navigation = () => {
                   onMouseEnter={openAdminDropdown}
                   onMouseLeave={scheduleCloseAdminDropdown}
                   className={cn(
-                    "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                    "transition-[color,transform] duration-300",
                     adminDropdownOpen && "text-primary scale-105",
                     !adminDropdownOpen && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                   )}
@@ -335,7 +346,7 @@ const Navigation = () => {
                   <Shield className="w-4 h-4" />
                   Admin
                   <ChevronDown className={cn(
-                    "w-4 h-4 transition-transform duration-200",
+                    "w-4 h-4 transition-[transform] duration-200",
                     adminDropdownOpen && "rotate-180"
                   )} />
                 </DropdownMenuTrigger>

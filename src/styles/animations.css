@@ -106,7 +106,7 @@
 
 /* Interactive Elements */
 .hover-scale-icon {
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-transform);
 }
 
 .hover-scale-icon:hover {
@@ -114,11 +114,25 @@
 }
 
 .hover-translate-arrow {
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-transform);
 }
 
 .hover-translate-arrow:hover {
   transform: translateX(4px);
+}
+
+/* Link Hover Effects */
+.link-hover {
+  transition: var(--transition-colors);
+}
+
+.link-hover:hover {
+  color: hsl(var(--brand-primary));
+}
+
+/* Opacity Transitions */
+.fade-transition {
+  transition: var(--transition-opacity);
 }
 
 /* Reduced motion support */

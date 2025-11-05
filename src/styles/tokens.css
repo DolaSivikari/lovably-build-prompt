@@ -42,6 +42,14 @@
   --card-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-card-elevated: 0 6px 20px hsl(var(--brand-primary) / 0.12);
 
+  /* Transition System */
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-transform: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-opacity: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-colors: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
   /* Spacing Scale */
   --space-1: 4px;
   --space-2: 8px;

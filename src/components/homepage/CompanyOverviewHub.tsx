@@ -194,14 +194,16 @@ const CompanyOverviewHub = () => {
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all font-semibold shadow-lg hover:shadow-xl hover:scale-105 group"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 hover-scale font-semibold shadow-lg hover:shadow-xl group"
+            style={{ transition: 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
           >
             Start Your Project
-            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="h-5 w-5 hover-translate-arrow" />
           </Link>
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition-all font-semibold"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 font-semibold"
+            style={{ transition: 'var(--transition-colors)' }}
           >
             View Our Work
             <ArrowRight className="h-5 w-5" />
