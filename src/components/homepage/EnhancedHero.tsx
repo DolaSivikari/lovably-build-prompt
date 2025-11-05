@@ -8,7 +8,7 @@ import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 
 const heroSlides = [
   {
-    video: heroPremiumVideo,
+    video: heroClipchampVideo,
     poster: heroConstructionImage,
     stat: "$2B+",
     statLabel: "Total Project Value",
@@ -28,7 +28,7 @@ const heroSlides = [
     secondaryCTA: { label: "Our Services", href: "/services" }
   },
   {
-    video: heroPremiumVideo,
+    video: heroClipchampVideo,
     poster: heroConstructionImage,
     stat: "98%",
     statLabel: "Client Satisfaction",
