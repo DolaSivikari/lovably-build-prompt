@@ -107,10 +107,10 @@ const Navigation = () => {
             : "translate-y-0"
         )}
       >
-        <div className="container mx-auto pl-2 md:pl-4 pr-6 md:pr-8">
+        <div className="container mx-auto pl-0 pr-6 md:pr-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 md:gap-3 group relative z-navigation -ml-1 md:-ml-2" aria-label="Ascent Group Construction - Home">
+          <Link to="/" className="flex items-center gap-2 md:gap-3 group relative z-navigation -ml-6 md:-ml-8 lg:-ml-12" aria-label="Ascent Group Construction - Home">
             <img 
               src={ascentLogo} 
               alt="Ascent Group Construction Logo" 
