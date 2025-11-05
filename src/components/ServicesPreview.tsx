@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import * as LucideIcons from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card } from "@/ui/Card";
+import { Button } from "@/ui/Button";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 
@@ -125,7 +125,9 @@ const ServicesPreview = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[1, 2, 3, 4].map((i) => (
-              <Card key={i} className="h-[500px] animate-pulse bg-muted" />
+              <Card key={i} variant="elevated" className="h-[500px] animate-pulse bg-muted">
+                <div />
+              </Card>
             ))}
           </div>
         ) : (
@@ -137,7 +139,8 @@ const ServicesPreview = () => {
               return (
                 <Card
                   key={config.slug}
-                  className="group overflow-hidden h-full hover:shadow-xl transition-all duration-300 border-2"
+                  variant="elevated"
+                  className="group overflow-hidden h-full hover:shadow-xl transition-all duration-300"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <OptimizedImage
@@ -159,7 +162,7 @@ const ServicesPreview = () => {
                     </div>
                   </div>
 
-                  <CardContent className="p-6 flex flex-col h-[calc(100%-12rem)]">
+                  <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
                     <p className="text-muted-foreground mb-6">
                       {config.description}
                     </p>
@@ -182,15 +185,15 @@ const ServicesPreview = () => {
 
                     <Button
                       asChild
-                      variant="outline"
-                      className="w-full group/btn border-2 hover:border-primary"
+                      variant="secondary"
+                      size="lg"
                     >
                       <Link to={`/services/${config.slug}`}>
                         Learn More
-                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+                        <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
-                  </CardContent>
+                  </div>
                 </Card>
               );
             })}

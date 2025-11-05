@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 
 interface Breadcrumb {

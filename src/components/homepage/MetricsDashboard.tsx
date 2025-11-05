@@ -40,7 +40,7 @@ const MetricsDashboard = () => {
   const isVisible = useIntersectionObserver(ref);
 
   return (
-    <section ref={ref} className="py-16 bg-gradient-to-br from-primary via-primary-dark to-primary border-y border-primary-light">
+    <section ref={ref} className="py-16 bg-gradient-to-br from-primary via-primary/95 to-primary-dark border-y border-primary-light">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {metrics.map((metric, index) => (
@@ -79,11 +79,11 @@ const MetricCard = ({ metric, isVisible, delay }: MetricCardProps) => {
     >
       <div className="flex justify-center mb-3">
         <div className="p-3 rounded-full bg-accent/20 border border-accent/30">
-          <Icon className={`w-6 h-6 ${metric.color}`} />
+          <Icon className={`w-8 h-8 ${metric.color}`} />
         </div>
       </div>
       
-      <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+      <div className="text-5xl md:text-6xl font-bold text-white mb-2 tracking-tight">
         {displayText}
       </div>
       
