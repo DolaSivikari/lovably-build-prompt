@@ -79,6 +79,9 @@ const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager
 const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Stats Manager</p></div>
 })));
+const LeadershipTeam = lazy(() => import("./pages/admin/LeadershipTeam").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Leadership Team</p></div>
+})));
 const FooterSettings = lazy(() => import("./pages/admin/FooterSettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Footer Settings</p></div>
 })));
@@ -267,6 +270,9 @@ const App = () => (
                     <Route path="prequalifications" element={<PrequalificationSubmissions />} />
                     <Route path="media" element={<MediaLibrary />} />
                     <Route path="users" element={<Users />} />
+                    <Route path="stats" element={<StatsManager />} />
+                    <Route path="testimonials" element={<TestimonialsManager />} />
+                    <Route path="leadership-team" element={<LeadershipTeam />} />
                     <Route path="security-center" element={<SecurityCenter />} />
                     <Route path="security-settings" element={<SecuritySettings />} />
                     <Route path="seo-dashboard" element={<AdminSEODashboard />} />

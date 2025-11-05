@@ -1560,6 +1560,60 @@ export type Database = {
         }
         Relationships: []
       }
+      leadership_team: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          created_by: string | null
+          credentials: string[] | null
+          display_order: number | null
+          email: string | null
+          full_name: string
+          id: string
+          is_active: boolean | null
+          linkedin_url: string | null
+          notable_projects: string[] | null
+          photo_url: string | null
+          position: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          credentials?: string[] | null
+          display_order?: number | null
+          email?: string | null
+          full_name: string
+          id?: string
+          is_active?: boolean | null
+          linkedin_url?: string | null
+          notable_projects?: string[] | null
+          photo_url?: string | null
+          position: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          credentials?: string[] | null
+          display_order?: number | null
+          email?: string | null
+          full_name?: string
+          id?: string
+          is_active?: boolean | null
+          linkedin_url?: string | null
+          notable_projects?: string[] | null
+          photo_url?: string | null
+          position?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       navigation_menus: {
         Row: {
           created_at: string | null

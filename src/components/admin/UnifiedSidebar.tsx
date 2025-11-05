@@ -18,7 +18,9 @@ import {
   Folder,
   UserCircle,
   FileCheck,
-  X
+  X,
+  MessageSquare,
+  BarChart
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
@@ -161,6 +163,9 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
               <NavItem to="/admin/services" icon={Package} label="Services" />
               <NavItem to="/admin/blog" icon={FileText} label="Blog Posts" />
               <NavItem to="/admin/media" icon={Image} label="Media" />
+              <NavItem to="/admin/testimonials" icon={MessageSquare} label="Testimonials" />
+              <NavItem to="/admin/stats" icon={BarChart} label="Stats" />
+              <NavItem to="/admin/leadership-team" icon={Users} label="Leadership Team" />
             </nav>
           </CollapsibleContent>
         </Collapsible>

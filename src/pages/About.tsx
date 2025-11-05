@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/accordion";
 import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
+import { supabase } from "@/integrations/supabase/client";
 import teamWork from "@/assets/team-work.jpg";
 import CompanyTimeline from "@/components/homepage/CompanyTimeline";
 
@@ -28,6 +29,26 @@ const iconMap: { [key: string]: any } = {
 const About = () => {
   const navigate = useNavigate();
   const { data: aboutSettings, loading } = useSettingsData('about_page_settings');
+  const [leadershipTeam, setLeadershipTeam] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetchLeadershipTeam();
+  }, []);
+
+  const fetchLeadershipTeam = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('leadership_team')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order', { ascending: true });
+      
+      if (error) throw error;
+      setLeadershipTeam(data || []);
+    } catch (error) {
+      console.error('Error fetching leadership team:', error);
+    }
+  };
 
   // All data comes from database - no fallbacks to JSON
   const yearsInBusiness = aboutSettings?.years_in_business || 15;
@@ -235,88 +256,125 @@ const About = () => {
                 Meet the experienced professionals leading our commitment to excellence
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Team Member 1 */}
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-[3/4] bg-muted relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                    Professional Headshot
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-1">John Smith</h3>
-                  <p className="text-primary font-semibold mb-3">President & CEO</p>
-                  <div className="space-y-3 text-sm text-muted-foreground">
-                    <p>25+ years in construction management. Licensed General Contractor with expertise in commercial and multi-family projects.</p>
-                    <div className="pt-3 border-t">
-                      <p className="font-semibold text-foreground mb-2">Credentials:</p>
-                      <ul className="list-disc list-inside space-y-1">
-                        <li>P.Eng, PMP Certified</li>
-                        <li>LEED AP, Gold Seal Certified</li>
-                      </ul>
-                    </div>
-                    <div className="pt-3 border-t">
-                      <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
-                      <p>Waterfront Condos, Heritage Office Tower</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Team Member 2 */}
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-[3/4] bg-muted relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                    Professional Headshot
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-1">Sarah Johnson</h3>
-                  <p className="text-primary font-semibold mb-3">VP of Operations</p>
-                  <div className="space-y-3 text-sm text-muted-foreground">
-                    <p>20+ years managing complex construction operations. Expert in project delivery and quality control.</p>
-                    <div className="pt-3 border-t">
-                      <p className="font-semibold text-foreground mb-2">Credentials:</p>
-                      <ul className="list-disc list-inside space-y-1">
-                        <li>B.Eng Civil, PMP</li>
-                        <li>CQM Certified Quality Manager</li>
-                      </ul>
-                    </div>
-                    <div className="pt-3 border-t">
-                      <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
-                      <p>School Renovation, Retail Plaza Expansion</p>
+            {leadershipTeam.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {leadershipTeam.map((member) => (
+                  <Card key={member.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                    {member.photo_url && (
+                      <div className="aspect-[3/4] bg-muted relative overflow-hidden">
+                        <img 
+                          src={member.photo_url} 
+                          alt={member.full_name}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    )}
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-bold mb-1">{member.full_name}</h3>
+                      <p className="text-primary font-semibold mb-3">{member.position}</p>
+                      {member.bio && (
+                        <p className="text-sm text-muted-foreground mb-3">{member.bio}</p>
+                      )}
+                      {member.credentials && member.credentials.length > 0 && (
+                        <div className="pt-3 border-t">
+                          <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                            {member.credentials.map((cred, idx) => (
+                              <li key={idx}>{cred}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {member.notable_projects && member.notable_projects.length > 0 && (
+                        <div className="pt-3 border-t">
+                          <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                          <p className="text-sm text-muted-foreground">{member.notable_projects.join(', ')}</p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Fallback static content */}
+                <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="aspect-[3/4] bg-muted relative">
+                    <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                      Professional Headshot
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-
-              {/* Team Member 3 */}
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-[3/4] bg-muted relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                    Professional Headshot
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-1">Michael Chen</h3>
-                  <p className="text-primary font-semibold mb-3">Director of Safety & Compliance</p>
-                  <div className="space-y-3 text-sm text-muted-foreground">
-                    <p>15+ years specializing in construction safety and regulatory compliance. WSIB Certified Safety Professional.</p>
-                    <div className="pt-3 border-t">
-                      <p className="font-semibold text-foreground mb-2">Credentials:</p>
-                      <ul className="list-disc list-inside space-y-1">
-                        <li>CRSP, NCSO Certified</li>
-                        <li>COR Auditor, JHSC Certified</li>
-                      </ul>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold mb-1">John Smith</h3>
+                    <p className="text-primary font-semibold mb-3">President & CEO</p>
+                    <div className="space-y-3 text-sm text-muted-foreground">
+                      <p>25+ years in construction management. Licensed General Contractor with expertise in commercial and multi-family projects.</p>
+                      <div className="pt-3 border-t">
+                        <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>P.Eng, PMP Certified</li>
+                          <li>LEED AP, Gold Seal Certified</li>
+                        </ul>
+                      </div>
+                      <div className="pt-3 border-t">
+                        <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                        <p>Waterfront Condos, Heritage Office Tower</p>
+                      </div>
                     </div>
-                    <div className="pt-3 border-t">
-                      <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
-                      <p>Industrial Warehouse, Parking Restoration</p>
+                  </CardContent>
+                </Card>
+                <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="aspect-[3/4] bg-muted relative">
+                    <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                      Professional Headshot
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold mb-1">Sarah Johnson</h3>
+                    <p className="text-primary font-semibold mb-3">VP of Operations</p>
+                    <div className="space-y-3 text-sm text-muted-foreground">
+                      <p>20+ years managing complex construction operations. Expert in project delivery and quality control.</p>
+                      <div className="pt-3 border-t">
+                        <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>B.Eng Civil, PMP</li>
+                          <li>CQM Certified Quality Manager</li>
+                        </ul>
+                      </div>
+                      <div className="pt-3 border-t">
+                        <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                        <p>School Renovation, Retail Plaza Expansion</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="aspect-[3/4] bg-muted relative">
+                    <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                      Professional Headshot
+                    </div>
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold mb-1">Michael Chen</h3>
+                    <p className="text-primary font-semibold mb-3">Director of Safety & Compliance</p>
+                    <div className="space-y-3 text-sm text-muted-foreground">
+                      <p>15+ years specializing in construction safety and regulatory compliance. WSIB Certified Safety Professional.</p>
+                      <div className="pt-3 border-t">
+                        <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>CRSP, NCSO Certified</li>
+                          <li>COR Auditor, JHSC Certified</li>
+                        </ul>
+                      </div>
+                      <div className="pt-3 border-t">
+                        <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                        <p>Industrial Warehouse, Parking Restoration</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </div>
         </section>
 
