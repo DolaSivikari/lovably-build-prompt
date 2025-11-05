@@ -41,6 +41,7 @@ const EnhancedHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,31 +50,51 @@ const EnhancedHero = () => {
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
         setIsTransitioning(false);
-      }, 500); // Half of transition duration
+      }, 500);
     }, 8000);
 
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setScrollY(scrollPosition);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const slide = heroSlides[currentSlide];
   const PrimaryIcon = slide.primaryCTA.icon;
 
+  const parallaxOffset = scrollY * 0.5;
+
   return (
     <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background with Poster */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster={slide.poster}
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-        onLoadedData={() => setIsVideoLoaded(true)}
-        style={{ opacity: isVideoLoaded ? 1 : 0.7 }}
+      {/* Video Background with Parallax Effect */}
+      <div 
+        className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        style={{ 
+          transform: `translateY(${parallaxOffset}px)`,
+          transition: 'transform 0.1s ease-out'
+        }}
       >
-        <source src={slide.video} type="video/mp4" />
-      </video>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={slide.poster}
+          className="w-full h-full object-cover transition-opacity duration-1000"
+          onLoadedData={() => setIsVideoLoaded(true)}
+          style={{ opacity: isVideoLoaded ? 1 : 0.7 }}
+        >
+          <source src={slide.video} type="video/mp4" />
+        </video>
+      </div>
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
