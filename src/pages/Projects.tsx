@@ -32,6 +32,15 @@ const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(6);
   const [allProjects, setAllProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  // Advanced filters
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("All");
+  const [selectedClientType, setSelectedClientType] = useState("All");
+  const [selectedValueRange, setSelectedValueRange] = useState("All");
+  const [performanceBadges, setPerformanceBadges] = useState({
+    onTime: false,
+    onBudget: false,
+    zeroIncidents: false,
+  });
 
   // Fetch projects from database with realtime updates
   useEffect(() => {
@@ -119,7 +128,36 @@ const Projects = () => {
     const matchesCategory = selectedCategory === "All" || project.category.includes(selectedCategory);
     const matchesYear = selectedYear === "All" || project.year === selectedYear;
 
-    return matchesSearch && matchesCategory && matchesYear;
+    // Advanced filters
+    const matchesDeliveryMethod = 
+      selectedDeliveryMethod === "All" || 
+      project.rawData?.delivery_method === selectedDeliveryMethod;
+
+    const matchesClientType = 
+      selectedClientType === "All" || 
+      project.rawData?.client_type === selectedClientType;
+
+    const matchesValueRange = (() => {
+      if (selectedValueRange === "All") return true;
+      const projectValue = project.project_value || 0;
+      
+      if (selectedValueRange === "0-500000") return projectValue < 50000000; // $500K in cents
+      if (selectedValueRange === "500000-1000000") return projectValue >= 50000000 && projectValue < 100000000;
+      if (selectedValueRange === "1000000-2500000") return projectValue >= 100000000 && projectValue < 250000000;
+      if (selectedValueRange === "2500000-5000000") return projectValue >= 250000000 && projectValue < 500000000;
+      if (selectedValueRange === "5000000+") return projectValue >= 500000000;
+      return true;
+    })();
+
+    const matchesPerformance = (
+      (!performanceBadges.onTime || project.on_time_completion === true) &&
+      (!performanceBadges.onBudget || project.on_budget === true) &&
+      (!performanceBadges.zeroIncidents || project.safety_incidents === 0)
+    );
+
+    return matchesSearch && matchesCategory && matchesYear && 
+           matchesDeliveryMethod && matchesClientType && matchesValueRange && 
+           matchesPerformance;
   });
 
   const featuredProjects = filteredProjects.filter(p => p.featured).slice(0, 3);
@@ -190,6 +228,14 @@ const Projects = () => {
         projectCount={filteredProjects.length}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
+        selectedDeliveryMethod={selectedDeliveryMethod}
+        onDeliveryMethodChange={setSelectedDeliveryMethod}
+        selectedClientType={selectedClientType}
+        onClientTypeChange={setSelectedClientType}
+        selectedValueRange={selectedValueRange}
+        onValueRangeChange={setSelectedValueRange}
+        performanceBadges={performanceBadges}
+        onPerformanceBadgesChange={setPerformanceBadges}
       />
 
       {/* Projects Grid */}
@@ -208,6 +254,10 @@ const Projects = () => {
                   setSearchTerm("");
                   setSelectedCategory("All");
                   setSelectedYear("All");
+                  setSelectedDeliveryMethod("All");
+                  setSelectedClientType("All");
+                  setSelectedValueRange("All");
+                  setPerformanceBadges({ onTime: false, onBudget: false, zeroIncidents: false });
                 }}
               >
                 Clear Filters
