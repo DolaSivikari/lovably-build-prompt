@@ -86,6 +86,10 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        "steel-blue": {
+          DEFAULT: "hsl(var(--steel-blue))",
+          foreground: "hsl(var(--steel-blue-foreground))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

@@ -38,6 +38,10 @@ All colors MUST be HSL.
     --accent: 14 100% 60%;          /* Safety Orange #FF6B35 */
     --accent-foreground: 0 0% 100%; /* White text on orange */
 
+    /* Steel Blue - Secondary accent for links, icons, highlights */
+    --steel-blue: 193 37% 48%;      /* Steel Blue #4A90A4 */
+    --steel-blue-foreground: 0 0% 100%; /* White text on steel blue */
+
     --muted: 210 15% 96%;        /* Light gray-blue muted */
     --muted-foreground: 210 10% 40%; /* Darker gray-blue text */
     
@@ -114,6 +118,10 @@ All colors MUST be HSL.
 
     --accent: 14 100% 65%;      /* Bright orange for dark mode */
     --accent-foreground: 0 0% 100%;
+
+    /* Steel Blue - Dark mode */
+    --steel-blue: 193 37% 58%;      /* Lighter steel blue for dark mode */
+    --steel-blue-foreground: 0 0% 100%;
 
     --muted: 210 15% 20%;
     --muted-foreground: 210 15% 65%;
