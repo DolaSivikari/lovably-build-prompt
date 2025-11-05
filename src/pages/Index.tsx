@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
+import CompanyIntroduction from "@/components/homepage/CompanyIntroduction";
 import MetricsDashboard from "@/components/homepage/MetricsDashboard";
 import CertificationBadges from "@/components/homepage/CertificationBadges";
 import GCTrustStrip from "@/components/homepage/GCTrustStrip";
@@ -113,9 +114,9 @@ const Index = () => {
     <div className="min-h-screen">
       <SkipLink />
       <SEO 
-        title="General Contractor Toronto | Commercial & Multi-Family Construction | Ascent Group"
-        description="Full-service general contractor delivering commercial, multi-family, and institutional projects across Ontario. Design-build, construction management, and self-perform trades. Licensed, bonded, WSIB certified."
-        keywords="general contractor Toronto, commercial construction Ontario, multi-family construction, construction management, design-build, building envelope, GTA contractor"
+        title="General Contractor Toronto | Commercial Construction & Building Envelope"
+        description="Full-service General Contractor in Toronto delivering commercial, multi-family residential, and institutional construction solutions. Specializing in construction management, design-build, and building envelope systems across Ontario."
+        keywords="general contractor Toronto, construction management, design-build services, commercial construction, multi-family residential, institutional construction, building envelope, GTA general contractor, Toronto construction company"
         structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} 
         includeRating={true} 
       />
@@ -123,6 +124,7 @@ const Index = () => {
       <MobileStickyCTA />
       <main id="main-content" role="main">
         <EnhancedHero />
+        <CompanyIntroduction />
         <MetricsDashboard />
         <GCTrustStrip />
         
