@@ -195,22 +195,6 @@ const Navigation = () => {
                 </span>
               </div>
             </Link>
-            
-            <div className={cn(
-              "h-8 w-px bg-border/50 hidden lg:block",
-              isAtTop ? "bg-white/30" : "bg-border/50"
-            )} />
-            
-            <a 
-              href="tel:+14165551234" 
-              className={cn(
-                "hidden lg:flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:scale-105 whitespace-nowrap group",
-                isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
-              )}
-            >
-              <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-              <span>(416) 555-1234</span>
-            </a>
           </div>
 
           {/* Right Navigation Group */}
