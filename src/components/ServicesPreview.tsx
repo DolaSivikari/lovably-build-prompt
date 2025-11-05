@@ -27,18 +27,18 @@ interface CategoryConfig {
 }
 
 const categoryConfig: Record<string, CategoryConfig> = {
-  "Painting Services": {
-    name: "Painting Services",
-    slug: "painting",
-    icon: "Paintbrush",
+  "Construction Management": {
+    name: "General Contracting",
+    slug: "general-contracting",
+    icon: "Building2",
     color: "primary",
-    description: "Commercial, residential, multi-unit, and parking garage coating solutions",
+    description: "Complete project management from concept to completion",
     image: "/src/assets/project-commercial.jpg"
   },
   "Exterior Systems": {
     name: "Exterior Cladding & Systems",
     slug: "exterior-cladding",
-    icon: "Building2",
+    icon: "Shield",
     color: "terracotta",
     description: "Complete exterior cladding, siding, and metal panel solutions",
     image: "/src/assets/project-industrial.jpg"
@@ -46,17 +46,17 @@ const categoryConfig: Record<string, CategoryConfig> = {
   "Building Envelope": {
     name: "Exterior Envelope Systems",
     slug: "exterior-envelope",
-    icon: "Shield",
+    icon: "Layers",
     color: "sage",
     description: "Stucco, EIFS, sealants, and comprehensive weatherproofing",
     image: "/src/assets/case-heritage-building.jpg"
   },
   "Specialty Services": {
-    name: "Interior & Specialty Services",
+    name: "Interior & Finishing",
     slug: "interior-buildouts",
-    icon: "Layers",
+    icon: "Hammer",
     color: "accent",
-    description: "Interior buildouts, drywall finishing, and specialized construction",
+    description: "Interior buildouts, tenant improvements, and specialized construction",
     image: "/src/assets/project-institutional.jpg"
   }
 };

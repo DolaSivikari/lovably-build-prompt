@@ -162,11 +162,11 @@ const MultiFamily = () => {
             <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl">Ready to Discuss Your Multi-Family Project?</CardTitle>
-                <CardDescription>Let's review your building's needs and create a comprehensive plan</CardDescription>
+                <CardDescription>Schedule a building assessment and receive a detailed proposal</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="gap-2">
-                  <Link to="/contact">
+                  <Link to="/submit-rfp">
                     Request Proposal
                     <ArrowRight className="h-4 w-4" />
                   </Link>

@@ -161,12 +161,12 @@ const Commercial = () => {
             <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl">Ready to Start Your Commercial Project?</CardTitle>
-                <CardDescription>Let's discuss your space requirements and timeline</CardDescription>
+                <CardDescription>Let's discuss your requirements and create a comprehensive proposal</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="gap-2">
-                  <Link to="/contact">
-                    Request Proposal
+                  <Link to="/submit-rfp">
+                    Submit RFP
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>

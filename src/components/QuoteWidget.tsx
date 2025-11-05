@@ -46,12 +46,12 @@ const QuoteWidget = () => {
                 <SelectValue placeholder="Select service type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="commercial-painting">Commercial Painting</SelectItem>
-                <SelectItem value="residential-painting">Residential Painting</SelectItem>
-                <SelectItem value="condo-painting">Condo Painting</SelectItem>
-                <SelectItem value="stucco-eifs">Stucco & EIFS</SelectItem>
-                <SelectItem value="masonry">Masonry Restoration</SelectItem>
-                <SelectItem value="parking-garage">Parking Garage</SelectItem>
+                <SelectItem value="general-contracting">General Contracting</SelectItem>
+                <SelectItem value="design-build">Design-Build</SelectItem>
+                <SelectItem value="construction-management">Construction Management</SelectItem>
+                <SelectItem value="interior-buildouts">Interior Buildouts</SelectItem>
+                <SelectItem value="exterior-envelope">Exterior Restoration</SelectItem>
+                <SelectItem value="tenant-improvements">Tenant Improvements</SelectItem>
               </SelectContent>
             </Select>
           </div>
