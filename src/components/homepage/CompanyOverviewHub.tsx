@@ -72,8 +72,8 @@ const CompanyOverviewHub = () => {
             Your Complete Construction Partner Across Ontario
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            From commercial painting to structural restoration, we deliver comprehensive solutions 
-            with the expertise, safety standards, and quality you expect from a trusted partner.
+            From design-build to construction management and building restoration, we deliver comprehensive solutions 
+            with the expertise, safety standards, and quality you expect from a trusted general contractor.
           </p>
         </div>
 

@@ -6,7 +6,7 @@ const milestones = [
   {
     year: "2009",
     title: "Company Founded",
-    description: "Ascent Group Construction established with a focus on quality painting and exterior finishing services in the GTA"
+    description: "Ascent Group Construction established with a focus on quality general contracting and construction management services in the GTA"
   },
   {
     year: "2012",
@@ -16,7 +16,7 @@ const milestones = [
   {
     year: "2015",
     title: "Commercial Expansion",
-    description: "Expanded services to include parking garage restoration, EIFS systems, and industrial painting across Ontario"
+    description: "Expanded services to include design-build, construction management, and specialized building envelope systems across Ontario"
   },
   {
     year: "2018",

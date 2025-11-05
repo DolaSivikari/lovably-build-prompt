@@ -15,7 +15,7 @@ const GoogleReviews = () => {
     {
       author: "Priya Patel",
       rating: 5,
-      text: "Marcus and his crew did an amazing job painting our 12-storey condo. Finished in 3 weeks, minimal disruption to residents. Very impressed with the attention to detail.",
+      text: "Marcus and his team did an outstanding job managing our 12-storey condo renovation. Finished in 3 weeks, minimal disruption to residents. Very impressed with their professionalism and attention to detail.",
       date: "5 days ago",
       avatar: "PP",
       verified: true
@@ -39,7 +39,7 @@ const GoogleReviews = () => {
     {
       author: "James Thompson",
       rating: 5,
-      text: "Best decision we made. They handled our commercial building repaint efficiently and the price was very competitive for the GTA.",
+      text: "Best decision we made. They handled our commercial building renovation efficiently and delivered exceptional quality for the GTA market.",
       date: "1 month ago",
       avatar: "JT",
       verified: true

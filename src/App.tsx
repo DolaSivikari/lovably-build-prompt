@@ -80,6 +80,9 @@ const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager
 const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Stats Manager</p></div>
 })));
+const AwardsManager = lazy(() => import("./pages/admin/AwardsManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Awards Manager</p></div>
+})));
 const LeadershipTeam = lazy(() => import("./pages/admin/LeadershipTeam").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Leadership Team</p></div>
 })));
@@ -282,6 +285,7 @@ const App = () => (
                     <Route path="media" element={<MediaLibrary />} />
                     <Route path="users" element={<Users />} />
                     <Route path="stats" element={<StatsManager />} />
+                    <Route path="awards" element={<AwardsManager />} />
                     <Route path="testimonials" element={<TestimonialsManager />} />
                     <Route path="leadership-team" element={<LeadershipTeam />} />
                     <Route path="rfp-submissions" element={<RFPSubmissions />} />

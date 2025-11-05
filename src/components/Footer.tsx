@@ -99,13 +99,14 @@ const Footer = () => {
       },
     ],
     serviceType: [
-      "Commercial Painting",
-      "Residential Painting", 
-      "Condo Painting",
-      "Stucco & EIFS",
-      "Masonry Restoration",
-      "Metal Cladding",
-      "Parking Garage Restoration"
+      "General Contracting",
+      "Construction Management",
+      "Design-Build Services",
+      "Commercial Construction",
+      "Multi-Family Construction",
+      "Institutional Projects",
+      "Exterior Restoration",
+      "Building Envelope Systems"
     ],
     priceRange: "$$-$$$",
   };
