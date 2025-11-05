@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, Clock, FileText } from "lucide-react";
 
 interface BlogCardProps {
   post: {
@@ -34,7 +34,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
       <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group border-2 hover:border-primary">
         <CardContent className="p-8">
           <div className="flex items-start gap-3 mb-4">
-            <Badge className="bg-secondary text-primary shrink-0">{post.category}</Badge>
+            <Badge variant="info" size="sm" icon={FileText} className="shrink-0">{post.category}</Badge>
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
