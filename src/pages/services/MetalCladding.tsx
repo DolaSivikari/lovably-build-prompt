@@ -5,95 +5,95 @@ import SEO from '@/components/SEO';
 import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Home, Layers, Palette, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Layers, Zap, Shield, Wrench, CheckCircle2, ArrowRight } from 'lucide-react';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 
-const ExteriorCladding = () => {
+const MetalCladding = () => {
   const serviceSchema = createServiceSchema({
-    serviceType: 'Exterior Cladding Systems',
+    serviceType: 'Metal Cladding Systems',
     areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
     priceRange: '$$$',
-    subServices: ['Siding Installation', 'Metal Cladding', 'Panel Systems']
+    subServices: ['Panel Systems', 'Composite Panels', 'Standing Seam', 'Rainscreen Systems']
   });
 
   const breadcrumbSchemaData = breadcrumbSchema([
     { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
     { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Exterior Cladding', url: 'https://ascentgroupconstruction.com/services/exterior-cladding' }
+    { name: 'Metal Cladding', url: 'https://ascentgroupconstruction.com/services/metal-cladding' }
   ]);
 
   const stats = [
-    { value: '1M+', label: 'SF Installed' },
-    { value: '40+ Years', label: 'System Life' },
-    { value: '350+', label: 'Projects' },
-    { value: '100%', label: 'Weathertight' }
+    { value: '750K+', label: 'SF Installed' },
+    { value: '50+ Years', label: 'System Life' },
+    { value: '250+', label: 'Projects' },
+    { value: '100%', label: 'Warranty' }
   ];
 
   const deliverables = [
     {
-      icon: Home,
-      title: 'Vinyl & Fiber Cement Siding',
-      description: 'Traditional siding systems with modern materials offering low maintenance and lasting performance.'
-    },
-    {
       icon: Layers,
-      title: 'Engineered Wood Systems',
-      description: 'Premium wood-based cladding systems combining natural aesthetics with advanced weather protection.'
+      title: 'Metal Panel Systems',
+      description: 'Architectural metal panels in aluminum, steel, zinc, and copper with custom finishes and profiles.'
     },
     {
-      icon: Palette,
-      title: 'Composite Cladding',
-      description: 'High-performance composite panels offering unlimited design options with superior durability.'
+      icon: Zap,
+      title: 'Composite Metal Panels',
+      description: 'Insulated metal composite panels offering superior thermal performance and modern aesthetics.'
     },
     {
       icon: Shield,
-      title: 'Rainscreen Applications',
-      description: 'Ventilated rainscreen assemblies maximizing weather protection and building envelope performance.'
+      title: 'Rainscreen Systems',
+      description: 'Advanced ventilated rainscreen assemblies providing maximum weather protection and durability.'
+    },
+    {
+      icon: Wrench,
+      title: 'Standing Seam Roofing',
+      description: 'Long-lasting metal roofing systems with concealed fasteners and proven weather resistance.'
     }
   ];
 
   const process = [
     {
-      phase: 'System Selection',
-      description: 'Material evaluation, design consultation, and performance review ensuring optimal cladding selection.'
+      phase: 'System Design',
+      description: 'Engineering review, thermal modeling, and detail development ensuring performance and code compliance.'
     },
     {
-      phase: 'Envelope Preparation',
-      description: 'Weather barrier installation, drainage plane creation, and substrate preparation for cladding attachment.'
+      phase: 'Substrate & Framing',
+      description: 'Precision framing installation with proper alignment, drainage planes, and attachment verification.'
     },
     {
-      phase: 'Cladding Installation',
-      description: 'Precision installation with attention to details, transitions, and penetrations for lasting weathertightness.'
+      phase: 'Panel Installation',
+      description: 'Expert panel fabrication and installation with quality control at every stage for lasting results.'
     }
   ];
 
   const advantages = [
-    'Experience with all major cladding systems and materials',
-    'In-house fabrication for custom trim and accessories',
-    'Complete envelope integration and warranty coverage',
-    'Energy efficiency improvements through proper installation'
+    'Factory-certified installers for all major systems',
+    'In-house fabrication capabilities for custom profiles',
+    'Complete system warranties covering materials and labor',
+    'BIM coordination and pre-installation mockups'
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Exterior Cladding & Siding Systems | Modern Facade Solutions"
-        description="Professional exterior cladding installation including siding systems, composite panels, and rainscreen applications for commercial and residential buildings."
-        keywords="exterior cladding, siding installation, composite panels, rainscreen systems, building envelope, facade systems"
+        title="Metal Cladding & Panel Systems | Architectural Metal Installation"
+        description="Professional metal cladding installation including composite panels, rainscreen systems, standing seam, and custom architectural metal facades."
+        keywords="metal cladding, metal panels, composite panels, rainscreen systems, standing seam, architectural metal"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage="/hero-poster-1.webp">
+      <PageHero.Root backgroundImage="/hero-poster-3.webp">
         <PageHero.Breadcrumb items={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
-          { label: 'Exterior Cladding' }
+          { label: 'Metal Cladding' }
         ]} />
-        <PageHero.Title>Exterior Cladding Systems</PageHero.Title>
+        <PageHero.Title>Metal Cladding Systems</PageHero.Title>
         <PageHero.Subtitle>
-          Complete cladding solutions enhancing aesthetics and protecting building envelopes
+          Modern architectural metal facades combining aesthetics, performance, and longevity
         </PageHero.Subtitle>
         <PageHero.Stats stats={stats} />
         <PageHero.CTAs 
@@ -108,10 +108,10 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Comprehensive Cladding Solutions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Advanced Metal Cladding Solutions</h2>
             <p className="text-lg text-muted-foreground">
-              From traditional siding to modern composite systems, we install exterior cladding that
-              protects your investment while enhancing curb appeal.
+              From architectural panels to high-performance rainscreen systems, we deliver metal cladding
+              solutions that define modern building exteriors.
             </p>
           </div>
 
@@ -131,9 +131,9 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Cladding Process</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Installation Process</h2>
             <p className="text-lg text-muted-foreground">
-              Systematic approach ensuring proper envelope integration and lasting performance
+              Precision-engineered installation ensuring optimal performance and architectural vision
             </p>
           </div>
 
@@ -155,7 +155,7 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Why Self-Perform Exterior Cladding</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Why Self-Perform Metal Cladding</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {advantages.map((advantage, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -171,12 +171,12 @@ const ExteriorCladding = () => {
       {/* Case Studies */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Cladding Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Metal Cladding Projects</h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { title: 'Multi-Family Residence', detail: 'Complete fiber cement siding, 24 units, Markham' },
-              { title: 'Retail Complex Re-Clad', detail: 'Composite panel system upgrade, Mississauga' },
-              { title: 'Commercial Building', detail: 'Rainscreen cladding installation, Toronto' }
+              { title: 'Corporate Headquarters', detail: '85,000 SF composite metal panels, Vaughan' },
+              { title: 'Transit Station Renovation', detail: 'Architectural zinc rainscreen, Downtown Toronto' },
+              { title: 'Industrial Facility', detail: 'Standing seam roof and wall system, Hamilton' }
             ].map((project, index) => (
               <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
@@ -193,9 +193,9 @@ const ExteriorCladding = () => {
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Upgrade Your Building Exterior</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Transform Your Building with Metal Cladding</h2>
           <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-            Expert cladding installation with superior weather protection and lasting aesthetics
+            Expert installation of high-performance architectural metal systems
           </p>
           <Button size="lg" variant="secondary" asChild>
             <Link to="/contact">Request Proposal <ArrowRight className="ml-2 w-5 h-5" /></Link>
@@ -208,4 +208,4 @@ const ExteriorCladding = () => {
   );
 };
 
-export default ExteriorCladding;
+export default MetalCladding;

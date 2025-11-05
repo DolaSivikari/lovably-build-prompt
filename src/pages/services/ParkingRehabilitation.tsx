@@ -5,99 +5,99 @@ import SEO from '@/components/SEO';
 import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Home, Layers, Palette, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Car, HardHat, Wrench, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 
-const ExteriorCladding = () => {
+const ParkingRehabilitation = () => {
   const serviceSchema = createServiceSchema({
-    serviceType: 'Exterior Cladding Systems',
+    serviceType: 'Parking Structure Rehabilitation',
     areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
     priceRange: '$$$',
-    subServices: ['Siding Installation', 'Metal Cladding', 'Panel Systems']
+    subServices: ['Concrete Restoration', 'Traffic Coating', 'Structural Repairs', 'Expansion Joints']
   });
 
   const breadcrumbSchemaData = breadcrumbSchema([
     { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
     { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Exterior Cladding', url: 'https://ascentgroupconstruction.com/services/exterior-cladding' }
+    { name: 'Parking Rehabilitation', url: 'https://ascentgroupconstruction.com/services/parking-rehabilitation' }
   ]);
 
   const stats = [
-    { value: '1M+', label: 'SF Installed' },
-    { value: '40+ Years', label: 'System Life' },
-    { value: '350+', label: 'Projects' },
-    { value: '100%', label: 'Weathertight' }
+    { value: '75+', label: 'Structures' },
+    { value: '2M+', label: 'SF Restored' },
+    { value: '30+ Years', label: 'Life Extension' },
+    { value: '100%', label: 'In Service' }
   ];
 
   const deliverables = [
     {
-      icon: Home,
-      title: 'Vinyl & Fiber Cement Siding',
-      description: 'Traditional siding systems with modern materials offering low maintenance and lasting performance.'
+      icon: Car,
+      title: 'Concrete Restoration',
+      description: 'Structural concrete repairs including spall repair, rebar replacement, and corrosion protection systems.'
     },
     {
-      icon: Layers,
-      title: 'Engineered Wood Systems',
-      description: 'Premium wood-based cladding systems combining natural aesthetics with advanced weather protection.'
+      icon: HardHat,
+      title: 'Traffic Coating Systems',
+      description: 'Durable polyurethane and polyaspartic traffic membranes protecting against freeze-thaw and de-icing salts.'
     },
     {
-      icon: Palette,
-      title: 'Composite Cladding',
-      description: 'High-performance composite panels offering unlimited design options with superior durability.'
+      icon: Wrench,
+      title: 'Structural Strengthening',
+      description: 'Post-tensioning, carbon fiber reinforcement, and structural modifications to extend service life.'
     },
     {
       icon: Shield,
-      title: 'Rainscreen Applications',
-      description: 'Ventilated rainscreen assemblies maximizing weather protection and building envelope performance.'
+      title: 'Joint & Sealant Systems',
+      description: 'Expansion joint replacement and comprehensive sealant programs preventing water intrusion.'
     }
   ];
 
   const process = [
     {
-      phase: 'System Selection',
-      description: 'Material evaluation, design consultation, and performance review ensuring optimal cladding selection.'
+      phase: 'Condition Assessment',
+      description: 'Structural engineering inspection, concrete testing, and corrosion mapping to determine rehabilitation scope.'
     },
     {
-      phase: 'Envelope Preparation',
-      description: 'Weather barrier installation, drainage plane creation, and substrate preparation for cladding attachment.'
+      phase: 'Phased Restoration',
+      description: 'Strategic sequencing minimizing parking disruption while executing comprehensive concrete and coating repairs.'
     },
     {
-      phase: 'Cladding Installation',
-      description: 'Precision installation with attention to details, transitions, and penetrations for lasting weathertightness.'
+      phase: 'Protection Systems',
+      description: 'Traffic membrane installation, joint replacement, and corrosion inhibitor application for long-term protection.'
     }
   ];
 
   const advantages = [
-    'Experience with all major cladding systems and materials',
-    'In-house fabrication for custom trim and accessories',
-    'Complete envelope integration and warranty coverage',
-    'Energy efficiency improvements through proper installation'
+    'Structural engineers on staff for complex repairs',
+    'Phased construction maintaining parking availability',
+    'Complete traffic membrane system warranties',
+    'Experience with occupied structure rehabilitation'
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Exterior Cladding & Siding Systems | Modern Facade Solutions"
-        description="Professional exterior cladding installation including siding systems, composite panels, and rainscreen applications for commercial and residential buildings."
-        keywords="exterior cladding, siding installation, composite panels, rainscreen systems, building envelope, facade systems"
+        title="Parking Structure Rehabilitation | Concrete Restoration & Traffic Coating"
+        description="Comprehensive parking structure rehabilitation including concrete restoration, traffic membrane systems, structural repairs, and expansion joint replacement."
+        keywords="parking structure rehabilitation, concrete restoration, traffic coating, parking garage repair, structural strengthening"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage="/hero-poster-1.webp">
+      <PageHero.Root backgroundImage="/hero-poster-2.webp">
         <PageHero.Breadcrumb items={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
-          { label: 'Exterior Cladding' }
+          { label: 'Parking Rehabilitation' }
         ]} />
-        <PageHero.Title>Exterior Cladding Systems</PageHero.Title>
+        <PageHero.Title>Parking Structure Rehabilitation</PageHero.Title>
         <PageHero.Subtitle>
-          Complete cladding solutions enhancing aesthetics and protecting building envelopes
+          Comprehensive restoration extending the life of parking structures while maintaining operations
         </PageHero.Subtitle>
         <PageHero.Stats stats={stats} />
         <PageHero.CTAs 
-          primaryText="Request Proposal"
+          primaryText="Request Assessment"
           primaryHref="/contact"
           secondaryText="View Projects"
           secondaryHref="/projects"
@@ -108,10 +108,10 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Comprehensive Cladding Solutions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Complete Parking Structure Solutions</h2>
             <p className="text-lg text-muted-foreground">
-              From traditional siding to modern composite systems, we install exterior cladding that
-              protects your investment while enhancing curb appeal.
+              From structural concrete restoration to advanced traffic coatings, we rehabilitate parking
+              structures with minimal disruption and maximum longevity.
             </p>
           </div>
 
@@ -131,9 +131,9 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Cladding Process</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Rehabilitation Process</h2>
             <p className="text-lg text-muted-foreground">
-              Systematic approach ensuring proper envelope integration and lasting performance
+              Strategic approach maximizing service life while minimizing operational impact
             </p>
           </div>
 
@@ -155,7 +155,7 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Why Self-Perform Exterior Cladding</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Why Self-Perform Parking Rehabilitation</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {advantages.map((advantage, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -171,12 +171,12 @@ const ExteriorCladding = () => {
       {/* Case Studies */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Cladding Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Rehabilitation Projects</h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { title: 'Multi-Family Residence', detail: 'Complete fiber cement siding, 24 units, Markham' },
-              { title: 'Retail Complex Re-Clad', detail: 'Composite panel system upgrade, Mississauga' },
-              { title: 'Commercial Building', detail: 'Rainscreen cladding installation, Toronto' }
+              { title: 'Hospital Parking Garage', detail: '6-level structure, complete restoration, Toronto' },
+              { title: 'Retail Complex Parking', detail: '180,000 SF traffic coating and repairs, Vaughan' },
+              { title: 'Residential Tower Garage', detail: 'Structural strengthening and waterproofing, Mississauga' }
             ].map((project, index) => (
               <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
@@ -193,12 +193,12 @@ const ExteriorCladding = () => {
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Upgrade Your Building Exterior</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Restore Your Parking Structure</h2>
           <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-            Expert cladding installation with superior weather protection and lasting aesthetics
+            Expert rehabilitation services extending structure life by decades
           </p>
           <Button size="lg" variant="secondary" asChild>
-            <Link to="/contact">Request Proposal <ArrowRight className="ml-2 w-5 h-5" /></Link>
+            <Link to="/contact">Request Assessment <ArrowRight className="ml-2 w-5 h-5" /></Link>
           </Button>
         </div>
       </section>
@@ -208,4 +208,4 @@ const ExteriorCladding = () => {
   );
 };
 
-export default ExteriorCladding;
+export default ParkingRehabilitation;

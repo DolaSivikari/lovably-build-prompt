@@ -5,99 +5,99 @@ import SEO from '@/components/SEO';
 import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Home, Layers, Palette, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Building2, Hammer, Shield, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 
-const ExteriorCladding = () => {
+const MasonryRestoration = () => {
   const serviceSchema = createServiceSchema({
-    serviceType: 'Exterior Cladding Systems',
+    serviceType: 'Masonry Restoration & Repair',
     areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
-    priceRange: '$$$',
-    subServices: ['Siding Installation', 'Metal Cladding', 'Panel Systems']
+    priceRange: '$$-$$$',
+    subServices: ['Brick Repair', 'Stone Restoration', 'Tuckpointing', 'Structural Repairs']
   });
 
   const breadcrumbSchemaData = breadcrumbSchema([
     { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
     { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Exterior Cladding', url: 'https://ascentgroupconstruction.com/services/exterior-cladding' }
+    { name: 'Masonry Restoration', url: 'https://ascentgroupconstruction.com/services/masonry-restoration' }
   ]);
 
   const stats = [
-    { value: '1M+', label: 'SF Installed' },
-    { value: '40+ Years', label: 'System Life' },
-    { value: '350+', label: 'Projects' },
-    { value: '100%', label: 'Weathertight' }
+    { value: '50+', label: 'Heritage Projects' },
+    { value: '100%', label: 'Code Compliance' },
+    { value: '35 Years', label: 'Experience' },
+    { value: '1M+', label: 'SF Restored' }
   ];
 
   const deliverables = [
     {
-      icon: Home,
-      title: 'Vinyl & Fiber Cement Siding',
-      description: 'Traditional siding systems with modern materials offering low maintenance and lasting performance.'
+      icon: Building2,
+      title: 'Brick & Stone Restoration',
+      description: 'Historic preservation and modern masonry repairs using authentic materials and traditional techniques.'
     },
     {
-      icon: Layers,
-      title: 'Engineered Wood Systems',
-      description: 'Premium wood-based cladding systems combining natural aesthetics with advanced weather protection.'
-    },
-    {
-      icon: Palette,
-      title: 'Composite Cladding',
-      description: 'High-performance composite panels offering unlimited design options with superior durability.'
+      icon: Hammer,
+      title: 'Tuckpointing & Repointing',
+      description: 'Expert mortar replacement matching original composition, color, and profile for seamless integration.'
     },
     {
       icon: Shield,
-      title: 'Rainscreen Applications',
-      description: 'Ventilated rainscreen assemblies maximizing weather protection and building envelope performance.'
+      title: 'Structural Masonry Repairs',
+      description: 'Engineering-backed solutions for cracked walls, failed lintels, and deteriorated structural masonry.'
+    },
+    {
+      icon: Clock,
+      title: 'Heritage Building Conservation',
+      description: 'Specialized restoration services meeting heritage standards and municipal preservation requirements.'
     }
   ];
 
   const process = [
     {
-      phase: 'System Selection',
-      description: 'Material evaluation, design consultation, and performance review ensuring optimal cladding selection.'
+      phase: 'Assessment & Testing',
+      description: 'Detailed condition assessment, mortar analysis, and structural engineering review to determine repair scope.'
     },
     {
-      phase: 'Envelope Preparation',
-      description: 'Weather barrier installation, drainage plane creation, and substrate preparation for cladding attachment.'
+      phase: 'Material Matching',
+      description: 'Custom mortar formulation and brick/stone sourcing to match existing materials in composition and appearance.'
     },
     {
-      phase: 'Cladding Installation',
-      description: 'Precision installation with attention to details, transitions, and penetrations for lasting weathertightness.'
+      phase: 'Restoration Execution',
+      description: 'Skilled craftsmen execute repairs using traditional methods with modern engineering support and quality control.'
     }
   ];
 
   const advantages = [
-    'Experience with all major cladding systems and materials',
-    'In-house fabrication for custom trim and accessories',
-    'Complete envelope integration and warranty coverage',
-    'Energy efficiency improvements through proper installation'
+    'Master masons with heritage restoration certifications',
+    'In-house mortar lab for precise material matching',
+    'Engineering support for structural repairs',
+    'Experience with municipal heritage approvals'
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Exterior Cladding & Siding Systems | Modern Facade Solutions"
-        description="Professional exterior cladding installation including siding systems, composite panels, and rainscreen applications for commercial and residential buildings."
-        keywords="exterior cladding, siding installation, composite panels, rainscreen systems, building envelope, facade systems"
+        title="Masonry Restoration & Brick Repair | Heritage Building Conservation"
+        description="Professional masonry restoration services including brick repair, tuckpointing, stone conservation, and heritage building restoration with expert craftsmanship."
+        keywords="masonry restoration, brick repair, tuckpointing, stone restoration, heritage conservation, structural masonry"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage="/hero-poster-1.webp">
+      <PageHero.Root backgroundImage="/hero-poster-2.webp">
         <PageHero.Breadcrumb items={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
-          { label: 'Exterior Cladding' }
+          { label: 'Masonry Restoration' }
         ]} />
-        <PageHero.Title>Exterior Cladding Systems</PageHero.Title>
+        <PageHero.Title>Masonry Restoration & Repair</PageHero.Title>
         <PageHero.Subtitle>
-          Complete cladding solutions enhancing aesthetics and protecting building envelopes
+          Expert restoration of historic and modern masonry with uncompromising craftsmanship
         </PageHero.Subtitle>
         <PageHero.Stats stats={stats} />
         <PageHero.CTAs 
-          primaryText="Request Proposal"
+          primaryText="Request Assessment"
           primaryHref="/contact"
           secondaryText="View Projects"
           secondaryHref="/projects"
@@ -108,10 +108,10 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Comprehensive Cladding Solutions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Comprehensive Masonry Solutions</h2>
             <p className="text-lg text-muted-foreground">
-              From traditional siding to modern composite systems, we install exterior cladding that
-              protects your investment while enhancing curb appeal.
+              From heritage conservation to modern repairs, we restore and preserve masonry structures
+              with authentic materials and proven techniques.
             </p>
           </div>
 
@@ -131,9 +131,9 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Cladding Process</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Restoration Process</h2>
             <p className="text-lg text-muted-foreground">
-              Systematic approach ensuring proper envelope integration and lasting performance
+              Methodical approach combining traditional craftsmanship with modern engineering
             </p>
           </div>
 
@@ -155,7 +155,7 @@ const ExteriorCladding = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Why Self-Perform Exterior Cladding</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Why Self-Perform Masonry Restoration</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {advantages.map((advantage, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -171,12 +171,12 @@ const ExteriorCladding = () => {
       {/* Case Studies */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Cladding Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Restoration Projects</h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { title: 'Multi-Family Residence', detail: 'Complete fiber cement siding, 24 units, Markham' },
-              { title: 'Retail Complex Re-Clad', detail: 'Composite panel system upgrade, Mississauga' },
-              { title: 'Commercial Building', detail: 'Rainscreen cladding installation, Toronto' }
+              { title: 'Historic Library Restoration', detail: 'Complete brick restoration, Heritage Toronto approved' },
+              { title: 'Cathedral Masonry Repair', detail: 'Stone conservation and structural stabilization' },
+              { title: 'Century Building Tuckpointing', detail: '40,000 SF heritage-compliant repointing' }
             ].map((project, index) => (
               <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
@@ -193,12 +193,12 @@ const ExteriorCladding = () => {
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Upgrade Your Building Exterior</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Preserve Your Historic Masonry</h2>
           <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-            Expert cladding installation with superior weather protection and lasting aesthetics
+            Expert restoration services backed by decades of heritage conservation experience
           </p>
           <Button size="lg" variant="secondary" asChild>
-            <Link to="/contact">Request Proposal <ArrowRight className="ml-2 w-5 h-5" /></Link>
+            <Link to="/contact">Request Assessment <ArrowRight className="ml-2 w-5 h-5" /></Link>
           </Button>
         </div>
       </section>
@@ -208,4 +208,4 @@ const ExteriorCladding = () => {
   );
 };
 
-export default ExteriorCladding;
+export default MasonryRestoration;

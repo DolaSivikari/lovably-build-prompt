@@ -36,6 +36,11 @@ import GeneralContracting from "./pages/services/GeneralContracting";
 import BuildingEnvelope from "./pages/services/BuildingEnvelope";
 import ConstructionManagement from "./pages/services/ConstructionManagement";
 import DesignBuild from "./pages/services/DesignBuild";
+import EIFSStucco from "./pages/services/EIFSStucco";
+import MasonryRestoration from "./pages/services/MasonryRestoration";
+import MetalCladding from "./pages/services/MetalCladding";
+import Waterproofing from "./pages/services/Waterproofing";
+import ParkingRehabilitation from "./pages/services/ParkingRehabilitation";
 import MultiFamily from "./pages/markets/MultiFamily";
 import Commercial from "./pages/markets/Commercial";
 import Institutional from "./pages/markets/Institutional";
@@ -239,6 +244,11 @@ const App = () => (
             <Route path="/services/exterior-cladding" element={<ExteriorCladding />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
             <Route path="/services/exterior-envelope" element={<ExteriorEnvelope />} />
+            <Route path="/services/eifs-stucco" element={<EIFSStucco />} />
+            <Route path="/services/masonry-restoration" element={<MasonryRestoration />} />
+            <Route path="/services/metal-cladding" element={<MetalCladding />} />
+            <Route path="/services/waterproofing" element={<Waterproofing />} />
+            <Route path="/services/parking-rehabilitation" element={<ParkingRehabilitation />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/markets/multi-family" element={<MultiFamily />} />
             <Route path="/markets/commercial" element={<Commercial />} />
