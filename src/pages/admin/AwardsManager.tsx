@@ -88,7 +88,18 @@ const AwardsManager = () => {
 
     try {
       const payload = {
-        ...editingAward,
+        title: editingAward.title,
+        issuing_organization: editingAward.issuing_organization,
+        date_received: editingAward.date_received,
+        expiry_date: editingAward.expiry_date,
+        category: editingAward.category || 'certification',
+        badge_image_url: editingAward.badge_image_url,
+        credential_number: editingAward.credential_number,
+        verification_url: editingAward.verification_url,
+        description: editingAward.description,
+        display_order: editingAward.display_order,
+        is_active: editingAward.is_active,
+        show_on_homepage: editingAward.show_on_homepage,
         ...(editingAward.id ? { updated_by: userId } : { created_by: userId }),
       };
 
@@ -444,7 +455,6 @@ const AwardsManager = () => {
                   setEditingAward({ ...editingAward, badge_image_url: url || null })
                 }
                 bucket="project-images"
-                path="awards"
               />
             </div>
 
