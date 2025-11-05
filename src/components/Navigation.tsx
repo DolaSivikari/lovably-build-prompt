@@ -108,15 +108,39 @@ const Navigation = () => {
         )}
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
-        <div className="hidden md:flex md:items-center md:justify-between md:h-20 md:w-full relative">
-          {/* Left Navigation Group */}
-          <nav className="flex items-center gap-3 lg:gap-4 2xl:gap-5" aria-label="Main navigation">
+        <div className="flex items-center justify-between w-full h-20">
+          {/* Left: Logo + Company Name */}
+          <Link to="/" className="flex items-center gap-3 group" aria-label="Ascent Group Construction - Home">
+            <img 
+              src={ascentLogo} 
+              alt="Ascent Group Construction Logo" 
+              className="h-12 md:h-14 lg:h-16 w-auto transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
+            />
+            <div className="flex flex-col items-start leading-tight">
+              <span className={cn(
+                "text-base md:text-lg lg:text-xl font-bold transition-all duration-300",
+                isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
+              )}>
+                Ascent Group
+              </span>
+              <span className={cn(
+                "text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300",
+                isAtTop ? "text-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-primary"
+              )}>
+                CONSTRUCTION
+              </span>
+            </div>
+          </Link>
+
+          {/* Center: Main Navigation */}
+          <nav className="flex items-center gap-6 lg:gap-8 xl:gap-10" aria-label="Main navigation">
             <Link
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
               className={cn(
                 "text-sm font-medium transition-all duration-300 relative py-2 hover:scale-105 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100",
-                isActive("/") ? "text-primary after:scale-x-100" : "text-foreground hover:text-primary"
+                isActive("/") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"),
+                !isActive("/") && "hover:text-primary"
               )}
             >
               Home
@@ -132,7 +156,8 @@ const Navigation = () => {
                 to="/services"
                 className={cn(
                   "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
-                  activeMegaMenu === "services" && "text-primary scale-105"
+                  activeMegaMenu === "services" && "text-primary scale-105",
+                  activeMegaMenu !== "services" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "services"}
                 aria-controls="services-mega-menu"
@@ -159,7 +184,8 @@ const Navigation = () => {
                 to="/projects"
                 className={cn(
                   "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
-                  activeMegaMenu === "markets" && "text-primary scale-105"
+                  activeMegaMenu === "markets" && "text-primary scale-105",
+                  activeMegaMenu !== "markets" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "markets"}
                 aria-controls="markets-mega-menu"
@@ -176,29 +202,7 @@ const Navigation = () => {
                 onClose={closeMegaMenu}
               />
             </div>
-          </nav>
 
-          {/* Center Group: Logo + Company Name + Phone (Absolutely Centered) */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4 lg:gap-6">
-            <Link to="/" className="flex items-center gap-3 group relative z-navigation" aria-label="Ascent Group Construction - Home">
-              <img 
-                src={ascentLogo} 
-                alt="Ascent Group Construction Logo" 
-                className="h-14 md:h-16 lg:h-18 w-auto transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
-              />
-              <div className="flex flex-col items-start leading-tight">
-                <span className="text-lg md:text-xl lg:text-2xl font-bold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                  Ascent Group
-                </span>
-                <span className="text-xs md:text-sm lg:text-base font-bold text-primary uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                  CONSTRUCTION
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          {/* Right Navigation Group */}
-          <nav className="flex items-center gap-3 lg:gap-4 2xl:gap-5" aria-label="Secondary navigation">
             {/* Projects Mega-Menu */}
             <div
               className="relative"
@@ -209,7 +213,8 @@ const Navigation = () => {
                 to="/projects"
                 className={cn(
                   "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
-                  activeMegaMenu === "projects" && "text-primary scale-105"
+                  activeMegaMenu === "projects" && "text-primary scale-105",
+                  activeMegaMenu !== "projects" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "projects"}
                 aria-controls="projects-mega-menu"
@@ -236,7 +241,8 @@ const Navigation = () => {
               <button
                 className={cn(
                   "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
-                  activeMegaMenu === "company" && "text-primary scale-105"
+                  activeMegaMenu === "company" && "text-primary scale-105",
+                  activeMegaMenu !== "company" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "company"}
                 aria-controls="company-mega-menu"
@@ -263,7 +269,8 @@ const Navigation = () => {
               <button
                 className={cn(
                   "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
-                  activeMegaMenu === "resources" && "text-primary scale-105"
+                  activeMegaMenu === "resources" && "text-primary scale-105",
+                  activeMegaMenu !== "resources" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "resources"}
                 aria-controls="resources-mega-menu"
@@ -285,12 +292,16 @@ const Navigation = () => {
               to="/contact"
               className={cn(
                 "text-sm font-medium transition-all duration-300 relative py-2 hover:scale-105 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100",
-                isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground hover:text-primary"
+                isActive("/contact") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"),
+                !isActive("/contact") && "hover:text-primary"
               )}
             >
               Contact
             </Link>
+          </nav>
 
+          {/* Right: Utility Items */}
+          <div className="flex items-center gap-4">
             <Button asChild variant="primary" size="sm">
               <Link to="/submit-rfp">
                 Submit RFP
@@ -299,20 +310,24 @@ const Navigation = () => {
             </Button>
             <Link 
               to="/resources/contractor-portal" 
-              className="text-sm font-medium text-foreground hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap"
+              className={cn(
+                "text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 whitespace-nowrap",
+                isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
+              )}
             >
               Client Portal
             </Link>
 
-          {/* Admin Dropdown - Only visible to admin users */}
-          {isAdmin && (
-            <DropdownMenu open={adminDropdownOpen} onOpenChange={setAdminDropdownOpen}>
+            {/* Admin Dropdown - Only visible to admin users */}
+            {isAdmin && (
+              <DropdownMenu open={adminDropdownOpen} onOpenChange={setAdminDropdownOpen}>
                 <DropdownMenuTrigger 
                   onMouseEnter={openAdminDropdown}
                   onMouseLeave={scheduleCloseAdminDropdown}
                   className={cn(
                     "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
-                    adminDropdownOpen && "text-primary scale-105"
+                    adminDropdownOpen && "text-primary scale-105",
+                    !adminDropdownOpen && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
                   )}
                   aria-expanded={adminDropdownOpen}
                 >
@@ -527,7 +542,7 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-          </nav>
+          </div>
         </div>
 
         {/* Mobile Layout */}
