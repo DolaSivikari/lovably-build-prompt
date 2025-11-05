@@ -1477,6 +1477,69 @@ export type Database = {
         }
         Relationships: []
       }
+      homepage_settings: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          cta_primary_text: string | null
+          cta_primary_url: string | null
+          cta_secondary_text: string | null
+          cta_secondary_url: string | null
+          cta_tertiary_text: string | null
+          cta_tertiary_url: string | null
+          headline: string
+          hero_description: string | null
+          id: string
+          is_active: boolean | null
+          subheadline: string
+          updated_at: string | null
+          updated_by: string | null
+          value_prop_1: string | null
+          value_prop_2: string | null
+          value_prop_3: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          cta_primary_text?: string | null
+          cta_primary_url?: string | null
+          cta_secondary_text?: string | null
+          cta_secondary_url?: string | null
+          cta_tertiary_text?: string | null
+          cta_tertiary_url?: string | null
+          headline?: string
+          hero_description?: string | null
+          id?: string
+          is_active?: boolean | null
+          subheadline?: string
+          updated_at?: string | null
+          updated_by?: string | null
+          value_prop_1?: string | null
+          value_prop_2?: string | null
+          value_prop_3?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          cta_primary_text?: string | null
+          cta_primary_url?: string | null
+          cta_secondary_text?: string | null
+          cta_secondary_url?: string | null
+          cta_tertiary_text?: string | null
+          cta_tertiary_url?: string | null
+          headline?: string
+          hero_description?: string | null
+          id?: string
+          is_active?: boolean | null
+          subheadline?: string
+          updated_at?: string | null
+          updated_by?: string | null
+          value_prop_1?: string | null
+          value_prop_2?: string | null
+          value_prop_3?: string | null
+        }
+        Relationships: []
+      }
       job_postings: {
         Row: {
           closing_date: string | null

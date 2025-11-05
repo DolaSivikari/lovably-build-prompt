@@ -5,8 +5,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 const HomepageContent = () => {
   const [content, setContent] = useState({
-    headline: "Professional Painting & Exterior Finishing Across Ontario",
-    hero_description: "With 15+ years of hands-on experience across Ontario, Ascent Group Construction specializes in commercial painting, residential painting, condo restoration, stucco & EIFS, masonry repair, metal cladding, and parking garage restoration. We blend quality craftsmanship with transparent project management to deliver results that last."
+    headline: "Ontario's Trusted General Contractor",
+    subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
+    hero_description: "With 15+ years of construction management expertise across Ontario, Ascent Group Construction specializes in design-build, general contracting, and construction management for commercial, institutional, and multi-family projects. We deliver quality results through transparent project management and proven construction methodologies.",
+    cta_primary_text: "Submit RFP",
+    cta_primary_url: "/submit-rfp",
+    cta_secondary_text: "Request Proposal",
+    cta_secondary_url: "/contact",
+    cta_tertiary_text: "View Projects",
+    cta_tertiary_url: "/projects"
   });
 
   useEffect(() => {
@@ -16,15 +23,22 @@ const HomepageContent = () => {
   const loadContent = async () => {
     try {
       const { data } = await supabase
-        .from('homepage_settings' as any)
+        .from('homepage_settings')
         .select('*')
         .eq('is_active', true)
         .single();
 
       if (data) {
         setContent({
-          headline: (data as any).headline || content.headline,
-          hero_description: (data as any).hero_description || content.hero_description,
+          headline: data.headline || content.headline,
+          subheadline: data.subheadline || content.subheadline,
+          hero_description: data.hero_description || content.hero_description,
+          cta_primary_text: data.cta_primary_text || content.cta_primary_text,
+          cta_primary_url: data.cta_primary_url || content.cta_primary_url,
+          cta_secondary_text: data.cta_secondary_text || content.cta_secondary_text,
+          cta_secondary_url: data.cta_secondary_url || content.cta_secondary_url,
+          cta_tertiary_text: data.cta_tertiary_text || content.cta_tertiary_text,
+          cta_tertiary_url: data.cta_tertiary_url || content.cta_tertiary_url,
         });
       }
     } catch (error) {
@@ -35,9 +49,13 @@ const HomepageContent = () => {
   return (
     <section className="py-16 px-4 bg-background">
       <div className="container mx-auto max-w-4xl">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
           {content.headline}
         </h1>
+        
+        <p className="text-xl md:text-2xl text-muted-foreground mb-6">
+          {content.subheadline}
+        </p>
         
         <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
           <p>
@@ -45,31 +63,31 @@ const HomepageContent = () => {
           </p>
           
           <p>
-            From initial consultation to final walkthrough, our team focuses on premium materials, clear communication, 
-            and on-time delivery. Every project includes comprehensive warranties and detailed documentation—so you can 
-            trust that your investment is protected and your vision becomes reality.
+            From pre-construction planning to final closeout, our team delivers excellence through comprehensive project management, 
+            quality control, and proven construction methods. Every project is backed by detailed documentation, comprehensive warranties, 
+            and our commitment to safety and client satisfaction.
           </p>
           
           <div className="flex flex-wrap gap-4 mt-8 not-prose">
             <Link 
-              to="/projects" 
+              to={content.cta_primary_url} 
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-semibold"
             >
-              View Our Projects
+              {content.cta_primary_text}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link 
-              to="/services" 
+              to={content.cta_secondary_url} 
               className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition-colors font-semibold"
             >
-              Our Services
+              {content.cta_secondary_text}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link 
-              to="/contact" 
+              to={content.cta_tertiary_url} 
               className="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors font-semibold"
             >
-              Request a Quote
+              {content.cta_tertiary_text}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

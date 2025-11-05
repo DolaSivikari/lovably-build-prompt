@@ -203,6 +203,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
           </CollapsibleTrigger>
           <CollapsibleContent>
             <nav className="business-nav-group">
+              <NavItem to="/admin/homepage-settings" icon={Settings} label="Homepage" />
               <NavItem to="/admin/site-settings" icon={Settings} label="Site" />
               <NavItem to="/admin/users" icon={UserCircle} label="Users" />
               <NavItem to="/admin/security-center" icon={Shield} label="Security" />

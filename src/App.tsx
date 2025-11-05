@@ -89,6 +89,9 @@ const RFPSubmissions = lazy(() => import("./pages/admin/RFPSubmissions").catch((
 const DocumentsLibrary = lazy(() => import("./pages/admin/DocumentsLibrary").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Documents Library</p></div>
 })));
+const HomepageSettings = lazy(() => import("./pages/admin/HomepageSettings").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Settings</p></div>
+})));
 const FooterSettings = lazy(() => import("./pages/admin/FooterSettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Footer Settings</p></div>
 })));
@@ -283,6 +286,7 @@ const App = () => (
                     <Route path="leadership-team" element={<LeadershipTeam />} />
                     <Route path="rfp-submissions" element={<RFPSubmissions />} />
                     <Route path="documents-library" element={<DocumentsLibrary />} />
+                    <Route path="homepage-settings" element={<HomepageSettings />} />
                     <Route path="security-center" element={<SecurityCenter />} />
                     <Route path="security-settings" element={<SecuritySettings />} />
                     <Route path="seo-dashboard" element={<AdminSEODashboard />} />
