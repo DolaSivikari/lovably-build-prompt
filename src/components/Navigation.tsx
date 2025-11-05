@@ -108,24 +108,9 @@ const Navigation = () => {
         )}
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 md:gap-3 group relative z-navigation" aria-label="Ascent Group Construction - Home">
-            <img 
-              src={ascentLogo} 
-              alt="Ascent Group Construction Logo" 
-              className="h-12 md:h-14 w-auto transition-transform group-hover:scale-105"
-            />
-            <div className="flex flex-col leading-tight">
-              <span className="text-lg md:text-xl font-bold text-foreground">Ascent Group</span>
-              <span className="text-xs md:text-sm font-semibold text-primary uppercase tracking-wider">Construction</span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex flex-1 justify-end">
-            <div className="container max-w-7xl mx-0 ml-auto pr-0">
-              <nav className="flex items-center gap-4 lg:gap-6 justify-end" aria-label="Main navigation">
+        <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] items-center h-20 gap-8">
+          {/* Left Navigation */}
+          <nav className="flex items-center gap-4 lg:gap-5 justify-end" aria-label="Main navigation">
             <Link
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
@@ -191,7 +176,23 @@ const Navigation = () => {
                 onClose={closeMegaMenu}
               />
             </div>
+          </nav>
 
+          {/* Center Logo */}
+          <Link to="/" className="flex flex-col items-center gap-1 group relative z-navigation" aria-label="Ascent Group Construction - Home">
+            <img 
+              src={ascentLogo} 
+              alt="Ascent Group Construction Logo" 
+              className="h-14 md:h-16 w-auto transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
+            />
+            <div className="flex flex-col items-center leading-tight">
+              <span className="text-lg md:text-xl font-bold text-foreground">Ascent Group</span>
+              <span className="text-xs md:text-sm font-semibold text-primary uppercase tracking-wider">Construction</span>
+            </div>
+          </Link>
+
+          {/* Right Navigation */}
+          <nav className="flex items-center gap-4 lg:gap-5 justify-start" aria-label="Secondary navigation">
             {/* Projects Mega-Menu */}
             <div
               className="relative"
@@ -284,31 +285,29 @@ const Navigation = () => {
               Contact
             </Link>
 
-            <div className="flex items-center gap-2 lg:gap-3 ml-3 lg:ml-4">
-              <Button asChild variant="primary" size="sm">
-                <Link to="/submit-rfp">
-                  Submit RFP
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
-              <Link 
-                to="/resources/contractor-portal" 
-                className="text-sm font-medium text-foreground hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap"
-              >
-                Client Portal
+            <Button asChild variant="primary" size="sm">
+              <Link to="/submit-rfp">
+                Submit RFP
+                <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
-              <a 
-                href="tel:+14165551234" 
-                className="text-sm font-medium text-foreground hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1"
-              >
-                <Phone className="w-4 h-4" />
-                <span className="hidden xl:inline">(416) 555-1234</span>
-              </a>
-            </div>
+            </Button>
+            <Link 
+              to="/resources/contractor-portal" 
+              className="text-sm font-medium text-foreground hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap"
+            >
+              Client Portal
+            </Link>
+            <a 
+              href="tel:+14165551234" 
+              className="text-sm font-medium text-foreground hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1"
+            >
+              <Phone className="w-4 h-4" />
+              <span className="hidden xl:inline">(416) 555-1234</span>
+            </a>
 
-            {/* Admin Dropdown - Only visible to admin users */}
-            {isAdmin && (
-              <DropdownMenu open={adminDropdownOpen} onOpenChange={setAdminDropdownOpen}>
+          {/* Admin Dropdown - Only visible to admin users */}
+          {isAdmin && (
+            <DropdownMenu open={adminDropdownOpen} onOpenChange={setAdminDropdownOpen}>
                 <DropdownMenuTrigger 
                   onMouseEnter={openAdminDropdown}
                   onMouseLeave={scheduleCloseAdminDropdown}
@@ -529,11 +528,24 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-              </nav>
-            </div>
-          </div>
+          </nav>
+        </div>
 
-          {/* Mobile Menu Button - Animated Hamburger */}
+        {/* Mobile Layout */}
+        <div className="flex md:hidden items-center justify-between h-20">
+          <Link to="/" className="flex items-center gap-2 group relative z-navigation" aria-label="Ascent Group Construction - Home">
+            <img 
+              src={ascentLogo} 
+              alt="Ascent Group Construction Logo" 
+              className="h-12 w-auto transition-transform group-hover:scale-105"
+            />
+            <div className="flex flex-col leading-tight">
+              <span className="text-lg font-bold text-foreground">Ascent Group</span>
+              <span className="text-xs font-semibold text-primary uppercase tracking-wider">Construction</span>
+            </div>
+          </Link>
+
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-foreground relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md hover:bg-muted"
             onClick={() => setIsOpen(!isOpen)}

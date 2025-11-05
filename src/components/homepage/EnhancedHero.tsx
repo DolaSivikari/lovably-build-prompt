@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, FileText, Building2, Award, Shield } from "lucide-react";
+import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users } from "lucide-react";
 import { Button } from "@/ui/Button";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 
@@ -34,6 +34,36 @@ const heroSlides = [
     subheadline: "Zero lost-time incidents across 500+ projects. COR-certified with industry-leading safety standards",
     primaryCTA: { label: "View Safety Record", icon: Award, href: "/safety" },
     secondaryCTA: { label: "Prequalification Package", href: "/prequalification" }
+  },
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-4.webp",
+    stat: "15+",
+    statLabel: "Years of Excellence",
+    headline: "Building Tomorrow's Infrastructure",
+    subheadline: "Leveraging cutting-edge construction technology and project management software for superior results",
+    primaryCTA: { label: "Our Technology", icon: Cpu, href: "/company/equipment-resources" },
+    secondaryCTA: { label: "Learn More", href: "/about" }
+  },
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-5.webp",
+    stat: "LEED",
+    statLabel: "Certified Projects",
+    headline: "Sustainable Construction Leaders",
+    subheadline: "Eco-friendly building practices reducing environmental impact while maximizing energy efficiency",
+    primaryCTA: { label: "Green Initiatives", icon: Leaf, href: "/sustainability" },
+    secondaryCTA: { label: "Case Studies", href: "/projects" }
+  },
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-6.webp",
+    stat: "150+",
+    statLabel: "Expert Professionals",
+    headline: "Powered by Industry Leaders",
+    subheadline: "Professional engineers, certified tradespeople, and project managers dedicated to your success",
+    primaryCTA: { label: "Meet Our Team", icon: Users, href: "/company/team" },
+    secondaryCTA: { label: "Careers", href: "/careers" }
   }
 ];
 
@@ -45,6 +75,10 @@ const EnhancedHero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [videoOpacity, setVideoOpacity] = useState({ a: 1, b: 0 });
+  const videoRefA = useRef<HTMLVideoElement>(null);
+  const videoRefB = useRef<HTMLVideoElement>(null);
+  const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
 
   // Minimum swipe distance (in px) to trigger slide change
   const minSwipeDistance = 50;
@@ -57,10 +91,45 @@ const EnhancedHero = () => {
         setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
         setIsTransitioning(false);
       }, 500);
-    }, 8000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, []);
+
+  // Smooth video loop using crossfade technique
+  useEffect(() => {
+    const currentVideoRef = activeVideo === 'a' ? videoRefA.current : videoRefB.current;
+    const nextVideoRef = activeVideo === 'a' ? videoRefB.current : videoRefA.current;
+
+    if (!currentVideoRef || !nextVideoRef) return;
+
+    const handleTimeUpdate = () => {
+      const duration = currentVideoRef.duration;
+      const currentTime = currentVideoRef.currentTime;
+      
+      // Start crossfade when 1 second remaining
+      if (duration - currentTime <= 1 && duration - currentTime > 0.5) {
+        // Prepare next video
+        nextVideoRef.currentTime = 0;
+        nextVideoRef.play();
+        
+        // Crossfade
+        if (activeVideo === 'a') {
+          setVideoOpacity({ a: 0, b: 1 });
+        } else {
+          setVideoOpacity({ a: 1, b: 0 });
+        }
+      }
+      
+      // Switch active video when crossfade complete
+      if (duration - currentTime <= 0.5 && duration - currentTime > 0) {
+        setActiveVideo(activeVideo === 'a' ? 'b' : 'a');
+      }
+    };
+
+    currentVideoRef.addEventListener('timeupdate', handleTimeUpdate);
+    return () => currentVideoRef.removeEventListener('timeupdate', handleTimeUpdate);
+  }, [activeVideo]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,7 +206,7 @@ const EnhancedHero = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Video Background with Parallax Effect */}
+      {/* Video Background with Parallax Effect and Smooth Loop */}
       <div 
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
         style={{ 
@@ -145,16 +214,30 @@ const EnhancedHero = () => {
           transition: 'transform 0.3s ease-out'
         }}
       >
+        {/* Video A */}
         <video
+          ref={videoRefA}
           autoPlay
           muted
-          loop
           playsInline
-          preload="metadata"
+          preload="auto"
           poster={slide.poster}
-          className="w-full h-full object-cover transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
           onLoadedData={() => setIsVideoLoaded(true)}
-          style={{ opacity: isVideoLoaded ? 1 : 0.7 }}
+          style={{ opacity: videoOpacity.a }}
+        >
+          <source src={slide.video} type="video/mp4" />
+        </video>
+        
+        {/* Video B - for seamless crossfade loop */}
+        <video
+          ref={videoRefB}
+          muted
+          playsInline
+          preload="auto"
+          poster={slide.poster}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          style={{ opacity: videoOpacity.b }}
         >
           <source src={slide.video} type="video/mp4" />
         </video>
