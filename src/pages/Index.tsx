@@ -16,7 +16,7 @@ import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
 
-import DirectAnswer from "@/components/seo/DirectAnswer";
+
 import SkipLink from "@/components/SkipLink";
 import AchievementShowcase from "@/components/homepage/AchievementShowcase";
 import ContentHub from "@/components/homepage/ContentHub";
