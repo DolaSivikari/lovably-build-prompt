@@ -1941,10 +1941,12 @@ export type Database = {
           budget_range: string | null
           category: string | null
           client_name: string | null
+          client_type: string | null
           completion_date: string | null
           content_blocks: Json | null
           created_at: string | null
           created_by: string | null
+          delivery_method: string | null
           description: string | null
           draft_content: Json | null
           duration: string | null
@@ -1953,27 +1955,35 @@ export type Database = {
           gallery: Json | null
           id: string
           location: string | null
+          on_budget: boolean | null
+          on_time_completion: boolean | null
+          peak_workforce: number | null
           preview_token: string | null
           preview_token_created_by: string | null
           preview_token_expires_at: string | null
           process_notes: string | null
           project_size: string | null
           project_status: string | null
+          project_value: string | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
+          safety_incidents: number | null
           scheduled_publish_at: string | null
           seo_description: string | null
           seo_keywords: string[] | null
           seo_title: string | null
           slug: string
+          square_footage: string | null
           start_date: string | null
           subtitle: string | null
           summary: string | null
           tags: string[] | null
           title: string
+          trades_coordinated: number | null
           updated_at: string | null
           updated_by: string | null
           version: number | null
           year: string | null
+          your_role: string | null
         }
         Insert: {
           after_images?: Json | null
@@ -1981,10 +1991,12 @@ export type Database = {
           budget_range?: string | null
           category?: string | null
           client_name?: string | null
+          client_type?: string | null
           completion_date?: string | null
           content_blocks?: Json | null
           created_at?: string | null
           created_by?: string | null
+          delivery_method?: string | null
           description?: string | null
           draft_content?: Json | null
           duration?: string | null
@@ -1993,27 +2005,35 @@ export type Database = {
           gallery?: Json | null
           id?: string
           location?: string | null
+          on_budget?: boolean | null
+          on_time_completion?: boolean | null
+          peak_workforce?: number | null
           preview_token?: string | null
           preview_token_created_by?: string | null
           preview_token_expires_at?: string | null
           process_notes?: string | null
           project_size?: string | null
           project_status?: string | null
+          project_value?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          safety_incidents?: number | null
           scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
           slug: string
+          square_footage?: string | null
           start_date?: string | null
           subtitle?: string | null
           summary?: string | null
           tags?: string[] | null
           title: string
+          trades_coordinated?: number | null
           updated_at?: string | null
           updated_by?: string | null
           version?: number | null
           year?: string | null
+          your_role?: string | null
         }
         Update: {
           after_images?: Json | null
@@ -2021,10 +2041,12 @@ export type Database = {
           budget_range?: string | null
           category?: string | null
           client_name?: string | null
+          client_type?: string | null
           completion_date?: string | null
           content_blocks?: Json | null
           created_at?: string | null
           created_by?: string | null
+          delivery_method?: string | null
           description?: string | null
           draft_content?: Json | null
           duration?: string | null
@@ -2033,27 +2055,35 @@ export type Database = {
           gallery?: Json | null
           id?: string
           location?: string | null
+          on_budget?: boolean | null
+          on_time_completion?: boolean | null
+          peak_workforce?: number | null
           preview_token?: string | null
           preview_token_created_by?: string | null
           preview_token_expires_at?: string | null
           process_notes?: string | null
           project_size?: string | null
           project_status?: string | null
+          project_value?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          safety_incidents?: number | null
           scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
           slug?: string
+          square_footage?: string | null
           start_date?: string | null
           subtitle?: string | null
           summary?: string | null
           tags?: string[] | null
           title?: string
+          trades_coordinated?: number | null
           updated_at?: string | null
           updated_by?: string | null
           version?: number | null
           year?: string | null
+          your_role?: string | null
         }
         Relationships: [
           {

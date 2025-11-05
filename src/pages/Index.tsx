@@ -1,13 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import NumberedLandingHero from "@/components/NumberedLandingHero";
+import GCHero from "@/components/homepage/GCHero";
+import GCTrustStrip from "@/components/homepage/GCTrustStrip";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 
 import SEO from "@/components/SEO";
 import SocialProof from "@/components/SocialProof";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
-import ClientSelector from "@/components/homepage/ClientSelector";
+import WhoWeServe from "@/components/homepage/WhoWeServe";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
@@ -109,20 +110,27 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SkipLink />
-      <SEO structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} includeRating={true} />
+      <SEO 
+        title="General Contractor Toronto | Commercial & Multi-Family Construction | Ascent Group"
+        description="Full-service general contractor delivering commercial, multi-family, and institutional projects across Ontario. Design-build, construction management, and self-perform trades. Licensed, bonded, WSIB certified."
+        keywords="general contractor Toronto, commercial construction Ontario, multi-family construction, construction management, design-build, building envelope, GTA contractor"
+        structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} 
+        includeRating={true} 
+      />
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">
-        <NumberedLandingHero />
+        <GCHero />
+        <GCTrustStrip />
         
         {/* Direct Answer for AEO/GEO */}
         <DirectAnswer />
         
+        <WhoWeServe />
+        
         <div className="py-24">
           <CompanyOverviewHub />
         </div>
-        
-        <ClientSelector />
         
         <div className="py-24">
           <WhyChooseUs />
