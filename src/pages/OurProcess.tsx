@@ -143,13 +143,20 @@ const OurProcess = () => {
   });
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
       <SEO
         title="Our Process - 4 Steps to Perfect Results | Ascent Group Construction"
         description="Discover our proven 4-step process for painting and construction projects in the GTA. From consultation to warranty, we ensure quality at every stage with transparent communication."
         keywords="construction process, painting process Toronto, how we work, project timeline, quality assurance"
         structuredData={howToSchema}
       />
+      
+      {/* Background decorations */}
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 -right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 -left-20 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+
       <Navigation />
 
       <PageHeader
@@ -168,13 +175,17 @@ const OurProcess = () => {
       />
 
       {/* Trust Badges */}
-      <section className="py-12 bg-muted/30">
+      <section className="py-12 bg-gradient-to-b from-muted/30 to-transparent relative">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
             {qualityStandards.map((standard, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <standard.icon className="w-6 h-6 text-primary" />
+              <div 
+                key={idx} 
+                className="flex items-center gap-3 animate-fade-in-up hover-scale"
+                style={{ animationDelay: `${idx * 100}ms` }}
+              >
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                  <standard.icon className="w-6 h-6 text-secondary" />
                 </div>
                 <div>
                   <div className="font-semibold text-sm">{standard.title}</div>
@@ -199,18 +210,23 @@ const OurProcess = () => {
 
           <div className="max-w-6xl mx-auto space-y-12">
             {processSteps.map((step, index) => (
-              <div key={index} className="relative">
+              <div 
+                key={index} 
+                className="relative animate-fade-in-up"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
                 {/* Connector Line */}
                 {index < processSteps.length - 1 && (
                   <div className="hidden md:block absolute left-[48px] top-[120px] w-0.5 h-[calc(100%+3rem)] bg-gradient-to-b from-primary to-primary/20" />
                 )}
 
-                <Card className="overflow-hidden hover:shadow-xl transition-all border-2 hover:border-primary/50">
+                <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/50 hover:-translate-y-1 group">
                   <CardContent className="p-0">
                     <div className="grid md:grid-cols-[auto_1fr] gap-0">
                       {/* Left: Icon & Step Number */}
-                      <div className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground p-8 md:p-12 flex flex-col items-center justify-center text-center min-w-[200px]">
-                        <div className="w-20 h-20 rounded-full bg-[hsl(var(--bg))]/20 backdrop-blur-sm flex items-center justify-center mb-4">
+                      <div className="bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground p-8 md:p-12 flex flex-col items-center justify-center text-center min-w-[200px] relative overflow-hidden">
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.1)_50%,transparent_75%)] bg-[length:250%_250%] animate-[shimmer_3s_linear_infinite]" />
+                        <div className="w-20 h-20 rounded-full bg-[hsl(var(--bg))]/20 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                           <step.icon className="w-10 h-10 text-secondary" />
                         </div>
                         <div className="text-6xl font-bold opacity-50 mb-2">{step.step}</div>

@@ -89,7 +89,13 @@ const Developers = () => {
         description="Partner with Ascent Group Construction for your development projects. $10M bonding capacity, 15+ years experience, and proven delivery on multi-unit residential and commercial builds across the GTA."
         canonical="/company/developers"
       />
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-3xl" />
+        </div>
+
         <Navigation />
         
         <PageHeader
@@ -122,9 +128,13 @@ const Developers = () => {
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
                 {benefits.map((benefit, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <Card 
+                    key={index} 
+                    className="hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
                     <CardContent className="p-6 text-center">
-                      <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                         <benefit.icon className="w-7 h-7 text-secondary" />
                       </div>
                       <h3 className="text-lg font-bold mb-2">{benefit.title}</h3>
@@ -148,7 +158,11 @@ const Developers = () => {
 
               <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 {services.map((service, index) => (
-                  <Card key={index} className="hover:shadow-xl transition-all">
+                  <Card 
+                    key={index} 
+                    className="hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 hover:border-primary/30 animate-fade-in-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
                     <CardContent className="p-8">
                       <h3 className="text-2xl font-bold mb-3 text-primary">{service.title}</h3>
                       <p className="text-muted-foreground mb-6">{service.description}</p>
@@ -179,9 +193,13 @@ const Developers = () => {
 
               <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 {process.map((item, index) => (
-                  <Card key={index} className="relative">
+                  <Card 
+                    key={index} 
+                    className="relative hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/30 group animate-fade-in-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
                     <CardContent className="p-6">
-                      <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mb-4 text-xl font-bold">
+                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/70 text-secondary rounded-full flex items-center justify-center mb-4 text-xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
                         {item.step}
                       </div>
                       <h3 className="font-bold text-lg mb-2">{item.title}</h3>

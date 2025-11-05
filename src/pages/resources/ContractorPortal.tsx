@@ -144,7 +144,13 @@ const ContractorPortal = () => {
         description="Access our complete contractor documentation package including insurance certificates, WSIB clearance, bonding letters, and company profile."
         keywords="contractor portal, bid documents, insurance certificates, WSIB, bonding, subcontractor"
       />
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/3 -left-40 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        </div>
+
         <Navigation />
         
         <PageHeader
@@ -162,8 +168,8 @@ const ContractorPortal = () => {
 
           {/* Complete Package Card - Featured */}
           <section>
-            <Card className="border-2 border-primary/20 shadow-lg">
-              <CardHeader className="bg-primary/5">
+            <Card className="border-2 border-primary/20 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in-up">
+              <CardHeader className="bg-gradient-to-br from-primary/5 to-transparent">
                 <div className="flex items-center gap-4">
                   <Package className="h-12 w-12 text-primary" />
                   <div>
@@ -211,11 +217,17 @@ const ContractorPortal = () => {
               {documents.map((doc, index) => {
                 const Icon = doc.icon;
                 return (
-                  <Card key={index} className="hover:shadow-md transition-shadow">
+                  <Card 
+                    key={index} 
+                    className="hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between">
                         <div className="flex gap-4 flex-1">
-                          <Icon className="h-8 w-8 text-primary flex-shrink-0" />
+                          <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <Icon className="h-6 w-6 text-primary" />
+                          </div>
                           <div>
                             <h3 className="font-semibold text-foreground mb-1">{doc.name}</h3>
                             <p className="text-sm text-muted-foreground mb-2">{doc.description}</p>
@@ -333,23 +345,29 @@ const ContractorPortal = () => {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Why Partner With Us</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <Card>
+              <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up">
                 <CardContent className="p-6 text-center">
-                  <CheckCircle2 className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <CheckCircle2 className="h-8 w-8 text-secondary" />
+                  </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Proven Track Record</h3>
                   <p className="text-muted-foreground">1,000+ units completed annually with consistent quality</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
                 <CardContent className="p-6 text-center">
-                  <Award className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Award className="h-8 w-8 text-secondary" />
+                  </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Financial Strength</h3>
                   <p className="text-muted-foreground">$5M liability, $10M bonding capacity per project</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                 <CardContent className="p-6 text-center">
-                  <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Shield className="h-8 w-8 text-secondary" />
+                  </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Safety First</h3>
                   <p className="text-muted-foreground">COR certified with zero lost-time incidents</p>
                 </CardContent>

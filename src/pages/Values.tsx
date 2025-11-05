@@ -31,12 +31,20 @@ const Values = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
       <SEO 
         title="Our Values - What We Stand For"
-        description="Discover the core values that guide Ascen Group Construction: Quality craftsmanship, transparent communication, safety, and customer satisfaction in every project."
+        description="Discover the core values that guide Ascent Group Construction: Quality craftsmanship, transparent communication, safety, and customer satisfaction in every project."
         keywords="company values, construction integrity, quality craftsmanship, customer satisfaction, professional ethics"
       />
+      
+      {/* Background decorations */}
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -left-32 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/3 rounded-full blur-3xl animate-pulse" />
+      </div>
+
       <Navigation />
 
       <PageHeader
@@ -57,9 +65,13 @@ const Values = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {coreValues.map((value, index) => (
-                <Card key={index} className="hover:shadow-xl transition-shadow">
+                <Card 
+                  key={index} 
+                  className="hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group animate-fade-in-up border-2 hover:border-primary/30"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
                   <CardContent className="p-8 text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <value.icon className="w-10 h-10 text-secondary" />
                     </div>
                     <h2 className="text-2xl font-bold mb-4 text-primary">{value.title}</h2>
@@ -88,10 +100,14 @@ const Values = () => {
                 {values.map((value, index) => {
                   const IconComponent = iconMap[value.icon];
                   return (
-                    <Card key={index} className="text-center hover:shadow-xl transition-all duration-300 border-2 group">
+                    <Card 
+                      key={index} 
+                      className="text-center hover:shadow-2xl transition-all duration-300 border-2 group hover:border-primary/40 hover:-translate-y-2 animate-fade-in-up"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
                       <CardContent className="p-8">
-                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                          <IconComponent className="w-8 h-8 text-primary" />
+                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
+                          <IconComponent className="w-8 h-8 text-primary group-hover:rotate-12 transition-transform duration-300" />
                         </div>
                         <h3 className="text-xl font-bold mb-3 text-primary">{value.title}</h3>
                         <p className="text-muted-foreground text-sm leading-relaxed">
@@ -121,9 +137,9 @@ const Values = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {/* Excellence in Execution */}
-              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+              <Card className="text-center hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary/40 hover:-translate-y-2 animate-fade-in-up">
                 <CardContent className="p-8">
-                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                     <Award className="w-10 h-10 text-secondary" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-primary">Excellence in Execution</h3>
@@ -134,9 +150,9 @@ const Values = () => {
               </Card>
 
               {/* Safety First, Always */}
-              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+              <Card className="text-center hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary/40 hover:-translate-y-2 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
                 <CardContent className="p-8">
-                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                     <Shield className="w-10 h-10 text-secondary" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-primary">Safety First, Always</h3>
@@ -147,9 +163,9 @@ const Values = () => {
               </Card>
 
               {/* Innovation & Technology */}
-              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+              <Card className="text-center hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary/40 hover:-translate-y-2 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                 <CardContent className="p-8">
-                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                     <Target className="w-10 h-10 text-secondary" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-primary">Innovation & Technology</h3>
@@ -160,9 +176,9 @@ const Values = () => {
               </Card>
 
               {/* Client Partnership */}
-              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+              <Card className="text-center hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary/40 hover:-translate-y-2 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
                 <CardContent className="p-8">
-                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                     <Users className="w-10 h-10 text-secondary" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-primary">Client Partnership</h3>
@@ -173,9 +189,9 @@ const Values = () => {
               </Card>
 
               {/* Sustainable Building */}
-              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+              <Card className="text-center hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary/40 hover:-translate-y-2 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
                 <CardContent className="p-8">
-                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                     <Heart className="w-10 h-10 text-secondary" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-primary">Sustainable Building</h3>
@@ -186,9 +202,9 @@ const Values = () => {
               </Card>
 
               {/* Transparent Communication */}
-              <Card className="text-center hover:shadow-xl transition-all duration-300 group border-2">
+              <Card className="text-center hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary/40 hover:-translate-y-2 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
                 <CardContent className="p-8">
-                  <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                     <MessageCircle className="w-10 h-10 text-secondary" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-primary">Transparent Communication</h3>
