@@ -96,7 +96,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             onClick={() => setSelectedTab('before-after')}
             className={`px-6 py-3 rounded-full font-semibold transition-all ${
               selectedTab === 'before-after'
-                ? 'bg-green-600 text-white shadow-lg scale-105'
+                ? 'bg-green-600 text-[hsl(var(--bg))] shadow-lg scale-105'
                 : 'bg-card hover:bg-accent shadow'
             }`}
           >
@@ -108,7 +108,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             onClick={() => setSelectedTab('process')}
             className={`px-6 py-3 rounded-full font-semibold transition-all ${
               selectedTab === 'process'
-                ? 'bg-yellow-600 text-white shadow-lg scale-105'
+                ? 'bg-yellow-600 text-[hsl(var(--bg))] shadow-lg scale-105'
                 : 'bg-card hover:bg-accent shadow'
             }`}
           >
@@ -170,23 +170,23 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             />
             
             {/* Overlay */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-              <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12" />
+            <div className="absolute inset-0 bg-[hsl(var(--ink))]/0 group-hover:bg-[hsl(var(--ink))]/40 transition-all duration-300 flex items-center justify-center">
+              <ZoomIn className="text-[hsl(var(--bg))] opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12" />
             </div>
 
             {/* Caption */}
             {image.caption && (
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <p className="text-white text-sm font-medium">{image.caption}</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[hsl(var(--ink))]/80 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-[hsl(var(--bg))] text-sm font-medium">{image.caption}</p>
               </div>
             )}
 
             {/* Category Badge */}
             <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold shadow-lg ${
-              image.category === 'before' ? 'bg-blue-600 text-white' :
-              image.category === 'after' ? 'bg-green-600 text-white' :
-              image.category === 'process' ? 'bg-yellow-600 text-white' :
-              'bg-purple-600 text-white'
+              image.category === 'before' ? 'bg-blue-600 text-[hsl(var(--bg))]' :
+              image.category === 'after' ? 'bg-green-600 text-[hsl(var(--bg))]' :
+              image.category === 'process' ? 'bg-yellow-600 text-[hsl(var(--bg))]' :
+              'bg-purple-600 text-[hsl(var(--bg))]'
             }`}>
               {image.category.charAt(0).toUpperCase() + image.category.slice(1)}
             </div>
@@ -203,29 +203,29 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
 
       {/* Lightbox */}
       {lightboxOpen && (
-        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-[hsl(var(--ink))]/95 flex items-center justify-center">
           {/* Close Button */}
           <button
             onClick={() => setLightboxOpen(false)}
-            className="absolute top-4 right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
+            className="absolute top-4 right-4 p-3 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors z-10"
           >
-            <X className="w-6 h-6 text-white" />
+            <X className="w-6 h-6 text-[hsl(var(--bg))]" />
           </button>
 
           {/* Previous Button */}
           <button
             onClick={handlePrevImage}
-            className="absolute left-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
+            className="absolute left-4 p-3 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors z-10"
           >
-            <ChevronLeft className="w-8 h-8 text-white" />
+            <ChevronLeft className="w-8 h-8 text-[hsl(var(--bg))]" />
           </button>
 
           {/* Next Button */}
           <button
             onClick={handleNextImage}
-            className="absolute right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
+            className="absolute right-4 p-3 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors z-10"
           >
-            <ChevronRight className="w-8 h-8 text-white" />
+            <ChevronRight className="w-8 h-8 text-[hsl(var(--bg))]" />
           </button>
 
           {/* Image */}
@@ -238,13 +238,12 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             
             {/* Image Info */}
             {displayImages[currentImageIndex]?.caption && (
-              <p className="text-white text-center text-lg mt-6 font-medium">
-                {displayImages[currentImageIndex].caption}
+              <p className="text-[hsl(var(--bg))] text-center text-lg mt-6 font-medium">
+                {displayImages[currentImageIndex]?.caption}
               </p>
             )}
             
-            {/* Image Counter */}
-            <p className="text-white/60 text-center mt-2">
+            <p className="text-[hsl(var(--bg))]/60 text-center mt-2">
               {currentImageIndex + 1} / {displayImages.length}
             </p>
           </div>
@@ -253,10 +252,9 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3">
             <button
               onClick={() => window.open(displayImages[currentImageIndex]?.url, '_blank')}
-              className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
-              title="View Full Size"
+              className="p-2 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors"
             >
-              <ZoomIn className="w-5 h-5 text-white" />
+              <ZoomIn className="w-5 h-5 text-[hsl(var(--bg))]" />
             </button>
             <button
               onClick={() => {
@@ -265,10 +263,9 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
                 link.download = `${projectTitle}-${currentImageIndex + 1}.jpg`;
                 link.click();
               }}
-              className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
-              title="Download"
+              className="p-2 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors"
             >
-              <Download className="w-5 h-5 text-white" />
+              <Download className="w-5 h-5 text-[hsl(var(--bg))]" />
             </button>
             <button
               onClick={() => {
@@ -280,10 +277,9 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
                   });
                 }
               }}
-              className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
-              title="Share"
+              className="p-2 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors"
             >
-              <Share2 className="w-5 h-5 text-white" />
+              <Share2 className="w-5 h-5 text-[hsl(var(--bg))]" />
             </button>
           </div>
         </div>

@@ -210,7 +210,7 @@ const OurProcess = () => {
                     <div className="grid md:grid-cols-[auto_1fr] gap-0">
                       {/* Left: Icon & Step Number */}
                       <div className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground p-8 md:p-12 flex flex-col items-center justify-center text-center min-w-[200px]">
-                        <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4">
+                        <div className="w-20 h-20 rounded-full bg-[hsl(var(--bg))]/20 backdrop-blur-sm flex items-center justify-center mb-4">
                           <step.icon className="w-10 h-10 text-secondary" />
                         </div>
                         <div className="text-6xl font-bold opacity-50 mb-2">{step.step}</div>

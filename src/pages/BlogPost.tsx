@@ -134,7 +134,7 @@ const BlogPost = () => {
       <Navigation />
       
       {isPreview && (
-        <div className="bg-yellow-500 text-black text-center py-2 font-semibold">
+        <div className="bg-yellow-500 text-[hsl(var(--ink))] text-center py-2 font-semibold">
           🔍 PREVIEW MODE - This is a draft article
         </div>
       )}

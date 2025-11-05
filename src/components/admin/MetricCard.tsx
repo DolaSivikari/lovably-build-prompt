@@ -40,7 +40,7 @@ const MetricCard = ({ title, value, icon: Icon, trend, badge, onClick }: MetricC
             )}
           </div>
           {badge && badge > 0 && (
-            <Badge className="bg-secondary text-white">
+            <Badge className="bg-secondary text-[hsl(var(--bg))]">
               {badge} new
             </Badge>
           )}

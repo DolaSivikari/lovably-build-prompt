@@ -338,7 +338,7 @@ export const EstimateEditor = ({ estimateId, onSuccess, onCancel }: EstimateEdit
             <span>Tax ({(formData.tax_rate * 100).toFixed(2)}%):</span>
             <span>{formatCurrency(totals.tax_amount_cents)}</span>
           </div>
-          <div className="flex justify-between text-xl font-bold pt-2 border-t border-white/10">
+          <div className="flex justify-between text-xl font-bold pt-2 border-t border-[hsl(var(--bg))]/10">
             <span>Total:</span>
             <span>{formatCurrency(totals.total_cents)}</span>
           </div>

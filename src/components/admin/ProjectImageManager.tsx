@@ -199,14 +199,14 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               onClick={() => setSelectedCategory(cat.value)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                 selectedCategory === cat.value
-                  ? `${cat.color} text-white shadow-lg scale-105`
+                  ? `${cat.color} text-[hsl(var(--bg))] shadow-lg scale-105`
                   : 'bg-background hover:bg-accent'
               }`}
             >
               <span className="text-xl">{cat.icon}</span>
               <span>{cat.label}</span>
               <span className={`px-2 py-0.5 rounded-full text-sm ${
-                selectedCategory === cat.value ? 'bg-white/30' : 'bg-muted'
+                selectedCategory === cat.value ? 'bg-[hsl(var(--bg))]/30' : 'bg-muted'
               }`}>
                 {getCategoryCount(cat.value)}
               </span>
@@ -304,7 +304,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               {/* Category Badge */}
               <div className={`absolute top-2 right-2 z-10 px-2 py-1 rounded-full text-xs font-medium ${
                 categories.find(c => c.value === image.category)?.color
-              } text-white`}>
+              } text-[hsl(var(--bg))]`}>
                 {categories.find(c => c.value === image.category)?.label}
               </div>
 
@@ -384,7 +384,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
           <div className="max-w-6xl max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setPreviewImage(null)}
-              className="absolute -top-12 right-0 p-2 bg-white rounded-full hover:bg-gray-100"
+              className="absolute -top-12 right-0 p-2 bg-[hsl(var(--bg))] rounded-full hover:bg-gray-100"
             >
               <X className="w-6 h-6" />
             </button>
@@ -394,7 +394,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               className="max-w-full max-h-[80vh] object-contain rounded-lg"
             />
             {previewImage.caption && (
-              <p className="mt-4 text-white text-center text-lg">{previewImage.caption}</p>
+              <p className="mt-4 text-[hsl(var(--bg))] text-center text-lg">{previewImage.caption}</p>
             )}
           </div>
         </div>

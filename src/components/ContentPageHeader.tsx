@@ -37,7 +37,7 @@ const ContentPageHeader = ({
           alt={title}
           className="w-full h-full object-cover object-[center_30%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/65 to-black/80 sm:from-black/70 sm:via-black/50 sm:to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--ink))]/80 via-[hsl(var(--ink))]/65 to-[hsl(var(--ink))]/80 sm:from-[hsl(var(--ink))]/70 sm:via-[hsl(var(--ink))]/50 sm:to-[hsl(var(--ink))]/70" />
       </div>
 
       {/* Content */}
@@ -45,19 +45,19 @@ const ContentPageHeader = ({
         <div className="max-w-4xl">
           {/* Breadcrumbs */}
           <nav aria-label="breadcrumb" className="mb-4 sm:mb-6">
-            <ol className="flex flex-wrap items-center gap-2 sm:gap-2 text-sm sm:text-sm text-white/80">
-              {finalBreadcrumbs.map((crumb, index) => (
+            <ol className="flex flex-wrap items-center gap-2 sm:gap-2 text-sm sm:text-sm text-[hsl(var(--bg))]/80">
+              {breadcrumbs.map((crumb, index) => (
                 <li key={index} className="flex items-center gap-2">
+                  {index > 0 && <ChevronRight className="w-4 h-4" />}
                   {crumb.href ? (
-                    <Link 
-                      to={crumb.href} 
-                      className="hover:text-white transition-colors"
-                      aria-label={`Navigate to ${crumb.label}`}
+                    <Link
+                      to={crumb.href}
+                      className="hover:text-[hsl(var(--bg))] transition-colors"
                     >
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span className="text-white font-medium">{crumb.label}</span>
+                    <span className="text-[hsl(var(--bg))] font-medium">{crumb.label}</span>
                   )}
                   {index < finalBreadcrumbs.length - 1 && (
                     <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -68,16 +68,12 @@ const ContentPageHeader = ({
           </nav>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 break-words leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-3 sm:mb-4 break-words leading-tight">
             {title}
           </h1>
-
-          {/* Accent Line */}
-          <div className="w-16 h-1 bg-secondary mb-6" aria-hidden="true" />
-
-          {/* Subtitle */}
+          
           {subtitle && (
-            <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl break-words">
+            <p className="text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 max-w-2xl break-words">
               {subtitle}
             </p>
           )}

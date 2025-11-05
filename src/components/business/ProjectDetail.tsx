@@ -135,7 +135,7 @@ export const ProjectDetail = ({ projectId, onEdit, onCreateEstimate, onCreateInv
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center ${
                     index <= currentStepIndex
-                      ? 'bg-blue-500 text-white'
+                      ? 'bg-blue-500 text-[hsl(var(--bg))]'
                       : 'bg-gray-700 text-gray-400'
                   }`}
                 >

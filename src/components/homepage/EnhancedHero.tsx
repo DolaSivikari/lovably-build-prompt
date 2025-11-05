@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, FileText, Building2, Award } from "lucide-react";
+import { ArrowRight, FileText, Building2, Award, Shield } from "lucide-react";
 import { Button } from "@/ui/Button";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 
@@ -161,7 +161,7 @@ const EnhancedHero = () => {
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--ink))]/70 via-[hsl(var(--ink))]/60 to-[hsl(var(--ink))]/80" />
 
       {/* Content */}
       <div 
@@ -176,25 +176,27 @@ const EnhancedHero = () => {
             style={{ animationDelay: "0.2s" }}
           >
             <div className="flex flex-col items-center">
-              <span className="text-3xl font-bold text-white">{slide.stat}</span>
-              <span className="text-xs text-white/90 font-semibold whitespace-nowrap">{slide.statLabel}</span>
+              <span className="text-3xl font-bold text-[hsl(var(--bg))]">{slide.stat}</span>
+              <span className="text-xs text-[hsl(var(--bg))]/90 font-semibold whitespace-nowrap">{slide.statLabel}</span>
             </div>
-            <div className="w-px h-8 bg-accent/50" />
-            <Award className="w-5 h-5 text-accent" />
-            <span className="text-sm font-semibold text-white">COR Certified</span>
+            <div className="flex items-center gap-2 bg-[hsl(var(--brand-accent))] px-3 py-1 rounded-full">
+              <Shield className="h-5 w-5 text-[hsl(var(--bg))]" />
+              <span className="text-sm font-semibold text-[hsl(var(--bg))]">COR Certified</span>
+            </div>
           </div>
 
           {/* Main Headline */}
           <h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-slide-up"
-            style={{ animationDelay: "0.4s" }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight animate-slide-up"
+            style={{ 
+              animationDelay: '0.2s',
+              textShadow: '0 2px 20px rgba(0,0,0,0.3)'
+            }}
           >
             {slide.headline}
           </h1>
-
-          {/* Subheadline */}
           <p 
-            className="text-xl md:text-2xl text-white/95 mb-10 max-w-3xl leading-relaxed animate-slide-up"
+            className="text-xl md:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed animate-slide-up"
             style={{ animationDelay: "0.6s" }}
           >
             {slide.subheadline}
@@ -213,7 +215,7 @@ const EnhancedHero = () => {
               </Link>
             </Button>
             
-            <Button asChild size="lg" variant="secondary" className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm">
+            <Button asChild size="lg" variant="secondary" className="bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 border-[hsl(var(--bg))]/30 text-[hsl(var(--bg))] backdrop-blur-sm">
               <Link to={slide.secondaryCTA.href}>
                 {slide.secondaryCTA.label}
               </Link>
@@ -235,7 +237,7 @@ const EnhancedHero = () => {
                 className={`h-1 rounded-full transition-all duration-300 ${
                   index === currentSlide 
                     ? 'w-12 bg-accent' 
-                    : 'w-8 bg-white/30 hover:bg-white/50'
+                    : 'w-8 bg-[hsl(var(--bg))]/30 hover:bg-[hsl(var(--bg))]/50'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -246,8 +248,8 @@ const EnhancedHero = () => {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-3 bg-white/60 rounded-full animate-slide-up" />
+        <div className="w-6 h-10 border-2 border-[hsl(var(--bg))]/30 rounded-full flex justify-center pt-2">
+          <div className="w-1 h-3 bg-[hsl(var(--bg))]/60 rounded-full animate-slide-up" />
         </div>
       </div>
     </section>

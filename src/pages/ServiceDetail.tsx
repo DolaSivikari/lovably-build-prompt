@@ -389,7 +389,7 @@ const ServiceDetail = () => {
                     Request Proposal
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
+                <Button size="lg" variant="outline" className="border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))] hover:text-[hsl(var(--brand-primary))]" asChild>
                   <Link to="/contact">
                     <Phone className="mr-2 w-5 h-5" />
                     Contact Us

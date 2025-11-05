@@ -157,12 +157,12 @@ const InteractiveCTA = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           
           {/* Left Column - Rotating Visual Story */}
-          <div className="text-white space-y-8">
+          <div className="text-[hsl(var(--bg))] space-y-8">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                 Your Construction Partner For Success
               </h2>
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="text-xl text-[hsl(var(--bg))]/90 leading-relaxed">
                 From concept to completion, we deliver exceptional results with transparent communication and expert craftsmanship.
               </p>
             </div>
@@ -191,7 +191,7 @@ const InteractiveCTA = () => {
                         <div className="text-xl font-semibold mb-1">
                           {stories[currentStory].label}
                         </div>
-                        <p className="text-white/80 text-sm">
+                        <p className="text-[hsl(var(--bg))]/80 text-sm">
                           {stories[currentStory].detail}
                         </p>
                       </div>
@@ -210,7 +210,7 @@ const InteractiveCTA = () => {
                   className={`h-2 rounded-full transition-all ${
                     index === currentStory
                       ? "w-8 bg-secondary"
-                      : "w-2 bg-white/30 hover:bg-white/50"
+                      : "w-2 bg-[hsl(var(--bg))]/30 hover:bg-[hsl(var(--bg))]/50"
                   }`}
                   aria-label={`View story ${index + 1}`}
                 />
@@ -218,18 +218,18 @@ const InteractiveCTA = () => {
             </div>
 
             {/* Trust Indicators */}
-            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/20">
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[hsl(var(--bg))]/20">
               <div className="text-center">
                 <Shield className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-white/80">Fully Licensed</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">Fully Licensed</div>
               </div>
               <div className="text-center">
                 <CheckCircle2 className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-white/80">WSIB Compliant</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">WSIB Compliant</div>
               </div>
               <div className="text-center">
                 <Clock className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-white/80">24/7 Support</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">24/7 Support</div>
               </div>
             </div>
           </div>

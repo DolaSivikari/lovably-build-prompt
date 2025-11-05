@@ -220,7 +220,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
             <SelectTrigger className="bg-slate-800 border-slate-700">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white">
+            <SelectContent className="bg-slate-800 border-slate-700 text-[hsl(var(--bg))]">
               <SelectItem value="residential">Residential</SelectItem>
               <SelectItem value="commercial">Commercial</SelectItem>
             </SelectContent>
@@ -238,7 +238,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
             <SelectTrigger className="bg-slate-800 border-slate-700">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white">
+            <SelectContent className="bg-slate-800 border-slate-700 text-[hsl(var(--bg))]">
               {SOURCES.map(source => (
                 <SelectItem key={source} value={source} className="capitalize">
                   {source.replace('_', ' ')}
@@ -265,7 +265,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-lg font-medium text-white">Address</h3>
+        <h3 className="text-lg font-medium text-[hsl(var(--bg))]">Address</h3>
         
         <div className="space-y-2">
           <Label htmlFor="address_line1">
@@ -315,7 +315,7 @@ export const ClientForm = ({ clientId, onSuccess, onCancel }: ClientFormProps) =
               <SelectTrigger className="bg-slate-800 border-slate-700">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-700 text-white">
+              <SelectContent className="bg-slate-800 border-slate-700 text-[hsl(var(--bg))]">
                 {PROVINCES.map(prov => (
                   <SelectItem key={prov} value={prov}>
                     {prov}

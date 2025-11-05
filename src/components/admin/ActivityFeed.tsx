@@ -39,7 +39,7 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
             <CardDescription>Latest submissions and updates</CardDescription>
           </div>
           {newCount > 0 && (
-            <Badge className="bg-secondary text-white">
+            <Badge className="bg-secondary text-[hsl(var(--bg))]">
               <Bell className="h-3 w-3 mr-1" />
               {newCount} New
             </Badge>
@@ -96,7 +96,7 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
             ))}
             <Button
               variant="outline"
-              className="w-full mt-2 hover:bg-primary hover:text-white transition-colors"
+              className="w-full mt-2 hover:bg-primary hover:text-[hsl(var(--bg))] transition-colors"
               onClick={() => navigate("/admin/contacts")}
             >
               View All Activity

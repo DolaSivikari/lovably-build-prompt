@@ -123,15 +123,15 @@ export const NotificationBell = () => {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 bg-slate-900 border-slate-700 text-white">
+      <DropdownMenuContent align="end" className="w-80 bg-slate-900 border-slate-700 text-[hsl(var(--bg))]">
         <div className="flex items-center justify-between p-2 border-b border-slate-700">
-          <span className="font-semibold text-white">Notifications</span>
+          <span className="font-semibold text-[hsl(var(--bg))]">Notifications</span>
           {unreadCount > 0 && (
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={markAllAsRead}
-              className="text-slate-300 hover:text-white hover:bg-slate-800"
+              className="text-slate-300 hover:text-[hsl(var(--bg))] hover:bg-slate-800"
             >
               Mark all read
             </Button>
@@ -153,7 +153,7 @@ export const NotificationBell = () => {
               >
                 <div className="flex flex-col gap-1 w-full">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm text-white">{notification.title}</span>
+                    <span className="font-medium text-sm text-[hsl(var(--bg))]">{notification.title}</span>
                     {!notification.read && (
                       <span className="h-2 w-2 bg-primary rounded-full" />
                     )}

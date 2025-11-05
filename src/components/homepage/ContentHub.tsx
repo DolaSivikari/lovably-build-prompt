@@ -126,7 +126,7 @@ const ContentHub = () => {
                         Featured
                       </Badge>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--ink))]/50 to-transparent"></div>
                   </div>
 
                   {/* Content */}
