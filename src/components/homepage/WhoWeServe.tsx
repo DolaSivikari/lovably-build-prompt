@@ -5,62 +5,65 @@ import { Card } from "@/ui/Card";
 
 const WhoWeServe = () => {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Who We Serve
+    <section className="py-20 md:py-24 bg-background">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+        {/* Section Header - Enterprise Style */}
+        <div className="max-w-3xl mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+            Client Solutions
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We partner with developers, general contractors, property owners, and managers to deliver exceptional construction projects.
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            Delivering comprehensive construction services to developers, general contractors, and property stakeholders across Ontario.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
           {/* Developers & General Contractors */}
-          <Card variant="elevated" className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-primary/20">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            
-            <div className="relative z-10 p-6">
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <Building2 className="h-6 w-6 text-primary" />
+          <Card className="relative overflow-hidden group border-border hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300">
+            <div className="p-8 lg:p-10">
+              {/* Icon with Steel Blue Accent */}
+              <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6">
+                <Building2 className="h-7 w-7 text-steel-blue" />
               </div>
-              <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">For Developers & General Contractors</h3>
-              <p className="text-sm text-muted-foreground mb-6">
-                Reliable subcontracting and trade coordination for complex projects
+              
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
+                Developers & General Contractors
+              </h3>
+              <p className="text-base text-muted-foreground mb-8 leading-relaxed">
+                Reliable subcontracting and specialized trade coordination for complex commercial and multi-unit residential projects.
               </p>
-            </div>
 
-            <div className="relative z-10 p-6 pt-0 space-y-6">
-              <ul className="space-y-3">
+              {/* Benefits List */}
+              <ul className="space-y-4 mb-10 pb-8 border-b border-border">
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">Multi-unit residential construction and repositioning</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">Commercial development and tenant improvements</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">Design-build project delivery</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">Self-perform exterior envelope and specialty trades</span>
                 </li>
               </ul>
 
-              <div className="pt-4 flex flex-col sm:flex-row gap-3">
-                <Button asChild variant="primary" className="group">
-                  <Link to="/capabilities" className="gap-2">
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild variant="primary" size="lg" className="group">
+                  <Link to="/capabilities" className="inline-flex items-center gap-2">
                     View Capabilities
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
-                <Button asChild variant="secondary">
+                <Button asChild variant="secondary" size="lg">
                   <Link to="/prequalification">
-                    Pre-Qualification Package
+                    Pre-Qualification
                   </Link>
                 </Button>
               </div>
@@ -68,49 +71,51 @@ const WhoWeServe = () => {
           </Card>
 
           {/* Property Owners & Managers */}
-          <Card variant="elevated" className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-primary/20">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            
-            <div className="relative z-10 p-6">
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <Users className="h-6 w-6 text-primary" />
+          <Card className="relative overflow-hidden group border-border hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300">
+            <div className="p-8 lg:p-10">
+              {/* Icon with Steel Blue Accent */}
+              <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6">
+                <Users className="h-7 w-7 text-steel-blue" />
               </div>
-              <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">For Property Owners & Managers</h3>
-              <p className="text-sm text-muted-foreground mb-6">
-                Complete project management from concept to completion
+              
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
+                Property Owners & Managers
+              </h3>
+              <p className="text-base text-muted-foreground mb-8 leading-relaxed">
+                Complete project management solutions from initial assessment through final completion and warranty support.
               </p>
-            </div>
 
-            <div className="relative z-10 p-6 pt-0 space-y-6">
-              <ul className="space-y-3">
+              {/* Benefits List */}
+              <ul className="space-y-4 mb-10 pb-8 border-b border-border">
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">Building envelope restoration and upgrades</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">Interior and exterior renovation projects</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">Capital improvement programs</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">Maintenance and repair services</span>
                 </li>
               </ul>
 
-              <div className="pt-4 flex flex-col sm:flex-row gap-3">
-                <Button asChild variant="primary" className="group">
-                  <Link to="/contact" className="gap-2">
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild variant="primary" size="lg" className="group">
+                  <Link to="/contact" className="inline-flex items-center gap-2">
                     Request Proposal
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
-                <Button asChild variant="secondary">
+                <Button asChild variant="secondary" size="lg">
                   <Link to="/projects">
-                    View Our Work
+                    View Projects
                   </Link>
                 </Button>
               </div>
