@@ -108,9 +108,9 @@ const Navigation = () => {
         )}
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
-        <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] items-center h-20 gap-8">
-          {/* Left Navigation */}
-          <nav className="flex items-center gap-3 lg:gap-4 2xl:gap-5 justify-end" aria-label="Main navigation">
+        <div className="hidden md:flex md:items-center md:justify-between md:h-20 md:w-full relative">
+          {/* Left Navigation Group */}
+          <nav className="flex items-center gap-3 lg:gap-4 2xl:gap-5" aria-label="Main navigation">
             <Link
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
@@ -178,8 +178,8 @@ const Navigation = () => {
             </div>
           </nav>
 
-          {/* Center: Logo + Company Name + Phone */}
-          <div className="flex items-center gap-4 lg:gap-6">
+          {/* Center Group: Logo + Company Name + Phone (Absolutely Centered) */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4 lg:gap-6">
             <Link to="/" className="flex items-center gap-3 group relative z-navigation" aria-label="Ascent Group Construction - Home">
               <img 
                 src={ascentLogo} 
@@ -213,8 +213,8 @@ const Navigation = () => {
             </a>
           </div>
 
-          {/* Right Navigation */}
-          <nav className="flex items-center gap-3 lg:gap-4 2xl:gap-5 justify-start" aria-label="Secondary navigation">
+          {/* Right Navigation Group */}
+          <nav className="flex items-center gap-3 lg:gap-4 2xl:gap-5" aria-label="Secondary navigation">
             {/* Projects Mega-Menu */}
             <div
               className="relative"
