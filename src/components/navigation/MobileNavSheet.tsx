@@ -163,6 +163,44 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               </AccordionContent>
             </AccordionItem>
 
+            {/* Markets Section */}
+            <AccordionItem value="markets" className="border rounded-md">
+              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
+                Markets
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4">
+                {megaMenuDataEnhanced.markets.map((section) => (
+                  <div key={section.sectionTitle} className="mb-4">
+                    <h4 className="text-sm font-semibold text-muted-foreground mb-2">
+                      {section.sectionTitle}
+                    </h4>
+                    <div className="space-y-1">
+                      {section.categories.map((category) => (
+                        <div key={category.title} className="ml-2">
+                          <div className="font-medium text-sm py-1">{category.title}</div>
+                          {category.subItems && (
+                            <div className="ml-3 space-y-1">
+                              {category.subItems.map((item) => (
+                                <Link
+                                  key={item.link}
+                                  to={item.link}
+                                  onClick={handleLinkClick}
+                                  className="block py-2 text-sm text-muted-foreground hover:text-[hsl(var(--sage-dark))] hover:bg-[hsl(var(--sage))]/10 px-2 rounded transition-colors"
+                                >
+                                  {item.name}
+                                  {item.badge === "new" && <span className="ml-2 text-xs text-blue-500">New</span>}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+
             {/* Projects Section */}
             <AccordionItem value="projects" className="border rounded-md">
               <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">

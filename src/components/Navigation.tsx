@@ -162,6 +162,34 @@ const Navigation = () => {
               />
             </div>
 
+            {/* Markets Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("markets")}
+              onMouseLeave={handleMegaMenuLeave}
+            >
+              <Link
+                to="/projects"
+                className={cn(
+                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
+                  activeMegaMenu === "markets" && "text-sage"
+                )}
+                aria-expanded={activeMegaMenu === "markets"}
+                aria-controls="markets-mega-menu"
+              >
+                Markets
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  activeMegaMenu === "markets" && "rotate-180"
+                )} />
+              </Link>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.markets}
+                isOpen={activeMegaMenu === "markets"}
+                onClose={closeMegaMenu}
+              />
+            </div>
+
             {/* Projects Mega-Menu */}
             <div
               className="relative"
