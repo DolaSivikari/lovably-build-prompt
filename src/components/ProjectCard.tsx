@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/ui/Badge";
+import { Button } from "@/ui/Button";
 import { MapPin, Calendar, Ruler, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
@@ -73,7 +73,7 @@ const ProjectCard = ({
           isHovered ? "opacity-100" : "opacity-0"
         )}>
           <div className="text-center px-6">
-            <Button variant="secondary" size="sm" className="bg-white text-primary hover:bg-white/90">
+            <Button variant="secondary" size="sm">
               <Eye className="w-4 h-4 mr-2" />
               View Project
             </Button>

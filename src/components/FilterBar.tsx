@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Badge } from "@/ui/Badge";
 import { Search, X, Building2, Home, School, Factory, Grid3x3, List, Filter, DollarSign, CheckCircle2, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
