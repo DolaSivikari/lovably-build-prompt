@@ -64,11 +64,12 @@ const WhyChooseUs = () => {
             return (
               <Card
                 key={index}
-                className="h-full border-border hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 group"
+                variant="elevated"
+                className="h-full hover-subtle group"
               >
                 <div className="p-8 h-full flex flex-col">
                   {/* Icon with Steel Blue Accent */}
-                  <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6 group-hover:bg-steel-blue/20 transition-colors">
+                  <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6 group-hover:bg-steel-blue/20 transition-colors hover-scale-icon">
                     <Icon className="w-7 h-7 text-steel-blue" />
                   </div>
 

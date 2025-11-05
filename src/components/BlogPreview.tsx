@@ -57,7 +57,7 @@ const BlogPreview = () => {
 
             return (
               <Link key={post.slug} to={`/blog/${post.slug}`} className="md:col-span-3">
-                <Card className="h-full hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                <Card variant="featured" className="h-full overflow-hidden group">
                   <div className="grid md:grid-cols-2 gap-0">
                     <div className="relative h-64 md:h-full overflow-hidden">
                       <OptimizedImage
@@ -65,7 +65,7 @@ const BlogPreview = () => {
                         alt={`${post.title} - Expert guide on ${post.category.toLowerCase()}`}
                         width={1200}
                         height={800}
-                        className="w-full h-full group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full hover-scale"
                         objectFit="cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
@@ -100,16 +100,16 @@ const BlogPreview = () => {
               year: 'numeric'
             });
 
-            return (
+              return (
               <Link key={post.slug} to={`/blog/${post.slug}`}>
-                <Card className="h-full hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                <Card variant="interactive" className="h-full overflow-hidden group">
                   <div className="relative h-48 overflow-hidden">
                     <OptimizedImage
                       src={resolveAssetPath(post.featured_image) || post.featured_image}
                       alt={`${post.title} - Expert guide on ${post.category.toLowerCase()}`}
                       width={800}
                       height={600}
-                      className="w-full h-full group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full hover-scale"
                       objectFit="cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />

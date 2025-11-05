@@ -19,7 +19,7 @@ const WhoWeServe = () => {
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
           {/* Developers & General Contractors */}
-          <Card className="relative overflow-hidden group border-border hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300">
+          <Card variant="elevated" className="relative overflow-hidden group hover-subtle">
             <div className="p-8 lg:p-10">
               {/* Icon with Steel Blue Accent */}
               <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6">
@@ -58,7 +58,7 @@ const WhoWeServe = () => {
                 <Button asChild variant="primary" size="lg" className="group">
                   <Link to="/capabilities" className="inline-flex items-center gap-2">
                     View Capabilities
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-4 w-4 hover-translate-arrow" />
                   </Link>
                 </Button>
                 <Button asChild variant="secondary" size="lg">
@@ -71,7 +71,7 @@ const WhoWeServe = () => {
           </Card>
 
           {/* Property Owners & Managers */}
-          <Card className="relative overflow-hidden group border-border hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300">
+          <Card variant="elevated" className="relative overflow-hidden group hover-subtle">
             <div className="p-8 lg:p-10">
               {/* Icon with Steel Blue Accent */}
               <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6">
@@ -110,7 +110,7 @@ const WhoWeServe = () => {
                 <Button asChild variant="primary" size="lg" className="group">
                   <Link to="/contact" className="inline-flex items-center gap-2">
                     Request Proposal
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-4 w-4 hover-translate-arrow" />
                   </Link>
                 </Button>
                 <Button asChild variant="secondary" size="lg">

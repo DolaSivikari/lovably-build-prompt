@@ -119,7 +119,7 @@ const FloatingContact = () => {
       <Button
         size="lg"
         onClick={() => setIsOpen(!isOpen)}
-        className="h-14 w-14 min-h-[56px] min-w-[56px] rounded-full shadow-2xl bg-primary hover:bg-primary/90 hover:scale-110 transition-all"
+        className="h-14 w-14 min-h-[56px] min-w-[56px] rounded-full shadow-2xl bg-primary hover:bg-primary/90 hover-scale-icon"
         aria-label={isOpen ? "Close contact options" : "Open contact options"}
       >
         {isOpen ? (

@@ -38,7 +38,7 @@ export const ServiceCard = ({
 
   return (
     <Link to={`/services/${slug}`} className="group">
-      <Card className="h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] hover:-translate-y-2 transition-all duration-300 border-border relative overflow-hidden">
+      <Card variant="interactive" className="h-full relative overflow-hidden">
         {featured && (
           <div className="absolute top-4 right-4 z-10">
             <Badge variant="warning" size="sm" icon={Star} className="animate-pulse">
@@ -50,7 +50,7 @@ export const ServiceCard = ({
         <CardContent className="p-8 flex flex-col h-full">
           {/* Icon with Steel Blue Accent */}
           <div className="mb-6">
-            <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center group-hover:bg-steel-blue/20 group-hover:scale-110 transition-all duration-300">
+            <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center group-hover:bg-steel-blue/20 hover-scale-icon">
               <IconComponent className="w-7 h-7 text-steel-blue" />
             </div>
           </div>
@@ -101,9 +101,9 @@ export const ServiceCard = ({
           </div>
 
           {/* Hover CTA with Steel Blue */}
-          <div className="flex items-center gap-2 mt-6 text-steel-blue text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all">
+          <div className="flex items-center gap-2 mt-6 text-steel-blue text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <span>Learn More</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 hover-translate-arrow" />
           </div>
         </CardContent>
       </Card>

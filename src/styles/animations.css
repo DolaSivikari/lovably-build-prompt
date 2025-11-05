@@ -77,22 +77,48 @@
   filter: brightness(1.1);
 }
 
-/* Hover animations */
+/* Standardized Hover Animations - Design System */
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: var(--card-transition);
 }
 
 .hover-lift:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .hover-scale {
-  transition: transform 0.3s ease;
+  transition: var(--card-transition);
 }
 
 .hover-scale:hover {
   transform: scale(1.05);
+}
+
+.hover-subtle {
+  transition: var(--card-transition);
+}
+
+.hover-subtle:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+/* Interactive Elements */
+.hover-scale-icon {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale-icon:hover {
+  transform: scale(1.1);
+}
+
+.hover-translate-arrow {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-translate-arrow:hover {
+  transform: translateX(4px);
 }
 
 /* Reduced motion support */

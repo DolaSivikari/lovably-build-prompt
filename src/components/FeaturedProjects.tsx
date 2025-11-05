@@ -19,7 +19,7 @@ interface Project {
 }
 
 const ProjectCard = ({ project }: { project: Project }) => (
-  <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+  <Card variant="interactive" className="overflow-hidden hover-subtle">
     <Link to={`/blog/${project.slug}`}>
       {project.featured_image && (
         <div className="relative overflow-hidden aspect-[4/3] md:aspect-[16/9] md:h-64">
@@ -28,7 +28,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
             alt={project.title}
             width={800}
             height={600}
-            className="w-full h-full object-center transition-transform hover:scale-105 duration-300"
+            className="w-full h-full object-center hover-scale"
             objectFit="cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />

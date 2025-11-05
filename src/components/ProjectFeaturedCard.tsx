@@ -29,11 +29,11 @@ const ProjectFeaturedCard = ({
   featured,
 }: ProjectFeaturedCardProps) => {
   return (
-    <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500">
+    <Card variant="featured" className="group overflow-hidden">
       {/* Hero Image with Parallax Effect */}
       <div className="relative aspect-[3/4] sm:aspect-[4/3] md:h-96 overflow-hidden">
         <div
-          className="w-full h-full bg-cover bg-center object-center transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full bg-cover bg-center object-center hover-scale"
           style={{ backgroundImage: `url(${resolveAssetPath(image) || image})` }}
         />
         
@@ -80,7 +80,7 @@ const ProjectFeaturedCard = ({
         <Button asChild className="w-full group/btn">
           <Link to={`/blog/${slug}`}>
             View Full Case Study
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+            <ArrowRight className="ml-2 h-4 w-4 hover-translate-arrow" />
           </Link>
         </Button>
       </CardContent>

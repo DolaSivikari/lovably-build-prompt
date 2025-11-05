@@ -114,7 +114,8 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
               return (
                 <Card
                   key={award.id}
-                  className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                  variant="elevated"
+                  className="group hover-subtle"
                 >
                   <CardContent className="p-6">
                     {award.badge_image_url ? (
