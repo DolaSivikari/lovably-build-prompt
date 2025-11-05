@@ -43,6 +43,11 @@ const EnhancedHero = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum swipe distance (in px) to trigger slide change
+  const minSwipeDistance = 50;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -83,6 +88,41 @@ const EnhancedHero = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      // Swipe left - go to next slide
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+        setIsTransitioning(false);
+      }, 500);
+    }
+
+    if (isRightSwipe) {
+      // Swipe right - go to previous slide
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+        setIsTransitioning(false);
+      }, 500);
+    }
+  };
+
   const slide = heroSlides[currentSlide];
   const PrimaryIcon = slide.primaryCTA.icon;
 
@@ -91,7 +131,12 @@ const EnhancedHero = () => {
   const mouseParallaxY = mousePosition.y * 20; // Max 20px movement
 
   return (
-    <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+    <section 
+      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Video Background with Parallax Effect */}
       <div 
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
