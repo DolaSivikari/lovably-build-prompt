@@ -41,6 +41,10 @@ import MultiFamily from "./pages/markets/MultiFamily";
 import Commercial from "./pages/markets/Commercial";
 import Institutional from "./pages/markets/Institutional";
 import Industrial from "./pages/markets/Industrial";
+import Healthcare from "./pages/markets/Healthcare";
+import Education from "./pages/markets/Education";
+import Retail from "./pages/markets/Retail";
+import Hospitality from "./pages/markets/Hospitality";
 import FAQ from "./pages/FAQ";
 import CertificationsInsurance from "./pages/company/CertificationsInsurance";
 import ContractorPortal from "./pages/resources/ContractorPortal";
@@ -240,6 +244,10 @@ const App = () => (
             <Route path="/markets/commercial" element={<Commercial />} />
             <Route path="/markets/institutional" element={<Institutional />} />
             <Route path="/markets/industrial" element={<Industrial />} />
+            <Route path="/markets/healthcare" element={<Healthcare />} />
+            <Route path="/markets/education" element={<Education />} />
+            <Route path="/markets/retail" element={<Retail />} />
+            <Route path="/markets/hospitality" element={<Hospitality />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
