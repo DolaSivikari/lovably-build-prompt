@@ -244,8 +244,9 @@ const App = () => (
             <Route path="/services/exterior-cladding" element={<ExteriorCladding />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
             <Route path="/services/exterior-envelope" element={<ExteriorEnvelope />} />
-            <Route path="/services/eifs-stucco" element={<EIFSStucco />} />
-            <Route path="/services/masonry-restoration" element={<MasonryRestoration />} />
+          <Route path="/services/eifs-stucco" element={<EIFSStucco />} />
+          <Route path="/services/stucco-eifs" element={<Navigate to="/services/eifs-stucco" replace />} />
+          <Route path="/services/masonry-restoration" element={<MasonryRestoration />} />
             <Route path="/services/metal-cladding" element={<MetalCladding />} />
             <Route path="/services/waterproofing" element={<Waterproofing />} />
             <Route path="/services/parking-rehabilitation" element={<ParkingRehabilitation />} />
