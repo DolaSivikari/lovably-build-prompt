@@ -1,6 +1,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import GCHero from "@/components/homepage/GCHero";
+import EnhancedHero from "@/components/homepage/EnhancedHero";
+import MetricsDashboard from "@/components/homepage/MetricsDashboard";
+import CertificationBadges from "@/components/homepage/CertificationBadges";
 import GCTrustStrip from "@/components/homepage/GCTrustStrip";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 
@@ -120,11 +122,14 @@ const Index = () => {
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">
-        <GCHero />
+        <EnhancedHero />
+        <MetricsDashboard />
         <GCTrustStrip />
         
         {/* Direct Answer for AEO/GEO */}
         <DirectAnswer />
+        
+        <CertificationBadges />
         
         <WhoWeServe />
         

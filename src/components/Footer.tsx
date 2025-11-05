@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Shield } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Shield, Award, FileCheck, Building2 } from "lucide-react";
 import ascentLogo from "@/assets/ascent-logo.png";
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -139,16 +139,50 @@ const Footer = () => {
       <SEO structuredData={citationSchema} />
       <footer className="w-full bg-white border-t border-border relative" role="contentinfo">
         
-        {/* Trust Bar */}
-        <div className="border-b border-border">
-          <div className="container mx-auto px-4 py-6">
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
+        {/* Enhanced Trust Bar with Certifications */}
+        <div className="border-b border-border bg-gradient-to-br from-primary/5 to-accent/5">
+          <div className="container mx-auto px-4 py-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-6">
               {trustBarData.map((item: any, index: number) => (
-                <div key={index} className="flex items-center gap-2">
-                  <Shield className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">{item.label || item.value}</span>
+                <div key={index} className="flex flex-col items-center text-center gap-2 p-3 rounded-lg bg-card/50 border border-border/50 hover:border-accent/30 hover:shadow-sm transition-all">
+                  <Shield className="h-5 w-5 text-accent" />
+                  <span className="font-semibold text-foreground text-xs">{item.label || item.value}</span>
                 </div>
               ))}
+            </div>
+            
+            {/* Certification Badges Row */}
+            <div className="pt-6 border-t border-border/50">
+              <div className="flex flex-wrap justify-center gap-6 items-center">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Shield className="w-6 h-6 text-accent" />
+                  <div className="text-left">
+                    <div className="font-bold text-foreground text-sm">COR Certified</div>
+                    <div className="text-xs">Safety Excellence</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <FileCheck className="w-6 h-6 text-accent" />
+                  <div className="text-left">
+                    <div className="font-bold text-foreground text-sm">WSIB Compliant</div>
+                    <div className="text-xs">Full Coverage</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Award className="w-6 h-6 text-accent" />
+                  <div className="text-left">
+                    <div className="font-bold text-foreground text-sm">$5M+ Insured</div>
+                    <div className="text-xs">Liability Coverage</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Building2 className="w-6 h-6 text-accent" />
+                  <div className="text-left">
+                    <div className="font-bold text-foreground text-sm">TCA Member</div>
+                    <div className="text-xs">Since 2009</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
