@@ -70,8 +70,8 @@ const About = () => {
     <div className="min-h-screen">
       <SEO 
         title="About Us"
-        description="Learn about Ascen Group Construction - 15+ years of excellence in residential construction and building envelope systems across the GTA. Meet our team and discover our values."
-        keywords="about Ascen Group, construction company Mississauga, painting contractor team, company values, sustainability"
+        description="Learn about Ascent Group Construction - 15+ years of excellence in commercial construction and building envelope systems across the GTA. Meet our team and discover our values."
+        keywords="about Ascent Group, construction company Mississauga, general contractor team, company values, sustainability"
       />
       <Navigation />
 
@@ -516,7 +516,7 @@ const About = () => {
                     How long have you been in business?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Ascent Group Construction has been serving the GTA since 2009, with over 15 years of experience delivering quality painting and stucco/EIFS services.
+                    Ascent Group Construction has been serving the GTA since 2009, with over 15 years of experience delivering quality commercial construction and building envelope services.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -600,7 +600,7 @@ const About = () => {
                     How long will my project take?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Project timelines vary based on scope and size. Small interior projects (1-3 rooms) typically take 2-5 days. Full home interiors range from 5-10 business days. Exterior painting projects take 7-14 business days depending on weather. Stucco and EIFS projects can range from 2-8 weeks. We provide detailed schedules in your project proposal.
+                    Project timelines vary based on scope and size. Small commercial projects typically take 2-4 weeks. Full building envelope projects range from 4-12 weeks. Exterior systems projects take 6-16 weeks depending on weather. Stucco and EIFS projects can range from 4-12 weeks. We provide detailed schedules in your project proposal.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -609,7 +609,7 @@ const About = () => {
                     Will you protect my furniture and belongings?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Absolutely. We take extensive precautions to protect your property. This includes covering furniture with plastic sheeting, protecting floors with drop cloths and protective paper, masking fixtures and hardware, and sealing off work areas to minimize dust. We treat your home with the same care we would our own.
+                    Absolutely. We take extensive precautions to protect your property. This includes covering furniture and equipment with protective sheeting, protecting floors with drop cloths and protective paper, masking fixtures and hardware, and sealing off work areas to minimize dust. We treat your property with the same care we would our own.
                   </AccordionContent>
                 </AccordionItem>
 

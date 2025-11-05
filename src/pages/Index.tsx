@@ -79,7 +79,7 @@ const Index = () => {
         "@type": "ListItem",
         "position": 2,
         "name": "Comprehensive Construction Services Under One Roof",
-        "description": "21+ specialized services including commercial painting, masonry repair, EIFS installation, metal cladding, and parking garage restoration throughout Toronto and the GTA."
+        "description": "Comprehensive construction services including commercial construction, masonry repair, EIFS installation, metal cladding, and parking garage restoration throughout Toronto and the GTA."
       },
       {
         "@type": "ListItem",

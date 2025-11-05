@@ -35,7 +35,7 @@ const iconMap: Record<string, any> = {
 
 // Category configuration with Lucide icons
 const categoryIcons: Record<string, any> = {
-  "Painting Services": Paintbrush,
+  "Construction Services": Paintbrush,
   "Exterior Systems": Building2,
   "Construction Management": HardHat,
   "Specialty Services": Wrench
@@ -173,8 +173,8 @@ const Services = () => {
     <div className="min-h-screen flex flex-col">
       <SEO 
         title="Services"
-        description="Professional painting, stucco, and construction services across the GTA. Expert craftsmanship for residential and commercial projects."
-        keywords="painting services, stucco installation, EIFS, exterior painting, interior painting, commercial painting, residential construction"
+        description="Professional general contracting, construction management, and building envelope services across the GTA. Expert craftsmanship for commercial and institutional projects."
+        keywords="general contracting services, construction management, building envelope, exterior systems, commercial construction, institutional construction"
         canonical="https://ascentgroupconstruction.com/services"
       />
       <Navigation />
