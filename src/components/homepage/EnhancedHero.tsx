@@ -73,6 +73,7 @@ const heroSlides = [
 const EnhancedHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [showPoster, setShowPoster] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -84,6 +85,13 @@ const EnhancedHero = () => {
   const videoRefB = useRef<HTMLVideoElement>(null);
   const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Handle smooth poster-to-video transition
+  const handleVideoReady = () => {
+    setIsVideoLoaded(true);
+    // Fade out poster after video is ready
+    setTimeout(() => setShowPoster(false), 100);
+  };
 
   // Minimum swipe distance (in px) to trigger slide change
   const minSwipeDistance = 50;
@@ -249,9 +257,8 @@ const EnhancedHero = () => {
           muted
           playsInline
           preload="auto"
-          poster={slide.poster}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-          onLoadedData={() => setIsVideoLoaded(true)}
+          onLoadedData={handleVideoReady}
           style={{ opacity: videoOpacity.a }}
         >
           <source src={slide.video} type="video/mp4" />
@@ -263,12 +270,34 @@ const EnhancedHero = () => {
           muted
           playsInline
           preload="auto"
-          poster={slide.poster}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
           style={{ opacity: videoOpacity.b }}
         >
           <source src={slide.video} type="video/mp4" />
         </video>
+
+        {/* Poster Overlay - Fades out when video is ready */}
+        {showPoster && (
+          <div 
+            className="absolute inset-0 z-[1] transition-opacity duration-700 ease-out"
+            style={{ opacity: isVideoLoaded ? 0 : 1 }}
+          >
+            <img
+              src={slide.poster}
+              alt=""
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </div>
+        )}
+
+        {/* Loading Indicator */}
+        {!isVideoLoaded && (
+          <div className="absolute inset-0 z-[2] flex items-center justify-center">
+            <div className="w-16 h-16 border-4 border-accent/20 border-t-accent rounded-full animate-spin" />
+          </div>
+        )}
       </div>
 
       {/* Gradient Overlay */}
