@@ -4,25 +4,26 @@
 
 :root {
   /* Business Admin Theme - Dark Glassmorphism */
-  --business-primary: #2563eb;
-  --business-primary-dark: #1d4ed8;
-  --business-accent-orange: #f97316;
-  --business-accent-green: #10b981;
-  --business-accent-red: #ef4444;
-  --business-accent-yellow: #f59e0b;
+  /* ALL COLORS MUST BE HSL FORMAT - NO HEX! */
+  --business-primary: 217 91% 60%;        /* Blue #2563eb in HSL */
+  --business-primary-dark: 221 83% 53%;   /* Darker blue #1d4ed8 */
+  --business-accent-orange: 25 95% 53%;   /* Orange #f97316 */
+  --business-accent-green: 142 76% 36%;   /* Green #10b981 */
+  --business-accent-red: 0 72% 51%;       /* Red #ef4444 */
+  --business-accent-yellow: 38 92% 50%;   /* Yellow #f59e0b */
   
-  --business-bg-darker: #020617;
-  --business-bg-dark: #0f172a;
-  --business-bg-card: #1e293b;
-  --business-bg-hover: #334155;
+  --business-bg-darker: 222 47% 4%;       /* #020617 */
+  --business-bg-dark: 222 47% 11%;        /* #0f172a */
+  --business-bg-card: 215 25% 17%;        /* #1e293b */
+  --business-bg-hover: 215 20% 27%;       /* #334155 */
   
-  --business-text-primary: #ffffff;
-  --business-text-secondary: #cbd5e1;
-  --business-text-muted: #94a3b8;
+  --business-text-primary: 0 0% 100%;     /* White */
+  --business-text-secondary: 214 20% 78%; /* #cbd5e1 */
+  --business-text-muted: 215 14% 64%;     /* #94a3b8 */
   
-  --business-border: #334155;
-  --business-glass-bg: rgba(30, 41, 59, 0.95);
-  --business-glass-border: rgba(148, 163, 184, 0.1);
+  --business-border: 215 20% 27%;         /* #334155 */
+  --business-glass-bg: 215 25% 17% / 0.95;     /* rgba(30, 41, 59, 0.95) */
+  --business-glass-border: 215 14% 64% / 0.1;  /* rgba(148, 163, 184, 0.1) */
   
   --business-sidebar-width: 280px;
   --business-sidebar-collapsed: 80px;

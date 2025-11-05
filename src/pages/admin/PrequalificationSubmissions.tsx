@@ -137,12 +137,12 @@ const PrequalificationSubmissions = () => {
     setSubmissionToDelete(null);
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string): "new" | "contacted" | "completed" | "default" => {
     switch (status) {
-      case "new": return "bg-secondary text-white";
-      case "contacted": return "bg-blue-600 text-white";
-      case "completed": return "bg-green-600 text-white";
-      default: return "bg-gray-600 text-white";
+      case "new": return "new";
+      case "contacted": return "contacted";
+      case "completed": return "completed";
+      default: return "default";
     }
   };
 
@@ -354,7 +354,7 @@ const PrequalificationSubmissions = () => {
                             Contact: {submission.contact_name} • {format(new Date(submission.downloaded_at), 'MMMM d, yyyy • h:mm a')}
                           </CardDescription>
                         </div>
-                        <Badge className={getStatusColor(submission.status)}>
+                        <Badge variant={getStatusVariant(submission.status)}>
                           <span className="flex items-center gap-1">
                             {getStatusIcon(submission.status)}
                             {submission.status}

@@ -168,7 +168,7 @@ const TestimonialsManager = () => {
                     </TableCell>
                     <TableCell>{testimonial.is_featured ? '✓' : ''}</TableCell>
                     <TableCell>
-                      <span className={`px-2 py-1 rounded text-xs ${testimonial.publish_state === 'published' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                      <span className={`px-2 py-1 rounded text-xs ${testimonial.publish_state === 'published' ? 'bg-[hsl(142_76%_85%)] text-[hsl(142_76%_25%)]' : 'bg-muted text-muted-foreground'}`}>
                         {testimonial.publish_state}
                       </span>
                     </TableCell>

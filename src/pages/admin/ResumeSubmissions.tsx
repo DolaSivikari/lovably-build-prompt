@@ -165,14 +165,14 @@ const ResumeSubmissions = () => {
     setSubmissionToDelete(null);
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string): "info" | "warning" | "contacted" | "success" | "destructive" | "default" => {
     switch (status) {
-      case "new": return "bg-blue-500";
-      case "reviewed": return "bg-yellow-500";
-      case "contacted": return "bg-purple-500";
-      case "hired": return "bg-green-500";
-      case "rejected": return "bg-red-500";
-      default: return "bg-gray-500";
+      case "new": return "info";
+      case "reviewed": return "warning";
+      case "contacted": return "contacted";
+      case "hired": return "success";
+      case "rejected": return "destructive";
+      default: return "default";
     }
   };
 
@@ -290,7 +290,7 @@ const ResumeSubmissions = () => {
                             <p className="text-xs text-muted-foreground truncate">{submission.email}</p>
                           </div>
                           <div className="flex items-center gap-2">
-                            <Badge className={`${getStatusColor(submission.status)} text-white text-xs`}>
+                            <Badge variant={getStatusVariant(submission.status)} className="text-xs">
                               {getStatusLabel(submission.status)}
                             </Badge>
                             <Button

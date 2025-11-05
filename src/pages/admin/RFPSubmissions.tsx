@@ -37,12 +37,12 @@ interface RFPSubmission {
   created_at: string;
 }
 
-const statusColors: Record<string, string> = {
-  new: "bg-blue-500",
-  reviewing: "bg-yellow-500",
-  quoted: "bg-purple-500",
-  awarded: "bg-green-500",
-  declined: "bg-gray-500"
+const statusVariants: Record<string, "info" | "warning" | "contacted" | "success" | "inactive"> = {
+  new: "info",
+  reviewing: "warning",
+  quoted: "contacted",
+  awarded: "success",
+  declined: "inactive"
 };
 
 const valueRangeLabels: Record<string, string> = {
@@ -205,7 +205,7 @@ export default function RFPSubmissions() {
                         <TableCell className="capitalize">{sub.project_type.replace('-', ' ')}</TableCell>
                         <TableCell>{valueRangeLabels[sub.estimated_value_range]}</TableCell>
                         <TableCell>
-                          <Badge className={statusColors[sub.status]}>
+                          <Badge variant={statusVariants[sub.status]}>
                             {sub.status}
                           </Badge>
                         </TableCell>

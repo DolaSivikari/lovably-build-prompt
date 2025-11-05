@@ -73,9 +73,9 @@ export const BusinessEstimates = () => {
       />
 
       <Dialog open={showEditor} onOpenChange={setShowEditor}>
-        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-white">
+            <DialogTitle>
               {editingId ? 'Edit Estimate' : 'New Estimate'}
             </DialogTitle>
           </DialogHeader>
@@ -89,10 +89,10 @@ export const BusinessEstimates = () => {
 
       {convertingEstimate && (
         <Dialog open={true} onOpenChange={() => setConvertingEstimate(null)}>
-          <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle className="text-white">Convert to Invoice</DialogTitle>
-              <DialogDescription className="text-slate-400">
+              <DialogTitle>Convert to Invoice</DialogTitle>
+              <DialogDescription>
                 Converting estimate {convertingEstimate.estimate_number} to invoice...
               </DialogDescription>
             </DialogHeader>

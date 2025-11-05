@@ -201,7 +201,7 @@ const Users = () => {
                     ) : (
                       <Badge variant="outline">No Role</Badge>
                     )}
-                    <Badge className="w-20 justify-center bg-green-600 text-white">
+                    <Badge variant="active" className="w-20 justify-center">
                       Active
                     </Badge>
                   </div>

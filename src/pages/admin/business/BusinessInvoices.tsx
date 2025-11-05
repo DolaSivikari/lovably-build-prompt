@@ -68,9 +68,9 @@ export const BusinessInvoices = () => {
       />
 
       <Dialog open={showEditor} onOpenChange={setShowEditor}>
-        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-white">
+            <DialogTitle>
               {editingId ? 'Edit Invoice' : 'New Invoice'}
             </DialogTitle>
           </DialogHeader>

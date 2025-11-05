@@ -142,12 +142,12 @@ const ContactSubmissions = () => {
     setSubmissionToDelete(null);
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string): "new" | "contacted" | "resolved" | "default" => {
     switch (status) {
-      case "new": return "bg-secondary text-white";
-      case "contacted": return "bg-blue-600 text-white";
-      case "resolved": return "bg-green-600 text-white";
-      default: return "bg-gray-600 text-white";
+      case "new": return "new";
+      case "contacted": return "contacted";
+      case "resolved": return "resolved";
+      default: return "default";
     }
   };
 
@@ -359,7 +359,7 @@ const ContactSubmissions = () => {
                         {format(new Date(submission.created_at), 'MMMM d, yyyy • h:mm a')}
                       </p>
                     </div>
-                    <Badge className={getStatusColor(submission.status)}>
+                    <Badge variant={getStatusVariant(submission.status)}>
                       <span className="flex items-center gap-1">
                         {getStatusIcon(submission.status)}
                         {submission.status}
