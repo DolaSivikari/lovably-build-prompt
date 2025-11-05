@@ -1,6 +1,6 @@
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
-import { Badge } from "@/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { Search, X, Building2, Home, School, Factory, Grid3x3, List, Filter, DollarSign, CheckCircle2, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -216,7 +216,7 @@ const FilterBar = ({
                     <Award className="w-4 h-4 mr-2" />
                     Performance
                     {(performanceBadges.onTime || performanceBadges.onBudget || performanceBadges.zeroIncidents) && (
-                      <Badge variant="secondary" className="ml-2 h-5 px-1.5">
+                      <Badge variant="primary" size="xs" className="ml-2">
                         {[performanceBadges.onTime, performanceBadges.onBudget, performanceBadges.zeroIncidents].filter(Boolean).length}
                       </Badge>
                     )}
@@ -323,7 +323,7 @@ const FilterBar = ({
               {projectCount} {projectCount === 1 ? "project" : "projects"} found
             </span>
             {activeFiltersCount > 0 && (
-              <Badge variant="secondary">
+              <Badge variant="info" size="sm">
                 {activeFiltersCount} {activeFiltersCount === 1 ? "filter" : "filters"} active
               </Badge>
             )}

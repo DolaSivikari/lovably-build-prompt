@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import { MapPin, Calendar, Ruler, Eye } from "lucide-react";
+import { MapPin, Calendar, Ruler, Eye, CheckCircle2, DollarSign, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
 
@@ -82,7 +82,7 @@ const ProjectCard = ({
         
         {/* Simple category badge */}
         <div className="absolute top-4 right-4">
-          <Badge className="bg-primary text-primary-foreground">{category}</Badge>
+          <Badge variant="primary" size="sm">{category}</Badge>
         </div>
       </div>
       
@@ -106,27 +106,27 @@ const ProjectCard = ({
         {(project_value || your_role || on_time_completion !== undefined || on_budget !== undefined || safety_incidents !== undefined) && (
           <div className="flex flex-wrap gap-1.5 mb-3">
             {project_value && (
-              <Badge variant="outline" className="text-xs">
+              <Badge variant="outline" size="sm">
                 ${(project_value / 100 / 1000000).toFixed(1)}M
               </Badge>
             )}
             {your_role && (
-              <Badge variant="outline" className="text-xs">
+              <Badge variant="outline" size="sm">
                 {your_role}
               </Badge>
             )}
             {on_time_completion && (
-              <Badge variant="default" className="text-xs bg-green-600">
+              <Badge variant="success" size="sm" icon={CheckCircle2}>
                 On-Time
               </Badge>
             )}
             {on_budget && (
-              <Badge variant="default" className="text-xs bg-blue-600">
+              <Badge variant="success" size="sm" icon={DollarSign}>
                 On-Budget
               </Badge>
             )}
             {safety_incidents === 0 && (
-              <Badge variant="default" className="text-xs bg-green-700">
+              <Badge variant="success" size="sm" icon={Shield}>
                 Zero Incidents
               </Badge>
             )}

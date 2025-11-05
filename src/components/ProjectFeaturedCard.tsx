@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import { MapPin, Calendar, Ruler, ArrowRight, Award } from "lucide-react";
+import { MapPin, Calendar, Ruler, ArrowRight, Award, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { resolveAssetPath } from "@/utils/assetResolver";
 
@@ -42,12 +42,11 @@ const ProjectFeaturedCard = ({
         
         {/* Top Badges */}
         <div className="absolute top-6 left-6 flex gap-2">
-          <Badge variant="secondary" className="text-base">
+          <Badge variant="primary" size="sm">
             {category}
           </Badge>
           {featured && (
-            <Badge className="bg-secondary text-secondary-foreground flex items-center gap-1">
-              <Award className="w-3 h-3" />
+            <Badge variant="warning" size="sm" icon={Star}>
               {typeof featured === 'string' ? featured : 'Featured'}
             </Badge>
           )}

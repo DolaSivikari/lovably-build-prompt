@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import { Calendar, ArrowRight } from "lucide-react";
+import { Calendar, ArrowRight, FileText } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 import { resolveAssetPath } from "@/utils/assetResolver";
 import { supabase } from "@/integrations/supabase/client";
@@ -70,7 +70,7 @@ const BlogPreview = () => {
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
                       <div className="absolute top-4 left-4 z-10">
-                        <Badge className="bg-secondary text-primary">{post.category}</Badge>
+                        <Badge variant="info" size="sm" icon={FileText}>{post.category}</Badge>
                       </div>
                     </div>
                     <CardContent className="p-8 flex flex-col justify-center">
@@ -114,7 +114,7 @@ const BlogPreview = () => {
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute top-4 left-4 z-10">
-                      <Badge className="bg-secondary text-primary">{post.category}</Badge>
+                      <Badge variant="info" size="sm" icon={FileText}>{post.category}</Badge>
                     </div>
                   </div>
                   <CardContent className="p-6">

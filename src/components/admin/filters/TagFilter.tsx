@@ -40,8 +40,9 @@ export const TagFilter = ({ tags, selectedTags, onChange, className }: TagFilter
           return (
             <Badge
               key={tag}
-              variant={isSelected ? "default" : "outline"}
-              className="cursor-pointer hover:bg-primary/80 transition-colors"
+              variant={isSelected ? "primary" : "outline"}
+              size="sm"
+              className="cursor-pointer"
               onClick={() => toggleTag(tag)}
             >
               {tag}

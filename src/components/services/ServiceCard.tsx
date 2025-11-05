@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import * as LucideIcons from "lucide-react";
-import { Building2, Home, Factory, Clock, ArrowRight } from "lucide-react";
+import { Building2, Home, Factory, Clock, ArrowRight, Star } from "lucide-react";
 
 interface ServiceCardProps {
   id: string;
@@ -41,7 +41,7 @@ export const ServiceCard = ({
       <Card className="h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] hover:-translate-y-2 transition-all duration-300 border-border relative overflow-hidden">
         {featured && (
           <div className="absolute top-4 right-4 z-10">
-            <Badge className="bg-primary text-primary-foreground shadow-sm">
+            <Badge variant="warning" size="sm" icon={Star} className="animate-pulse">
               Popular
             </Badge>
           </div>

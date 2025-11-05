@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin, Calendar, Building2 } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
-import { Badge } from "@/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 
 interface Project {
   id: string;
@@ -38,17 +38,17 @@ const ProjectCard = ({ project }: { project: Project }) => (
     <CardContent className="p-6">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         {project.location && (
-          <Badge variant="outline" className="text-xs">
+          <Badge variant="glass" size="sm" icon={MapPin}>
             {project.location}
           </Badge>
         )}
         {project.category && (
-          <Badge variant="secondary" className="text-xs">
+          <Badge variant="primary" size="sm" icon={Building2}>
             {project.category}
           </Badge>
         )}
         {project.year && (
-          <Badge variant="outline" className="text-xs">
+          <Badge variant="info" size="sm" icon={Calendar}>
             {project.year}
           </Badge>
         )}

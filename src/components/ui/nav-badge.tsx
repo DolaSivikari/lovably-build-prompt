@@ -1,4 +1,5 @@
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { Star, Sparkles } from "lucide-react";
 
 interface NavBadgeProps {
   variant: "new" | "popular" | "important";
@@ -6,21 +7,22 @@ interface NavBadgeProps {
 }
 
 export const NavBadge = ({ variant, className }: NavBadgeProps) => {
-  const styles = {
-    new: "bg-accent text-accent-foreground",
-    popular: "bg-secondary text-secondary-foreground",
-    important: "bg-primary text-primary-foreground",
+  const variantMap = {
+    new: { variant: "new" as const, label: "New", icon: Sparkles },
+    popular: { variant: "warning" as const, label: "★", icon: Star },
+    important: { variant: "primary" as const, label: "★", icon: Star },
   };
 
-  const labels = {
-    new: "New",
-    popular: "★",
-    important: "★",
-  };
+  const config = variantMap[variant];
 
   return (
-    <span className={cn("ml-2 px-1.5 py-0.5 text-[10px] font-bold rounded uppercase", styles[variant], className)}>
-      {labels[variant]}
-    </span>
+    <Badge 
+      variant={config.variant} 
+      size="xs" 
+      icon={config.icon}
+      className={className}
+    >
+      {config.label}
+    </Badge>
   );
 };

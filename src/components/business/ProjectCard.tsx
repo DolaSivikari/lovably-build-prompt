@@ -1,5 +1,5 @@
 import { Building2, Calendar, DollarSign, MapPin } from 'lucide-react';
-import { StatusBadge } from './StatusBadge';
+import { Badge } from '@/components/ui/badge';
 import { formatCurrency } from '@/utils/currency';
 
 interface ProjectCardProps {
@@ -22,7 +22,18 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             {project.project_number}
           </p>
         </div>
-        <StatusBadge status={project.status} type="project" />
+        <Badge 
+          variant={
+            project.status === 'active' ? 'status-active' :
+            project.status === 'planning' ? 'info' :
+            project.status === 'on_hold' ? 'warning' :
+            'status-inactive'
+          }
+          size="sm"
+          showDot
+        >
+          {project.status.replace('_', ' ').toUpperCase()}
+        </Badge>
       </div>
 
       {project.project_type && (
