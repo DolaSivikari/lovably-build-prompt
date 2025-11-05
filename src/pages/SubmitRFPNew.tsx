@@ -157,7 +157,7 @@ export default function SubmitRFPNew() {
   const CurrentStepComponent = steps[currentStep - 1].component;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20">
       <SEO
         title="Submit RFP - Request for Proposal | Ascent Group Construction"
         description="Submit your construction project RFP to Ascent Group Construction. Multi-step form for commercial, multi-family, and institutional projects across Ontario."
@@ -165,54 +165,37 @@ export default function SubmitRFPNew() {
       />
       <Navigation />
 
-      <div className="pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-4xl">
-          {/* Header */}
-          <div className="text-center mb-8">
+      {/* Enhanced Hero */}
+      <section className="pt-24 pb-12 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        <div className="container mx-auto px-4 max-w-4xl relative z-10">
+          <div className="text-center mb-8 animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Submit Your RFP</h1>
-            <p className="text-xl text-muted-foreground">
-              Complete our 4-step form to receive a detailed construction proposal
-            </p>
+            <p className="text-xl text-primary-foreground/90">Complete our 4-step form to receive a detailed construction proposal</p>
           </div>
 
-          {/* Progress Bar */}
-          <div className="mb-8">
-            <div className="flex justify-between mb-2">
-              {steps.map((step) => (
-                <div
-                  key={step.number}
-                  className={`flex items-center gap-2 ${
-                    step.number === currentStep
-                      ? "text-primary font-bold"
-                      : step.number < currentStep
-                      ? "text-accent"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${
-                      step.number === currentStep
-                        ? "bg-primary text-primary-foreground"
-                        : step.number < currentStep
-                        ? "bg-accent text-white"
-                        : "bg-muted"
-                    }`}
-                  >
-                    {step.number < currentStep ? (
-                      <CheckCircle2 className="w-5 h-5" />
-                    ) : (
-                      step.number
-                    )}
-                  </div>
-                  <span className="hidden sm:inline text-sm">{step.title}</span>
+          {/* Enhanced Progress */}
+          <div className="flex justify-center gap-4 mb-8">
+            {steps.map((step) => (
+              <div key={step.number} className={`flex flex-col items-center transition-all ${step.number === currentStep ? "scale-110" : step.number < currentStep ? "opacity-70" : "opacity-40"}`}>
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-2 ${step.number === currentStep ? "bg-secondary text-secondary-foreground shadow-lg" : step.number < currentStep ? "bg-secondary/70 text-secondary-foreground" : "bg-primary-foreground/20"}`}>
+                  {step.number < currentStep ? <CheckCircle2 className="w-8 h-8" /> : step.number}
                 </div>
-              ))}
-            </div>
-            <Progress value={progress} className="h-2" />
+                <span className="text-sm font-medium">{step.title}</span>
+              </div>
+            ))}
           </div>
+          <div className="max-w-2xl mx-auto mb-8">
+            <div className="flex justify-between text-sm mb-2"><span>Step {currentStep} of {totalSteps}</span><span>{Math.round(progress)}% Complete</span></div>
+            <Progress value={progress} className="h-3 bg-primary-foreground/20" />
+          </div>
+        </div>
+      </section>
 
+      <main className="flex-1 py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
           {/* Form */}
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up">
             <CurrentStepComponent form={form} />
 
             {/* Navigation Buttons */}
@@ -220,39 +203,18 @@ export default function SubmitRFPNew() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-center">
                   {currentStep > 1 ? (
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      onClick={handleBack}
-                    >
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back
+                    <Button type="button" variant="secondary" onClick={handleBack}>
+                      <ArrowLeft className="w-4 h-4 mr-2" />Back
                     </Button>
                   ) : (
                     <div />
                   )}
 
                   {currentStep < totalSteps ? (
-                    <Button
-                      type="button"
-                      onClick={handleNext}
-                    >
-                      Next
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
+                    <Button type="button" onClick={handleNext}>Next<ArrowRight className="ml-2 w-4 h-4" /></Button>
                   ) : (
-                    <Button
-                      type="submit"
-                      disabled={submitting}
-                    >
-                      {submitting ? (
-                        "Submitting..."
-                      ) : (
-                        <>
-                          Submit RFP
-                          <ArrowRight className="ml-2 w-4 h-4" />
-                        </>
-                      )}
+                    <Button type="submit" disabled={submitting}>
+                      {submitting ? "Submitting..." : (<>Submit RFP<ArrowRight className="ml-2 w-4 h-4" /></>)}
                     </Button>
                   )}
                 </div>
@@ -261,26 +223,18 @@ export default function SubmitRFPNew() {
           </form>
 
           {/* Help Section */}
-          <Card className="mt-8 border-accent/20 bg-accent/5">
+          <Card className="mt-8 border-secondary/20 bg-secondary/5 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <CardContent className="p-6">
               <h3 className="font-bold text-lg mb-3">Need Help?</h3>
-              <p className="text-muted-foreground mb-4">
-                Have questions about the RFP process or need assistance with your submission?
-              </p>
+              <p className="text-muted-foreground mb-4">Have questions about the RFP process or need assistance with your submission?</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="font-semibold mb-1">📞 Call Us</p>
-                  <p className="text-muted-foreground">(416) 647-5286</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-1">📧 Email</p>
-                  <p className="text-muted-foreground">rfp@ascentgroupconstruction.com</p>
-                </div>
+                <div><p className="font-semibold mb-1">📞 Call Us</p><p className="text-muted-foreground">(416) 647-5286</p></div>
+                <div><p className="font-semibold mb-1">📧 Email</p><p className="text-muted-foreground">rfp@ascentgroupconstruction.com</p></div>
               </div>
             </CardContent>
           </Card>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>

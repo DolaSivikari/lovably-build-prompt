@@ -88,7 +88,7 @@ const Blog = () => {
   }, [filteredPosts]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted/10">
       <SEO 
         title="Blog & Case Studies - Expert Insights & Success Stories"
         description="Expert insights on construction management, general contracting, building envelope systems, and real-world case studies showcasing successful projects from Ascent Group Construction."
@@ -97,9 +97,10 @@ const Blog = () => {
       <Navigation />
       
       {loading ? (
-        <div className="container mx-auto px-4 py-20 text-center">Loading...</div>
+        <div className="container mx-auto px-4 py-20 text-center"><div className="animate-pulse">Loading content...</div></div>
       ) : (
-      <main>
+      <main className="relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-3xl -z-10" />
         <PageHeader
           title="Blog & Case Studies"
           description="Expert insights, success stories, and real-world projects from industry professionals"
@@ -110,17 +111,16 @@ const Blog = () => {
           variant="standard"
         />
 
-        {/* Featured Posts */}
+        {/* Enhanced Featured Posts */}
         {featuredPosts.length > 0 && (
           <section className="container mx-auto px-4 py-20 border-b">
-            <h2 className="text-3xl font-heading font-bold mb-8">Featured Content</h2>
+            <div className="text-center mb-12 animate-fade-in-up">
+              <h2 className="text-4xl font-bold mb-4">Featured Content</h2>
+              <p className="text-lg text-muted-foreground">Latest insights and success stories from our team</p>
+            </div>
             <div className="grid md:grid-cols-2 gap-8">
               {featuredPosts.map((post, index) => (
-                <div
-                  key={post.id}
-                  className="blog-card-animate transition-all duration-600 opacity-100"
-                  data-index={index}
-                >
+                <div key={post.id} className="blog-card-animate transition-all duration-600 opacity-100 hover-scale" data-index={index} style={{ animationDelay: `${index * 100}ms` }}>
                   <BlogCard post={post} />
                 </div>
               ))}
@@ -128,14 +128,17 @@ const Blog = () => {
           </section>
         )}
 
-        {/* All Posts with Filter */}
+        {/* Enhanced All Posts with Filter */}
         <section className="container mx-auto px-4 py-20">
-          <h2 className="text-3xl font-heading font-bold mb-8">All Content</h2>
+          <div className="text-center mb-12 animate-fade-in-up">
+            <h2 className="text-4xl font-bold mb-4">All Content</h2>
+            <p className="text-lg text-muted-foreground">Browse our complete library of articles and case studies</p>
+          </div>
           
           <Tabs defaultValue="all" className="w-full" onValueChange={setFilter}>
-            <TabsList className="mb-12 flex-wrap h-auto">
+            <TabsList className="mb-12 flex-wrap h-auto gap-2 bg-muted/50 p-2 rounded-xl">
               {categories.map((category) => (
-                <TabsTrigger key={category} value={category} className="capitalize">
+                <TabsTrigger key={category} value={category} className="capitalize rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                   {category === "all" ? "All Posts" : category}
                 </TabsTrigger>
               ))}

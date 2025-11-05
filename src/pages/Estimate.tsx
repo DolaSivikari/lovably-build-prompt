@@ -301,17 +301,13 @@ Add-ons:
       />
       <Navigation />
 
-      <main className="flex-1 pt-24 pb-16 bg-background">
+      <main className="flex-1 pt-24 pb-16 bg-gradient-to-b from-background to-muted/10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">
-                Get Your Free Estimate
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                Answer a few quick questions to receive an instant estimate
-              </p>
+            {/* Enhanced Header */}
+            <div className="text-center mb-8 animate-fade-in-up">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Get Your Free Estimate</h1>
+              <p className="text-lg text-muted-foreground">Answer a few quick questions to receive an instant estimate</p>
             </div>
 
             {/* Paint Calculator Tool */}
@@ -332,68 +328,13 @@ Add-ons:
               <Progress value={(currentStep / totalSteps) * 100} className="h-2" />
             </div>
 
-            {/* Step Content */}
-            <Card className="p-6 md:p-8 mb-6">
-              {currentStep === 1 && (
-                <EstimatorStep1
-                  data={{
-                    service: formData.service,
-                    sqft: formData.sqft,
-                    stories: formData.stories,
-                  }}
-                  onChange={handleInputChange}
-                />
-              )}
-
-              {currentStep === 2 && (
-                <EstimatorStep2Enhanced
-                  service={formData.service}
-                  data={{
-                    prepComplexity: formData.prepComplexity,
-                    finishQuality: formData.finishQuality,
-                    region: formData.region,
-                    buildingType: formData.buildingType,
-                    accessibility: formData.accessibility,
-                    businessHoursConstraint: formData.businessHoursConstraint,
-                    unitCount: formData.unitCount,
-                    includeCommonAreas: formData.includeCommonAreas,
-                    materialType: formData.materialType,
-                  }}
-                  onChange={handleInputChange}
-                />
-              )}
-
-              {currentStep === 3 && (
-                <EstimatorStep3
-                  data={{
-                    scaffolding: formData.scaffolding,
-                    colorConsultation: formData.colorConsultation,
-                    rushScheduling: formData.rushScheduling,
-                    warrantyExtension: formData.warrantyExtension,
-                    siteCleanup: formData.siteCleanup,
-                  }}
-                  sqft={parseInt(formData.sqft) || 0}
-                  onChange={handleInputChange}
-                />
-              )}
-
-              {currentStep === 4 && (
-                <EstimatorStep4 estimate={estimate} formData={formData} />
-              )}
-
-              {currentStep === 5 && (
-                <EstimatorStep5
-                  data={{
-                    name: formData.name,
-                    email: formData.email,
-                    phone: formData.phone,
-                    address: formData.address,
-                    preferredContact: formData.preferredContact,
-                    notes: formData.notes,
-                  }}
-                  onChange={handleInputChange}
-                />
-              )}
+            {/* Enhanced Step Content */}
+            <Card className="p-6 md:p-8 mb-6 border-2 hover:border-primary/20 transition-all shadow-lg animate-fade-in-up">
+              {currentStep === 1 && (<EstimatorStep1 data={{ service: formData.service, sqft: formData.sqft, stories: formData.stories }} onChange={handleInputChange} />)}
+              {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
+              {currentStep === 3 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
+              {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
+              {currentStep === 5 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes }} onChange={handleInputChange} />)}
             </Card>
 
             {/* Navigation Buttons */}
