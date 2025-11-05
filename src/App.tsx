@@ -185,6 +185,9 @@ const ProjectDetail = lazy(() => import("./pages/ProjectDetail").catch(() => ({
 const SEODashboard = lazy(() => import("./pages/SEODashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
 })));
+const AnimationShowcase = lazy(() => import("./pages/AnimationShowcase").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Animation Showcase</p></div>
+})));
 
 const queryClient = new QueryClient();
 
@@ -236,6 +239,7 @@ const App = () => (
                   <Route path="/capabilities" element={<Capabilities />} />
                   <Route path="/how-we-work" element={<HowWeWork />} />
                   <Route path="/careers" element={<Careers />} />
+                  <Route path="/animation-showcase" element={<AnimationShowcase />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/general-contracting" element={<GeneralContracting />} />
             <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
