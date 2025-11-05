@@ -2,14 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Building2, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroPremiumVideo from "@/assets/hero-premium.mp4";
-import heroConstructionImage from "@/assets/hero-construction.jpg";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 
 const heroSlides = [
   {
     video: heroClipchampVideo,
-    poster: heroConstructionImage,
+    poster: "/hero-poster-1.webp",
     stat: "$2B+",
     statLabel: "Total Project Value",
     headline: "Ontario's Trusted General Contractor",
@@ -19,7 +17,7 @@ const heroSlides = [
   },
   {
     video: heroClipchampVideo,
-    poster: heroConstructionImage,
+    poster: "/hero-poster-2.webp",
     stat: "500+",
     statLabel: "Completed Projects",
     headline: "Design-Build Excellence",
@@ -29,7 +27,7 @@ const heroSlides = [
   },
   {
     video: heroClipchampVideo,
-    poster: heroConstructionImage,
+    poster: "/hero-poster-3.webp",
     stat: "98%",
     statLabel: "Client Satisfaction",
     headline: "Safety-First Construction",
