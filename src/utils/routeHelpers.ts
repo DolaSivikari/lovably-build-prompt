@@ -70,3 +70,79 @@ export const getPreviewUrl = (type: string, slug: string, token: string): string
 export const generatePreviewToken = (): string => {
   return `preview_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
 };
+
+/**
+ * Known valid public routes
+ */
+export const VALID_PUBLIC_ROUTES = [
+  '/',
+  '/about',
+  '/services',
+  '/projects',
+  '/contact',
+  '/careers',
+  '/blog',
+  '/estimate',
+  '/prequalification',
+  '/submit-rfp',
+  '/safety',
+  '/sustainability',
+  '/faq',
+  '/company/team',
+  '/company/certifications-insurance',
+  '/company/equipment-resources',
+  '/company/developers',
+  '/markets/commercial',
+  '/markets/multi-family',
+  '/markets/industrial',
+  '/markets/institutional',
+  '/markets/education',
+  '/markets/healthcare',
+  '/markets/hospitality',
+  '/markets/retail',
+  '/resources/service-areas',
+  '/resources/warranties',
+  '/resources/financing',
+  '/resources/contractor-portal',
+] as const;
+
+/**
+ * Validate if a public route exists
+ */
+export const isValidPublicRoute = (path: string): boolean => {
+  // Check exact match
+  if (VALID_PUBLIC_ROUTES.includes(path as any)) return true;
+  
+  // Check dynamic routes
+  if (path.startsWith('/services/')) return true;
+  if (path.startsWith('/projects/')) return true;
+  if (path.startsWith('/blog/')) return true;
+  
+  return false;
+};
+
+/**
+ * Validate and normalize admin-entered URL
+ */
+export const validateAdminUrl = (url: string): { valid: boolean; error?: string } => {
+  if (!url || url.trim() === '') {
+    return { valid: false, error: 'URL is empty' };
+  }
+
+  // External URLs are always valid
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return { valid: true };
+  }
+
+  // Ensure internal URLs start with /
+  if (!url.startsWith('/')) {
+    return { valid: false, error: 'Internal URLs must start with /' };
+  }
+
+  // Check if it's a valid route
+  if (!isValidPublicRoute(url)) {
+    return { valid: false, error: `Route "${url}" may not exist. Please verify.` };
+  }
+
+  return { valid: true };
+};

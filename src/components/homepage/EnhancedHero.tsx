@@ -7,6 +7,8 @@ import GeometricShapes from "./GeometricShapes";
 import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
+import { useSettingsData } from "@/hooks/useSettingsData";
+import { supabase } from "@/integrations/supabase/client";
 
 const heroSlides = [
   {
@@ -86,6 +88,23 @@ const EnhancedHero = () => {
   const videoRefB = useRef<HTMLVideoElement>(null);
   const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [landingMenuItems, setLandingMenuItems] = useState<any[]>([]);
+
+  // Fetch homepage settings
+  const { data: homepageSettings } = useSettingsData<any>('homepage_settings');
+
+  // Fetch landing menu items
+  useEffect(() => {
+    const fetchLandingMenu = async () => {
+      const { data } = await supabase
+        .from('landing_menu_items')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order');
+      if (data) setLandingMenuItems(data);
+    };
+    fetchLandingMenu();
+  }, []);
 
   // Video preloader for seamless slide transitions
   const videoUrls = heroSlides.map(slide => slide.video);
@@ -237,6 +256,20 @@ const EnhancedHero = () => {
   const PrimaryIcon = slide.primaryCTA.icon;
   const prefersReducedMotion = useReducedMotion();
 
+  // Use admin-managed content if available, fallback to hardcoded
+  const headline = homepageSettings?.headline || slide.headline;
+  const subheadline = homepageSettings?.subheadline || slide.subheadline;
+  const description = homepageSettings?.hero_description || slide.subheadline;
+  const primaryCTA = {
+    label: homepageSettings?.cta_primary_text || slide.primaryCTA.label,
+    href: homepageSettings?.cta_primary_url || slide.primaryCTA.href,
+    icon: PrimaryIcon
+  };
+  const secondaryCTA = {
+    label: homepageSettings?.cta_secondary_text || slide.secondaryCTA.label,
+    href: homepageSettings?.cta_secondary_url || slide.secondaryCTA.href
+  };
+
   const parallaxOffset = prefersReducedMotion ? 0 : scrollY * 0.5;
   const mouseParallaxX = prefersReducedMotion ? 0 : mousePosition.x * 20;
   const mouseParallaxY = prefersReducedMotion ? 0 : mousePosition.y * 20;
@@ -342,13 +375,13 @@ const EnhancedHero = () => {
               textShadow: '0 2px 20px rgba(0,0,0,0.3)'
             }}
           >
-            {slide.headline}
+            {headline}
           </h1>
           <p 
             className={`text-xl md:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
-            {slide.subheadline}
+            {description}
           </p>
 
           {/* Dual CTAs */}
@@ -357,16 +390,16 @@ const EnhancedHero = () => {
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.8s" }}
           >
             <Button asChild size="lg" variant="primary" className="group shadow-accent">
-              <Link to={slide.primaryCTA.href} className="gap-2">
-                <PrimaryIcon className="h-5 w-5" />
-                {slide.primaryCTA.label}
+              <Link to={primaryCTA.href} className="gap-2">
+                <primaryCTA.icon className="h-5 w-5" />
+                {primaryCTA.label}
                 <ArrowRight className="h-4 w-4 hover-translate-arrow" />
               </Link>
             </Button>
             
             <Button asChild size="lg" variant="secondary" className="bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 border-[hsl(var(--bg))]/30 text-[hsl(var(--bg))] backdrop-blur-sm">
-              <Link to={slide.secondaryCTA.href}>
-                {slide.secondaryCTA.label}
+              <Link to={secondaryCTA.href}>
+                {secondaryCTA.label}
               </Link>
             </Button>
           </div>
@@ -395,12 +428,28 @@ const EnhancedHero = () => {
         </div>
       </div>
 
-      {/* Hero Tab Navigation */}
-      <HeroTabNavigation 
-        slides={heroSlides} 
-        currentSlide={currentSlide} 
-        onSlideChange={handleSlideChange} 
-      />
+      {/* Hero Tab Navigation - Use landing menu if available */}
+      {landingMenuItems.length > 0 ? (
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-6">
+          <div className="flex gap-2 md:gap-4 justify-center flex-wrap">
+            {landingMenuItems.map((item, index) => (
+              <Link
+                key={item.id}
+                to={item.link}
+                className="relative px-4 py-2 text-sm md:text-base font-semibold transition-all duration-300 text-white/90 hover:text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[hsl(var(--brand-accent))] after:transition-transform after:duration-300 hover:after:scale-x-100 after:scale-x-0"
+              >
+                {item.title}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <HeroTabNavigation 
+          slides={heroSlides} 
+          currentSlide={currentSlide} 
+          onSlideChange={handleSlideChange} 
+        />
+      )}
 
       {/* Play/Pause Control */}
       <button

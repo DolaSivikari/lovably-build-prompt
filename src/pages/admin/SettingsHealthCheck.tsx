@@ -2,22 +2,29 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, CheckCircle2, RefreshCw, AlertTriangle } from "lucide-react";
+import { AlertCircle, CheckCircle2, RefreshCw, AlertTriangle, Wrench } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { useSettingsData } from "@/hooks/useSettingsData";
+import { supabase } from "@/integrations/supabase/client";
+import { validateAdminUrl } from "@/utils/routeHelpers";
+import { useToast } from "@/hooks/use-toast";
 
 interface HealthCheckResult {
   component: string;
   status: 'pass' | 'warning' | 'error';
   message: string;
   details?: string;
+  fixable?: boolean;
+  fixAction?: () => Promise<void>;
 }
 
 const SettingsHealthCheck = () => {
   const [scanning, setScanning] = useState(false);
   const [results, setResults] = useState<HealthCheckResult[]>([]);
+  const [fixing, setFixing] = useState<string | null>(null);
   const { settings, loading } = useCompanySettings();
   const { data: aboutSettings } = useSettingsData<any>('about_page_settings');
+  const { toast } = useToast();
 
   const hardcodedPatterns = {
     phones: [
@@ -54,6 +61,135 @@ const SettingsHealthCheck = () => {
     'InvoicePDF.tsx',
     'structured-data.ts',
   ];
+
+  const checkDuplicateActiveRows = async (tableName: string): Promise<HealthCheckResult | null> => {
+    const { data, error } = await (supabase as any)
+      .from(tableName)
+      .select('id, updated_at')
+      .eq('is_active', true);
+
+    if (error) {
+      return {
+        component: `${tableName} Integrity`,
+        status: 'error',
+        message: `Failed to check ${tableName}`,
+        details: error.message
+      };
+    }
+
+    if (data && data.length > 1) {
+      // Sort by updated_at to find the latest
+      const sorted = [...data].sort((a: any, b: any) => 
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+      );
+      const latestId = sorted[0].id;
+      const duplicateIds = sorted.slice(1).map((r: any) => r.id);
+
+      return {
+        component: `${tableName} Integrity`,
+        status: 'error',
+        message: `Found ${data.length} active rows in ${tableName}`,
+        details: `Only one row should be active. Latest: ${latestId}`,
+        fixable: true,
+        fixAction: async () => {
+          await (supabase as any)
+            .from(tableName)
+            .update({ is_active: false })
+            .in('id', duplicateIds);
+        }
+      };
+    }
+
+    if (!data || data.length === 0) {
+      return {
+        component: `${tableName} Integrity`,
+        status: 'warning',
+        message: `No active row found in ${tableName}`,
+        details: 'Settings table should have exactly one active row'
+      };
+    }
+
+    return null;
+  };
+
+  const checkBrokenLinks = async (): Promise<HealthCheckResult[]> => {
+    const results: HealthCheckResult[] = [];
+
+    // Check footer links
+    const { data: footerSettings } = await supabase
+      .from('footer_settings')
+      .select('quick_links, sectors_links')
+      .eq('is_active', true)
+      .maybeSingle();
+
+    if (footerSettings) {
+      const quickLinks = footerSettings.quick_links as any[] || [];
+      const sectorLinks = footerSettings.sectors_links as any[] || [];
+      
+      [...quickLinks, ...sectorLinks].forEach(link => {
+        if (link.url) {
+          const validation = validateAdminUrl(link.url);
+          if (!validation.valid) {
+            results.push({
+              component: 'Footer Links',
+              status: 'warning',
+              message: `Broken link: "${link.label}"`,
+              details: validation.error
+            });
+          }
+        }
+      });
+    }
+
+    // Check landing menu links
+    const { data: landingMenu } = await supabase
+      .from('landing_menu_items')
+      .select('title, link')
+      .eq('is_active', true);
+
+    if (landingMenu) {
+      landingMenu.forEach(item => {
+        const validation = validateAdminUrl(item.link);
+        if (!validation.valid) {
+          results.push({
+            component: 'Landing Menu',
+            status: 'warning',
+            message: `Broken link: "${item.title}"`,
+            details: validation.error
+          });
+        }
+      });
+    }
+
+    // Check homepage CTA links
+    const { data: homepageSettings } = await supabase
+      .from('homepage_settings')
+      .select('cta_primary_url, cta_secondary_url, cta_tertiary_url')
+      .eq('is_active', true)
+      .maybeSingle();
+
+    if (homepageSettings) {
+      [
+        { label: 'Primary CTA', url: homepageSettings.cta_primary_url },
+        { label: 'Secondary CTA', url: homepageSettings.cta_secondary_url },
+        { label: 'Tertiary CTA', url: homepageSettings.cta_tertiary_url }
+      ].forEach(cta => {
+        if (cta.url) {
+          const validation = validateAdminUrl(cta.url);
+          if (!validation.valid) {
+            results.push({
+              component: 'Homepage CTAs',
+              status: 'warning',
+              message: `Broken CTA: "${cta.label}"`,
+              details: validation.error
+            });
+          }
+        }
+      });
+    }
+
+    return results;
+  };
 
   const runHealthCheck = async () => {
     setScanning(true);
@@ -154,19 +290,74 @@ const SettingsHealthCheck = () => {
       details: 'footer_settings and contact_page_settings should reference site_settings'
     });
 
-    // Check 7: Structured data validation
+    // Check 7: Duplicate active rows
+    const settingsTables = [
+      'site_settings',
+      'homepage_settings',
+      'footer_settings',
+      'contact_page_settings',
+      'about_page_settings'
+    ];
+
+    for (const table of settingsTables) {
+      const duplicateCheck = await checkDuplicateActiveRows(table);
+      if (duplicateCheck) {
+        checkResults.push(duplicateCheck);
+      } else {
+        checkResults.push({
+          component: `${table} Integrity`,
+          status: 'pass',
+          message: `Exactly one active row in ${table}`,
+          details: 'Database integrity maintained'
+        });
+      }
+    }
+
+    // Check 8: Broken links
+    const brokenLinks = await checkBrokenLinks();
+    checkResults.push(...brokenLinks);
+
+    if (brokenLinks.length === 0) {
+      checkResults.push({
+        component: 'Link Validation',
+        status: 'pass',
+        message: 'All admin-entered links are valid',
+        details: 'Checked footer, landing menu, and homepage CTAs'
+      });
+    }
+
+    // Check 9: Structured data validation
     checkResults.push({
       component: 'structured-data.ts',
       status: 'pass',
       message: 'Fixed "Ascen" typo and updated contact info',
       details: 'Organization schema now uses correct company name and contact details'
     });
-
-    // Simulate scan delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
     
     setResults(checkResults);
     setScanning(false);
+  };
+
+  const handleFix = async (result: HealthCheckResult) => {
+    if (!result.fixAction) return;
+
+    setFixing(result.component);
+    try {
+      await result.fixAction();
+      toast({
+        title: 'Fixed',
+        description: `${result.component} has been fixed`,
+      });
+      runHealthCheck(); // Re-run check
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Fix Failed',
+        description: error.message,
+      });
+    } finally {
+      setFixing(null);
+    }
   };
 
   useEffect(() => {
@@ -302,6 +493,18 @@ const SettingsHealthCheck = () => {
                       <p className="text-xs text-slate-400">{result.details}</p>
                     )}
                   </div>
+
+                  {result.fixable && result.fixAction && (
+                    <Button
+                      size="sm"
+                      onClick={() => handleFix(result)}
+                      disabled={fixing === result.component}
+                      className="flex-shrink-0"
+                    >
+                      <Wrench className="h-3 w-3 mr-1" />
+                      {fixing === result.component ? 'Fixing...' : 'Fix'}
+                    </Button>
+                  )}
                 </div>
               </div>
             ))}
