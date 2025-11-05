@@ -123,7 +123,9 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4 lg:gap-6 flex-1 justify-end" aria-label="Main navigation">
+          <div className="hidden md:flex flex-1 justify-end">
+            <div className="container max-w-7xl mx-0 ml-auto pr-0">
+              <nav className="flex items-center gap-4 lg:gap-6 justify-end" aria-label="Main navigation">
             <Link
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
@@ -527,7 +529,9 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-          </nav>
+              </nav>
+            </div>
+          </div>
 
           {/* Mobile Menu Button - Animated Hamburger */}
           <button
