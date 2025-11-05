@@ -21,12 +21,38 @@ const IMPORT_MAPPINGS = {
   '@/components/ui/textarea': '@/ui/Textarea',
   '@/components/ui/select': '@/ui/Select',
   '@/components/ui/tag': '@/ui/Tag',
-  // Add more mappings as needed
 };
 
-// Component name mappings (if component names changed)
-const COMPONENT_NAME_MAPPINGS = {
-  // Most stay the same, but add exceptions here if needed
+// Color class mappings: direct colors -> semantic tokens
+const COLOR_MAPPINGS = {
+  'text-white': 'text-foreground',
+  'bg-white': 'bg-background',
+  'text-black': 'text-foreground',
+  'bg-black': 'bg-[hsl(var(--brand-primary))]',
+  'border-white': 'border-[hsl(var(--line))]',
+  'border-black': 'border-[hsl(var(--brand-primary))]',
+};
+
+// Spacing mappings: non-standard -> standard spacing
+const SPACING_MAPPINGS = {
+  'py-12': 'py-16',
+  'py-14': 'py-16',
+  'py-18': 'py-20',
+  'px-12': 'px-16',
+  'px-14': 'px-16',
+  'px-18': 'px-20',
+  'pt-12': 'pt-16',
+  'pt-14': 'pt-16',
+  'pt-18': 'pt-20',
+  'pb-12': 'pb-16',
+  'pb-14': 'pb-16',
+  'pb-18': 'pb-20',
+  'pl-12': 'pl-16',
+  'pl-14': 'pl-16',
+  'pl-18': 'pl-20',
+  'pr-12': 'pr-16',
+  'pr-14': 'pr-16',
+  'pr-18': 'pr-20',
 };
 
 const EXCLUDE_PATTERNS = [
@@ -49,6 +75,12 @@ class ImportMigrator {
     this.dryRun = dryRun;
     this.changes = [];
     this.errors = [];
+    this.stats = {
+      imports: 0,
+      colors: 0,
+      spacing: 0,
+      filesModified: 0
+    };
   }
 
   shouldExclude(filePath) {
@@ -94,39 +126,93 @@ class ImportMigrator {
     return null;
   }
 
+  fixColors(content) {
+    let newContent = content;
+    let changeCount = 0;
+
+    Object.entries(COLOR_MAPPINGS).forEach(([oldColor, newColor]) => {
+      // Match the color class with word boundaries to avoid partial matches
+      const regex = new RegExp(`\\b${oldColor}\\b`, 'g');
+      const matches = newContent.match(regex);
+      
+      if (matches) {
+        changeCount += matches.length;
+        newContent = newContent.replace(regex, newColor);
+      }
+    });
+
+    return { newContent, changeCount };
+  }
+
+  fixSpacing(content) {
+    let newContent = content;
+    let changeCount = 0;
+
+    Object.entries(SPACING_MAPPINGS).forEach(([oldSpacing, newSpacing]) => {
+      // Match the spacing class with word boundaries
+      const regex = new RegExp(`\\b${oldSpacing}\\b`, 'g);
+      const matches = newContent.match(regex);
+      
+      if (matches) {
+        changeCount += matches.length;
+        newContent = newContent.replace(regex, newSpacing);
+      }
+    });
+
+    return { newContent, changeCount };
+  }
+
   processFile(filePath) {
     try {
       const content = fs.readFileSync(filePath, 'utf-8');
       const oldImports = this.detectOldImports(content);
       
-      if (oldImports.length === 0) {
-        return null; // No changes needed
+      let newContent = content;
+      let importCount = 0;
+      let colorCount = 0;
+      let spacingCount = 0;
+
+      // Step 1: Fix imports
+      if (oldImports.length > 0) {
+        // Sort imports by index in reverse order to maintain correct positions
+        oldImports.sort((a, b) => b.index - a.index);
+
+        oldImports.forEach(importInfo => {
+          const newImport = this.migrateImport(importInfo);
+          
+          if (newImport) {
+            newContent = 
+              newContent.substring(0, importInfo.index) +
+              newImport +
+              newContent.substring(importInfo.index + importInfo.fullMatch.length);
+            importCount++;
+          }
+        });
       }
 
-      let newContent = content;
-      let offset = 0;
+      // Step 2: Fix direct color usage
+      const colorResult = this.fixColors(newContent);
+      newContent = colorResult.newContent;
+      colorCount = colorResult.changeCount;
 
-      // Sort imports by index in reverse order to maintain correct positions
-      oldImports.sort((a, b) => b.index - a.index);
+      // Step 3: Fix spacing inconsistencies
+      const spacingResult = this.fixSpacing(newContent);
+      newContent = spacingResult.newContent;
+      spacingCount = spacingResult.changeCount;
 
-      oldImports.forEach(importInfo => {
-        const newImport = this.migrateImport(importInfo);
-        
-        if (newImport) {
-          const beforeLength = newContent.length;
-          newContent = 
-            newContent.substring(0, importInfo.index) +
-            newImport +
-            newContent.substring(importInfo.index + importInfo.fullMatch.length);
-          
-          const afterLength = newContent.length;
-          offset += (afterLength - beforeLength);
-        }
-      });
+      // Only return if changes were made
+      const totalChanges = importCount + colorCount + spacingCount;
+      if (totalChanges === 0) {
+        return null;
+      }
 
       return {
         filePath,
         oldImports,
+        importCount,
+        colorCount,
+        spacingCount,
+        totalChanges,
         newContent,
         originalContent: content
       };
@@ -166,7 +252,7 @@ class ImportMigrator {
   }
 
   run(srcDir) {
-    console.log('🔍 Scanning for old imports...\n');
+    console.log('🔍 Scanning for design system violations...\n');
     
     const files = this.scanDirectory(srcDir);
     console.log(`Found ${files.length} TypeScript/TSX files\n`);
@@ -176,9 +262,13 @@ class ImportMigrator {
       
       if (result) {
         this.changes.push(result);
+        this.stats.imports += result.importCount;
+        this.stats.colors += result.colorCount;
+        this.stats.spacing += result.spacingCount;
       }
     });
 
+    this.stats.filesModified = this.changes.length;
     this.printReport();
 
     if (!this.dryRun && this.changes.length > 0) {
@@ -188,31 +278,55 @@ class ImportMigrator {
 
   printReport() {
     console.log('╔══════════════════════════════════════════════════════════════════╗');
-    console.log('║         📦 IMPORT MIGRATION REPORT                               ║');
+    console.log('║         🎨 DESIGN SYSTEM AUTO-FIX REPORT                         ║');
     console.log('╚══════════════════════════════════════════════════════════════════╝\n');
 
     if (this.changes.length === 0) {
-      console.log('✅ No old imports found! All files are using /src/ui/ primitives.\n');
+      console.log('✅ No violations found! All files follow the design system.\n');
       return;
     }
 
-    console.log(`Found ${this.changes.length} files with old imports:\n`);
+    // Summary statistics
+    console.log('📊 SUMMARY');
+    console.log('─────────────────────────────────────────────────────────────────');
+    console.log(`Files modified: ${this.stats.filesModified}`);
+    console.log(`  📦 Import fixes: ${this.stats.imports}`);
+    console.log(`  🎨 Color fixes: ${this.stats.colors}`);
+    console.log(`  📏 Spacing fixes: ${this.stats.spacing}`);
+    console.log(`  Total changes: ${this.stats.imports + this.stats.colors + this.stats.spacing}\n`);
+
+    // Detailed file breakdown
+    console.log('📝 FILE DETAILS');
+    console.log('─────────────────────────────────────────────────────────────────\n');
 
     this.changes.forEach((change, index) => {
       console.log(`${index + 1}. ${change.filePath}`);
-      console.log('   Changes:');
       
-      change.oldImports.forEach(importInfo => {
-        const newImport = this.migrateImport(importInfo);
-        console.log(`   ❌ ${importInfo.fullMatch}`);
-        console.log(`   ✅ ${newImport}`);
-      });
+      if (change.importCount > 0) {
+        console.log(`   📦 Import migrations: ${change.importCount}`);
+        change.oldImports.slice(0, 3).forEach(importInfo => {
+          const newImport = this.migrateImport(importInfo);
+          console.log(`      ${importInfo.oldPath} → ${importInfo.newPath}`);
+        });
+        if (change.oldImports.length > 3) {
+          console.log(`      ... and ${change.oldImports.length - 3} more`);
+        }
+      }
+      
+      if (change.colorCount > 0) {
+        console.log(`   🎨 Color fixes: ${change.colorCount} classes`);
+      }
+      
+      if (change.spacingCount > 0) {
+        console.log(`   📏 Spacing fixes: ${change.spacingCount} classes`);
+      }
       
       console.log();
     });
 
     if (this.errors.length > 0) {
-      console.log('⚠️  ERRORS:\n');
+      console.log('⚠️  ERRORS');
+      console.log('─────────────────────────────────────────────────────────────────\n');
       this.errors.forEach(error => {
         console.log(`   ${error.filePath}`);
         console.log(`   Error: ${error.error}\n`);
@@ -220,8 +334,7 @@ class ImportMigrator {
     }
 
     console.log('─────────────────────────────────────────────────────────────────');
-    console.log(`Total files to modify: ${this.changes.length}`);
-    console.log(`Total import statements to migrate: ${this.changes.reduce((sum, c) => sum + c.oldImports.length, 0)}`);
+    console.log(`Total modifications: ${this.changes.length} files`);
     console.log('─────────────────────────────────────────────────────────────────\n');
 
     if (this.dryRun) {
