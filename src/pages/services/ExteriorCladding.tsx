@@ -49,6 +49,16 @@ const ExteriorCladding = () => {
     },
     {
       icon: Shield,
+      title: 'Stucco & EIFS Systems',
+      description: 'Traditional stucco and Exterior Insulation Finishing Systems with superior thermal performance and design flexibility.'
+    },
+    {
+      icon: CheckCircle2,
+      title: 'Sealants & Caulking',
+      description: 'Professional weatherproofing and building envelope protection with high-performance sealant systems.'
+    },
+    {
+      icon: Shield,
       title: 'Rainscreen Applications',
       description: 'Ventilated rainscreen assemblies maximizing weather protection and building envelope performance.'
     }

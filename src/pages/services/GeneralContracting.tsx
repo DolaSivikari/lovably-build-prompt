@@ -194,8 +194,8 @@ const GeneralContracting = () => {
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-foreground mb-6">The Self-Perform Advantage</h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Unlike traditional GCs who subcontract all work, we self-perform critical exterior envelope trades including 
-                EIFS/stucco, masonry restoration, metal cladding, and waterproofing. This means:
+                Unlike traditional GCs who subcontract all work, we self-perform critical trades including 
+                EIFS/stucco, masonry restoration, metal cladding, waterproofing, parking garage coatings, and specialty painting. This means:
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 text-left">
