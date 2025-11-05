@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Building2, Award } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 
 const heroSlides = [
@@ -187,10 +187,7 @@ const EnhancedHero = () => {
           {/* Main Headline */}
           <h1 
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-slide-up"
-            style={{ 
-              fontFamily: "'Playfair Display', serif",
-              animationDelay: "0.4s" 
-            }}
+            style={{ animationDelay: "0.4s" }}
           >
             {slide.headline}
           </h1>
@@ -208,7 +205,7 @@ const EnhancedHero = () => {
             className="flex flex-col sm:flex-row gap-4 mb-12 animate-slide-up"
             style={{ animationDelay: "0.8s" }}
           >
-            <Button asChild size="lg" className="group bg-accent hover:bg-accent/90 text-white shadow-accent">
+            <Button asChild size="lg" variant="primary" className="group shadow-accent">
               <Link to={slide.primaryCTA.href} className="gap-2">
                 <PrimaryIcon className="h-5 w-5" />
                 {slide.primaryCTA.label}
@@ -216,7 +213,7 @@ const EnhancedHero = () => {
               </Link>
             </Button>
             
-            <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm">
+            <Button asChild size="lg" variant="secondary" className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm">
               <Link to={slide.secondaryCTA.href}>
                 {slide.secondaryCTA.label}
               </Link>

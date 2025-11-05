@@ -1,6 +1,6 @@
 import { BadgeCheck, Building2, ShieldCheck, Sparkles, Clock, Headphones } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card } from "@/ui/Card";
+import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useRef } from "react";
@@ -95,8 +95,8 @@ const WhyChooseUs = () => {
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <Card className="h-full border-2 border-transparent hover:border-primary/50 hover:shadow-2xl transition-all duration-300 bg-card/50 backdrop-blur-sm">
-                  <CardContent className="p-6 h-full flex flex-col">
+                <Card variant="elevated" className="h-full border-2 border-transparent hover:border-primary/50 hover:shadow-2xl transition-all duration-300 bg-card/50 backdrop-blur-sm">
+                  <div className="p-6 h-full flex flex-col">
                     {/* Animated Icon Container */}
                     <div className="relative mb-6">
                       <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center relative z-10 group-hover:scale-110 transition-transform duration-300`}>
@@ -123,7 +123,7 @@ const WhyChooseUs = () => {
                         {item.stats}
                       </div>
                     </div>
-                  </CardContent>
+                  </div>
                 </Card>
               </article>
             );
@@ -140,10 +140,10 @@ const WhyChooseUs = () => {
               Get a detailed, itemized estimate for your construction project in Toronto or the GTA
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="min-w-[200px]">
+              <Button asChild size="lg" variant="primary" className="min-w-[200px]">
                 <Link to="/contact">Request Proposal</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="min-w-[200px]">
+              <Button asChild size="lg" variant="secondary" className="min-w-[200px]">
                 <Link to="/projects">View Our Projects</Link>
               </Button>
             </div>

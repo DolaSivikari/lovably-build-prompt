@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "./ui/button";
+import { Button } from "@/ui/Button";
 import ascentLogo from "@/assets/ascent-logo.png";
 import { ChevronDown, Shield, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -255,7 +255,7 @@ const Navigation = () => {
             </Link>
 
             <div className="flex items-center gap-3 ml-4">
-              <Button asChild variant="default" size="sm">
+              <Button asChild variant="primary" size="sm">
                 <Link to="/submit-rfp">Submit RFP</Link>
               </Button>
               <Link 

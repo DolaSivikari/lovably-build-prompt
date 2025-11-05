@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Building2, Users, ArrowRight, CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/ui/Button";
+import { Card } from "@/ui/Card";
 
 const WhoWeServe = () => {
   return (
@@ -18,20 +18,20 @@ const WhoWeServe = () => {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Developers & General Contractors */}
-          <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-primary/20">
+          <Card variant="elevated" className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-primary/20">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             
-            <CardHeader className="relative z-10">
+            <div className="relative z-10 p-6">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                 <Building2 className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle className="text-2xl">For Developers & General Contractors</CardTitle>
-              <CardDescription className="text-base">
+              <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">For Developers & General Contractors</h3>
+              <p className="text-sm text-muted-foreground mb-6">
                 Reliable subcontracting and trade coordination for complex projects
-              </CardDescription>
-            </CardHeader>
+              </p>
+            </div>
 
-            <CardContent className="relative z-10 space-y-6">
+            <div className="relative z-10 p-6 pt-0 space-y-6">
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -52,36 +52,36 @@ const WhoWeServe = () => {
               </ul>
 
               <div className="pt-4 flex flex-col sm:flex-row gap-3">
-                <Button asChild className="group">
+                <Button asChild variant="primary" className="group">
                   <Link to="/capabilities" className="gap-2">
                     View Capabilities
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline">
+                <Button asChild variant="secondary">
                   <Link to="/prequalification">
                     Pre-Qualification Package
                   </Link>
                 </Button>
               </div>
-            </CardContent>
+            </div>
           </Card>
 
           {/* Property Owners & Managers */}
-          <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-primary/20">
+          <Card variant="elevated" className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-primary/20">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             
-            <CardHeader className="relative z-10">
+            <div className="relative z-10 p-6">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                 <Users className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle className="text-2xl">For Property Owners & Managers</CardTitle>
-              <CardDescription className="text-base">
+              <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">For Property Owners & Managers</h3>
+              <p className="text-sm text-muted-foreground mb-6">
                 Complete project management from concept to completion
-              </CardDescription>
-            </CardHeader>
+              </p>
+            </div>
 
-            <CardContent className="relative z-10 space-y-6">
+            <div className="relative z-10 p-6 pt-0 space-y-6">
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -102,19 +102,19 @@ const WhoWeServe = () => {
               </ul>
 
               <div className="pt-4 flex flex-col sm:flex-row gap-3">
-                <Button asChild className="group">
+                <Button asChild variant="primary" className="group">
                   <Link to="/contact" className="gap-2">
                     Request Proposal
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline">
+                <Button asChild variant="secondary">
                   <Link to="/projects">
                     View Our Work
                   </Link>
                 </Button>
               </div>
-            </CardContent>
+            </div>
           </Card>
         </div>
       </div>
