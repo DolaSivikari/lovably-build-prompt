@@ -59,6 +59,12 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "brand-primary": "hsl(var(--brand-primary))",
+        "brand-accent": "hsl(var(--brand-accent))",
+        ink: "hsl(var(--ink))",
+        muted: "hsl(var(--muted))",
+        line: "hsl(var(--line))",
+        "bg-soft": "hsl(var(--bg-soft))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -109,6 +115,11 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xs: "var(--radius-xs)",
+      },
+      boxShadow: {
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
       },
       keyframes: {
         "accordion-down": {

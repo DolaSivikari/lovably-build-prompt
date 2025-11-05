@@ -1,0 +1,35 @@
+:root {
+  /* Brand Colors */
+  --brand-primary: 24 50 75; /* #18324B Navy */
+  --brand-accent: 249 115 22; /* #F97316 Construction Orange */
+  --ink: 17 24 39; /* #111827 Text */
+  --muted: 107 114 128; /* #6B7280 Secondary text */
+  --line: 229 231 235; /* #E5E7EB Borders */
+  --bg: 255 255 255; /* #FFFFFF */
+  --bg-soft: 243 244 246; /* #F3F4F6 */
+
+  /* Feedback Colors */
+  --success: 22 163 74; /* #16A34A */
+  --warning: 217 119 6; /* #D97706 */
+  --danger: 220 38 38; /* #DC2626 */
+  --info: 37 99 235; /* #2563EB */
+
+  /* Elevation */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --space-10: 72px;
+}
