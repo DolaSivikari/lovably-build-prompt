@@ -128,7 +128,7 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
                       </div>
                     ) : (
                       <div className="mb-4 flex justify-center">
-                        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-[var(--radius-md)] bg-primary/10 flex items-center justify-center">
                           <Icon className="w-8 h-8 text-primary" />
                         </div>
                       </div>

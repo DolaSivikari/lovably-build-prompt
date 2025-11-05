@@ -99,7 +99,7 @@ const Navigation = () => {
       <nav 
         className={cn(
           "fixed top-0 left-0 right-0 z-navigation border-b",
-          "transition-[transform,background-color,backdrop-filter,box-shadow,border-color] duration-500 ease-in-out",
+          "transition-[transform,background-color,backdrop-filter,box-shadow,border-color] var(--transition-slow)",
           isAtTop 
             ? "bg-transparent backdrop-blur-none border-transparent" 
             : "bg-background/95 backdrop-blur-xl shadow-lg border-border/50",
@@ -189,16 +189,16 @@ const Navigation = () => {
                 to="/projects"
                 className={cn(
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "transition-[color,transform] duration-300",
+                  "link-underline",
                   activeMegaMenu === "markets" && "text-primary scale-105",
-                  activeMegaMenu !== "markets" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
+                  activeMegaMenu !== "markets" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "markets"}
                 aria-controls="markets-mega-menu"
               >
                 Markets
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-[transform] duration-200",
+                  "w-4 h-4 icon-rotate",
                   activeMegaMenu === "markets" && "rotate-180"
                 )} />
               </Link>
@@ -219,16 +219,16 @@ const Navigation = () => {
                 to="/projects"
                 className={cn(
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "transition-[color,transform] duration-300",
+                  "link-underline",
                   activeMegaMenu === "projects" && "text-primary scale-105",
-                  activeMegaMenu !== "projects" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
+                  activeMegaMenu !== "projects" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "projects"}
                 aria-controls="projects-mega-menu"
               >
                 Projects
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-[transform] duration-200",
+                  "w-4 h-4 icon-rotate",
                   activeMegaMenu === "projects" && "rotate-180"
                 )} />
               </Link>
@@ -248,16 +248,16 @@ const Navigation = () => {
               <button
                 className={cn(
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "transition-[color,transform] duration-300",
+                  "link-underline",
                   activeMegaMenu === "company" && "text-primary scale-105",
-                  activeMegaMenu !== "company" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
+                  activeMegaMenu !== "company" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "company"}
                 aria-controls="company-mega-menu"
               >
                 Company
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-[transform] duration-200",
+                  "w-4 h-4 icon-rotate",
                   activeMegaMenu === "company" && "rotate-180"
                 )} />
               </button>
@@ -277,16 +277,16 @@ const Navigation = () => {
               <button
                 className={cn(
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "transition-[color,transform] duration-300",
+                  "link-underline",
                   activeMegaMenu === "resources" && "text-primary scale-105",
-                  activeMegaMenu !== "resources" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
+                  activeMegaMenu !== "resources" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "resources"}
                 aria-controls="resources-mega-menu"
               >
                 Resources
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-[transform] duration-200",
+                  "w-4 h-4 icon-rotate",
                   activeMegaMenu === "resources" && "rotate-180"
                 )} />
               </button>
@@ -301,8 +301,8 @@ const Navigation = () => {
               to="/contact"
               className={cn(
                 "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
-                "transition-[color,transform] duration-300 after:transition-[transform] after:duration-300",
-                isActive("/contact") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"),
+                "link-underline after:transition-transform",
+                isActive("/contact") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"),
                 !isActive("/contact") && "hover:text-primary"
               )}
             >
@@ -322,8 +322,8 @@ const Navigation = () => {
               to="/resources/contractor-portal" 
               className={cn(
                 "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap",
-                "transition-[color,transform] duration-300",
-                isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
+                "link-underline",
+                isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"
               )}
             >
               Client Portal
@@ -337,9 +337,9 @@ const Navigation = () => {
                   onMouseLeave={scheduleCloseAdminDropdown}
                   className={cn(
                     "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                    "transition-[color,transform] duration-300",
+                    "link-underline",
                     adminDropdownOpen && "text-primary scale-105",
-                    !adminDropdownOpen && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
+                    !adminDropdownOpen && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
                   )}
                   aria-expanded={adminDropdownOpen}
                 >
@@ -375,7 +375,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/services" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Services
                     </Link>
@@ -384,7 +384,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/projects" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Projects
                     </Link>
@@ -393,7 +393,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/blog" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Blog Posts & Case Studies
                     </Link>
@@ -402,7 +402,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/testimonials" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Testimonials
                     </Link>
@@ -411,7 +411,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/stats" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Stats
                     </Link>
@@ -426,7 +426,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/landing-menu" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Home Hero Menu
                     </Link>
@@ -435,7 +435,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/about-page" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       About Us Page
                     </Link>
@@ -444,7 +444,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/footer-settings" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Footer Content
                     </Link>
@@ -453,7 +453,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/contact-page-settings" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Contact Page
                     </Link>
@@ -468,7 +468,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/contacts" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Contact Submissions
                     </Link>
@@ -477,7 +477,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/resumes" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Resume Submissions
                     </Link>
@@ -492,7 +492,7 @@ const Navigation = () => {
                     <Link 
                       to="/admin/site-settings" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Site Settings
                     </Link>

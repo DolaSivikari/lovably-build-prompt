@@ -9,42 +9,42 @@ const badgeVariants = cva(
     variants: {
       variant: {
         // Gradient variants with solid backgrounds
-        primary: "border-0 bg-gradient-to-br from-[hsl(var(--brand-primary))] to-[hsl(210_100%_30%)] text-white shadow-md hover:shadow-lg hover:scale-105",
-        success: "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white shadow-md hover:shadow-[0_0_12px_rgba(16,185,129,0.4)] hover:scale-105",
-        warning: "border-0 bg-gradient-to-br from-[hsl(38_92%_50%)] to-[hsl(38_92%_45%)] text-white shadow-md hover:shadow-[0_0_12px_rgba(245,158,11,0.4)] hover:scale-105",
-        info: "border-0 bg-gradient-to-br from-[hsl(217_91%_60%)] to-[hsl(217_91%_55%)] text-white shadow-md hover:shadow-[0_0_12px_rgba(59,130,246,0.4)] hover:scale-105",
-        danger: "border-0 bg-gradient-to-br from-[hsl(0_84%_60%)] to-[hsl(0_84%_55%)] text-white shadow-md hover:shadow-[0_0_12px_rgba(239,68,68,0.4)] hover:scale-105",
+        primary: "border-0 bg-gradient-to-br from-[hsl(var(--brand-primary))] to-[hsl(210_100%_30%)] text-white [box-shadow:var(--badge-shadow-md)] hover:[box-shadow:var(--badge-glow-primary)] hover-scale",
+        success: "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white [box-shadow:var(--badge-shadow-md)] hover:[box-shadow:var(--badge-glow-success)] hover-scale",
+        warning: "border-0 bg-gradient-to-br from-[hsl(38_92%_50%)] to-[hsl(38_92%_45%)] text-white [box-shadow:var(--badge-shadow-md)] hover:[box-shadow:var(--badge-glow-warning)] hover-scale",
+        info: "border-0 bg-gradient-to-br from-[hsl(217_91%_60%)] to-[hsl(217_91%_55%)] text-white [box-shadow:var(--badge-shadow-md)] hover:[box-shadow:var(--badge-glow-info)] hover-scale",
+        danger: "border-0 bg-gradient-to-br from-[hsl(0_84%_60%)] to-[hsl(0_84%_55%)] text-white [box-shadow:var(--badge-shadow-md)] hover:[box-shadow:var(--badge-glow-danger)] hover-scale",
         
         // Glass morphism effect
-        glass: "border border-white/20 bg-white/10 backdrop-blur-md text-white shadow-lg hover:bg-white/20 hover:scale-105",
+        glass: "border border-white/20 bg-white/10 backdrop-blur-md text-white [box-shadow:var(--badge-shadow-md)] hover:bg-white/20 hover-scale",
         
         // Outline with gradient border
-        "outline-gradient": "border-2 border-transparent bg-gradient-to-br from-[hsl(var(--brand-primary))] to-[hsl(var(--brand-accent))] bg-clip-border bg-origin-border text-[hsl(var(--brand-primary))] hover:shadow-md hover:scale-105 [background-clip:padding-box,border-box] [background-origin:padding-box,border-box] relative before:absolute before:inset-0 before:bg-white before:rounded-[inherit] before:-z-10",
+        "outline-gradient": "border-2 border-transparent bg-gradient-to-br from-[hsl(var(--brand-primary))] to-[hsl(var(--brand-accent))] bg-clip-border bg-origin-border text-[hsl(var(--brand-primary))] hover:[box-shadow:var(--badge-shadow-md)] hover-scale [background-clip:padding-box,border-box] [background-origin:padding-box,border-box] relative before:absolute before:inset-0 before:bg-white before:rounded-[inherit] before:-z-10",
         
         // Status indicators with dots
-        "status-active": "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white shadow-md hover:scale-105 animate-pulse",
-        "status-pending": "border-0 bg-gradient-to-br from-[hsl(38_92%_50%)] to-[hsl(38_92%_45%)] text-white shadow-md hover:scale-105",
-        "status-inactive": "border-0 bg-gradient-to-br from-[hsl(215_16%_47%)] to-[hsl(215_16%_40%)] text-white shadow-md hover:scale-105",
+        "status-active": "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale animate-pulse",
+        "status-pending": "border-0 bg-gradient-to-br from-[hsl(38_92%_50%)] to-[hsl(38_92%_45%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
+        "status-inactive": "border-0 bg-gradient-to-br from-[hsl(215_16%_47%)] to-[hsl(215_16%_40%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
         
         // Legacy compatibility
-        default: "border-0 bg-gradient-to-br from-[hsl(var(--brand-primary))] to-[hsl(210_100%_30%)] text-white shadow-md hover:scale-105",
-        secondary: "border-0 bg-gradient-to-br from-[hsl(var(--bg-soft))] to-[hsl(210_40%_95%)] text-[hsl(var(--brand-primary))] shadow-sm hover:scale-105",
-        destructive: "border-0 bg-gradient-to-br from-[hsl(0_84%_60%)] to-[hsl(0_84%_55%)] text-white shadow-md hover:scale-105",
-        outline: "border-2 border-[hsl(var(--line))] bg-transparent text-[hsl(var(--ink))] hover:bg-[hsl(var(--bg-soft))] hover:scale-105",
+        default: "border-0 bg-gradient-to-br from-[hsl(var(--brand-primary))] to-[hsl(210_100%_30%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
+        secondary: "border-0 bg-gradient-to-br from-[hsl(var(--bg-soft))] to-[hsl(210_40%_95%)] text-[hsl(var(--brand-primary))] [box-shadow:var(--badge-shadow-sm)] hover-scale",
+        destructive: "border-0 bg-gradient-to-br from-[hsl(0_84%_60%)] to-[hsl(0_84%_55%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
+        outline: "border-2 border-[hsl(var(--line))] bg-transparent text-[hsl(var(--ink))] hover:bg-[hsl(var(--bg-soft))] hover-scale",
         
         // Additional status variants
-        new: "border-0 bg-gradient-to-br from-[hsl(var(--brand-accent))] to-[hsl(25_95%_45%)] text-white shadow-md hover:scale-105",
-        contacted: "border-0 bg-gradient-to-br from-[hsl(217_91%_60%)] to-[hsl(217_91%_55%)] text-white shadow-md hover:scale-105",
-        resolved: "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white shadow-md hover:scale-105",
-        completed: "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white shadow-md hover:scale-105",
-        active: "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white shadow-md hover:scale-105",
-        inactive: "border-0 bg-gradient-to-br from-[hsl(215_16%_47%)] to-[hsl(215_16%_40%)] text-white/90 shadow-sm hover:scale-105",
+        new: "border-0 bg-gradient-to-br from-[hsl(var(--brand-accent))] to-[hsl(25_95%_45%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
+        contacted: "border-0 bg-gradient-to-br from-[hsl(217_91%_60%)] to-[hsl(217_91%_55%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
+        resolved: "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
+        completed: "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
+        active: "border-0 bg-gradient-to-br from-[hsl(142_76%_36%)] to-[hsl(142_76%_30%)] text-white [box-shadow:var(--badge-shadow-md)] hover-scale",
+        inactive: "border-0 bg-gradient-to-br from-[hsl(215_16%_47%)] to-[hsl(215_16%_40%)] text-white/90 [box-shadow:var(--badge-shadow-sm)] hover-scale",
       },
       size: {
         xs: "text-[10px] px-2 py-0.5 gap-1 rounded-full",
         sm: "text-xs px-2.5 py-1 gap-1.5 rounded-full",
         md: "text-sm px-3 py-1.5 gap-2 rounded-full",
-        lg: "text-base px-4 py-2 gap-2 rounded-lg",
+        lg: "text-base px-4 py-2 gap-2 rounded-[var(--radius-sm)]",
       },
     },
     defaultVariants: {

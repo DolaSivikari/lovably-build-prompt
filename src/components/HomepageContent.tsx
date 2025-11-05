@@ -71,21 +71,21 @@ const HomepageContent = () => {
           <div className="flex flex-wrap gap-4 mt-8 not-prose">
             <Link 
               to={content.cta_primary_url} 
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-semibold"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-[var(--radius-sm)] hover:bg-primary/90 link-hover font-semibold"
             >
               {content.cta_primary_text}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link 
               to={content.cta_secondary_url} 
-              className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition-colors font-semibold"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-[var(--radius-sm)] hover:bg-secondary/90 link-hover font-semibold"
             >
               {content.cta_secondary_text}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link 
               to={content.cta_tertiary_url} 
-              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors font-semibold"
+              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-[var(--radius-sm)] hover:bg-primary hover:text-primary-foreground link-hover font-semibold"
             >
               {content.cta_tertiary_text}
               <ArrowRight className="h-4 w-4" />

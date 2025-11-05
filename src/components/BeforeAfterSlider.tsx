@@ -17,7 +17,7 @@ const BeforeAfterSlider = ({
   const [sliderPosition, setSliderPosition] = useState([50]);
 
   return (
-    <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg group">
+    <div className="relative w-full aspect-[16/9] overflow-hidden rounded-[var(--radius-sm)] group">
       {/* After Image (Background) */}
       <img
         src={afterImage}
