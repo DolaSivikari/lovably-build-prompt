@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import { Calendar, ArrowRight, Clock, BookOpen, MapPin, Ruler } from "lucide-react";
+import { Calendar, ArrowRight, Clock } from "lucide-react";
 import OptimizedImage from "../OptimizedImage";
-import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { resolveAssetPath } from "@/utils/assetResolver";
 
-const categories = ["All", "Painting", "Exterior Systems", "Restoration", "Tips & Guides"];
+const categories = ["All", "Case Studies", "Industry Insights", "Technical", "News"];
 
 interface BlogPost {
   id: string;
@@ -61,119 +60,112 @@ const ContentHub = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="text-center">Loading...</div>
+      <section className="py-20 md:py-24 bg-muted/30">
+        <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+          <div className="text-center text-muted-foreground">Loading...</div>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <section className="py-20 md:py-24 bg-muted/30">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
         
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <span className="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
-            Construction Intelligence
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Expert Insights & Project Stories
+        {/* Section Header - Enterprise Style */}
+        <div className="max-w-3xl mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+            Industry Insights & Project Updates
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Industry knowledge, practical tips, and inspiration from our team of construction professionals
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            Expert knowledge, technical insights, and project highlights from our construction team
           </p>
         </div>
 
-        {/* Category Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        {/* Category Filter - Clean Minimal Design */}
+        <div className="flex flex-wrap gap-3 mb-12 pb-8 border-b border-border">
           {categories.map((category) => (
-            <Button
+            <button
               key={category}
-              variant={activeCategory === category ? "primary" : "secondary"}
-              size="sm"
               onClick={() => setActiveCategory(category)}
-              className="rounded-full"
+              className={`
+                px-5 py-2.5 text-sm font-semibold rounded-md transition-all duration-200
+                ${activeCategory === category 
+                  ? 'bg-primary text-primary-foreground shadow-sm' 
+                  : 'bg-background text-muted-foreground hover:bg-muted hover:text-foreground border border-border'
+                }
+              `}
             >
               {category}
-            </Button>
+            </button>
           ))}
         </div>
 
-        {/* Featured Hero Post */}
+        {/* Featured Post - Large Professional Layout */}
         {featuredPost && (
-          <Link to={`/blog/${featuredPost.slug}`} className="block mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group border hover:border-primary">
-                <div className="grid md:grid-cols-2 gap-0">
-                  {/* Image */}
-                  <div className="relative h-72 md:h-auto overflow-hidden">
-                    <OptimizedImage
-                      src={resolveAssetPath(featuredPost.featured_image) || featuredPost.featured_image}
-                      alt={featuredPost.title}
-                      width={1200}
-                      height={800}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute top-6 left-6 z-10">
-                      <Badge className="bg-secondary text-primary text-sm px-4 py-1">
-                        Featured
-                      </Badge>
+          <Link to={`/blog/${featuredPost.slug}`} className="block mb-16">
+            <Card className="overflow-hidden group border-border hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300">
+              <div className="grid md:grid-cols-5 gap-0">
+                {/* Image - 3 columns */}
+                <div className="relative md:col-span-3 h-80 md:h-[500px] overflow-hidden bg-muted">
+                  <OptimizedImage
+                    src={resolveAssetPath(featuredPost.featured_image) || featuredPost.featured_image}
+                    alt={featuredPost.title}
+                    width={1200}
+                    height={800}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-transparent"></div>
+                </div>
+
+                {/* Content - 2 columns */}
+                <CardContent className="md:col-span-2 p-8 lg:p-12 flex flex-col justify-center bg-background">
+                  <div className="inline-flex items-center gap-2 mb-4">
+                    <div className="h-1 w-12 bg-steel-blue"></div>
+                    <span className="text-xs font-bold text-steel-blue uppercase tracking-wider">
+                      Featured Article
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-foreground leading-tight group-hover:text-primary transition-colors duration-200">
+                    {featuredPost.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground mb-8 line-clamp-3 text-base md:text-lg leading-relaxed">
+                    {featuredPost.summary}
+                  </p>
+
+                  <div className="flex items-center gap-6 text-sm text-muted-foreground mb-8 pb-6 border-b border-border">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-steel-blue" />
+                      <span>
+                        {new Date(featuredPost.published_at).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        })}
+                      </span>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--ink))]/50 to-transparent"></div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-steel-blue" />
+                      <span>5 min read</span>
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <CardContent className="p-8 lg:p-12 flex flex-col justify-center">
-                    <Badge variant="outline" className="w-fit mb-4">
-                      {featuredPost.category}
-                    </Badge>
-                    
-                    <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-primary transition-colors">
-                      {featuredPost.title}
-                    </h3>
-                    
-                    <p className="text-muted-foreground mb-6 line-clamp-3 text-base">
-                      {featuredPost.summary}
-                    </p>
-
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        <span>
-                          {new Date(featuredPost.published_at).toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric'
-                          })}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        <span>5 min read</span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-primary font-semibold group-hover:gap-4 transition-all">
-                      Read Full Article
-                      <ArrowRight className="h-5 w-5" />
-                    </div>
-                  </CardContent>
-                </div>
-              </Card>
-            </motion.div>
+                  <div className="flex items-center gap-3 text-primary font-semibold text-base group-hover:gap-4 transition-all">
+                    Read Article
+                    <ArrowRight className="h-5 w-5" />
+                  </div>
+                </CardContent>
+              </div>
+            </Card>
           </Link>
         )}
 
-        {/* Regular Post Grid */}
+        {/* Post Grid - Clean 3-Column Layout */}
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {filteredPosts.map((post, index) => {
+          {filteredPosts.map((post) => {
             const formattedDate = new Date(post.published_at).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
@@ -181,65 +173,56 @@ const ContentHub = () => {
             });
 
             return (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Link to={`/blog/${post.slug}`}>
-                  <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden group border hover:border-primary">
-                    <div className="relative h-48 overflow-hidden">
-                      <OptimizedImage
-                        src={resolveAssetPath(post.featured_image) || post.featured_image}
-                        alt={`${post.title} - ${post.category}`}
-                        width={800}
-                        height={600}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                      <div className="absolute top-4 left-4 z-10">
-                        <Badge className="bg-secondary text-primary">
-                          {post.category}
-                        </Badge>
+              <Link key={post.id} to={`/blog/${post.slug}`} className="group">
+                <Card className="h-full overflow-hidden border-border hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300">
+                  <div className="relative h-56 overflow-hidden bg-muted">
+                    <OptimizedImage
+                      src={resolveAssetPath(post.featured_image) || post.featured_image}
+                      alt={post.title}
+                      width={800}
+                      height={600}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
+                  
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-xs font-semibold text-steel-blue uppercase tracking-wider">
+                        {post.category}
+                      </span>
+                      <span className="text-muted-foreground">•</span>
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>{formattedDate}</span>
                       </div>
                     </div>
                     
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-                        <Calendar className="w-3 h-3" />
-                        <span>{formattedDate}</span>
-                        <span className="mx-1">•</span>
-                        <Clock className="w-3 h-3" />
-                        <span>5 min</span>
-                      </div>
-                      
-                      <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                        {post.title}
-                      </h3>
-                      
-                      <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                        {post.summary}
-                      </p>
+                    <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight">
+                      {post.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground text-sm line-clamp-3 mb-5 leading-relaxed">
+                      {post.summary}
+                    </p>
 
-                      <div className="flex items-center gap-2 text-sm text-primary font-semibold">
-                        Read More
-                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
+                    <div className="flex items-center gap-2 text-sm text-steel-blue font-semibold pt-4 border-t border-border">
+                      Read More
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             );
           })}
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center">
-          <Button asChild size="lg">
-            <Link to="/blog">
-              View All Articles
-              <ArrowRight className="ml-2 w-4 h-4" />
+        {/* CTA - Professional Design */}
+        <div className="text-center pt-8">
+          <Button asChild variant="secondary" size="lg" className="min-w-[200px]">
+            <Link to="/blog" className="inline-flex items-center gap-2">
+              View All Insights
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
         </div>
