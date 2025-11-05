@@ -13,6 +13,8 @@ import {
   Clock
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { StaggerContainer } from '@/components/animations/StaggerContainer';
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 
 interface Stats {
   totalRevenue: number;
@@ -129,7 +131,7 @@ export const BusinessDashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="business-stats-grid">
+      <StaggerContainer type="fade" className="business-stats-grid">
         <StatCard
           title="Total Revenue"
           value={formatCurrency(stats.totalRevenue)}
@@ -154,49 +156,51 @@ export const BusinessDashboard = () => {
           icon={Users}
           gradient="linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)"
         />
-      </div>
+      </StaggerContainer>
 
       {/* Quick Actions */}
-      <div className="business-glass-card" style={{ padding: '1.5rem', marginTop: '2rem' }}>
-        <h2 style={{ 
-          fontSize: '1.25rem', 
-          fontWeight: '700', 
-          color: 'var(--business-text-primary)',
-          marginBottom: '1rem'
-        }}>
-          Quick Actions
-        </h2>
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <button 
-            className="business-btn business-btn-primary"
-            onClick={() => navigate('/admin/business/estimates')}
-          >
-            <FileText size={18} />
-            New Estimate
-          </button>
-          <button 
-            className="business-btn business-btn-success"
-            onClick={() => navigate('/admin/business/invoices')}
-          >
-            <DollarSign size={18} />
-            Create Invoice
-          </button>
-          <button 
-            className="business-btn business-btn-ghost"
-            onClick={() => navigate('/admin/business/clients')}
-          >
-            <Users size={18} />
-            Add Client
-          </button>
-          <button 
-            className="business-btn business-btn-ghost"
-            onClick={() => navigate('/admin/business/projects')}
-          >
-            <Briefcase size={18} />
-            New Project
-          </button>
+      <ScrollReveal direction="up">
+        <div className="business-glass-card" style={{ padding: '1.5rem', marginTop: '2rem' }}>
+          <h2 style={{ 
+            fontSize: '1.25rem', 
+            fontWeight: '700', 
+            color: 'var(--business-text-primary)',
+            marginBottom: '1rem'
+          }}>
+            Quick Actions
+          </h2>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <button 
+              className="business-btn business-btn-primary"
+              onClick={() => navigate('/admin/business/estimates')}
+            >
+              <FileText size={18} />
+              New Estimate
+            </button>
+            <button 
+              className="business-btn business-btn-success"
+              onClick={() => navigate('/admin/business/invoices')}
+            >
+              <DollarSign size={18} />
+              Create Invoice
+            </button>
+            <button 
+              className="business-btn business-btn-ghost"
+              onClick={() => navigate('/admin/business/clients')}
+            >
+              <Users size={18} />
+              Add Client
+            </button>
+            <button 
+              className="business-btn business-btn-ghost"
+              onClick={() => navigate('/admin/business/projects')}
+            >
+              <Briefcase size={18} />
+              New Project
+            </button>
+          </div>
         </div>
-      </div>
+      </ScrollReveal>
     </div>
   );
 };

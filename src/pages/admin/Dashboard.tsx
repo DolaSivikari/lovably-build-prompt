@@ -26,6 +26,8 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import MetricCard from "@/components/admin/MetricCard";
 import QuickActions from "@/components/admin/QuickActions";
 import ActivityFeed from "@/components/admin/ActivityFeed";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 
 const Dashboard = () => {
@@ -310,7 +312,7 @@ const Dashboard = () => {
           </div>
         </div>
       ) : (
-        <div className="business-stats-grid">
+        <StaggerContainer type="fade" className="business-stats-grid">
           <MetricCard
             title="Published Projects"
             value={stats.projects}
@@ -339,34 +341,38 @@ const Dashboard = () => {
             badge={stats.newResumes}
             onClick={() => navigate("/admin/resumes")}
           />
-        </div>
+        </StaggerContainer>
       )}
 
       {/* Secondary Metrics */}
-      <div className="business-stats-grid" style={{ marginBottom: '2rem' }}>
-        <MetricCard
-          title="Services"
-          value={stats.services}
-          icon={TrendingUp}
-          onClick={() => navigate("/admin/services")}
-        />
-        <MetricCard
-          title="Prequalification Requests"
-          value={stats.prequalRequests}
-          icon={Package}
-          badge={stats.newPrequalRequests}
-          onClick={() => navigate("/admin/prequalifications")}
-        />
+      <div style={{ marginBottom: '2rem' }}>
+        <StaggerContainer type="fade" className="business-stats-grid">
+          <MetricCard
+            title="Services"
+            value={stats.services}
+            icon={TrendingUp}
+            onClick={() => navigate("/admin/services")}
+          />
+          <MetricCard
+            title="Prequalification Requests"
+            value={stats.prequalRequests}
+            icon={Package}
+            badge={stats.newPrequalRequests}
+            onClick={() => navigate("/admin/prequalifications")}
+          />
+        </StaggerContainer>
       </div>
 
       {/* Quick Actions & Activity Feed */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" style={{ marginBottom: '2rem' }}>
-        <QuickActions />
-        <ActivityFeed 
-          submissions={recentSubmissions} 
-          newCount={stats.newSubmissions}
-        />
-      </div>
+      <ScrollReveal direction="up">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" style={{ marginBottom: '2rem' }}>
+          <QuickActions />
+          <ActivityFeed 
+            submissions={recentSubmissions} 
+            newCount={stats.newSubmissions}
+          />
+        </div>
+      </ScrollReveal>
 
       {/* Settings & Tools Card */}
       <div className="business-glass-card" style={{ padding: '1.5rem' }}>

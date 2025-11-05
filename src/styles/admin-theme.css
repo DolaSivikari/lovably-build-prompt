@@ -3,31 +3,30 @@
    ============================================================================ */
 
 :root {
-  /* Business Admin Theme - Dark Glassmorphism */
-  /* ALL COLORS MUST BE HSL FORMAT - NO HEX! */
-  --business-primary: 217 91% 60%;        /* Blue #2563eb in HSL */
-  --business-primary-dark: 221 83% 53%;   /* Darker blue #1d4ed8 */
-  --business-accent-orange: 25 95% 53%;   /* Orange #f97316 */
-  --business-accent-green: 142 76% 36%;   /* Green #10b981 */
-  --business-accent-red: 0 72% 51%;       /* Red #ef4444 */
-  --business-accent-yellow: 38 92% 50%;   /* Yellow #f59e0b */
+  /* Business Admin Theme - Now references design tokens */
+  --business-primary: var(--admin-primary);
+  --business-primary-dark: 221 83% 53%;
+  --business-accent-orange: var(--admin-accent);
+  --business-accent-green: var(--admin-success);
+  --business-accent-red: var(--admin-danger);
+  --business-accent-yellow: var(--admin-warning);
   
-  --business-bg-darker: 222 47% 4%;       /* #020617 */
-  --business-bg-dark: 222 47% 11%;        /* #0f172a */
-  --business-bg-card: 215 25% 17%;        /* #1e293b */
-  --business-bg-hover: 215 20% 27%;       /* #334155 */
+  --business-bg-darker: var(--admin-bg-darker);
+  --business-bg-dark: var(--admin-bg-dark);
+  --business-bg-card: var(--admin-bg-card);
+  --business-bg-hover: var(--admin-bg-hover);
   
-  --business-text-primary: 0 0% 100%;     /* White */
-  --business-text-secondary: 214 20% 78%; /* #cbd5e1 */
-  --business-text-muted: 215 14% 64%;     /* #94a3b8 */
+  --business-text-primary: var(--admin-text-primary);
+  --business-text-secondary: var(--admin-text-secondary);
+  --business-text-muted: var(--admin-text-muted);
   
-  --business-border: 215 20% 27%;         /* #334155 */
-  --business-glass-bg: 215 25% 17% / 0.95;     /* rgba(30, 41, 59, 0.95) */
-  --business-glass-border: 215 14% 64% / 0.1;  /* rgba(148, 163, 184, 0.1) */
+  --business-border: var(--admin-border);
+  --business-glass-bg: var(--admin-glass-bg);
+  --business-glass-border: var(--admin-glass-border);
   
-  --business-sidebar-width: 280px;
-  --business-sidebar-collapsed: 80px;
-  --business-header-height: 70px;
+  --business-sidebar-width: var(--admin-sidebar-width);
+  --business-sidebar-collapsed: var(--admin-sidebar-collapsed);
+  --business-header-height: var(--admin-header-height);
 }
 
 /* Business Admin Container */
@@ -167,19 +166,20 @@
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   margin-bottom: 0.25rem;
-  border-radius: 8px;
+  border-radius: var(--admin-radius);
   color: var(--business-text-secondary);
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 500;
-  transition: all 0.15s ease;
+  transition: var(--admin-transition);
   position: relative;
-  min-height: 44px; /* Touch target */
+  min-height: 44px;
 }
 
 .business-nav-item:hover {
   background: var(--business-bg-hover);
   color: var(--business-text-primary);
+  transform: translateX(4px);
 }
 
 .business-nav-item.active {
@@ -455,14 +455,14 @@
   background: var(--business-glass-bg);
   backdrop-filter: blur(20px);
   border: 1px solid var(--business-glass-border);
-  border-radius: 16px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  border-radius: var(--admin-radius);
+  box-shadow: var(--shadow-md);
+  transition: var(--admin-transition);
 }
 
 .business-glass-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-card-elevated);
   border-color: rgba(148, 163, 184, 0.2);
 }
 

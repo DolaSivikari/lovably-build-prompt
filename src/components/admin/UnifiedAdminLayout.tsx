@@ -4,6 +4,7 @@ import { UnifiedSidebar } from './UnifiedSidebar';
 import { BusinessHeader } from '@/components/business/BusinessHeader';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { supabase } from '@/integrations/supabase/client';
+import { PageTransition } from '@/components/animations/PageTransition';
 import '@/styles/admin-theme.css';
 
 export const UnifiedAdminLayout = () => {
@@ -61,7 +62,9 @@ export const UnifiedAdminLayout = () => {
           onMenuClick={() => setMobileMenuOpen(true)}
         />
         <div className="business-page-content">
-          <Outlet />
+          <PageTransition type="fade" duration={300}>
+            <Outlet />
+          </PageTransition>
         </div>
       </div>
     </div>

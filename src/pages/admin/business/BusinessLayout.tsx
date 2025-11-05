@@ -4,6 +4,7 @@ import { BusinessSidebar } from '@/components/business/BusinessSidebar';
 import { BusinessHeader } from '@/components/business/BusinessHeader';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { supabase } from '@/integrations/supabase/client';
+import { PageTransition } from '@/components/animations/PageTransition';
 import '@/styles/admin-theme.css';
 
 export const BusinessLayout = () => {
@@ -55,7 +56,9 @@ export const BusinessLayout = () => {
       <div className={`business-main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
         <BusinessHeader user={user} />
         <div className="business-page-content">
-          <Outlet />
+          <PageTransition type="fade" duration={300}>
+            <Outlet />
+          </PageTransition>
         </div>
       </div>
     </div>
