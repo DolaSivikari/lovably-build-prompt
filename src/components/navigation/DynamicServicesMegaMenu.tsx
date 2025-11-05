@@ -47,8 +47,8 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
   return (
     <div 
       className={cn(
-        "absolute left-0 top-full mt-0 w-[760px] bg-background border border-border rounded-lg shadow-[0_10px_40px_-10px_hsl(var(--primary)_/_0.2)] z-mega-menu",
-        "transition-all duration-300 ease-out origin-top",
+        "absolute left-0 top-full mt-0 w-[760px] bg-background border border-border rounded-[var(--radius-sm)] [box-shadow:var(--shadow-dropdown)] z-mega-menu",
+        "mega-menu-transition origin-top",
         isOpen ? "opacity-100 visible scale-y-100" : "opacity-0 invisible scale-y-95"
       )}
       onMouseEnter={() => {}}
@@ -66,7 +66,7 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
                 key={service.id}
                 to={`/services/${service.slug}`}
                 onClick={onClose}
-                className="block px-3 py-2.5 text-sm text-foreground hover:text-primary hover:bg-muted/30 transition-all rounded border-l-2 border-transparent hover:border-l-primary hover:pl-4"
+                className="block px-3 py-2.5 text-sm text-foreground hover:text-primary hover:bg-muted/30 menu-item-hover rounded-[var(--radius-xs)] border-l-2 border-transparent hover:border-l-primary hover:pl-4"
               >
                 <div className="font-semibold">{service.name}</div>
                 {service.short_description && (
@@ -90,7 +90,7 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
                 key={service.id}
                 to={`/services/${service.slug}`}
                 onClick={onClose}
-                className="block px-3 py-2.5 text-sm text-foreground hover:text-primary hover:bg-muted/30 transition-all rounded border-l-2 border-transparent hover:border-l-primary hover:pl-4"
+                className="block px-3 py-2.5 text-sm text-foreground hover:text-primary hover:bg-muted/30 menu-item-hover rounded-[var(--radius-xs)] border-l-2 border-transparent hover:border-l-primary hover:pl-4"
               >
                 <div className="font-semibold">{service.name}</div>
                 {service.short_description && (
@@ -118,7 +118,7 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
             <Link
               to="/about"
               onClick={onClose}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:gap-2 transition-all"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:gap-2 link-hover"
             >
               Learn More
               <ArrowRight className="w-3 h-3" />
@@ -128,11 +128,11 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-border bg-muted/20 px-6 py-3 rounded-b-lg">
+      <div className="border-t border-border bg-muted/20 px-6 py-3 rounded-b-[var(--radius-sm)]">
         <Link
           to="/services"
           onClick={onClose}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 link-hover"
         >
           View All Services
           <ArrowRight className="w-4 h-4" />

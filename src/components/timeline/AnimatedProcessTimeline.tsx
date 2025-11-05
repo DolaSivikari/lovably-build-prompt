@@ -47,7 +47,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
   return (
     <div ref={timelineRef} className="relative w-full py-12">
       {/* Progress Bar */}
-      <div className="sticky top-20 z-10 mb-12 bg-background/95 backdrop-blur-sm p-6 rounded-lg border shadow-lg">
+      <div className="sticky top-20 z-10 mb-12 bg-background/95 backdrop-blur-sm p-6 rounded-[var(--radius-sm)] border [box-shadow:var(--shadow-md)]">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-semibold text-lg">Project Progress</h3>
           <Badge variant="secondary" className="text-sm">
@@ -57,8 +57,9 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
         <div className="relative h-3 bg-muted rounded-full overflow-hidden">
           <div
             className={cn(
-              "absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-full transition-all duration-700 ease-out",
-              !prefersReducedMotion && "shadow-[0_0_20px_rgba(var(--primary),0.5)]"
+              "absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-full",
+              !prefersReducedMotion && "[box-shadow:var(--shadow-glow)]",
+              "transition-all duration-700 ease-out"
             )}
             style={{ width: `${progress}%` }}
           />
@@ -77,7 +78,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
         
         {/* Active Progress Line */}
         <div
-          className="absolute left-8 md:left-1/2 top-0 w-0.5 bg-gradient-to-b from-primary to-primary/60 -translate-x-1/2 transition-all duration-700 ease-out shadow-[0_0_10px_rgba(var(--primary),0.5)]"
+          className="absolute left-8 md:left-1/2 top-0 w-0.5 bg-gradient-to-b from-primary to-primary/60 -translate-x-1/2 [box-shadow:var(--shadow-glow)] transition-all duration-700 ease-out"
           style={{ height: `${(activeStep / (steps.length - 1)) * 100}%` }}
         />
 
@@ -108,7 +109,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
                 <div
                   className={cn(
                     "relative w-12 h-12 rounded-full border-4 transition-all duration-500",
-                    isActive && "scale-125 shadow-[0_0_20px_rgba(var(--primary),0.6)]",
+                    isActive && "scale-125 [box-shadow:var(--shadow-glow)]",
                     isCompleted
                       ? "bg-primary border-primary"
                       : "bg-background border-muted-foreground/30",
@@ -149,9 +150,9 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
               >
                 <Card
                   className={cn(
-                    "overflow-hidden transition-all duration-300",
-                    isActive && "ring-2 ring-primary shadow-2xl scale-[1.02]",
-                    !isActive && "hover:shadow-xl hover:scale-[1.01]"
+                    "overflow-hidden card-hover",
+                    isActive && "ring-2 ring-primary [box-shadow:var(--shadow-card-elevated)] scale-[1.02]",
+                    !isActive && "hover:[box-shadow:var(--shadow-md)] hover:scale-[1.01]"
                   )}
                 >
                   <CardContent className="p-6">
@@ -186,7 +187,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
 
                     {/* Image */}
                     {step.image && (
-                      <div className="mb-4 rounded-lg overflow-hidden">
+                      <div className="mb-4 rounded-[var(--radius-sm)] overflow-hidden">
                         <OptimizedImage
                           src={step.image}
                           alt={step.title}
@@ -208,7 +209,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
                       </span>
                       <ChevronDown
                         className={cn(
-                          "h-4 w-4 transition-transform duration-300",
+                          "h-4 w-4 icon-rotate",
                           isExpanded && "rotate-180"
                         )}
                       />

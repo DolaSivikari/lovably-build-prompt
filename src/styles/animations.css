@@ -135,6 +135,27 @@
   transition: var(--transition-opacity);
 }
 
+/* Specialized Transition Utilities */
+.icon-rotate {
+  transition: var(--transition-transform);
+}
+
+.link-underline {
+  transition: var(--transition-colors);
+}
+
+.card-hover {
+  transition: var(--card-transition);
+}
+
+.menu-item-hover {
+  transition: var(--transition-colors);
+}
+
+.mega-menu-transition {
+  transition: var(--transition-opacity);
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,

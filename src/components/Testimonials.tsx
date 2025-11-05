@@ -148,7 +148,7 @@ const Testimonials = () => {
           {/* Google Reviews Grid */}
           <div className="grid md:grid-cols-3 gap-6 mb-16">
             {googleReviews.map((review, idx) => (
-              <Card key={idx} className="hover:shadow-lg transition-shadow">
+              <Card key={idx} className="hover:[box-shadow:var(--shadow-md)] card-hover">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
@@ -222,7 +222,7 @@ const Testimonials = () => {
                     
                     return (
                       <div key={testimonial.author} className="w-full flex-shrink-0 px-2">
-                        <Card className="relative border-border hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 max-w-4xl mx-auto">
+                        <Card className="relative border-border hover:[box-shadow:var(--shadow-card-elevated)] card-hover max-w-4xl mx-auto">
                           <CardContent className="p-8">
                             
                             {/* Quote Icon */}

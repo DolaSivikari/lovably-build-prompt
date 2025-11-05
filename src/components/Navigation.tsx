@@ -112,23 +112,23 @@ const Navigation = () => {
         <div className="flex items-center justify-between w-full h-20">
           {/* Left: Logo + Company Name */}
           <Link to="/" className="flex items-center gap-3 group" aria-label="Ascent Group Construction - Home">
-            <img 
+              <img 
               src={ascentLogo} 
               alt="Ascent Group Construction Logo" 
-              className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
+              className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon group-hover:[box-shadow:var(--shadow-glow)]"
             />
             <div className="flex flex-col items-start leading-tight">
               <span className={cn(
                 "text-base md:text-lg lg:text-xl font-bold relative",
                 "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left",
-                "after:transition-[transform] after:duration-300 transition-[color] duration-300",
-                isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
+                "after:transition-transform icon-rotate",
+                isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"
               )}>
                 Ascent Group
               </span>
               <span className={cn(
-                "text-xs md:text-sm font-bold uppercase tracking-widest transition-[color] duration-300",
-                isAtTop ? "text-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-primary"
+                "text-xs md:text-sm font-bold uppercase tracking-widest link-underline",
+                isAtTop ? "text-primary [text-shadow:var(--shadow-text)]" : "text-primary"
               )}>
                 CONSTRUCTION
               </span>
@@ -142,8 +142,8 @@ const Navigation = () => {
               aria-current={isActive("/") ? "page" : undefined}
               className={cn(
                 "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
-                "transition-[color,transform] duration-300 after:transition-[transform] after:duration-300",
-                isActive("/") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"),
+                "link-underline after:transition-transform",
+                isActive("/") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"),
                 !isActive("/") && "hover:text-primary"
               )}
             >
@@ -160,16 +160,16 @@ const Navigation = () => {
                 to="/services"
                 className={cn(
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "transition-[color,transform] duration-300",
+                  "link-underline",
                   activeMegaMenu === "services" && "text-primary scale-105",
-                  activeMegaMenu !== "services" && (isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground")
+                  activeMegaMenu !== "services" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "services"}
                 aria-controls="services-mega-menu"
               >
                 Services
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-[transform] duration-200",
+                  "w-4 h-4 icon-rotate",
                   activeMegaMenu === "services" && "rotate-180"
                 )} />
               </Link>
@@ -354,13 +354,13 @@ const Navigation = () => {
                   align="end"
                   onMouseEnter={openAdminDropdown}
                   onMouseLeave={scheduleCloseAdminDropdown}
-                  className="w-64 bg-background text-foreground rounded-lg border border-border z-mega-menu mt-2 p-0 animate-enter shadow-[0_10px_40px_-10px_hsl(var(--charcoal)_/_0.2)]"
+                  className="w-64 bg-background text-foreground rounded-[var(--radius-sm)] border border-border z-mega-menu mt-2 p-0 animate-enter [box-shadow:var(--shadow-dropdown)]"
                 >
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
                       to="/admin" 
                       onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                  className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
                       Dashboard
                     </Link>

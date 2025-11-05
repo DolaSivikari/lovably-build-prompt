@@ -111,7 +111,7 @@ const ContentHub = () => {
         {/* Featured Post - Large Professional Layout */}
         {featuredPost && (
           <Link to={`/blog/${featuredPost.slug}`} className="block mb-16">
-            <Card className="overflow-hidden group border-border hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300">
+            <Card className="overflow-hidden group border-border hover:[box-shadow:var(--shadow-card-elevated)] card-hover">
               <div className="grid md:grid-cols-5 gap-0">
                 {/* Image - 3 columns */}
                 <div className="relative md:col-span-3 h-80 md:h-[500px] overflow-hidden bg-muted">
@@ -211,7 +211,7 @@ const ContentHub = () => {
 
                 return (
                   <Link key={post.id} to={`/blog/${post.slug}`} className="group">
-                    <Card className="h-full overflow-hidden border-border hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300">
+                    <Card className="h-full overflow-hidden border-border hover:[box-shadow:var(--shadow-card-elevated)] hover-lift">
                       <div className="relative h-56 overflow-hidden bg-muted">
                         <OptimizedImage
                           src={resolveAssetPath(post.featured_image) || post.featured_image}
