@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users } from "lucide-react";
+import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause } from "lucide-react";
 import { Button } from "@/ui/Button";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
+import GeometricShapes from "./GeometricShapes";
+import HeroTabNavigation from "./HeroTabNavigation";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const heroSlides = [
   {
@@ -76,15 +79,19 @@ const EnhancedHero = () => {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [videoOpacity, setVideoOpacity] = useState({ a: 1, b: 0 });
+  const [isPlaying, setIsPlaying] = useState(true);
   const videoRefA = useRef<HTMLVideoElement>(null);
   const videoRefB = useRef<HTMLVideoElement>(null);
   const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
+  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Minimum swipe distance (in px) to trigger slide change
   const minSwipeDistance = 50;
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    if (!isPlaying) return;
+
+    autoplayIntervalRef.current = setInterval(() => {
       setIsTransitioning(true);
       
       setTimeout(() => {
@@ -93,8 +100,25 @@ const EnhancedHero = () => {
       }, 500);
     }, 7000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      if (autoplayIntervalRef.current) {
+        clearInterval(autoplayIntervalRef.current);
+      }
+    };
+  }, [isPlaying]);
+
+  const handleSlideChange = (index: number) => {
+    setIsPlaying(false); // Pause autoplay when user interacts
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide(index);
+      setIsTransitioning(false);
+    }, 500);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
 
   // Smooth video loop using crossfade technique
   useEffect(() => {
@@ -194,10 +218,11 @@ const EnhancedHero = () => {
 
   const slide = heroSlides[currentSlide];
   const PrimaryIcon = slide.primaryCTA.icon;
+  const prefersReducedMotion = useReducedMotion();
 
-  const parallaxOffset = scrollY * 0.5;
-  const mouseParallaxX = mousePosition.x * 20; // Max 20px movement
-  const mouseParallaxY = mousePosition.y * 20; // Max 20px movement
+  const parallaxOffset = prefersReducedMotion ? 0 : scrollY * 0.5;
+  const mouseParallaxX = prefersReducedMotion ? 0 : mousePosition.x * 20;
+  const mouseParallaxY = prefersReducedMotion ? 0 : mousePosition.y * 20;
 
   return (
     <section 
@@ -206,6 +231,9 @@ const EnhancedHero = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
+      {/* Geometric Shapes */}
+      <GeometricShapes currentSlide={currentSlide} />
+      
       {/* Video Background with Parallax Effect and Smooth Loop */}
       <div 
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
@@ -328,6 +356,26 @@ const EnhancedHero = () => {
           </div>
         </div>
       </div>
+
+      {/* Hero Tab Navigation */}
+      <HeroTabNavigation 
+        slides={heroSlides} 
+        currentSlide={currentSlide} 
+        onSlideChange={handleSlideChange} 
+      />
+
+      {/* Play/Pause Control */}
+      <button
+        onClick={togglePlayPause}
+        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 backdrop-blur-md border border-[hsl(var(--bg))]/30 flex items-center justify-center transition-all duration-300 group"
+        aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
+      >
+        {isPlaying ? (
+          <Pause className="h-5 w-5 text-[hsl(var(--bg))] group-hover:scale-110 transition-transform" />
+        ) : (
+          <Play className="h-5 w-5 text-[hsl(var(--bg))] group-hover:scale-110 transition-transform" />
+        )}
+      </button>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">

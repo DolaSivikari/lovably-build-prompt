@@ -38,7 +38,7 @@ export const ServiceCard = ({
 
   return (
     <Link to={`/services/${slug}`} className="group">
-      <Card className="h-full hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300 border-border relative overflow-hidden">
+      <Card className="h-full hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] hover:-translate-y-2 transition-all duration-300 border-border relative overflow-hidden">
         {featured && (
           <div className="absolute top-4 right-4 z-10">
             <Badge className="bg-primary text-primary-foreground shadow-sm">
@@ -50,7 +50,7 @@ export const ServiceCard = ({
         <CardContent className="p-8 flex flex-col h-full">
           {/* Icon with Steel Blue Accent */}
           <div className="mb-6">
-            <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center group-hover:bg-steel-blue/20 transition-colors">
+            <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center group-hover:bg-steel-blue/20 group-hover:scale-110 transition-all duration-300">
               <IconComponent className="w-7 h-7 text-steel-blue" />
             </div>
           </div>

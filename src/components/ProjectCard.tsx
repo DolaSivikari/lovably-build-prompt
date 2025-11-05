@@ -48,7 +48,7 @@ const ProjectCard = ({
 
   return (
     <Card
-      className="group overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl"
+      className="group overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] hover:-translate-y-2"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetails(slug)}
@@ -62,8 +62,8 @@ const ProjectCard = ({
             e.currentTarget.src = "/placeholder.svg";
           }}
           className={cn(
-            "w-full h-full object-cover object-center transition-all duration-300",
-            isHovered && "scale-105 brightness-90"
+            "w-full h-full object-cover object-center transition-all duration-500",
+            isHovered && "scale-110 brightness-90"
           )}
         />
         

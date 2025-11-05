@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import { Calendar, ArrowRight, Clock } from "lucide-react";
+import { Calendar, ArrowRight, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import OptimizedImage from "../OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 import { resolveAssetPath } from "@/utils/assetResolver";
+import { useCarousel } from "@/hooks/useCarousel";
 
 const categories = ["All", "Case Studies", "Industry Insights", "Technical", "News"];
 
@@ -28,6 +29,12 @@ const ContentHub = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  const carousel = useCarousel({ 
+    totalItems: 0, // Will be set when posts load
+    autoplayInterval: 0,
+    itemsPerView: 3
+  });
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -163,58 +170,90 @@ const ContentHub = () => {
           </Link>
         )}
 
-        {/* Post Grid - Clean 3-Column Layout */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {filteredPosts.map((post) => {
-            const formattedDate = new Date(post.published_at).toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric'
-            });
+        {/* Post Grid - Horizontal Carousel */}
+        <div className="relative">
+          <div className="flex items-center justify-end gap-2 mb-8">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => carousel.prev()}
+              disabled={!carousel.canGoPrev}
+              className="h-10 w-10"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => carousel.next()}
+              disabled={!carousel.canGoNext}
+              className="h-10 w-10"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </Button>
+          </div>
 
-            return (
-              <Link key={post.id} to={`/blog/${post.slug}`} className="group">
-                <Card className="h-full overflow-hidden border-border hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300">
-                  <div className="relative h-56 overflow-hidden bg-muted">
-                    <OptimizedImage
-                      src={resolveAssetPath(post.featured_image) || post.featured_image}
-                      alt={post.title}
-                      width={800}
-                      height={600}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  </div>
-                  
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-xs font-semibold text-steel-blue uppercase tracking-wider">
-                        {post.category}
-                      </span>
-                      <span className="text-muted-foreground">•</span>
-                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>{formattedDate}</span>
+          <div className="overflow-hidden mb-12">
+            <div 
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-transform duration-500 ease-out"
+              style={{ 
+                transform: window.innerWidth < 768 
+                  ? `translateX(-${carousel.currentIndex * 100}%)` 
+                  : 'none' 
+              }}
+            >
+              {filteredPosts.map((post) => {
+                const formattedDate = new Date(post.published_at).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                });
+
+                return (
+                  <Link key={post.id} to={`/blog/${post.slug}`} className="group">
+                    <Card className="h-full overflow-hidden border-border hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300">
+                      <div className="relative h-56 overflow-hidden bg-muted">
+                        <OptimizedImage
+                          src={resolveAssetPath(post.featured_image) || post.featured_image}
+                          alt={post.title}
+                          width={800}
+                          height={600}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
                       </div>
-                    </div>
-                    
-                    <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight">
-                      {post.title}
-                    </h3>
-                    
-                    <p className="text-muted-foreground text-sm line-clamp-3 mb-5 leading-relaxed">
-                      {post.summary}
-                    </p>
+                      
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-xs font-semibold text-steel-blue uppercase tracking-wider">
+                            {post.category}
+                          </span>
+                          <span className="text-muted-foreground">•</span>
+                          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                            <Calendar className="w-3.5 h-3.5" />
+                            <span>{formattedDate}</span>
+                          </div>
+                        </div>
+                        
+                        <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight">
+                          {post.title}
+                        </h3>
+                        
+                        <p className="text-muted-foreground text-sm line-clamp-3 mb-5 leading-relaxed">
+                          {post.summary}
+                        </p>
 
-                    <div className="flex items-center gap-2 text-sm text-steel-blue font-semibold pt-4 border-t border-border">
-                      Read More
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            );
-          })}
+                        <div className="flex items-center gap-2 text-sm text-steel-blue font-semibold pt-4 border-t border-border">
+                          Read More
+                          <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         {/* CTA - Professional Design */}

@@ -6,22 +6,20 @@ import MetricsDashboard from "@/components/homepage/MetricsDashboard";
 import CertificationBadges from "@/components/homepage/CertificationBadges";
 import GCTrustStrip from "@/components/homepage/GCTrustStrip";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
-
 import SEO from "@/components/SEO";
-
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
 import WhoWeServe from "@/components/homepage/WhoWeServe";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
-
-
 import SkipLink from "@/components/SkipLink";
 import AchievementShowcase from "@/components/homepage/AchievementShowcase";
 import ContentHub from "@/components/homepage/ContentHub";
 import Testimonials from "@/components/Testimonials";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
+import ScrollProgress from "@/components/ScrollProgress";
+import ParallaxShapes from "@/components/homepage/ParallaxShapes";
 
 const Index = () => {
   // AEO/GEO Structured Data
@@ -111,9 +109,11 @@ const Index = () => {
   const siteSearchSchema = createSiteSearchSchema("https://ascentgroupconstruction.com");
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
       <SkipLink />
-      <SEO 
+      <ScrollProgress />
+      <ParallaxShapes />
+      <SEO
         title="General Contractor Toronto | Commercial Construction & Building Envelope"
         description="Full-service General Contractor in Toronto delivering commercial, multi-family residential, and institutional construction solutions. Specializing in construction management, design-build, and building envelope systems across Ontario."
         keywords="general contractor Toronto, construction management, design-build services, commercial construction, multi-family residential, institutional construction, building envelope, GTA general contractor, Toronto construction company"

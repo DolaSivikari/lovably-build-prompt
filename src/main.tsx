@@ -3,6 +3,7 @@ import { HelmetProvider } from "react-helmet-async";
 import App from "./App.tsx";
 import "./styles/tokens.css";
 import "./styles/typography.css";
+import "./styles/animations.css";
 import "./index.css";
 import { reportWebVitals } from "./lib/webVitals";
 import { initErrorLogging } from "./utils/errorLogger";
