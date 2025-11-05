@@ -399,13 +399,14 @@ All colors MUST be HSL.
   .mega-menu-sections {
     @apply absolute left-1/2 -translate-x-1/2 w-[600px] max-w-[90vw];
     @apply bg-background rounded-lg border border-border;
-    @apply opacity-0 invisible transition-all duration-300 ease-out;
+    @apply opacity-0 invisible scale-y-95;
+    @apply transition-all duration-300 ease-out origin-top;
     @apply top-full mt-2 z-50;
     box-shadow: 0 10px 40px -10px hsl(var(--charcoal) / 0.2);
   }
 
   .mega-menu-sections--open {
-    @apply opacity-100 visible;
+    @apply opacity-100 visible scale-y-100;
   }
 
   .mega-menu-sections-wrapper {

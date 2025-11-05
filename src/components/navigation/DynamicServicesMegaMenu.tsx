@@ -42,11 +42,15 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
   const primaryDelivery = services.filter(s => s.service_tier === 'primary_delivery');
   const selfPerform = services.filter(s => s.service_tier === 'self_perform');
 
-  if (!isOpen) return null;
+  
 
   return (
     <div 
-      className="absolute left-0 top-full mt-0 w-[760px] bg-background border border-border rounded-lg shadow-[0_10px_40px_-10px_hsl(var(--primary)_/_0.2)] z-mega-menu animate-enter"
+      className={cn(
+        "absolute left-0 top-full mt-0 w-[760px] bg-background border border-border rounded-lg shadow-[0_10px_40px_-10px_hsl(var(--primary)_/_0.2)] z-mega-menu",
+        "transition-all duration-300 ease-out origin-top",
+        isOpen ? "opacity-100 visible scale-y-100" : "opacity-0 invisible scale-y-95"
+      )}
       onMouseEnter={() => {}}
       onMouseLeave={onClose}
     >
