@@ -118,7 +118,8 @@ const Navigation = () => {
             />
             <div className="flex flex-col items-start leading-tight">
               <span className={cn(
-                "text-base md:text-lg lg:text-xl font-bold transition-all duration-300",
+                "text-base md:text-lg lg:text-xl font-bold transition-all duration-300 relative",
+                "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 group-hover:after:scale-x-100 group-hover:after:origin-bottom-left",
                 isAtTop ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-foreground"
               )}>
                 Ascent Group
@@ -554,7 +555,9 @@ const Navigation = () => {
               className="h-12 w-auto transition-transform group-hover:scale-105"
             />
             <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold text-foreground">Ascent Group</span>
+              <span className="text-lg font-bold text-foreground relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 group-hover:after:scale-x-100 group-hover:after:origin-bottom-left">
+                Ascent Group
+              </span>
               <span className="text-xs font-semibold text-primary uppercase tracking-wider">Construction</span>
             </div>
           </Link>
