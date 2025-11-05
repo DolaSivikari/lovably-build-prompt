@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/ui/Button";
-import { Badge } from "@/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 
 const PaintCalculator = () => {
   const [length, setLength] = useState("");
@@ -34,7 +34,7 @@ const PaintCalculator = () => {
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           Paint Coverage Calculator
-          <Badge variant="secondary">Free Tool</Badge>
+          <Badge variant="info" size="sm">Free Tool</Badge>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">

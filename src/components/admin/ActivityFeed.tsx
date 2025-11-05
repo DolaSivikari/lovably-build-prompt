@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import { Bell, Mail, AlertCircle, Clock, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
@@ -39,8 +39,7 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
             <CardDescription>Latest submissions and updates</CardDescription>
           </div>
           {newCount > 0 && (
-            <Badge className="bg-secondary text-[hsl(var(--bg))]">
-              <Bell className="h-3 w-3 mr-1" />
+            <Badge variant="danger" size="sm" icon={Bell}>
               {newCount} New
             </Badge>
           )}
@@ -80,7 +79,7 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
                         </p>
                         <p className="text-xs text-muted-foreground truncate">{submission.email}</p>
                       </div>
-                    <Badge variant="outline" className="text-xs shrink-0">
+                    <Badge variant="outline" size="xs" className="shrink-0">
                       {getSubmissionTypeLabel(submission.submission_type)}
                     </Badge>
                   </div>

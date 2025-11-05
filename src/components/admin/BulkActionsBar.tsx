@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/ui/Button';
-import { Badge } from '@/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import { Trash2, Download, Edit, X } from 'lucide-react';
 import {
   Select,
@@ -83,7 +83,7 @@ export const BulkActionsBar = ({
         className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-5 ${className}`}
       >
         <div className="bg-primary text-primary-foreground rounded-full shadow-lg px-6 py-4 flex items-center gap-4">
-          <Badge variant="secondary" className="text-sm px-3 py-1">
+          <Badge variant="glass" size="md">
             {selectedCount} selected
           </Badge>
 

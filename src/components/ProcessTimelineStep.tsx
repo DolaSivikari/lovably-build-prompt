@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChevronDown, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import OptimizedImage from "@/components/OptimizedImage";
 
@@ -108,9 +108,9 @@ const ProcessTimelineStep = ({
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {deliverables.map((item, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-sm">
-                            {item}
-                          </Badge>
+                  <Badge key={idx} variant="success" size="sm">
+                    {item}
+                  </Badge>
                         ))}
                       </div>
                     </div>
