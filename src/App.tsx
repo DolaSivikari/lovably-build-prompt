@@ -23,7 +23,9 @@ import Homeowners from "./pages/Homeowners";
 import CommercialClients from "./pages/CommercialClients";
 import OurProcess from "./pages/OurProcess";
 import Sustainability from "./pages/Sustainability";
-import Safety from "./pages/Safety";
+import SafetyCompliance from "./pages/SafetyCompliance";
+import Prequalification from "./pages/Prequalification";
+import Capabilities from "./pages/Capabilities";
 import Values from "./pages/Values";
 import HowWeWork from "./pages/HowWeWork";
 import Careers from "./pages/Careers";
@@ -197,7 +199,9 @@ const App = () => (
                   <Route path="/" element={<Index />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/values" element={<Values />} />
-                  <Route path="/safety" element={<Safety />} />
+                  <Route path="/safety" element={<SafetyCompliance />} />
+                  <Route path="/prequalification" element={<Prequalification />} />
+                  <Route path="/capabilities" element={<Capabilities />} />
                   <Route path="/how-we-work" element={<HowWeWork />} />
                   <Route path="/careers" element={<Careers />} />
             <Route path="/services" element={<Services />} />

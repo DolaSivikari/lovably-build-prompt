@@ -16,6 +16,8 @@ const KNOWN_ROUTES = [
   "/careers",
   "/faq",
   "/safety",
+  "/prequalification",
+  "/capabilities",
   "/sustainability",
   "/how-we-work",
   "/our-process",
