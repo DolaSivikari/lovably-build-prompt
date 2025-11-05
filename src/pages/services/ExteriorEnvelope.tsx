@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Phone, Mail } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/ui/Button';
+import { PageHero } from '@/components/sections/PageHero';
 import { ServiceTabs } from '@/components/services/ServiceTabs';
 import { buildingEnvelopeVariants } from '@/data/merged-services-data';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
+import heroImage from '@/assets/hero-building-envelope.jpg';
 
 const ExteriorEnvelope = () => {
   const serviceSchema = createServiceSchema({
@@ -33,29 +35,29 @@ const ExteriorEnvelope = () => {
       />
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/80 z-10" />
-        <div className="relative z-20 container mx-auto px-4 text-primary-foreground">
-          <div className="max-w-3xl">
-            <div className="inline-block px-4 py-2 bg-background/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4">
-              Exterior Envelope Systems
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Protect Your Exterior Envelope
-            </h1>
-            <p className="text-xl mb-8 text-primary-foreground/90">
-              Expert stucco, EIFS, and sealant services to protect and enhance your building's exterior
-            </p>
-            <Button size="lg" variant="secondary" className="group" asChild>
-              <Link to="/contact">
-                Request Proposal
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <PageHero.Root backgroundImage={heroImage}>
+        <PageHero.Breadcrumb items={[
+          { label: "Home", href: "/" },
+          { label: "Services", href: "/services" },
+          { label: "Exterior Envelope" }
+        ]} />
+        <PageHero.Title>Exterior Envelope Systems</PageHero.Title>
+        <PageHero.Subtitle>
+          Complete building protection through expert stucco, EIFS, and sealant solutions.
+        </PageHero.Subtitle>
+        <PageHero.Stats stats={[
+          { value: "500+", label: "Buildings Protected" },
+          { value: "98%", label: "Warranty Coverage" },
+          { value: "15+", label: "Years Experience" },
+          { value: "$2B+", label: "Protected Value" }
+        ]} />
+        <PageHero.CTAs 
+          primaryText="Request Proposal" 
+          primaryHref="/contact"
+          secondaryText="View Projects"
+          secondaryHref="/projects"
+        />
+      </PageHero.Root>
 
       {/* Main Content */}
       <section className="container mx-auto px-4 py-16">
@@ -84,19 +86,13 @@ const ExteriorEnvelope = () => {
               <Button size="lg" asChild>
                 <Link to="/contact">
                   Request Proposal
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="tel:+16471234567">
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Now
-                </a>
-              </Button>
               <Button size="lg" variant="secondary" asChild>
-                <a href="mailto:info@ascentgroup.com">
-                  <Mail className="w-5 h-5 mr-2" />
-                  Email Us
-                </a>
+                <Link to="/projects">
+                  View Projects
+                </Link>
               </Button>
             </div>
           </div>
