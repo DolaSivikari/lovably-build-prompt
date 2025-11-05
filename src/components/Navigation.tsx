@@ -128,8 +128,8 @@ const Navigation = () => {
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
               className={cn(
-                "text-sm font-medium transition-all relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                isActive("/") ? "text-primary after:scale-x-100" : "text-foreground"
+                "text-sm font-medium transition-all duration-300 relative py-2 hover:scale-105 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100",
+                isActive("/") ? "text-primary after:scale-x-100" : "text-foreground hover:text-primary"
               )}
             >
               Home
@@ -144,8 +144,8 @@ const Navigation = () => {
               <Link
                 to="/services"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  activeMegaMenu === "services" && "text-sage"
+                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  activeMegaMenu === "services" && "text-primary scale-105"
                 )}
                 aria-expanded={activeMegaMenu === "services"}
                 aria-controls="services-mega-menu"
@@ -171,8 +171,8 @@ const Navigation = () => {
               <Link
                 to="/projects"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  activeMegaMenu === "markets" && "text-sage"
+                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  activeMegaMenu === "markets" && "text-primary scale-105"
                 )}
                 aria-expanded={activeMegaMenu === "markets"}
                 aria-controls="markets-mega-menu"
@@ -199,8 +199,8 @@ const Navigation = () => {
               <Link
                 to="/projects"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  activeMegaMenu === "projects" && "text-sage"
+                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  activeMegaMenu === "projects" && "text-primary scale-105"
                 )}
                 aria-expanded={activeMegaMenu === "projects"}
                 aria-controls="projects-mega-menu"
@@ -226,8 +226,8 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  activeMegaMenu === "company" && "text-sage"
+                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  activeMegaMenu === "company" && "text-primary scale-105"
                 )}
                 aria-expanded={activeMegaMenu === "company"}
                 aria-controls="company-mega-menu"
@@ -253,8 +253,8 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                  activeMegaMenu === "resources" && "text-sage"
+                  "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                  activeMegaMenu === "resources" && "text-primary scale-105"
                 )}
                 aria-expanded={activeMegaMenu === "resources"}
                 aria-controls="resources-mega-menu"
@@ -275,8 +275,8 @@ const Navigation = () => {
             <Link
               to="/contact"
               className={cn(
-                "text-sm font-medium transition-all relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground"
+                "text-sm font-medium transition-all duration-300 relative py-2 hover:scale-105 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100",
+                isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground hover:text-primary"
               )}
             >
               Contact
@@ -291,13 +291,13 @@ const Navigation = () => {
               </Button>
               <Link 
                 to="/resources/contractor-portal" 
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap"
+                className="text-sm font-medium text-foreground hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap"
               >
                 Client Portal
               </Link>
               <a 
                 href="tel:+14165551234" 
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap flex items-center gap-1"
+                className="text-sm font-medium text-foreground hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1"
               >
                 <Phone className="w-4 h-4" />
                 <span className="hidden xl:inline">(416) 555-1234</span>
@@ -311,8 +311,8 @@ const Navigation = () => {
                   onMouseEnter={openAdminDropdown}
                   onMouseLeave={scheduleCloseAdminDropdown}
                   className={cn(
-                    "px-2 py-2 text-sm font-medium transition-colors hover:text-sage inline-flex items-center gap-1",
-                    adminDropdownOpen && "text-sage"
+                    "px-2 py-2 text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 inline-flex items-center gap-1",
+                    adminDropdownOpen && "text-primary scale-105"
                   )}
                   aria-expanded={adminDropdownOpen}
                 >
