@@ -123,12 +123,12 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 flex-1 justify-end" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-6 flex-1 justify-end" aria-label="Main navigation">
             <Link
               to="/"
               aria-current={isActive("/") ? "page" : undefined}
               className={cn(
-                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
+                "text-sm font-medium transition-all relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
                 isActive("/") ? "text-primary after:scale-x-100" : "text-foreground"
               )}
             >
@@ -275,14 +275,14 @@ const Navigation = () => {
             <Link
               to="/contact"
               className={cn(
-                "text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
+                "text-sm font-medium transition-all relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:transition-transform hover:after:scale-x-100",
                 isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground"
               )}
             >
               Contact
             </Link>
 
-            <div className="flex items-center gap-3 ml-4">
+            <div className="flex items-center gap-2 lg:gap-3 ml-3 lg:ml-4">
               <Button asChild variant="primary" size="sm">
                 <Link to="/submit-rfp">
                   Submit RFP
