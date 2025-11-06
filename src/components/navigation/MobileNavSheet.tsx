@@ -108,11 +108,19 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                         key={service.link}
                         to={service.link}
                         onClick={handleLinkClick}
-                        className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation relative group"
+                        className={`flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation relative group ${
+                          service.isTrending ? 'ring-1 ring-primary/30 shadow-[0_0_12px_-3px_hsl(var(--primary)/0.3)] animate-pulse' : ''
+                        }`}
+                        title={service.isTrending ? `Trending: ${service.trendPercentage}% increase` : undefined}
                       >
-                        <IconComponent className="h-4 w-4 flex-shrink-0" />
+                        <IconComponent className={`h-4 w-4 flex-shrink-0 ${service.isTrending ? 'text-primary' : ''}`} />
                         <span className="truncate">{service.name}</span>
-                        {service.searchCount && service.searchCount >= 10 && (
+                        {service.isTrending && (
+                          <div className="absolute -top-1 -right-1 h-5 w-5 bg-primary rounded-full flex items-center justify-center animate-pulse">
+                            <TrendingUp className="h-3 w-3 text-primary-foreground" />
+                          </div>
+                        )}
+                        {!service.isTrending && service.searchCount && service.searchCount >= 10 && (
                           <Badge 
                             variant="secondary" 
                             size="xs" 

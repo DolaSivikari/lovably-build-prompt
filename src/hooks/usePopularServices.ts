@@ -7,6 +7,8 @@ export interface PopularService {
   link: string;
   icon: LucideIcon;
   searchCount?: number;
+  isTrending?: boolean;
+  trendPercentage?: number;
 }
 
 // Default curated GC services
@@ -54,41 +56,75 @@ export function usePopularServices() {
   return useQuery({
     queryKey: ["popular-services"],
     queryFn: async () => {
-      // Query analytics for most clicked/searched services
-      const { data, error } = await supabase
-        .from("search_analytics")
-        .select("clicked_result_name, clicked_result_link")
-        .not("clicked_result_name", "is", null)
-        .not("clicked_result_link", "is", null);
+      const now = new Date();
+      const lastWeekStart = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const previousWeekStart = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
 
-      if (error) {
-        console.debug("Analytics query failed, using defaults:", error);
+      // Query last week's data
+      const { data: lastWeekData, error: lastWeekError } = await supabase
+        .from("search_analytics")
+        .select("clicked_result_name, clicked_result_link, searched_at")
+        .not("clicked_result_name", "is", null)
+        .not("clicked_result_link", "is", null)
+        .gte("searched_at", lastWeekStart.toISOString());
+
+      // Query previous week's data for trend comparison
+      const { data: previousWeekData, error: previousWeekError } = await supabase
+        .from("search_analytics")
+        .select("clicked_result_name, clicked_result_link, searched_at")
+        .not("clicked_result_name", "is", null)
+        .not("clicked_result_link", "is", null)
+        .gte("searched_at", previousWeekStart.toISOString())
+        .lt("searched_at", lastWeekStart.toISOString());
+
+      if (lastWeekError) {
+        console.debug("Analytics query failed, using defaults:", lastWeekError);
         return DEFAULT_SERVICES;
       }
 
-      // Count occurrences of each service
-      const serviceCounts = new Map<string, { link: string; count: number }>();
-      
-      data.forEach((row) => {
+      // Count occurrences for last week
+      const lastWeekCounts = new Map<string, { link: string; count: number }>();
+      lastWeekData?.forEach((row) => {
         const name = row.clicked_result_name!;
         const link = row.clicked_result_link!;
-        const current = serviceCounts.get(name) || { link, count: 0 };
-        serviceCounts.set(name, { link, count: current.count + 1 });
+        const current = lastWeekCounts.get(name) || { link, count: 0 };
+        lastWeekCounts.set(name, { link, count: current.count + 1 });
       });
 
-      // Convert to array and sort by count
-      const sortedServices = Array.from(serviceCounts.entries())
-        .map(([name, { link, count }]) => ({
-          name,
-          link,
-          icon: getIconForService(name),
-          searchCount: count,
-        }))
+      // Count occurrences for previous week
+      const previousWeekCounts = new Map<string, number>();
+      previousWeekData?.forEach((row) => {
+        const name = row.clicked_result_name!;
+        const current = previousWeekCounts.get(name) || 0;
+        previousWeekCounts.set(name, current + 1);
+      });
+
+      // Calculate trends and build service list
+      const sortedServices = Array.from(lastWeekCounts.entries())
+        .map(([name, { link, count }]) => {
+          const previousCount = previousWeekCounts.get(name) || 0;
+          const increase = count - previousCount;
+          const trendPercentage = previousCount > 0 
+            ? ((increase / previousCount) * 100) 
+            : (count >= 5 ? 100 : 0);
+          
+          // Consider trending if 50%+ increase OR 10+ new searches
+          const isTrending = (trendPercentage >= 50 && previousCount > 0) || increase >= 10;
+
+          return {
+            name,
+            link,
+            icon: getIconForService(name),
+            searchCount: count,
+            isTrending,
+            trendPercentage: Math.round(trendPercentage),
+          };
+        })
         .sort((a, b) => b.searchCount! - a.searchCount!)
         .slice(0, 4);
 
       // Use analytics data if we have enough searches (50+), otherwise use defaults
-      const totalSearches = data.length;
+      const totalSearches = lastWeekData?.length || 0;
       if (totalSearches < 50) {
         return DEFAULT_SERVICES;
       }
