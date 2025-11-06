@@ -269,8 +269,8 @@ const Contact = () => {
           </div>
           <div className="max-w-4xl mx-auto">
             <BeforeAfterSlider
-              beforeImage="/placeholder.svg"
-              afterImage="/placeholder.svg"
+              beforeImage="/hero-masonry-restoration.jpg"
+              afterImage="/project-commercial.jpg"
               beforeLabel="Before Restoration"
               afterLabel="After Restoration"
             />

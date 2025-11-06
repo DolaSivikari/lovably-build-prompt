@@ -478,7 +478,7 @@ const EnhancedHero = () => {
               </Link>
             </Button>
             
-            <Button asChild size="lg" variant="secondary" className="bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 border-[hsl(var(--bg))]/30 text-[hsl(var(--bg))] backdrop-blur-sm">
+            <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm">
               <Link to={secondaryCTA.href}>
                 {secondaryCTA.label}
               </Link>
