@@ -6,26 +6,28 @@ import { Award, TrendingUp, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const BondingCapacityVisualizer = () => {
-  const [projectValue, setProjectValue] = useState(2500000);
+  const [projectValue, setProjectValue] = useState(1500000);
   
+  // Ascent Group's actual single-project bonding capacity
   const maxBonding = 10000000;
-  const availableCapacity = maxBonding - projectValue;
-  const utilizationPercent = (projectValue / maxBonding) * 100;
+  const availableCapacity = Math.max(0, maxBonding - projectValue);
+  const utilizationPercent = Math.min(100, (projectValue / maxBonding) * 100);
 
   const formatCurrency = (amount: number) => {
     return `$${(amount / 1000000).toFixed(1)}M`;
   };
 
   const getUtilizationColor = () => {
-    if (utilizationPercent < 50) return "text-green-600 bg-green-500/10 border-green-500/30";
-    if (utilizationPercent < 80) return "text-yellow-600 bg-yellow-500/10 border-yellow-500/30";
+    if (utilizationPercent <= 60) return "text-green-600 bg-green-500/10 border-green-500/30";
+    if (utilizationPercent <= 85) return "text-yellow-600 bg-yellow-500/10 border-yellow-500/30";
     return "text-red-600 bg-red-500/10 border-red-500/30";
   };
 
   const getUtilizationStatus = () => {
-    if (utilizationPercent < 50) return "Excellent Capacity";
-    if (utilizationPercent < 80) return "Good Capacity";
-    return "Limited Capacity";
+    if (utilizationPercent <= 60) return "Excellent Capacity Available";
+    if (utilizationPercent <= 85) return "Good Capacity Available";
+    if (utilizationPercent <= 100) return "Approaching Capacity Limit";
+    return "Exceeds Single-Project Limit";
   };
 
   return (
@@ -131,8 +133,13 @@ export const BondingCapacityVisualizer = () => {
         </div>
 
         {/* Additional Info */}
-        <div className="p-3 bg-primary/5 rounded-lg text-sm text-muted-foreground text-center">
-          Our bonding is provided by A-rated surety companies
+        <div className="space-y-2">
+          <div className="p-3 bg-primary/5 rounded-lg text-sm text-muted-foreground text-center">
+            <strong className="text-foreground">Single Project Capacity:</strong> $10M | <strong className="text-foreground">Aggregate Capacity:</strong> $30M+ available
+          </div>
+          <div className="p-3 bg-muted/50 rounded-lg text-xs text-center">
+            Bonding provided by A-rated surety companies with 40+ years of partnership
+          </div>
         </div>
       </CardContent>
     </Card>

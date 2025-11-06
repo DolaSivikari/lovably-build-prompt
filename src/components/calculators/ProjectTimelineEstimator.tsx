@@ -7,35 +7,42 @@ import { Calendar, Clock, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const ProjectTimelineEstimator = () => {
-  const [squareFeet, setSquareFeet] = useState(10000);
-  const [projectType, setProjectType] = useState("painting");
+  const [squareFeet, setSquareFeet] = useState(25000);
+  const [projectType, setProjectType] = useState("restoration");
   const [complexity, setComplexity] = useState("medium");
   const [weatherSensitive, setWeatherSensitive] = useState(true);
 
   const calculateTimeline = () => {
-    // Base rates (days per 1000 sq ft)
+    // Realistic production rates based on Ascent Group's historical data (days per 1000 sq ft)
     const baseRates: Record<string, number> = {
-      painting: 2,
-      restoration: 3,
-      waterproofing: 2.5,
-      cladding: 4
+      painting: 1.5,           // Faster with experienced crews
+      restoration: 3.5,        // More complex, detailed work
+      waterproofing: 2.0,      // Weather-dependent application
+      cladding: 4.5,           // Installation + structural work
+      masonry: 4.0,            // Detailed craftsmanship
+      eifs: 3.0                // Multi-layer application
     };
 
     const complexityMultipliers: Record<string, number> = {
-      low: 0.8,
-      medium: 1.0,
-      high: 1.3
+      low: 0.75,      // Simple, repetitive work
+      medium: 1.0,    // Standard complexity
+      high: 1.4       // Complex details, access challenges
     };
 
-    const baseTime = (squareFeet / 1000) * (baseRates[projectType] || 2);
-    const adjustedTime = baseTime * (complexityMultipliers[complexity] || 1);
-    const weatherBuffer = weatherSensitive ? adjustedTime * 0.15 : 0;
+    // Calculate base timeline
+    const baseTime = (squareFeet / 1000) * (baseRates[projectType] || 3);
+    const complexityAdjusted = baseTime * (complexityMultipliers[complexity] || 1);
+    
+    // Add buffers for real-world factors
+    const weatherBuffer = weatherSensitive ? complexityAdjusted * 0.20 : 0; // 20% for weather
+    const contingencyBuffer = complexityAdjusted * 0.15; // 15% general contingency
 
     return {
-      minimum: Math.ceil(adjustedTime * 0.85),
-      typical: Math.ceil(adjustedTime),
-      maximum: Math.ceil(adjustedTime + weatherBuffer + (adjustedTime * 0.1)),
-      weatherBuffer: Math.ceil(weatherBuffer)
+      minimum: Math.ceil(complexityAdjusted * 0.80),        // Best case (20% faster)
+      typical: Math.ceil(complexityAdjusted),               // Expected timeline
+      maximum: Math.ceil(complexityAdjusted + weatherBuffer + contingencyBuffer), // With delays
+      weatherBuffer: Math.ceil(weatherBuffer),
+      productionRate: Math.round(squareFeet / complexityAdjusted)
     };
   };
 
@@ -59,9 +66,9 @@ export const ProjectTimelineEstimator = () => {
           <Slider
             value={[squareFeet]}
             onValueChange={([value]) => setSquareFeet(value)}
-            min={1000}
-            max={100000}
-            step={1000}
+            min={5000}
+            max={200000}
+            step={5000}
           />
         </div>
 
@@ -73,10 +80,12 @@ export const ProjectTimelineEstimator = () => {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="painting">Painting</SelectItem>
-              <SelectItem value="restoration">Restoration</SelectItem>
+              <SelectItem value="painting">Painting & Coating</SelectItem>
+              <SelectItem value="restoration">Masonry Restoration</SelectItem>
               <SelectItem value="waterproofing">Waterproofing</SelectItem>
-              <SelectItem value="cladding">Cladding Installation</SelectItem>
+              <SelectItem value="cladding">Exterior Cladding</SelectItem>
+              <SelectItem value="masonry">Masonry Work</SelectItem>
+              <SelectItem value="eifs">EIFS/Stucco</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -149,8 +158,8 @@ export const ProjectTimelineEstimator = () => {
           {/* Details */}
           <div className="space-y-2 text-sm">
             <div className="flex justify-between p-2 bg-muted/50 rounded">
-              <span className="text-muted-foreground">Production Rate</span>
-              <span className="font-semibold">{(squareFeet / timeline.typical).toFixed(0)} sq ft/day</span>
+              <span className="text-muted-foreground">Average Production Rate</span>
+              <span className="font-semibold">{timeline.productionRate.toLocaleString()} sq ft/day</span>
             </div>
             {weatherSensitive && (
               <div className="flex justify-between p-2 bg-yellow-500/10 rounded border border-yellow-500/20">

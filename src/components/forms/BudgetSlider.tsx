@@ -17,9 +17,9 @@ interface BudgetSliderProps {
 export const BudgetSlider = ({
   value,
   onChange,
-  min = 10000,
-  max = 5000000,
-  step = 10000,
+  min = 25000,
+  max = 10000000,
+  step = 25000,
   label = "Project Budget",
   className
 }: BudgetSliderProps) => {
@@ -75,17 +75,17 @@ export const BudgetSlider = ({
       {/* Budget Bracket Indicators */}
       <div className="grid grid-cols-5 gap-2 text-center text-xs">
         {[
-          { label: "Small", max: 100000 },
-          { label: "Medium", max: 500000 },
-          { label: "Large", max: 1000000 },
-          { label: "Major", max: 2500000 },
-          { label: "Enterprise", max: 5000000 }
+          { label: "Small", max: 250000, threshold: 0 },
+          { label: "Medium", max: 750000, threshold: 250000 },
+          { label: "Large", max: 2000000, threshold: 750000 },
+          { label: "Major", max: 5000000, threshold: 2000000 },
+          { label: "Enterprise", max: 10000000, threshold: 5000000 }
         ].map((bracket, index) => (
           <div
             key={index}
             className={cn(
               "p-2 rounded-lg transition-all",
-              value <= bracket.max && value > (index === 0 ? 0 : [100000, 500000, 1000000, 2500000][index - 1])
+              value > bracket.threshold && value <= bracket.max
                 ? "bg-primary/20 text-primary font-semibold"
                 : "bg-muted/50 text-muted-foreground"
             )}

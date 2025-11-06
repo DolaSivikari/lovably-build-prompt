@@ -7,20 +7,26 @@ import { Shield, CheckCircle2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const InsuranceCalculator = () => {
-  const [projectValue, setProjectValue] = useState(1000000);
+  const [projectValue, setProjectValue] = useState(500000);
   const [projectType, setProjectType] = useState("commercial");
   const [duration, setDuration] = useState(6);
 
   const calculateCoverage = () => {
-    const baseRate = projectType === "commercial" ? 1.5 : projectType === "residential" ? 1.2 : 2.0;
-    const recommendedCoverage = projectValue * baseRate;
-    const minimumCoverage = projectValue * 1.0;
+    // Industry standard rates based on project type and complexity
+    const baseRate = projectType === "commercial" ? 2.0 : projectType === "residential" ? 1.5 : 2.5;
+    const durationMultiplier = duration > 12 ? 1.2 : 1.0; // Longer projects need more coverage
+    
+    const recommendedCoverage = projectValue * baseRate * durationMultiplier;
+    const minimumCoverage = projectValue * 1.5; // Industry minimum
+    
+    // Ascent Group's actual coverage
+    const ourCoverage = 5000000;
     
     return {
-      recommended: recommendedCoverage,
-      minimum: minimumCoverage,
-      ourCoverage: 5000000,
-      adequate: 5000000 >= recommendedCoverage
+      recommended: Math.round(recommendedCoverage),
+      minimum: Math.round(minimumCoverage),
+      ourCoverage,
+      adequate: ourCoverage >= recommendedCoverage
     };
   };
 
@@ -48,9 +54,9 @@ export const InsuranceCalculator = () => {
           <Slider
             value={[projectValue]}
             onValueChange={([value]) => setProjectValue(value)}
-            min={100000}
-            max={10000000}
-            step={100000}
+            min={50000}
+            max={15000000}
+            step={50000}
           />
         </div>
 
