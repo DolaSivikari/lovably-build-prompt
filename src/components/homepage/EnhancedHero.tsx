@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause } from "lucide-react";
+import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info } from "lucide-react";
 import { Button } from "@/ui/Button";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 import GeometricShapes from "./GeometricShapes";
@@ -9,6 +9,25 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
+
+// Helper to get icon for menu items
+const getIconForTitle = (title: string) => {
+  const titleLower = title.toLowerCase();
+  if (titleLower.includes('service')) return Wrench;
+  if (titleLower.includes('serve') || titleLower.includes('market')) return Target;
+  if (titleLower.includes('about') || titleLower.includes('company')) return Info;
+  if (titleLower.includes('project')) return Briefcase;
+  if (titleLower.includes('contact')) return Mail;
+  return Building2;
+};
+
+// Helper to format title for better readability
+const formatTitle = (title: string) => {
+  return title
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+};
 
 const heroSlides = [
   {
@@ -430,13 +449,45 @@ const EnhancedHero = () => {
 
       {/* Hero Tab Navigation - Use landing menu if available */}
       {landingMenuItems.length > 0 ? (
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-6">
-          <div className="flex gap-2 md:gap-4 justify-center flex-wrap">
-            {landingMenuItems.map((item, index) => (
-              <Link
+        <div className="absolute bottom-6 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
+          
+          {/* Mobile: Horizontal scrollable premium cards */}
+          <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
+            <div className="flex gap-3 pb-4">
+              {landingMenuItems.map((item) => {
+                const Icon = getIconForTitle(item.title);
+                return (
+                  <Link
+                    key={item.id}
+                    to={item.link}
+                    className="flex-shrink-0 w-48 bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20 hover:bg-white/15 transition-all active:scale-95"
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="p-1.5 rounded-md bg-accent/20">
+                        <Icon className="h-4 w-4 text-accent" />
+                      </div>
+                      <span className="text-xs font-bold text-white/60">{item.number || '—'}</span>
+                    </div>
+                    <div className="text-sm font-bold text-white mb-1 leading-tight">
+                      {formatTitle(item.title)}
+                    </div>
+                    <div className="text-xs text-white/70 line-clamp-2 leading-relaxed">
+                      {item.subtext}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+          
+          {/* Desktop: Enhanced button layout */}
+          <div className="hidden md:flex gap-4 justify-center flex-wrap">
+            {landingMenuItems.map((item) => (
+              <Link 
                 key={item.id}
-                to={item.link}
-                className="relative px-4 py-2 text-sm md:text-base font-semibold transition-all duration-300 text-white/90 hover:text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[hsl(var(--brand-accent))] after:transition-transform after:duration-300 hover:after:scale-x-100 after:scale-x-0"
+                to={item.link} 
+                className="relative px-6 py-3 text-base font-semibold transition-all duration-300 text-white/90 hover:text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100 after:scale-x-0"
               >
                 {item.title}
               </Link>
