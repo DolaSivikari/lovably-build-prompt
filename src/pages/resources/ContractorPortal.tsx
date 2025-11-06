@@ -24,6 +24,7 @@ import { BondingCapacityVisualizer } from "@/components/calculators/BondingCapac
 import { ProjectTimelineEstimator } from "@/components/calculators/ProjectTimelineEstimator";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
+import heroContractorImage from "@/assets/heroes/hero-contractor-portal.jpg";
 
 const ContractorPortal = () => {
   const { toast } = useToast();
@@ -162,6 +163,7 @@ const ContractorPortal = () => {
         <PageHeader
           title="Contractor Portal"
           description="Everything you need to bid with confidence"
+          backgroundImage={heroContractorImage}
         />
 
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-12">

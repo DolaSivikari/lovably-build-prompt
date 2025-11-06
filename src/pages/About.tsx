@@ -18,6 +18,7 @@ import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle } from "lucide-re
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
 import teamWork from "@/assets/team-work.jpg";
+import heroAboutImage from "@/assets/heroes/hero-about-company.jpg";
 import CompanyTimeline from "@/components/homepage/CompanyTimeline";
 
 const iconMap: { [key: string]: any } = {
@@ -96,6 +97,7 @@ const About = () => {
             eyebrow="About Us"
             title="Building Excellence Since 2009"
             description="We're not just another construction company. We're your partners in creating lasting value through quality craftsmanship and innovative solutions."
+            backgroundImage={heroAboutImage}
             breadcrumbs={[
               { label: "Home", href: "/" },
               { label: "About Us" }

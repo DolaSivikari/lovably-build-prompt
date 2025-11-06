@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import FeaturedProjects from "@/components/FeaturedProjects";
+import heroMarketsImage from "@/assets/heroes/hero-markets-overview.jpg";
 
 const Markets = () => {
   const marketSectors = [
@@ -79,6 +80,7 @@ const Markets = () => {
       <PageHeader
         title="Markets We Serve"
         description="Specialized construction expertise across diverse industry sectors"
+        backgroundImage={heroMarketsImage}
       />
 
       <main className="py-16">
