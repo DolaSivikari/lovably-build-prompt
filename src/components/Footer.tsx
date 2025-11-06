@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { MobileFooterMega } from "@/components/footer/MobileFooterMega";
+import { DesktopFooterMega } from "@/components/footer/DesktopFooterMega";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
@@ -131,83 +132,19 @@ const Footer = () => {
             contactInfo={{ phone, email, address }}
           />
 
-          {/* Desktop: 5-Column Grid */}
-          <div className="hidden md:grid md:grid-cols-5 gap-8 mb-12">
-            
-            {/* Column 1: Company */}
-            <div>
-              <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">
-                Company
-              </h3>
-              <nav>
-                <ul className="space-y-2">
-                  {companyLinks.map((link, index) => (
-                    <li key={index}>
-                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary link-hover">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
+          {/* Desktop: Enhanced Mega Footer */}
+          <DesktopFooterMega
+            companyLinks={companyLinks}
+            services={services}
+            marketLinks={marketLinks}
+            projectLinks={projectLinks}
+            certifications={certifications}
+            displayTrustItems={displayTrustItems}
+            trustBarItems={trustBarItems}
+          />
 
-            {/* Column 2: Services */}
-            <div>
-              <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">
-                Services
-              </h3>
-              <nav>
-                <ul className="space-y-2 max-h-[300px] overflow-y-auto">
-                  {services.map((service, index) => (
-                    <li key={index}>
-                      <Link to={`/services/${service.slug}`} className="text-sm text-muted-foreground hover:text-primary link-hover">
-                        {service.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-
-            {/* Column 3: Markets */}
-            <div>
-              <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">
-                Markets
-              </h3>
-              <nav>
-                <ul className="space-y-2">
-                  {marketLinks.map((link, index) => (
-                    <li key={index}>
-                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary link-hover">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-
-            {/* Column 4: Projects */}
-            <div>
-              <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">
-                Projects
-              </h3>
-              <nav>
-                <ul className="space-y-2">
-                  {projectLinks.map((link, index) => (
-                    <li key={index}>
-                      <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary link-hover">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-
-            {/* Column 5: Certifications & Affiliations */}
-            <div>
+          {/* Desktop: Legacy Certifications Column (keep for compatibility) */}
+          <div className="hidden">
               <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">
                 {displayTrustItems ? 'Credentials' : 'Certifications'}
               </h3>
@@ -240,7 +177,6 @@ const Footer = () => {
                 </div>
               )}
             </div>
-          </div>
 
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-border">
