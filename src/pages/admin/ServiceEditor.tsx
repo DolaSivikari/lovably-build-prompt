@@ -8,9 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, HelpCircle } from "lucide-react";
 import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const ServiceEditor = () => {
   const { id } = useParams();

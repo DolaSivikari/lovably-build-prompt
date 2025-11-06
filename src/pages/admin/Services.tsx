@@ -139,7 +139,7 @@ const Services = () => {
     const ids = Array.from(selectedIds);
     const { error} = await supabase
       .from("services")
-      .update({ publish_state: status })
+      .update({ publish_state: status as 'published' | 'draft' | 'archived' | 'scheduled' })
       .in("id", ids);
 
     if (error) {
