@@ -397,10 +397,37 @@ const Dashboard = () => {
           <button
             className="business-btn business-btn-ghost"
             style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            onClick={() => navigate("/admin/homepage-builder")}
+            aria-label="Homepage Builder"
+          >
+            <Layout size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
+            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Homepage Builder</span>
+          </button>
+          <button
+            className="business-btn business-btn-ghost"
+            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            onClick={() => navigate("/admin/navigation-builder")}
+            aria-label="Navigation Builder"
+          >
+            <Navigation size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
+            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Navigation</span>
+          </button>
+          <button
+            className="business-btn business-btn-ghost"
+            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            onClick={() => navigate("/admin/seo-dashboard")}
+            aria-label="Open SEO Dashboard"
+          >
+            <Search size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
+            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>SEO Tools</span>
+          </button>
+          <button
+            className="business-btn business-btn-ghost"
+            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
             onClick={() => navigate("/admin/media")}
             aria-label="Open Media Library"
           >
-            <FileText size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
+            <Image size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
             <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Media Library</span>
           </button>
           <button
@@ -410,34 +437,7 @@ const Dashboard = () => {
             aria-label="Manage Users"
           >
             <Users size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>User Management</span>
-          </button>
-          <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
-            onClick={() => navigate("/admin/security-center")}
-            aria-label="Open Security Centre"
-          >
-            <Shield size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Security Centre</span>
-          </button>
-          <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
-            onClick={() => navigate("/admin/seo-dashboard")}
-            aria-label="Open SEO Dashboard"
-          >
-            <Search size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>SEO Dashboard</span>
-          </button>
-          <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
-            onClick={() => navigate("/admin/performance-dashboard")}
-            aria-label="Open Performance Dashboard"
-          >
-            <Activity size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Performance</span>
+            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Users</span>
           </button>
           <button
             className="business-btn business-btn-ghost"
@@ -447,51 +447,6 @@ const Dashboard = () => {
           >
             <Settings size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
             <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Site Settings</span>
-          </button>
-          <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
-            onClick={() => navigate("/admin/landing-menu")}
-            aria-label="Edit Home Hero Menu"
-          >
-            <LayoutDashboard size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Home Hero Menu</span>
-          </button>
-          <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
-            onClick={() => navigate("/admin/footer-settings")}
-            aria-label="Edit Footer Content"
-          >
-            <Layout size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Footer Content</span>
-          </button>
-          <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
-            onClick={() => navigate("/admin/navigation")}
-            aria-label="Navigation Builder"
-          >
-            <Navigation size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Navigation Builder</span>
-          </button>
-          <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
-            onClick={() => navigate("/admin/contact-page-settings")}
-            aria-label="Edit Contact Page"
-          >
-            <Mail size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Contact Page</span>
-          </button>
-          <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
-            onClick={() => navigate("/admin/about-page")}
-            aria-label="Edit About Page"
-          >
-            <FileText size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>About Page</span>
           </button>
         </div>
       </div>

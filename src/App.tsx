@@ -173,6 +173,23 @@ const HeroImagesManager = lazy(() => import("./pages/admin/HeroImagesManager").c
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Images Manager</p></div>
 })));
 
+// WordPress-style Admin Pages
+const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Builder</p></div>
+})));
+const ContentOverview = lazy(() => import("./pages/admin/ContentOverview").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Content Overview</p></div>
+})));
+const AppearanceOverview = lazy(() => import("./pages/admin/AppearanceOverview").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Appearance Overview</p></div>
+})));
+const ToolsOverview = lazy(() => import("./pages/admin/ToolsOverview").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Tools Overview</p></div>
+})));
+const NavigationMigration = lazy(() => import("./pages/admin/NavigationMigration").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Migration</p></div>
+})));
+
 // Business Management Pages
 const BusinessDashboard = lazy(() => import("./pages/admin/business/BusinessDashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Dashboard</p></div>
@@ -360,6 +377,19 @@ const App = () => (
                     <Route path="redirects" element={<RedirectsManager />} />
                     <Route path="structured-data" element={<StructuredDataManager />} />
                     <Route path="editor-guide" element={<EditorGuide />} />
+                    
+                    {/* WordPress-style reorganization - NEW */}
+                    <Route path="homepage-builder" element={<HomepageBuilder />} />
+                    <Route path="content-overview" element={<ContentOverview />} />
+                    <Route path="appearance" element={<AppearanceOverview />} />
+                    <Route path="tools-overview" element={<ToolsOverview />} />
+                    <Route path="navigation-migration" element={<NavigationMigration />} />
+                    
+                    {/* Redirects for backward compatibility */}
+                    <Route path="hero-slides" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
+                    <Route path="hero-images" element={<HeroImagesManager />} />
+                    <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder?tab=why-choose" replace />} />
+                    <Route path="landing-menu" element={<Navigate to="/admin/homepage-builder?tab=landing-menu" replace />} />
                     
                     {/* Business Management Routes */}
                     <Route path="business" element={<BusinessDashboard />} />

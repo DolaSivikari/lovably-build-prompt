@@ -13,15 +13,15 @@ interface TourStep {
 
 const tourSteps: TourStep[] = [
   {
-    target: '[data-tour="hero-management"]',
-    title: 'Hero Management',
-    description: 'Start here! Manage your homepage carousel and page hero images. This is the most visible content on your site.',
+    target: '[data-tour="content"]',
+    title: 'Content Section',
+    description: 'Create and manage all your website content: Projects, Services, Blog Posts, Testimonials, and more.',
     position: 'right',
   },
   {
-    target: '[data-tour="content"]',
-    title: 'Content Management',
-    description: 'Create and edit your Services, Projects, and Blog Posts. Keep your portfolio fresh and engaging.',
+    target: '[data-tour="appearance"]',
+    title: 'Appearance Section',
+    description: 'Control how your site looks: Homepage Builder, Navigation Menus, Footer, and page layouts.',
     position: 'right',
   },
   {
@@ -31,15 +31,21 @@ const tourSteps: TourStep[] = [
     position: 'right',
   },
   {
-    target: '[data-tour="settings"]',
-    title: 'Settings',
-    description: 'Configure your homepage, footer, contact information, and site-wide settings.',
+    target: '[data-tour="business"]',
+    title: 'Business Tools',
+    description: 'Manage clients, projects, estimates, and invoices for your business operations.',
     position: 'right',
   },
   {
-    target: '[data-tour="media"]',
-    title: 'Media Library',
-    description: 'Upload and organize images, documents, and other media files for your content.',
+    target: '[data-tour="tools"]',
+    title: 'SEO & Tools',
+    description: 'Optimize your site with SEO Dashboard, Redirects, Structured Data, and Performance monitoring.',
+    position: 'right',
+  },
+  {
+    target: '[data-tour="settings"]',
+    title: 'Settings',
+    description: 'Configure site-wide settings, user management, and security options.',
     position: 'right',
   },
 ];
