@@ -14,10 +14,12 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Phone, Search, TrendingUp, Users, Building, Wrench, Sparkles, Star } from "lucide-react";
+import { Phone, Search, TrendingUp, Users, Building, Wrench, Sparkles, Star, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
+import { useNavigationSearch } from "@/hooks/useNavigationSearch";
+import { MobileSearchResults } from "./MobileSearchResults";
 
 interface MobileNavSheetProps {
   open: boolean;
@@ -26,11 +28,17 @@ interface MobileNavSheetProps {
 
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
+  const { searchQuery, setSearchQuery, filteredResults, isSearching } = useNavigationSearch();
 
   const isActive = (path: string) => location.pathname === path;
 
   const handleLinkClick = () => {
     onOpenChange(false);
+    setSearchQuery(""); // Clear search on navigation
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
   };
 
   return (
@@ -47,20 +55,45 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
         </SheetHeader>
 
         <div className="px-6 py-4">
-          {/* Search Bar - Optimized Touch Target */}
+          {/* Enhanced Search Bar with Clear Button */}
           <div className="mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
               <Input
                 type="search"
-                placeholder="Search services..."
-                className="pl-10 h-12 min-h-[44px] text-base touch-manipulation"
+                placeholder="Search services, markets, projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-10 h-12 min-h-[44px] text-base touch-manipulation"
               />
+              {searchQuery && (
+                <button
+                  onClick={handleClearSearch}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-colors touch-manipulation"
+                  aria-label="Clear search"
+                >
+                  <X className="h-4 w-4 text-muted-foreground" />
+                </button>
+              )}
             </div>
+            {isSearching && (
+              <p className="text-xs text-muted-foreground mt-2 animate-fade-in">
+                Searching through all navigation items...
+              </p>
+            )}
           </div>
 
-          {/* Popular Services Quick Links - Optimized Touch Targets */}
-          <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[var(--radius-sm)] border border-primary/10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          {/* Conditional Rendering: Search Results OR Normal Navigation */}
+          {isSearching ? (
+            <MobileSearchResults
+              results={filteredResults}
+              searchQuery={searchQuery}
+              onLinkClick={handleLinkClick}
+            />
+          ) : (
+            <>
+              {/* Popular Services Quick Links - Optimized Touch Targets */}
+              <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[var(--radius-sm)] border border-primary/10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-primary" />
               Popular Services
@@ -361,6 +394,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+            </>
+          )}
         </div>
 
         {/* Pinned CTA at bottom - Enhanced Touch Target */}
