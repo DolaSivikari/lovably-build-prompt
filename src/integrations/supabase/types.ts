@@ -1513,6 +1513,71 @@ export type Database = {
         }
         Relationships: []
       }
+      navigation_menu_items: {
+        Row: {
+          badge: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          display_order: number | null
+          icon_name: string | null
+          id: string
+          is_active: boolean | null
+          is_mega_menu: boolean | null
+          label: string
+          mega_menu_section_title: string | null
+          menu_type: string
+          parent_id: string | null
+          updated_at: string | null
+          updated_by: string | null
+          url: string
+        }
+        Insert: {
+          badge?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_mega_menu?: boolean | null
+          label: string
+          mega_menu_section_title?: string | null
+          menu_type?: string
+          parent_id?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          url: string
+        }
+        Update: {
+          badge?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_mega_menu?: boolean | null
+          label?: string
+          mega_menu_section_title?: string | null
+          menu_type?: string
+          parent_id?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "navigation_menu_items_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "navigation_menu_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string | null

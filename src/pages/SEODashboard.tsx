@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import SEOChecklist from "@/components/SEOChecklist";
+import { SitemapManager } from "@/components/admin/SitemapManager";
 
 const SEODashboard = () => {
   // Track completed items - in production this would come from a database
@@ -49,6 +50,10 @@ const SEODashboard = () => {
             </div>
 
             <SEOChecklist completedItems={completedItems} />
+
+            <div className="mt-12">
+              <SitemapManager />
+            </div>
           </div>
         </div>
       </main>
