@@ -172,6 +172,12 @@ const HeroSlidesManager = lazy(() => import("./pages/admin/HeroSlidesManager").c
 const HeroImagesManager = lazy(() => import("./pages/admin/HeroImagesManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Images Manager</p></div>
 })));
+const SearchAnalytics = lazy(() => import("./pages/admin/SearchAnalytics").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Search Analytics</p></div>
+})));
+const ErrorLogs = lazy(() => import("./pages/admin/ErrorLogs").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Error Logs</p></div>
+})));
 
 // WordPress-style Admin Pages
 const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
@@ -366,6 +372,8 @@ const App = () => (
                     <Route path="footer-settings" element={<FooterSettings />} />
                     <Route path="contact-page-settings" element={<ContactPageSettings />} />
                     <Route path="settings-health" element={<SettingsHealthCheck />} />
+                    <Route path="search-analytics" element={<SearchAnalytics />} />
+                    <Route path="error-logs" element={<ErrorLogs />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
                     

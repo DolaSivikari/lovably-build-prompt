@@ -24,7 +24,11 @@ import {
   Award,
   BookOpen,
   Layout,
-  Navigation
+  Navigation,
+  Wrench,
+  AlertTriangle,
+  ArrowRightLeft,
+  Database
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
@@ -55,8 +59,8 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
   const isAppearanceActive = ['/admin/homepage-builder', '/admin/navigation-builder', '/admin/footer-settings', '/admin/about-page', '/admin/contact-page'].some(p => currentPath.startsWith(p));
   const isInboxActive = ['/admin/contacts', '/admin/resumes', '/admin/prequalifications', '/admin/rfp'].some(p => currentPath.startsWith(p));
   const isBusinessActive = ['/admin/business'].some(p => currentPath.startsWith(p));
-  const isToolsActive = ['/admin/seo-dashboard', '/admin/redirects', '/admin/structured-data', '/admin/performance-dashboard'].some(p => currentPath.startsWith(p));
-  const isSettingsActive = ['/admin/site-settings', '/admin/users', '/admin/security-settings', '/admin/editor-guide'].some(p => currentPath.startsWith(p));
+  const isToolsActive = ['/admin/seo-dashboard', '/admin/redirects', '/admin/structured-data', '/admin/performance-dashboard', '/admin/search-analytics', '/admin/settings-health'].some(p => currentPath.startsWith(p));
+  const isSettingsActive = ['/admin/site-settings', '/admin/users', '/admin/security-settings', '/admin/editor-guide', '/admin/error-logs'].some(p => currentPath.startsWith(p));
 
   const [contentOpen, setContentOpen] = useState(isContentActive);
   const [appearanceOpen, setAppearanceOpen] = useState(isAppearanceActive);
@@ -243,9 +247,11 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           <CollapsibleContent>
             <nav className="business-nav-group">
               <NavItem to="/admin/seo-dashboard" icon={Search} label="SEO Dashboard" />
-              <NavItem to="/admin/redirects" icon={Activity} label="Redirects" />
-              <NavItem to="/admin/structured-data" icon={Activity} label="Structured Data" />
+              <NavItem to="/admin/redirects" icon={ArrowRightLeft} label="Redirects" />
+              <NavItem to="/admin/structured-data" icon={Database} label="Structured Data" />
               <NavItem to="/admin/performance-dashboard" icon={Activity} label="Performance" />
+              <NavItem to="/admin/search-analytics" icon={Search} label="Search Analytics" />
+              <NavItem to="/admin/settings-health" icon={Wrench} label="Settings Health" />
             </nav>
           </CollapsibleContent>
         </Collapsible>
@@ -266,6 +272,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
               <NavItem to="/admin/users" icon={UserCircle} label="Users & Roles" />
               <NavItem to="/admin/security-settings" icon={Shield} label="Security" />
               <NavItem to="/admin/editor-guide" icon={BookOpen} label="Editor Guide" />
+              <NavItem to="/admin/error-logs" icon={AlertTriangle} label="Error Logs" />
             </nav>
           </CollapsibleContent>
         </Collapsible>

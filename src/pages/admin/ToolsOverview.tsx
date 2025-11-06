@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
-import { Search, ArrowRight, Database, AlertTriangle, Gauge } from "lucide-react";
+import { Search, ArrowRight, Database, AlertTriangle, Gauge, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ToolsOverview = () => {
@@ -43,6 +43,30 @@ const ToolsOverview = () => {
       icon: Gauge,
       link: "/admin/performance-dashboard",
       badge: null,
+      status: null,
+    },
+    {
+      title: "Search Analytics",
+      description: "User search queries and content discovery insights",
+      icon: Search,
+      link: "/admin/search-analytics",
+      badge: "Insights",
+      status: null,
+    },
+    {
+      title: "Settings Health Check",
+      description: "Scan for hardcoded values and configuration issues",
+      icon: Wrench,
+      link: "/admin/settings-health",
+      badge: "Maintenance",
+      status: null,
+    },
+    {
+      title: "Navigation Migration",
+      description: "One-time utility to import legacy navigation data",
+      icon: Database,
+      link: "/admin/navigation-migration",
+      badge: "Setup",
       status: null,
     },
   ];
