@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
+import { PremiumContactHero } from "@/components/contact/PremiumContactHero";
 
 // Input validation schema
 const contactSchema = z.object({
@@ -117,49 +118,49 @@ const Contact = () => {
       <SEO title="Contact Us - Request Proposal | Ascent Group" description="Contact Ascent Group for a free consultation and estimate. Serving the Greater Toronto Area with professional construction and project management services." canonical="https://ascentgroupconstruction.com/contact" />
       <Navigation />
 
-      <PageHeader title="Get In Touch" description="Ready to start your project? We're here to help bring your vision to life." breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]} variant="minimal" />
+      <PremiumContactHero 
+        contactInfo={{
+          officeAddress,
+          mainPhone,
+          tollFreePhone,
+          generalEmail,
+          projectsEmail,
+          careersEmail,
+          weekdayHours,
+          saturdayHours,
+          sundayHours
+        }}
+        loading={loading}
+      />
 
-      {/* Interactive Contact Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-3xl -z-10" />
+      {/* Premium Contact Form Section */}
+      <section className="py-20 relative">
         <div className="container mx-auto px-4">
-          {loading && <div className="flex items-center justify-center gap-2 text-muted-foreground mb-4 animate-pulse"><Loader2 className="h-4 w-4 animate-spin" /><span>Loading contact information...</span></div>}
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="space-y-6 animate-fade-in-up">
-              {loading ? (
-                <><Card><CardHeader><Skeleton className="h-6 w-32" /></CardHeader><CardContent><Skeleton className="h-16 w-full" /></CardContent></Card><Card><CardHeader><Skeleton className="h-6 w-24" /></CardHeader><CardContent><Skeleton className="h-10 w-full" /></CardContent></Card><Card><CardHeader><Skeleton className="h-6 w-28" /></CardHeader><CardContent><Skeleton className="h-10 w-full" /></CardContent></Card></>
-              ) : (
-                <>
-                  <Card className="hover-scale border-2 hover:border-primary/30 transition-all"><CardHeader><CardTitle className="flex items-center gap-2"><div className="p-2 rounded-lg bg-primary/10"><MapPin className="h-5 w-5 text-primary" /></div>Head Office</CardTitle></CardHeader><CardContent><p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">{officeAddress}</p></CardContent></Card>
-                  <Card className="hover-scale border-2 hover:border-primary/30 transition-all"><CardHeader><CardTitle className="flex items-center gap-2"><div className="p-2 rounded-lg bg-primary/10"><Phone className="h-5 w-5 text-primary" /></div>Phone</CardTitle></CardHeader><CardContent><div className="space-y-2"><a href={`tel:${mainPhone}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"><span className="font-medium">Main:</span> {mainPhone}</a><a href={`tel:${tollFreePhone}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"><span className="font-medium">Toll Free:</span> {tollFreePhone}</a></div></CardContent></Card>
-                  <Card className="hover-scale border-2 hover:border-primary/30 transition-all"><CardHeader><CardTitle className="flex items-center gap-2"><div className="p-2 rounded-lg bg-primary/10"><Mail className="h-5 w-5 text-primary" /></div>Email</CardTitle></CardHeader><CardContent><div className="space-y-2"><a href={`mailto:${generalEmail}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"><span className="font-medium">General:</span> {generalEmail}</a><a href={`mailto:${projectsEmail}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"><span className="font-medium">Projects:</span> {projectsEmail}</a><a href={`mailto:${careersEmail}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"><span className="font-medium">Careers:</span> {careersEmail}</a></div></CardContent></Card>
-                  <Card className="hover-scale border-2 hover:border-secondary/30 transition-all bg-gradient-to-br from-secondary/5 to-transparent"><CardHeader><CardTitle className="flex items-center gap-2"><div className="p-2 rounded-lg bg-secondary/10"><Clock className="h-5 w-5 text-secondary" /></div>Business Hours</CardTitle></CardHeader><CardContent><div className="space-y-1 text-sm"><p className="font-medium text-foreground">{weekdayHours}</p><p className="text-muted-foreground">{saturdayHours}</p><p className="text-muted-foreground">{sundayHours}</p></div></CardContent></Card>
-                </>
-              )}
-            </div>
-            <div className="lg:col-span-2 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-              <Card className="border-2 hover:border-primary/20 transition-all shadow-xl">
-                <CardHeader className="bg-gradient-to-br from-primary/5 to-transparent"><CardTitle className="text-2xl">Request a Consultation</CardTitle><CardDescription className="text-base">Fill out the form below and our team will get back to you within 24 hours.</CardDescription></CardHeader>
-                <CardContent className="pt-8">
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="space-y-2"><Label htmlFor="name" className="text-base">Full Name *</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="John Smith" className="h-12" /></div>
-                      <div className="space-y-2"><Label htmlFor="email" className="text-base">Email *</Label><Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="john@example.com" className="h-12" /></div>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="space-y-2"><Label htmlFor="phone" className="text-base">Phone</Label><Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="(416) 555-0123" className="h-12" /></div>
-                      <div className="space-y-2"><Label htmlFor="company" className="text-base">Company</Label><Input id="company" name="company" value={formData.company} onChange={handleChange} placeholder="Your Company" className="h-12" /></div>
-                    </div>
-                    <div className="space-y-2"><Label htmlFor="message" className="text-base">Project Details *</Label><Textarea id="message" name="message" value={formData.message} onChange={handleChange} required placeholder="Tell us about your project requirements, timeline, and budget..." className="min-h-[180px]" /></div>
-                    <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="honeypot" type="text" tabIndex={-1} autoComplete="off" value={formData.honeypot} onChange={handleChange} /></div>
-                    <Button type="submit" size="lg" className="w-full h-14 text-lg gap-2 hover:scale-[1.02] transition-transform" disabled={isSubmitting}>
-                      {isSubmitting ? (<><Loader2 className="w-5 h-5 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-5 h-5" /></>)}
-                    </Button>
-                    <div className="bg-muted/50 border border-border rounded-lg p-4 text-center"><p className="text-sm text-muted-foreground"><strong className="text-foreground">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry.</p></div>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2 hover:border-primary/20 transition-all shadow-2xl overflow-hidden">
+              <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 border-b">
+                <h2 className="text-3xl font-bold mb-2">Request a Consultation</h2>
+                <p className="text-muted-foreground text-lg">Fill out the form below and our team will get back to you within 2 hours during business hours.</p>
+              </div>
+              <CardContent className="p-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2"><Label htmlFor="name" className="text-base">Full Name *</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="John Smith" className="h-14 text-base" /></div>
+                    <div className="space-y-2"><Label htmlFor="email" className="text-base">Email *</Label><Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="john@example.com" className="h-14 text-base" /></div>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2"><Label htmlFor="phone" className="text-base">Phone</Label><Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="(416) 555-0123" className="h-14 text-base" /></div>
+                    <div className="space-y-2"><Label htmlFor="company" className="text-base">Company</Label><Input id="company" name="company" value={formData.company} onChange={handleChange} placeholder="Your Company" className="h-14 text-base" /></div>
+                  </div>
+                  <div className="space-y-2"><Label htmlFor="message" className="text-base font-semibold">Project Details *</Label><Textarea id="message" name="message" value={formData.message} onChange={handleChange} required placeholder="Tell us about your project requirements, timeline, and budget..." className="min-h-[200px] text-base" /></div>
+                  <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="honeypot" type="text" tabIndex={-1} autoComplete="off" value={formData.honeypot} onChange={handleChange} /></div>
+                  <Button type="submit" size="lg" className="w-full h-16 text-lg gap-3 hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl" disabled={isSubmitting}>
+                    {isSubmitting ? (<><Loader2 className="w-6 h-6 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-6 h-6" /></>)}
+                  </Button>
+                  <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-xl p-6 text-center"><p className="text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.</p></div>
+                </form>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

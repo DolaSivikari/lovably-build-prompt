@@ -18,6 +18,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { PremiumDocumentSuite } from "@/components/contractor/PremiumDocumentSuite";
 
 const ContractorPortal = () => {
   const { toast } = useToast();
@@ -166,84 +167,7 @@ const ContractorPortal = () => {
             </p>
           </section>
 
-          {/* Complete Package Card - Featured */}
-          <section>
-            <Card className="border-2 border-primary/20 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in-up">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-transparent">
-                <div className="flex items-center gap-4">
-                  <Package className="h-12 w-12 text-primary" />
-                  <div>
-                    <CardTitle className="text-2xl">Complete Contractor Package</CardTitle>
-                    <p className="text-muted-foreground mt-1">All documents in one convenient download</p>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-2">Includes:</p>
-                    <ul className="text-sm space-y-1">
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        All insurance certificates and clearances
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Company profile and capabilities statement
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Project references and safety documentation
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-sm text-muted-foreground mb-2">ZIP File • ~15MB</div>
-                    <Button size="lg" className="gap-2">
-                      <Download className="h-5 w-5" />
-                      Download Complete Package
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-
-          {/* Individual Documents Grid */}
-          <section>
-            <h2 className="text-3xl font-bold text-foreground mb-2">Individual Documents</h2>
-            <p className="text-muted-foreground mb-8">Download specific documents as needed</p>
-            <div className="grid md:grid-cols-2 gap-4">
-              {documents.map((doc, index) => {
-                const Icon = doc.icon;
-                return (
-                  <Card 
-                    key={index} 
-                    className="hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex gap-4 flex-1">
-                          <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                            <Icon className="h-6 w-6 text-primary" />
-                          </div>
-                          <div>
-                            <h3 className="font-semibold text-foreground mb-1">{doc.name}</h3>
-                            <p className="text-sm text-muted-foreground mb-2">{doc.description}</p>
-                            <span className="text-xs text-muted-foreground">PDF • {doc.size}</span>
-                          </div>
-                        </div>
-                        <Button variant="ghost" size="sm">
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </section>
+          <PremiumDocumentSuite />
 
           {/* Request Custom Package Form */}
           <section className="bg-muted/30 rounded-lg p-8">

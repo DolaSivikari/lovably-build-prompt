@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useRealtimeProjects } from "@/hooks/useRealtimeProjects";
 import { resolveImagePath } from "@/utils/imageResolver";
+import { PremiumProjectHero } from "@/components/projects/PremiumProjectHero";
 
 const categories = [
   { label: "All Projects", value: "All", icon: Building2 },
@@ -182,20 +183,14 @@ const Projects = () => {
       />
       <Navigation />
 
-      <PageHeader
-        eyebrow="Our Work"
-        title="Project Portfolio"
-        description="Explore 500+ successful projects across the GTA"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Projects" }
-        ]}
-        variant="with-stats"
-        stats={[
-          { value: "500+", label: "Projects" },
-          { value: "$2B+", label: "Total Value" },
-          { value: "98%", label: "Satisfaction" }
-        ]}
+      <PremiumProjectHero 
+        featuredProjects={featuredProjects.map(p => ({
+          title: p.title,
+          location: p.location,
+          category: p.category,
+          image: p.image,
+          value: p.project_value ? `$${(p.project_value / 100000000).toFixed(1)}M` : undefined
+        }))}
       />
 
       {/* Featured Projects Spotlight */}

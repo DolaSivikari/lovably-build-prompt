@@ -17,11 +17,11 @@ import {
   Briefcase,
   HardHat,
   Wrench,
-  ChevronDown,
   ChevronRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
+import { PremiumServiceHero } from "@/components/services/PremiumServiceHero";
 
 // Icon map for dynamic service icons
 const iconMap: Record<string, any> = {
@@ -190,48 +190,7 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-muted-foreground/80 z-10" />
-        
-        {/* Hero Content */}
-        <div className="relative z-20 container mx-auto px-4 text-center text-primary-foreground py-16 md:py-20 animate-fade-in">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
-              Complete Construction Solutions
-            </h1>
-            <p className="text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 text-primary-foreground/90">
-              From concept to completion, we deliver excellence across Ontario
-            </p>
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                size="lg" 
-                variant="secondary"
-                asChild
-                className="w-full sm:w-auto min-w-[200px] text-base md:text-lg"
-              >
-                <Link to="/contact">Request Proposal</Link>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                asChild
-                className="w-full sm:w-auto min-w-[200px] text-base md:text-lg border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
-              >
-                <Link to="/contact">Contact Us</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Animated Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-          <ChevronDown className="w-8 h-8 text-primary-foreground" />
-        </div>
-      </section>
+      <PremiumServiceHero />
       
       <main className="flex-1">
 
@@ -249,7 +208,7 @@ const Services = () => {
                 </p>
               </div>
 
-              {/* Interactive Category Cards */}
+              {/* Premium Service Pillar Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {categories.map((category, index) => {
                   const CategoryIcon = categoryIcons[category.name] || Building2;
@@ -261,40 +220,50 @@ const Services = () => {
                       key={category.slug}
                       onClick={() => handleCategoryClick(category.slug)}
                       className={cn(
-                        "group relative bg-card rounded-[var(--radius-md)] p-6 md:p-8 cursor-pointer card-hover",
-                        "hover:[box-shadow:var(--shadow-card-elevated)] hover:-translate-y-2 border-2",
-                        isExpanded ? "ring-4 ring-primary/50 [box-shadow:var(--shadow-card-elevated)]" : "border-border",
-                        "text-left w-full"
+                        "group relative bg-card rounded-2xl p-6 md:p-8 cursor-pointer overflow-hidden",
+                        "hover:-translate-y-3 border-2 transition-all duration-500",
+                        isExpanded 
+                          ? "ring-4 ring-primary/50 shadow-[0_20px_60px_-15px_rgba(var(--primary),0.3)] border-primary/50" 
+                          : "border-border hover:border-primary/30 hover:shadow-[0_20px_60px_-15px_rgba(var(--primary),0.2)]",
+                        "text-left w-full animate-fade-in"
                       )}
                       style={{
                         animationDelay: `${index * 100}ms`
                       }}
                     >
-                      {/* Icon */}
+                      {/* Gradient glow effect on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      {/* Icon with magnetic effect */}
                       <div className={cn(
-                        "w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center mb-4 md:mb-6 transition-all duration-300",
+                        "relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500",
+                        "bg-gradient-to-br shadow-lg",
                         categoryColors.iconBg,
-                        "group-hover:scale-110"
+                        "group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-xl"
                       )}>
-                        <CategoryIcon className={cn("w-7 h-7 md:w-8 md:h-8", categoryColors.iconColor)} />
+                        <CategoryIcon className={cn("w-8 h-8 md:w-10 md:h-10", categoryColors.iconColor)} />
                       </div>
                       
                       {/* Category Name */}
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 md:mb-3">
+                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                         {category.name}
                       </h3>
                       
                       {/* Description */}
-                      <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 line-clamp-2">
+                      <p className="text-sm md:text-base text-muted-foreground mb-6 line-clamp-2">
                         {category.description}
                       </p>
                       
-                      {/* Service Count */}
-                      <div className="flex items-center text-primary font-semibold text-sm md:text-base">
-                        <span>{category.services.length} Services</span>
+                      {/* Service Count with animated badge */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center text-primary font-semibold text-sm md:text-base">
+                          <span className="px-3 py-1 bg-primary/10 rounded-full">
+                            {category.services.length} Services
+                          </span>
+                        </div>
                         <ChevronRight className={cn(
-                          "w-5 h-5 ml-2 icon-rotate",
-                          isExpanded && "rotate-90"
+                          "w-6 h-6 text-primary transition-transform duration-300",
+                          isExpanded ? "rotate-90" : "group-hover:translate-x-1"
                         )} />
                       </div>
                     </button>
