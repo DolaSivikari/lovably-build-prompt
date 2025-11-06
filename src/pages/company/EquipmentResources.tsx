@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroEquipmentImage from "@/assets/heroes/hero-equipment.jpg";
 
 const EquipmentResources = () => {
   const capacityStats = [
@@ -74,6 +75,7 @@ const EquipmentResources = () => {
         <PageHeader
           title="Equipment & Resources"
           description="Industrial-Grade Tools for Projects of Any Scale"
+          backgroundImage={heroEquipmentImage}
         />
 
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">

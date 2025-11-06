@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import { useSettingsData } from "@/hooks/useSettingsData";
+import heroCertificationsImage from "@/assets/heroes/hero-certifications.jpg";
 
 interface License {
   name: string;
@@ -108,10 +109,11 @@ const CertificationsInsurance = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        <PageHeader
-          title="Certifications & Insurance Coverage"
-          description="Licensed, Bonded, and Fully Insured for Your Peace of Mind"
-        />
+          <PageHeader
+            title="Certifications & Insurance Coverage"
+            description="Licensed, Bonded, and Fully Insured for Your Peace of Mind"
+            backgroundImage={heroCertificationsImage}
+          />
 
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">
           {/* Insurance Coverage Section */}

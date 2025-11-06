@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Linkedin, Mail, User } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import heroTeamImage from "@/assets/heroes/hero-team.jpg";
 
 const Team = () => {
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
@@ -52,6 +53,7 @@ const Team = () => {
           <PageHeader
             title="Meet Our Team"
             description="The experienced professionals driving excellence at Ascent Group Construction"
+            backgroundImage={heroTeamImage}
             breadcrumbs={[
               { label: "Home", href: "/" },
               { label: "Company", href: "/about" },

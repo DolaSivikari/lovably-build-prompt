@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
+import heroServiceAreasImage from "@/assets/heroes/hero-service-areas.jpg";
 
 const ServiceAreas = () => {
   const regions = [
@@ -50,6 +51,7 @@ const ServiceAreas = () => {
         <PageHeader
           title="Service Areas"
           description="Serving Ontario with Excellence"
+          backgroundImage={heroServiceAreasImage}
         />
 
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">

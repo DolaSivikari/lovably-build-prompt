@@ -16,6 +16,7 @@ import {
   Users,
   Clock
 } from "lucide-react";
+import heroDevelopersImage from "@/assets/heroes/hero-developers.jpg";
 
 const Developers = () => {
   const benefits = [
@@ -102,6 +103,7 @@ const Developers = () => {
           eyebrow="For Developers & GCs"
           title="Build With a Trusted Partner"
           description="Reliable subcontracting for painting, EIFS, stucco, and building envelope systems on projects of any scale"
+          backgroundImage={heroDevelopersImage}
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Company", href: "/about" },

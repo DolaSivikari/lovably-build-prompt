@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import SEO from "@/components/SEO";
+import heroWarrantiesImage from "@/assets/heroes/hero-warranties.jpg";
 
 const Warranties = () => {
   return (
@@ -17,6 +18,7 @@ const Warranties = () => {
           <PageHeader
             title="Warranties & Guarantees"
             description="Protecting your investment with comprehensive coverage"
+            backgroundImage={heroWarrantiesImage}
           />
           <section className="py-16">
             <div className="container mx-auto px-4">

@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import SEO from "@/components/SEO";
+import heroFinancingImage from "@/assets/heroes/hero-financing.jpg";
 
 const Financing = () => {
   return (
@@ -17,6 +18,7 @@ const Financing = () => {
           <PageHeader
             title="Financing Options"
             description="Flexible payment solutions for your construction project"
+            backgroundImage={heroFinancingImage}
           />
           <section className="py-16">
             <div className="container mx-auto px-4">
