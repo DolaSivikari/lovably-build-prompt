@@ -206,7 +206,9 @@ const MediaLibrary = () => {
                     </div>
                     <p className="text-xs font-medium truncate">{file.name}</p>
                     <p className="text-xs text-muted-foreground">
-                      {(file.metadata?.size / 1024).toFixed(0)} KB
+                      {file.metadata?.size 
+                        ? `${(file.metadata.size / 1024).toFixed(0)} KB`
+                        : 'Size unknown'}
                     </p>
                   </CardContent>
                 </Card>

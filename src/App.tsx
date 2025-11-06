@@ -128,20 +128,11 @@ const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary").catch(() =>
 const Users = lazy(() => import("./pages/admin/Users").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Users</p></div>
 })));
-const SecurityCenter = lazy(() => import("./pages/admin/SecurityCenter").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Security Center</p></div>
-})));
 const SecuritySettings = lazy(() => import("./pages/admin/SecuritySettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Security Settings</p></div>
 })));
-const AdminSEODashboard = lazy(() => import("./pages/admin/SEODashboard").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
-})));
 const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Performance Dashboard</p></div>
-})));
-const TemplateManager = lazy(() => import("./pages/admin/TemplateManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Template Manager</p></div>
 })));
 const LandingMenuEditor = lazy(() => import("./pages/admin/LandingMenuEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Landing Menu Editor</p></div>
@@ -162,21 +153,6 @@ const HeroImagesManager = lazy(() => import("./pages/admin/HeroImagesManager").c
 // Unified Admin Layout
 const UnifiedAdminLayout = lazy(() => import("./components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
-})));
-const BusinessDashboard = lazy(() => import("./pages/admin/business/BusinessDashboard").then(m => ({ default: m.BusinessDashboard })).catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Dashboard</p></div>
-})));
-const BusinessClients = lazy(() => import("./pages/admin/business/BusinessClients").then(m => ({ default: m.BusinessClients })).catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Clients</p></div>
-})));
-const BusinessProjects = lazy(() => import("./pages/admin/business/BusinessProjects").then(m => ({ default: m.BusinessProjects })).catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Projects</p></div>
-})));
-const BusinessEstimates = lazy(() => import("./pages/admin/business/BusinessEstimates").then(m => ({ default: m.BusinessEstimates })).catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Estimates</p></div>
-})));
-const BusinessInvoices = lazy(() => import("./pages/admin/business/BusinessInvoices").then(m => ({ default: m.BusinessInvoices })).catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Invoices</p></div>
 })));
 
 // Lazy load heavy content pages with error handling
@@ -323,11 +299,8 @@ const App = () => (
                     <Route path="rfp-submissions" element={<RFPSubmissions />} />
                     <Route path="documents-library" element={<DocumentsLibrary />} />
                     <Route path="homepage-settings" element={<HomepageSettings />} />
-                    <Route path="security-center" element={<SecurityCenter />} />
                     <Route path="security-settings" element={<SecuritySettings />} />
-                    <Route path="seo-dashboard" element={<AdminSEODashboard />} />
                     <Route path="performance-dashboard" element={<PerformanceDashboard />} />
-                    <Route path="template-manager" element={<TemplateManager />} />
                     <Route path="site-settings" element={<SiteSettings />} />
                     <Route path="landing-menu" element={<LandingMenuEditor />} />
                     <Route path="about-page" element={<AboutPageSettings />} />
@@ -338,13 +311,6 @@ const App = () => (
                     <Route path="settings-health" element={<SettingsHealthCheck />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
-                    
-                    {/* Business Admin Routes */}
-                    <Route path="business/dashboard" element={<BusinessDashboard />} />
-                    <Route path="business/clients" element={<BusinessClients />} />
-                    <Route path="business/projects" element={<BusinessProjects />} />
-                    <Route path="business/estimates" element={<BusinessEstimates />} />
-                    <Route path="business/invoices" element={<BusinessInvoices />} />
                   </Route>
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

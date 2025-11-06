@@ -46,12 +46,10 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
   }, [currentPath]);
 
   // Check if any route in a group is active to keep it open
-  const isBusinessActive = currentPath.startsWith('/admin/business');
   const isContentActive = ['/admin/projects', '/admin/services', '/admin/blog', '/admin/media'].some(p => currentPath.startsWith(p));
   const isInboxActive = ['/admin/contacts', '/admin/resumes', '/admin/prequalifications'].some(p => currentPath.startsWith(p));
   const isSettingsActive = ['/admin/site-settings', '/admin/users', '/admin/security', '/admin/seo', '/admin/performance'].some(p => currentPath.startsWith(p));
 
-  const [businessOpen, setBusinessOpen] = useState(isBusinessActive);
   const [contentOpen, setContentOpen] = useState(isContentActive);
   const [inboxOpen, setInboxOpen] = useState(isInboxActive);
   const [settingsOpen, setSettingsOpen] = useState(isSettingsActive);
@@ -127,27 +125,6 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
           <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
         </nav>
 
-        {/* Business Tools Section */}
-        <Collapsible open={businessOpen} onOpenChange={setBusinessOpen}>
-          <CollapsibleTrigger className="business-nav-group-label">
-            {!collapsed && (
-              <>
-                <Briefcase size={16} />
-                <span>Business</span>
-              </>
-            )}
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <nav className="business-nav-group">
-              <NavItem to="/admin/business/dashboard" icon={LayoutDashboard} label="Overview" />
-              <NavItem to="/admin/business/clients" icon={Users} label="Clients" />
-              <NavItem to="/admin/business/projects" icon={Briefcase} label="Projects" />
-              <NavItem to="/admin/business/estimates" icon={FileText} label="Estimates" />
-              <NavItem to="/admin/business/invoices" icon={Receipt} label="Invoices" />
-            </nav>
-          </CollapsibleContent>
-        </Collapsible>
-
         {/* Content Management Section */}
         <Collapsible open={contentOpen} onOpenChange={setContentOpen}>
           <CollapsibleTrigger className="business-nav-group-label">
@@ -212,8 +189,9 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
               <NavItem to="/admin/contact-page-settings" icon={Settings} label="Contact Page" />
               <NavItem to="/admin/site-settings" icon={Settings} label="Site" />
               <NavItem to="/admin/users" icon={UserCircle} label="Users" />
-              <NavItem to="/admin/security-center" icon={Shield} label="Security" />
-              <NavItem to="/admin/seo-dashboard" icon={Search} label="SEO" />
+              <NavItem to="/admin/security-settings" icon={Shield} label="Security Settings" />
+              <NavItem to="/admin/hero-slides" icon={Image} label="Hero Slides" />
+              <NavItem to="/admin/hero-images" icon={Image} label="Hero Images" />
               <NavItem to="/admin/performance-dashboard" icon={Activity} label="Performance" />
               <NavItem to="/admin/settings-health" icon={Activity} label="Health Check" />
             </nav>
