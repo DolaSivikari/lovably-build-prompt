@@ -25,6 +25,8 @@ import { ProjectTypeSelector } from "@/components/forms/ProjectTypeSelector";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
 import { RippleEffect } from "@/components/shared/RippleEffect";
+import heroMasonry from "@/assets/hero-masonry-restoration.jpg";
+import projectCommercial from "@/assets/project-commercial.jpg";
 
 // Input validation schema
 const contactSchema = z.object({
@@ -269,8 +271,8 @@ const Contact = () => {
           </div>
           <div className="max-w-4xl mx-auto">
             <BeforeAfterSlider
-              beforeImage="/hero-masonry-restoration.jpg"
-              afterImage="/project-commercial.jpg"
+              beforeImage={heroMasonry}
+              afterImage={projectCommercial}
               beforeLabel="Before Restoration"
               afterLabel="After Restoration"
             />

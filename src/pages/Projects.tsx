@@ -168,7 +168,7 @@ const Projects = () => {
            matchesPerformance;
   });
 
-  const featuredProjects = filteredProjects.filter(p => p.featured).slice(0, 3);
+  const featuredProjects = (filteredProjects.some(p => p.featured) ? filteredProjects.filter(p => p.featured) : filteredProjects).slice(0, 3);
   const regularProjects = filteredProjects.filter(p => !p.featured);
   const visibleProjects = regularProjects.slice(0, visibleCount);
 
@@ -181,7 +181,7 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen text-foreground">
       <SEO
         title="Our Projects - 500+ Completed | Ascen Group"
         description="Browse our portfolio of 500+ successfully completed construction and painting projects across the GTA. Commercial, residential, institutional, and industrial work."
