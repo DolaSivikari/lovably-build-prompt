@@ -236,7 +236,19 @@ const ServiceEditor = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="publish_state">Status</Label>
+              <TooltipProvider>
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="publish_state">Publishing Status</Label>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Draft: Not visible to public<br/>Review: Ready for approval<br/>Published: Live on site</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </TooltipProvider>
               <Select
                 value={formData.publish_state}
                 onValueChange={(value: any) => setFormData({ ...formData, publish_state: value })}
@@ -245,9 +257,10 @@ const ServiceEditor = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="published">Published</SelectItem>
-                  <SelectItem value="archived">Archived</SelectItem>
+                  <SelectItem value="draft">📝 Draft</SelectItem>
+                  <SelectItem value="review">👀 Ready for Review</SelectItem>
+                  <SelectItem value="published">✅ Published</SelectItem>
+                  <SelectItem value="archived">📦 Archived</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -469,6 +469,15 @@ const Dashboard = () => {
           <button
             className="business-btn business-btn-ghost"
             style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            onClick={() => navigate("/admin/navigation")}
+            aria-label="Navigation Builder"
+          >
+            <Navigation size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
+            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Navigation Builder</span>
+          </button>
+          <button
+            className="business-btn business-btn-ghost"
+            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
             onClick={() => navigate("/admin/contact-page-settings")}
             aria-label="Edit Contact Page"
           >

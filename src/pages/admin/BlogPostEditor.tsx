@@ -95,7 +95,7 @@ const BlogPostEditor = () => {
         seo_description: data.seo_description || "",
         seo_keywords: data.seo_keywords?.join(", ") || "",
         read_time_minutes: data.read_time_minutes || 5,
-        publish_state: data.publish_state || "draft",
+        publish_state: (data.publish_state as any) || "draft",
         content_type: data.content_type || "article",
         project_location: data.project_location || "",
         project_size: data.project_size || "",
@@ -409,18 +409,26 @@ const BlogPostEditor = () => {
               />
 
               <div>
-                <Label htmlFor="publish_state">Publish State</Label>
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="publish_state">Publishing Status</Label>
+                  <span className="text-xs text-muted-foreground">
+                    {(formData.publish_state as any) === 'draft' && '(Not visible to public)'}
+                    {(formData.publish_state as any) === 'review' && '(Awaiting approval)'}
+                    {(formData.publish_state as any) === 'published' && '(Live on site)'}
+                  </span>
+                </div>
                 <Select 
                   value={formData.publish_state} 
-                  onValueChange={(value: any) => setFormData({ ...formData, publish_state: value })}
+                  onValueChange={(value: any) => setFormData({ ...formData, publish_state: value as any })}
                 >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="draft">Draft</SelectItem>
-                    <SelectItem value="published">Published</SelectItem>
-                    <SelectItem value="archived">Archived</SelectItem>
+                    <SelectItem value="draft">📝 Draft</SelectItem>
+                    <SelectItem value="review">👀 Ready for Review</SelectItem>
+                    <SelectItem value="published">✅ Published</SelectItem>
+                    <SelectItem value="archived">📦 Archived</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

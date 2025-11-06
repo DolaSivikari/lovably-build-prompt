@@ -2816,7 +2816,7 @@ export type Database = {
         | "cancelled"
       employment_type: "full_time" | "part_time" | "contract" | "internship"
       post_content_type: "article" | "case_study" | "insight" | "case-study"
-      publish_state: "draft" | "scheduled" | "published" | "archived"
+      publish_state: "draft" | "scheduled" | "published" | "archived" | "review"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2984,7 +2984,7 @@ export const Constants = {
       ],
       employment_type: ["full_time", "part_time", "contract", "internship"],
       post_content_type: ["article", "case_study", "insight", "case-study"],
-      publish_state: ["draft", "scheduled", "published", "archived"],
+      publish_state: ["draft", "scheduled", "published", "archived", "review"],
     },
   },
 } as const

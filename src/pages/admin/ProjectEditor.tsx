@@ -191,7 +191,7 @@ const ProjectEditor = () => {
         project_status: data.project_status || "Completed",
         process_notes: data.process_notes || "",
         featured: data.featured || false,
-        publish_state: data.publish_state || "draft",
+        publish_state: (data.publish_state as any) || "draft",
         seo_title: data.seo_title || "",
         seo_description: data.seo_description || "",
         before_images: data.before_images || [],
@@ -919,18 +919,26 @@ const ProjectEditor = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="publish_state">Status</Label>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="publish_state">Publishing Status</Label>
+                <span className="text-xs text-muted-foreground">
+                  {(formData.publish_state as any) === 'draft' && '(Not visible to public)'}
+                  {(formData.publish_state as any) === 'review' && '(Awaiting approval)'}
+                  {(formData.publish_state as any) === 'published' && '(Live on site)'}
+                </span>
+              </div>
               <Select
                 value={formData.publish_state}
-                onValueChange={(value: any) => setFormData({ ...formData, publish_state: value })}
+                onValueChange={(value: any) => setFormData({ ...formData, publish_state: value as any })}
               >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="published">Published</SelectItem>
-                  <SelectItem value="archived">Archived</SelectItem>
+                  <SelectItem value="draft">📝 Draft</SelectItem>
+                  <SelectItem value="review">👀 Ready for Review</SelectItem>
+                  <SelectItem value="published">✅ Published</SelectItem>
+                  <SelectItem value="archived">📦 Archived</SelectItem>
                 </SelectContent>
               </Select>
             </div>
