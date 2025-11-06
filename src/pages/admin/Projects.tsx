@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Edit, Trash2, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const Projects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [services, setServices] = useState<any[]>([]);
   const [selectedService, setSelectedService] = useState<string>('all');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isAdmin) return;
@@ -69,13 +72,13 @@ const Projects = () => {
     setIsLoading(false);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this project?")) return;
+  const handleDelete = async () => {
+    if (!projectToDelete) return;
 
     const { error } = await supabase
       .from("projects")
       .delete()
-      .eq("id", id);
+      .eq("id", projectToDelete);
 
     if (error) {
       toast({
@@ -90,6 +93,7 @@ const Projects = () => {
       });
       loadProjects();
     }
+    setProjectToDelete(null);
   };
 
   const getStatusColor = (status: string) => {
@@ -203,7 +207,10 @@ const Projects = () => {
                     <button 
                       className="business-btn business-btn-ghost"
                       style={{ padding: '0.5rem' }}
-                      onClick={() => handleDelete(project.id)}
+                      onClick={() => {
+                        setProjectToDelete(project.id);
+                        setDeleteDialogOpen(true);
+                      }}
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -266,6 +273,16 @@ const Projects = () => {
           </div>
         )}
       </div>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+        title="Delete Project"
+        description="Are you sure you want to delete this project? This action cannot be undone and will remove all associated data."
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 };

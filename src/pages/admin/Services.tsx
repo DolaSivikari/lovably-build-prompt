@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Edit, Trash2, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const Services = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ const Services = () => {
   const { isLoading: authLoading, isAdmin } = useAdminAuth();
   const [services, setServices] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [serviceToDelete, setServiceToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isAdmin) return;
@@ -39,13 +42,13 @@ const Services = () => {
     setIsLoading(false);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this service?")) return;
+  const handleDelete = async () => {
+    if (!serviceToDelete) return;
 
     const { error } = await supabase
       .from("services")
       .delete()
-      .eq("id", id);
+      .eq("id", serviceToDelete);
 
     if (error) {
       toast({
@@ -60,6 +63,7 @@ const Services = () => {
       });
       loadServices();
     }
+    setServiceToDelete(null);
   };
 
   const getStatusColor = (status: string) => {
@@ -143,7 +147,10 @@ const Services = () => {
                     <button 
                       className="business-btn business-btn-ghost"
                       style={{ padding: '0.5rem' }}
-                      onClick={() => handleDelete(service.id)}
+                      onClick={() => {
+                        setServiceToDelete(service.id);
+                        setDeleteDialogOpen(true);
+                      }}
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -169,6 +176,16 @@ const Services = () => {
           </div>
         )}
       </div>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+        title="Delete Service"
+        description="Are you sure you want to delete this service? This action cannot be undone."
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 };

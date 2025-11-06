@@ -20,17 +20,21 @@ export const AdminPageLayout = ({
   children,
 }: AdminPageLayoutProps) => {
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <AdminPageHeader
-        title={title}
-        description={description}
-        backTo={backTo}
-        backLabel={backLabel}
-        actions={actions}
-        loading={loading}
-      />
-      <div className="space-y-6">
-        {children}
+    <div className="h-full flex flex-col overflow-hidden">
+      <div className="flex-shrink-0 px-6 pt-6">
+        <AdminPageHeader
+          title={title}
+          description={description}
+          backTo={backTo}
+          backLabel={backLabel}
+          actions={actions}
+          loading={loading}
+        />
+      </div>
+      <div className="flex-1 overflow-y-auto px-6 pb-6">
+        <div className="space-y-6 max-w-7xl">
+          {children}
+        </div>
       </div>
     </div>
   );
