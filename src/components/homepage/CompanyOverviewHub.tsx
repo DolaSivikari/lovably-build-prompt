@@ -1,34 +1,14 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Award, Users, Target, Shield, Lightbulb, Heart } from "lucide-react";
+import { ArrowRight, CheckCircle, Target } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useCompanyOverview } from "@/hooks/useCompanyOverview";
 
-const COMPANY_VALUES = [
-  {
-    icon: Shield,
-    title: "Safety First",
-    description: "Comprehensive safety protocols and training for every project, ensuring zero-incident worksites.",
-  },
-  {
-    icon: Award,
-    title: "Quality Craftsmanship",
-    description: "Premium materials and skilled trades deliver results that exceed industry standards.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovation",
-    description: "Latest techniques and sustainable solutions for modern construction challenges.",
-  },
-  {
-    icon: Heart,
-    title: "Client Partnership",
-    description: "Transparent communication and dedicated support throughout your project journey.",
-  },
-];
-
-const OUR_APPROACH = [
+// Fallback data
+const fallbackApproach = [
   "Detailed site assessment and project planning",
   "Transparent pricing with no hidden costs",
   "Dedicated project manager for seamless coordination",
@@ -37,23 +17,18 @@ const OUR_APPROACH = [
   "Comprehensive warranties and ongoing support",
 ];
 
-const OUR_PROMISE = [
-  {
-    title: "On-Time Delivery",
-    description: "We respect your schedule with efficient project management and clear timelines.",
-  },
-  {
-    title: "Budget Certainty",
-    description: "Detailed estimates upfront with no surprise costs or change orders.",
-  },
-  {
-    title: "Quality Guarantee",
-    description: "Comprehensive warranties backed by 15+ years of proven excellence.",
-  },
-  {
-    title: "Safety Compliance",
-    description: "WSIB certified with strict adherence to all safety regulations.",
-  },
+const fallbackValues = [
+  { icon: "Shield", title: "Safety First", description: "Comprehensive safety protocols and training for every project, ensuring zero-incident worksites." },
+  { icon: "Award", title: "Quality Craftsmanship", description: "Premium materials and skilled trades deliver results that exceed industry standards." },
+  { icon: "Lightbulb", title: "Innovation", description: "Latest techniques and sustainable solutions for modern construction challenges." },
+  { icon: "Heart", title: "Client Partnership", description: "Transparent communication and dedicated support throughout your project journey." },
+];
+
+const fallbackPromise = [
+  { title: "On-Time Delivery", description: "We respect your schedule with efficient project management and clear timelines." },
+  { title: "Budget Certainty", description: "Detailed estimates upfront with no surprise costs or change orders." },
+  { title: "Quality Guarantee", description: "Comprehensive warranties backed by 15+ years of proven excellence." },
+  { title: "Safety Compliance", description: "WSIB certified with strict adherence to all safety regulations." },
 ];
 
 const CompanyOverviewHub = () => {
@@ -61,6 +36,26 @@ const CompanyOverviewHub = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   useIntersectionObserver(sectionRef, { threshold: 0.2 });
+  
+  const { sections, items } = useCompanyOverview();
+  
+  const getItemsForSection = (sectionType: string) => {
+    const section = sections.find(s => s.section_type === sectionType);
+    if (!section) return [];
+    return items.filter(item => item.section_id === section.id);
+  };
+  
+  const approachItems = getItemsForSection("approach");
+  const valuesItems = getItemsForSection("values");
+  const promiseItems = getItemsForSection("promise");
+  
+  const OUR_APPROACH = approachItems.length > 0 ? approachItems.map(i => i.content) : fallbackApproach;
+  const COMPANY_VALUES = valuesItems.length > 0 
+    ? valuesItems.map(i => ({ icon: i.icon_name || "Shield", title: i.title || "", description: i.content }))
+    : fallbackValues;
+  const OUR_PROMISE = promiseItems.length > 0
+    ? promiseItems.map(i => ({ title: i.title || "", description: i.content }))
+    : fallbackPromise;
 
   return (
     <section
@@ -134,15 +129,17 @@ const CompanyOverviewHub = () => {
                   These principles guide every decision we make and every project we undertake.
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {COMPANY_VALUES.map((value, index) => (
-                    <div
-                      key={index}
-                      className="p-6 rounded-xl bg-gradient-to-br from-muted/50 to-muted border hover:border-primary/50 transition-all hover:shadow-lg group"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                          <value.icon className="w-6 h-6 text-primary" />
-                        </div>
+                  {COMPANY_VALUES.map((value, index) => {
+                    const Icon = (LucideIcons as any)[value.icon] || LucideIcons.Shield;
+                    return (
+                      <div
+                        key={index}
+                        className="p-6 rounded-xl bg-gradient-to-br from-muted/50 to-muted border hover:border-primary/50 transition-all hover:shadow-lg group"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                            <Icon className="w-6 h-6 text-primary" />
+                          </div>
                         <div className="flex-1">
                           <h4 className="text-xl font-semibold mb-2 text-foreground">
                             {value.title}
@@ -153,7 +150,8 @@ const CompanyOverviewHub = () => {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  );
+                  })}
                 </div>
               </div>
             </div>

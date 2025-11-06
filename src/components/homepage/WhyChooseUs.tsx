@@ -1,48 +1,30 @@
-import { BadgeCheck, Building2, ShieldCheck, Clock, Users, Award } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
+import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
 
-const differentiators = [
-  {
-    icon: BadgeCheck,
-    title: "Licensed & Certified",
-    desc: "Fully licensed and insured with $5M liability coverage, WSIB compliant, and municipally licensed across the Greater Toronto Area. Proven track record with 500+ successful commercial and residential projects.",
-    stats: "500+ Projects Completed",
-  },
-  {
-    icon: Building2,
-    title: "Comprehensive Services",
-    desc: "Complete construction solutions from envelope restoration to specialty trades. Single point of contact eliminates coordination complexity and streamlines project delivery.",
-    stats: "21+ Service Offerings",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Premium Materials",
-    desc: "Authorized contractor for industry-leading brands with extended manufacturer warranties. Premium materials and proven installation methods ensure lasting quality and performance.",
-    stats: "Extended Warranties",
-  },
-  {
-    icon: Clock,
-    title: "On-Time Delivery",
-    desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach maintains a 95% on-time completion rate across all projects.",
-    stats: "95% On-Time Rate",
-  },
-  {
-    icon: Users,
-    title: "Expert Team",
-    desc: "OSHA certified crews with continuous training and comprehensive safety protocols. Zero-incident safety record backed by full liability coverage on every project.",
-    stats: "OSHA Certified",
-  },
-  {
-    icon: Award,
-    title: "Quality Standards",
-    desc: "Rigorous quality control processes and industry-leading best practices ensure exceptional results. Every project meets or exceeds regulatory requirements and client expectations.",
-    stats: "ISO-Compliant Processes",
-  },
+// Fallback data
+const fallbackDifferentiators = [
+  { icon: "BadgeCheck", title: "Licensed & Certified", desc: "Fully licensed and insured with $5M liability coverage, WSIB compliant, and municipally licensed across the Greater Toronto Area. Proven track record with 500+ successful commercial and residential projects.", stats: "500+ Projects Completed" },
+  { icon: "Building2", title: "Comprehensive Services", desc: "Complete construction solutions from envelope restoration to specialty trades. Single point of contact eliminates coordination complexity and streamlines project delivery.", stats: "21+ Service Offerings" },
+  { icon: "ShieldCheck", title: "Premium Materials", desc: "Authorized contractor for industry-leading brands with extended manufacturer warranties. Premium materials and proven installation methods ensure lasting quality and performance.", stats: "Extended Warranties" },
+  { icon: "Clock", title: "On-Time Delivery", desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach maintains a 95% on-time completion rate across all projects.", stats: "95% On-Time Rate" },
+  { icon: "Users", title: "Expert Team", desc: "OSHA certified crews with continuous training and comprehensive safety protocols. Zero-incident safety record backed by full liability coverage on every project.", stats: "OSHA Certified" },
+  { icon: "Award", title: "Quality Standards", desc: "Rigorous quality control processes and industry-leading best practices ensure exceptional results. Every project meets or exceeds regulatory requirements and client expectations.", stats: "ISO-Compliant Processes" },
 ];
 
 const WhyChooseUs = () => {
+  const { data: items, isLoading } = useWhyChooseUs();
+  
+  const differentiators = items && items.length > 0 
+    ? items.map(item => ({
+        icon: item.icon_name || "BadgeCheck",
+        title: item.title,
+        desc: item.description,
+        stats: item.stats_badge || "",
+      }))
+    : fallbackDifferentiators;
   return (
     <section className="py-20 md:py-24 bg-muted/30">
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
@@ -58,10 +40,13 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Cards Grid - Clean 3-Column Layout */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {differentiators.map((item, index) => {
-            const Icon = item.icon;
-            return (
+        {isLoading ? (
+          <div className="text-center py-12">Loading...</div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {differentiators.map((item, index) => {
+              const Icon = (LucideIcons as any)[item.icon] || LucideIcons.BadgeCheck;
+              return (
               <Card
                 key={index}
                 variant="elevated"
@@ -95,6 +80,7 @@ const WhyChooseUs = () => {
             );
           })}
         </div>
+        )}
 
         {/* Bottom CTA Section - Professional Design */}
         <div className="max-w-4xl mx-auto">

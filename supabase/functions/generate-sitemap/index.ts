@@ -171,6 +171,13 @@ Deno.serve(async (req) => {
       priority: '0.8',
     });
 
+    // Add case studies index  
+    urls.push({
+      loc: `${baseUrl}/case-studies`,
+      lastmod: new Date().toISOString().split('T')[0],
+      priority: '0.8',
+    });
+
     // Add published services
     const { data: services } = await supabase
       .from('services')
@@ -200,6 +207,12 @@ ${urls.map(url => `  <url>
 
     console.log(`Sitemap generated with ${urls.length} URLs`);
 
+    // Log sitemap generation
+    await supabase.from('sitemap_generation_log').insert({
+      url_count: urls.length,
+      status: 'success',
+    });
+
     return new Response(
       JSON.stringify({ 
         success: true,
@@ -213,6 +226,21 @@ ${urls.map(url => `  <url>
     );
 
   } catch (error: any) {
+    // Log error
+    try {
+      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+      const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      
+      await supabase.from('sitemap_generation_log').insert({
+        url_count: 0,
+        status: 'error',
+        error_message: error.message,
+      });
+    } catch (logError) {
+      console.error('Failed to log sitemap error:', logError);
+    }
+    
     return createErrorResponse(error);
   }
 });

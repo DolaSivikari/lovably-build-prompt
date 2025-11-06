@@ -19,6 +19,8 @@ import {
   Search,
   Layout,
   Package,
+  Image,
+  Navigation,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
