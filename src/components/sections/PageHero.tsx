@@ -47,7 +47,7 @@ const PageHeroRoot = ({ children, backgroundImage, className }: PageHeroRootProp
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="absolute inset-0 z-[1] bg-gradient-to-r from-background/90 via-background/70 to-background/50" />
+          <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/70 to-black/60" />
         </>
       )}
       
@@ -63,15 +63,15 @@ const PageHeroRoot = ({ children, backgroundImage, className }: PageHeroRootProp
 const Breadcrumb = ({ items }: BreadcrumbProps) => {
   return (
     <nav aria-label="Breadcrumb" className="mb-4">
-      <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+      <ol className="flex items-center gap-2 text-sm text-white/80">
         {items.map((item, index) => (
           <li key={index} className="flex items-center gap-2">
             {item.href ? (
-              <Link to={item.href} className="hover:text-primary transition-colors">
+              <Link to={item.href} className="hover:text-white transition-colors">
                 {item.label}
               </Link>
             ) : (
-              <span className="text-foreground font-medium">{item.label}</span>
+              <span className="text-white font-medium">{item.label}</span>
             )}
             {index < items.length - 1 && (
               <ChevronRight className="w-4 h-4" />
@@ -84,22 +84,22 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
 };
 
 const Title = ({ children }: { children: ReactNode }) => {
-  return <h1 className="text-foreground mb-4">{children}</h1>;
+  return <h1 className="text-white mb-4">{children}</h1>;
 };
 
 const Subtitle = ({ children }: { children: ReactNode }) => {
-  return <p className="text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl">{children}</p>;
+  return <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-2xl">{children}</p>;
 };
 
 const Stats = ({ stats }: StatsProps) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8 mb-8 p-6 bg-background/80 backdrop-blur-sm rounded-lg border border-border">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8 mb-8 p-6 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
       {stats.map((stat, index) => (
         <div key={index} className="text-center">
           <div className="text-2xl md:text-3xl font-bold text-primary mb-1">
             {stat.value}
           </div>
-          <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-wide">
+          <div className="text-xs md:text-sm text-white/70 uppercase tracking-wide">
             {stat.label}
           </div>
         </div>

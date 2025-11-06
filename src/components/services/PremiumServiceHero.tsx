@@ -13,7 +13,7 @@ export const PremiumServiceHero = () => {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
       {/* Animated geometric shapes background */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary via-primary/95 to-primary/80">
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary/70">
         <div 
           className="absolute top-10 left-10 w-64 h-64 bg-primary-foreground/5 rounded-full blur-3xl animate-pulse"
           style={{ transform: `translateY(${offset * 0.5}px)` }}
@@ -24,6 +24,9 @@ export const PremiumServiceHero = () => {
         />
         <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-primary-foreground/3 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       </div>
+      
+      {/* Subtle dark overlay for depth */}
+      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/10 via-transparent to-black/20" />
 
       {/* Hero Content */}
       <div className="relative z-20 container mx-auto px-4 text-center text-primary-foreground py-20">
