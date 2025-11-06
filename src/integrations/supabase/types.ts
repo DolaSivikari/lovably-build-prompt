@@ -113,6 +113,39 @@ export type Database = {
         }
         Relationships: []
       }
+      analytics_snapshots: {
+        Row: {
+          avg_time_on_page: number | null
+          bounce_rate: number | null
+          created_at: string | null
+          id: string
+          page_path: string
+          page_views: number | null
+          snapshot_date: string
+          unique_visitors: number | null
+        }
+        Insert: {
+          avg_time_on_page?: number | null
+          bounce_rate?: number | null
+          created_at?: string | null
+          id?: string
+          page_path: string
+          page_views?: number | null
+          snapshot_date?: string
+          unique_visitors?: number | null
+        }
+        Update: {
+          avg_time_on_page?: number | null
+          bounce_rate?: number | null
+          created_at?: string | null
+          id?: string
+          page_path?: string
+          page_views?: number | null
+          snapshot_date?: string
+          unique_visitors?: number | null
+        }
+        Relationships: []
+      }
       audit_log: {
         Row: {
           action: string
@@ -645,6 +678,38 @@ export type Database = {
           version_number?: number
         }
         Relationships: []
+      }
+      document_access_log: {
+        Row: {
+          created_at: string | null
+          document_id: string | null
+          id: string
+          ip_address: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          document_id?: string | null
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          document_id?: string | null
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_access_log_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents_library"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       documents_library: {
         Row: {
@@ -1314,6 +1379,36 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_subscribers: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          is_active: boolean | null
+          source: string | null
+          subscribed_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          is_active?: boolean | null
+          source?: string | null
+          subscribed_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          is_active?: boolean | null
+          source?: string | null
+          subscribed_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string | null
@@ -1780,53 +1875,74 @@ export type Database = {
       }
       rfp_submissions: {
         Row: {
+          additional_requirements: string | null
           admin_notes: string | null
+          bonding_required: boolean | null
           company_name: string
           contact_name: string
           created_at: string | null
+          delivery_method: string | null
           email: string
           estimated_start_date: string | null
+          estimated_timeline: string | null
           estimated_value_range: string | null
           id: string
           phone: string | null
+          prequalification_complete: boolean | null
           project_description: string | null
           project_location: string | null
           project_name: string
+          project_start_date: string | null
           project_type: string | null
+          scope_of_work: string
           special_requirements: string | null
           status: string | null
         }
         Insert: {
+          additional_requirements?: string | null
           admin_notes?: string | null
+          bonding_required?: boolean | null
           company_name: string
           contact_name: string
           created_at?: string | null
+          delivery_method?: string | null
           email: string
           estimated_start_date?: string | null
+          estimated_timeline?: string | null
           estimated_value_range?: string | null
           id?: string
           phone?: string | null
+          prequalification_complete?: boolean | null
           project_description?: string | null
           project_location?: string | null
           project_name: string
+          project_start_date?: string | null
           project_type?: string | null
+          scope_of_work?: string
           special_requirements?: string | null
           status?: string | null
         }
         Update: {
+          additional_requirements?: string | null
           admin_notes?: string | null
+          bonding_required?: boolean | null
           company_name?: string
           contact_name?: string
           created_at?: string | null
+          delivery_method?: string | null
           email?: string
           estimated_start_date?: string | null
+          estimated_timeline?: string | null
           estimated_value_range?: string | null
           id?: string
           phone?: string | null
+          prequalification_complete?: boolean | null
           project_description?: string | null
           project_location?: string | null
           project_name?: string
+          project_start_date?: string | null
           project_type?: string | null
+          scope_of_work?: string
           special_requirements?: string | null
           status?: string | null
         }
@@ -2117,6 +2233,30 @@ export type Database = {
           social_links?: Json | null
           updated_at?: string | null
           updated_by?: string | null
+        }
+        Relationships: []
+      }
+      sitemap_logs: {
+        Row: {
+          created_at: string | null
+          error_message: string | null
+          id: string
+          status: string
+          url_count: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          status: string
+          url_count?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          status?: string
+          url_count?: number | null
         }
         Relationships: []
       }
