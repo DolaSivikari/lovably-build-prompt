@@ -152,6 +152,9 @@ const AboutPageSettings = lazy(() => import("./pages/admin/AboutPageSettings").c
 const SettingsHealthCheck = lazy(() => import("./pages/admin/SettingsHealthCheck").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Settings Health Check</p></div>
 })));
+const HeroSlidesManager = lazy(() => import("./pages/admin/HeroSlidesManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Slides Manager</p></div>
+})));
 
 // Unified Admin Layout
 const UnifiedAdminLayout = lazy(() => import("./components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
@@ -330,6 +333,7 @@ const App = () => (
                     <Route path="footer-settings" element={<FooterSettings />} />
                     <Route path="contact-page-settings" element={<ContactPageSettings />} />
                     <Route path="settings-health" element={<SettingsHealthCheck />} />
+                    <Route path="hero-slides" element={<HeroSlidesManager />} />
                     
                     {/* Business Admin Routes */}
                     <Route path="business/dashboard" element={<BusinessDashboard />} />

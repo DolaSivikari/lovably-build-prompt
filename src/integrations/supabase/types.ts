@@ -1501,6 +1501,72 @@ export type Database = {
         }
         Relationships: []
       }
+      hero_slides: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          display_order: number
+          headline: string
+          id: string
+          is_active: boolean
+          poster_url: string | null
+          primary_cta_icon: string | null
+          primary_cta_text: string
+          primary_cta_url: string
+          secondary_cta_text: string | null
+          secondary_cta_url: string | null
+          stat_label: string | null
+          stat_number: string | null
+          subheadline: string
+          updated_at: string
+          updated_by: string | null
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          headline: string
+          id?: string
+          is_active?: boolean
+          poster_url?: string | null
+          primary_cta_icon?: string | null
+          primary_cta_text?: string
+          primary_cta_url?: string
+          secondary_cta_text?: string | null
+          secondary_cta_url?: string | null
+          stat_label?: string | null
+          stat_number?: string | null
+          subheadline: string
+          updated_at?: string
+          updated_by?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          headline?: string
+          id?: string
+          is_active?: boolean
+          poster_url?: string | null
+          primary_cta_icon?: string | null
+          primary_cta_text?: string
+          primary_cta_url?: string
+          secondary_cta_text?: string | null
+          secondary_cta_url?: string | null
+          stat_label?: string | null
+          stat_number?: string | null
+          subheadline?: string
+          updated_at?: string
+          updated_by?: string | null
+          video_url?: string | null
+        }
+        Relationships: []
+      }
       homepage_settings: {
         Row: {
           created_at: string | null

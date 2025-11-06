@@ -1,14 +1,22 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info } from "lucide-react";
+import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info, Ruler, ClipboardCheck, Hammer, Droplets } from "lucide-react";
 import { Button } from "@/ui/Button";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 import GeometricShapes from "./GeometricShapes";
 import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
-import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
+
+// Helper to map icon names to Lucide icons
+const getIconComponent = (iconName?: string) => {
+  const iconMap: Record<string, any> = {
+    FileText, Building2, Award, Shield, Cpu, Leaf, Users, Ruler,
+    ClipboardCheck, Hammer, Droplets, Wrench, Target, Briefcase, Mail, Info
+  };
+  return iconMap[iconName || 'Building2'] || Building2;
+};
 
 // Helper to get icon for menu items
 const getIconForTitle = (title: string) => {
@@ -92,6 +100,22 @@ const heroSlides = [
   }
 ];
 
+interface HeroSlide {
+  id: string;
+  headline: string;
+  subheadline: string;
+  description?: string;
+  stat_number?: string;
+  stat_label?: string;
+  primary_cta_text: string;
+  primary_cta_url: string;
+  primary_cta_icon?: string;
+  secondary_cta_text?: string;
+  secondary_cta_url?: string;
+  video_url?: string;
+  poster_url?: string;
+}
+
 const EnhancedHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -108,9 +132,31 @@ const EnhancedHero = () => {
   const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [landingMenuItems, setLandingMenuItems] = useState<any[]>([]);
+  const [dbSlides, setDbSlides] = useState<HeroSlide[]>([]);
+  const [isLoadingSlides, setIsLoadingSlides] = useState(true);
 
-  // Fetch homepage settings
-  const { data: homepageSettings } = useSettingsData<any>('homepage_settings');
+  // Fetch hero slides from database
+  useEffect(() => {
+    const fetchHeroSlides = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('hero_slides')
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order');
+        
+        if (error) throw error;
+        if (data && data.length > 0) {
+          setDbSlides(data);
+        }
+      } catch (error) {
+        console.error('Error fetching hero slides:', error);
+      } finally {
+        setIsLoadingSlides(false);
+      }
+    };
+    fetchHeroSlides();
+  }, []);
 
   // Fetch landing menu items
   useEffect(() => {
@@ -125,8 +171,15 @@ const EnhancedHero = () => {
     fetchLandingMenu();
   }, []);
 
+  // Use database slides if available, fallback to hardcoded
+  const activeSlides = dbSlides.length > 0 ? dbSlides : heroSlides;
+  
   // Video preloader for seamless slide transitions
-  const videoUrls = heroSlides.map(slide => slide.video);
+  const videoUrls = activeSlides.map(slide => 
+    typeof slide === 'object' && 'video_url' in slide 
+      ? slide.video_url || heroClipchampVideo 
+      : (slide as any).video
+  );
   const { getVideoUrl, isPreloaded } = useVideoPreloader({
     videoUrls,
     currentIndex: currentSlide,
@@ -271,22 +324,31 @@ const EnhancedHero = () => {
     }
   };
 
-  const slide = heroSlides[currentSlide];
-  const PrimaryIcon = slide.primaryCTA.icon;
+  const slide = activeSlides[currentSlide];
   const prefersReducedMotion = useReducedMotion();
 
-  // Use admin-managed content if available, fallback to hardcoded
-  const headline = homepageSettings?.headline || slide.headline;
-  const subheadline = homepageSettings?.subheadline || slide.subheadline;
-  const description = homepageSettings?.hero_description || slide.subheadline;
+  // Extract slide data (handle both DB and hardcoded formats)
+  const isDbSlide = 'primary_cta_text' in slide;
+  const headline = isDbSlide ? slide.headline : (slide as any).headline;
+  const subheadline = isDbSlide ? slide.subheadline : (slide as any).subheadline;
+  const description = isDbSlide ? slide.description : (slide as any).subheadline;
+  const statNumber = isDbSlide ? slide.stat_number : (slide as any).stat;
+  const statLabel = isDbSlide ? slide.stat_label : (slide as any).statLabel;
+  const videoUrl = isDbSlide ? (slide.video_url || heroClipchampVideo) : (slide as any).video;
+  const posterUrl = isDbSlide ? (slide.poster_url || '/hero-poster-1.webp') : (slide as any).poster;
+  
+  const PrimaryIcon = isDbSlide 
+    ? getIconComponent(slide.primary_cta_icon) 
+    : (slide as any).primaryCTA.icon;
+  
   const primaryCTA = {
-    label: homepageSettings?.cta_primary_text || slide.primaryCTA.label,
-    href: homepageSettings?.cta_primary_url || slide.primaryCTA.href,
+    label: isDbSlide ? slide.primary_cta_text : (slide as any).primaryCTA.label,
+    href: isDbSlide ? slide.primary_cta_url : (slide as any).primaryCTA.href,
     icon: PrimaryIcon
   };
   const secondaryCTA = {
-    label: homepageSettings?.cta_secondary_text || slide.secondaryCTA.label,
-    href: homepageSettings?.cta_secondary_url || slide.secondaryCTA.href
+    label: isDbSlide ? slide.secondary_cta_text : (slide as any).secondaryCTA?.label,
+    href: isDbSlide ? slide.secondary_cta_url : (slide as any).secondaryCTA?.href
   };
 
   const parallaxOffset = prefersReducedMotion ? 0 : scrollY * 0.5;
@@ -322,7 +384,7 @@ const EnhancedHero = () => {
           onLoadedData={handleVideoReady}
           style={{ opacity: videoOpacity.a }}
         >
-          <source src={getVideoUrl(slide.video)} type="video/mp4" />
+          <source src={videoUrl} type="video/mp4" />
         </video>
         
         {/* Video B - for seamless crossfade loop */}
@@ -334,7 +396,7 @@ const EnhancedHero = () => {
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
           style={{ opacity: videoOpacity.b }}
         >
-          <source src={getVideoUrl(slide.video)} type="video/mp4" />
+          <source src={videoUrl} type="video/mp4" />
         </video>
 
         {/* Poster Overlay - Fades out when video is ready */}
@@ -344,7 +406,7 @@ const EnhancedHero = () => {
             style={{ opacity: isVideoLoaded ? 0 : 1 }}
           >
             <img
-              src={slide.poster}
+              src={posterUrl}
               alt=""
               className="w-full h-full object-cover"
               loading="eager"
@@ -377,8 +439,8 @@ const EnhancedHero = () => {
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
           >
             <div className="flex flex-col items-center">
-              <span className="text-2xl sm:text-3xl font-bold text-[hsl(var(--bg))]">{slide.stat}</span>
-              <span className="text-xs text-[hsl(var(--bg))]/90 font-semibold whitespace-nowrap">{slide.statLabel}</span>
+              <span className="text-2xl sm:text-3xl font-bold text-[hsl(var(--bg))]">{statNumber}</span>
+              <span className="text-xs text-[hsl(var(--bg))]/90 font-semibold whitespace-nowrap">{statLabel}</span>
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2 bg-[hsl(var(--brand-accent))] px-2 sm:px-3 py-1 rounded-full">
               <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-[hsl(var(--bg))]" />
