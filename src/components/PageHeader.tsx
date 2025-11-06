@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 import { useParallax } from "@/hooks/useParallax";
+import { ProgressiveImage } from "@/components/ui/ProgressiveImage";
 
 interface Breadcrumb {
   label: string;
@@ -68,7 +69,7 @@ const PageHeader = ({
       {backgroundImage && (
         <>
           <div className="absolute inset-0 z-0">
-            <img
+            <ProgressiveImage
               src={backgroundImage}
               alt=""
               className="w-full h-full object-cover"

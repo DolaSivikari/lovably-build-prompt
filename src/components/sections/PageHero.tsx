@@ -4,6 +4,7 @@ import { Button } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 import { ChevronRight, ArrowRight } from "lucide-react";
 import { useParallax } from "@/hooks/useParallax";
+import { ProgressiveImage } from "@/components/ui/ProgressiveImage";
 
 interface PageHeroRootProps {
   children: ReactNode;
@@ -44,7 +45,7 @@ const PageHeroRoot = ({ children, backgroundImage, className }: PageHeroRootProp
       {backgroundImage && (
         <>
           <div className="absolute inset-0 z-0">
-            <img
+            <ProgressiveImage
               src={backgroundImage}
               alt=""
               className="w-full h-full object-cover"
