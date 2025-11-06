@@ -113,12 +113,12 @@ function DownloadableDocuments() {
 
   const handleDownload = async (doc: Document) => {
     try {
-      // Log download (disabled - table removed during cleanup)
-      // await supabase.from('document_access_log').insert({
-      //   document_id: doc.id,
-      //   ip_address: null,
-      //   user_agent: navigator.userAgent
-      // });
+      // Log download
+      await supabase.from('document_access_log').insert({
+        document_id: doc.id,
+        ip_address: null,
+        user_agent: navigator.userAgent
+      });
 
       // Increment download count
       const { data: currentDoc } = await supabase

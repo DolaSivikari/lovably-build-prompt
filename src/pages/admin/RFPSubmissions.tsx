@@ -22,12 +22,16 @@ interface RFPSubmission {
   email: string;
   phone: string | null;
   project_name: string;
-  project_type: string | null;
+  project_type: string;
   project_location: string | null;
-  estimated_value_range: string | null;
-  estimated_start_date: string | null;
-  project_description: string | null;
-  special_requirements: string | null;
+  estimated_value_range: string;
+  estimated_timeline: string | null;
+  project_start_date: string | null;
+  scope_of_work: string;
+  delivery_method: string | null;
+  bonding_required: boolean;
+  prequalification_complete: boolean;
+  additional_requirements: string | null;
   status: string;
   admin_notes: string | null;
   created_at: string;
@@ -299,7 +303,11 @@ export default function RFPSubmissions() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label className="text-sm">Type</Label>
-                      <p className="capitalize">{selectedSubmission.project_type?.replace('-', ' ') || 'Not specified'}</p>
+                      <p className="capitalize">{selectedSubmission.project_type.replace('-', ' ')}</p>
+                    </div>
+                    <div>
+                      <Label className="text-sm">Delivery Method</Label>
+                      <p className="capitalize">{selectedSubmission.delivery_method?.replace('-', ' ') || 'N/A'}</p>
                     </div>
                   </div>
                   <div>
@@ -315,26 +323,36 @@ export default function RFPSubmissions() {
                         <DollarSign className="w-3 h-3" />
                         Estimated Value
                       </Label>
-                      <p>{valueRangeLabels[selectedSubmission.estimated_value_range] || 'Not specified'}</p>
+                      <p>{valueRangeLabels[selectedSubmission.estimated_value_range]}</p>
                     </div>
                     <div>
                       <Label className="text-sm flex items-center gap-2">
                         <Calendar className="w-3 h-3" />
-                        Start Date
+                        Timeline
                       </Label>
-                      <p>{selectedSubmission.estimated_start_date ? format(new Date(selectedSubmission.estimated_start_date), 'MMM d, yyyy') : 'Not specified'}</p>
+                      <p className="capitalize">{selectedSubmission.estimated_timeline?.replace('-', ' ') || 'N/A'}</p>
                     </div>
                   </div>
                   <div>
-                    <Label className="text-sm">Project Description</Label>
-                    <p className="whitespace-pre-wrap text-sm bg-muted p-3 rounded">{selectedSubmission.project_description || 'No description provided'}</p>
+                    <Label className="text-sm">Scope of Work</Label>
+                    <p className="whitespace-pre-wrap text-sm bg-muted p-3 rounded">{selectedSubmission.scope_of_work}</p>
                   </div>
-                  {selectedSubmission.special_requirements && (
+                  {selectedSubmission.additional_requirements && (
                     <div>
-                      <Label className="text-sm">Special Requirements</Label>
-                      <p className="whitespace-pre-wrap text-sm">{selectedSubmission.special_requirements}</p>
+                      <Label className="text-sm">Additional Requirements</Label>
+                      <p className="whitespace-pre-wrap text-sm">{selectedSubmission.additional_requirements}</p>
                     </div>
                   )}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-sm">Bonding Required</Label>
+                      <p>{selectedSubmission.bonding_required ? 'Yes' : 'No'}</p>
+                    </div>
+                    <div>
+                      <Label className="text-sm">Prequalification Complete</Label>
+                      <p>{selectedSubmission.prequalification_complete ? 'Yes' : 'No'}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
