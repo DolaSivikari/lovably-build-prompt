@@ -1,6 +1,6 @@
+import { useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
-import { pdf } from "@react-pdf/renderer";
 import { useToast } from "@/hooks/use-toast";
 
 interface PDFDownloadButtonProps {
@@ -18,11 +18,12 @@ export const PDFDownloadButton = ({
 }: PDFDownloadButtonProps) => {
   const { toast } = useToast();
 
-  const handleDownload = async () => {
+  const handleDownload = useCallback(async () => {
     try {
+      const { pdf } = await import("@react-pdf/renderer");
       const blob = await pdf(pdfDocument).toBlob();
       const url = URL.createObjectURL(blob);
-      const link = window.document.createElement('a');
+      const link = window.document.createElement("a");
       link.href = url;
       link.download = fileName;
       link.click();
@@ -39,7 +40,7 @@ export const PDFDownloadButton = ({
         variant: "destructive",
       });
     }
-  };
+  }, [fileName, pdfDocument, toast]);
 
   return (
     <Button onClick={handleDownload} variant={variant} size={size}>

@@ -1,7 +1,14 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Calendar, DollarSign, Users, CheckCircle2, ExternalLink } from "lucide-react";
+import {
+  MapPin,
+  Calendar,
+  DollarSign,
+  Users,
+  CheckCircle2,
+  ExternalLink,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface Project {
@@ -25,7 +32,11 @@ interface ProjectQuickViewProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export const ProjectQuickView = ({ project, open, onOpenChange }: ProjectQuickViewProps) => {
+export const ProjectQuickView = ({
+  project,
+  open,
+  onOpenChange,
+}: ProjectQuickViewProps) => {
   const navigate = useNavigate();
 
   if (!project) return null;
@@ -39,7 +50,7 @@ export const ProjectQuickView = ({ project, open, onOpenChange }: ProjectQuickVi
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogTitle className="sr-only">{project.title}</DialogTitle>
-        
+
         {/* Header Image */}
         <div className="relative aspect-video -m-6 mb-0 overflow-hidden">
           <img
@@ -81,14 +92,18 @@ export const ProjectQuickView = ({ project, open, onOpenChange }: ProjectQuickVi
               <div className="p-3 bg-muted rounded-lg text-center">
                 <DollarSign className="w-5 h-5 mx-auto mb-1 text-primary" />
                 <p className="text-xs text-muted-foreground">Value</p>
-                <p className="font-bold">${(project.project_value / 100000000).toFixed(1)}M</p>
+                <p className="font-bold">
+                  ${(project.project_value / 100000000).toFixed(1)}M
+                </p>
               </div>
             )}
             {project.on_time_completion !== undefined && (
               <div className="p-3 bg-muted rounded-lg text-center">
                 <CheckCircle2 className="w-5 h-5 mx-auto mb-1 text-green-600" />
                 <p className="text-xs text-muted-foreground">On Time</p>
-                <p className="font-bold">{project.on_time_completion ? "Yes" : "No"}</p>
+                <p className="font-bold">
+                  {project.on_time_completion ? "Yes" : "No"}
+                </p>
               </div>
             )}
             {project.on_budget !== undefined && (
@@ -102,7 +117,9 @@ export const ProjectQuickView = ({ project, open, onOpenChange }: ProjectQuickVi
               <div className="p-3 bg-muted rounded-lg text-center">
                 <CheckCircle2 className="w-5 h-5 mx-auto mb-1 text-green-600" />
                 <p className="text-xs text-muted-foreground">Safety</p>
-                <p className="font-bold">{project.safety_incidents} Incidents</p>
+                <p className="font-bold">
+                  {project.safety_incidents} Incidents
+                </p>
               </div>
             )}
           </div>

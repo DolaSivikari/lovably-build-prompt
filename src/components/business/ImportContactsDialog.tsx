@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -8,7 +13,14 @@ import { Upload } from "lucide-react";
 interface ImportContactsDialogProps {
   open: boolean;
   onClose: () => void;
-  onImport: (contacts: Array<{ name: string; email?: string; company?: string; phone?: string }>) => void;
+  onImport: (
+    contacts: Array<{
+      name: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+    }>,
+  ) => void;
 }
 
 export const ImportContactsDialog = ({
@@ -22,13 +34,18 @@ export const ImportContactsDialog = ({
   const handleImport = () => {
     try {
       setError("");
-      
+
       // Parse CSV (simple parsing - name, email, company, phone)
-      const lines = csvText.trim().split('\n');
-      const contacts = lines.slice(1).map(line => {
-        const [name, email, company, phone] = line.split(',').map(s => s.trim());
-        return { name, email, company, phone };
-      }).filter(c => c.name);
+      const lines = csvText.trim().split("\n");
+      const contacts = lines
+        .slice(1)
+        .map((line) => {
+          const [name, email, company, phone] = line
+            .split(",")
+            .map((s) => s.trim());
+          return { name, email, company, phone };
+        })
+        .filter((c) => c.name);
 
       if (contacts.length === 0) {
         setError("No valid contacts found. Please check your CSV format.");
@@ -52,11 +69,12 @@ export const ImportContactsDialog = ({
         <div className="space-y-4">
           <Alert>
             <AlertDescription>
-              Paste CSV data with columns: <strong>Name, Email, Company, Phone</strong>
+              Paste CSV data with columns:{" "}
+              <strong>Name, Email, Company, Phone</strong>
               <br />
               Example:
               <pre className="mt-2 text-xs bg-muted p-2 rounded">
-                Name,Email,Company,Phone{'\n'}
+                Name,Email,Company,Phone{"\n"}
                 John Doe,john@example.com,Acme Corp,(555) 123-4567
               </pre>
             </AlertDescription>

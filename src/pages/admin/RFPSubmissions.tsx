@@ -9,10 +9,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Eye, DollarSign, Calendar, MapPin, FileText, Building2, Search } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Eye,
+  DollarSign,
+  Calendar,
+  MapPin,
+  FileText,
+  Building2,
+  Search,
+} from "lucide-react";
 import { format } from "date-fns";
 
 interface RFPSubmission {
@@ -37,12 +63,15 @@ interface RFPSubmission {
   created_at: string;
 }
 
-const statusVariants: Record<string, "info" | "warning" | "contacted" | "success" | "inactive"> = {
+const statusVariants: Record<
+  string,
+  "info" | "warning" | "contacted" | "success" | "inactive"
+> = {
   new: "info",
   reviewing: "warning",
   quoted: "contacted",
   awarded: "success",
-  declined: "inactive"
+  declined: "inactive",
 };
 
 const valueRangeLabels: Record<string, string> = {
@@ -50,7 +79,7 @@ const valueRangeLabels: Record<string, string> = {
   "500k-1m": "$500K - $1M",
   "1m-5m": "$1M - $5M",
   "5m-10m": "$5M - $10M",
-  "10m-plus": "$10M+"
+  "10m-plus": "$10M+",
 };
 
 export default function RFPSubmissions() {
@@ -58,7 +87,8 @@ export default function RFPSubmissions() {
   const { toast } = useToast();
   const [submissions, setSubmissions] = useState<RFPSubmission[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedSubmission, setSelectedSubmission] = useState<RFPSubmission | null>(null);
+  const [selectedSubmission, setSelectedSubmission] =
+    useState<RFPSubmission | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -72,14 +102,18 @@ export default function RFPSubmissions() {
   const fetchSubmissions = async () => {
     try {
       const { data, error } = await supabase
-        .from('rfp_submissions')
-        .select('*')
-        .order('created_at', { ascending: false });
+        .from("rfp_submissions")
+        .select("*")
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       setSubmissions(data || []);
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -88,9 +122,9 @@ export default function RFPSubmissions() {
   const updateStatus = async (id: string, newStatus: string) => {
     try {
       const { error } = await supabase
-        .from('rfp_submissions')
+        .from("rfp_submissions")
         .update({ status: newStatus })
-        .eq('id', id);
+        .eq("id", id);
 
       if (error) throw error;
       toast({ title: "Success", description: "Status updated successfully" });
@@ -99,28 +133,37 @@ export default function RFPSubmissions() {
         setSelectedSubmission({ ...selectedSubmission, status: newStatus });
       }
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     }
   };
 
   const saveNotes = async (id: string, notes: string) => {
     try {
       const { error } = await supabase
-        .from('rfp_submissions')
+        .from("rfp_submissions")
         .update({ admin_notes: notes })
-        .eq('id', id);
+        .eq("id", id);
 
       if (error) throw error;
       toast({ title: "Success", description: "Notes saved successfully" });
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     }
   };
 
-  const filteredSubmissions = submissions.filter(sub => {
-    const matchesSearch = sub.company_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          sub.project_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          sub.contact_name.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredSubmissions = submissions.filter((sub) => {
+    const matchesSearch =
+      sub.company_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      sub.project_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      sub.contact_name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === "all" || sub.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -142,7 +185,9 @@ export default function RFPSubmissions() {
         <div className="p-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold">RFP Submissions</h1>
-            <p className="text-muted-foreground">Manage incoming request for proposals</p>
+            <p className="text-muted-foreground">
+              Manage incoming request for proposals
+            </p>
           </div>
 
           <div className="flex gap-4 mb-6">
@@ -190,7 +235,10 @@ export default function RFPSubmissions() {
                 <TableBody>
                   {filteredSubmissions.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                      <TableCell
+                        colSpan={7}
+                        className="text-center py-8 text-muted-foreground"
+                      >
                         No RFP submissions found
                       </TableCell>
                     </TableRow>
@@ -198,12 +246,18 @@ export default function RFPSubmissions() {
                     filteredSubmissions.map((sub) => (
                       <TableRow key={sub.id}>
                         <TableCell className="whitespace-nowrap">
-                          {format(new Date(sub.created_at), 'MMM d, yyyy')}
+                          {format(new Date(sub.created_at), "MMM d, yyyy")}
                         </TableCell>
-                        <TableCell className="font-medium">{sub.company_name}</TableCell>
+                        <TableCell className="font-medium">
+                          {sub.company_name}
+                        </TableCell>
                         <TableCell>{sub.project_name}</TableCell>
-                        <TableCell className="capitalize">{sub.project_type.replace('-', ' ')}</TableCell>
-                        <TableCell>{valueRangeLabels[sub.estimated_value_range]}</TableCell>
+                        <TableCell className="capitalize">
+                          {sub.project_type.replace("-", " ")}
+                        </TableCell>
+                        <TableCell>
+                          {valueRangeLabels[sub.estimated_value_range]}
+                        </TableCell>
                         <TableCell>
                           <Badge variant={statusVariants[sub.status]}>
                             {sub.status}
@@ -243,7 +297,9 @@ export default function RFPSubmissions() {
                   <Label className="text-sm font-semibold">Status</Label>
                   <Select
                     value={selectedSubmission.status}
-                    onValueChange={(value) => updateStatus(selectedSubmission.id, value)}
+                    onValueChange={(value) =>
+                      updateStatus(selectedSubmission.id, value)
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -260,7 +316,7 @@ export default function RFPSubmissions() {
                 <div>
                   <Label className="text-sm font-semibold">Submitted</Label>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {format(new Date(selectedSubmission.created_at), 'PPP p')}
+                    {format(new Date(selectedSubmission.created_at), "PPP p")}
                   </p>
                 </div>
               </div>
@@ -285,7 +341,9 @@ export default function RFPSubmissions() {
                   </div>
                   <div>
                     <Label className="text-sm">Phone</Label>
-                    <p className="text-sm">{selectedSubmission.phone || 'N/A'}</p>
+                    <p className="text-sm">
+                      {selectedSubmission.phone || "N/A"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -297,17 +355,26 @@ export default function RFPSubmissions() {
                 </h3>
                 <div className="space-y-3">
                   <div>
-                    <Label className="text-sm font-semibold">Project Name</Label>
+                    <Label className="text-sm font-semibold">
+                      Project Name
+                    </Label>
                     <p>{selectedSubmission.project_name}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label className="text-sm">Type</Label>
-                      <p className="capitalize">{selectedSubmission.project_type.replace('-', ' ')}</p>
+                      <p className="capitalize">
+                        {selectedSubmission.project_type.replace("-", " ")}
+                      </p>
                     </div>
                     <div>
                       <Label className="text-sm">Delivery Method</Label>
-                      <p className="capitalize">{selectedSubmission.delivery_method?.replace('-', ' ') || 'N/A'}</p>
+                      <p className="capitalize">
+                        {selectedSubmission.delivery_method?.replace(
+                          "-",
+                          " ",
+                        ) || "N/A"}
+                      </p>
                     </div>
                   </div>
                   <div>
@@ -315,7 +382,7 @@ export default function RFPSubmissions() {
                       <MapPin className="w-3 h-3" />
                       Location
                     </Label>
-                    <p>{selectedSubmission.project_location || 'N/A'}</p>
+                    <p>{selectedSubmission.project_location || "N/A"}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -323,34 +390,57 @@ export default function RFPSubmissions() {
                         <DollarSign className="w-3 h-3" />
                         Estimated Value
                       </Label>
-                      <p>{valueRangeLabels[selectedSubmission.estimated_value_range]}</p>
+                      <p>
+                        {
+                          valueRangeLabels[
+                            selectedSubmission.estimated_value_range
+                          ]
+                        }
+                      </p>
                     </div>
                     <div>
                       <Label className="text-sm flex items-center gap-2">
                         <Calendar className="w-3 h-3" />
                         Timeline
                       </Label>
-                      <p className="capitalize">{selectedSubmission.estimated_timeline?.replace('-', ' ') || 'N/A'}</p>
+                      <p className="capitalize">
+                        {selectedSubmission.estimated_timeline?.replace(
+                          "-",
+                          " ",
+                        ) || "N/A"}
+                      </p>
                     </div>
                   </div>
                   <div>
                     <Label className="text-sm">Scope of Work</Label>
-                    <p className="whitespace-pre-wrap text-sm bg-muted p-3 rounded">{selectedSubmission.scope_of_work}</p>
+                    <p className="whitespace-pre-wrap text-sm bg-muted p-3 rounded">
+                      {selectedSubmission.scope_of_work}
+                    </p>
                   </div>
                   {selectedSubmission.additional_requirements && (
                     <div>
                       <Label className="text-sm">Additional Requirements</Label>
-                      <p className="whitespace-pre-wrap text-sm">{selectedSubmission.additional_requirements}</p>
+                      <p className="whitespace-pre-wrap text-sm">
+                        {selectedSubmission.additional_requirements}
+                      </p>
                     </div>
                   )}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label className="text-sm">Bonding Required</Label>
-                      <p>{selectedSubmission.bonding_required ? 'Yes' : 'No'}</p>
+                      <p>
+                        {selectedSubmission.bonding_required ? "Yes" : "No"}
+                      </p>
                     </div>
                     <div>
-                      <Label className="text-sm">Prequalification Complete</Label>
-                      <p>{selectedSubmission.prequalification_complete ? 'Yes' : 'No'}</p>
+                      <Label className="text-sm">
+                        Prequalification Complete
+                      </Label>
+                      <p>
+                        {selectedSubmission.prequalification_complete
+                          ? "Yes"
+                          : "No"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -359,14 +449,24 @@ export default function RFPSubmissions() {
               <div className="border-t pt-4">
                 <Label className="text-sm font-semibold">Admin Notes</Label>
                 <Textarea
-                  value={selectedSubmission.admin_notes || ''}
-                  onChange={(e) => setSelectedSubmission({ ...selectedSubmission, admin_notes: e.target.value })}
+                  value={selectedSubmission.admin_notes || ""}
+                  onChange={(e) =>
+                    setSelectedSubmission({
+                      ...selectedSubmission,
+                      admin_notes: e.target.value,
+                    })
+                  }
                   rows={4}
                   className="mt-2"
                   placeholder="Add internal notes about this RFP..."
                 />
                 <Button
-                  onClick={() => saveNotes(selectedSubmission.id, selectedSubmission.admin_notes || '')}
+                  onClick={() =>
+                    saveNotes(
+                      selectedSubmission.id,
+                      selectedSubmission.admin_notes || "",
+                    )
+                  }
                   className="mt-2"
                 >
                   Save Notes

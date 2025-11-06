@@ -34,15 +34,16 @@ const categoryConfig: Record<string, CategoryConfig> = {
     icon: "Building2",
     color: "primary",
     description: "Complete project management from concept to completion",
-    image: "/src/assets/project-commercial.jpg"
+    image: "/src/assets/project-commercial.jpg",
   },
   "Exterior Systems": {
     name: "Exterior Cladding & Systems",
     slug: "exterior-cladding",
     icon: "Shield",
     color: "terracotta",
-    description: "Complete exterior cladding, siding, and metal panel solutions",
-    image: "/src/assets/project-industrial.jpg"
+    description:
+      "Complete exterior cladding, siding, and metal panel solutions",
+    image: "/src/assets/project-industrial.jpg",
   },
   "Building Envelope": {
     name: "Exterior Envelope Systems",
@@ -50,16 +51,17 @@ const categoryConfig: Record<string, CategoryConfig> = {
     icon: "Layers",
     color: "sage",
     description: "Stucco, EIFS, sealants, and comprehensive weatherproofing",
-    image: "/src/assets/case-heritage-building.jpg"
+    image: "/src/assets/case-heritage-building.jpg",
   },
   "Specialty Services": {
     name: "Interior & Finishing",
     slug: "interior-buildouts",
     icon: "Hammer",
     color: "accent",
-    description: "Interior buildouts, tenant improvements, and specialized construction",
-    image: "/src/assets/project-institutional.jpg"
-  }
+    description:
+      "Interior buildouts, tenant improvements, and specialized construction",
+    image: "/src/assets/project-institutional.jpg",
+  },
 };
 
 const ServicesPreview = () => {
@@ -92,33 +94,42 @@ const ServicesPreview = () => {
 
   // Group services by category (exclude Construction Management from homepage)
   const groupedServices = services
-    .filter(service => service.category && service.category !== "Construction Management")
-    .reduce((acc, service) => {
-      const category = service.category || "Other";
-      if (!acc[category]) acc[category] = [];
-      acc[category].push(service);
-      return acc;
-    }, {} as Record<string, Service[]>);
+    .filter(
+      (service) =>
+        service.category && service.category !== "Construction Management",
+    )
+    .reduce(
+      (acc, service) => {
+        const category = service.category || "Other";
+        if (!acc[category]) acc[category] = [];
+        acc[category].push(service);
+        return acc;
+      },
+      {} as Record<string, Service[]>,
+    );
 
   // Get featured service or top service for each category
   const getCategoryService = (category: string) => {
     const categoryServices = groupedServices[category] || [];
     // Return the featured service if it exists, otherwise return first service
-    return categoryServices.find(s => s.slug === categoryConfig[category]?.slug) || categoryServices[0];
+    return (
+      categoryServices.find((s) => s.slug === categoryConfig[category]?.slug) ||
+      categoryServices[0]
+    );
   };
 
   return (
     <section
       ref={sectionRef}
       className={`py-20 bg-gradient-to-b from-background to-muted/20 ${
-        prefersReducedMotion ? 'opacity-100' : `transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`
+        prefersReducedMotion
+          ? "opacity-100"
+          : `transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Our Services
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Comprehensive construction solutions for every project type
           </p>
@@ -127,7 +138,11 @@ const ServicesPreview = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[1, 2, 3, 4].map((i) => (
-              <Card key={i} variant="elevated" className={`h-[500px] bg-muted ${!prefersReducedMotion && 'animate-pulse'}`}>
+              <Card
+                key={i}
+                variant="elevated"
+                className={`h-[500px] bg-muted ${!prefersReducedMotion && "animate-pulse"}`}
+              >
                 <div />
               </Card>
             ))}
@@ -135,7 +150,9 @@ const ServicesPreview = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {Object.entries(categoryConfig).map(([categoryName, config]) => {
-              const IconComponent = LucideIcons[config.icon] as React.ComponentType<{ className?: string }>;
+              const IconComponent = LucideIcons[
+                config.icon
+              ] as React.ComponentType<{ className?: string }>;
               const featuredService = getCategoryService(categoryName);
 
               return (
@@ -153,7 +170,7 @@ const ServicesPreview = () => {
                       height={400}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/50 to-transparent" />
-                    
+
                     <div className="absolute bottom-4 left-6 flex items-center gap-3">
                       <div className="p-3 rounded-xl bg-background/80 backdrop-blur-sm border-2 border-primary/20">
                         <IconComponent className="w-6 h-6 text-primary" />
@@ -185,11 +202,7 @@ const ServicesPreview = () => {
                       </div>
                     )}
 
-                    <Button
-                      asChild
-                      variant="secondary"
-                      size="lg"
-                    >
+                    <Button asChild variant="secondary" size="lg">
                       <Link to={`/services/${config.slug}`}>
                         Learn More
                         <ArrowRight className="w-4 h-4 ml-2" />

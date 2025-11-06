@@ -58,7 +58,9 @@ export const ClientSelector = ({ value, onChange }: ClientSelectorProps) => {
       <SelectContent>
         {clients.map((client) => (
           <SelectItem key={client.id} value={client.id}>
-            {client.company ? `${client.name} (${client.company})` : client.name}
+            {client.company
+              ? `${client.name} (${client.company})`
+              : client.name}
           </SelectItem>
         ))}
       </SelectContent>

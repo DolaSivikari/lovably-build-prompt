@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent } from '@/components/ui/card';
-import { Check, ChevronDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+import { Check, ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ServiceVariant {
   id: string;
@@ -46,7 +46,11 @@ export const ServiceTabs = ({ variants, defaultVariant }: ServiceTabsProps) => {
       </TabsList>
 
       {variants.map((variant) => (
-        <TabsContent key={variant.id} value={variant.id} className="mt-8 space-y-12">
+        <TabsContent
+          key={variant.id}
+          value={variant.id}
+          className="mt-8 space-y-12"
+        >
           {/* Tagline & Description */}
           <div className="space-y-4">
             <h3 className="text-2xl md:text-3xl font-bold text-foreground">
@@ -59,7 +63,9 @@ export const ServiceTabs = ({ variants, defaultVariant }: ServiceTabsProps) => {
 
           {/* Benefits */}
           <div>
-            <h4 className="text-xl font-bold text-foreground mb-6">Key Benefits</h4>
+            <h4 className="text-xl font-bold text-foreground mb-6">
+              Key Benefits
+            </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {variant.benefits.map((benefit, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -74,7 +80,9 @@ export const ServiceTabs = ({ variants, defaultVariant }: ServiceTabsProps) => {
 
           {/* Process Steps */}
           <div>
-            <h4 className="text-xl font-bold text-foreground mb-6">Our Process</h4>
+            <h4 className="text-xl font-bold text-foreground mb-6">
+              Our Process
+            </h4>
             <div className="space-y-4">
               {variant.process.map((step) => (
                 <Card key={step.step} className="overflow-hidden">
@@ -83,7 +91,7 @@ export const ServiceTabs = ({ variants, defaultVariant }: ServiceTabsProps) => {
                       setExpandedStep(
                         expandedStep === `${variant.id}-${step.step}`
                           ? null
-                          : `${variant.id}-${step.step}`
+                          : `${variant.id}-${step.step}`,
                       )
                     }
                     className="w-full p-4 md:p-6 flex items-center justify-between hover:bg-muted/50 transition-all text-left group"
@@ -96,13 +104,16 @@ export const ServiceTabs = ({ variants, defaultVariant }: ServiceTabsProps) => {
                         <h5 className="text-base md:text-lg font-bold text-foreground">
                           {step.title}
                         </h5>
-                        <p className="text-sm text-muted-foreground">{step.description}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {step.description}
+                        </p>
                       </div>
                     </div>
                     <ChevronDown
                       className={cn(
-                        'w-5 h-5 text-muted-foreground transition-transform flex-shrink-0 ml-4',
-                        expandedStep === `${variant.id}-${step.step}` && 'rotate-180'
+                        "w-5 h-5 text-muted-foreground transition-transform flex-shrink-0 ml-4",
+                        expandedStep === `${variant.id}-${step.step}` &&
+                          "rotate-180",
                       )}
                     />
                   </button>
@@ -124,10 +135,15 @@ export const ServiceTabs = ({ variants, defaultVariant }: ServiceTabsProps) => {
           <Card className="bg-muted/30">
             <CardContent className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <h5 className="font-bold text-foreground mb-3">Project Types</h5>
+                <h5 className="font-bold text-foreground mb-3">
+                  Project Types
+                </h5>
                 <ul className="space-y-2">
                   {variant.quickFacts.projectTypes.map((type, index) => (
-                    <li key={index} className="text-sm text-muted-foreground flex items-center gap-2">
+                    <li
+                      key={index}
+                      className="text-sm text-muted-foreground flex items-center gap-2"
+                    >
                       <Check className="w-4 h-4 text-primary" />
                       {type}
                     </li>
@@ -135,14 +151,23 @@ export const ServiceTabs = ({ variants, defaultVariant }: ServiceTabsProps) => {
                 </ul>
               </div>
               <div>
-                <h5 className="font-bold text-foreground mb-3">Typical Timeline</h5>
-                <p className="text-sm text-muted-foreground">{variant.quickFacts.timeline}</p>
+                <h5 className="font-bold text-foreground mb-3">
+                  Typical Timeline
+                </h5>
+                <p className="text-sm text-muted-foreground">
+                  {variant.quickFacts.timeline}
+                </p>
               </div>
               <div>
-                <h5 className="font-bold text-foreground mb-3">Certifications</h5>
+                <h5 className="font-bold text-foreground mb-3">
+                  Certifications
+                </h5>
                 <ul className="space-y-2">
                   {variant.quickFacts.certifications.map((cert, index) => (
-                    <li key={index} className="text-sm text-muted-foreground flex items-center gap-2">
+                    <li
+                      key={index}
+                      className="text-sm text-muted-foreground flex items-center gap-2"
+                    >
                       <Check className="w-4 h-4 text-primary" />
                       {cert}
                     </li>

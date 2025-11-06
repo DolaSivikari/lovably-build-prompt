@@ -1,6 +1,26 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info, Ruler, ClipboardCheck, Hammer, Droplets } from "lucide-react";
+import {
+  ArrowRight,
+  FileText,
+  Building2,
+  Award,
+  Shield,
+  Cpu,
+  Leaf,
+  Users,
+  Play,
+  Pause,
+  Wrench,
+  Target,
+  Briefcase,
+  Mail,
+  Info,
+  Ruler,
+  ClipboardCheck,
+  Hammer,
+  Droplets,
+} from "lucide-react";
 import { Button } from "@/ui/Button";
 import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 import GeometricShapes from "./GeometricShapes";
@@ -12,29 +32,45 @@ import { supabase } from "@/integrations/supabase/client";
 // Helper to map icon names to Lucide icons
 const getIconComponent = (iconName?: string) => {
   const iconMap: Record<string, any> = {
-    FileText, Building2, Award, Shield, Cpu, Leaf, Users, Ruler,
-    ClipboardCheck, Hammer, Droplets, Wrench, Target, Briefcase, Mail, Info
+    FileText,
+    Building2,
+    Award,
+    Shield,
+    Cpu,
+    Leaf,
+    Users,
+    Ruler,
+    ClipboardCheck,
+    Hammer,
+    Droplets,
+    Wrench,
+    Target,
+    Briefcase,
+    Mail,
+    Info,
   };
-  return iconMap[iconName || 'Building2'] || Building2;
+  return iconMap[iconName || "Building2"] || Building2;
 };
 
 // Helper to get icon for menu items
 const getIconForTitle = (title: string) => {
   const titleLower = title.toLowerCase();
-  if (titleLower.includes('service')) return Wrench;
-  if (titleLower.includes('serve') || titleLower.includes('market')) return Target;
-  if (titleLower.includes('about') || titleLower.includes('company')) return Info;
-  if (titleLower.includes('project')) return Briefcase;
-  if (titleLower.includes('contact')) return Mail;
+  if (titleLower.includes("service")) return Wrench;
+  if (titleLower.includes("serve") || titleLower.includes("market"))
+    return Target;
+  if (titleLower.includes("about") || titleLower.includes("company"))
+    return Info;
+  if (titleLower.includes("project")) return Briefcase;
+  if (titleLower.includes("contact")) return Mail;
   return Building2;
 };
 
 // Helper to format title for better readability
 const formatTitle = (title: string) => {
   return title
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
 };
 
 const heroSlides = [
@@ -44,9 +80,10 @@ const heroSlides = [
     stat: "$2B+",
     statLabel: "Total Project Value",
     headline: "Ontario's Trusted General Contractor",
-    subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
+    subheadline:
+      "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
     primaryCTA: { label: "Submit RFP", icon: FileText, href: "/contact" },
-    secondaryCTA: { label: "View Portfolio", href: "/projects" }
+    secondaryCTA: { label: "View Portfolio", href: "/projects" },
   },
   {
     video: heroClipchampVideo,
@@ -54,9 +91,14 @@ const heroSlides = [
     stat: "500+",
     statLabel: "Completed Projects",
     headline: "Design-Build Excellence",
-    subheadline: "From concept through completion – comprehensive construction management across the GTA",
-    primaryCTA: { label: "Request Proposal", icon: Building2, href: "/contact" },
-    secondaryCTA: { label: "Our Services", href: "/services" }
+    subheadline:
+      "From concept through completion – comprehensive construction management across the GTA",
+    primaryCTA: {
+      label: "Request Proposal",
+      icon: Building2,
+      href: "/contact",
+    },
+    secondaryCTA: { label: "Our Services", href: "/services" },
   },
   {
     video: heroClipchampVideo,
@@ -64,9 +106,13 @@ const heroSlides = [
     stat: "98%",
     statLabel: "Client Satisfaction",
     headline: "Safety-First Construction",
-    subheadline: "Zero lost-time incidents across 500+ projects. COR-certified with industry-leading safety standards",
+    subheadline:
+      "Zero lost-time incidents across 500+ projects. COR-certified with industry-leading safety standards",
     primaryCTA: { label: "View Safety Record", icon: Award, href: "/safety" },
-    secondaryCTA: { label: "Prequalification Package", href: "/prequalification" }
+    secondaryCTA: {
+      label: "Prequalification Package",
+      href: "/prequalification",
+    },
   },
   {
     video: heroClipchampVideo,
@@ -74,9 +120,14 @@ const heroSlides = [
     stat: "15+",
     statLabel: "Years of Excellence",
     headline: "Building Tomorrow's Infrastructure",
-    subheadline: "Leveraging cutting-edge construction technology and project management software for superior results",
-    primaryCTA: { label: "Our Technology", icon: Cpu, href: "/company/equipment-resources" },
-    secondaryCTA: { label: "Learn More", href: "/about" }
+    subheadline:
+      "Leveraging cutting-edge construction technology and project management software for superior results",
+    primaryCTA: {
+      label: "Our Technology",
+      icon: Cpu,
+      href: "/company/equipment-resources",
+    },
+    secondaryCTA: { label: "Learn More", href: "/about" },
   },
   {
     video: heroClipchampVideo,
@@ -84,9 +135,14 @@ const heroSlides = [
     stat: "LEED",
     statLabel: "Certified Projects",
     headline: "Sustainable Construction Leaders",
-    subheadline: "Eco-friendly building practices reducing environmental impact while maximizing energy efficiency",
-    primaryCTA: { label: "Green Initiatives", icon: Leaf, href: "/sustainability" },
-    secondaryCTA: { label: "Case Studies", href: "/projects" }
+    subheadline:
+      "Eco-friendly building practices reducing environmental impact while maximizing energy efficiency",
+    primaryCTA: {
+      label: "Green Initiatives",
+      icon: Leaf,
+      href: "/sustainability",
+    },
+    secondaryCTA: { label: "Case Studies", href: "/projects" },
   },
   {
     video: heroClipchampVideo,
@@ -94,10 +150,11 @@ const heroSlides = [
     stat: "150+",
     statLabel: "Expert Professionals",
     headline: "Powered by Industry Leaders",
-    subheadline: "Professional engineers, certified tradespeople, and project managers dedicated to your success",
+    subheadline:
+      "Professional engineers, certified tradespeople, and project managers dedicated to your success",
     primaryCTA: { label: "Meet Our Team", icon: Users, href: "/company/team" },
-    secondaryCTA: { label: "Careers", href: "/careers" }
-  }
+    secondaryCTA: { label: "Careers", href: "/careers" },
+  },
 ];
 
 interface HeroSlide {
@@ -129,7 +186,7 @@ const EnhancedHero = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRefA = useRef<HTMLVideoElement>(null);
   const videoRefB = useRef<HTMLVideoElement>(null);
-  const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
+  const [activeVideo, setActiveVideo] = useState<"a" | "b">("a");
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [landingMenuItems, setLandingMenuItems] = useState<any[]>([]);
   const [dbSlides, setDbSlides] = useState<HeroSlide[]>([]);
@@ -140,17 +197,17 @@ const EnhancedHero = () => {
     const fetchHeroSlides = async () => {
       try {
         const { data, error } = await supabase
-          .from('hero_slides')
-          .select('*')
-          .eq('is_active', true)
-          .order('display_order');
-        
+          .from("hero_slides")
+          .select("*")
+          .eq("is_active", true)
+          .order("display_order");
+
         if (error) throw error;
         if (data && data.length > 0) {
           setDbSlides(data);
         }
       } catch (error) {
-        console.error('Error fetching hero slides:', error);
+        console.error("Error fetching hero slides:", error);
       } finally {
         setIsLoadingSlides(false);
       }
@@ -162,10 +219,10 @@ const EnhancedHero = () => {
   useEffect(() => {
     const fetchLandingMenu = async () => {
       const { data } = await supabase
-        .from('landing_menu_items')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order');
+        .from("landing_menu_items")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order");
       if (data) setLandingMenuItems(data);
     };
     fetchLandingMenu();
@@ -173,12 +230,12 @@ const EnhancedHero = () => {
 
   // Use database slides if available, fallback to hardcoded
   const activeSlides = dbSlides.length > 0 ? dbSlides : heroSlides;
-  
+
   // Video preloader for seamless slide transitions
-  const videoUrls = activeSlides.map(slide => 
-    typeof slide === 'object' && 'video_url' in slide 
-      ? slide.video_url || heroClipchampVideo 
-      : (slide as any).video
+  const videoUrls = activeSlides.map((slide) =>
+    typeof slide === "object" && "video_url" in slide
+      ? slide.video_url || heroClipchampVideo
+      : (slide as any).video,
   );
   const { getVideoUrl, isPreloaded } = useVideoPreloader({
     videoUrls,
@@ -201,7 +258,7 @@ const EnhancedHero = () => {
 
     autoplayIntervalRef.current = setInterval(() => {
       setIsTransitioning(true);
-      
+
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
         setIsTransitioning(false);
@@ -230,37 +287,40 @@ const EnhancedHero = () => {
 
   // Smooth video loop using crossfade technique
   useEffect(() => {
-    const currentVideoRef = activeVideo === 'a' ? videoRefA.current : videoRefB.current;
-    const nextVideoRef = activeVideo === 'a' ? videoRefB.current : videoRefA.current;
+    const currentVideoRef =
+      activeVideo === "a" ? videoRefA.current : videoRefB.current;
+    const nextVideoRef =
+      activeVideo === "a" ? videoRefB.current : videoRefA.current;
 
     if (!currentVideoRef || !nextVideoRef) return;
 
     const handleTimeUpdate = () => {
       const duration = currentVideoRef.duration;
       const currentTime = currentVideoRef.currentTime;
-      
+
       // Start crossfade when 1 second remaining
       if (duration - currentTime <= 1 && duration - currentTime > 0.5) {
         // Prepare next video
         nextVideoRef.currentTime = 0;
         nextVideoRef.play();
-        
+
         // Crossfade
-        if (activeVideo === 'a') {
+        if (activeVideo === "a") {
           setVideoOpacity({ a: 0, b: 1 });
         } else {
           setVideoOpacity({ a: 1, b: 0 });
         }
       }
-      
+
       // Switch active video when crossfade complete
       if (duration - currentTime <= 0.5 && duration - currentTime > 0) {
-        setActiveVideo(activeVideo === 'a' ? 'b' : 'a');
+        setActiveVideo(activeVideo === "a" ? "b" : "a");
       }
     };
 
-    currentVideoRef.addEventListener('timeupdate', handleTimeUpdate);
-    return () => currentVideoRef.removeEventListener('timeupdate', handleTimeUpdate);
+    currentVideoRef.addEventListener("timeupdate", handleTimeUpdate);
+    return () =>
+      currentVideoRef.removeEventListener("timeupdate", handleTimeUpdate);
   }, [activeVideo]);
 
   useEffect(() => {
@@ -269,24 +329,24 @@ const EnhancedHero = () => {
       setScrollY(scrollPosition);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
-      
+
       // Calculate normalized position (-1 to 1)
       const x = (clientX / innerWidth - 0.5) * 2;
       const y = (clientY / innerHeight - 0.5) * 2;
-      
+
       setMousePosition({ x, y });
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -300,7 +360,7 @@ const EnhancedHero = () => {
 
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -318,7 +378,9 @@ const EnhancedHero = () => {
       // Swipe right - go to previous slide
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+        setCurrentSlide(
+          (prev) => (prev - 1 + heroSlides.length) % heroSlides.length,
+        );
         setIsTransitioning(false);
       }, 500);
     }
@@ -328,27 +390,39 @@ const EnhancedHero = () => {
   const prefersReducedMotion = useReducedMotion();
 
   // Extract slide data (handle both DB and hardcoded formats)
-  const isDbSlide = 'primary_cta_text' in slide;
+  const isDbSlide = "primary_cta_text" in slide;
   const headline = isDbSlide ? slide.headline : (slide as any).headline;
-  const subheadline = isDbSlide ? slide.subheadline : (slide as any).subheadline;
-  const description = isDbSlide ? slide.description : (slide as any).subheadline;
+  const subheadline = isDbSlide
+    ? slide.subheadline
+    : (slide as any).subheadline;
+  const description = isDbSlide
+    ? slide.description
+    : (slide as any).subheadline;
   const statNumber = isDbSlide ? slide.stat_number : (slide as any).stat;
   const statLabel = isDbSlide ? slide.stat_label : (slide as any).statLabel;
-  const videoUrl = isDbSlide ? (slide.video_url || heroClipchampVideo) : (slide as any).video;
-  const posterUrl = isDbSlide ? (slide.poster_url || '/hero-poster-1.webp') : (slide as any).poster;
-  
-  const PrimaryIcon = isDbSlide 
-    ? getIconComponent(slide.primary_cta_icon) 
+  const videoUrl = isDbSlide
+    ? slide.video_url || heroClipchampVideo
+    : (slide as any).video;
+  const posterUrl = isDbSlide
+    ? slide.poster_url || "/hero-poster-1.webp"
+    : (slide as any).poster;
+
+  const PrimaryIcon = isDbSlide
+    ? getIconComponent(slide.primary_cta_icon)
     : (slide as any).primaryCTA.icon;
-  
+
   const primaryCTA = {
     label: isDbSlide ? slide.primary_cta_text : (slide as any).primaryCTA.label,
     href: isDbSlide ? slide.primary_cta_url : (slide as any).primaryCTA.href,
-    icon: PrimaryIcon
+    icon: PrimaryIcon,
   };
   const secondaryCTA = {
-    label: isDbSlide ? slide.secondary_cta_text : (slide as any).secondaryCTA?.label,
-    href: isDbSlide ? slide.secondary_cta_url : (slide as any).secondaryCTA?.href
+    label: isDbSlide
+      ? slide.secondary_cta_text
+      : (slide as any).secondaryCTA?.label,
+    href: isDbSlide
+      ? slide.secondary_cta_url
+      : (slide as any).secondaryCTA?.href,
   };
 
   const parallaxOffset = prefersReducedMotion ? 0 : scrollY * 0.5;
@@ -356,7 +430,7 @@ const EnhancedHero = () => {
   const mouseParallaxY = prefersReducedMotion ? 0 : mousePosition.y * 20;
 
   return (
-    <section 
+    <section
       className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -364,13 +438,13 @@ const EnhancedHero = () => {
     >
       {/* Geometric Shapes */}
       <GeometricShapes currentSlide={currentSlide} />
-      
+
       {/* Video Background with Parallax Effect and Smooth Loop */}
-      <div 
+      <div
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
-        style={{ 
+        style={{
           transform: `translateY(${parallaxOffset}px) translateX(${mouseParallaxX}px) translateY(${mouseParallaxY}px)`,
-          transition: 'transform 0.3s ease-out'
+          transition: "transform 0.3s ease-out",
         }}
       >
         {/* Video A */}
@@ -386,7 +460,7 @@ const EnhancedHero = () => {
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
-        
+
         {/* Video B - for seamless crossfade loop */}
         <video
           ref={videoRefB}
@@ -401,7 +475,7 @@ const EnhancedHero = () => {
 
         {/* Poster Overlay - Fades out when video is ready */}
         {showPoster && (
-          <div 
+          <div
             className="absolute inset-0 z-[1] transition-opacity duration-700 ease-out"
             style={{ opacity: isVideoLoaded ? 0 : 1 }}
           >
@@ -427,66 +501,83 @@ const EnhancedHero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--ink))]/70 via-[hsl(var(--ink))]/60 to-[hsl(var(--ink))]/80" />
 
       {/* Content */}
-      <div 
+      <div
         className={`relative z-10 container mx-auto px-4 py-16 md:py-20 transition-opacity duration-1000 ${
-          isTransitioning ? 'opacity-0' : 'opacity-100'
+          isTransitioning ? "opacity-0" : "opacity-100"
         }`}
       >
         <div className="max-w-5xl mx-auto">
           {/* Stat Callout */}
-          <div 
-            className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
+          <div
+            className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 ${!prefersReducedMotion && "animate-fade-in"}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
           >
             <div className="flex flex-col items-center">
-              <span className="text-2xl sm:text-3xl font-bold text-[hsl(var(--bg))]">{statNumber}</span>
-              <span className="text-xs text-[hsl(var(--bg))]/90 font-semibold whitespace-nowrap">{statLabel}</span>
+              <span className="text-2xl sm:text-3xl font-bold text-[hsl(var(--bg))]">
+                {statNumber}
+              </span>
+              <span className="text-xs text-[hsl(var(--bg))]/90 font-semibold whitespace-nowrap">
+                {statLabel}
+              </span>
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2 bg-[hsl(var(--brand-accent))] px-2 sm:px-3 py-1 rounded-full">
               <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-[hsl(var(--bg))]" />
-              <span className="text-xs sm:text-sm font-semibold text-[hsl(var(--bg))]">COR Certified</span>
+              <span className="text-xs sm:text-sm font-semibold text-[hsl(var(--bg))]">
+                COR Certified
+              </span>
             </div>
           </div>
 
           {/* Main Headline */}
-          <h1 
-            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
-            style={{ 
-              animationDelay: prefersReducedMotion ? "0s" : '0.2s',
-              textShadow: '0 2px 20px rgba(0,0,0,0.3)'
+          <h1
+            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight ${!prefersReducedMotion && "animate-slide-up"}`}
+            style={{
+              animationDelay: prefersReducedMotion ? "0s" : "0.2s",
+              textShadow: "0 2px 20px rgba(0,0,0,0.3)",
             }}
           >
             {headline}
           </h1>
-          <p 
-            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
+          <p
+            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && "animate-slide-up"}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
             {description}
           </p>
 
           {/* Dual CTAs */}
-          <div 
-            className={`flex flex-col sm:flex-row gap-4 mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
+          <div
+            className={`flex flex-col sm:flex-row gap-4 mb-12 ${!prefersReducedMotion && "animate-slide-up"}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.8s" }}
           >
-            <Button asChild size="lg" variant="primary" className="group shadow-accent">
+            <Button
+              asChild
+              size="lg"
+              variant="primary"
+              className="group shadow-accent"
+            >
               <Link to={primaryCTA.href} className="gap-2">
                 <primaryCTA.icon className="h-5 w-5" />
                 {primaryCTA.label}
                 <ArrowRight className="h-4 w-4 hover-translate-arrow" />
               </Link>
             </Button>
-            
-            <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm">
-              <Link to={secondaryCTA.href}>
-                {secondaryCTA.label}
-              </Link>
+
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm"
+            >
+              <Link to={secondaryCTA.href}>{secondaryCTA.label}</Link>
             </Button>
           </div>
 
           {/* Slide Indicators */}
-          <div className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
+          <div
+            className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && "animate-fade-in"}`}
+            style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}
+          >
             {heroSlides.map((_, index) => (
               <button
                 key={index}
@@ -498,9 +589,9 @@ const EnhancedHero = () => {
                   }, 500);
                 }}
                 className={`h-1 rounded-full transition-all duration-300 ${
-                  index === currentSlide 
-                    ? 'w-12 bg-accent' 
-                    : 'w-8 bg-[hsl(var(--bg))]/30 hover:bg-[hsl(var(--bg))]/50'
+                  index === currentSlide
+                    ? "w-12 bg-accent"
+                    : "w-8 bg-[hsl(var(--bg))]/30 hover:bg-[hsl(var(--bg))]/50"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -512,7 +603,6 @@ const EnhancedHero = () => {
       {/* Hero Tab Navigation - Use landing menu if available */}
       {landingMenuItems.length > 0 ? (
         <div className="absolute bottom-6 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
-          
           {/* Mobile: Horizontal scrollable premium cards */}
           <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
             <div className="flex gap-3 pb-4">
@@ -523,13 +613,15 @@ const EnhancedHero = () => {
                     key={item.id}
                     to={item.link}
                     className="flex-shrink-0 w-48 bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20 hover:bg-white/15 transition-all active:scale-95"
-                    style={{ touchAction: 'manipulation' }}
+                    style={{ touchAction: "manipulation" }}
                   >
                     <div className="flex items-center gap-2 mb-2">
                       <div className="p-1.5 rounded-md bg-accent/20">
                         <Icon className="h-4 w-4 text-accent" />
                       </div>
-                      <span className="text-xs font-bold text-white/60">{item.number || '—'}</span>
+                      <span className="text-xs font-bold text-white/60">
+                        {item.number || "—"}
+                      </span>
                     </div>
                     <div className="text-sm font-bold text-white mb-1 leading-tight">
                       {formatTitle(item.title)}
@@ -542,13 +634,13 @@ const EnhancedHero = () => {
               })}
             </div>
           </div>
-          
+
           {/* Desktop: Enhanced button layout */}
           <div className="hidden md:flex gap-4 justify-center flex-wrap">
             {landingMenuItems.map((item) => (
-              <Link 
+              <Link
                 key={item.id}
-                to={item.link} 
+                to={item.link}
                 className="relative px-6 py-3 text-base font-semibold transition-all duration-300 text-white/90 hover:text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100 after:scale-x-0"
               >
                 {item.title}
@@ -557,10 +649,10 @@ const EnhancedHero = () => {
           </div>
         </div>
       ) : (
-        <HeroTabNavigation 
-          slides={heroSlides} 
-          currentSlide={currentSlide} 
-          onSlideChange={handleSlideChange} 
+        <HeroTabNavigation
+          slides={heroSlides}
+          currentSlide={currentSlide}
+          onSlideChange={handleSlideChange}
         />
       )}
 

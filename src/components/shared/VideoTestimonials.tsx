@@ -25,7 +25,8 @@ const defaultTestimonials: VideoTestimonial[] = [
     role: "VP of Construction",
     thumbnail: "/placeholder.svg",
     videoUrl: "/videos/testimonial-1.mp4",
-    quote: "Outstanding quality and professionalism throughout the entire project."
+    quote:
+      "Outstanding quality and professionalism throughout the entire project.",
   },
   {
     name: "Sarah Chen",
@@ -33,7 +34,8 @@ const defaultTestimonials: VideoTestimonial[] = [
     role: "Senior PM",
     thumbnail: "/placeholder.svg",
     videoUrl: "/videos/testimonial-2.mp4",
-    quote: "Their attention to detail and commitment to safety is unmatched in the industry."
+    quote:
+      "Their attention to detail and commitment to safety is unmatched in the industry.",
   },
   {
     name: "Michael Rodriguez",
@@ -41,15 +43,18 @@ const defaultTestimonials: VideoTestimonial[] = [
     role: "Director",
     thumbnail: "/placeholder.svg",
     videoUrl: "/videos/testimonial-3.mp4",
-    quote: "We've completed multiple projects with Ascent - always on time and on budget."
-  }
+    quote:
+      "We've completed multiple projects with Ascent - always on time and on budget.",
+  },
 ];
 
 export const VideoTestimonials = ({
   testimonials = defaultTestimonials,
-  className
+  className,
 }: VideoTestimonialsProps) => {
-  const [selectedVideo, setSelectedVideo] = useState<VideoTestimonial | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<VideoTestimonial | null>(
+    null,
+  );
 
   return (
     <>
@@ -71,7 +76,10 @@ export const VideoTestimonials = ({
                 {/* Play Overlay */}
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
                   <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Play className="w-8 h-8 text-primary-foreground ml-1" fill="currentColor" />
+                    <Play
+                      className="w-8 h-8 text-primary-foreground ml-1"
+                      fill="currentColor"
+                    />
                   </div>
                 </div>
               </div>
@@ -83,9 +91,15 @@ export const VideoTestimonials = ({
                   </p>
                 </div>
                 <div className="border-t pt-3">
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  <p className="text-sm text-primary font-medium">{testimonial.company}</p>
+                  <p className="font-semibold text-foreground">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {testimonial.role}
+                  </p>
+                  <p className="text-sm text-primary font-medium">
+                    {testimonial.company}
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -94,7 +108,10 @@ export const VideoTestimonials = ({
       </div>
 
       {/* Video Player Modal */}
-      <Dialog open={!!selectedVideo} onOpenChange={() => setSelectedVideo(null)}>
+      <Dialog
+        open={!!selectedVideo}
+        onOpenChange={() => setSelectedVideo(null)}
+      >
         <DialogContent className="max-w-4xl p-0">
           <DialogTitle className="sr-only">
             {selectedVideo?.name} - Video Testimonial

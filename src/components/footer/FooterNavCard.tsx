@@ -23,8 +23,8 @@ const FooterNavCard = ({ title, icon: Icon, links }: FooterNavCardProps) => {
         <ul className="space-y-2">
           {links.map((link) => (
             <li key={link.to}>
-              <Link 
-                to={link.to} 
+              <Link
+                to={link.to}
                 className="footer-link-animated text-sm text-primary-foreground/80"
               >
                 {link.label}

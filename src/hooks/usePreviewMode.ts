@@ -6,12 +6,12 @@ import { useSearchParams } from "react-router-dom";
  */
 export const usePreviewMode = () => {
   const [searchParams] = useSearchParams();
-  const isPreview = searchParams.get('preview') === 'true';
-  const previewToken = searchParams.get('token');
-  
-  return { 
-    isPreview, 
+  const isPreview = searchParams.get("preview") === "true";
+  const previewToken = searchParams.get("token");
+
+  return {
+    isPreview,
     previewToken,
-    isValidPreview: isPreview && !!previewToken 
+    isValidPreview: isPreview && !!previewToken,
   };
 };

@@ -10,20 +10,20 @@
   --business-accent-green: var(--admin-success);
   --business-accent-red: var(--admin-danger);
   --business-accent-yellow: var(--admin-warning);
-  
+
   --business-bg-darker: var(--admin-bg-darker);
   --business-bg-dark: var(--admin-bg-dark);
   --business-bg-card: var(--admin-bg-card);
   --business-bg-hover: var(--admin-bg-hover);
-  
+
   --business-text-primary: var(--admin-text-primary);
   --business-text-secondary: var(--admin-text-secondary);
   --business-text-muted: var(--admin-text-muted);
-  
+
   --business-border: var(--admin-border);
   --business-glass-bg: var(--admin-glass-bg);
   --business-glass-border: var(--admin-glass-border);
-  
+
   --business-sidebar-width: var(--admin-sidebar-width);
   --business-sidebar-collapsed: var(--admin-sidebar-collapsed);
   --business-header-height: var(--admin-header-height);
@@ -35,20 +35,33 @@
   min-height: 100vh;
   background: var(--business-bg-darker);
   position: relative;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 /* Animated Background */
 .business-admin-container::before {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(ellipse at 20% 30%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  background:
+    radial-gradient(
+      ellipse at 20% 30%,
+      rgba(37, 99, 235, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 70%,
+      rgba(16, 185, 129, 0.08) 0%,
+      transparent 50%
+    );
   pointer-events: none;
   z-index: 0;
 }
@@ -66,7 +79,9 @@
   display: flex;
   flex-direction: column;
   z-index: 100;
-  transition: transform 0.3s ease, width 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    width 0.3s ease;
 }
 
 /* Mobile Sidebar Backdrop */
@@ -80,8 +95,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Mobile Close Button */
@@ -599,7 +618,7 @@
     transform: translateX(-100%);
     z-index: 100;
   }
-  
+
   .business-sidebar.mobile-open {
     transform: translateX(0);
   }
@@ -612,7 +631,7 @@
   .business-sidebar-toggle {
     display: none;
   }
-  
+
   .business-main-content {
     margin-left: 0 !important;
   }
@@ -651,29 +670,29 @@ body:has(.business-sidebar.mobile-open) {
 
 .admin-dark-theme {
   /* Force dark backgrounds */
-  --background: 222 47% 11%;        /* slate-900 */
-  --foreground: 0 0% 100%;          /* PURE WHITE */
-  
+  --background: 222 47% 11%; /* slate-900 */
+  --foreground: 0 0% 100%; /* PURE WHITE */
+
   /* Force dark cards */
-  --card: 217 33% 17%;              /* slate-800 */
-  --card-foreground: 0 0% 100%;     /* PURE WHITE */
-  
+  --card: 217 33% 17%; /* slate-800 */
+  --card-foreground: 0 0% 100%; /* PURE WHITE */
+
   /* Force dark popovers and dropdowns */
-  --popover: 217 33% 17%;           /* slate-800 */
-  --popover-foreground: 0 0% 100%;  /* PURE WHITE */
-  
+  --popover: 217 33% 17%; /* slate-800 */
+  --popover-foreground: 0 0% 100%; /* PURE WHITE */
+
   /* Force dark inputs */
-  --input: 215 25% 27%;             /* slate-700 */
-  
+  --input: 215 25% 27%; /* slate-700 */
+
   /* Force dark muted backgrounds */
-  --muted: 215 25% 27%;             /* slate-700 */
-  --muted-foreground: 0 0% 100%;    /* PURE WHITE - NO MORE GRAY */
-  
+  --muted: 215 25% 27%; /* slate-700 */
+  --muted-foreground: 0 0% 100%; /* PURE WHITE - NO MORE GRAY */
+
   /* Force dark borders */
-  --border: 215 25% 27%;            /* slate-700 */
-  
+  --border: 215 25% 27%; /* slate-700 */
+
   /* Ensure ring color is visible */
-  --ring: 217 91% 60%;              /* blue-400 */
+  --ring: 217 91% 60%; /* blue-400 */
 }
 
 /* ============================================================================
@@ -683,7 +702,12 @@ body:has(.business-sidebar.mobile-open) {
 /* Force Inter font on ALL admin elements */
 .admin-dark-theme,
 .admin-dark-theme * {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
 }
 
 /* Explicit overrides for all text-bearing HTML elements */
@@ -710,13 +734,23 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme em,
 .admin-dark-theme code,
 .admin-dark-theme pre {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
 }
 
 /* Override any Tailwind font utilities that might be applied */
 .admin-dark-theme .font-playfair,
 .admin-dark-theme [class*="font-"] {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
 }
 
 /* ============================================================================
@@ -725,47 +759,47 @@ body:has(.business-sidebar.mobile-open) {
 
 /* Headings - Clear hierarchy with proper scaling */
 .admin-dark-theme h1 {
-  font-size: 2rem;           /* 32px */
-  font-weight: 700;          /* Bold */
+  font-size: 2rem; /* 32px */
+  font-weight: 700; /* Bold */
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 .admin-dark-theme h2 {
-  font-size: 1.5rem;         /* 24px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 1.5rem; /* 24px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1.3;
   letter-spacing: -0.01em;
 }
 
 .admin-dark-theme h3 {
-  font-size: 1.25rem;        /* 20px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1.4;
 }
 
 .admin-dark-theme h4 {
-  font-size: 1.125rem;       /* 18px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1.4;
 }
 
 .admin-dark-theme h5 {
-  font-size: 1rem;           /* 16px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 1rem; /* 16px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1.5;
 }
 
 .admin-dark-theme h6 {
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1.5;
 }
 
 /* Body text - Base sizes */
 .admin-dark-theme p {
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 400;          /* Regular */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 400; /* Regular */
   line-height: 1.6;
 }
 
@@ -777,8 +811,8 @@ body:has(.business-sidebar.mobile-open) {
 
 /* Form labels - Clear and readable */
 .admin-dark-theme label {
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 500;          /* Medium */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500; /* Medium */
   line-height: 1.5;
   letter-spacing: 0.01em;
 }
@@ -787,94 +821,94 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme input,
 .admin-dark-theme textarea,
 .admin-dark-theme select {
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 400;          /* Regular */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 400; /* Regular */
   line-height: 1.5;
 }
 
 /* Button text - Clear and actionable */
 .admin-dark-theme button {
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 500;          /* Medium */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500; /* Medium */
   line-height: 1.5;
 }
 
 /* Table text - Dense but readable */
 .admin-dark-theme th {
-  font-size: 0.75rem;        /* 12px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1.5;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .admin-dark-theme td {
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 400;          /* Regular */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 400; /* Regular */
   line-height: 1.5;
 }
 
 /* Links - Distinguishable but subtle */
 .admin-dark-theme a {
   font-size: inherit;
-  font-weight: 500;          /* Medium */
+  font-weight: 500; /* Medium */
   line-height: inherit;
 }
 
 /* Small text - Captions, metadata */
 .admin-dark-theme small,
 .admin-dark-theme .text-xs {
-  font-size: 0.75rem;        /* 12px */
-  font-weight: 400;          /* Regular */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 400; /* Regular */
   line-height: 1.5;
 }
 
 /* Large text - Emphasized content */
 .admin-dark-theme .text-lg {
-  font-size: 1.125rem;       /* 18px */
-  font-weight: 400;          /* Regular */
+  font-size: 1.125rem; /* 18px */
+  font-weight: 400; /* Regular */
   line-height: 1.6;
 }
 
 .admin-dark-theme .text-xl {
-  font-size: 1.25rem;        /* 20px */
-  font-weight: 500;          /* Medium */
+  font-size: 1.25rem; /* 20px */
+  font-weight: 500; /* Medium */
   line-height: 1.4;
 }
 
 /* Strong/Bold emphasis */
 .admin-dark-theme strong,
 .admin-dark-theme b {
-  font-weight: 600;          /* Semi-bold */
+  font-weight: 600; /* Semi-bold */
 }
 
 /* Code - Monospace with proper sizing */
 .admin-dark-theme code {
-  font-family: 'Monaco', 'Courier New', monospace;
-  font-size: 0.8125rem;      /* 13px - slightly smaller */
-  font-weight: 400;          /* Regular */
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 0.8125rem; /* 13px - slightly smaller */
+  font-weight: 400; /* Regular */
   line-height: 1.5;
 }
 
 .admin-dark-theme pre {
-  font-family: 'Monaco', 'Courier New', monospace;
-  font-size: 0.8125rem;      /* 13px */
-  font-weight: 400;          /* Regular */
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 400; /* Regular */
   line-height: 1.6;
 }
 
 /* List items - Match body text */
 .admin-dark-theme li {
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 400;          /* Regular */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 400; /* Regular */
   line-height: 1.6;
 }
 
 /* Badge text - Small and bold */
 .admin-dark-theme [class*="badge"],
 .admin-dark-theme [class*="Badge"] {
-  font-size: 0.75rem;        /* 12px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1;
   letter-spacing: 0.025em;
 }
@@ -882,15 +916,15 @@ body:has(.business-sidebar.mobile-open) {
 /* Card titles and descriptions */
 .admin-dark-theme [class*="CardTitle"],
 .admin-dark-theme .card-title {
-  font-size: 1.125rem;       /* 18px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1.4;
 }
 
 .admin-dark-theme [class*="CardDescription"],
 .admin-dark-theme .card-description {
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 400;          /* Regular */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 400; /* Regular */
   line-height: 1.6;
 }
 
@@ -906,7 +940,10 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 /* Primary Button - Main actions (blue) */
-.admin-dark-theme button[class*="default"]:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme
+  button[class*="default"]:not([class*="outline"]):not([class*="ghost"]):not(
+    [class*="secondary"]
+  ),
 .admin-dark-theme .button-primary {
   background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: white !important;
@@ -914,14 +951,20 @@ body:has(.business-sidebar.mobile-open) {
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
 }
 
-.admin-dark-theme button[class*="default"]:hover:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme
+  button[class*="default"]:hover:not([class*="outline"]):not(
+    [class*="ghost"]
+  ):not([class*="secondary"]),
 .admin-dark-theme .button-primary:hover {
   background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
   transform: translateY(-1px);
 }
 
-.admin-dark-theme button[class*="default"]:active:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme
+  button[class*="default"]:active:not([class*="outline"]):not(
+    [class*="ghost"]
+  ):not([class*="secondary"]),
 .admin-dark-theme .button-primary:active {
   transform: translateY(0);
   box-shadow: 0 1px 4px rgba(37, 99, 235, 0.2);
@@ -1055,25 +1098,25 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme button[class*="destructive"],
 .admin-dark-theme button[class*="ghost"],
 .admin-dark-theme button[class*="outline"] {
-  min-height: 44px;          /* Touch-friendly */
+  min-height: 44px; /* Touch-friendly */
   padding: 0.625rem 1rem;
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 500;          /* Medium */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500; /* Medium */
 }
 
 /* Small buttons */
 .admin-dark-theme button[class*="sm"] {
   min-height: 40px;
   padding: 0.5rem 0.875rem;
-  font-size: 0.8125rem;      /* 13px */
+  font-size: 0.8125rem; /* 13px */
 }
 
 /* Large buttons */
 .admin-dark-theme button[class*="lg"] {
   min-height: 48px;
   padding: 0.75rem 1.5rem;
-  font-size: 0.9375rem;      /* 15px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 600; /* Semi-bold */
 }
 
 /* Icon buttons */
@@ -1100,7 +1143,7 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 .admin-dark-theme button[data-loading="true"]::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 16px;
   height: 16px;
@@ -1116,8 +1159,12 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 @keyframes button-loading-spinner {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ============================================================================
@@ -1154,8 +1201,8 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme th {
   padding: 1rem 1.25rem;
   text-align: left;
-  font-size: 0.75rem;        /* 12px */
-  font-weight: 600;          /* Semi-bold */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600; /* Semi-bold */
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--business-text-secondary) !important;
@@ -1198,8 +1245,8 @@ body:has(.business-sidebar.mobile-open) {
 /* Table cells */
 .admin-dark-theme td {
   padding: 1rem 1.25rem;
-  font-size: 0.875rem;       /* 14px */
-  font-weight: 400;          /* Regular */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 400; /* Regular */
   color: white !important;
   vertical-align: middle;
   min-height: 60px;
@@ -1303,7 +1350,7 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 .admin-dark-theme .table-loading::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1317,8 +1364,12 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 @keyframes table-loading-spinner {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Sortable column headers */
@@ -1335,7 +1386,7 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 .admin-dark-theme th.sortable::after {
-  content: '⇅';
+  content: "⇅";
   position: absolute;
   right: 0.75rem;
   opacity: 0.5;
@@ -1343,13 +1394,13 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 .admin-dark-theme th.sortable.sorted-asc::after {
-  content: '↑';
+  content: "↑";
   opacity: 1;
   color: var(--business-primary);
 }
 
 .admin-dark-theme th.sortable.sorted-desc::after {
-  content: '↓';
+  content: "↓";
   opacity: 1;
   color: var(--business-primary);
 }
@@ -1377,7 +1428,7 @@ body:has(.business-sidebar.mobile-open) {
   .admin-dark-theme th,
   .admin-dark-theme td {
     padding: 0.75rem 0.875rem;
-    font-size: 0.8125rem;    /* 13px */
+    font-size: 0.8125rem; /* 13px */
   }
 
   .admin-dark-theme th:first-child,
@@ -1477,8 +1528,8 @@ body:has(.business-sidebar.mobile-open) {
   gap: 0.375rem;
   padding: 0.375rem 0.75rem;
   border-radius: 6px;
-  font-size: 0.75rem;       /* 12px */
-  font-weight: 600;         /* Semi-bold */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600; /* Semi-bold */
   line-height: 1;
   letter-spacing: 0.025em;
   white-space: nowrap;
@@ -1540,17 +1591,17 @@ body:has(.business-sidebar.mobile-open) {
 /* Badge sizes */
 .admin-dark-theme .badge-sm {
   padding: 0.25rem 0.5rem;
-  font-size: 0.6875rem;     /* 11px */
+  font-size: 0.6875rem; /* 11px */
 }
 
 .admin-dark-theme .badge-lg {
   padding: 0.5rem 1rem;
-  font-size: 0.875rem;      /* 14px */
+  font-size: 0.875rem; /* 14px */
 }
 
 /* Dot indicator variant */
 .admin-dark-theme .badge-dot::before {
-  content: '';
+  content: "";
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -1565,8 +1616,13 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 @keyframes badge-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* Outlined badge variant */
@@ -1589,8 +1645,8 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme label,
 .admin-dark-theme .form-label {
   display: block;
-  font-size: 0.875rem;      /* 14px */
-  font-weight: 500;         /* Medium */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500; /* Medium */
   color: white !important;
   margin-bottom: 0.5rem;
   letter-spacing: 0.01em;
@@ -1599,7 +1655,7 @@ body:has(.business-sidebar.mobile-open) {
 /* Required field indicator */
 .admin-dark-theme label.required::after,
 .admin-dark-theme .form-label.required::after {
-  content: '*';
+  content: "*";
   color: #f87171;
   margin-left: 0.25rem;
   font-weight: 700;
@@ -1697,7 +1753,7 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme .form-helper,
 .admin-dark-theme .form-description {
   display: block;
-  font-size: 0.8125rem;     /* 13px */
+  font-size: 0.8125rem; /* 13px */
   color: var(--business-text-muted) !important;
   margin-top: 0.375rem;
   line-height: 1.5;
@@ -1710,7 +1766,7 @@ body:has(.business-sidebar.mobile-open) {
   display: flex;
   align-items: center;
   gap: 0.375rem;
-  font-size: 0.8125rem;     /* 13px */
+  font-size: 0.8125rem; /* 13px */
   color: #f87171 !important;
   margin-top: 0.375rem;
   line-height: 1.5;
@@ -1814,8 +1870,12 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 @keyframes dialog-backdrop-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Dialog content */
@@ -2120,7 +2180,7 @@ body:has(.business-sidebar.mobile-open) {
 /* Checkmark icon for selected items */
 .admin-dark-theme [role="option"][data-state="checked"]::after,
 .admin-dark-theme .dropdown-item.selected::after {
-  content: '✓';
+  content: "✓";
   margin-left: auto;
   color: #60a5fa;
   font-weight: 700;
@@ -2378,8 +2438,12 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 @keyframes toast-progress {
-  from { width: 100%; }
-  to { width: 0%; }
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
 }
 
 /* Toast action button */
@@ -2427,8 +2491,12 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 @keyframes skeleton-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Skeleton text lines */
@@ -2586,8 +2654,13 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 @keyframes skeleton-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* ============================================================================
@@ -2595,7 +2668,10 @@ body:has(.business-sidebar.mobile-open) {
    ============================================================================ */
 
 /* Force ALL text elements to white */
-.admin-dark-theme *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
+.admin-dark-theme
+  *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(
+    polygon
+  ) {
   color: white !important;
 }
 
@@ -2672,32 +2748,32 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme input[type="url"],
 .admin-dark-theme input[type="search"] {
   background-color: hsl(217 33% 17%) !important; /* slate-800 */
-  border-color: hsl(215 25% 27%) !important;     /* slate-700 */
-  color: white !important;                       /* PURE WHITE TEXT */
+  border-color: hsl(215 25% 27%) !important; /* slate-700 */
+  color: white !important; /* PURE WHITE TEXT */
 }
 
 /* Force white placeholder text */
 .admin-dark-theme input::placeholder,
 .admin-dark-theme textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5) !important;    /* white with opacity */
+  color: rgba(255, 255, 255, 0.5) !important; /* white with opacity */
 }
 
 /* Force white text on select trigger (the displayed value) */
 .admin-dark-theme [role="combobox"],
 .admin-dark-theme button[role="combobox"] {
-  color: white !important;                       /* PURE WHITE TEXT */
+  color: white !important; /* PURE WHITE TEXT */
 }
 
 /* Force white text inside select dropdown options */
 .admin-dark-theme [role="option"] {
-  color: white !important;                       /* PURE WHITE TEXT */
+  color: white !important; /* PURE WHITE TEXT */
 }
 
 /* Ensure all Cards in admin have dark backgrounds and white text */
 .admin-dark-theme .card {
   background-color: hsl(217 33% 17%) !important; /* slate-800 */
-  border-color: hsl(215 25% 27%) !important;     /* slate-700 */
-  color: white !important;                       /* PURE WHITE TEXT */
+  border-color: hsl(215 25% 27%) !important; /* slate-700 */
+  color: white !important; /* PURE WHITE TEXT */
 }
 
 /* Force white text on all heading and paragraph elements in admin */
@@ -2710,12 +2786,12 @@ body:has(.business-sidebar.mobile-open) {
 .admin-dark-theme p,
 .admin-dark-theme span,
 .admin-dark-theme div {
-  color: white !important;                       /* PURE WHITE TEXT */
+  color: white !important; /* PURE WHITE TEXT */
 }
 
 /* Ensure labels are white */
 .admin-dark-theme label {
-  color: white !important;                       /* PURE WHITE TEXT */
+  color: white !important; /* PURE WHITE TEXT */
 }
 
 /* Extra specificity for inputs with inline bg classes */
@@ -2758,24 +2834,34 @@ body:has(.business-sidebar.mobile-open) {
 
 /* Admin portal: body-level variables for portals */
 body.admin-dark-portal {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  --background: 222 47% 11%;        /* slate-900 */
-  --foreground: 0 0% 100%;          /* PURE WHITE */
-  --card: 217 33% 17%;              /* slate-800 */
-  --card-foreground: 0 0% 100%;     /* PURE WHITE */
-  --popover: 217 33% 17%;           /* slate-800 */
-  --popover-foreground: 0 0% 100%;  /* PURE WHITE */
-  --input: 215 25% 27%;             /* slate-700 */
-  --muted: 215 25% 27%;             /* slate-700 */
-  --muted-foreground: 0 0% 100%;    /* PURE WHITE */
-  --border: 215 25% 27%;            /* slate-700 */
-  --ring: 217 91% 60%;              /* blue-400 */
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
+  --background: 222 47% 11%; /* slate-900 */
+  --foreground: 0 0% 100%; /* PURE WHITE */
+  --card: 217 33% 17%; /* slate-800 */
+  --card-foreground: 0 0% 100%; /* PURE WHITE */
+  --popover: 217 33% 17%; /* slate-800 */
+  --popover-foreground: 0 0% 100%; /* PURE WHITE */
+  --input: 215 25% 27%; /* slate-700 */
+  --muted: 215 25% 27%; /* slate-700 */
+  --muted-foreground: 0 0% 100%; /* PURE WHITE */
+  --border: 215 25% 27%; /* slate-700 */
+  --ring: 217 91% 60%; /* blue-400 */
 }
 
 /* Force Inter font on portal elements */
 body.admin-dark-portal,
 body.admin-dark-portal * {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
 }
 
 /* Portals: dropdowns/menus/popovers should be opaque and on top */
@@ -2786,7 +2872,7 @@ body.admin-dark-portal .radix-select-content,
 body.admin-dark-portal .radix-popover-content,
 body.admin-dark-portal .radix-dropdown-menu-content {
   background-color: hsl(217 33% 17%) !important;
-  color: white !important;                       /* PURE WHITE TEXT */
+  color: white !important; /* PURE WHITE TEXT */
   border: 1px solid hsl(215 25% 27%) !important;
   z-index: 9999 !important;
   backdrop-filter: blur(8px);
@@ -2797,11 +2883,19 @@ body.admin-dark-portal [role="option"],
 body.admin-dark-portal [role="menuitem"],
 body.admin-dark-portal [data-radix-select-content] *,
 body.admin-dark-portal .radix-dropdown-menu-content * {
-  color: white !important;                       /* PURE WHITE TEXT */
+  color: white !important; /* PURE WHITE TEXT */
 }
 
 /* Portal universal white text override */
-body.admin-dark-portal *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
+body.admin-dark-portal
+  *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(
+    polygon
+  ) {
   color: white !important;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
 }

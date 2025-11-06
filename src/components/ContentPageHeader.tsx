@@ -20,16 +20,21 @@ const ContentPageHeader = ({
   subtitle,
   imageUrl,
   breadcrumbs,
-  className
+  className,
 }: ContentPageHeaderProps) => {
   // Auto-generate breadcrumbs if not provided
   const finalBreadcrumbs = breadcrumbs || [
     { label: "Home", href: "/" },
-    { label: title }
+    { label: title },
   ];
 
   return (
-    <section className={cn("relative h-[40vh] sm:h-[50vh] md:h-[60vh] min-h-[350px] sm:min-h-[400px] md:min-h-[500px] pt-20", className)}>
+    <section
+      className={cn(
+        "relative h-[40vh] sm:h-[50vh] md:h-[60vh] min-h-[350px] sm:min-h-[400px] md:min-h-[500px] pt-20",
+        className,
+      )}
+    >
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -57,7 +62,9 @@ const ContentPageHeader = ({
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span className="text-[hsl(var(--bg))] font-medium">{crumb.label}</span>
+                    <span className="text-[hsl(var(--bg))] font-medium">
+                      {crumb.label}
+                    </span>
                   )}
                   {index < finalBreadcrumbs.length - 1 && (
                     <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -71,7 +78,7 @@ const ContentPageHeader = ({
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-3 sm:mb-4 break-words leading-tight">
             {title}
           </h1>
-          
+
           {subtitle && (
             <p className="text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 max-w-2xl break-words">
               {subtitle}

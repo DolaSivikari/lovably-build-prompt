@@ -123,9 +123,9 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "RFP System <onboarding@resend.dev>",
-      to: ["admin@ascentgroupconstruction.com"],
-      subject: `New RFP: ${data.project_name} - ${data.company_name}`,
-      html: `
+        to: ["admin@ascentgroupconstruction.com"],
+        subject: `New RFP: ${data.project_name} - ${data.company_name}`,
+        html: `
         <h2>🚨 New RFP Submission</h2>
         <p><strong>Company:</strong> ${data.company_name}</p>
         <p><strong>Contact:</strong> ${data.contact_name}</p>
@@ -155,17 +155,14 @@ const handler = async (req: Request): Promise<Response> => {
           "Content-Type": "application/json",
           ...corsHeaders,
         },
-      }
+      },
     );
   } catch (error: any) {
     console.error("Error in send-rfp-notification:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
   }
 };
 

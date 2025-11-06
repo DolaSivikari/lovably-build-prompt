@@ -15,16 +15,16 @@ C4Context
     Person(client, "Business Client", "Client viewing invoices and estimates")
 
     System(webapp, "AscentGroup Web Platform", "React + Vite SPA with admin panel")
-    
+
     System_Ext(supabase, "Supabase Platform", "Backend-as-a-Service (PostgreSQL, Auth, Storage, Edge Functions)")
     System_Ext(cdn, "CDN", "CloudFlare CDN for static assets")
     System_Ext(email, "Resend", "Transactional email service")
     System_Ext(analytics, "Google Analytics", "Web analytics and Search Console")
-    
+
     Rel(visitor, webapp, "Views content, submits forms", "HTTPS")
     Rel(admin, webapp, "Manages content, views reports", "HTTPS")
     Rel(client, webapp, "Views invoices/estimates", "HTTPS")
-    
+
     Rel(webapp, supabase, "API calls, auth, real-time", "HTTPS/WSS")
     Rel(webapp, cdn, "Loads static assets", "HTTPS")
     Rel(supabase, email, "Sends notifications", "HTTPS")
@@ -37,49 +37,49 @@ C4Context
 
 ### Frontend Stack
 
-| Layer          | Technology        | Purpose                                    |
-| -------------- | ----------------- | ------------------------------------------ |
-| Framework      | React 18.3        | UI library                                 |
-| Build Tool     | Vite 6.0          | Fast HMR, modern bundling                  |
-| Routing        | React Router 6.30 | Client-side routing                        |
-| Styling        | Tailwind CSS 3.4  | Utility-first CSS                          |
-| UI Components  | shadcn/ui         | Accessible component primitives            |
-| State          | TanStack Query    | Server state management                    |
-| Forms          | React Hook Form   | Form validation and handling               |
-| Validation     | Zod               | Schema validation                          |
-| Rich Text      | Quill             | WYSIWYG editor for admin                   |
-| File Upload    | React Dropzone    | Drag-and-drop file uploads                 |
-| PDF Generation | React PDF         | Generate invoices/estimates as PDF         |
-| Analytics      | Web Vitals        | Core Web Vitals tracking                   |
-| Icons          | Lucide React      | Icon library                               |
-| Animations     | Framer Motion     | Smooth animations                          |
-| Date Handling  | date-fns          | Date formatting and manipulation           |
-| Charts         | Recharts          | Data visualization                         |
-| Lightbox       | yet-another...    | Image lightbox for galleries               |
+| Layer          | Technology        | Purpose                            |
+| -------------- | ----------------- | ---------------------------------- |
+| Framework      | React 18.3        | UI library                         |
+| Build Tool     | Vite 6.0          | Fast HMR, modern bundling          |
+| Routing        | React Router 6.30 | Client-side routing                |
+| Styling        | Tailwind CSS 3.4  | Utility-first CSS                  |
+| UI Components  | shadcn/ui         | Accessible component primitives    |
+| State          | TanStack Query    | Server state management            |
+| Forms          | React Hook Form   | Form validation and handling       |
+| Validation     | Zod               | Schema validation                  |
+| Rich Text      | Quill             | WYSIWYG editor for admin           |
+| File Upload    | React Dropzone    | Drag-and-drop file uploads         |
+| PDF Generation | React PDF         | Generate invoices/estimates as PDF |
+| Analytics      | Web Vitals        | Core Web Vitals tracking           |
+| Icons          | Lucide React      | Icon library                       |
+| Animations     | Framer Motion     | Smooth animations                  |
+| Date Handling  | date-fns          | Date formatting and manipulation   |
+| Charts         | Recharts          | Data visualization                 |
+| Lightbox       | yet-another...    | Image lightbox for galleries       |
 
 ### Backend Stack (Supabase)
 
-| Service              | Purpose                        |
-| -------------------- | ------------------------------ |
-| PostgreSQL 15        | Relational database            |
-| PostgREST            | Auto-generated REST API        |
-| GoTrue               | Authentication service         |
-| Realtime             | WebSocket subscriptions        |
-| Storage              | Object storage for files       |
-| Edge Functions (Deno | Serverless functions           |
-| pg_cron              | Scheduled jobs                 |
+| Service              | Purpose                  |
+| -------------------- | ------------------------ |
+| PostgreSQL 15        | Relational database      |
+| PostgREST            | Auto-generated REST API  |
+| GoTrue               | Authentication service   |
+| Realtime             | WebSocket subscriptions  |
+| Storage              | Object storage for files |
+| Edge Functions (Deno | Serverless functions     |
+| pg_cron              | Scheduled jobs           |
 
 ### DevOps & Tooling
 
-| Tool              | Purpose                         |
-| ----------------- | ------------------------------- |
-| GitHub Actions    | CI/CD pipeline                  |
-| Lighthouse CI     | Performance auditing            |
-| ESLint            | Code linting                    |
-| Prettier          | Code formatting                 |
-| TypeScript 5.6    | Type safety                     |
-| Playwright        | E2E testing                     |
-| Vercel/Netlify    | Frontend hosting                |
+| Tool           | Purpose              |
+| -------------- | -------------------- |
+| GitHub Actions | CI/CD pipeline       |
+| Lighthouse CI  | Performance auditing |
+| ESLint         | Code linting         |
+| Prettier       | Code formatting      |
+| TypeScript 5.6 | Type safety          |
+| Playwright     | E2E testing          |
+| Vercel/Netlify | Frontend hosting     |
 
 ---
 
@@ -95,11 +95,11 @@ graph LR
     B --> C[Route: /]
     B --> D[Route: /services]
     B --> E[Route: /admin]
-    
+
     C --> F[Home Components]
     D --> G[Service Components]
     E --> H[Admin Components]
-    
+
     H --> I[Auth Guard]
     I --> J[Admin Dashboard]
     I --> K[Content Management]
@@ -120,20 +120,20 @@ graph LR
 ```mermaid
 graph TB
     A[Frontend] --> B{Supabase API Gateway}
-    
+
     B --> C[PostgREST API]
     B --> D[Auth API]
     B --> E[Storage API]
     B --> F[Realtime API]
     B --> G[Edge Functions]
-    
+
     C --> H[(PostgreSQL)]
     D --> H
     E --> I[Object Storage]
     F --> H
     G --> H
     G --> J[External APIs]
-    
+
     H --> K[Row Level Security]
     H --> L[Database Functions]
     H --> M[Triggers]
@@ -205,7 +205,7 @@ stateDiagram-v2
     Authenticating --> Unauthenticated: Invalid credentials
     Authenticated --> Unauthenticated: Logout
     Locked --> Unauthenticated: Admin unlocks
-    
+
     Authenticated --> CheckRoles: Access admin
     CheckRoles --> AdminDashboard: Has admin role
     CheckRoles --> Forbidden: No admin role
@@ -218,14 +218,14 @@ graph TB
     A[User Request] --> B{Authenticated?}
     B -->|No| C[Public Access Only]
     B -->|Yes| D{Check Roles}
-    
+
     D --> E{Has Role?}
     E -->|super_admin| F[Full Access]
     E -->|admin| G[Admin Access]
     E -->|editor| H[Content Edit Access]
     E -->|contributor| I[Limited Content Access]
     E -->|viewer| J[Read-Only Access]
-    
+
     F --> K[RLS Policies Apply]
     G --> K
     H --> K
@@ -257,25 +257,28 @@ graph TB
     D --> E[Authentication]
     E --> F[Row-Level Security]
     F --> G[Database]
-    
+
     H[Audit Logging] -.-> F
     I[Security Alerts] -.-> E
     J[Failed Attempts] -.-> E
 ```
 
 **Layer 1: Network Security**
+
 - CloudFlare DDoS protection
 - TLS 1.3 encryption
 - HSTS headers
 - CSP headers
 
 **Layer 2: Application Security**
+
 - Rate limiting (50 req/min per IP on forms)
 - CSRF protection via SameSite cookies
 - XSS prevention via DOMPurify
 - Input validation via Zod schemas
 
 **Layer 3: Authentication Security**
+
 - Bcrypt password hashing
 - Failed login tracking (`auth_failed_attempts`)
 - Account lockout after 5 failures
@@ -283,12 +286,14 @@ graph TB
 - httpOnly cookies
 
 **Layer 4: Authorization Security**
+
 - Role-based access control (RBAC)
 - Row-Level Security (RLS) policies
 - `SECURITY DEFINER` functions for privilege checks
 - Separate `user_roles` table (prevents privilege escalation)
 
 **Layer 5: Data Security**
+
 - Encrypted at rest (AES-256)
 - Encrypted in transit (TLS 1.3)
 - Sensitive data audit logging (`audit_log` table)
@@ -296,6 +301,7 @@ graph TB
 - Regular backups with encryption
 
 **Layer 6: Monitoring & Response**
+
 - Security alerts for suspicious activity
 - Real-time monitoring via `security_alerts` table
 - Comprehensive audit trail
@@ -308,25 +314,29 @@ graph TB
 ### 1. Frontend Optimizations
 
 **Code Splitting:**
+
 ```typescript
 // Lazy load admin routes
-const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
-const BlogPostEditor = lazy(() => import('@/pages/admin/BlogPostEditor'));
+const AdminDashboard = lazy(() => import("@/pages/admin/Dashboard"));
+const BlogPostEditor = lazy(() => import("@/pages/admin/BlogPostEditor"));
 ```
 
 **Image Optimization:**
+
 - Lazy loading with Intersection Observer
 - Responsive images with `srcset`
 - WebP format with JPEG fallback
 - Image CDN for automatic optimization
 
 **Bundle Optimization:**
+
 - Tree shaking unused code
 - Minification and compression (Brotli)
 - Long-term caching with content hashing
 - Preloading critical assets
 
 **React Optimizations:**
+
 - `React.memo()` for expensive components
 - `useMemo()` for expensive calculations
 - `useCallback()` for stable function references
@@ -335,6 +345,7 @@ const BlogPostEditor = lazy(() => import('@/pages/admin/BlogPostEditor'));
 ### 2. Backend Optimizations
 
 **Database Indexing:**
+
 ```sql
 -- Indexes on frequently queried columns
 CREATE INDEX idx_projects_slug ON projects(slug);
@@ -346,16 +357,19 @@ CREATE INDEX idx_projects_tags ON projects USING GIN(tags);
 ```
 
 **Query Optimization:**
+
 - Select only needed columns (avoid `SELECT *`)
 - Use database views for complex queries
 - Implement pagination for large result sets
 - Cache frequently accessed data
 
 **Connection Pooling:**
+
 - Supabase handles connection pooling automatically
 - Edge Functions use connection pooler
 
 **Caching Strategy:**
+
 - TanStack Query caches API responses
 - Stale-while-revalidate pattern
 - CDN caching for static assets (1 year)
@@ -364,27 +378,30 @@ CREATE INDEX idx_projects_tags ON projects USING GIN(tags);
 ### 3. Monitoring & Metrics
 
 **Core Web Vitals:**
+
 - **LCP (Largest Contentful Paint):** Target < 2.5s
 - **FID (First Input Delay):** Target < 100ms
 - **CLS (Cumulative Layout Shift):** Target < 0.1
 
 **Custom Metrics:**
+
 - Time to First Byte (TTFB)
 - Time to Interactive (TTI)
 - Total Blocking Time (TBT)
 
 **Tracking:**
+
 ```typescript
 // src/lib/webVitals.ts
-import { getCLS, getFID, getLCP } from 'web-vitals';
+import { getCLS, getFID, getLCP } from "web-vitals";
 
 function sendToAnalytics(metric) {
   // Send to performance_metrics table
-  supabase.from('performance_metrics').insert({
-    metric_type: 'web_vitals',
+  supabase.from("performance_metrics").insert({
+    metric_type: "web_vitals",
     metric_name: metric.name,
     value: metric.value,
-    metadata: { url: window.location.pathname }
+    metadata: { url: window.location.pathname },
   });
 }
 
@@ -407,20 +424,24 @@ getLCP(sendToAnalytics);
 ### Scaling Strategies
 
 **Horizontal Scaling:**
+
 - Frontend: Deploy to multiple CDN edges (CloudFlare)
 - Backend: Supabase auto-scales connection pooling
 - Database: Read replicas if needed (Supabase Pro plan)
 
 **Vertical Scaling:**
+
 - Upgrade Supabase plan for more resources
 - Increase database compute for complex queries
 
 **Caching:**
+
 - Implement Redis for session storage (future)
 - CDN caching for API responses (Varnish/Fastly)
 - Service Worker for offline support
 
 **Database Partitioning:**
+
 - Partition `audit_log` by month (when > 1M rows)
 - Partition `performance_metrics` by month
 - Archive old `analytics_snapshots` to cold storage
@@ -432,11 +453,13 @@ getLCP(sendToAnalytics);
 ### Backup Strategy
 
 **Automated Backups:**
+
 - Daily full database backups (retained 30 days)
 - Point-in-time recovery (7 days)
 - Storage bucket replication
 
 **Manual Backups:**
+
 ```bash
 # Export database
 pg_dump -h db.xdowuirheazerlwatwja.supabase.co -U postgres > backup.sql
@@ -448,6 +471,7 @@ aws s3 sync s3://project-images ./backup-images
 ### Recovery Procedures
 
 **Database Corruption:**
+
 1. Stop all writes
 2. Restore from latest backup
 3. Replay WAL logs to latest transaction
@@ -455,12 +479,14 @@ aws s3 sync s3://project-images ./backup-images
 5. Resume operations
 
 **Edge Function Failure:**
+
 1. Check logs for error details
 2. Rollback to previous version
 3. Fix bug and redeploy
 4. Monitor for issues
 
 **CDN Outage:**
+
 1. Verify CloudFlare status
 2. Update DNS to backup CDN (Fastly)
 3. Invalidate old cache
@@ -478,11 +504,13 @@ aws s3 sync s3://project-images ./backup-images
 | Low      | 24 hours      | Minor UI bug               |
 
 **Response Team:**
+
 - On-call engineer (rotates weekly)
 - Team lead (escalation)
 - CTO (critical incidents only)
 
 **Communication:**
+
 - Slack #incidents channel
 - Status page (status.ascentgroup.com)
 - Customer email (if customer-facing)
@@ -498,6 +526,7 @@ aws s3 sync s3://project-images ./backup-images
 **Decision:** Use Supabase (managed PostgreSQL + Auth + Storage + Realtime).
 
 **Rationale:**
+
 - Faster time to market (no infrastructure setup)
 - Built-in Row-Level Security (better than app-level auth)
 - Real-time subscriptions out of the box
@@ -505,11 +534,13 @@ aws s3 sync s3://project-images ./backup-images
 - Cost-effective at current scale
 
 **Consequences:**
+
 - Vendor lock-in (mitigated by PostgreSQL standard)
 - Limited control over database configuration
 - Requires learning Supabase patterns
 
 **Alternatives Considered:**
+
 - Custom Node.js + Express + PostgreSQL (too much overhead)
 - Firebase (poor relational data modeling)
 - AWS Amplify (complex setup)
@@ -521,6 +552,7 @@ aws s3 sync s3://project-images ./backup-images
 **Decision:** Use shadcn/ui (Radix UI primitives + Tailwind).
 
 **Rationale:**
+
 - Components copied to project (full control)
 - Accessible by default (Radix UI)
 - Works seamlessly with Tailwind
@@ -528,10 +560,12 @@ aws s3 sync s3://project-images ./backup-images
 - Easy to customize
 
 **Consequences:**
+
 - Need to maintain component code ourselves
 - Less "batteries included" than MUI
 
 **Alternatives Considered:**
+
 - Material-UI (too opinionated, large bundle)
 - Ant Design (not flexible enough)
 - Chakra UI (heavier than needed)
@@ -543,6 +577,7 @@ aws s3 sync s3://project-images ./backup-images
 **Decision:** Use TanStack Query (React Query) for server state, avoid Redux.
 
 **Rationale:**
+
 - Server state handled automatically (caching, refetching, background updates)
 - Reduces boilerplate significantly
 - Built-in loading/error states
@@ -550,10 +585,12 @@ aws s3 sync s3://project-images ./backup-images
 - Devtools for debugging
 
 **Consequences:**
+
 - Another library to learn
 - Client state still needs separate solution (useState/Context)
 
 **Alternatives Considered:**
+
 - Redux Toolkit + RTK Query (too much boilerplate)
 - SWR (less features than TanStack Query)
 - Apollo Client (GraphQL-specific, overkill)

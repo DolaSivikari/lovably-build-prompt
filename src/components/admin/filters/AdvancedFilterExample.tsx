@@ -7,7 +7,8 @@ import { useTableFilters } from "@/hooks/useTableFilters";
 
 // Example usage component showing how to use all filter components together
 export const AdvancedFilterExample = () => {
-  const { filters, updateFilter, clearFilters, hasActiveFilters } = useTableFilters();
+  const { filters, updateFilter, clearFilters, hasActiveFilters } =
+    useTableFilters();
 
   // Example status options
   const statusOptions: FilterOption[] = [
@@ -18,7 +19,13 @@ export const AdvancedFilterExample = () => {
   ];
 
   // Example tags
-  const availableTags = ["urgent", "follow-up", "important", "review", "approved"];
+  const availableTags = [
+    "urgent",
+    "follow-up",
+    "important",
+    "review",
+    "approved",
+  ];
 
   return (
     <div className="space-y-4">
@@ -29,13 +36,13 @@ export const AdvancedFilterExample = () => {
           placeholder="Search by name, email, or company..."
           className="min-w-[300px]"
         />
-        
+
         <DateRangePicker
           value={filters.dateRange}
           onChange={(range) => updateFilter("dateRange", range)}
           placeholder="Filter by date"
         />
-        
+
         <MultiSelectFilter
           options={statusOptions}
           selected={filters.status}

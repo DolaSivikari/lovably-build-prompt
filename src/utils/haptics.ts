@@ -2,14 +2,16 @@
 // Respects user's motion preferences
 
 const isSupported = () => {
-  return 'vibrate' in navigator;
+  return "vibrate" in navigator;
 };
 
 const shouldVibrate = () => {
   if (!isSupported()) return false;
-  
+
   // Respect reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
   return !prefersReducedMotion;
 };
 
@@ -34,5 +36,5 @@ export const successTap = () => {
 export const haptics = {
   light: lightTap,
   medium: mediumTap,
-  success: successTap
+  success: successTap,
 };

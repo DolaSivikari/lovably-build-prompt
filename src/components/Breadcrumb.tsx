@@ -19,11 +19,15 @@ interface BreadcrumbProps {
  * Universal Breadcrumb component for site-wide navigation
  * Automatically includes structured data for SEO
  */
-const Breadcrumb = ({ items, className, showHomeIcon = true }: BreadcrumbProps) => {
+const Breadcrumb = ({
+  items,
+  className,
+  showHomeIcon = true,
+}: BreadcrumbProps) => {
   // Generate schema from items that have hrefs
   const schemaItems = items
-    .filter(item => item.href)
-    .map(item => ({
+    .filter((item) => item.href)
+    .map((item) => ({
       name: item.label,
       url: item.href!,
     }));
@@ -33,19 +37,19 @@ const Breadcrumb = ({ items, className, showHomeIcon = true }: BreadcrumbProps) 
   return (
     <>
       <SEO structuredData={schema} />
-      <nav 
+      <nav
         className={cn(
           "flex items-center gap-2 text-sm text-muted-foreground mb-6 animate-fade-in",
-          className
-        )} 
+          className,
+        )}
         aria-label="Breadcrumb"
       >
         <ol className="flex flex-wrap items-center gap-2">
           {items.map((item, index) => (
             <li key={index} className="flex items-center gap-2">
               {item.href ? (
-                <Link 
-                  to={item.href} 
+                <Link
+                  to={item.href}
                   className="hover:text-primary transition-colors duration-200 flex items-center gap-1.5 min-h-[44px] min-w-[44px] -m-2 p-2"
                   aria-label={`Navigate to ${item.label}`}
                 >
@@ -59,7 +63,10 @@ const Breadcrumb = ({ items, className, showHomeIcon = true }: BreadcrumbProps) 
                 </span>
               )}
               {index < items.length - 1 && (
-                <ChevronRight className="w-4 h-4 text-muted-foreground/50" aria-hidden="true" />
+                <ChevronRight
+                  className="w-4 h-4 text-muted-foreground/50"
+                  aria-hidden="true"
+                />
               )}
             </li>
           ))}

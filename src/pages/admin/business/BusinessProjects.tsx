@@ -5,8 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ProjectForm, ProjectFormData } from "@/components/business/ProjectForm";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  ProjectForm,
+  ProjectFormData,
+} from "@/components/business/ProjectForm";
 import { ProjectCard } from "@/components/business/ProjectCard";
 import { ProjectDetail } from "@/components/business/ProjectDetail";
 import { Card } from "@/components/ui/card";
@@ -30,9 +38,10 @@ export default function BusinessProjects() {
 
   useEffect(() => {
     if (searchTerm) {
-      const filtered = projects.filter(project =>
-        project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = projects.filter(
+        (project) =>
+          project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.description?.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredProjects(filtered);
     } else {
@@ -42,15 +51,19 @@ export default function BusinessProjects() {
 
   const fetchProjects = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) return;
 
       const { data, error } = await supabase
         .from("business_projects")
-        .select(`
+        .select(
+          `
           *,
           client:clients(name, company, email, phone)
-        `)
+        `,
+        )
         .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
@@ -69,7 +82,9 @@ export default function BusinessProjects() {
   const handleSubmit = async (formData: ProjectFormData) => {
     setIsSubmitting(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
       const projectData = {
@@ -115,7 +130,10 @@ export default function BusinessProjects() {
     if (!confirm("Are you sure you want to delete this project?")) return;
 
     try {
-      const { error } = await supabase.from("business_projects").delete().eq("id", id);
+      const { error } = await supabase
+        .from("business_projects")
+        .delete()
+        .eq("id", id);
       if (error) throw error;
       toast({ title: "Project deleted successfully" });
       fetchProjects();
@@ -135,7 +153,11 @@ export default function BusinessProjects() {
       <div className="space-y-6">
         <ProjectDetail
           project={viewingProject}
-          onEdit={() => { setEditingProject(viewingProject); setShowForm(true); setViewingProject(null); }}
+          onEdit={() => {
+            setEditingProject(viewingProject);
+            setShowForm(true);
+            setViewingProject(null);
+          }}
           onClose={() => setViewingProject(null)}
         />
       </div>
@@ -149,7 +171,12 @@ export default function BusinessProjects() {
           <h1 className="text-3xl font-bold">Projects</h1>
           <p className="text-muted-foreground">Manage your business projects</p>
         </div>
-        <Button onClick={() => { setEditingProject(null); setShowForm(true); }}>
+        <Button
+          onClick={() => {
+            setEditingProject(null);
+            setShowForm(true);
+          }}
+        >
           <Plus className="h-4 w-4 mr-2" />
           Add Project
         </Button>
@@ -172,9 +199,14 @@ export default function BusinessProjects() {
           <ProjectCard
             key={project.id}
             project={project}
-            onEdit={(id) => { setEditingProject(projects.find(p => p.id === id)); setShowForm(true); }}
+            onEdit={(id) => {
+              setEditingProject(projects.find((p) => p.id === id));
+              setShowForm(true);
+            }}
             onDelete={handleDelete}
-            onClick={(id) => setViewingProject(projects.find(p => p.id === id))}
+            onClick={(id) =>
+              setViewingProject(projects.find((p) => p.id === id))
+            }
           />
         ))}
       </div>
@@ -182,7 +214,9 @@ export default function BusinessProjects() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{editingProject ? "Edit Project" : "Add Project"}</DialogTitle>
+            <DialogTitle>
+              {editingProject ? "Edit Project" : "Add Project"}
+            </DialogTitle>
           </DialogHeader>
           <ProjectForm
             defaultValues={editingProject}

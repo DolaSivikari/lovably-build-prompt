@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { Button } from '@/ui/Button';
-import { Badge } from '@/components/ui/badge';
-import { Trash2, Download, Edit, X } from 'lucide-react';
+import { useState } from "react";
+import { Button } from "@/ui/Button";
+import { Badge } from "@/components/ui/badge";
+import { Trash2, Download, Edit, X } from "lucide-react";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,8 +18,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { toast } from 'sonner';
+} from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 interface BulkActionsBarProps {
   selectedCount: number;
@@ -38,7 +38,7 @@ export const BulkActionsBar = ({
   onExport,
   onStatusChange,
   statusOptions = [],
-  className = '',
+  className = "",
 }: BulkActionsBarProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -55,8 +55,8 @@ export const BulkActionsBar = ({
       toast.success(`${selectedCount} items deleted successfully`);
       setDeleteDialogOpen(false);
     } catch (error) {
-      console.error('Bulk delete error:', error);
-      toast.error('Failed to delete items');
+      console.error("Bulk delete error:", error);
+      toast.error("Failed to delete items");
     } finally {
       setIsDeleting(false);
     }
@@ -70,8 +70,8 @@ export const BulkActionsBar = ({
       await onStatusChange(status);
       toast.success(`${selectedCount} items updated successfully`);
     } catch (error) {
-      console.error('Bulk status change error:', error);
-      toast.error('Failed to update items');
+      console.error("Bulk status change error:", error);
+      toast.error("Failed to update items");
     } finally {
       setIsUpdating(false);
     }
@@ -146,8 +146,8 @@ export const BulkActionsBar = ({
           <AlertDialogHeader>
             <AlertDialogTitle>Delete {selectedCount} items?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete {selectedCount} items from
-              the database.
+              This action cannot be undone. This will permanently delete{" "}
+              {selectedCount} items from the database.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -157,7 +157,7 @@ export const BulkActionsBar = ({
               disabled={isDeleting}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              {isDeleting ? 'Deleting...' : 'Delete'}
+              {isDeleting ? "Deleting..." : "Delete"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

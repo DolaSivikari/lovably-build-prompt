@@ -15,13 +15,24 @@ interface FilterChipsProps {
   className?: string;
 }
 
-export const FilterChips = ({ filters, onClearAll, className }: FilterChipsProps) => {
+export const FilterChips = ({
+  filters,
+  onClearAll,
+  className,
+}: FilterChipsProps) => {
   if (filters.length === 0) return null;
 
   return (
-    <div className={cn("flex flex-wrap items-center gap-2 animate-fade-in", className)}>
-      <span className="text-sm text-muted-foreground font-medium">Active filters:</span>
-      
+    <div
+      className={cn(
+        "flex flex-wrap items-center gap-2 animate-fade-in",
+        className,
+      )}
+    >
+      <span className="text-sm text-muted-foreground font-medium">
+        Active filters:
+      </span>
+
       {filters.map((filter, index) => (
         <Badge
           key={index}
@@ -29,7 +40,9 @@ export const FilterChips = ({ filters, onClearAll, className }: FilterChipsProps
           className="gap-2 px-3 py-1.5 animate-scale-in hover:bg-secondary/80 transition-colors"
           style={{ animationDelay: `${index * 50}ms` }}
         >
-          <span>{filter.label}: {filter.value}</span>
+          <span>
+            {filter.label}: {filter.value}
+          </span>
           <button
             onClick={filter.onRemove}
             className="ml-1 rounded-full hover:bg-background/20 p-0.5 transition-colors"

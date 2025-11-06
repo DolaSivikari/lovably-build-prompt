@@ -1,7 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Quote, CheckCircle, TrendingUp, Users, ArrowRight } from "lucide-react";
+import {
+  Quote,
+  CheckCircle,
+  TrendingUp,
+  Users,
+  ArrowRight,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface CaseStudyMetric {
@@ -44,7 +50,7 @@ export const ProjectCaseStudy = ({
   metrics = [],
   testimonial,
   relatedProjects = [],
-  keyOutcomes = []
+  keyOutcomes = [],
 }: ProjectCaseStudyProps) => {
   return (
     <div className="space-y-12">
@@ -59,7 +65,7 @@ export const ProjectCaseStudy = ({
           </div>
           <Card className="border-l-4 border-l-destructive">
             <CardContent className="p-6">
-              <div 
+              <div
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: challenge }}
               />
@@ -79,7 +85,7 @@ export const ProjectCaseStudy = ({
           </div>
           <Card className="border-l-4 border-l-accent">
             <CardContent className="p-6">
-              <div 
+              <div
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: solution }}
               />
@@ -110,11 +116,17 @@ export const ProjectCaseStudy = ({
                       {metric.label}
                     </div>
                     {metric.trend && (
-                      <Badge 
-                        variant={metric.trend === "up" ? "default" : "secondary"}
+                      <Badge
+                        variant={
+                          metric.trend === "up" ? "default" : "secondary"
+                        }
                         className="mt-2"
                       >
-                        {metric.trend === "up" ? "↑" : metric.trend === "down" ? "↓" : "→"}
+                        {metric.trend === "up"
+                          ? "↑"
+                          : metric.trend === "down"
+                            ? "↓"
+                            : "→"}
                       </Badge>
                     )}
                   </CardContent>
@@ -155,7 +167,7 @@ export const ProjectCaseStudy = ({
           </div>
           <Card className="border-l-4 border-l-primary bg-gradient-to-br from-primary/5 to-transparent">
             <CardContent className="p-6">
-              <div 
+              <div
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: results }}
               />
@@ -178,14 +190,16 @@ export const ProjectCaseStudy = ({
                   </p>
                   <div className="flex items-center gap-4">
                     {testimonial.image && (
-                      <img 
-                        src={testimonial.image} 
+                      <img
+                        src={testimonial.image}
                         alt={testimonial.author}
                         className="w-16 h-16 rounded-full object-cover border-2 border-accent/30"
                       />
                     )}
                     <div>
-                      <p className="font-bold text-foreground">{testimonial.author}</p>
+                      <p className="font-bold text-foreground">
+                        {testimonial.author}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         {testimonial.position}
                         {testimonial.company && ` at ${testimonial.company}`}
@@ -208,8 +222,8 @@ export const ProjectCaseStudy = ({
               <Link key={project.id} to={`/projects/${project.slug}`}>
                 <Card className="hover:shadow-lg transition-all group overflow-hidden">
                   <div className="aspect-video overflow-hidden">
-                    <img 
-                      src={project.image} 
+                    <img
+                      src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform group-hover:scale-105"
                     />

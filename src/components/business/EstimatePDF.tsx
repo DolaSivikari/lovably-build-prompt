@@ -1,185 +1,192 @@
-import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
-import { formatCurrency } from '@/utils/currency';
-import { LineItem } from '@/utils/calculations';
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+} from "@react-pdf/renderer";
+import { formatCurrency } from "@/utils/currency";
+import { LineItem } from "@/utils/calculations";
 
 const styles = StyleSheet.create({
-  page: { 
-    padding: 50, 
-    fontSize: 10, 
-    fontFamily: 'Helvetica',
-    backgroundColor: '#ffffff'
+  page: {
+    padding: 50,
+    fontSize: 10,
+    fontFamily: "Helvetica",
+    backgroundColor: "#ffffff",
   },
   headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     marginBottom: 30,
     paddingBottom: 20,
     borderBottomWidth: 2,
-    borderBottomColor: '#1a365d',
+    borderBottomColor: "#1a365d",
   },
   logoSection: {
-    width: '40%',
+    width: "40%",
   },
   logo: {
     width: 120,
-    height: 'auto',
+    height: "auto",
     marginBottom: 8,
   },
   companyName: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1a365d',
+    fontWeight: "bold",
+    color: "#1a365d",
     marginBottom: 4,
   },
   titleSection: {
-    width: '50%',
-    alignItems: 'flex-end',
+    width: "50%",
+    alignItems: "flex-end",
   },
-  title: { 
-    fontSize: 32, 
-    fontWeight: 'bold',
-    color: '#1a365d',
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#1a365d",
     marginBottom: 8,
   },
   estimateNumber: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     marginBottom: 4,
   },
   dateText: {
     fontSize: 10,
-    color: '#666',
+    color: "#666",
   },
   infoSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 25,
   },
   infoBox: {
-    width: '48%',
+    width: "48%",
     padding: 15,
-    backgroundColor: '#f8fafc',
+    backgroundColor: "#f8fafc",
     borderRadius: 4,
   },
-  sectionTitle: { 
-    fontSize: 11, 
-    fontWeight: 'bold',
-    color: '#1a365d',
+  sectionTitle: {
+    fontSize: 11,
+    fontWeight: "bold",
+    color: "#1a365d",
     marginBottom: 8,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 0.5,
   },
   infoText: {
     fontSize: 10,
-    color: '#334155',
+    color: "#334155",
     marginBottom: 3,
   },
-  table: { 
+  table: {
     marginTop: 25,
     marginBottom: 20,
   },
-  tableHeader: { 
-    flexDirection: 'row',
-    backgroundColor: '#1a365d',
+  tableHeader: {
+    flexDirection: "row",
+    backgroundColor: "#1a365d",
     paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 4,
   },
   tableHeaderText: {
-    color: '#ffffff',
-    fontWeight: 'bold',
+    color: "#ffffff",
+    fontWeight: "bold",
     fontSize: 10,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
-  tableRow: { 
-    flexDirection: 'row',
+  tableRow: {
+    flexDirection: "row",
     paddingVertical: 10,
     paddingHorizontal: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: "#e2e8f0",
   },
-  col1: { width: '50%' },
-  col2: { width: '15%', textAlign: 'right' },
-  col3: { width: '20%', textAlign: 'right' },
-  col4: { width: '15%', textAlign: 'right' },
-  totalsSection: { 
+  col1: { width: "50%" },
+  col2: { width: "15%", textAlign: "right" },
+  col3: { width: "20%", textAlign: "right" },
+  col4: { width: "15%", textAlign: "right" },
+  totalsSection: {
     marginTop: 20,
-    marginLeft: '55%',
+    marginLeft: "55%",
     padding: 15,
-    backgroundColor: '#f8fafc',
+    backgroundColor: "#f8fafc",
     borderRadius: 4,
   },
-  totalRow: { 
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  totalRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 6,
   },
-  totalLabel: { 
+  totalLabel: {
     fontSize: 10,
-    color: '#64748b',
+    color: "#64748b",
   },
-  totalValue: { 
+  totalValue: {
     fontSize: 10,
-    fontWeight: 'bold',
-    textAlign: 'right',
+    fontWeight: "bold",
+    textAlign: "right",
   },
-  grandTotal: { 
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  grandTotal: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingTop: 10,
     marginTop: 8,
     borderTopWidth: 2,
-    borderTopColor: '#1a365d',
+    borderTopColor: "#1a365d",
   },
   grandTotalText: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#1a365d',
+    fontWeight: "bold",
+    color: "#1a365d",
   },
   notesSection: {
     marginTop: 25,
     padding: 15,
-    backgroundColor: '#fffbeb',
+    backgroundColor: "#fffbeb",
     borderLeftWidth: 3,
-    borderLeftColor: '#f59e0b',
+    borderLeftColor: "#f59e0b",
   },
   notesTitle: {
     fontSize: 11,
-    fontWeight: 'bold',
-    color: '#92400e',
+    fontWeight: "bold",
+    color: "#92400e",
     marginBottom: 6,
   },
   notesText: {
     fontSize: 9,
-    color: '#78350f',
+    color: "#78350f",
     lineHeight: 1.4,
   },
-  footer: { 
-    position: 'absolute',
+  footer: {
+    position: "absolute",
     bottom: 30,
     left: 50,
     right: 50,
     paddingTop: 15,
     borderTopWidth: 1,
-    borderTopColor: '#e2e8f0',
+    borderTopColor: "#e2e8f0",
   },
   footerText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 9,
-    color: '#94a3b8',
+    color: "#94a3b8",
   },
   validUntil: {
-    backgroundColor: '#dbeafe',
+    backgroundColor: "#dbeafe",
     padding: 8,
     borderRadius: 4,
     marginTop: 15,
   },
   validUntilText: {
     fontSize: 10,
-    color: '#1e40af',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: "#1e40af",
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });
 
@@ -210,7 +217,11 @@ interface EstimatePDFProps {
   };
 }
 
-export const EstimatePDF = ({ estimate, client, companyInfo }: EstimatePDFProps) => (
+export const EstimatePDF = ({
+  estimate,
+  client,
+  companyInfo,
+}: EstimatePDFProps) => (
   <Document>
     <Page size="A4" style={styles.page}>
       {/* Header with Logo and Title */}
@@ -219,16 +230,29 @@ export const EstimatePDF = ({ estimate, client, companyInfo }: EstimatePDFProps)
           {companyInfo && (
             <>
               <Text style={styles.companyName}>{companyInfo.name}</Text>
-              {companyInfo.address && <Text style={styles.infoText}>{companyInfo.address}</Text>}
-              {companyInfo.phone && <Text style={styles.infoText}>{companyInfo.phone}</Text>}
-              {companyInfo.email && <Text style={styles.infoText}>{companyInfo.email}</Text>}
+              {companyInfo.address && (
+                <Text style={styles.infoText}>{companyInfo.address}</Text>
+              )}
+              {companyInfo.phone && (
+                <Text style={styles.infoText}>{companyInfo.phone}</Text>
+              )}
+              {companyInfo.email && (
+                <Text style={styles.infoText}>{companyInfo.email}</Text>
+              )}
             </>
           )}
         </View>
         <View style={styles.titleSection}>
           <Text style={styles.title}>ESTIMATE</Text>
           <Text style={styles.estimateNumber}>#{estimate.estimate_number}</Text>
-          <Text style={styles.dateText}>Date: {new Date(estimate.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</Text>
+          <Text style={styles.dateText}>
+            Date:{" "}
+            {new Date(estimate.created_at).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </Text>
         </View>
       </View>
 
@@ -237,18 +261,35 @@ export const EstimatePDF = ({ estimate, client, companyInfo }: EstimatePDFProps)
         {client && (
           <View style={styles.infoBox}>
             <Text style={styles.sectionTitle}>Bill To</Text>
-            <Text style={[styles.infoText, { fontWeight: 'bold', fontSize: 11 }]}>{client.name}</Text>
-            {client.company && <Text style={styles.infoText}>{client.company}</Text>}
-            {client.email && <Text style={styles.infoText}>{client.email}</Text>}
-            {client.phone && <Text style={styles.infoText}>{client.phone}</Text>}
+            <Text
+              style={[styles.infoText, { fontWeight: "bold", fontSize: 11 }]}
+            >
+              {client.name}
+            </Text>
+            {client.company && (
+              <Text style={styles.infoText}>{client.company}</Text>
+            )}
+            {client.email && (
+              <Text style={styles.infoText}>{client.email}</Text>
+            )}
+            {client.phone && (
+              <Text style={styles.infoText}>{client.phone}</Text>
+            )}
           </View>
         )}
         <View style={styles.infoBox}>
           <Text style={styles.sectionTitle}>Estimate Details</Text>
           <Text style={styles.infoText}>Status: Draft</Text>
-          <Text style={styles.infoText}>Created: {new Date(estimate.created_at).toLocaleDateString()}</Text>
+          <Text style={styles.infoText}>
+            Created: {new Date(estimate.created_at).toLocaleDateString()}
+          </Text>
           {estimate.valid_until && (
-            <Text style={[styles.infoText, { color: '#0369a1', fontWeight: 'bold' }]}>
+            <Text
+              style={[
+                styles.infoText,
+                { color: "#0369a1", fontWeight: "bold" },
+              ]}
+            >
               Valid Until: {new Date(estimate.valid_until).toLocaleDateString()}
             </Text>
           )}
@@ -267,8 +308,12 @@ export const EstimatePDF = ({ estimate, client, companyInfo }: EstimatePDFProps)
           <View key={index} style={styles.tableRow}>
             <Text style={styles.col1}>{item.description}</Text>
             <Text style={styles.col2}>{item.quantity}</Text>
-            <Text style={styles.col3}>{formatCurrency(item.unit_price_cents)}</Text>
-            <Text style={styles.col4}>{formatCurrency(item.line_total_cents || 0)}</Text>
+            <Text style={styles.col3}>
+              {formatCurrency(item.unit_price_cents)}
+            </Text>
+            <Text style={styles.col4}>
+              {formatCurrency(item.line_total_cents || 0)}
+            </Text>
           </View>
         ))}
       </View>
@@ -277,21 +322,31 @@ export const EstimatePDF = ({ estimate, client, companyInfo }: EstimatePDFProps)
       <View style={styles.totalsSection}>
         <View style={styles.totalRow}>
           <Text style={styles.totalLabel}>Subtotal</Text>
-          <Text style={styles.totalValue}>{formatCurrency(estimate.subtotal_cents)}</Text>
+          <Text style={styles.totalValue}>
+            {formatCurrency(estimate.subtotal_cents)}
+          </Text>
         </View>
         {estimate.discount_cents > 0 && (
           <View style={styles.totalRow}>
             <Text style={styles.totalLabel}>Discount</Text>
-            <Text style={styles.totalValue}>-{formatCurrency(estimate.discount_cents)}</Text>
+            <Text style={styles.totalValue}>
+              -{formatCurrency(estimate.discount_cents)}
+            </Text>
           </View>
         )}
         <View style={styles.totalRow}>
-          <Text style={styles.totalLabel}>Tax ({(estimate.tax_rate * 100).toFixed(1)}%)</Text>
-          <Text style={styles.totalValue}>{formatCurrency(estimate.tax_amount_cents)}</Text>
+          <Text style={styles.totalLabel}>
+            Tax ({(estimate.tax_rate * 100).toFixed(1)}%)
+          </Text>
+          <Text style={styles.totalValue}>
+            {formatCurrency(estimate.tax_amount_cents)}
+          </Text>
         </View>
         <View style={styles.grandTotal}>
           <Text style={styles.grandTotalText}>TOTAL</Text>
-          <Text style={styles.grandTotalText}>{formatCurrency(estimate.total_cents)}</Text>
+          <Text style={styles.grandTotalText}>
+            {formatCurrency(estimate.total_cents)}
+          </Text>
         </View>
       </View>
 
@@ -299,7 +354,12 @@ export const EstimatePDF = ({ estimate, client, companyInfo }: EstimatePDFProps)
       {estimate.valid_until && (
         <View style={styles.validUntil}>
           <Text style={styles.validUntilText}>
-            This estimate is valid until {new Date(estimate.valid_until).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            This estimate is valid until{" "}
+            {new Date(estimate.valid_until).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </Text>
         </View>
       )}
@@ -314,7 +374,9 @@ export const EstimatePDF = ({ estimate, client, companyInfo }: EstimatePDFProps)
 
       {/* Footer */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Thank you for considering our services!</Text>
+        <Text style={styles.footerText}>
+          Thank you for considering our services!
+        </Text>
         {companyInfo && (
           <Text style={styles.footerText}>
             {companyInfo.name} • {companyInfo.phone} • {companyInfo.email}

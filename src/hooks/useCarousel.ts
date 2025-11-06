@@ -6,10 +6,10 @@ interface UseCarouselProps {
   itemsPerView?: number;
 }
 
-export const useCarousel = ({ 
-  totalItems, 
-  autoplayInterval = 0, 
-  itemsPerView = 1 
+export const useCarousel = ({
+  totalItems,
+  autoplayInterval = 0,
+  itemsPerView = 1,
 }: UseCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoplayInterval > 0);
@@ -24,9 +24,12 @@ export const useCarousel = ({
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   }, [maxIndex]);
 
-  const goToSlide = useCallback((index: number) => {
-    setCurrentIndex(Math.min(Math.max(0, index), maxIndex));
-  }, [maxIndex]);
+  const goToSlide = useCallback(
+    (index: number) => {
+      setCurrentIndex(Math.min(Math.max(0, index), maxIndex));
+    },
+    [maxIndex],
+  );
 
   useEffect(() => {
     if (!isPlaying || autoplayInterval <= 0) return;

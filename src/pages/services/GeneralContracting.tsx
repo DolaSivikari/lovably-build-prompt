@@ -1,4 +1,12 @@
-import { Building2, CheckCircle2, ArrowRight, Clock, Shield, TrendingUp, Users } from "lucide-react";
+import {
+  Building2,
+  CheckCircle2,
+  ArrowRight,
+  Clock,
+  Shield,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,23 +21,27 @@ const GeneralContracting = () => {
     {
       icon: Building2,
       title: "Single-Source Accountability",
-      description: "One contract, one point of contact, one team responsible for delivering your project on time and on budget."
+      description:
+        "One contract, one point of contact, one team responsible for delivering your project on time and on budget.",
     },
     {
       icon: TrendingUp,
       title: "Budget Stewardship",
-      description: "Fixed-price certainty with transparent cost breakdowns, value engineering, and proactive budget management."
+      description:
+        "Fixed-price certainty with transparent cost breakdowns, value engineering, and proactive budget management.",
     },
     {
       icon: Shield,
       title: "Risk Management",
-      description: "Comprehensive insurance, safety protocols, quality controls, and warranty coverage protecting your investment."
+      description:
+        "Comprehensive insurance, safety protocols, quality controls, and warranty coverage protecting your investment.",
     },
     {
       icon: Users,
       title: "Multi-Trade Coordination",
-      description: "Seamless management of all specialty trades with proven subcontractor networks and schedule optimization."
-    }
+      description:
+        "Seamless management of all specialty trades with proven subcontractor networks and schedule optimization.",
+    },
   ];
 
   const howWeWork = [
@@ -39,8 +51,8 @@ const GeneralContracting = () => {
         "Detailed scope review and cost estimation",
         "Value engineering and constructability analysis",
         "Permit coordination and municipal approvals",
-        "Preconstruction schedule and logistics planning"
-      ]
+        "Preconstruction schedule and logistics planning",
+      ],
     },
     {
       phase: "Execution",
@@ -48,8 +60,8 @@ const GeneralContracting = () => {
         "Daily on-site supervision and quality control",
         "Trade coordination and schedule management",
         "Weekly progress reporting and budget tracking",
-        "Proactive issue resolution and RFI management"
-      ]
+        "Proactive issue resolution and RFI management",
+      ],
     },
     {
       phase: "Closeout",
@@ -57,9 +69,9 @@ const GeneralContracting = () => {
         "Comprehensive punch list completion",
         "As-built documentation and warranty packages",
         "Owner training and facility turnover",
-        "Post-occupancy support and warranty service"
-      ]
-    }
+        "Post-occupancy support and warranty service",
+      ],
+    },
   ];
 
   const caseStudies = [
@@ -68,22 +80,25 @@ const GeneralContracting = () => {
       location: "Toronto, ON",
       size: "45,000 sq ft",
       duration: "14 months",
-      description: "Ground-up construction of 3-story mixed-use building with retail main floor and office space above."
+      description:
+        "Ground-up construction of 3-story mixed-use building with retail main floor and office space above.",
     },
     {
       title: "Multi-Family Renovation",
       location: "Mississauga, ON",
       size: "120 units",
       duration: "8 months",
-      description: "Complete exterior envelope restoration and interior suite upgrades for 12-story residential tower."
+      description:
+        "Complete exterior envelope restoration and interior suite upgrades for 12-story residential tower.",
     },
     {
       title: "Institutional Addition",
       location: "Brampton, ON",
       size: "22,000 sq ft",
       duration: "10 months",
-      description: "New wing addition to existing educational facility with specialized mechanical and accessibility features."
-    }
+      description:
+        "New wing addition to existing educational facility with specialized mechanical and accessibility features.",
+    },
   ];
 
   return (
@@ -94,25 +109,29 @@ const GeneralContracting = () => {
         keywords="general contractor Toronto, commercial GC, construction management, Toronto general contracting, GTA contractor"
       />
       <Navigation />
-      
+
       <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
-          { label: "Home", href: "/" },
-          { label: "Services", href: "/services" },
-          { label: "General Contracting" }
-        ]} />
+        <PageHero.Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Services", href: "/services" },
+            { label: "General Contracting" },
+          ]}
+        />
         <PageHero.Title>General Contracting</PageHero.Title>
         <PageHero.Subtitle>
           Turnkey delivery with quality, safety, and schedule certainty.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "95%", label: "On-Time Delivery" },
-          { value: "0", label: "Lost-Time Incidents" },
-          { value: "500+", label: "Projects Completed" },
-          { value: "$2B+", label: "Total Value" }
-        ]} />
-        <PageHero.CTAs 
-          primaryText="Request Proposal" 
+        <PageHero.Stats
+          stats={[
+            { value: "95%", label: "On-Time Delivery" },
+            { value: "0", label: "Lost-Time Incidents" },
+            { value: "500+", label: "Projects Completed" },
+            { value: "$2B+", label: "Total Value" },
+          ]}
+        />
+        <PageHero.CTAs
+          primaryText="Request Proposal"
           primaryHref="/contact"
           secondaryText="View Projects"
           secondaryHref="/projects"
@@ -126,7 +145,8 @@ const GeneralContracting = () => {
             <div className="text-center mb-12">
               <h2 className="text-foreground mb-4">What We Deliver</h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                As your general contractor, we provide comprehensive project management from preconstruction through final turnover.
+                As your general contractor, we provide comprehensive project
+                management from preconstruction through final turnover.
               </p>
             </div>
 
@@ -134,7 +154,10 @@ const GeneralContracting = () => {
               {whatWeDeliver.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <Card
+                    key={index}
+                    className="hover:shadow-lg transition-shadow"
+                  >
                     <CardHeader>
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                         <Icon className="w-6 h-6 text-primary" />
@@ -142,7 +165,9 @@ const GeneralContracting = () => {
                       <CardTitle className="text-lg">{item.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {item.description}
+                      </p>
                     </CardContent>
                   </Card>
                 );
@@ -157,7 +182,8 @@ const GeneralContracting = () => {
             <div className="text-center mb-12">
               <h2 className="text-foreground mb-4">How We Work</h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Our proven three-phase approach ensures quality outcomes and transparent communication throughout your project.
+                Our proven three-phase approach ensures quality outcomes and
+                transparent communication throughout your project.
               </p>
             </div>
 
@@ -177,7 +203,9 @@ const GeneralContracting = () => {
                       {phase.activities.map((activity, actIndex) => (
                         <li key={actIndex} className="flex items-start gap-2">
                           <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                          <span className="text-sm text-muted-foreground">{activity}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {activity}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -192,12 +220,16 @@ const GeneralContracting = () => {
         <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-foreground mb-6">The Self-Perform Advantage</h2>
+              <h2 className="text-foreground mb-6">
+                The Self-Perform Advantage
+              </h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Unlike traditional GCs who subcontract all work, we self-perform critical trades including 
-                EIFS/stucco, masonry restoration, metal cladding, waterproofing, parking garage coatings, and specialty painting. This means:
+                Unlike traditional GCs who subcontract all work, we self-perform
+                critical trades including EIFS/stucco, masonry restoration,
+                metal cladding, waterproofing, parking garage coatings, and
+                specialty painting. This means:
               </p>
-              
+
               <div className="grid md:grid-cols-2 gap-6 text-left">
                 <Card>
                   <CardHeader>
@@ -208,7 +240,8 @@ const GeneralContracting = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Direct control over key trades eliminates subcontractor delays and availability conflicts.
+                      Direct control over key trades eliminates subcontractor
+                      delays and availability conflicts.
                     </p>
                   </CardContent>
                 </Card>
@@ -222,7 +255,8 @@ const GeneralContracting = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Eliminating subcontractor markup means better value without compromising quality.
+                      Eliminating subcontractor markup means better value
+                      without compromising quality.
                     </p>
                   </CardContent>
                 </Card>
@@ -236,7 +270,8 @@ const GeneralContracting = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Our crews follow consistent quality standards with direct accountability to project managers.
+                      Our crews follow consistent quality standards with direct
+                      accountability to project managers.
                     </p>
                   </CardContent>
                 </Card>
@@ -250,7 +285,8 @@ const GeneralContracting = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      When issues arise, we resolve them immediately without waiting for subcontractor callbacks.
+                      When issues arise, we resolve them immediately without
+                      waiting for subcontractor callbacks.
                     </p>
                   </CardContent>
                 </Card>
@@ -265,13 +301,17 @@ const GeneralContracting = () => {
             <div className="text-center mb-12">
               <h2 className="text-foreground mb-4">Selected Case Studies</h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Recent projects demonstrating our general contracting expertise across diverse building types.
+                Recent projects demonstrating our general contracting expertise
+                across diverse building types.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {caseStudies.map((project, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all hover:-translate-y-1">
+                <Card
+                  key={index}
+                  className="hover:shadow-lg transition-all hover:-translate-y-1"
+                >
                   <CardHeader>
                     <CardTitle className="text-lg">{project.title}</CardTitle>
                     <div className="flex flex-wrap gap-2 mt-2">
@@ -284,7 +324,9 @@ const GeneralContracting = () => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {project.description}
+                    </p>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Clock className="w-3 h-3" />
                       <span>Completed in {project.duration}</span>
@@ -305,9 +347,12 @@ const GeneralContracting = () => {
         {/* CTA Band */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              Ready to Start Your Project?
+            </h2>
             <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Request a proposal and let's discuss how our general contracting services can deliver your project on time and on budget.
+              Request a proposal and let's discuss how our general contracting
+              services can deliver your project on time and on budget.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg" variant="secondary">
@@ -316,7 +361,12 @@ const GeneralContracting = () => {
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              >
                 <Link to="/about">Talk to a PM</Link>
               </Button>
             </div>

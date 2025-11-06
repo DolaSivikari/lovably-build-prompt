@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroIndustrial from "@/assets/heroes/hero-industrial.jpg";
@@ -20,17 +26,20 @@ const Industrial = () => {
   const solutions = [
     {
       title: "Shutdown Coordination",
-      description: "Maximize productivity during planned shutdowns with detailed pre-planning and crew mobilization.",
+      description:
+        "Maximize productivity during planned shutdowns with detailed pre-planning and crew mobilization.",
       icon: Factory,
     },
     {
       title: "Specialized Systems",
-      description: "Expert application of high-performance coatings, epoxy floors, and industrial-grade systems.",
+      description:
+        "Expert application of high-performance coatings, epoxy floors, and industrial-grade systems.",
       icon: Wrench,
     },
     {
       title: "24/7 Availability",
-      description: "Flexible scheduling including nights, weekends, and holiday periods to match your operations.",
+      description:
+        "Flexible scheduling including nights, weekends, and holiday periods to match your operations.",
       icon: Zap,
     },
   ];
@@ -42,7 +51,7 @@ const Industrial = () => {
         description="General contractor for industrial construction: warehouses, manufacturing facilities, distribution centers, and light industrial across the Greater Toronto Area."
       />
       <Navigation />
-      
+
       <PageHeader
         title="Industrial Construction"
         description="Specialized expertise in warehouses, manufacturing facilities, and industrial buildings"
@@ -54,16 +63,20 @@ const Industrial = () => {
           <section className="mb-16">
             <div className="prose prose-lg max-w-none">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We deliver industrial construction projects that minimize downtime while meeting the demanding performance 
-                requirements of manufacturing and warehouse environments. From new construction to facility upgrades, our team 
-                coordinates all work to keep your operations running smoothly.
+                We deliver industrial construction projects that minimize
+                downtime while meeting the demanding performance requirements of
+                manufacturing and warehouse environments. From new construction
+                to facility upgrades, our team coordinates all work to keep your
+                operations running smoothly.
               </p>
             </div>
           </section>
 
           {/* Challenges */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Industrial Construction Challenges</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Industrial Construction Challenges
+            </h2>
             <Card>
               <CardContent className="pt-6">
                 <ul className="space-y-4">
@@ -80,7 +93,9 @@ const Industrial = () => {
 
           {/* Our Solutions */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">How We Deliver Success</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              How We Deliver Success
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {solutions.map((solution, index) => {
                 const Icon = solution.icon;
@@ -101,7 +116,9 @@ const Industrial = () => {
 
           {/* Services */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Industrial Services</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Industrial Services
+            </h2>
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -111,19 +128,27 @@ const Industrial = () => {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Warehouse construction</span>
+                      <span className="text-muted-foreground">
+                        Warehouse construction
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Manufacturing facility buildouts</span>
+                      <span className="text-muted-foreground">
+                        Manufacturing facility buildouts
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Distribution centers</span>
+                      <span className="text-muted-foreground">
+                        Distribution centers
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Light industrial facilities</span>
+                      <span className="text-muted-foreground">
+                        Light industrial facilities
+                      </span>
                     </li>
                   </ul>
                 </CardContent>
@@ -137,19 +162,27 @@ const Industrial = () => {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">High-performance epoxy flooring</span>
+                      <span className="text-muted-foreground">
+                        High-performance epoxy flooring
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Industrial coatings and linings</span>
+                      <span className="text-muted-foreground">
+                        Industrial coatings and linings
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Structural steel repairs</span>
+                      <span className="text-muted-foreground">
+                        Structural steel repairs
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Loading dock renovations</span>
+                      <span className="text-muted-foreground">
+                        Loading dock renovations
+                      </span>
                     </li>
                   </ul>
                 </CardContent>
@@ -161,8 +194,13 @@ const Industrial = () => {
           <section>
             <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Ready to Upgrade Your Industrial Facility?</CardTitle>
-                <CardDescription>Let's discuss your maintenance schedule and performance requirements</CardDescription>
+                <CardTitle className="text-2xl">
+                  Ready to Upgrade Your Industrial Facility?
+                </CardTitle>
+                <CardDescription>
+                  Let's discuss your maintenance schedule and performance
+                  requirements
+                </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="gap-2">

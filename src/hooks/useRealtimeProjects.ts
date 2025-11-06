@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { RealtimeChannel } from '@supabase/supabase-js';
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { RealtimeChannel } from "@supabase/supabase-js";
 
 interface Project {
   id: string;
@@ -20,35 +20,37 @@ export const useRealtimeProjects = (initialProjects: Project[]) => {
 
     const setupRealtimeSubscription = async () => {
       channel = supabase
-        .channel('public-projects-changes')
+        .channel("public-projects-changes")
         .on(
-          'postgres_changes',
+          "postgres_changes",
           {
-            event: '*',
-            schema: 'public',
-            table: 'projects',
-            filter: 'publish_state=eq.published'
+            event: "*",
+            schema: "public",
+            table: "projects",
+            filter: "publish_state=eq.published",
           },
           (payload) => {
-            console.log('Realtime update:', payload);
+            console.log("Realtime update:", payload);
 
-            if (payload.eventType === 'INSERT') {
+            if (payload.eventType === "INSERT") {
               setProjects((current) => [payload.new as Project, ...current]);
-            } else if (payload.eventType === 'UPDATE') {
+            } else if (payload.eventType === "UPDATE") {
               setProjects((current) =>
                 current.map((project) =>
-                  project.id === payload.new.id ? (payload.new as Project) : project
-                )
+                  project.id === payload.new.id
+                    ? (payload.new as Project)
+                    : project,
+                ),
               );
-            } else if (payload.eventType === 'DELETE') {
+            } else if (payload.eventType === "DELETE") {
               setProjects((current) =>
-                current.filter((project) => project.id !== payload.old.id)
+                current.filter((project) => project.id !== payload.old.id),
               );
             }
-          }
+          },
         )
         .subscribe((status) => {
-          console.log('Realtime subscription status:', status);
+          console.log("Realtime subscription status:", status);
         });
     };
 

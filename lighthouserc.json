@@ -1,0 +1,56 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 2,
+      "startServerCommand": "npm run start",
+      "url": [
+        "http://localhost:3000/",
+        "http://localhost:3000/admin",
+        "http://localhost:3000/admin/business/clients",
+        "http://localhost:3000/admin/business/projects",
+        "http://localhost:3000/admin/business/estimates",
+        "http://localhost:3000/admin/business/invoices"
+      ],
+      "settings": {
+        "preset": "desktop",
+        "budgets": [
+          {
+            "path": "/",
+            "resourceSizes": [{ "resourceType": "total", "budget": 350 }]
+          },
+          {
+            "path": "/admin",
+            "resourceSizes": [{ "resourceType": "total", "budget": 450 }]
+          },
+          {
+            "path": "/admin/business/clients",
+            "resourceSizes": [{ "resourceType": "total", "budget": 450 }]
+          },
+          {
+            "path": "/admin/business/projects",
+            "resourceSizes": [{ "resourceType": "total", "budget": 450 }]
+          },
+          {
+            "path": "/admin/business/estimates",
+            "resourceSizes": [{ "resourceType": "total", "budget": 450 }]
+          },
+          {
+            "path": "/admin/business/invoices",
+            "resourceSizes": [{ "resourceType": "total", "budget": 450 }]
+          }
+        ]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.9 }],
+        "categories:accessibility": ["error", { "minScore": 0.95 }],
+        "unused-javascript": ["warn", { "maxLength": 160000 }]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "./.reports/lhci"
+    }
+  }
+}

@@ -13,11 +13,11 @@ interface UseStaggerAnimationOptions {
  * Hook for creating stagger animations with dynamic delays
  * @param options - Stagger animation configuration
  * @returns array of delay values for each item
- * 
+ *
  * @example
  * ```tsx
  * const delays = useStaggerAnimation({ itemCount: items.length, staggerDelay: 100 });
- * 
+ *
  * return (
  *   <div>
  *     {items.map((item, index) => (
@@ -38,8 +38,9 @@ export const useStaggerAnimation = (options: UseStaggerAnimationOptions) => {
   const [delays, setDelays] = useState<number[]>([]);
 
   useEffect(() => {
-    const newDelays = Array.from({ length: itemCount }, (_, index) => 
-      initialDelay + (index * staggerDelay)
+    const newDelays = Array.from(
+      { length: itemCount },
+      (_, index) => initialDelay + index * staggerDelay,
     );
     setDelays(newDelays);
   }, [itemCount, staggerDelay, initialDelay]);

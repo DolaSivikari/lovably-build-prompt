@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const STORAGE_KEY = 'navigation_recent_searches';
+const STORAGE_KEY = "navigation_recent_searches";
 const MAX_RECENT_SEARCHES = 10;
 const MAX_AGE_DAYS = 30;
 
@@ -25,16 +25,16 @@ export function useRecentSearches() {
       }
 
       const searches: RecentSearch[] = JSON.parse(stored);
-      const cutoffTime = Date.now() - (MAX_AGE_DAYS * 24 * 60 * 60 * 1000);
-      
+      const cutoffTime = Date.now() - MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+
       // Filter out old searches and extract queries
       const validSearches = searches
-        .filter(s => s.timestamp > cutoffTime)
-        .map(s => s.query);
-      
+        .filter((s) => s.timestamp > cutoffTime)
+        .map((s) => s.query);
+
       setRecentSearches(validSearches);
     } catch (error) {
-      console.error('Failed to load recent searches:', error);
+      console.error("Failed to load recent searches:", error);
       setRecentSearches([]);
     }
   };
@@ -45,20 +45,22 @@ export function useRecentSearches() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       const searches: RecentSearch[] = stored ? JSON.parse(stored) : [];
-      
+
       // Remove duplicate if exists
-      const filtered = searches.filter(s => s.query.toLowerCase() !== query.toLowerCase());
-      
+      const filtered = searches.filter(
+        (s) => s.query.toLowerCase() !== query.toLowerCase(),
+      );
+
       // Add new search at the beginning
       const updated = [
         { query: query.trim(), timestamp: Date.now() },
-        ...filtered
+        ...filtered,
       ].slice(0, MAX_RECENT_SEARCHES);
-      
+
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      setRecentSearches(updated.map(s => s.query));
+      setRecentSearches(updated.map((s) => s.query));
     } catch (error) {
-      console.error('Failed to save recent search:', error);
+      console.error("Failed to save recent search:", error);
     }
   };
 
@@ -68,12 +70,12 @@ export function useRecentSearches() {
       if (!stored) return;
 
       const searches: RecentSearch[] = JSON.parse(stored);
-      const filtered = searches.filter(s => s.query !== query);
-      
+      const filtered = searches.filter((s) => s.query !== query);
+
       localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
-      setRecentSearches(filtered.map(s => s.query));
+      setRecentSearches(filtered.map((s) => s.query));
     } catch (error) {
-      console.error('Failed to remove search:', error);
+      console.error("Failed to remove search:", error);
     }
   };
 
@@ -82,7 +84,7 @@ export function useRecentSearches() {
       localStorage.removeItem(STORAGE_KEY);
       setRecentSearches([]);
     } catch (error) {
-      console.error('Failed to clear recent searches:', error);
+      console.error("Failed to clear recent searches:", error);
     }
   };
 
@@ -90,6 +92,6 @@ export function useRecentSearches() {
     recentSearches,
     addRecentSearch,
     removeSearch,
-    clearRecentSearches
+    clearRecentSearches,
   };
 }

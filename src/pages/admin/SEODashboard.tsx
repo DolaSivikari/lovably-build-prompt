@@ -1,16 +1,28 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
-import { AdminPageLayout } from '@/components/admin/AdminPageLayout';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import {
   Search,
   TrendingUp,
@@ -27,8 +39,19 @@ import {
   Eye,
   XCircle,
   Save,
-} from 'lucide-react';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+} from "lucide-react";
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 interface SEOSettings {
   id: string;
@@ -91,15 +114,17 @@ export default function SEODashboard() {
   const [seoSettings, setSeoSettings] = useState<SEOSettings[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsSnapshot[]>([]);
   const [contentItems, setContentItems] = useState<any[]>([]);
-  const [robotsTxt, setRobotsTxt] = useState('');
+  const [robotsTxt, setRobotsTxt] = useState("");
   const [generatingKeywords, setGeneratingKeywords] = useState(false);
-  const [selectedContent, setSelectedContent] = useState('');
-  const [siteUrl, setSiteUrl] = useState('');
+  const [selectedContent, setSelectedContent] = useState("");
+  const [siteUrl, setSiteUrl] = useState("");
   const [fetchingData, setFetchingData] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [checkingConnection, setCheckingConnection] = useState(true);
-  const [searchConsoleData, setSearchConsoleData] = useState<SearchConsoleData[]>([]);
-  const [dateRange, setDateRange] = useState<'7' | '30' | '90'>('30');
+  const [searchConsoleData, setSearchConsoleData] = useState<
+    SearchConsoleData[]
+  >([]);
+  const [dateRange, setDateRange] = useState<"7" | "30" | "90">("30");
   const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isSavingRobotsTxt, setIsSavingRobotsTxt] = useState(false);
@@ -108,28 +133,28 @@ export default function SEODashboard() {
     checkAuth();
     loadSEOData();
     checkGoogleConnection();
-    
+
     // Check URL params for OAuth callback status
     const params = new URLSearchParams(window.location.search);
-    const connected = params.get('gsc_connected');
-    const error = params.get('gsc_error');
-    
-    if (connected === 'true') {
+    const connected = params.get("gsc_connected");
+    const error = params.get("gsc_error");
+
+    if (connected === "true") {
       toast({
-        title: 'Success',
-        description: 'Google Search Console connected successfully!',
+        title: "Success",
+        description: "Google Search Console connected successfully!",
       });
       // Clear URL params
-      window.history.replaceState({}, '', '/admin/seo-dashboard');
+      window.history.replaceState({}, "", "/admin/seo-dashboard");
       checkGoogleConnection();
     } else if (error) {
       toast({
-        variant: 'destructive',
-        title: 'Connection Failed',
+        variant: "destructive",
+        title: "Connection Failed",
         description: decodeURIComponent(error),
       });
       // Clear URL params
-      window.history.replaceState({}, '', '/admin/seo-dashboard');
+      window.history.replaceState({}, "", "/admin/seo-dashboard");
     }
   }, []);
 
@@ -140,27 +165,32 @@ export default function SEODashboard() {
   }, [dateRange, currentUserId]);
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
     if (!session) {
-      navigate('/auth');
+      navigate("/auth");
       return;
     }
 
     setCurrentUserId(session.user.id);
 
     const { data: roleData } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', session.user.id)
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", session.user.id)
       .single();
 
-    if (!roleData || !['admin', 'super_admin', 'editor'].includes(roleData.role)) {
-      navigate('/admin');
+    if (
+      !roleData ||
+      !["admin", "super_admin", "editor"].includes(roleData.role)
+    ) {
+      navigate("/admin");
       toast({
-        variant: 'destructive',
-        title: 'Access Denied',
-        description: 'You do not have permission to access the SEO Dashboard',
+        variant: "destructive",
+        title: "Access Denied",
+        description: "You do not have permission to access the SEO Dashboard",
       });
     }
   };
@@ -171,44 +201,46 @@ export default function SEODashboard() {
     try {
       const daysAgo = parseInt(dateRange);
       const startDate = new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000);
-      
+
       const { data, error } = await supabase
-        .from('search_console_data')
-        .select('*')
-        .eq('user_id', currentUserId)
-        .gte('date', startDate.toISOString().split('T')[0])
-        .order('date', { ascending: true });
+        .from("search_console_data")
+        .select("*")
+        .eq("user_id", currentUserId)
+        .gte("date", startDate.toISOString().split("T")[0])
+        .order("date", { ascending: true });
 
       if (error) throw error;
 
       setSearchConsoleData(data || []);
-      
+
       // Get last sync time
       if (data && data.length > 0) {
         const latestDate = data[data.length - 1].date;
         setLastSyncTime(new Date(latestDate).toLocaleDateString());
       }
     } catch (error) {
-      console.error('Error loading Search Console data:', error);
+      console.error("Error loading Search Console data:", error);
     }
   };
 
   const checkGoogleConnection = async () => {
     try {
       setCheckingConnection(true);
-      const { data: { session } } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
       if (!session?.user?.id) return;
 
       const { data, error } = await supabase
-        .from('google_auth_tokens')
-        .select('access_token')
-        .eq('user_id', session.user.id)
+        .from("google_auth_tokens")
+        .select("access_token")
+        .eq("user_id", session.user.id)
         .single();
 
       setIsConnected(!!data && !error);
     } catch (error) {
-      console.error('Error checking Google connection:', error);
+      console.error("Error checking Google connection:", error);
       setIsConnected(false);
     } finally {
       setCheckingConnection(false);
@@ -225,45 +257,56 @@ export default function SEODashboard() {
         score += 30;
       } else if (item.seo_title.length > 0) {
         score += 15;
-        recommendations.push(`${type === 'blog' ? 'Title' : 'SEO title'} should be 30-60 characters (currently ${item.seo_title.length})`);
+        recommendations.push(
+          `${type === "blog" ? "Title" : "SEO title"} should be 30-60 characters (currently ${item.seo_title.length})`,
+        );
       }
     } else {
-      recommendations.push('Add an SEO title');
+      recommendations.push("Add an SEO title");
     }
 
     // Meta description check (30/100)
     if (item.seo_description) {
-      if (item.seo_description.length >= 120 && item.seo_description.length <= 160) {
+      if (
+        item.seo_description.length >= 120 &&
+        item.seo_description.length <= 160
+      ) {
         score += 30;
       } else if (item.seo_description.length > 0) {
         score += 15;
-        recommendations.push(`Meta description should be 120-160 characters (currently ${item.seo_description.length})`);
+        recommendations.push(
+          `Meta description should be 120-160 characters (currently ${item.seo_description.length})`,
+        );
       }
     } else {
-      recommendations.push('Add a meta description');
+      recommendations.push("Add a meta description");
     }
 
     // Keywords check (20/100)
     if (item.seo_keywords && item.seo_keywords.length > 0) {
       score += 20;
     } else {
-      recommendations.push('Add SEO keywords');
+      recommendations.push("Add SEO keywords");
     }
 
     // Featured image check (10/100)
     if (item.featured_image) {
       score += 10;
     } else {
-      recommendations.push('Add a featured image');
+      recommendations.push("Add a featured image");
     }
 
     // Content check (10/100)
-    if (type === 'blog' && item.content && item.content.length > 300) {
+    if (type === "blog" && item.content && item.content.length > 300) {
       score += 10;
-    } else if ((type === 'service' || type === 'project') && item.long_description && item.long_description.length > 150) {
+    } else if (
+      (type === "service" || type === "project") &&
+      item.long_description &&
+      item.long_description.length > 150
+    ) {
       score += 10;
     } else {
-      recommendations.push('Add more content for better SEO');
+      recommendations.push("Add more content for better SEO");
     }
 
     return { score, recommendations };
@@ -274,91 +317,110 @@ export default function SEODashboard() {
       setLoading(true);
 
       // Load actual content items with SEO data
-      const [blogRes, servicesRes, projectsRes, analyticsRes] = await Promise.all([
-        supabase
-          .from('blog_posts')
-          .select('id, slug, title, seo_title, seo_description, seo_keywords, featured_image, content, publish_state, updated_at')
-          .eq('publish_state', 'published')
-          .order('updated_at', { ascending: false })
-          .limit(10),
-        supabase
-          .from('services')
-          .select('id, slug, name, seo_title, seo_description, seo_keywords, featured_image, long_description, publish_state, updated_at')
-          .eq('publish_state', 'published')
-          .order('updated_at', { ascending: false })
-          .limit(10),
-        supabase
-          .from('projects')
-          .select('id, slug, title, seo_title, seo_description, seo_keywords, featured_image, description, publish_state, updated_at')
-          .eq('publish_state', 'published')
-          .order('updated_at', { ascending: false })
-          .limit(10),
-        supabase
-          .from('analytics_snapshots')
-          .select('*')
-          .gte('snapshot_date', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
-          .order('page_views', { ascending: false })
-          .limit(10)
-      ]);
+      const [blogRes, servicesRes, projectsRes, analyticsRes] =
+        await Promise.all([
+          supabase
+            .from("blog_posts")
+            .select(
+              "id, slug, title, seo_title, seo_description, seo_keywords, featured_image, content, publish_state, updated_at",
+            )
+            .eq("publish_state", "published")
+            .order("updated_at", { ascending: false })
+            .limit(10),
+          supabase
+            .from("services")
+            .select(
+              "id, slug, name, seo_title, seo_description, seo_keywords, featured_image, long_description, publish_state, updated_at",
+            )
+            .eq("publish_state", "published")
+            .order("updated_at", { ascending: false })
+            .limit(10),
+          supabase
+            .from("projects")
+            .select(
+              "id, slug, title, seo_title, seo_description, seo_keywords, featured_image, description, publish_state, updated_at",
+            )
+            .eq("publish_state", "published")
+            .order("updated_at", { ascending: false })
+            .limit(10),
+          supabase
+            .from("analytics_snapshots")
+            .select("*")
+            .gte(
+              "snapshot_date",
+              new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+            )
+            .order("page_views", { ascending: false })
+            .limit(10),
+        ]);
 
       // Process content items with SEO scores
       const items: any[] = [];
 
       if (blogRes.data) {
         blogRes.data.forEach((post) => {
-          const { score, recommendations } = calculateSEOScore(post, 'blog');
+          const { score, recommendations } = calculateSEOScore(post, "blog");
           items.push({
             ...post,
-            type: 'Blog Post',
+            type: "Blog Post",
             displayTitle: post.title,
             seoScore: score,
             recommendations,
-            url: `/blog/${post.slug}`
+            url: `/blog/${post.slug}`,
           });
         });
       }
 
       if (servicesRes.data) {
         servicesRes.data.forEach((service) => {
-          const { score, recommendations } = calculateSEOScore(service, 'service');
+          const { score, recommendations } = calculateSEOScore(
+            service,
+            "service",
+          );
           items.push({
             ...service,
-            type: 'Service',
+            type: "Service",
             displayTitle: service.name,
             seoScore: score,
             recommendations,
-            url: `/services/${service.slug}`
+            url: `/services/${service.slug}`,
           });
         });
       }
 
       if (projectsRes.data) {
         projectsRes.data.forEach((project) => {
-          const { score, recommendations } = calculateSEOScore(project, 'project');
+          const { score, recommendations } = calculateSEOScore(
+            project,
+            "project",
+          );
           items.push({
             ...project,
-            type: 'Project',
+            type: "Project",
             displayTitle: project.title,
             seoScore: score,
             recommendations,
-            url: `/projects/${project.slug}`
+            url: `/projects/${project.slug}`,
           });
         });
       }
 
       // Sort by updated_at
-      items.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+      items.sort(
+        (a, b) =>
+          new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+      );
 
       setContentItems(items);
       if (analyticsRes.data) setAnalytics(analyticsRes.data);
 
       // Load robots.txt from site_settings
       const { data: settings } = await supabase
-        .from('site_settings')
-        .select('robots_txt')
-        .eq('is_active', true)
+        .from("site_settings")
+        .select("robots_txt")
+        .eq("is_active", true)
         .single();
-      
+
       if (settings?.robots_txt) {
         setRobotsTxt(settings.robots_txt);
       } else {
@@ -368,11 +430,11 @@ Allow: /
 Sitemap: ${window.location.origin}/sitemap.xml`);
       }
     } catch (error: any) {
-      console.error('Error loading SEO data:', error);
+      console.error("Error loading SEO data:", error);
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Failed to load SEO data',
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load SEO data",
       });
     } finally {
       setLoading(false);
@@ -382,9 +444,9 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
   const generateKeywordSuggestions = async () => {
     if (!selectedContent) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Please enter content to analyze',
+        variant: "destructive",
+        title: "Error",
+        description: "Please enter content to analyze",
       });
       return;
     }
@@ -392,21 +454,24 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
     try {
       setGeneratingKeywords(true);
 
-      const { data, error } = await supabase.functions.invoke('generate-keywords', {
-        body: { content: selectedContent },
-      });
+      const { data, error } = await supabase.functions.invoke(
+        "generate-keywords",
+        {
+          body: { content: selectedContent },
+        },
+      );
 
       if (error) throw error;
 
       toast({
-        title: 'Keywords Generated',
+        title: "Keywords Generated",
         description: `Found ${data.keywords?.length || 0} relevant keywords`,
       });
     } catch (error: any) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: error.message || 'Failed to generate keywords',
+        variant: "destructive",
+        title: "Error",
+        description: error.message || "Failed to generate keywords",
       });
     } finally {
       setGeneratingKeywords(false);
@@ -416,45 +481,46 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
   const saveRobotsTxt = async () => {
     try {
       setIsSavingRobotsTxt(true);
-      
+
       // Validate robots.txt content
-      if (!robotsTxt.includes('User-agent:')) {
+      if (!robotsTxt.includes("User-agent:")) {
         toast({
-          variant: 'destructive',
-          title: 'Invalid robots.txt',
-          description: 'Must contain at least one User-agent directive',
+          variant: "destructive",
+          title: "Invalid robots.txt",
+          description: "Must contain at least one User-agent directive",
         });
         return;
       }
-      
-      if (!robotsTxt.includes('Sitemap:')) {
+
+      if (!robotsTxt.includes("Sitemap:")) {
         toast({
-          title: 'Warning',
-          description: 'robots.txt should include a Sitemap directive',
+          title: "Warning",
+          description: "robots.txt should include a Sitemap directive",
         });
       }
 
       // Update site_settings with new robots.txt content
       const { error } = await supabase
-        .from('site_settings')
-        .update({ 
+        .from("site_settings")
+        .update({
           robots_txt: robotsTxt,
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         })
-        .eq('is_active', true);
+        .eq("is_active", true);
 
       if (error) throw error;
 
       toast({
-        title: 'Success',
-        description: 'Robots.txt updated successfully! Changes will be live after next deployment.',
+        title: "Success",
+        description:
+          "Robots.txt updated successfully! Changes will be live after next deployment.",
       });
     } catch (error: any) {
-      console.error('Error saving robots.txt:', error);
+      console.error("Error saving robots.txt:", error);
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Failed to save robots.txt',
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to save robots.txt",
       });
     } finally {
       setIsSavingRobotsTxt(false);
@@ -505,75 +571,79 @@ Disallow: /admin
 Disallow: /auth`;
     setRobotsTxt(defaultRobotsTxt);
     toast({
-      title: 'Reset Complete',
-      description: 'Robots.txt reset to default. Click Save to apply changes.',
+      title: "Reset Complete",
+      description: "Robots.txt reset to default. Click Save to apply changes.",
     });
   };
 
   const regenerateSitemap = async () => {
     try {
       toast({
-        title: 'Generating Sitemap',
-        description: 'Please wait while we regenerate your sitemap...',
+        title: "Generating Sitemap",
+        description: "Please wait while we regenerate your sitemap...",
       });
 
-      const { data, error } = await supabase.functions.invoke('generate-sitemap');
+      const { data, error } =
+        await supabase.functions.invoke("generate-sitemap");
 
       if (error) throw error;
 
-      await supabase.from('sitemap_logs').insert({
+      await supabase.from("sitemap_logs").insert({
         url_count: data.url_count,
-        status: 'success',
+        status: "success",
       });
 
       toast({
-        title: 'Success',
+        title: "Success",
         description: `Sitemap generated with ${data.url_count} URLs`,
       });
     } catch (error: any) {
-      await supabase.from('sitemap_logs').insert({
+      await supabase.from("sitemap_logs").insert({
         url_count: 0,
-        status: 'error',
+        status: "error",
         error_message: error.message,
       });
 
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: error.message || 'Failed to generate sitemap',
+        variant: "destructive",
+        title: "Error",
+        description: error.message || "Failed to generate sitemap",
       });
     }
   };
 
   const connectGoogleSearchConsole = async () => {
     try {
-      const { data, error } = await supabase.functions.invoke('google-search-console-auth');
-      
+      const { data, error } = await supabase.functions.invoke(
+        "google-search-console-auth",
+      );
+
       if (error) {
-        console.error('Error getting auth URL:', error);
+        console.error("Error getting auth URL:", error);
         toast({
-          variant: 'destructive',
-          title: 'Error',
-          description: 'Failed to initiate Google Search Console connection',
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to initiate Google Search Console connection",
         });
         return;
       }
-      
+
       if (data?.authUrl) {
         window.location.href = data.authUrl;
       } else {
         toast({
-          variant: 'destructive',
-          title: 'Error',
-          description: 'Failed to get authorization URL',
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to get authorization URL",
         });
       }
     } catch (error: any) {
-      console.error('Error connecting to Google Search Console:', error);
+      console.error("Error connecting to Google Search Console:", error);
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: error.message || 'Failed to connect to Google Search Console',
+        variant: "destructive",
+        title: "Error",
+        description:
+          error.message || "Failed to connect to Google Search Console",
       });
     }
   };
@@ -581,9 +651,9 @@ Disallow: /auth`;
   const fetchSearchConsoleData = async () => {
     if (!siteUrl) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Please enter a website URL',
+        variant: "destructive",
+        title: "Error",
+        description: "Please enter a website URL",
       });
       return;
     }
@@ -591,39 +661,47 @@ Disallow: /auth`;
     try {
       setFetchingData(true);
       toast({
-        title: 'Fetching Data',
-        description: 'Retrieving Search Console data...',
+        title: "Fetching Data",
+        description: "Retrieving Search Console data...",
       });
 
       // Format the site URL correctly for domain properties
       let formattedSiteUrl = siteUrl.trim();
-      
+
       // If it doesn't have a protocol and isn't already prefixed with sc-domain:
-      if (!formattedSiteUrl.startsWith('http') && !formattedSiteUrl.startsWith('sc-domain:')) {
+      if (
+        !formattedSiteUrl.startsWith("http") &&
+        !formattedSiteUrl.startsWith("sc-domain:")
+      ) {
         formattedSiteUrl = `sc-domain:${formattedSiteUrl}`;
       }
 
-      const { data, error } = await supabase.functions.invoke('fetch-search-console-data', {
-        body: { 
-          siteUrl: formattedSiteUrl,
-          startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          endDate: new Date().toISOString().split('T')[0],
+      const { data, error } = await supabase.functions.invoke(
+        "fetch-search-console-data",
+        {
+          body: {
+            siteUrl: formattedSiteUrl,
+            startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0],
+            endDate: new Date().toISOString().split("T")[0],
+          },
         },
-      });
+      );
 
       if (error) throw error;
 
       toast({
-        title: 'Success',
+        title: "Success",
         description: `Fetched ${data.rowCount || 0} rows of Search Console data`,
       });
 
       await loadSearchConsoleData();
     } catch (error: any) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: error.message || 'Failed to fetch Search Console data',
+        variant: "destructive",
+        title: "Error",
+        description: error.message || "Failed to fetch Search Console data",
       });
     } finally {
       setFetchingData(false);
@@ -648,12 +726,24 @@ Disallow: /auth`;
     const previousData = searchConsoleData.slice(0, halfwayPoint);
 
     const totalClicks = recentData.reduce((sum, row) => sum + row.clicks, 0);
-    const totalImpressions = recentData.reduce((sum, row) => sum + row.impressions, 0);
-    const avgCTR = recentData.reduce((sum, row) => sum + row.ctr, 0) / recentData.length;
-    const avgPosition = recentData.reduce((sum, row) => sum + row.position, 0) / recentData.length;
+    const totalImpressions = recentData.reduce(
+      (sum, row) => sum + row.impressions,
+      0,
+    );
+    const avgCTR =
+      recentData.reduce((sum, row) => sum + row.ctr, 0) / recentData.length;
+    const avgPosition =
+      recentData.reduce((sum, row) => sum + row.position, 0) /
+      recentData.length;
 
-    const previousClicks = previousData.reduce((sum, row) => sum + row.clicks, 0);
-    const previousImpressions = previousData.reduce((sum, row) => sum + row.impressions, 0);
+    const previousClicks = previousData.reduce(
+      (sum, row) => sum + row.clicks,
+      0,
+    );
+    const previousImpressions = previousData.reduce(
+      (sum, row) => sum + row.impressions,
+      0,
+    );
 
     return {
       totalClicks,
@@ -669,14 +759,17 @@ Disallow: /auth`;
   const getDailyMetrics = (): DailyMetrics[] => {
     const dailyMap = new Map<string, DailyMetrics>();
 
-    searchConsoleData.forEach(row => {
+    searchConsoleData.forEach((row) => {
       const existing = dailyMap.get(row.date);
       if (existing) {
         existing.clicks += row.clicks;
         existing.impressions += row.impressions;
       } else {
         dailyMap.set(row.date, {
-          date: new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+          date: new Date(row.date).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          }),
           clicks: row.clicks,
           impressions: row.impressions,
           ctr: row.ctr * 100,
@@ -692,7 +785,7 @@ Disallow: /auth`;
   const getTopPages = (): PageMetrics[] => {
     const pageMap = new Map<string, PageMetrics>();
 
-    searchConsoleData.forEach(row => {
+    searchConsoleData.forEach((row) => {
       const existing = pageMap.get(row.page_path);
       if (existing) {
         existing.clicks += row.clicks;
@@ -717,7 +810,7 @@ Disallow: /auth`;
   const getTopQueries = (): QueryMetrics[] => {
     const queryMap = new Map<string, QueryMetrics>();
 
-    searchConsoleData.forEach(row => {
+    searchConsoleData.forEach((row) => {
       const existing = queryMap.get(row.query);
       if (existing) {
         existing.clicks += row.clicks;
@@ -743,16 +836,25 @@ Disallow: /auth`;
   const topPages = getTopPages();
   const topQueries = getTopQueries();
 
-  const clicksChange = metrics.previousClicks > 0 
-    ? ((metrics.totalClicks - metrics.previousClicks) / metrics.previousClicks) * 100 
-    : 0;
-  const impressionsChange = metrics.previousImpressions > 0
-    ? ((metrics.totalImpressions - metrics.previousImpressions) / metrics.previousImpressions) * 100
-    : 0;
+  const clicksChange =
+    metrics.previousClicks > 0
+      ? ((metrics.totalClicks - metrics.previousClicks) /
+          metrics.previousClicks) *
+        100
+      : 0;
+  const impressionsChange =
+    metrics.previousImpressions > 0
+      ? ((metrics.totalImpressions - metrics.previousImpressions) /
+          metrics.previousImpressions) *
+        100
+      : 0;
 
   if (loading) {
     return (
-      <AdminPageLayout title="SEO Dashboard" description="Optimize your content for search engines">
+      <AdminPageLayout
+        title="SEO Dashboard"
+        description="Optimize your content for search engines"
+      >
         <div className="flex items-center justify-center min-h-[400px]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -778,7 +880,9 @@ Disallow: /auth`;
           <div className="grid gap-4 md:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Pages</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Total Pages
+                </CardTitle>
                 <FileText className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -789,14 +893,19 @@ Disallow: /auth`;
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Avg SEO Score</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Avg SEO Score
+                </CardTitle>
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
                   {contentItems.length > 0
                     ? Math.round(
-                        contentItems.reduce((sum, item) => sum + item.seoScore, 0) / contentItems.length
+                        contentItems.reduce(
+                          (sum, item) => sum + item.seoScore,
+                          0,
+                        ) / contentItems.length,
                       )
                     : 0}
                 </div>
@@ -806,12 +915,16 @@ Disallow: /auth`;
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Views</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Total Views
+                </CardTitle>
                 <BarChart3 className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {analytics.reduce((sum, a) => sum + a.page_views, 0).toLocaleString()}
+                  {analytics
+                    .reduce((sum, a) => sum + a.page_views, 0)
+                    .toLocaleString()}
                 </div>
                 <p className="text-xs text-muted-foreground">Last 30 days</p>
               </CardContent>
@@ -819,12 +932,16 @@ Disallow: /auth`;
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Indexed Pages</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Indexed Pages
+                </CardTitle>
                 <CheckCircle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{contentItems.length}</div>
-                <p className="text-xs text-muted-foreground">Published content</p>
+                <p className="text-xs text-muted-foreground">
+                  Published content
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -833,43 +950,72 @@ Disallow: /auth`;
           <Card>
             <CardHeader>
               <CardTitle>Content SEO Status</CardTitle>
-              <CardDescription>Recent pages and their SEO scores</CardDescription>
+              <CardDescription>
+                Recent pages and their SEO scores
+              </CardDescription>
             </CardHeader>
             <CardContent>
               {contentItems.length === 0 ? (
                 <div className="text-center space-y-3 py-8">
                   <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <p className="text-lg font-medium">No content available yet</p>
+                  <p className="text-lg font-medium">
+                    No content available yet
+                  </p>
                   <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                    Create blog posts, projects, and services to start tracking SEO performance.
+                    Create blog posts, projects, and services to start tracking
+                    SEO performance.
                   </p>
                 </div>
               ) : (
                 <div className="space-y-3">
                   {contentItems.slice(0, 10).map((item) => (
-                    <div key={item.id} className="border rounded-lg p-4 space-y-3">
+                    <div
+                      key={item.id}
+                      className="border rounded-lg p-4 space-y-3"
+                    >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <Badge variant="outline" className="text-xs">{item.type}</Badge>
-                            <Badge variant={item.seoScore >= 80 ? 'default' : item.seoScore >= 60 ? 'secondary' : 'destructive'}>
+                            <Badge variant="outline" className="text-xs">
+                              {item.type}
+                            </Badge>
+                            <Badge
+                              variant={
+                                item.seoScore >= 80
+                                  ? "default"
+                                  : item.seoScore >= 60
+                                    ? "secondary"
+                                    : "destructive"
+                              }
+                            >
                               {item.seoScore}/100
                             </Badge>
                           </div>
-                          <p className="font-medium truncate">{item.displayTitle}</p>
-                          <p className="text-xs text-muted-foreground truncate">{item.url}</p>
+                          <p className="font-medium truncate">
+                            {item.displayTitle}
+                          </p>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {item.url}
+                          </p>
                         </div>
                       </div>
                       {item.recommendations.length > 0 && (
                         <div className="space-y-1">
-                          <p className="text-xs font-medium text-muted-foreground">Recommendations:</p>
+                          <p className="text-xs font-medium text-muted-foreground">
+                            Recommendations:
+                          </p>
                           <ul className="text-xs space-y-1 text-muted-foreground">
-                            {item.recommendations.slice(0, 3).map((rec: string, idx: number) => (
-                              <li key={idx} className="flex items-start gap-2">
-                                <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0" />
-                                <span>{rec}</span>
-                              </li>
-                            ))}
+                            {item.recommendations
+                              .slice(0, 3)
+                              .map((rec: string, idx: number) => (
+                                <li
+                                  key={idx}
+                                  className="flex items-start gap-2"
+                                >
+                                  <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0" />
+                                  <span>{rec}</span>
+                                </li>
+                              ))}
                           </ul>
                         </div>
                       )}
@@ -884,7 +1030,11 @@ Disallow: /auth`;
         {/* Search Analytics Tab */}
         <TabsContent value="analytics" className="space-y-6">
           {/* Connection Status & Controls */}
-          <Card className={isConnected ? 'border-green-500/50' : 'border-yellow-500/50'}>
+          <Card
+            className={
+              isConnected ? "border-green-500/50" : "border-yellow-500/50"
+            }
+          >
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
@@ -907,11 +1057,17 @@ Disallow: /auth`;
                   <CardDescription className="mt-2">
                     {isConnected ? (
                       <div className="flex items-center gap-2">
-                        <span>Your account is connected and ready to fetch analytics</span>
-                        {lastSyncTime && <span className="text-xs">• Last synced: {lastSyncTime}</span>}
+                        <span>
+                          Your account is connected and ready to fetch analytics
+                        </span>
+                        {lastSyncTime && (
+                          <span className="text-xs">
+                            • Last synced: {lastSyncTime}
+                          </span>
+                        )}
                       </div>
                     ) : (
-                      'Connect your Google Search Console account to view search analytics and performance data'
+                      "Connect your Google Search Console account to view search analytics and performance data"
                     )}
                   </CardDescription>
                 </div>
@@ -931,7 +1087,11 @@ Disallow: /auth`;
                       <li>Historical trend analysis</li>
                     </ul>
                   </div>
-                  <Button onClick={connectGoogleSearchConsole} size="lg" className="w-full sm:w-auto">
+                  <Button
+                    onClick={connectGoogleSearchConsole}
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
                     <LinkIcon className="h-4 w-4 mr-2" />
                     Connect Google Search Console
                   </Button>
@@ -949,12 +1109,18 @@ Disallow: /auth`;
                         className="max-w-md"
                       />
                       <p className="text-xs text-muted-foreground mt-1">
-                        Enter your domain (e.g., ascentgroupconstruction.com) or full URL with protocol
+                        Enter your domain (e.g., ascentgroupconstruction.com) or
+                        full URL with protocol
                       </p>
                     </div>
                     <div>
                       <Label>Date Range</Label>
-                      <Select value={dateRange} onValueChange={(value: '7' | '30' | '90') => setDateRange(value)}>
+                      <Select
+                        value={dateRange}
+                        onValueChange={(value: "7" | "30" | "90") =>
+                          setDateRange(value)
+                        }
+                      >
                         <SelectTrigger className="w-[180px]">
                           <SelectValue />
                         </SelectTrigger>
@@ -967,7 +1133,10 @@ Disallow: /auth`;
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button onClick={fetchSearchConsoleData} disabled={fetchingData}>
+                    <Button
+                      onClick={fetchSearchConsoleData}
+                      disabled={fetchingData}
+                    >
                       {fetchingData ? (
                         <>
                           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -992,71 +1161,103 @@ Disallow: /auth`;
               <div className="grid gap-4 md:grid-cols-4">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Clicks</CardTitle>
+                    <CardTitle className="text-sm font-medium">
+                      Total Clicks
+                    </CardTitle>
                     <MousePointerClick className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{metrics.totalClicks.toLocaleString()}</div>
+                    <div className="text-2xl font-bold">
+                      {metrics.totalClicks.toLocaleString()}
+                    </div>
                     <p className="text-xs flex items-center gap-1">
                       {clicksChange > 0 ? (
                         <>
                           <TrendingUp className="h-3 w-3 text-green-500" />
-                          <span className="text-green-500">+{clicksChange.toFixed(1)}%</span>
+                          <span className="text-green-500">
+                            +{clicksChange.toFixed(1)}%
+                          </span>
                         </>
                       ) : (
                         <>
                           <TrendingDown className="h-3 w-3 text-red-500" />
-                          <span className="text-red-500">{clicksChange.toFixed(1)}%</span>
+                          <span className="text-red-500">
+                            {clicksChange.toFixed(1)}%
+                          </span>
                         </>
                       )}
-                      <span className="text-muted-foreground">vs previous period</span>
+                      <span className="text-muted-foreground">
+                        vs previous period
+                      </span>
                     </p>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Impressions</CardTitle>
+                    <CardTitle className="text-sm font-medium">
+                      Total Impressions
+                    </CardTitle>
                     <Eye className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{metrics.totalImpressions.toLocaleString()}</div>
+                    <div className="text-2xl font-bold">
+                      {metrics.totalImpressions.toLocaleString()}
+                    </div>
                     <p className="text-xs flex items-center gap-1">
                       {impressionsChange > 0 ? (
                         <>
                           <TrendingUp className="h-3 w-3 text-green-500" />
-                          <span className="text-green-500">+{impressionsChange.toFixed(1)}%</span>
+                          <span className="text-green-500">
+                            +{impressionsChange.toFixed(1)}%
+                          </span>
                         </>
                       ) : (
                         <>
                           <TrendingDown className="h-3 w-3 text-red-500" />
-                          <span className="text-red-500">{impressionsChange.toFixed(1)}%</span>
+                          <span className="text-red-500">
+                            {impressionsChange.toFixed(1)}%
+                          </span>
                         </>
                       )}
-                      <span className="text-muted-foreground">vs previous period</span>
+                      <span className="text-muted-foreground">
+                        vs previous period
+                      </span>
                     </p>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Avg CTR</CardTitle>
+                    <CardTitle className="text-sm font-medium">
+                      Avg CTR
+                    </CardTitle>
                     <BarChart3 className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{metrics.avgCTR.toFixed(2)}%</div>
-                    <p className="text-xs text-muted-foreground">Click-through rate</p>
+                    <div className="text-2xl font-bold">
+                      {metrics.avgCTR.toFixed(2)}%
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Click-through rate
+                    </p>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Avg Position</CardTitle>
+                    <CardTitle className="text-sm font-medium">
+                      Avg Position
+                    </CardTitle>
                     <TrendingUp className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{metrics.avgPosition.toFixed(1)}</div>
-                    <p className="text-xs text-muted-foreground">Search ranking</p>
+                    <div className="text-2xl font-bold">
+                      {metrics.avgPosition.toFixed(1)}
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Search ranking
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -1075,8 +1276,18 @@ Disallow: /auth`;
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="clicks" stroke="hsl(var(--primary))" strokeWidth={2} />
-                        <Line type="monotone" dataKey="impressions" stroke="hsl(var(--secondary))" strokeWidth={2} />
+                        <Line
+                          type="monotone"
+                          dataKey="clicks"
+                          stroke="hsl(var(--primary))"
+                          strokeWidth={2}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="impressions"
+                          stroke="hsl(var(--secondary))"
+                          strokeWidth={2}
+                        />
                       </LineChart>
                     </ResponsiveContainer>
                   </CardContent>
@@ -1091,9 +1302,16 @@ Disallow: /auth`;
                       <BarChart data={topPages} layout="vertical">
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis type="number" />
-                        <YAxis dataKey="page_path" type="category" width={150} tickFormatter={(value) => {
-                          return value.length > 20 ? value.substring(0, 20) + '...' : value;
-                        }} />
+                        <YAxis
+                          dataKey="page_path"
+                          type="category"
+                          width={150}
+                          tickFormatter={(value) => {
+                            return value.length > 20
+                              ? value.substring(0, 20) + "..."
+                              : value;
+                          }}
+                        />
                         <Tooltip />
                         <Bar dataKey="clicks" fill="hsl(var(--primary))" />
                       </BarChart>
@@ -1106,16 +1324,22 @@ Disallow: /auth`;
               <Card>
                 <CardHeader>
                   <CardTitle>Top Search Queries</CardTitle>
-                  <CardDescription>Most viewed search queries for your site</CardDescription>
+                  <CardDescription>
+                    Most viewed search queries for your site
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {topQueries.map((query, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 border rounded-lg"
+                      >
                         <div className="flex-1">
                           <p className="font-medium">{query.query}</p>
                           <p className="text-sm text-muted-foreground">
-                            Position {query.position.toFixed(1)} • CTR {(query.ctr * 100).toFixed(2)}%
+                            Position {query.position.toFixed(1)} • CTR{" "}
+                            {(query.ctr * 100).toFixed(2)}%
                           </p>
                         </div>
                         <div className="flex items-center gap-6 text-sm">
@@ -1124,7 +1348,9 @@ Disallow: /auth`;
                             <p className="text-muted-foreground">Clicks</p>
                           </div>
                           <div className="text-center">
-                            <p className="font-bold">{query.impressions.toLocaleString()}</p>
+                            <p className="font-bold">
+                              {query.impressions.toLocaleString()}
+                            </p>
                             <p className="text-muted-foreground">Impressions</p>
                           </div>
                         </div>
@@ -1141,9 +1367,12 @@ Disallow: /auth`;
               <CardContent className="pt-6">
                 <div className="text-center space-y-3 py-8">
                   <BarChart3 className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <p className="text-lg font-medium">No Search Console data available</p>
+                  <p className="text-lg font-medium">
+                    No Search Console data available
+                  </p>
                   <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                    Enter your site URL above and click "Fetch Data" to load analytics from Google Search Console.
+                    Enter your site URL above and click "Fetch Data" to load
+                    analytics from Google Search Console.
                   </p>
                 </div>
               </CardContent>
@@ -1156,7 +1385,9 @@ Disallow: /auth`;
           <Card>
             <CardHeader>
               <CardTitle>Keyword Suggestions</CardTitle>
-              <CardDescription>Generate SEO keywords using AI analysis</CardDescription>
+              <CardDescription>
+                Generate SEO keywords using AI analysis
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
@@ -1169,14 +1400,17 @@ Disallow: /auth`;
                   rows={6}
                 />
               </div>
-              <Button onClick={generateKeywordSuggestions} disabled={generatingKeywords}>
+              <Button
+                onClick={generateKeywordSuggestions}
+                disabled={generatingKeywords}
+              >
                 {generatingKeywords ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                     Analyzing...
                   </>
                 ) : (
-                  'Generate Keywords'
+                  "Generate Keywords"
                 )}
               </Button>
             </CardContent>
@@ -1185,7 +1419,9 @@ Disallow: /auth`;
           <Card>
             <CardHeader>
               <CardTitle>Sitemap Generator</CardTitle>
-              <CardDescription>Regenerate your XML sitemap with the latest content</CardDescription>
+              <CardDescription>
+                Regenerate your XML sitemap with the latest content
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Button onClick={regenerateSitemap}>
@@ -1201,7 +1437,10 @@ Disallow: /auth`;
           <Card>
             <CardHeader>
               <CardTitle>Robots.txt</CardTitle>
-              <CardDescription>Configure crawler access rules - Changes take effect after deployment</CardDescription>
+              <CardDescription>
+                Configure crawler access rules - Changes take effect after
+                deployment
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
@@ -1217,12 +1456,13 @@ Disallow: /auth`;
                 />
               </div>
               <p className="text-xs text-muted-foreground">
-                ⚠️ Changes will be stored in the database and applied to your live site on next deployment.
-                Make sure to include proper User-agent directives and your Sitemap URL.
+                ⚠️ Changes will be stored in the database and applied to your
+                live site on next deployment. Make sure to include proper
+                User-agent directives and your Sitemap URL.
               </p>
               <div className="flex gap-2">
-                <Button 
-                  onClick={saveRobotsTxt} 
+                <Button
+                  onClick={saveRobotsTxt}
                   disabled={isSavingRobotsTxt}
                   className="flex items-center gap-2"
                 >
@@ -1238,7 +1478,7 @@ Disallow: /auth`;
                     </>
                   )}
                 </Button>
-                <Button 
+                <Button
                   onClick={resetRobotsTxtToDefault}
                   variant="outline"
                   disabled={isSavingRobotsTxt}

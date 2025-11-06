@@ -9,7 +9,7 @@ const ShareMenu = () => {
     if (navigator.share) {
       navigator.share({
         title: document.title,
-        url: window.location.href
+        url: window.location.href,
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
@@ -21,9 +21,9 @@ const ShareMenu = () => {
   };
 
   return (
-    <Button 
-      onClick={handleShare} 
-      variant="outline" 
+    <Button
+      onClick={handleShare}
+      variant="outline"
       size="default"
       className="touch-target"
       aria-label="Share this page"

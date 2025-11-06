@@ -6,7 +6,8 @@ const ReadingProgress = () => {
   useEffect(() => {
     const updateProgress = () => {
       const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight - windowHeight;
+      const documentHeight =
+        document.documentElement.scrollHeight - windowHeight;
       const scrolled = window.scrollY;
       const progress = (scrolled / documentHeight) * 100;
       setProgress(progress);

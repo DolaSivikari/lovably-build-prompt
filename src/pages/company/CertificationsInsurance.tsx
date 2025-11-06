@@ -1,4 +1,11 @@
-import { Shield, Award, CheckCircle2, Building2, Download, FileText } from "lucide-react";
+import {
+  Shield,
+  Award,
+  CheckCircle2,
+  Building2,
+  Download,
+  FileText,
+} from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
@@ -27,37 +34,47 @@ interface AboutPageSettings {
 }
 
 const CertificationsInsurance = () => {
-  const { data: aboutSettings, loading } = useSettingsData<AboutPageSettings>('about_page_settings');
+  const { data: aboutSettings, loading } = useSettingsData<AboutPageSettings>(
+    "about_page_settings",
+  );
 
   // Parse insurance data from database
-  const insuranceCoverage = aboutSettings?.insurance ? [
-    { 
-      label: "Commercial General Liability", 
-      value: aboutSettings.insurance.liability || "$5,000,000", 
-      icon: Shield 
-    },
-    { 
-      label: "WSIB Coverage", 
-      value: aboutSettings.insurance.wsib || "Fully Compliant", 
-      icon: CheckCircle2 
-    },
-    { 
-      label: "Umbrella Policy", 
-      value: "$10,000,000", 
-      icon: Shield 
-    },
-    { 
-      label: "Professional Liability", 
-      value: "$2,000,000", 
-      icon: Building2 
-    },
-  ] : [];
+  const insuranceCoverage = aboutSettings?.insurance
+    ? [
+        {
+          label: "Commercial General Liability",
+          value: aboutSettings.insurance.liability || "$5,000,000",
+          icon: Shield,
+        },
+        {
+          label: "WSIB Coverage",
+          value: aboutSettings.insurance.wsib || "Fully Compliant",
+          icon: CheckCircle2,
+        },
+        {
+          label: "Umbrella Policy",
+          value: "$10,000,000",
+          icon: Shield,
+        },
+        {
+          label: "Professional Liability",
+          value: "$2,000,000",
+          icon: Building2,
+        },
+      ]
+    : [];
 
-  const bondingCapacity = aboutSettings?.insurance?.bonding ? [
-    { label: "Single Project Bonding", value: "Up to $10M", icon: Award },
-    { label: "Aggregate Bonding", value: "Up to $25M", icon: Award },
-    { label: "Surety Company", value: "A-Rated Provider", icon: CheckCircle2 },
-  ] : [];
+  const bondingCapacity = aboutSettings?.insurance?.bonding
+    ? [
+        { label: "Single Project Bonding", value: "Up to $10M", icon: Award },
+        { label: "Aggregate Bonding", value: "Up to $25M", icon: Award },
+        {
+          label: "Surety Company",
+          value: "A-Rated Provider",
+          icon: CheckCircle2,
+        },
+      ]
+    : [];
 
   // Use licenses from database
   const licenses = aboutSettings?.licenses || [];
@@ -79,7 +96,7 @@ const CertificationsInsurance = () => {
   if (loading) {
     return (
       <>
-        <SEO 
+        <SEO
           title="Certifications & Insurance Coverage | Ascent Group Construction"
           description="Licensed, bonded, and fully insured with $5M liability coverage. View our certifications including WSIB, COR, and industry memberships."
           keywords="insurance, certifications, WSIB, bonded, licensed, COR certificate"
@@ -101,24 +118,29 @@ const CertificationsInsurance = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Certifications & Insurance Coverage | Ascent Group Construction"
         description="Licensed, bonded, and fully insured with $5M liability coverage. View our certifications including WSIB, COR, and industry memberships."
         keywords="insurance, certifications, WSIB, bonded, licensed, COR certificate"
       />
       <div className="min-h-screen bg-background">
         <Navigation />
-        
-          <PageHeader
-            title="Certifications & Insurance Coverage"
-            description="Licensed, Bonded, and Fully Insured for Your Peace of Mind"
-            backgroundImage={heroCertificationsImage}
-          />
 
-        <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">
+        <PageHeader
+          title="Certifications & Insurance Coverage"
+          description="Licensed, Bonded, and Fully Insured for Your Peace of Mind"
+          backgroundImage={heroCertificationsImage}
+        />
+
+        <main
+          id="main-content"
+          className="container mx-auto px-4 py-12 space-y-16"
+        >
           {/* Insurance Coverage Section */}
           <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Insurance Coverage</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8">
+              Insurance Coverage
+            </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {insuranceCoverage.map((item, index) => {
                 const Icon = item.icon;
@@ -126,8 +148,12 @@ const CertificationsInsurance = () => {
                   <Card key={index}>
                     <CardContent className="p-6 text-center">
                       <Icon className="h-12 w-12 text-primary mx-auto mb-4" />
-                      <div className="text-2xl font-bold text-foreground mb-2">{item.value}</div>
-                      <div className="text-sm text-muted-foreground">{item.label}</div>
+                      <div className="text-2xl font-bold text-foreground mb-2">
+                        {item.value}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {item.label}
+                      </div>
                     </CardContent>
                   </Card>
                 );
@@ -137,7 +163,9 @@ const CertificationsInsurance = () => {
 
           {/* Bonding Capacity Section */}
           <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Bonding Capacity</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8">
+              Bonding Capacity
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {bondingCapacity.map((item, index) => {
                 const Icon = item.icon;
@@ -145,8 +173,12 @@ const CertificationsInsurance = () => {
                   <Card key={index}>
                     <CardContent className="p-6 text-center">
                       <Icon className="h-10 w-10 text-primary mx-auto mb-4" />
-                      <div className="text-xl font-bold text-foreground mb-2">{item.value}</div>
-                      <div className="text-sm text-muted-foreground">{item.label}</div>
+                      <div className="text-xl font-bold text-foreground mb-2">
+                        {item.value}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {item.label}
+                      </div>
                     </CardContent>
                   </Card>
                 );
@@ -157,14 +189,20 @@ const CertificationsInsurance = () => {
           {/* Licenses Section */}
           {licenses.length > 0 && (
             <section>
-              <h2 className="text-3xl font-bold text-foreground mb-8">Active Licenses</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-8">
+                Active Licenses
+              </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {licenses.map((license, index) => (
                   <Card key={index}>
                     <CardContent className="p-6">
                       <Shield className="h-8 w-8 text-primary mb-4" />
-                      <h3 className="text-lg font-semibold text-foreground mb-2">{license.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{license.description}</p>
+                      <h3 className="text-lg font-semibold text-foreground mb-2">
+                        {license.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        {license.description}
+                      </p>
                       <Button variant="outline" size="sm" className="w-full">
                         <Download className="h-4 w-4 mr-2" />
                         Download License
@@ -179,14 +217,20 @@ const CertificationsInsurance = () => {
           {/* Active Certifications Section */}
           {dbCertifications.length > 0 && (
             <section>
-              <h2 className="text-3xl font-bold text-foreground mb-8">Active Certifications</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-8">
+                Active Certifications
+              </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {dbCertifications.map((cert, index) => (
                   <Card key={index}>
                     <CardContent className="p-6">
                       <Award className="h-8 w-8 text-primary mb-4" />
-                      <h3 className="text-lg font-semibold text-foreground mb-2">{cert.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{cert.description}</p>
+                      <h3 className="text-lg font-semibold text-foreground mb-2">
+                        {cert.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        {cert.description}
+                      </p>
                       <Button variant="outline" size="sm" className="w-full">
                         <Download className="h-4 w-4 mr-2" />
                         Download Certificate
@@ -201,13 +245,17 @@ const CertificationsInsurance = () => {
           {/* Industry Memberships Section */}
           {memberships.length > 0 && (
             <section>
-              <h2 className="text-3xl font-bold text-foreground mb-8">Industry Memberships</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-8">
+                Industry Memberships
+              </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {memberships.map((membership, index) => (
                   <Card key={index}>
                     <CardContent className="p-6 text-center">
                       <Building2 className="h-10 w-10 text-primary mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-foreground">{membership}</h3>
+                      <h3 className="text-lg font-semibold text-foreground">
+                        {membership}
+                      </h3>
                     </CardContent>
                   </Card>
                 ))}
@@ -217,27 +265,41 @@ const CertificationsInsurance = () => {
 
           {/* Manufacturer Certifications Section */}
           <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Manufacturer Certifications</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8">
+              Manufacturer Certifications
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Card>
                 <CardContent className="p-6 text-center">
                   <Award className="h-10 w-10 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Benjamin Moore</h3>
-                  <p className="text-sm text-muted-foreground">Certified Applicator</p>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    Benjamin Moore
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Certified Applicator
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
                   <Award className="h-10 w-10 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Sherwin-Williams</h3>
-                  <p className="text-sm text-muted-foreground">ProPainter Certified</p>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    Sherwin-Williams
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    ProPainter Certified
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
                   <Award className="h-10 w-10 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">EIFS Industry</h3>
-                  <p className="text-sm text-muted-foreground">Members Association</p>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    EIFS Industry
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Members Association
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -245,8 +307,12 @@ const CertificationsInsurance = () => {
 
           {/* Download Center Section */}
           <section className="bg-muted/30 rounded-lg p-8">
-            <h2 className="text-3xl font-bold text-foreground mb-2">Document Download Center</h2>
-            <p className="text-muted-foreground mb-8">Download our certificates and documentation for your records</p>
+            <h2 className="text-3xl font-bold text-foreground mb-2">
+              Document Download Center
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Download our certificates and documentation for your records
+            </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {documents.map((doc, index) => (
                 <Button
@@ -258,7 +324,9 @@ const CertificationsInsurance = () => {
                     <FileText className="h-5 w-5 text-primary" />
                     <div className="text-left">
                       <div className="font-medium">{doc.name}</div>
-                      <div className="text-xs text-muted-foreground">PDF • {doc.size}</div>
+                      <div className="text-xs text-muted-foreground">
+                        PDF • {doc.size}
+                      </div>
                     </div>
                   </div>
                   <Download className="h-4 w-4" />
@@ -269,13 +337,18 @@ const CertificationsInsurance = () => {
 
           {/* CTA Section */}
           <section className="text-center py-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Need Our Insurance Certificates?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Need Our Insurance Certificates?
+            </h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Request our complete documentation package through the Contractor Portal or contact us directly.
+              Request our complete documentation package through the Contractor
+              Portal or contact us directly.
             </p>
             <div className="flex gap-4 justify-center">
               <Button size="lg" asChild>
-                <a href="/resources/contractor-portal">Visit Contractor Portal</a>
+                <a href="/resources/contractor-portal">
+                  Visit Contractor Portal
+                </a>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <a href="/contact">Contact Us</a>

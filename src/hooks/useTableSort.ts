@@ -48,7 +48,7 @@ export const useTableSort = <T extends Record<string, any>>() => {
         return 0;
       });
     },
-    [sortConfig]
+    [sortConfig],
   );
 
   return {

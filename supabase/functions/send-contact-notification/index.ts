@@ -1,7 +1,11 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
-import { createErrorResponse, createRateLimitResponse, logSecurityError } from "../_shared/errorHandler.ts";
+import {
+  createErrorResponse,
+  createRateLimitResponse,
+  logSecurityError,
+} from "../_shared/errorHandler.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -21,9 +25,15 @@ interface ContactNotificationRequest {
 }
 
 // Input validation function
-const validateInput = (data: ContactNotificationRequest): { valid: boolean; error?: string } => {
+const validateInput = (
+  data: ContactNotificationRequest,
+): { valid: boolean; error?: string } => {
   // Name validation
-  if (!data.name || data.name.trim().length < 2 || data.name.trim().length > 100) {
+  if (
+    !data.name ||
+    data.name.trim().length < 2 ||
+    data.name.trim().length > 100
+  ) {
     return { valid: false, error: "Invalid name length" };
   }
   if (!/^[a-zA-Z\s'-]+$/.test(data.name)) {
@@ -40,7 +50,10 @@ const validateInput = (data: ContactNotificationRequest): { valid: boolean; erro
   }
 
   // Phone validation (if provided)
-  if (data.phone && (data.phone.length > 20 || !/^[0-9\s\-\(\)\+]*$/.test(data.phone))) {
+  if (
+    data.phone &&
+    (data.phone.length > 20 || !/^[0-9\s\-\(\)\+]*$/.test(data.phone))
+  ) {
     return { valid: false, error: "Invalid phone format" };
   }
 
@@ -50,7 +63,11 @@ const validateInput = (data: ContactNotificationRequest): { valid: boolean; erro
   }
 
   // Message validation
-  if (!data.message || data.message.trim().length < 10 || data.message.trim().length > 2000) {
+  if (
+    !data.message ||
+    data.message.trim().length < 10 ||
+    data.message.trim().length > 2000
+  ) {
     return { valid: false, error: "Invalid message length" };
   }
 
@@ -60,56 +77,66 @@ const validateInput = (data: ContactNotificationRequest): { valid: boolean; erro
 // Sanitize input to prevent XSS
 const sanitize = (str: string): string => {
   return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .replace(/\//g, '&#x2F;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
+    .replace(/\//g, "&#x2F;");
 };
 
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests with comprehensive headers
   if (req.method === "OPTIONS") {
-    return new Response(null, { 
+    return new Response(null, {
       status: 200,
       headers: {
         ...corsHeaders,
-        'Access-Control-Max-Age': '86400', // 24 hours
-      }
+        "Access-Control-Max-Age": "86400", // 24 hours
+      },
     });
   }
 
   try {
     const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
     );
 
     // Get client identifier for rate limiting (IP or user ID)
-    const clientIP = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+    const clientIP =
+      req.headers.get("x-forwarded-for") ||
+      req.headers.get("x-real-ip") ||
+      "unknown";
     const identifier = `contact-${clientIP}`;
 
     // Enhanced rate limiting: 5 requests per minute (reduced from 50)
-    const { data: rateLimitResult, error: rateLimitError } = await supabaseClient
-      .rpc('check_and_update_rate_limit', {
+    const { data: rateLimitResult, error: rateLimitError } =
+      await supabaseClient.rpc("check_and_update_rate_limit", {
         p_identifier: identifier,
-        p_endpoint: 'send-contact-notification',
+        p_endpoint: "send-contact-notification",
         p_limit: 5, // Reduced to 5 per minute for contact forms
-        p_window_minutes: 1
+        p_window_minutes: 1,
       });
 
     if (rateLimitError) {
-      logSecurityError('rate_limit_check', rateLimitError, { identifier });
+      logSecurityError("rate_limit_check", rateLimitError, { identifier });
       // Allow request on error to prevent blocking legitimate users
-      console.warn('Rate limit check failed, allowing request:', rateLimitError);
+      console.warn(
+        "Rate limit check failed, allowing request:",
+        rateLimitError,
+      );
     } else if (rateLimitResult && !rateLimitResult.allowed) {
-      logSecurityError('rate_limit_exceeded', new Error('Rate limit exceeded'), {
-        identifier,
-        request_count: rateLimitResult.request_count,
-        limit: rateLimitResult.limit,
-      });
-      
+      logSecurityError(
+        "rate_limit_exceeded",
+        new Error("Rate limit exceeded"),
+        {
+          identifier,
+          request_count: rateLimitResult.request_count,
+          limit: rateLimitResult.limit,
+        },
+      );
+
       return createRateLimitResponse(rateLimitResult.retry_after_seconds || 60);
     }
 
@@ -122,7 +149,7 @@ const handler = async (req: Request): Promise<Response> => {
         new Error(validation.error),
         validation.error,
         400,
-        'input_validation'
+        "input_validation",
       );
     }
 
@@ -131,7 +158,9 @@ const handler = async (req: Request): Promise<Response> => {
       name: sanitize(requestData.name.trim()),
       email: sanitize(requestData.email.trim()),
       phone: requestData.phone ? sanitize(requestData.phone.trim()) : undefined,
-      company: requestData.company ? sanitize(requestData.company.trim()) : undefined,
+      company: requestData.company
+        ? sanitize(requestData.company.trim())
+        : undefined,
       message: sanitize(requestData.message.trim()),
       submissionType: sanitize(requestData.submissionType),
     };
@@ -146,8 +175,8 @@ const handler = async (req: Request): Promise<Response> => {
         <p><strong>Type:</strong> ${submissionType}</p>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-        ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
+        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
+        ${company ? `<p><strong>Company:</strong> ${company}</p>` : ""}
         <p><strong>Message:</strong></p>
         <p>${message}</p>
         <hr>
@@ -190,9 +219,9 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     return createErrorResponse(
       error,
-      'Failed to process contact submission',
+      "Failed to process contact submission",
       500,
-      'send_contact_notification'
+      "send_contact_notification",
     );
   }
 };

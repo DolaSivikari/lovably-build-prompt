@@ -1,6 +1,6 @@
-import { ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/ui/Button';
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/ui/Button";
 
 interface AdminPageHeaderProps {
   title: string;
@@ -14,8 +14,8 @@ interface AdminPageHeaderProps {
 export const AdminPageHeader = ({
   title,
   description,
-  backTo = '/admin',
-  backLabel = 'Back to Dashboard',
+  backTo = "/admin",
+  backLabel = "Back to Dashboard",
   actions,
   loading = false,
 }: AdminPageHeaderProps) => {
@@ -35,25 +35,13 @@ export const AdminPageHeader = ({
             {backLabel}
           </Button>
         </div>
-        {actions && (
-          <div className="flex items-center gap-2">
-            {actions}
-          </div>
-        )}
+        {actions && <div className="flex items-center gap-2">{actions}</div>}
       </div>
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          {title}
-        </h1>
-        {description && (
-          <p className="text-muted-foreground">
-            {description}
-          </p>
-        )}
+        <h1 className="text-3xl font-bold text-foreground mb-2">{title}</h1>
+        {description && <p className="text-muted-foreground">{description}</p>}
         {loading && (
-          <div className="mt-2 text-sm text-muted-foreground">
-            Loading...
-          </div>
+          <div className="mt-2 text-sm text-muted-foreground">Loading...</div>
         )}
       </div>
     </div>

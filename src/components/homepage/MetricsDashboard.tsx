@@ -1,12 +1,32 @@
 import { useRef, useEffect, useState } from "react";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { Award, Shield, TrendingUp, Users, Building2, DollarSign, Hammer, CheckCircle, Zap, Star } from "lucide-react";
+import {
+  Award,
+  Shield,
+  TrendingUp,
+  Users,
+  Building2,
+  DollarSign,
+  Hammer,
+  CheckCircle,
+  Zap,
+  Star,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const iconMap: Record<string, any> = {
-  Building2, DollarSign, Hammer, Shield, Users, Award, TrendingUp, CheckCircle, Zap, Star
+  Building2,
+  DollarSign,
+  Hammer,
+  Shield,
+  Users,
+  Award,
+  TrendingUp,
+  CheckCircle,
+  Zap,
+  Star,
 };
 
 const MetricsDashboard = () => {
@@ -19,25 +39,25 @@ const MetricsDashboard = () => {
     const fetchStats = async () => {
       try {
         const { data, error } = await supabase
-          .from('stats')
-          .select('*')
-          .eq('is_active', true)
-          .order('display_order', { ascending: true });
+          .from("stats")
+          .select("*")
+          .eq("is_active", true)
+          .order("display_order", { ascending: true });
 
         if (error) throw error;
 
         const formattedMetrics = (data || []).map((stat: any) => ({
           value: stat.value,
-          suffix: stat.suffix || '',
+          suffix: stat.suffix || "",
           label: stat.label,
           icon: iconMap[stat.icon_name] || TrendingUp,
           description: stat.description || undefined,
-          skipCounter: stat.value >= 1000000000
+          skipCounter: stat.value >= 1000000000,
         }));
 
         setMetrics(formattedMetrics);
       } catch (error) {
-        console.error('Error fetching stats:', error);
+        console.error("Error fetching stats:", error);
       } finally {
         setLoading(false);
       }
@@ -47,9 +67,11 @@ const MetricsDashboard = () => {
   }, []);
 
   return (
-    <section ref={ref} className="py-20 md:py-24 bg-gradient-to-br from-navy-dark via-primary to-navy-dark">
+    <section
+      ref={ref}
+      className="py-20 md:py-24 bg-gradient-to-br from-navy-dark via-primary to-navy-dark"
+    >
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-        
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -76,10 +98,10 @@ const MetricsDashboard = () => {
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {metrics.map((metric, index) => (
-              <MetricCard 
-                key={index} 
-                metric={metric} 
-                isVisible={isVisible} 
+              <MetricCard
+                key={index}
+                metric={metric}
+                isVisible={isVisible}
                 delay={index * 100}
               />
             ))}
@@ -106,11 +128,11 @@ interface MetricCardProps {
 const MetricCard = ({ metric, isVisible, delay }: MetricCardProps) => {
   const count = useCountUp(metric.value, 2000, isVisible);
   const Icon = metric.icon;
-  
+
   // Format display text with counter or static value for large numbers
-  const displayText = metric.skipCounter 
+  const displayText = metric.skipCounter
     ? `$${(metric.value / 1000000000).toFixed(0)}B+`
-    : `${count}${metric.suffix || ''}`;
+    : `${count}${metric.suffix || ""}`;
 
   return (
     <div className="text-center">
@@ -120,17 +142,17 @@ const MetricCard = ({ metric, isVisible, delay }: MetricCardProps) => {
           <Icon className="w-8 h-8 text-steel-blue" />
         </div>
       </div>
-      
+
       {/* Metric Value */}
       <div className="text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
         {displayText}
       </div>
-      
+
       {/* Metric Label */}
       <div className="text-base md:text-lg text-white/90 font-semibold mb-2">
         {metric.label}
       </div>
-      
+
       {/* Description */}
       {metric.description && (
         <div className="text-sm text-white/70 mt-2 max-w-[200px] mx-auto leading-relaxed">

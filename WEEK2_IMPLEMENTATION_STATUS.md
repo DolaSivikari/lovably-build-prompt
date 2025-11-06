@@ -5,9 +5,11 @@
 ### Flagship Service Pages Built (2/3)
 
 #### 1. General Contracting ✅
+
 **File:** `src/pages/services/GeneralContracting.tsx`
 
 **Implemented Sections:**
+
 - ✅ PageHero with breadcrumb, stats, and CTAs
 - ✅ What We Deliver (4 outcome cards)
   - Single-Source Accountability
@@ -30,6 +32,7 @@
 - ✅ CTA Band (dual CTAs)
 
 **Hero Stats:**
+
 - 95% On-Time Delivery
 - 0 Lost-Time Incidents
 - 500+ Projects Completed
@@ -40,9 +43,11 @@
 ---
 
 #### 2. Exterior Envelope ✅
+
 **File:** `src/pages/services/ExteriorEnvelope.tsx`
 
 **Implemented Sections:**
+
 - ✅ PageHero with breadcrumb, stats, and CTAs
 - ✅ Comprehensive Envelope Solutions (4 outcome cards)
   - Waterproofing Excellence
@@ -67,6 +72,7 @@
 - ✅ CTA Band (dual CTAs)
 
 **Hero Stats:**
+
 - 25+ Years Experience
 - 100% Warranty Coverage
 - 300+ Envelope Projects
@@ -79,9 +85,11 @@
 ### ❌ Not Yet Completed
 
 #### 3. Construction Management (Pending)
+
 **File:** `src/pages/services/ConstructionManagement.tsx` (needs rebuild)
 
 **Required Sections:**
+
 - PageHero with CM-specific stats
 - What We Deliver (CM value propositions)
 - How We Work (CM methodology)
@@ -90,6 +98,7 @@
 - CTA Band
 
 **Hero Stats (Proposed):**
+
 - 98% Budget Accuracy
 - 0 Cost Overruns
 - 200+ CM Projects
@@ -100,6 +109,7 @@
 ## 📊 Implementation Quality
 
 ### PageHero Component Usage
+
 - ✅ Breadcrumb navigation (SEO + UX)
 - ✅ Custom hero stats per service
 - ✅ Relevant background images
@@ -107,6 +117,7 @@
 - ✅ Responsive design (520-640px desktop, 380px mobile)
 
 ### Content Structure
+
 - ✅ Outcome-focused (not feature lists)
 - ✅ 3-phase process pattern (Pre-con, Execution, Closeout)
 - ✅ Self-perform messaging consistent
@@ -114,6 +125,7 @@
 - ✅ Clear CTAs on every section
 
 ### SEO Implementation
+
 - ✅ Meta titles with keywords
 - ✅ Meta descriptions (155-160 chars)
 - ✅ H1 matches page intent
@@ -121,6 +133,7 @@
 - ❌ FAQ schema (deferred to Phase 2)
 
 ### Accessibility
+
 - ✅ Breadcrumb ARIA labels
 - ✅ Icon alt text
 - ✅ Focus states preserved
@@ -130,24 +143,26 @@
 
 ## 🎯 Week 2-3 Completion Status
 
-| Task | Status | Time Spent |
-|------|--------|-----------|
-| General Contracting Page | ✅ Complete | 3.5 hours |
-| Exterior Envelope Page | ✅ Complete | 3.5 hours |
-| Construction Management Page | ❌ Pending | 0 hours |
-| **Total Progress** | **66%** | **7/10.5 hours** |
+| Task                         | Status      | Time Spent       |
+| ---------------------------- | ----------- | ---------------- |
+| General Contracting Page     | ✅ Complete | 3.5 hours        |
+| Exterior Envelope Page       | ✅ Complete | 3.5 hours        |
+| Construction Management Page | ❌ Pending  | 0 hours          |
+| **Total Progress**           | **66%**     | **7/10.5 hours** |
 
 ---
 
 ## 📝 Copy Quality Assessment
 
 ### General Contracting
+
 - **Tone:** Professional, outcome-focused, GC-appropriate
 - **Value Prop:** Single-source accountability, budget certainty, risk management
 - **Differentiation:** Self-perform advantage clearly articulated
 - **CTAs:** "Request Proposal" (primary), "Talk to a PM" (secondary)
 
 ### Exterior Envelope
+
 - **Tone:** Technical expertise, performance-driven
 - **Value Prop:** Durable systems, energy efficiency, warranty confidence
 - **Differentiation:** Self-perform envelope crews, certified technicians
@@ -158,12 +173,14 @@
 ## 🚀 Next Steps
 
 ### Immediate (To Complete Week 2-3)
+
 1. ✅ Build Construction Management service page
 2. ✅ Add hero background image (CM project site)
 3. ✅ Write CM-specific content (budget control, schedule management, value engineering)
 4. ✅ Add 3 CM case studies
 
 ### Week 4+ (Remaining Service Pages)
+
 - Design-Build
 - EIFS/Stucco
 - Masonry Restoration
@@ -180,16 +197,19 @@
 ## 🔍 Technical Notes
 
 ### Background Images
+
 - Using Unsplash CDN for hero backgrounds
 - All images optimized (w=1920, q=80)
 - Fallback gradient overlays for text contrast
 
 ### Component Reusability
+
 - PageHero compound component used consistently
 - Card components from shadcn/ui
 - Icon library: Lucide React
 
 ### Database Integration
+
 - Service pages are static (not pulling from `services` table)
 - Could be converted to dynamic pages fetching from DB
 - Current approach: faster initial implementation, easier content control
@@ -199,6 +219,7 @@
 ## ✅ Definition of Done (Week 2-3)
 
 **Partially Met (66%):**
+
 - ✅ 2/3 flagship pages built with full content
 - ✅ PageHero component successfully integrated
 - ✅ All required sections implemented
@@ -207,12 +228,13 @@
 - ❌ 3rd flagship page (CM) pending
 
 **Ready to Deploy:**
+
 - General Contracting: YES
 - Exterior Envelope: YES
 - Construction Management: NO (not built)
 
 ---
 
-*Last Updated: 2025-01-XX*  
-*Status: 66% Complete (2/3 flagship pages)*  
-*Estimated Time to Complete: 3.5 hours (CM page)*
+_Last Updated: 2025-01-XX_  
+_Status: 66% Complete (2/3 flagship pages)_  
+_Estimated Time to Complete: 3.5 hours (CM page)_

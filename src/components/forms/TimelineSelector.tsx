@@ -1,5 +1,9 @@
 import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { CalendarIcon, Clock } from "lucide-react";
@@ -23,12 +27,27 @@ export const TimelineSelector = ({
   onTargetDateChange,
   urgency = "standard",
   onUrgencyChange,
-  className
+  className,
 }: TimelineSelectorProps) => {
   const urgencyOptions = [
-    { value: "urgent", label: "Urgent", color: "destructive", desc: "< 2 weeks" },
-    { value: "standard", label: "Standard", color: "primary", desc: "2-8 weeks" },
-    { value: "flexible", label: "Flexible", color: "secondary", desc: "> 8 weeks" }
+    {
+      value: "urgent",
+      label: "Urgent",
+      color: "destructive",
+      desc: "< 2 weeks",
+    },
+    {
+      value: "standard",
+      label: "Standard",
+      color: "primary",
+      desc: "2-8 weeks",
+    },
+    {
+      value: "flexible",
+      label: "Flexible",
+      color: "secondary",
+      desc: "> 8 weeks",
+    },
   ] as const;
 
   return (
@@ -50,11 +69,13 @@ export const TimelineSelector = ({
                   "p-4 rounded-xl border-2 transition-all text-center",
                   urgency === option.value
                     ? "border-primary bg-primary/10 shadow-lg scale-105"
-                    : "border-border hover:border-primary/30 hover:bg-muted/50"
+                    : "border-border hover:border-primary/30 hover:bg-muted/50",
                 )}
               >
                 <div className="font-semibold mb-1">{option.label}</div>
-                <div className="text-xs text-muted-foreground">{option.desc}</div>
+                <div className="text-xs text-muted-foreground">
+                  {option.desc}
+                </div>
               </button>
             ))}
           </div>
@@ -72,7 +93,7 @@ export const TimelineSelector = ({
                 variant="outline"
                 className={cn(
                   "w-full justify-start text-left font-normal h-14",
-                  !startDate && "text-muted-foreground"
+                  !startDate && "text-muted-foreground",
                 )}
               >
                 <CalendarIcon className="mr-2 h-5 w-5" />
@@ -101,7 +122,7 @@ export const TimelineSelector = ({
                 variant="outline"
                 className={cn(
                   "w-full justify-start text-left font-normal h-14",
-                  !targetDate && "text-muted-foreground"
+                  !targetDate && "text-muted-foreground",
                 )}
               >
                 <CalendarIcon className="mr-2 h-5 w-5" />
@@ -133,7 +154,11 @@ export const TimelineSelector = ({
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">Project Duration</span>
             <span className="text-lg font-bold text-primary">
-              {Math.ceil((targetDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))} days
+              {Math.ceil(
+                (targetDate.getTime() - startDate.getTime()) /
+                  (1000 * 60 * 60 * 24),
+              )}{" "}
+              days
             </span>
           </div>
         </div>

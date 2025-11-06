@@ -30,7 +30,7 @@ const ProcessTimelineStep = ({
     <div className="relative pl-8 pb-8 border-l-2 border-primary/20 last:border-transparent last:pb-0">
       {/* Timeline dot */}
       <div className="absolute -left-[13px] top-0 h-6 w-6 rounded-full bg-primary border-4 border-background shadow-lg" />
-      
+
       <Card className="hover:shadow-lg transition-shadow">
         <CardContent className="pt-6">
           {/* Header */}
@@ -52,7 +52,9 @@ const ProcessTimelineStep = ({
           </div>
 
           {/* Description */}
-          <p className="text-muted-foreground mb-4 leading-relaxed">{description}</p>
+          <p className="text-muted-foreground mb-4 leading-relaxed">
+            {description}
+          </p>
 
           {/* Image */}
           {image && (
@@ -78,7 +80,9 @@ const ProcessTimelineStep = ({
                 <span className="font-medium">
                   {isExpanded ? "Show Less" : "Show More Details"}
                 </span>
-                <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                />
               </Button>
 
               {isExpanded && (
@@ -91,7 +95,10 @@ const ProcessTimelineStep = ({
                       </h4>
                       <ul className="space-y-2">
                         {details.map((detail, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-muted-foreground">
+                          <li
+                            key={idx}
+                            className="flex items-start gap-3 text-muted-foreground"
+                          >
                             <span className="text-primary mt-1">•</span>
                             <span>{detail}</span>
                           </li>
@@ -108,9 +115,9 @@ const ProcessTimelineStep = ({
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {deliverables.map((item, idx) => (
-                  <Badge key={idx} variant="success" size="sm">
-                    {item}
-                  </Badge>
+                          <Badge key={idx} variant="success" size="sm">
+                            {item}
+                          </Badge>
                         ))}
                       </div>
                     </div>

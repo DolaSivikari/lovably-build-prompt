@@ -24,12 +24,12 @@ const initialFilters: TableFilters = {
 export const useTableFilters = () => {
   const [filters, setFilters] = useState<TableFilters>(initialFilters);
 
-  const updateFilter = useCallback(<K extends keyof TableFilters>(
-    key: K,
-    value: TableFilters[K]
-  ) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateFilter = useCallback(
+    <K extends keyof TableFilters>(key: K, value: TableFilters[K]) => {
+      setFilters((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const updateCustomFilter = useCallback((key: string, value: any) => {
     setFilters((prev) => ({
@@ -50,54 +50,63 @@ export const useTableFilters = () => {
       filters.status.length > 0 ||
       filters.tags.length > 0 ||
       Object.keys(filters.customFilters).some(
-        (key) => filters.customFilters[key] !== undefined && filters.customFilters[key] !== ""
+        (key) =>
+          filters.customFilters[key] !== undefined &&
+          filters.customFilters[key] !== "",
       )
     );
   }, [filters]);
 
   // Filter function that can be used with array.filter()
-  const applyFilters = useCallback(<T extends Record<string, any>>(
-    data: T[],
-    searchFields: (keyof T)[],
-    dateField?: keyof T,
-    statusField?: keyof T,
-    tagsField?: keyof T
-  ): T[] => {
-    return data.filter((item) => {
-      // Search filter
-      if (filters.search) {
-        const searchLower = filters.search.toLowerCase();
-        const matchesSearch = searchFields.some((field) => {
-          const value = item[field];
-          return value && String(value).toLowerCase().includes(searchLower);
-        });
-        if (!matchesSearch) return false;
-      }
+  const applyFilters = useCallback(
+    <T extends Record<string, any>>(
+      data: T[],
+      searchFields: (keyof T)[],
+      dateField?: keyof T,
+      statusField?: keyof T,
+      tagsField?: keyof T,
+    ): T[] => {
+      return data.filter((item) => {
+        // Search filter
+        if (filters.search) {
+          const searchLower = filters.search.toLowerCase();
+          const matchesSearch = searchFields.some((field) => {
+            const value = item[field];
+            return value && String(value).toLowerCase().includes(searchLower);
+          });
+          if (!matchesSearch) return false;
+        }
 
-      // Date range filter
-      if (dateField && (filters.dateRange.from || filters.dateRange.to)) {
-        const itemDate = new Date(item[dateField] as string);
-        if (filters.dateRange.from && itemDate < filters.dateRange.from) return false;
-        if (filters.dateRange.to && itemDate > filters.dateRange.to) return false;
-      }
+        // Date range filter
+        if (dateField && (filters.dateRange.from || filters.dateRange.to)) {
+          const itemDate = new Date(item[dateField] as string);
+          if (filters.dateRange.from && itemDate < filters.dateRange.from)
+            return false;
+          if (filters.dateRange.to && itemDate > filters.dateRange.to)
+            return false;
+        }
 
-      // Status filter
-      if (statusField && filters.status.length > 0) {
-        const itemStatus = item[statusField];
-        if (!filters.status.includes(String(itemStatus))) return false;
-      }
+        // Status filter
+        if (statusField && filters.status.length > 0) {
+          const itemStatus = item[statusField];
+          if (!filters.status.includes(String(itemStatus))) return false;
+        }
 
-      // Tags filter
-      if (tagsField && filters.tags.length > 0) {
-        const itemTags = item[tagsField];
-        if (!Array.isArray(itemTags)) return false;
-        const hasMatchingTag = filters.tags.some((tag) => itemTags.includes(tag));
-        if (!hasMatchingTag) return false;
-      }
+        // Tags filter
+        if (tagsField && filters.tags.length > 0) {
+          const itemTags = item[tagsField];
+          if (!Array.isArray(itemTags)) return false;
+          const hasMatchingTag = filters.tags.some((tag) =>
+            itemTags.includes(tag),
+          );
+          if (!hasMatchingTag) return false;
+        }
 
-      return true;
-    });
-  }, [filters]);
+        return true;
+      });
+    },
+    [filters],
+  );
 
   return {
     filters,

@@ -31,13 +31,13 @@ export const LineItemEditor = ({ items, onChange }: LineItemEditorProps) => {
   const updateItem = (index: number, field: keyof LineItem, value: any) => {
     const newItems = [...items];
     newItems[index] = { ...newItems[index], [field]: value };
-    
+
     // Recalculate line total
-    if (field === 'quantity' || field === 'unit_price_cents') {
-      newItems[index].line_total_cents = 
+    if (field === "quantity" || field === "unit_price_cents") {
+      newItems[index].line_total_cents =
         newItems[index].quantity * newItems[index].unit_price_cents;
     }
-    
+
     onChange(newItems);
   };
 
@@ -66,7 +66,9 @@ export const LineItemEditor = ({ items, onChange }: LineItemEditorProps) => {
               min="0"
               step="0.01"
               value={item.quantity}
-              onChange={(e) => updateItem(index, "quantity", parseFloat(e.target.value) || 0)}
+              onChange={(e) =>
+                updateItem(index, "quantity", parseFloat(e.target.value) || 0)
+              }
             />
           </div>
           <div className="col-span-2">

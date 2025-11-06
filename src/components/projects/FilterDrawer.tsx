@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -18,11 +24,21 @@ interface FilterDrawerProps {
   onClose?: () => void;
 }
 
-export const FilterDrawer = ({ filters, onFiltersChange, onClose }: FilterDrawerProps) => {
+export const FilterDrawer = ({
+  filters,
+  onFiltersChange,
+  onClose,
+}: FilterDrawerProps) => {
   const [presets, setPresets] = useState<FilterPreset[]>([
-    { name: "High Value Projects", filters: { minValue: 1000000, onBudget: true } },
+    {
+      name: "High Value Projects",
+      filters: { minValue: 1000000, onBudget: true },
+    },
     { name: "Recent Completions", filters: { year: "2024", onTime: true } },
-    { name: "Commercial Only", filters: { category: "Commercial", clientType: "Commercial" } }
+    {
+      name: "Commercial Only",
+      filters: { category: "Commercial", clientType: "Commercial" },
+    },
   ]);
   const [presetName, setPresetName] = useState("");
   const [showPresetInput, setShowPresetInput] = useState(false);
@@ -55,8 +71,8 @@ export const FilterDrawer = ({ filters, onFiltersChange, onClose }: FilterDrawer
         <SheetHeader>
           <SheetTitle className="flex items-center justify-between">
             <span>Filter Projects</span>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={() => {
                 onFiltersChange({});
@@ -81,7 +97,7 @@ export const FilterDrawer = ({ filters, onFiltersChange, onClose }: FilterDrawer
                 <Save className="w-4 h-4" />
               </Button>
             </div>
-            
+
             {showPresetInput && (
               <div className="flex gap-2 animate-fade-in">
                 <input
@@ -126,7 +142,9 @@ export const FilterDrawer = ({ filters, onFiltersChange, onClose }: FilterDrawer
             <Label className="font-semibold">Budget Range</Label>
             <Slider
               value={[filters.minValue || 0]}
-              onValueChange={([value]) => onFiltersChange({ ...filters, minValue: value })}
+              onValueChange={([value]) =>
+                onFiltersChange({ ...filters, minValue: value })
+              }
               min={0}
               max={10000000}
               step={100000}
@@ -145,14 +163,18 @@ export const FilterDrawer = ({ filters, onFiltersChange, onClose }: FilterDrawer
             <Label className="font-semibold">Completion Year</Label>
             <Slider
               value={[filters.minYear || 2020]}
-              onValueChange={([value]) => onFiltersChange({ ...filters, minYear: value })}
+              onValueChange={([value]) =>
+                onFiltersChange({ ...filters, minYear: value })
+              }
               min={2020}
               max={2024}
               step={1}
             />
             <div className="flex justify-between text-sm text-muted-foreground">
               <span>2020</span>
-              <span className="font-medium text-primary">{filters.minYear || 2020}+</span>
+              <span className="font-medium text-primary">
+                {filters.minYear || 2020}+
+              </span>
               <span>2024</span>
             </div>
           </div>
@@ -164,7 +186,7 @@ export const FilterDrawer = ({ filters, onFiltersChange, onClose }: FilterDrawer
               {[
                 { key: "onTime", label: "Completed On Time" },
                 { key: "onBudget", label: "Completed On Budget" },
-                { key: "zeroIncidents", label: "Zero Safety Incidents" }
+                { key: "zeroIncidents", label: "Zero Safety Incidents" },
               ].map(({ key, label }) => (
                 <div key={key} className="flex items-center space-x-2">
                   <Checkbox

@@ -22,7 +22,7 @@ const KNOWN_ROUTES = [
   "/markets/institutional",
   "/markets/industrial",
   "/projects",
-  
+
   "/blog",
   "/blog/:slug",
   "/contact",
@@ -61,11 +61,11 @@ interface AppLinkProps extends Omit<LinkProps, "to"> {
 export const AppLink = ({ to, children, ...props }: AppLinkProps) => {
   // Validate internal links in development
   if (process.env.NODE_ENV === "development" && to.startsWith("/")) {
-    const isKnown = KNOWN_ROUTES.some(route => {
+    const isKnown = KNOWN_ROUTES.some((route) => {
       const pattern = route.replace(/:[\w]+/g, "[^/]+");
       return new RegExp(`^${pattern}$`).test(to);
     });
-    
+
     if (!isKnown) {
       console.warn(`[AppLink] Unknown route: ${to}`);
     }

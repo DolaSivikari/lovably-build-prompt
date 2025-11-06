@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Plus, Trash2, GripVertical } from 'lucide-react';
-import { Button } from '@/ui/Button';
-import { Input } from '@/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/ui/Textarea';
-import { Card } from '@/components/ui/card';
-import { ImageUploadField } from './ImageUploadField';
+import { useState } from "react";
+import { Plus, Trash2, GripVertical } from "lucide-react";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/ui/Textarea";
+import { Card } from "@/components/ui/card";
+import { ImageUploadField } from "./ImageUploadField";
 import {
   DndContext,
   closestCenter,
@@ -14,15 +14,15 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 export interface ProcessStep {
   type: string;
@@ -50,13 +50,8 @@ const SortableStepCard = ({
   onUpdate: (index: number, field: keyof ProcessStep, value: any) => void;
   onDelete: (index: number) => void;
 }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({ id: `step-${index}` });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: `step-${index}` });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -94,7 +89,7 @@ const SortableStepCard = ({
               <Input
                 id={`step-title-${index}`}
                 value={step.title}
-                onChange={(e) => onUpdate(index, 'title', e.target.value)}
+                onChange={(e) => onUpdate(index, "title", e.target.value)}
                 placeholder="e.g., Surface Preparation"
                 required
               />
@@ -106,7 +101,7 @@ const SortableStepCard = ({
             <Textarea
               id={`step-desc-${index}`}
               value={step.description}
-              onChange={(e) => onUpdate(index, 'description', e.target.value)}
+              onChange={(e) => onUpdate(index, "description", e.target.value)}
               placeholder="Explain what was done in this step..."
               rows={4}
               required
@@ -118,8 +113,8 @@ const SortableStepCard = ({
               <Label htmlFor={`step-duration-${index}`}>Duration</Label>
               <Input
                 id={`step-duration-${index}`}
-                value={step.duration || ''}
-                onChange={(e) => onUpdate(index, 'duration', e.target.value)}
+                value={step.duration || ""}
+                onChange={(e) => onUpdate(index, "duration", e.target.value)}
                 placeholder="e.g., 2 days"
               />
             </div>
@@ -127,8 +122,8 @@ const SortableStepCard = ({
               <Label htmlFor={`step-alt-${index}`}>Image Alt Text</Label>
               <Input
                 id={`step-alt-${index}`}
-                value={step.image_alt || ''}
-                onChange={(e) => onUpdate(index, 'image_alt', e.target.value)}
+                value={step.image_alt || ""}
+                onChange={(e) => onUpdate(index, "image_alt", e.target.value)}
                 placeholder="Describe the step image"
               />
             </div>
@@ -136,7 +131,7 @@ const SortableStepCard = ({
 
           <ImageUploadField
             value={step.image_url}
-            onChange={(url) => onUpdate(index, 'image_url', url)}
+            onChange={(url) => onUpdate(index, "image_url", url)}
             bucket="project-images"
             label="Step Image (optional)"
           />
@@ -146,23 +141,26 @@ const SortableStepCard = ({
   );
 };
 
-export const ProcessStepsEditor = ({ steps, onChange }: ProcessStepsEditorProps) => {
+export const ProcessStepsEditor = ({
+  steps,
+  onChange,
+}: ProcessStepsEditorProps) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   const addStep = () => {
     const newStep: ProcessStep = {
-      type: 'process_step',
+      type: "process_step",
       step_number: steps.length + 1,
-      title: '',
-      description: '',
-      image_url: '',
-      image_alt: '',
-      duration: '',
+      title: "",
+      description: "",
+      image_url: "",
+      image_alt: "",
+      duration: "",
     };
 
     onChange([...steps, newStep]);
@@ -170,7 +168,7 @@ export const ProcessStepsEditor = ({ steps, onChange }: ProcessStepsEditorProps)
 
   const updateStep = (index: number, field: keyof ProcessStep, value: any) => {
     const updated = steps.map((step, i) =>
-      i === index ? { ...step, [field]: value } : step
+      i === index ? { ...step, [field]: value } : step,
     );
     onChange(updated);
   };
@@ -186,8 +184,8 @@ export const ProcessStepsEditor = ({ steps, onChange }: ProcessStepsEditorProps)
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      const oldIndex = parseInt(active.id.toString().replace('step-', ''));
-      const newIndex = parseInt(over.id.toString().replace('step-', ''));
+      const oldIndex = parseInt(active.id.toString().replace("step-", ""));
+      const newIndex = parseInt(over.id.toString().replace("step-", ""));
 
       const reordered = arrayMove(steps, oldIndex, newIndex).map((step, i) => ({
         ...step,
@@ -204,7 +202,8 @@ export const ProcessStepsEditor = ({ steps, onChange }: ProcessStepsEditorProps)
         <div>
           <Label className="text-lg font-semibold">Process Steps</Label>
           <p className="text-sm text-muted-foreground mt-1">
-            Document each major step with a description and photo. Drag to reorder.
+            Document each major step with a description and photo. Drag to
+            reorder.
           </p>
         </div>
         <Button type="button" onClick={addStep} size="sm">
@@ -215,7 +214,9 @@ export const ProcessStepsEditor = ({ steps, onChange }: ProcessStepsEditorProps)
 
       {steps.length === 0 ? (
         <Card className="p-12 text-center">
-          <p className="text-muted-foreground mb-4">No process steps added yet</p>
+          <p className="text-muted-foreground mb-4">
+            No process steps added yet
+          </p>
           <Button type="button" onClick={addStep} variant="outline">
             <Plus className="w-4 h-4 mr-2" />
             Add First Step

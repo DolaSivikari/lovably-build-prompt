@@ -48,11 +48,15 @@ export const SearchBar = ({
 
       {/* Quick Filters */}
       <div className="flex items-center justify-center gap-2 flex-wrap">
-        <span className="text-sm text-muted-foreground mr-2">Quick Filters:</span>
+        <span className="text-sm text-muted-foreground mr-2">
+          Quick Filters:
+        </span>
         {filterOptions.map((filter) => (
           <Badge
             key={filter.value}
-            variant={activeFilters.includes(filter.value) ? "default" : "outline"}
+            variant={
+              activeFilters.includes(filter.value) ? "default" : "outline"
+            }
             className="cursor-pointer px-4 py-1.5 hover:bg-primary hover:text-primary-foreground transition-colors"
             onClick={() => onFilterToggle(filter.value)}
           >

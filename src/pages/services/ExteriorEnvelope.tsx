@@ -1,28 +1,39 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import SEO from '@/components/SEO';
-import { Button } from '@/ui/Button';
-import { PageHero } from '@/components/sections/PageHero';
-import { ServiceTabs } from '@/components/services/ServiceTabs';
-import { buildingEnvelopeVariants } from '@/data/merged-services-data';
-import { createServiceSchema } from '@/utils/schema-injector';
-import { breadcrumbSchema } from '@/utils/structured-data';
-import heroImage from '@/assets/hero-building-envelope.jpg';
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
+import { Button } from "@/ui/Button";
+import { PageHero } from "@/components/sections/PageHero";
+import { ServiceTabs } from "@/components/services/ServiceTabs";
+import { buildingEnvelopeVariants } from "@/data/merged-services-data";
+import { createServiceSchema } from "@/utils/schema-injector";
+import { breadcrumbSchema } from "@/utils/structured-data";
+import heroImage from "@/assets/hero-building-envelope.jpg";
 
 const ExteriorEnvelope = () => {
   const serviceSchema = createServiceSchema({
-    serviceType: 'Exterior Envelope Systems',
-    areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
-    priceRange: '$$-$$$',
-    subServices: ['Stucco & EIFS', 'Sealants & Caulking']
+    serviceType: "Exterior Envelope Systems",
+    areaServed: [
+      "Toronto",
+      "Mississauga",
+      "Brampton",
+      "Vaughan",
+      "Markham",
+      "Hamilton",
+      "Burlington",
+    ],
+    priceRange: "$$-$$$",
+    subServices: ["Stucco & EIFS", "Sealants & Caulking"],
   });
 
   const breadcrumbSchemaData = breadcrumbSchema([
-    { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
-    { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Exterior Envelope Systems', url: 'https://ascentgroupconstruction.com/services/exterior-envelope' }
+    { name: "Home", url: "https://ascentgroupconstruction.com/" },
+    { name: "Services", url: "https://ascentgroupconstruction.com/services" },
+    {
+      name: "Exterior Envelope Systems",
+      url: "https://ascentgroupconstruction.com/services/exterior-envelope",
+    },
   ]);
 
   return (
@@ -36,23 +47,28 @@ const ExteriorEnvelope = () => {
       <Navigation />
 
       <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
-          { label: "Home", href: "/" },
-          { label: "Services", href: "/services" },
-          { label: "Exterior Envelope" }
-        ]} />
+        <PageHero.Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Services", href: "/services" },
+            { label: "Exterior Envelope" },
+          ]}
+        />
         <PageHero.Title>Exterior Envelope Systems</PageHero.Title>
         <PageHero.Subtitle>
-          Complete building protection through expert stucco, EIFS, and sealant solutions.
+          Complete building protection through expert stucco, EIFS, and sealant
+          solutions.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "500+", label: "Buildings Protected" },
-          { value: "98%", label: "Warranty Coverage" },
-          { value: "15+", label: "Years Experience" },
-          { value: "$2B+", label: "Protected Value" }
-        ]} />
-        <PageHero.CTAs 
-          primaryText="Request Proposal" 
+        <PageHero.Stats
+          stats={[
+            { value: "500+", label: "Buildings Protected" },
+            { value: "98%", label: "Warranty Coverage" },
+            { value: "15+", label: "Years Experience" },
+            { value: "$2B+", label: "Protected Value" },
+          ]}
+        />
+        <PageHero.CTAs
+          primaryText="Request Proposal"
           primaryHref="/contact"
           secondaryText="View Projects"
           secondaryHref="/projects"
@@ -68,8 +84,9 @@ const ExteriorEnvelope = () => {
               Complete Exterior Envelope Protection
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              From stucco and EIFS installation to comprehensive sealant services, we protect your building 
-              from water infiltration, air leakage, and the elements while enhancing curb appeal.
+              From stucco and EIFS installation to comprehensive sealant
+              services, we protect your building from water infiltration, air
+              leakage, and the elements while enhancing curb appeal.
             </p>
           </div>
 
@@ -90,9 +107,7 @@ const ExteriorEnvelope = () => {
                 </Link>
               </Button>
               <Button size="lg" variant="secondary" asChild>
-                <Link to="/projects">
-                  View Projects
-                </Link>
+                <Link to="/projects">View Projects</Link>
               </Button>
             </div>
           </div>

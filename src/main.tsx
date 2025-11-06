@@ -12,7 +12,7 @@ import { initErrorLogging } from "./utils/errorLogger";
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>
     <App />
-  </HelmetProvider>
+  </HelmetProvider>,
 );
 
 // Initialize Web Vitals tracking
@@ -22,25 +22,31 @@ reportWebVitals();
 initErrorLogging();
 
 // Register service worker for offline support
-if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => {
+if ("serviceWorker" in navigator && import.meta.env.PROD) {
+  window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register('/service-worker.js')
+      .register("/service-worker.js")
       .then((registration) => {
-        console.log('[Service Worker] Registered successfully:', registration.scope);
-        
+        console.log(
+          "[Service Worker] Registered successfully:",
+          registration.scope,
+        );
+
         // Check for updates
-        registration.addEventListener('updatefound', () => {
+        registration.addEventListener("updatefound", () => {
           const newWorker = registration.installing;
           if (newWorker) {
-            newWorker.addEventListener('statechange', () => {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            newWorker.addEventListener("statechange", () => {
+              if (
+                newWorker.state === "installed" &&
+                navigator.serviceWorker.controller
+              ) {
                 // New service worker available, send skip waiting message
-                newWorker.postMessage({ type: 'SKIP_WAITING' });
-                
+                newWorker.postMessage({ type: "SKIP_WAITING" });
+
                 // Reload page after a short delay
                 setTimeout(() => {
-                  console.log('[Service Worker] Reloading for update...');
+                  console.log("[Service Worker] Reloading for update...");
                   window.location.reload();
                 }, 100);
               }
@@ -49,7 +55,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
         });
       })
       .catch((error) => {
-        console.error('[Service Worker] Registration failed:', error);
+        console.error("[Service Worker] Registration failed:", error);
       });
   });
 }

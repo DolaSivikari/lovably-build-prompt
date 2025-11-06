@@ -14,9 +14,16 @@ interface MetricCardProps {
   onClick?: () => void;
 }
 
-const MetricCard = ({ title, value, icon: Icon, trend, badge, onClick }: MetricCardProps) => {
+const MetricCard = ({
+  title,
+  value,
+  icon: Icon,
+  trend,
+  badge,
+  onClick,
+}: MetricCardProps) => {
   return (
-    <Card 
+    <Card
       className="hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-card border-border group"
       onClick={onClick}
     >
@@ -31,10 +38,12 @@ const MetricCard = ({ title, value, icon: Icon, trend, badge, onClick }: MetricC
           <div>
             <div className="text-3xl font-bold text-foreground">{value}</div>
             {trend && (
-              <p className={`text-xs mt-1 flex items-center gap-1 ${
-                trend.isPositive ? 'text-green-600' : 'text-red-600'
-              }`}>
-                <span>{trend.isPositive ? '↗' : '↘'}</span>
+              <p
+                className={`text-xs mt-1 flex items-center gap-1 ${
+                  trend.isPositive ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                <span>{trend.isPositive ? "↗" : "↘"}</span>
                 {trend.value}
               </p>
             )}

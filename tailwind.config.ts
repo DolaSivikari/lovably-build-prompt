@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -14,8 +19,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
+        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       colors: {
         // Construction theme colors
@@ -110,9 +115,9 @@ export default {
         },
         // Sustainability accent colors (use sparingly in eco-related sections only)
         sustainability: {
-          light: "hsl(80 25% 70%)",  // Sage green
+          light: "hsl(80 25% 70%)", // Sage green
           DEFAULT: "hsl(80 47% 40%)", // Olive drab
-          dark: "hsl(80 43% 27%)",    // Dark olive
+          dark: "hsl(80 43% 27%)", // Dark olive
         },
       },
       borderRadius: {
@@ -131,7 +136,10 @@ export default {
           to: { height: "var(--radix-accordion-content-height)", opacity: "1" },
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)", opacity: "1" },
+          from: {
+            height: "var(--radix-accordion-content-height)",
+            opacity: "1",
+          },
           to: { height: "0", opacity: "0" },
         },
         "fade-in": {
@@ -179,8 +187,14 @@ export default {
           "100%": { transform: "rotate(360deg)" },
         },
         "pulse-glow": {
-          "0%, 100%": { opacity: "1", boxShadow: "0 0 20px hsl(var(--secondary) / 0.4)" },
-          "50%": { opacity: "0.8", boxShadow: "0 0 40px hsl(var(--secondary) / 0.6)" },
+          "0%, 100%": {
+            opacity: "1",
+            boxShadow: "0 0 20px hsl(var(--secondary) / 0.4)",
+          },
+          "50%": {
+            opacity: "0.8",
+            boxShadow: "0 0 40px hsl(var(--secondary) / 0.6)",
+          },
         },
         "zoom-rotate": {
           "0%": { transform: "scale(1) rotate(0deg)" },

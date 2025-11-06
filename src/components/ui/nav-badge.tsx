@@ -16,9 +16,9 @@ export const NavBadge = ({ variant, className }: NavBadgeProps) => {
   const config = variantMap[variant];
 
   return (
-    <Badge 
-      variant={config.variant} 
-      size="xs" 
+    <Badge
+      variant={config.variant}
+      size="xs"
       icon={config.icon}
       className={className}
     >

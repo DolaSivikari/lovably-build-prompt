@@ -26,13 +26,20 @@ const EstimatorStep3 = ({ data, sqft, onChange }: Step3Props) => {
   return (
     <div className="space-y-6">
       <div>
-        <Label className="text-lg font-semibold mb-3 block">Add-Ons & Services</Label>
-        <p className="text-muted-foreground mb-4">Select any additional services you need</p>
+        <Label className="text-lg font-semibold mb-3 block">
+          Add-Ons & Services
+        </Label>
+        <p className="text-muted-foreground mb-4">
+          Select any additional services you need
+        </p>
       </div>
 
       {needsScaffolding && (
         <div>
-          <Label htmlFor="scaffolding" className="text-base font-medium mb-2 block">
+          <Label
+            htmlFor="scaffolding"
+            className="text-base font-medium mb-2 block"
+          >
             Scaffolding Required
           </Label>
           <Select
@@ -59,7 +66,9 @@ const EstimatorStep3 = ({ data, sqft, onChange }: Step3Props) => {
           <Checkbox
             id="colorConsultation"
             checked={data.colorConsultation}
-            onCheckedChange={(checked) => onChange("colorConsultation", checked)}
+            onCheckedChange={(checked) =>
+              onChange("colorConsultation", checked)
+            }
           />
           <div className="flex-1">
             <Label
@@ -69,7 +78,8 @@ const EstimatorStep3 = ({ data, sqft, onChange }: Step3Props) => {
               Color Consultation
             </Label>
             <p className="text-sm text-muted-foreground">
-              Professional color selection guidance (Free with full job, $0-$150 standalone)
+              Professional color selection guidance (Free with full job, $0-$150
+              standalone)
             </p>
           </div>
         </div>
@@ -81,7 +91,10 @@ const EstimatorStep3 = ({ data, sqft, onChange }: Step3Props) => {
             onCheckedChange={(checked) => onChange("rushScheduling", checked)}
           />
           <div className="flex-1">
-            <Label htmlFor="rushScheduling" className="text-base font-medium cursor-pointer">
+            <Label
+              htmlFor="rushScheduling"
+              className="text-base font-medium cursor-pointer"
+            >
               Rush Scheduling
             </Label>
             <p className="text-sm text-muted-foreground">
@@ -94,10 +107,15 @@ const EstimatorStep3 = ({ data, sqft, onChange }: Step3Props) => {
           <Checkbox
             id="warrantyExtension"
             checked={data.warrantyExtension}
-            onCheckedChange={(checked) => onChange("warrantyExtension", checked)}
+            onCheckedChange={(checked) =>
+              onChange("warrantyExtension", checked)
+            }
           />
           <div className="flex-1">
-            <Label htmlFor="warrantyExtension" className="text-base font-medium cursor-pointer">
+            <Label
+              htmlFor="warrantyExtension"
+              className="text-base font-medium cursor-pointer"
+            >
               Extended Warranty
             </Label>
             <p className="text-sm text-muted-foreground">
@@ -113,7 +131,10 @@ const EstimatorStep3 = ({ data, sqft, onChange }: Step3Props) => {
             onCheckedChange={(checked) => onChange("siteCleanup", checked)}
           />
           <div className="flex-1">
-            <Label htmlFor="siteCleanup" className="text-base font-medium cursor-pointer">
+            <Label
+              htmlFor="siteCleanup"
+              className="text-base font-medium cursor-pointer"
+            >
               Premium Site Cleanup
             </Label>
             <p className="text-sm text-muted-foreground">

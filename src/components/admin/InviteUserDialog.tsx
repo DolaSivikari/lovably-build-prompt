@@ -40,7 +40,7 @@ export const InviteUserDialog = ({ onUserCreated }: InviteUserDialogProps) => {
 
     try {
       // Call the secure server-side edge function
-      const { data, error } = await supabase.functions.invoke('invite-user', {
+      const { data, error } = await supabase.functions.invoke("invite-user", {
         body: {
           email,
           password,
@@ -52,7 +52,7 @@ export const InviteUserDialog = ({ onUserCreated }: InviteUserDialogProps) => {
       if (error) throw error;
 
       if (!data?.success) {
-        throw new Error(data?.error || 'Failed to invite user');
+        throw new Error(data?.error || "Failed to invite user");
       }
 
       toast({

@@ -62,9 +62,7 @@ export const InvoiceStats = ({
               <Icon className={`h-5 w-5 ${stat.color}`} />
               <div>
                 <p className="text-sm text-muted-foreground">{stat.label}</p>
-                <p className="text-2xl font-bold">
-                  {stat.value}
-                </p>
+                <p className="text-2xl font-bold">{stat.value}</p>
               </div>
             </div>
           </Card>

@@ -16,8 +16,11 @@ export const useAdminAuth = () => {
   const checkAdminAuth = async () => {
     try {
       // Check if user is authenticated
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
       if (sessionError || !session) {
         navigate("/auth");
         return;

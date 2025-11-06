@@ -4,9 +4,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/ui/Button';
-import { ExternalLink } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Button } from "@/ui/Button";
+import { ExternalLink } from "lucide-react";
 
 interface FieldPreviewDialogProps {
   open: boolean;
@@ -29,10 +29,11 @@ export const FieldPreviewDialog = ({
         <DialogHeader>
           <DialogTitle>Preview: {fieldName}</DialogTitle>
           <DialogDescription>
-            {description || `This shows where "${fieldName}" appears on the public site`}
+            {description ||
+              `This shows where "${fieldName}" appears on the public site`}
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">
@@ -41,13 +42,13 @@ export const FieldPreviewDialog = ({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => window.open(previewUrl, '_blank')}
+              onClick={() => window.open(previewUrl, "_blank")}
             >
               <ExternalLink className="h-4 w-4 mr-2" />
               Open in New Tab
             </Button>
           </div>
-          
+
           <div className="border rounded-lg overflow-hidden bg-muted">
             <iframe
               src={previewUrl}

@@ -10,30 +10,30 @@ export const landingMenuItems: LandingMenuItem[] = [
     number: "01",
     title: "OUR SERVICES",
     link: "/services",
-    subtext: "Painting, Exterior Systems & Specialty Work"
+    subtext: "Painting, Exterior Systems & Specialty Work",
   },
   {
     number: "02",
     title: "WHO WE SERVE",
     link: "/markets/multi-family",
-    subtext: "Property Owners, Managers & Commercial Clients"
+    subtext: "Property Owners, Managers & Commercial Clients",
   },
   {
     number: "03",
     title: "ABOUT US",
     link: "/about",
-    subtext: "15+ Years of Craftsmanship & Excellence"
+    subtext: "15+ Years of Craftsmanship & Excellence",
   },
   {
     number: "04",
     title: "OUR PROJECTS",
     link: "/projects",
-    subtext: "500+ Completed Projects Across the GTA"
+    subtext: "500+ Completed Projects Across the GTA",
   },
   {
     number: "05",
     title: "CONTACT US",
     link: "/contact",
-    subtext: "Let's Build Something Exceptional Together"
-  }
+    subtext: "Let's Build Something Exceptional Together",
+  },
 ];

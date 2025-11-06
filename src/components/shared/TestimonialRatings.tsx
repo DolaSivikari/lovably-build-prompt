@@ -24,7 +24,7 @@ const defaultTestimonials: Testimonial[] = [
     role: "Senior Project Manager",
     rating: 5,
     text: "Outstanding workmanship and professionalism. Ascent Group completed our 50-unit restoration project ahead of schedule and under budget. Their attention to detail and safety record is unmatched.",
-    date: "3 months ago"
+    date: "3 months ago",
   },
   {
     name: "Sarah Johnson",
@@ -32,7 +32,7 @@ const defaultTestimonials: Testimonial[] = [
     role: "Director of Operations",
     rating: 5,
     text: "We've worked with Ascent on multiple commercial projects. Their team's expertise in building envelope systems is exceptional. Highly recommend for any large-scale construction work.",
-    date: "6 months ago"
+    date: "6 months ago",
   },
   {
     name: "David Thompson",
@@ -40,15 +40,16 @@ const defaultTestimonials: Testimonial[] = [
     role: "Property Manager",
     rating: 5,
     text: "Reliability is key in our industry, and Ascent delivers every time. From initial consultation to project completion, their communication and execution are flawless.",
-    date: "2 months ago"
-  }
+    date: "2 months ago",
+  },
 ];
 
 export const TestimonialRatings = ({
   testimonials = defaultTestimonials,
-  className
+  className,
 }: TestimonialRatingsProps) => {
-  const averageRating = testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length;
+  const averageRating =
+    testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length;
 
   return (
     <div className={cn("space-y-8", className)}>
@@ -56,7 +57,9 @@ export const TestimonialRatings = ({
       <div className="text-center space-y-4">
         <div>
           <div className="flex items-center justify-center gap-2 mb-2">
-            <span className="text-5xl font-bold">{averageRating.toFixed(1)}</span>
+            <span className="text-5xl font-bold">
+              {averageRating.toFixed(1)}
+            </span>
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
                 <Star
@@ -65,7 +68,7 @@ export const TestimonialRatings = ({
                     "w-6 h-6",
                     i < Math.floor(averageRating)
                       ? "fill-yellow-500 text-yellow-500"
-                      : "text-muted"
+                      : "text-muted",
                   )}
                 />
               ))}
@@ -100,7 +103,7 @@ export const TestimonialRatings = ({
                       "w-4 h-4",
                       i < testimonial.rating
                         ? "fill-yellow-500 text-yellow-500"
-                        : "text-muted"
+                        : "text-muted",
                     )}
                   />
                 ))}
@@ -113,11 +116,19 @@ export const TestimonialRatings = ({
 
               {/* Author Info */}
               <div className="pt-4 border-t">
-                <p className="font-semibold text-foreground">{testimonial.name}</p>
-                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                <p className="text-sm text-primary font-medium">{testimonial.company}</p>
+                <p className="font-semibold text-foreground">
+                  {testimonial.name}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {testimonial.role}
+                </p>
+                <p className="text-sm text-primary font-medium">
+                  {testimonial.company}
+                </p>
                 {testimonial.date && (
-                  <p className="text-xs text-muted-foreground mt-1">{testimonial.date}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {testimonial.date}
+                  </p>
                 )}
               </div>
             </CardContent>

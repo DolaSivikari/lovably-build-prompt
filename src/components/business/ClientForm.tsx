@@ -89,7 +89,11 @@ export const ClientForm = ({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} type="email" placeholder="email@example.com" />
+                  <Input
+                    {...field}
+                    type="email"
+                    placeholder="email@example.com"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

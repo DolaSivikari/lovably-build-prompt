@@ -20,21 +20,31 @@ interface BlogCardProps {
 
 const BlogCard = ({ post }: BlogCardProps) => {
   const date = post.published_at || post.date || new Date().toISOString();
-  const formattedDate = new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   });
-  
-  const excerpt = post.summary || post.excerpt || '';
-  const image = post.featured_image || post.image || '';
+
+  const excerpt = post.summary || post.excerpt || "";
+  const image = post.featured_image || post.image || "";
 
   return (
     <Link to={`/blog/${post.slug}`}>
-      <Card variant="interactive" className="h-full overflow-hidden group border-2 hover:border-primary">
+      <Card
+        variant="interactive"
+        className="h-full overflow-hidden group border-2 hover:border-primary"
+      >
         <CardContent className="p-8">
           <div className="flex items-start gap-3 mb-4">
-            <Badge variant="info" size="sm" icon={FileText} className="shrink-0">{post.category}</Badge>
+            <Badge
+              variant="info"
+              size="sm"
+              icon={FileText}
+              className="shrink-0"
+            >
+              {post.category}
+            </Badge>
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />

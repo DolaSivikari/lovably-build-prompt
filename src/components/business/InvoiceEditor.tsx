@@ -15,12 +15,22 @@ interface InvoiceEditorProps {
   onCancel: () => void;
 }
 
-export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps) => {
-  const [invoiceNumber, setInvoiceNumber] = useState(invoice?.invoice_number || `INV-${Date.now()}`);
+export const InvoiceEditor = ({
+  invoice,
+  onSave,
+  onCancel,
+}: InvoiceEditorProps) => {
+  const [invoiceNumber, setInvoiceNumber] = useState(
+    invoice?.invoice_number || `INV-${Date.now()}`,
+  );
   const [clientId, setClientId] = useState(invoice?.client_id || "");
-  const [lineItems, setLineItems] = useState<LineItem[]>(invoice?.line_items || []);
+  const [lineItems, setLineItems] = useState<LineItem[]>(
+    invoice?.line_items || [],
+  );
   const [notes, setNotes] = useState(invoice?.notes || "");
-  const [issueDate, setIssueDate] = useState(invoice?.issue_date || new Date().toISOString().split('T')[0]);
+  const [issueDate, setIssueDate] = useState(
+    invoice?.issue_date || new Date().toISOString().split("T")[0],
+  );
   const [dueDate, setDueDate] = useState(invoice?.due_date || "");
 
   const totals = calculateInvoiceTotals(lineItems);
@@ -44,15 +54,26 @@ export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps)
       <div className="grid gap-4 md:grid-cols-3">
         <div>
           <Label>Invoice Number</Label>
-          <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
+          <Input
+            value={invoiceNumber}
+            onChange={(e) => setInvoiceNumber(e.target.value)}
+          />
         </div>
         <div>
           <Label>Issue Date</Label>
-          <Input type="date" value={issueDate} onChange={(e) => setIssueDate(e.target.value)} />
+          <Input
+            type="date"
+            value={issueDate}
+            onChange={(e) => setIssueDate(e.target.value)}
+          />
         </div>
         <div>
           <Label>Due Date</Label>
-          <Input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+          <Input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          />
         </div>
       </div>
 
@@ -71,11 +92,15 @@ export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps)
           <div className="w-64 space-y-2">
             <div className="flex justify-between">
               <span>Subtotal:</span>
-              <span className="font-semibold">{formatCurrency(totals.subtotal_cents)}</span>
+              <span className="font-semibold">
+                {formatCurrency(totals.subtotal_cents)}
+              </span>
             </div>
             <div className="flex justify-between">
               <span>Tax (13%):</span>
-              <span className="font-semibold">{formatCurrency(totals.tax_amount_cents)}</span>
+              <span className="font-semibold">
+                {formatCurrency(totals.tax_amount_cents)}
+              </span>
             </div>
             <div className="flex justify-between text-lg font-bold border-t pt-2">
               <span>Total:</span>
@@ -87,11 +112,17 @@ export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps)
 
       <div>
         <Label>Notes</Label>
-        <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
+        <Textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          rows={3}
+        />
       </div>
 
       <div className="flex justify-end gap-2">
-        <Button variant="outline" onClick={onCancel}>Cancel</Button>
+        <Button variant="outline" onClick={onCancel}>
+          Cancel
+        </Button>
         <Button onClick={handleSubmit}>Save Invoice</Button>
       </div>
     </div>

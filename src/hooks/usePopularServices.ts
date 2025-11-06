@@ -41,7 +41,7 @@ const SERVICE_ICON_MAP: Record<string, LucideIcon> = {
   "construction management": HardHat,
   "design-build": Ruler,
   "building envelope": Shield,
-  "waterproofing": Shield,
+  waterproofing: Shield,
   "masonry restoration": Building2,
   "parking rehabilitation": HardHat,
   "interior buildouts": Ruler,
@@ -58,7 +58,9 @@ export function usePopularServices() {
     queryFn: async () => {
       const now = new Date();
       const lastWeekStart = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-      const previousWeekStart = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+      const previousWeekStart = new Date(
+        now.getTime() - 14 * 24 * 60 * 60 * 1000,
+      );
 
       // Query last week's data
       const { data: lastWeekData, error: lastWeekError } = await supabase
@@ -69,13 +71,14 @@ export function usePopularServices() {
         .gte("searched_at", lastWeekStart.toISOString());
 
       // Query previous week's data for trend comparison
-      const { data: previousWeekData, error: previousWeekError } = await supabase
-        .from("search_analytics")
-        .select("clicked_result_name, clicked_result_link, searched_at")
-        .not("clicked_result_name", "is", null)
-        .not("clicked_result_link", "is", null)
-        .gte("searched_at", previousWeekStart.toISOString())
-        .lt("searched_at", lastWeekStart.toISOString());
+      const { data: previousWeekData, error: previousWeekError } =
+        await supabase
+          .from("search_analytics")
+          .select("clicked_result_name, clicked_result_link, searched_at")
+          .not("clicked_result_name", "is", null)
+          .not("clicked_result_link", "is", null)
+          .gte("searched_at", previousWeekStart.toISOString())
+          .lt("searched_at", lastWeekStart.toISOString());
 
       if (lastWeekError) {
         console.debug("Analytics query failed, using defaults:", lastWeekError);
@@ -104,12 +107,16 @@ export function usePopularServices() {
         .map(([name, { link, count }]) => {
           const previousCount = previousWeekCounts.get(name) || 0;
           const increase = count - previousCount;
-          const trendPercentage = previousCount > 0 
-            ? ((increase / previousCount) * 100) 
-            : (count >= 5 ? 100 : 0);
-          
+          const trendPercentage =
+            previousCount > 0
+              ? (increase / previousCount) * 100
+              : count >= 5
+                ? 100
+                : 0;
+
           // Consider trending if 50%+ increase OR 10+ new searches
-          const isTrending = (trendPercentage >= 50 && previousCount > 0) || increase >= 10;
+          const isTrending =
+            (trendPercentage >= 50 && previousCount > 0) || increase >= 10;
 
           return {
             name,

@@ -29,14 +29,14 @@ const Navigation = () => {
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
   const location = useLocation();
-  
+
   // Check admin role
   const { isAdmin } = useAdminRoleCheck();
-  
+
   // Use custom hook for hover timeout management with automatic cleanup
   const megaMenuHover = useHoverTimeout();
   const adminHover = useHoverTimeout();
-  
+
   // Track scroll direction for auto-hide navigation
   const { scrollDirection, isAtTop } = useScrollDirection();
 
@@ -47,24 +47,31 @@ const Navigation = () => {
 
   useEffect(() => {
     checkAuth();
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setIsAuthenticated(!!session);
     });
     return () => subscription.unsubscribe();
   }, []);
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
     setIsAuthenticated(!!session);
   };
 
   const isActive = (path: string) => location.pathname === path;
 
   // Memoize event handlers for better performance
-  const handleMegaMenuEnter = useCallback((menuKey: string) => {
-    megaMenuHover.clearPendingTimeout();
-    setActiveMegaMenu(menuKey);
-  }, [megaMenuHover]);
+  const handleMegaMenuEnter = useCallback(
+    (menuKey: string) => {
+      megaMenuHover.clearPendingTimeout();
+      setActiveMegaMenu(menuKey);
+    },
+    [megaMenuHover],
+  );
 
   const handleMegaMenuLeave = useCallback(() => {
     megaMenuHover.scheduleAction(() => setActiveMegaMenu(null), 300);
@@ -96,613 +103,772 @@ const Navigation = () => {
   return (
     <>
       <ScrollProgress />
-      <nav 
+      <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-navigation border-b",
           "transition-[transform,background-color,backdrop-filter,box-shadow,border-color] var(--transition-slow)",
-          isAtTop 
-            ? "bg-transparent backdrop-blur-none border-transparent" 
+          isAtTop
+            ? "bg-transparent backdrop-blur-none border-transparent"
             : "bg-background/95 backdrop-blur-xl shadow-lg border-border/50",
           scrollDirection === "down" && !isAtTop
             ? "-translate-y-full"
-            : "translate-y-0"
+            : "translate-y-0",
         )}
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
-        <div className="hidden md:flex items-center justify-between w-full h-20">
-          {/* Left: Logo + Company Name */}
-          <Link to="/" className="flex items-center gap-3 group" aria-label="Ascent Group Construction - Home">
-              <img 
-              src={ascentLogo} 
-              alt="Ascent Group Construction Logo" 
-              className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon group-hover:[box-shadow:var(--shadow-glow)]"
-            />
-            <div className="flex flex-col items-start leading-tight">
-              <span className={cn(
-                "text-base md:text-lg lg:text-xl font-bold relative",
-                "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left",
-                "after:transition-transform icon-rotate",
-                isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"
-              )}>
-                Ascent Group
-              </span>
-              <span className={cn(
-                "text-xs md:text-sm font-bold uppercase tracking-widest link-underline",
-                isAtTop ? "text-primary [text-shadow:var(--shadow-text)]" : "text-primary"
-              )}>
-                CONSTRUCTION
-              </span>
-            </div>
-          </Link>
-
-          {/* Center: Main Navigation */}
-          <nav className="flex items-center gap-6 lg:gap-8 xl:gap-10" aria-label="Main navigation">
+          <div className="hidden md:flex items-center justify-between w-full h-20">
+            {/* Left: Logo + Company Name */}
             <Link
               to="/"
-              aria-current={isActive("/") ? "page" : undefined}
-              className={cn(
-                "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
-                "link-underline after:transition-transform",
-                isActive("/") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"),
-                !isActive("/") && "hover:text-primary"
-              )}
+              className="flex items-center gap-3 group"
+              aria-label="Ascent Group Construction - Home"
             >
-              Home
-            </Link>
-            
-            {/* Services Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("services")}
-              onMouseLeave={handleMegaMenuLeave}
-            >
-              <Link
-                to="/services"
-                className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "link-underline",
-                  activeMegaMenu === "services" && "text-primary scale-105",
-                  activeMegaMenu !== "services" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
-                )}
-                aria-expanded={activeMegaMenu === "services"}
-                aria-controls="services-mega-menu"
-              >
-                Services
-                <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
-                  activeMegaMenu === "services" && "rotate-180"
-                )} />
-              </Link>
-              <DynamicServicesMegaMenu
-                isOpen={activeMegaMenu === "services"}
-                onClose={closeMegaMenu}
+              <img
+                src={ascentLogo}
+                alt="Ascent Group Construction Logo"
+                className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon group-hover:[box-shadow:var(--shadow-glow)]"
               />
-            </div>
-
-            {/* Markets Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("markets")}
-              onMouseLeave={handleMegaMenuLeave}
-            >
-              <Link
-                to="/markets"
-                className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "link-underline",
-                  activeMegaMenu === "markets" && "text-primary scale-105",
-                  activeMegaMenu !== "markets" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
-                )}
-                aria-expanded={activeMegaMenu === "markets"}
-                aria-controls="markets-mega-menu"
-              >
-                Markets
-                <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
-                  activeMegaMenu === "markets" && "rotate-180"
-                )} />
-              </Link>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.markets}
-                isOpen={activeMegaMenu === "markets"}
-                onClose={closeMegaMenu}
-              />
-            </div>
-
-            {/* Projects Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("projects")}
-              onMouseLeave={handleMegaMenuLeave}
-            >
-              <Link
-                to="/projects"
-                className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "link-underline",
-                  activeMegaMenu === "projects" && "text-primary scale-105",
-                  activeMegaMenu !== "projects" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
-                )}
-                aria-expanded={activeMegaMenu === "projects"}
-                aria-controls="projects-mega-menu"
-              >
-                Projects
-                <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
-                  activeMegaMenu === "projects" && "rotate-180"
-                )} />
-              </Link>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.projects}
-                isOpen={activeMegaMenu === "projects"}
-                onClose={closeMegaMenu}
-              />
-            </div>
-
-            {/* Company Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("company")}
-              onMouseLeave={handleMegaMenuLeave}
-            >
-              <button
-                className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "link-underline",
-                  activeMegaMenu === "company" && "text-primary scale-105",
-                  activeMegaMenu !== "company" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
-                )}
-                aria-expanded={activeMegaMenu === "company"}
-                aria-controls="company-mega-menu"
-              >
-                Company
-                <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
-                  activeMegaMenu === "company" && "rotate-180"
-                )} />
-              </button>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.company}
-                isOpen={activeMegaMenu === "company"}
-                onClose={closeMegaMenu}
-              />
-            </div>
-
-            {/* Resources Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("resources")}
-              onMouseLeave={handleMegaMenuLeave}
-            >
-              <button
-                className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
-                  "link-underline",
-                  activeMegaMenu === "resources" && "text-primary scale-105",
-                  activeMegaMenu !== "resources" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
-                )}
-                aria-expanded={activeMegaMenu === "resources"}
-                aria-controls="resources-mega-menu"
-              >
-                Resources
-                <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
-                  activeMegaMenu === "resources" && "rotate-180"
-                )} />
-              </button>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.resources}
-                isOpen={activeMegaMenu === "resources"}
-                onClose={closeMegaMenu}
-              />
-            </div>
-
-            <Link
-              to="/contact"
-              className={cn(
-                "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
-                "link-underline after:transition-transform",
-                isActive("/contact") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"),
-                !isActive("/contact") && "hover:text-primary"
-              )}
-            >
-              Contact
-            </Link>
-          </nav>
-
-          {/* Right: Utility Items */}
-          <div className="flex items-center gap-4">
-            <Button asChild variant="primary" size="sm">
-              <Link to="/submit-rfp">
-                Submit RFP
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-            <Link 
-              to="/resources/contractor-portal" 
-              className={cn(
-                "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap",
-                "link-underline",
-                isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"
-              )}
-            >
-              Client Portal
+              <div className="flex flex-col items-start leading-tight">
+                <span
+                  className={cn(
+                    "text-base md:text-lg lg:text-xl font-bold relative",
+                    "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left",
+                    "after:transition-transform icon-rotate",
+                    isAtTop
+                      ? "text-white [text-shadow:var(--shadow-text)]"
+                      : "text-foreground",
+                  )}
+                >
+                  Ascent Group
+                </span>
+                <span
+                  className={cn(
+                    "text-xs md:text-sm font-bold uppercase tracking-widest link-underline",
+                    isAtTop
+                      ? "text-primary [text-shadow:var(--shadow-text)]"
+                      : "text-primary",
+                  )}
+                >
+                  CONSTRUCTION
+                </span>
+              </div>
             </Link>
 
-            {/* Admin Dropdown - Only visible to admin users */}
-            {isAdmin && (
-              <DropdownMenu open={adminDropdownOpen} onOpenChange={setAdminDropdownOpen}>
-                <DropdownMenuTrigger 
-                  onMouseEnter={openAdminDropdown}
-                  onMouseLeave={scheduleCloseAdminDropdown}
+            {/* Center: Main Navigation */}
+            <nav
+              className="flex items-center gap-6 lg:gap-8 xl:gap-10"
+              aria-label="Main navigation"
+            >
+              <Link
+                to="/"
+                aria-current={isActive("/") ? "page" : undefined}
+                className={cn(
+                  "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
+                  "link-underline after:transition-transform",
+                  isActive("/")
+                    ? "text-primary after:scale-x-100"
+                    : isAtTop
+                      ? "text-white [text-shadow:var(--shadow-text)]"
+                      : "text-foreground",
+                  !isActive("/") && "hover:text-primary",
+                )}
+              >
+                Home
+              </Link>
+
+              {/* Services Mega-Menu */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleMegaMenuEnter("services")}
+                onMouseLeave={handleMegaMenuLeave}
+              >
+                <Link
+                  to="/services"
                   className={cn(
                     "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
                     "link-underline",
-                    adminDropdownOpen && "text-primary scale-105",
-                    !adminDropdownOpen && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
+                    activeMegaMenu === "services" && "text-primary scale-105",
+                    activeMegaMenu !== "services" &&
+                      (isAtTop
+                        ? "text-white [text-shadow:var(--shadow-text)]"
+                        : "text-foreground"),
                   )}
-                  aria-expanded={adminDropdownOpen}
+                  aria-expanded={activeMegaMenu === "services"}
+                  aria-controls="services-mega-menu"
                 >
-                  <Shield className="w-4 h-4" />
-                  Admin
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-[transform] duration-200",
-                    adminDropdownOpen && "rotate-180"
-                  )} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="end"
-                  onMouseEnter={openAdminDropdown}
-                  onMouseLeave={scheduleCloseAdminDropdown}
-                  className="w-64 bg-background text-foreground rounded-[var(--radius-sm)] border border-border z-mega-menu mt-2 p-0 animate-enter [box-shadow:var(--shadow-dropdown)]"
+                  Services
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 icon-rotate",
+                      activeMegaMenu === "services" && "rotate-180",
+                    )}
+                  />
+                </Link>
+                <DynamicServicesMegaMenu
+                  isOpen={activeMegaMenu === "services"}
+                  onClose={closeMegaMenu}
+                />
+              </div>
+
+              {/* Markets Mega-Menu */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleMegaMenuEnter("markets")}
+                onMouseLeave={handleMegaMenuLeave}
+              >
+                <Link
+                  to="/markets"
+                  className={cn(
+                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                    "link-underline",
+                    activeMegaMenu === "markets" && "text-primary scale-105",
+                    activeMegaMenu !== "markets" &&
+                      (isAtTop
+                        ? "text-white [text-shadow:var(--shadow-text)]"
+                        : "text-foreground"),
+                  )}
+                  aria-expanded={activeMegaMenu === "markets"}
+                  aria-controls="markets-mega-menu"
                 >
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                  className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                  Markets
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 icon-rotate",
+                      activeMegaMenu === "markets" && "rotate-180",
+                    )}
+                  />
+                </Link>
+                <MegaMenuWithSections
+                  sections={megaMenuDataEnhanced.markets}
+                  isOpen={activeMegaMenu === "markets"}
+                  onClose={closeMegaMenu}
+                />
+              </div>
+
+              {/* Projects Mega-Menu */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleMegaMenuEnter("projects")}
+                onMouseLeave={handleMegaMenuLeave}
+              >
+                <Link
+                  to="/projects"
+                  className={cn(
+                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                    "link-underline",
+                    activeMegaMenu === "projects" && "text-primary scale-105",
+                    activeMegaMenu !== "projects" &&
+                      (isAtTop
+                        ? "text-white [text-shadow:var(--shadow-text)]"
+                        : "text-foreground"),
+                  )}
+                  aria-expanded={activeMegaMenu === "projects"}
+                  aria-controls="projects-mega-menu"
+                >
+                  Projects
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 icon-rotate",
+                      activeMegaMenu === "projects" && "rotate-180",
+                    )}
+                  />
+                </Link>
+                <MegaMenuWithSections
+                  sections={megaMenuDataEnhanced.projects}
+                  isOpen={activeMegaMenu === "projects"}
+                  onClose={closeMegaMenu}
+                />
+              </div>
+
+              {/* Company Mega-Menu */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleMegaMenuEnter("company")}
+                onMouseLeave={handleMegaMenuLeave}
+              >
+                <button
+                  className={cn(
+                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                    "link-underline",
+                    activeMegaMenu === "company" && "text-primary scale-105",
+                    activeMegaMenu !== "company" &&
+                      (isAtTop
+                        ? "text-white [text-shadow:var(--shadow-text)]"
+                        : "text-foreground"),
+                  )}
+                  aria-expanded={activeMegaMenu === "company"}
+                  aria-controls="company-mega-menu"
+                >
+                  Company
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 icon-rotate",
+                      activeMegaMenu === "company" && "rotate-180",
+                    )}
+                  />
+                </button>
+                <MegaMenuWithSections
+                  sections={megaMenuDataEnhanced.company}
+                  isOpen={activeMegaMenu === "company"}
+                  onClose={closeMegaMenu}
+                />
+              </div>
+
+              {/* Resources Mega-Menu */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleMegaMenuEnter("resources")}
+                onMouseLeave={handleMegaMenuLeave}
+              >
+                <button
+                  className={cn(
+                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                    "link-underline",
+                    activeMegaMenu === "resources" && "text-primary scale-105",
+                    activeMegaMenu !== "resources" &&
+                      (isAtTop
+                        ? "text-white [text-shadow:var(--shadow-text)]"
+                        : "text-foreground"),
+                  )}
+                  aria-expanded={activeMegaMenu === "resources"}
+                  aria-controls="resources-mega-menu"
+                >
+                  Resources
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 icon-rotate",
+                      activeMegaMenu === "resources" && "rotate-180",
+                    )}
+                  />
+                </button>
+                <MegaMenuWithSections
+                  sections={megaMenuDataEnhanced.resources}
+                  isOpen={activeMegaMenu === "resources"}
+                  onClose={closeMegaMenu}
+                />
+              </div>
+
+              <Link
+                to="/contact"
+                className={cn(
+                  "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
+                  "link-underline after:transition-transform",
+                  isActive("/contact")
+                    ? "text-primary after:scale-x-100"
+                    : isAtTop
+                      ? "text-white [text-shadow:var(--shadow-text)]"
+                      : "text-foreground",
+                  !isActive("/contact") && "hover:text-primary",
+                )}
+              >
+                Contact
+              </Link>
+            </nav>
+
+            {/* Right: Utility Items */}
+            <div className="flex items-center gap-4">
+              <Button asChild variant="primary" size="sm">
+                <Link to="/submit-rfp">
+                  Submit RFP
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
+              <Link
+                to="/resources/contractor-portal"
+                className={cn(
+                  "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap",
+                  "link-underline",
+                  isAtTop
+                    ? "text-white [text-shadow:var(--shadow-text)]"
+                    : "text-foreground",
+                )}
+              >
+                Client Portal
+              </Link>
+
+              {/* Admin Dropdown - Only visible to admin users */}
+              {isAdmin && (
+                <DropdownMenu
+                  open={adminDropdownOpen}
+                  onOpenChange={setAdminDropdownOpen}
+                >
+                  <DropdownMenuTrigger
+                    onMouseEnter={openAdminDropdown}
+                    onMouseLeave={scheduleCloseAdminDropdown}
+                    className={cn(
+                      "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                      "link-underline",
+                      adminDropdownOpen && "text-primary scale-105",
+                      !adminDropdownOpen &&
+                        (isAtTop
+                          ? "text-white [text-shadow:var(--shadow-text)]"
+                          : "text-foreground"),
+                    )}
+                    aria-expanded={adminDropdownOpen}
+                  >
+                    <Shield className="w-4 h-4" />
+                    Admin
+                    <ChevronDown
+                      className={cn(
+                        "w-4 h-4 transition-[transform] duration-200",
+                        adminDropdownOpen && "rotate-180",
+                      )}
+                    />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="end"
+                    onMouseEnter={openAdminDropdown}
+                    onMouseLeave={scheduleCloseAdminDropdown}
+                    className="w-64 bg-background text-foreground rounded-[var(--radius-sm)] border border-border z-mega-menu mt-2 p-0 animate-enter [box-shadow:var(--shadow-dropdown)]"
+                  >
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
-                    Business Tools
-                  </DropdownMenuLabel>
-                  
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/business/dashboard" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                      Business Tools
+                    </DropdownMenuLabel>
+
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Overview
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/business/clients" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/business/dashboard"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Overview
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Clients
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/business/projects" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/business/clients"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Clients
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Business Projects
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/business/estimates" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/business/projects"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Business Projects
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Estimates
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/business/invoices" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/business/estimates"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Estimates
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Invoices
-                    </Link>
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
-                    Content Management
-                  </DropdownMenuLabel>
-                  
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/services" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/business/invoices"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Invoices
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                      Content Management
+                    </DropdownMenuLabel>
+
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Services
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/projects" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/services"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Services
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Projects
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/blog" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/projects"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Projects
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Blog Posts & Case Studies
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/testimonials" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/blog"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Blog Posts & Case Studies
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Testimonials
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/stats" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/testimonials"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Testimonials
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Stats
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/awards" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/stats"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Stats
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Awards & Certifications
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/leadership-team" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/awards"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Awards & Certifications
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Leadership Team
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/documents-library" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/leadership-team"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Leadership Team
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Documents Library
-                    </Link>
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
-                    Page Editors
-                  </DropdownMenuLabel>
-                  
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/landing-menu" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/documents-library"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Documents Library
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                      Page Editors
+                    </DropdownMenuLabel>
+
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Home Hero Menu
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/about-page" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/landing-menu"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Home Hero Menu
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      About Us Page
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/footer-settings" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/about-page"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        About Us Page
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Footer Content
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/contact-page-settings" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/footer-settings"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Footer Content
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Contact Page
-                    </Link>
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
-                    Submissions
-                  </DropdownMenuLabel>
-                  
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/contacts" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/contact-page-settings"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Contact Page
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                      Submissions
+                    </DropdownMenuLabel>
+
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Contact Submissions
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/resumes" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/contacts"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Contact Submissions
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Resume Submissions
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/rfp-submissions" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/resumes"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Resume Submissions
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      RFP Submissions
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/prequalifications" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/rfp-submissions"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        RFP Submissions
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Prequalification Submissions
-                    </Link>
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
-                    Settings & Tools
-                  </DropdownMenuLabel>
-                  
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/homepage-settings" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/prequalifications"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Prequalification Submissions
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+                      Settings & Tools
+                    </DropdownMenuLabel>
+
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Homepage Settings
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/site-settings" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/homepage-settings"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Homepage Settings
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Site Settings
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/media" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/site-settings"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Site Settings
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Media Library
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/users" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/media"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Media Library
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Users
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/security-center" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/users"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Users
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Security Center
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/seo-dashboard" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/security-center"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Security Center
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      SEO Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/performance-dashboard" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/seo-dashboard"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        SEO Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Performance Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
-                    <Link 
-                      to="/admin/settings-health" 
-                      onClick={() => setAdminDropdownOpen(false)}
-                      className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      <Link
+                        to="/admin/performance-dashboard"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Performance Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="p-0 focus:bg-transparent focus:text-inherit"
                     >
-                      Settings Health Check
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
+                      <Link
+                        to="/admin/settings-health"
+                        onClick={() => setAdminDropdownOpen(false)}
+                        className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
+                      >
+                        Settings Health Check
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Mobile Layout */}
-        <div className="flex md:hidden items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-2 group relative z-navigation" aria-label="Ascent Group Construction - Home">
-            <img 
-              src={ascentLogo} 
-              alt="Ascent Group Construction Logo" 
-              className="h-12 w-auto transition-transform group-hover:scale-105"
-            />
-            <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold text-foreground relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 group-hover:after:scale-x-100 group-hover:after:origin-bottom-left">
-                Ascent Group
-              </span>
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider">Construction</span>
-            </div>
-          </Link>
+          {/* Mobile Layout */}
+          <div className="flex md:hidden items-center justify-between h-20">
+            <Link
+              to="/"
+              className="flex items-center gap-2 group relative z-navigation"
+              aria-label="Ascent Group Construction - Home"
+            >
+              <img
+                src={ascentLogo}
+                alt="Ascent Group Construction Logo"
+                className="h-12 w-auto transition-transform group-hover:scale-105"
+              />
+              <div className="flex flex-col leading-tight">
+                <span className="text-lg font-bold text-foreground relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 group-hover:after:scale-x-100 group-hover:after:origin-bottom-left">
+                  Ascent Group
+                </span>
+                <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                  Construction
+                </span>
+              </div>
+            </Link>
 
-          {/* Mobile Menu Button - Optimized Touch Target & Animation */}
-          <button
-            className="md:hidden text-foreground relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md hover:bg-muted active:bg-muted/70 active:scale-95 transition-all duration-200 touch-manipulation"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-          >
-            {/* Ripple effect background */}
-            <span className={`absolute inset-0 rounded-md bg-primary/10 transition-transform duration-300 ${isOpen ? 'scale-100' : 'scale-0'}`} />
-            
-            {/* Hamburger Icon with smooth animation */}
-            <div className="flex flex-col gap-1.5 w-6 relative z-10">
-              <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-out ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-200 ease-out ${isOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`} />
-              <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-out ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-            </div>
-          </button>
-        </div>
+            {/* Mobile Menu Button - Optimized Touch Target & Animation */}
+            <button
+              className="md:hidden text-foreground relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md hover:bg-muted active:bg-muted/70 active:scale-95 transition-all duration-200 touch-manipulation"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+            >
+              {/* Ripple effect background */}
+              <span
+                className={`absolute inset-0 rounded-md bg-primary/10 transition-transform duration-300 ${isOpen ? "scale-100" : "scale-0"}`}
+              />
 
-        {/* Mobile Navigation Sheet */}
-        <MobileNavSheet
-          open={isOpen}
-          onOpenChange={setIsOpen}
-        />
+              {/* Hamburger Icon with smooth animation */}
+              <div className="flex flex-col gap-1.5 w-6 relative z-10">
+                <span
+                  className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-out ${isOpen ? "rotate-45 translate-y-2" : ""}`}
+                />
+                <span
+                  className={`h-0.5 w-full bg-current rounded-full transition-all duration-200 ease-out ${isOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"}`}
+                />
+                <span
+                  className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-out ${isOpen ? "-rotate-45 -translate-y-2" : ""}`}
+                />
+              </div>
+            </button>
+          </div>
+
+          {/* Mobile Navigation Sheet */}
+          <MobileNavSheet open={isOpen} onOpenChange={setIsOpen} />
         </div>
       </nav>
     </>

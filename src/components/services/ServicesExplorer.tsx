@@ -43,7 +43,9 @@ export const ServicesExplorer = () => {
   const loadServices = async () => {
     const { data, error } = await supabase
       .from("services")
-      .select("id, name, slug, short_description, category, icon_name, featured, typical_timeline, project_types")
+      .select(
+        "id, name, slug, short_description, category, icon_name, featured, typical_timeline, project_types",
+      )
       .eq("publish_state", "published")
       .order("featured", { ascending: false })
       .order("name");
@@ -66,7 +68,9 @@ export const ServicesExplorer = () => {
     if (activeCategory !== "all") {
       filtered = filtered.filter((s) => s.category === activeCategory);
     } else {
-      filtered = filtered.filter((s) => s.category !== "Construction Management");
+      filtered = filtered.filter(
+        (s) => s.category !== "Construction Management",
+      );
     }
 
     // Search filter
@@ -76,14 +80,14 @@ export const ServicesExplorer = () => {
         (s) =>
           s.name.toLowerCase().includes(query) ||
           s.short_description?.toLowerCase().includes(query) ||
-          s.category?.toLowerCase().includes(query)
+          s.category?.toLowerCase().includes(query),
       );
     }
 
     // Project type filters
     if (activeFilters.length > 0) {
       filtered = filtered.filter((s) =>
-        s.project_types?.some((type) => activeFilters.includes(type))
+        s.project_types?.some((type) => activeFilters.includes(type)),
       );
     }
 
@@ -96,7 +100,7 @@ export const ServicesExplorer = () => {
     setActiveFilters((prev) =>
       prev.includes(filter)
         ? prev.filter((f) => f !== filter)
-        : [...prev, filter]
+        : [...prev, filter],
     );
   };
 
@@ -109,20 +113,26 @@ export const ServicesExplorer = () => {
   return (
     <section className="py-20 md:py-24 bg-background">
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-        
         {/* Section Header - Enterprise Style */}
         <div className="max-w-3xl mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
             Construction Services & Capabilities
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Comprehensive construction solutions delivered by licensed professionals with proven expertise across commercial, institutional, and multi-unit residential projects.
+            Comprehensive construction solutions delivered by licensed
+            professionals with proven expertise across commercial,
+            institutional, and multi-unit residential projects.
           </p>
         </div>
 
         {/* Stats Bar */}
         <div className="mb-12">
-          <ServiceStats serviceCount={services.filter(s => s.category !== "Construction Management").length} />
+          <ServiceStats
+            serviceCount={
+              services.filter((s) => s.category !== "Construction Management")
+                .length
+            }
+          />
         </div>
 
         {/* Search & Filter Controls */}
@@ -148,10 +158,12 @@ export const ServicesExplorer = () => {
         {!loading && (
           <div className="mb-8">
             <p className="text-sm text-muted-foreground">
-              Showing {visibleServices.length} of {filteredServices.length} services
+              Showing {visibleServices.length} of {filteredServices.length}{" "}
+              services
               {activeFilterCount > 0 && (
                 <span className="ml-2 text-steel-blue font-semibold">
-                  ({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active)
+                  ({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""}{" "}
+                  active)
                 </span>
               )}
             </p>
@@ -162,10 +174,7 @@ export const ServicesExplorer = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="h-80 bg-muted rounded-lg"
-              />
+              <div key={i} className="h-80 bg-muted rounded-lg" />
             ))}
           </div>
         ) : visibleServices.length > 0 ? (
@@ -212,13 +221,23 @@ export const ServicesExplorer = () => {
         {/* Bottom CTAs - Professional Design */}
         <div className="pt-12 border-t border-border">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild size="lg" variant="primary" className="min-w-[220px]">
+            <Button
+              asChild
+              size="lg"
+              variant="primary"
+              className="min-w-[220px]"
+            >
               <Link to="/estimate" className="inline-flex items-center gap-2">
                 Request Proposal
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
-            <Button asChild variant="secondary" size="lg" className="min-w-[220px]">
+            <Button
+              asChild
+              variant="secondary"
+              size="lg"
+              className="min-w-[220px]"
+            >
               <Link to="/services">View All Services</Link>
             </Button>
           </div>

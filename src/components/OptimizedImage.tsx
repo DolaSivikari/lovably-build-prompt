@@ -34,21 +34,21 @@ const OptimizedImage = ({
 }: OptimizedImageProps) => {
   // Add cache-busting for public assets (not Vite-hashed build assets)
   const bustedSrc = useMemo(() => {
-    if (src.startsWith('/') && !src.includes('/assets/')) {
+    if (src.startsWith("/") && !src.includes("/assets/")) {
       return addCacheBuster(src);
     }
     return src;
   }, [src]);
-  
+
   const bustedSrcAvif = useMemo(() => {
-    if (srcAvif && srcAvif.startsWith('/') && !srcAvif.includes('/assets/')) {
+    if (srcAvif && srcAvif.startsWith("/") && !srcAvif.includes("/assets/")) {
       return addCacheBuster(srcAvif);
     }
     return srcAvif;
   }, [srcAvif]);
-  
+
   const bustedSrcWebp = useMemo(() => {
-    if (srcWebp && srcWebp.startsWith('/') && !srcWebp.includes('/assets/')) {
+    if (srcWebp && srcWebp.startsWith("/") && !srcWebp.includes("/assets/")) {
       return addCacheBuster(srcWebp);
     }
     return srcWebp;
@@ -88,18 +88,10 @@ const OptimizedImage = ({
       {shouldLoad && (bustedSrcAvif || bustedSrcWebp) ? (
         <picture>
           {bustedSrcAvif && (
-            <source
-              type="image/avif"
-              srcSet={bustedSrcAvif}
-              sizes={sizes}
-            />
+            <source type="image/avif" srcSet={bustedSrcAvif} sizes={sizes} />
           )}
           {bustedSrcWebp && (
-            <source
-              type="image/webp"
-              srcSet={bustedSrcWebp}
-              sizes={sizes}
-            />
+            <source type="image/webp" srcSet={bustedSrcWebp} sizes={sizes} />
           )}
           <img
             ref={imageRef}
@@ -114,11 +106,11 @@ const OptimizedImage = ({
             className={cn(
               isLoaded ? "opacity-100" : "opacity-0",
               `object-${objectFit}`,
-              "w-full h-full"
+              "w-full h-full",
             )}
             style={{
               objectFit,
-              transition: 'var(--transition-slow)'
+              transition: "var(--transition-slow)",
             }}
           />
         </picture>
@@ -137,11 +129,11 @@ const OptimizedImage = ({
           className={cn(
             isLoaded ? "opacity-100" : "opacity-0",
             `object-${objectFit}`,
-            "w-full h-full"
+            "w-full h-full",
           )}
           style={{
             objectFit,
-            transition: 'var(--transition-slow)'
+            transition: "var(--transition-slow)",
           }}
         />
       )}

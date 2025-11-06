@@ -6,9 +6,9 @@
  * Usage: node scripts/check-console-errors.js
  */
 
-const puppeteer = require('puppeteer');
+const puppeteer = require("puppeteer");
 
-const TEST_URL = process.env.TEST_URL || 'http://localhost:8080';
+const TEST_URL = process.env.TEST_URL || "http://localhost:8080";
 const TIMEOUT = 30000;
 
 async function checkConsoleErrors() {
@@ -18,45 +18,45 @@ async function checkConsoleErrors() {
 
   try {
     console.log(`🚀 Launching browser to test: ${TEST_URL}`);
-    
+
     browser = await puppeteer.launch({
-      headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
     const page = await browser.newPage();
 
     // Listen for console messages
-    page.on('console', (msg) => {
+    page.on("console", (msg) => {
       const type = msg.type();
       const text = msg.text();
-      
-      if (type === 'error') {
+
+      if (type === "error") {
         errors.push(text);
-      } else if (type === 'warning') {
+      } else if (type === "warning") {
         warnings.push(text);
       }
     });
 
     // Listen for page errors
-    page.on('pageerror', (error) => {
+    page.on("pageerror", (error) => {
       errors.push(`Page Error: ${error.message}`);
     });
 
     // Navigate to the page
     await page.goto(TEST_URL, {
-      waitUntil: 'networkidle2',
-      timeout: TIMEOUT
+      waitUntil: "networkidle2",
+      timeout: TIMEOUT,
     });
 
     // Wait for first meaningful paint
     await page.waitForTimeout(2000);
 
-    console.log('\n📊 Test Results:');
-    console.log('================');
-    
+    console.log("\n📊 Test Results:");
+    console.log("================");
+
     if (errors.length === 0 && warnings.length === 0) {
-      console.log('✅ No console errors or warnings detected!');
+      console.log("✅ No console errors or warnings detected!");
       process.exit(0);
     }
 
@@ -76,15 +76,14 @@ async function checkConsoleErrors() {
 
     // Fail if there are errors
     if (errors.length > 0) {
-      console.log('\n❌ Test failed due to console errors');
+      console.log("\n❌ Test failed due to console errors");
       process.exit(1);
     }
 
-    console.log('\n✅ Test passed (warnings are informational only)');
+    console.log("\n✅ Test passed (warnings are informational only)");
     process.exit(0);
-
   } catch (error) {
-    console.error('\n❌ Test execution failed:', error.message);
+    console.error("\n❌ Test execution failed:", error.message);
     process.exit(1);
   } finally {
     if (browser) {

@@ -34,7 +34,8 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
             Let's Start Building <span className="text-primary">Together</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to start your project? Our team responds within 2 hours during business hours.
+            Ready to start your project? Our team responds within 2 hours during
+            business hours.
           </p>
         </div>
 
@@ -64,11 +65,19 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
               <CardTitle className="text-lg">Phone</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <a href={`tel:${contactInfo.mainPhone}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors">
-                <span className="font-medium">Main:</span> {contactInfo.mainPhone}
+              <a
+                href={`tel:${contactInfo.mainPhone}`}
+                className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <span className="font-medium">Main:</span>{" "}
+                {contactInfo.mainPhone}
               </a>
-              <a href={`tel:${contactInfo.tollFreePhone}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors">
-                <span className="font-medium">Toll Free:</span> {contactInfo.tollFreePhone}
+              <a
+                href={`tel:${contactInfo.tollFreePhone}`}
+                className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <span className="font-medium">Toll Free:</span>{" "}
+                {contactInfo.tollFreePhone}
               </a>
             </CardContent>
           </Card>
@@ -82,11 +91,19 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
               <CardTitle className="text-lg">Email</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <a href={`mailto:${contactInfo.generalEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors truncate">
-                <span className="font-medium">General:</span> {contactInfo.generalEmail.split('@')[0]}@...
+              <a
+                href={`mailto:${contactInfo.generalEmail}`}
+                className="block text-sm text-muted-foreground hover:text-primary transition-colors truncate"
+              >
+                <span className="font-medium">General:</span>{" "}
+                {contactInfo.generalEmail.split("@")[0]}@...
               </a>
-              <a href={`mailto:${contactInfo.projectsEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors truncate">
-                <span className="font-medium">Projects:</span> {contactInfo.projectsEmail.split('@')[0]}@...
+              <a
+                href={`mailto:${contactInfo.projectsEmail}`}
+                className="block text-sm text-muted-foreground hover:text-primary transition-colors truncate"
+              >
+                <span className="font-medium">Projects:</span>{" "}
+                {contactInfo.projectsEmail.split("@")[0]}@...
               </a>
             </CardContent>
           </Card>
@@ -100,8 +117,12 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
               <CardTitle className="text-lg">Hours</CardTitle>
             </CardHeader>
             <CardContent className="space-y-1 text-sm">
-              <p className="font-medium text-foreground">{contactInfo.weekdayHours}</p>
-              <p className="text-muted-foreground">{contactInfo.saturdayHours}</p>
+              <p className="font-medium text-foreground">
+                {contactInfo.weekdayHours}
+              </p>
+              <p className="text-muted-foreground">
+                {contactInfo.saturdayHours}
+              </p>
               <p className="text-muted-foreground">{contactInfo.sundayHours}</p>
             </CardContent>
           </Card>

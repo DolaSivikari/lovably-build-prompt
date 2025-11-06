@@ -15,22 +15,25 @@ interface ErrorResponse {
  * @returns Sanitized error message safe for client
  */
 export const sanitizeErrorMessage = (error: any, context?: string): string => {
-  const errorMessage = error?.message || error?.toString() || 'Unknown error';
-  
+  const errorMessage = error?.message || error?.toString() || "Unknown error";
+
   // Remove database-specific details
   let sanitized = errorMessage
     // Remove table names (e.g., "public.users")
-    .replace(/\b(public|auth|storage)\.\w+\b/g, '[table]')
+    .replace(/\b(public|auth|storage)\.\w+\b/g, "[table]")
     // Remove column names (e.g., "column 'email'")
     .replace(/column\s+'[^']+'/gi, "column '[field]'")
     // Remove constraint names
     .replace(/constraint\s+"[^"]+"/gi, 'constraint "[name]"')
     // Remove UUIDs
-    .replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi, '[id]')
+    .replace(
+      /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi,
+      "[id]",
+    )
     // Remove IP addresses
-    .replace(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g, '[ip]')
+    .replace(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g, "[ip]")
     // Remove file paths
-    .replace(/\/[^\s]+\.(ts|js|json)/g, '[file]');
+    .replace(/\/[^\s]+\.(ts|js|json)/g, "[file]");
 
   // Log full error server-side for debugging
   if (context) {
@@ -55,32 +58,35 @@ export const sanitizeErrorMessage = (error: any, context?: string): string => {
  */
 export const createErrorResponse = (
   error: any,
-  defaultMessage: string = 'Internal server error',
+  defaultMessage: string = "Internal server error",
   statusCode: number = 500,
-  context?: string
+  context?: string,
 ): Response => {
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type",
   };
 
   // Determine if error is a validation error (safe to show) or system error (hide details)
   const isValidationError = statusCode === 400 || statusCode === 422;
-  
+
   let errorMessage: string;
-  
+
   if (isValidationError) {
     // Validation errors are safe to show (user input issues)
     errorMessage = error?.message || defaultMessage;
   } else {
     // System errors should be sanitized
-    const originalMessage = error?.message || error?.toString() || '';
+    const originalMessage = error?.message || error?.toString() || "";
     const sanitized = sanitizeErrorMessage(error, context);
-    
+
     // Only show sanitized version if it's meaningfully different from original
     // Otherwise use generic message
-    const isMeaningfullySanitized = sanitized.includes('[') || 
-      (originalMessage.length > 0 && sanitized.length < originalMessage.length / 2);
+    const isMeaningfullySanitized =
+      sanitized.includes("[") ||
+      (originalMessage.length > 0 &&
+        sanitized.length < originalMessage.length / 2);
     errorMessage = isMeaningfullySanitized ? sanitized : defaultMessage;
   }
 
@@ -89,16 +95,13 @@ export const createErrorResponse = (
     ...(error?.code && isValidationError && { code: error.code }),
   };
 
-  return new Response(
-    JSON.stringify(responseBody),
-    {
-      status: statusCode,
-      headers: {
-        'Content-Type': 'application/json',
-        ...corsHeaders,
-      },
-    }
-  );
+  return new Response(JSON.stringify(responseBody), {
+    status: statusCode,
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders,
+    },
+  });
 };
 
 /**
@@ -110,7 +113,7 @@ export const createErrorResponse = (
 export const logSecurityError = (
   errorType: string,
   error: any,
-  metadata?: Record<string, any>
+  metadata?: Record<string, any>,
 ): void => {
   console.error(`[SECURITY:${errorType.toUpperCase()}]`, {
     timestamp: new Date().toISOString(),
@@ -130,22 +133,23 @@ export const logSecurityError = (
  */
 export const createRateLimitResponse = (retryAfter: number): Response => {
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type",
   };
 
   return new Response(
-    JSON.stringify({ 
-      error: 'Rate limit exceeded. Please try again later.',
-      retry_after: retryAfter 
+    JSON.stringify({
+      error: "Rate limit exceeded. Please try again later.",
+      retry_after: retryAfter,
     }),
     {
       status: 429,
       headers: {
-        'Content-Type': 'application/json',
-        'Retry-After': retryAfter.toString(),
+        "Content-Type": "application/json",
+        "Retry-After": retryAfter.toString(),
         ...corsHeaders,
       },
-    }
+    },
   );
 };

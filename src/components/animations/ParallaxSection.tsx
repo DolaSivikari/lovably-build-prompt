@@ -11,7 +11,7 @@ interface ParallaxSectionProps {
 
 /**
  * Section wrapper that creates parallax scrolling effect
- * 
+ *
  * @example
  * ```tsx
  * <ParallaxSection speed="slow">
@@ -19,7 +19,7 @@ interface ParallaxSectionProps {
  *     Background content (moves slower)
  *   </div>
  * </ParallaxSection>
- * 
+ *
  * <ParallaxSection speed="fast">
  *   <div className="parallax-layer">
  *     Foreground content (moves faster)
@@ -46,9 +46,15 @@ export const ParallaxSection = ({
       const windowHeight = window.innerHeight;
 
       // Only apply parallax when element is in viewport
-      if (scrolled + windowHeight > elementTop && scrolled < elementTop + elementHeight) {
+      if (
+        scrolled + windowHeight > elementTop &&
+        scrolled < elementTop + elementHeight
+      ) {
         const scrollPosition = scrolled - elementTop + windowHeight;
-        layerRef.current.style.setProperty('--scroll-position', `${scrollPosition}px`);
+        layerRef.current.style.setProperty(
+          "--scroll-position",
+          `${scrollPosition}px`,
+        );
       }
     };
 
@@ -71,18 +77,20 @@ export const ParallaxSection = ({
     };
   }, []);
 
-  const speedClass = typeof speed === "string" 
-    ? `parallax-layer-${speed}` 
-    : "";
+  const speedClass = typeof speed === "string" ? `parallax-layer-${speed}` : "";
 
   return (
     <div ref={sectionRef} className={cn("parallax-section", className)}>
       <div
         ref={layerRef}
         className={cn("parallax-layer", speedClass)}
-        style={typeof speed === "number" ? {
-          transform: `translateY(calc(var(--scroll-position, 0) * ${-speed}))`,
-        } : undefined}
+        style={
+          typeof speed === "number"
+            ? {
+                transform: `translateY(calc(var(--scroll-position, 0) * ${-speed}))`,
+              }
+            : undefined
+        }
       >
         {children}
       </div>

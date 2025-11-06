@@ -24,7 +24,9 @@ const ErrorLogs = () => {
   const { isAdmin, isLoading: authLoading } = useAdminAuth();
   const [logs, setLogs] = useState<ErrorLog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [groupedErrors, setGroupedErrors] = useState<Map<string, ErrorLog[]>>(new Map());
+  const [groupedErrors, setGroupedErrors] = useState<Map<string, ErrorLog[]>>(
+    new Map(),
+  );
 
   useEffect(() => {
     if (!authLoading && !isAdmin) {
@@ -37,9 +39,9 @@ const ErrorLogs = () => {
   const loadLogs = async () => {
     setIsLoading(true);
     const { data, error } = await supabase
-      .from('error_logs')
-      .select('*')
-      .order('created_at', { ascending: false })
+      .from("error_logs")
+      .select("*")
+      .order("created_at", { ascending: false })
       .limit(100);
 
     if (error) {
@@ -72,9 +74,9 @@ const ErrorLogs = () => {
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
     const { error } = await supabase
-      .from('error_logs')
+      .from("error_logs")
       .delete()
-      .lt('created_at', sevenDaysAgo.toISOString());
+      .lt("created_at", sevenDaysAgo.toISOString());
 
     if (error) {
       toast({
@@ -92,7 +94,11 @@ const ErrorLogs = () => {
   };
 
   if (authLoading || isLoading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -142,11 +148,15 @@ const ErrorLogs = () => {
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">
-                {logs.filter(log => {
-                  const logDate = new Date(log.created_at);
-                  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-                  return logDate > oneDayAgo;
-                }).length}
+                {
+                  logs.filter((log) => {
+                    const logDate = new Date(log.created_at);
+                    const oneDayAgo = new Date(
+                      Date.now() - 24 * 60 * 60 * 1000,
+                    );
+                    return logDate > oneDayAgo;
+                  }).length
+                }
               </p>
             </CardContent>
           </Card>
@@ -158,7 +168,9 @@ const ErrorLogs = () => {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <CardTitle className="text-base font-mono">{message}</CardTitle>
+                    <CardTitle className="text-base font-mono">
+                      {message}
+                    </CardTitle>
                     <p className="text-sm text-muted-foreground mt-1">
                       {new Date(errorGroup[0].created_at).toLocaleString()}
                     </p>
@@ -173,7 +185,9 @@ const ErrorLogs = () => {
                   </div>
                   {errorGroup[0].stack && (
                     <details className="text-xs">
-                      <summary className="cursor-pointer font-semibold">Stack Trace</summary>
+                      <summary className="cursor-pointer font-semibold">
+                        Stack Trace
+                      </summary>
                       <pre className="mt-2 p-2 bg-muted rounded overflow-x-auto">
                         {errorGroup[0].stack}
                       </pre>
@@ -181,7 +195,9 @@ const ErrorLogs = () => {
                   )}
                   {errorGroup[0].context && (
                     <details className="text-xs">
-                      <summary className="cursor-pointer font-semibold">Context</summary>
+                      <summary className="cursor-pointer font-semibold">
+                        Context
+                      </summary>
                       <pre className="mt-2 p-2 bg-muted rounded overflow-x-auto">
                         {JSON.stringify(errorGroup[0].context, null, 2)}
                       </pre>

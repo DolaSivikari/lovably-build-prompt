@@ -40,7 +40,7 @@ import { ParallaxSection } from "@/components/animations";
 
 <ParallaxSection speed="slow">
   <img src="background.jpg" alt="Background" />
-</ParallaxSection>
+</ParallaxSection>;
 ```
 
 ### Speed Options
@@ -62,21 +62,15 @@ For simple effects, use CSS classes directly:
 
 ```tsx
 <div className="parallax-section">
-  <div className="parallax-layer parallax-layer-slow">
-    Background content
-  </div>
-  <div className="parallax-layer parallax-layer-fast">
-    Foreground content
-  </div>
+  <div className="parallax-layer parallax-layer-slow">Background content</div>
+  <div className="parallax-layer parallax-layer-fast">Foreground content</div>
 </div>
 ```
 
 ### Floating Animation
 
 ```tsx
-<div className="parallax-float">
-  This element floats gently up and down
-</div>
+<div className="parallax-float">This element floats gently up and down</div>
 ```
 
 ---
@@ -94,10 +88,11 @@ import { StaggerContainer } from "@/components/animations";
   <Card>Item 1 - Animates first</Card>
   <Card>Item 2 - Animates second</Card>
   <Card>Item 3 - Animates third</Card>
-</StaggerContainer>
+</StaggerContainer>;
 ```
 
 **Types:**
+
 - `fade` - Fade in and slide up (600ms intervals)
 - `scale` - Scale in effect (150ms intervals)
 
@@ -125,10 +120,10 @@ For dynamic lists with custom delays:
 ```tsx
 import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 
-const delays = useStaggerAnimation({ 
+const delays = useStaggerAnimation({
   itemCount: items.length,
   staggerDelay: 100,
-  initialDelay: 200
+  initialDelay: 200,
 });
 
 return (
@@ -168,6 +163,7 @@ export const MyPage = () => (
 **Transition Types:**
 
 1. **Fade** - Smooth opacity transition with slight scale
+
 ```tsx
 <PageTransition type="fade">
   <YourContent />
@@ -175,6 +171,7 @@ export const MyPage = () => (
 ```
 
 2. **Slide** - Slide in from right, out to left
+
 ```tsx
 <PageTransition type="slide">
   <YourContent />
@@ -182,6 +179,7 @@ export const MyPage = () => (
 ```
 
 3. **Zoom** - Zoom in/out effect
+
 ```tsx
 <PageTransition type="zoom" duration={500}>
   <YourContent />
@@ -229,6 +227,7 @@ import { ScrollReveal } from "@/components/animations";
 ```
 
 **Props:**
+
 - `direction` - "up" | "left" | "right"
 - `threshold` - 0 to 1 (how much visible before triggering)
 - `triggerOnce` - boolean (default: true)
@@ -244,11 +243,11 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 const MyComponent = () => {
   const { ref, isVisible } = useScrollReveal({
     threshold: 0.2,
-    triggerOnce: true
+    triggerOnce: true,
   });
 
   return (
-    <div ref={ref} className={`scroll-reveal ${isVisible ? 'is-visible' : ''}`}>
+    <div ref={ref} className={`scroll-reveal ${isVisible ? "is-visible" : ""}`}>
       Content
     </div>
   );
@@ -328,6 +327,7 @@ All animations automatically respect user preferences:
 ```
 
 When users enable "reduce motion" in their OS:
+
 - Animations play instantly or are removed
 - Transitions become immediate
 - Parallax effects are disabled
@@ -355,6 +355,7 @@ When users enable "reduce motion" in their OS:
 ## Performance Tips
 
 1. **Use `will-change` sparingly**
+
    ```css
    .parallax-layer {
      will-change: transform;
@@ -362,10 +363,11 @@ When users enable "reduce motion" in their OS:
    ```
 
 2. **Prefer transforms over position changes**
+
    ```css
    /* Good */
    transform: translateY(20px);
-   
+
    /* Avoid */
    top: 20px;
    ```
@@ -385,7 +387,10 @@ When users enable "reduce motion" in their OS:
 
 ```tsx
 <ParallaxSection speed="slow" className="relative h-screen">
-  <img src="background.jpg" className="absolute inset-0 w-full h-full object-cover" />
+  <img
+    src="background.jpg"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
   <div className="relative z-10 container mx-auto">
     <ScrollReveal direction="up">
       <h1>Welcome to Our Site</h1>
@@ -398,7 +403,7 @@ When users enable "reduce motion" in their OS:
 
 ```tsx
 <StaggerContainer type="scale" className="grid grid-cols-3 gap-6">
-  {features.map(feature => (
+  {features.map((feature) => (
     <Card key={feature.id}>
       <h3>{feature.title}</h3>
       <p>{feature.description}</p>
@@ -416,19 +421,19 @@ import { ScrollReveal } from "@/components/animations";
 export const AboutPage = () => (
   <PageTransition type="fade">
     <PageHeader title="About Us" />
-    
+
     <ScrollReveal direction="up">
       <section className="py-20">
         <h2>Our Story</h2>
         <p>Content here...</p>
       </section>
     </ScrollReveal>
-    
+
     <ScrollReveal direction="left" delay={200}>
       <section className="py-20">
         <h2>Our Team</h2>
         <StaggerContainer type="fade" className="grid grid-cols-3 gap-8">
-          {team.map(member => (
+          {team.map((member) => (
             <TeamCard key={member.id} member={member} />
           ))}
         </StaggerContainer>
@@ -445,41 +450,45 @@ export const AboutPage = () => (
 Replace manual animations with design system utilities:
 
 **Before:**
+
 ```tsx
-<div 
+<div
   className="opacity-0 transition-all duration-500"
-  style={{ animationDelay: '200ms' }}
+  style={{ animationDelay: "200ms" }}
 >
   Content
 </div>
 ```
 
 **After:**
+
 ```tsx
-<ScrollReveal delay={200}>
-  Content
-</ScrollReveal>
+<ScrollReveal delay={200}>Content</ScrollReveal>
 ```
 
 **Before:**
+
 ```tsx
-{items.map((item, index) => (
-  <div
-    key={item.id}
-    style={{ 
-      animationDelay: `${index * 100}ms`,
-      animation: 'fadeIn 0.5s ease-out forwards'
-    }}
-  >
-    {item.name}
-  </div>
-))}
+{
+  items.map((item, index) => (
+    <div
+      key={item.id}
+      style={{
+        animationDelay: `${index * 100}ms`,
+        animation: "fadeIn 0.5s ease-out forwards",
+      }}
+    >
+      {item.name}
+    </div>
+  ));
+}
 ```
 
 **After:**
+
 ```tsx
 <StaggerContainer type="fade">
-  {items.map(item => (
+  {items.map((item) => (
     <div key={item.id}>{item.name}</div>
   ))}
 </StaggerContainer>
@@ -490,6 +499,7 @@ Replace manual animations with design system utilities:
 ## Support
 
 For questions or issues with animations:
+
 1. Check this guide first
 2. Review `src/styles/animations.css` for available utilities
 3. See component examples in `src/components/animations/`

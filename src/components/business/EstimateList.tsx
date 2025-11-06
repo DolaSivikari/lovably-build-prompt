@@ -1,4 +1,11 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MoreVertical, Edit, Trash, Download, Copy } from "lucide-react";
@@ -54,17 +61,25 @@ export const EstimateList = ({
       <TableBody>
         {estimates.map((estimate) => (
           <TableRow key={estimate.id}>
-            <TableCell className="font-mono">#{estimate.estimate_number}</TableCell>
+            <TableCell className="font-mono">
+              #{estimate.estimate_number}
+            </TableCell>
             <TableCell>
               {estimate.client?.name}
               {estimate.client?.company && (
-                <div className="text-sm text-muted-foreground">{estimate.client.company}</div>
+                <div className="text-sm text-muted-foreground">
+                  {estimate.client.company}
+                </div>
               )}
             </TableCell>
             <TableCell>{estimate.project?.name || "-"}</TableCell>
-            <TableCell>{new Date(estimate.created_at).toLocaleDateString()}</TableCell>
             <TableCell>
-              {estimate.valid_until ? new Date(estimate.valid_until).toLocaleDateString() : "-"}
+              {new Date(estimate.created_at).toLocaleDateString()}
+            </TableCell>
+            <TableCell>
+              {estimate.valid_until
+                ? new Date(estimate.valid_until).toLocaleDateString()
+                : "-"}
             </TableCell>
             <TableCell>
               <StatusBadge status={estimate.status} type="estimate" />
@@ -88,13 +103,18 @@ export const EstimateList = ({
                     <Download className="h-4 w-4 mr-2" />
                     Download PDF
                   </DropdownMenuItem>
-                  {onConvertToInvoice && estimate.status === 'approved' && (
-                    <DropdownMenuItem onClick={() => onConvertToInvoice(estimate.id)}>
+                  {onConvertToInvoice && estimate.status === "approved" && (
+                    <DropdownMenuItem
+                      onClick={() => onConvertToInvoice(estimate.id)}
+                    >
                       <Copy className="h-4 w-4 mr-2" />
                       Convert to Invoice
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem onClick={() => onDelete(estimate.id)} className="text-destructive">
+                  <DropdownMenuItem
+                    onClick={() => onDelete(estimate.id)}
+                    className="text-destructive"
+                  >
                     <Trash className="h-4 w-4 mr-2" />
                     Delete
                   </DropdownMenuItem>

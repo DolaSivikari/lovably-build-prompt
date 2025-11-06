@@ -11,7 +11,10 @@ import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ArrowRight, ArrowLeft, CheckCircle2, Send } from "lucide-react";
-import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validation";
+import {
+  rfpSubmissionSchema,
+  type RFPSubmission,
+} from "@/schemas/rfp-validation";
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
 import { RFPStep3Timeline } from "@/components/rfp/RFPStep3Timeline";
@@ -64,7 +67,12 @@ export default function SubmitRFPNew() {
         fieldsToValidate = ["company_name", "contact_name", "email", "phone"];
         break;
       case 2:
-        fieldsToValidate = ["project_name", "project_type", "project_location", "estimated_value_range"];
+        fieldsToValidate = [
+          "project_name",
+          "project_type",
+          "project_location",
+          "estimated_value_range",
+        ];
         break;
       case 3:
         fieldsToValidate = ["estimated_timeline", "delivery_method"];
@@ -140,14 +148,16 @@ export default function SubmitRFPNew() {
       }
 
       toast.success("RFP Submitted Successfully", {
-        description: "We'll review your request and contact you within 2 business days.",
+        description:
+          "We'll review your request and contact you within 2 business days.",
       });
 
       navigate("/");
     } catch (error: any) {
       console.error("Submission error:", error);
       toast.error("Submission Failed", {
-        description: error.message || "Please try again or contact us directly.",
+        description:
+          error.message || "Please try again or contact us directly.",
       });
     } finally {
       setSubmitting(false);
@@ -170,24 +180,46 @@ export default function SubmitRFPNew() {
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         <div className="container mx-auto px-4 max-w-4xl relative z-10">
           <div className="text-center mb-8 animate-fade-in-up">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Submit Your RFP</h1>
-            <p className="text-xl text-primary-foreground/90">Complete our 4-step form to receive a detailed construction proposal</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Submit Your RFP
+            </h1>
+            <p className="text-xl text-primary-foreground/90">
+              Complete our 4-step form to receive a detailed construction
+              proposal
+            </p>
           </div>
 
           {/* Enhanced Progress */}
           <div className="flex justify-center gap-4 mb-8">
             {steps.map((step) => (
-              <div key={step.number} className={`flex flex-col items-center transition-all ${step.number === currentStep ? "scale-110" : step.number < currentStep ? "opacity-70" : "opacity-40"}`}>
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-2 ${step.number === currentStep ? "bg-secondary text-secondary-foreground shadow-lg" : step.number < currentStep ? "bg-secondary/70 text-secondary-foreground" : "bg-primary-foreground/20"}`}>
-                  {step.number < currentStep ? <CheckCircle2 className="w-8 h-8" /> : step.number}
+              <div
+                key={step.number}
+                className={`flex flex-col items-center transition-all ${step.number === currentStep ? "scale-110" : step.number < currentStep ? "opacity-70" : "opacity-40"}`}
+              >
+                <div
+                  className={`w-16 h-16 rounded-full flex items-center justify-center mb-2 ${step.number === currentStep ? "bg-secondary text-secondary-foreground shadow-lg" : step.number < currentStep ? "bg-secondary/70 text-secondary-foreground" : "bg-primary-foreground/20"}`}
+                >
+                  {step.number < currentStep ? (
+                    <CheckCircle2 className="w-8 h-8" />
+                  ) : (
+                    step.number
+                  )}
                 </div>
                 <span className="text-sm font-medium">{step.title}</span>
               </div>
             ))}
           </div>
           <div className="max-w-2xl mx-auto mb-8">
-            <div className="flex justify-between text-sm mb-2"><span>Step {currentStep} of {totalSteps}</span><span>{Math.round(progress)}% Complete</span></div>
-            <Progress value={progress} className="h-3 bg-primary-foreground/20" />
+            <div className="flex justify-between text-sm mb-2">
+              <span>
+                Step {currentStep} of {totalSteps}
+              </span>
+              <span>{Math.round(progress)}% Complete</span>
+            </div>
+            <Progress
+              value={progress}
+              className="h-3 bg-primary-foreground/20"
+            />
           </div>
         </div>
       </section>
@@ -195,7 +227,10 @@ export default function SubmitRFPNew() {
       <main className="flex-1 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Form */}
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-6 animate-fade-in-up"
+          >
             <CurrentStepComponent form={form} />
 
             {/* Navigation Buttons */}
@@ -203,18 +238,33 @@ export default function SubmitRFPNew() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-center">
                   {currentStep > 1 ? (
-                    <Button type="button" variant="secondary" onClick={handleBack}>
-                      <ArrowLeft className="w-4 h-4 mr-2" />Back
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={handleBack}
+                    >
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Back
                     </Button>
                   ) : (
                     <div />
                   )}
 
                   {currentStep < totalSteps ? (
-                    <Button type="button" onClick={handleNext}>Next<ArrowRight className="ml-2 w-4 h-4" /></Button>
+                    <Button type="button" onClick={handleNext}>
+                      Next
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
                   ) : (
                     <Button type="submit" disabled={submitting}>
-                      {submitting ? "Submitting..." : (<>Submit RFP<ArrowRight className="ml-2 w-4 h-4" /></>)}
+                      {submitting ? (
+                        "Submitting..."
+                      ) : (
+                        <>
+                          Submit RFP
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </>
+                      )}
                     </Button>
                   )}
                 </div>
@@ -223,13 +273,27 @@ export default function SubmitRFPNew() {
           </form>
 
           {/* Help Section */}
-          <Card className="mt-8 border-secondary/20 bg-secondary/5 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <Card
+            className="mt-8 border-secondary/20 bg-secondary/5 animate-fade-in-up"
+            style={{ animationDelay: "0.2s" }}
+          >
             <CardContent className="p-6">
               <h3 className="font-bold text-lg mb-3">Need Help?</h3>
-              <p className="text-muted-foreground mb-4">Have questions about the RFP process or need assistance with your submission?</p>
+              <p className="text-muted-foreground mb-4">
+                Have questions about the RFP process or need assistance with
+                your submission?
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div><p className="font-semibold mb-1">📞 Call Us</p><p className="text-muted-foreground">(416) 647-5286</p></div>
-                <div><p className="font-semibold mb-1">📧 Email</p><p className="text-muted-foreground">rfp@ascentgroupconstruction.com</p></div>
+                <div>
+                  <p className="font-semibold mb-1">📞 Call Us</p>
+                  <p className="text-muted-foreground">(416) 647-5286</p>
+                </div>
+                <div>
+                  <p className="font-semibold mb-1">📧 Email</p>
+                  <p className="text-muted-foreground">
+                    rfp@ascentgroupconstruction.com
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>

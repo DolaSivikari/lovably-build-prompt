@@ -11,7 +11,11 @@ const clientTypes = [
     title: "Property Owners",
     headline: "Multi-Family Solutions",
     description: "Multi-family and residential property solutions",
-    benefits: ["Quality Construction", "Professional Service", "Reliable Delivery"],
+    benefits: [
+      "Quality Construction",
+      "Professional Service",
+      "Reliable Delivery",
+    ],
     cta: "Explore Solutions",
     link: "/markets/multi-family",
     color: "from-blue-500/10 to-blue-600/5",
@@ -21,7 +25,11 @@ const clientTypes = [
     title: "Property Managers",
     headline: "Multi-Property Solutions",
     description: "Commercial construction and maintenance programs",
-    benefits: ["After-hours work", "Minimal disruption", "Maintenance contracts"],
+    benefits: [
+      "After-hours work",
+      "Minimal disruption",
+      "Maintenance contracts",
+    ],
     cta: "Request Consultation",
     link: "/property-managers",
     color: "from-green-500/10 to-green-600/5",
@@ -30,7 +38,8 @@ const clientTypes = [
     icon: HardHat,
     title: "Contractors & Developers",
     headline: "Subcontractor Partnership",
-    description: "Reliable, certified partner for large-scale commercial projects",
+    description:
+      "Reliable, certified partner for large-scale commercial projects",
     benefits: ["Fast response", "Bonded & insured", "Large project capacity"],
     cta: "Download Prequalification",
     link: "#prequalification",
@@ -68,21 +77,26 @@ const ClientSelector = () => {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <CardContent className="p-8">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                  <div
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                  >
                     <Icon className="w-8 h-8 text-primary" />
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold mb-2 text-foreground">
                     {client.headline}
                   </h3>
-                  
+
                   <p className="text-muted-foreground mb-6">
                     {client.description}
                   </p>
 
                   <ul className="space-y-3 mb-8">
                     {client.benefits.map((benefit, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <li
+                        key={idx}
+                        className="flex items-center gap-2 text-sm text-muted-foreground"
+                      >
                         <ArrowRight className="w-4 h-4 text-primary flex-shrink-0" />
                         {benefit}
                       </li>

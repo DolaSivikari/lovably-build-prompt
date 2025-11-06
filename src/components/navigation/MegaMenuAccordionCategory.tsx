@@ -22,7 +22,7 @@ export const MegaMenuAccordionCategory = ({
       <button
         className={cn(
           "mega-menu-accordion-trigger",
-          isExpanded && "mega-menu-accordion-trigger--expanded"
+          isExpanded && "mega-menu-accordion-trigger--expanded",
         )}
         onClick={onToggle}
         aria-expanded={isExpanded}
@@ -31,21 +31,23 @@ export const MegaMenuAccordionCategory = ({
         <div>
           <span className="mega-menu-accordion-title">{category.title}</span>
           {category.description && (
-            <p className="text-xs text-muted-foreground mt-0.5">{category.description}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {category.description}
+            </p>
           )}
         </div>
         <ChevronDown
           className={cn(
             "mega-menu-accordion-icon",
-            isExpanded && "mega-menu-accordion-icon--expanded"
+            isExpanded && "mega-menu-accordion-icon--expanded",
           )}
         />
       </button>
-      
+
       <div
         className={cn(
           "mega-menu-accordion-content",
-          isExpanded && "mega-menu-accordion-content--expanded"
+          isExpanded && "mega-menu-accordion-content--expanded",
         )}
       >
         <ul className="mega-menu-accordion-list">

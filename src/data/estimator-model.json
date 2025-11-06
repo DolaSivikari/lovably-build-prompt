@@ -129,7 +129,7 @@
       "unit_count_discount": {
         "1_5": 1.0,
         "6_10": 0.95,
-        "11_20": 0.90,
+        "11_20": 0.9,
         "21_plus": 0.85
       },
       "common_areas_multiplier": 1.15

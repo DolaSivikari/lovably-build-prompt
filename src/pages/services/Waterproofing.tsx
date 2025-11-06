@@ -1,79 +1,109 @@
-import { Link } from 'react-router-dom';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import SEO from '@/components/SEO';
-import { PageHero } from '@/components/sections/PageHero';
-import { Button } from '@/ui/Button';
+import { Link } from "react-router-dom";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
+import { PageHero } from "@/components/sections/PageHero";
+import { Button } from "@/ui/Button";
 import { Card } from "@/components/ui/card";
-import { Droplets, Shield, Building, Layers, CheckCircle2, ArrowRight } from 'lucide-react';
-import { createServiceSchema } from '@/utils/schema-injector';
-import { breadcrumbSchema } from '@/utils/structured-data';
-import heroImage from '@/assets/hero-waterproofing.jpg';
+import {
+  Droplets,
+  Shield,
+  Building,
+  Layers,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
+import { createServiceSchema } from "@/utils/schema-injector";
+import { breadcrumbSchema } from "@/utils/structured-data";
+import heroImage from "@/assets/hero-waterproofing.jpg";
 
 const Waterproofing = () => {
   const serviceSchema = createServiceSchema({
-    serviceType: 'Waterproofing Systems',
-    areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
-    priceRange: '$$-$$$',
-    subServices: ['Below-Grade Waterproofing', 'Plaza Deck Systems', 'Membrane Systems', 'Leak Remediation']
+    serviceType: "Waterproofing Systems",
+    areaServed: [
+      "Toronto",
+      "Mississauga",
+      "Brampton",
+      "Vaughan",
+      "Markham",
+      "Hamilton",
+      "Burlington",
+    ],
+    priceRange: "$$-$$$",
+    subServices: [
+      "Below-Grade Waterproofing",
+      "Plaza Deck Systems",
+      "Membrane Systems",
+      "Leak Remediation",
+    ],
   });
 
   const breadcrumbSchemaData = breadcrumbSchema([
-    { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
-    { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Waterproofing', url: 'https://ascentgroupconstruction.com/services/waterproofing' }
+    { name: "Home", url: "https://ascentgroupconstruction.com/" },
+    { name: "Services", url: "https://ascentgroupconstruction.com/services" },
+    {
+      name: "Waterproofing",
+      url: "https://ascentgroupconstruction.com/services/waterproofing",
+    },
   ]);
 
   const stats = [
-    { value: '1M+', label: 'SF Protected' },
-    { value: 'ZERO', label: 'Leaks' },
-    { value: '400+', label: 'Systems' },
-    { value: '20 Years', label: 'Warranties' }
+    { value: "1M+", label: "SF Protected" },
+    { value: "ZERO", label: "Leaks" },
+    { value: "400+", label: "Systems" },
+    { value: "20 Years", label: "Warranties" },
   ];
 
   const deliverables = [
     {
       icon: Droplets,
-      title: 'Below-Grade Waterproofing',
-      description: 'Foundation and basement waterproofing with proven membrane systems and drainage solutions.'
+      title: "Below-Grade Waterproofing",
+      description:
+        "Foundation and basement waterproofing with proven membrane systems and drainage solutions.",
     },
     {
       icon: Shield,
-      title: 'Plaza Deck Systems',
-      description: 'Trafficked and landscaped deck waterproofing with protection boards and drainage layers.'
+      title: "Plaza Deck Systems",
+      description:
+        "Trafficked and landscaped deck waterproofing with protection boards and drainage layers.",
     },
     {
       icon: Building,
-      title: 'Above-Grade Membranes',
-      description: 'Wall and balcony waterproofing systems integrated with building envelope assemblies.'
+      title: "Above-Grade Membranes",
+      description:
+        "Wall and balcony waterproofing systems integrated with building envelope assemblies.",
     },
     {
       icon: Layers,
-      title: 'Leak Investigation & Repair',
-      description: 'Expert diagnostics and remediation of existing waterproofing failures with comprehensive warranties.'
-    }
+      title: "Leak Investigation & Repair",
+      description:
+        "Expert diagnostics and remediation of existing waterproofing failures with comprehensive warranties.",
+    },
   ];
 
   const process = [
     {
-      phase: 'Assessment & Testing',
-      description: 'Moisture testing, system evaluation, and engineering review to determine optimal waterproofing strategy.'
+      phase: "Assessment & Testing",
+      description:
+        "Moisture testing, system evaluation, and engineering review to determine optimal waterproofing strategy.",
     },
     {
-      phase: 'Substrate Preparation',
-      description: 'Surface preparation, priming, and detailing to ensure proper membrane adhesion and system performance.'
+      phase: "Substrate Preparation",
+      description:
+        "Surface preparation, priming, and detailing to ensure proper membrane adhesion and system performance.",
     },
     {
-      phase: 'System Installation',
-      description: 'Membrane application with critical detailing at transitions, penetrations, and terminations for lasting protection.'
-    }
+      phase: "System Installation",
+      description:
+        "Membrane application with critical detailing at transitions, penetrations, and terminations for lasting protection.",
+    },
   ];
 
   const advantages = [
-    'Manufacturer-certified applicators for all major systems',
-    'In-house leak investigation and diagnostic services',
-    'Extended warranties on materials and installation',
-    'Integration with all building envelope systems'
+    "Manufacturer-certified applicators for all major systems",
+    "In-house leak investigation and diagnostic services",
+    "Extended warranties on materials and installation",
+    "Integration with all building envelope systems",
   ];
 
   return (
@@ -87,17 +117,20 @@ const Waterproofing = () => {
       <Navigation />
 
       <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
-          { label: 'Home', href: '/' },
-          { label: 'Services', href: '/services' },
-          { label: 'Waterproofing' }
-        ]} />
+        <PageHero.Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Services", href: "/services" },
+            { label: "Waterproofing" },
+          ]}
+        />
         <PageHero.Title>Waterproofing Systems</PageHero.Title>
         <PageHero.Subtitle>
-          Comprehensive waterproofing solutions protecting your investment from foundation to roof
+          Comprehensive waterproofing solutions protecting your investment from
+          foundation to roof
         </PageHero.Subtitle>
         <PageHero.Stats stats={stats} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Assessment"
           primaryHref="/contact"
           secondaryText="View Projects"
@@ -109,16 +142,22 @@ const Waterproofing = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Complete Waterproofing Solutions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Complete Waterproofing Solutions
+            </h2>
             <p className="text-lg text-muted-foreground">
-              From foundation to plaza decks, we install proven waterproofing systems that provide
-              lasting protection against moisture intrusion.
+              From foundation to plaza decks, we install proven waterproofing
+              systems that provide lasting protection against moisture
+              intrusion.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {deliverables.map((item, index) => (
-              <Card key={index} className="p-8 hover:shadow-lg transition-shadow">
+              <Card
+                key={index}
+                className="p-8 hover:shadow-lg transition-shadow"
+              >
                 <item.icon className="w-12 h-12 text-primary mb-4" />
                 <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
@@ -132,9 +171,12 @@ const Waterproofing = () => {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Waterproofing Process</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Our Waterproofing Process
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Systematic approach ensuring proper system selection and installation for maximum protection
+              Systematic approach ensuring proper system selection and
+              installation for maximum protection
             </p>
           </div>
 
@@ -156,7 +198,9 @@ const Waterproofing = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Why Self-Perform Waterproofing</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+              Why Self-Perform Waterproofing
+            </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {advantages.map((advantage, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -172,18 +216,35 @@ const Waterproofing = () => {
       {/* Case Studies */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Waterproofing Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            Selected Waterproofing Projects
+          </h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { title: 'Residential Tower Foundation', detail: '45,000 SF below-grade membrane, Toronto' },
-              { title: 'Civic Plaza Deck', detail: 'Complete plaza waterproofing and landscaping, Mississauga' },
-              { title: 'Hospital Parking Structure', detail: 'Traffic deck waterproofing system, Brampton' }
+              {
+                title: "Residential Tower Foundation",
+                detail: "45,000 SF below-grade membrane, Toronto",
+              },
+              {
+                title: "Civic Plaza Deck",
+                detail:
+                  "Complete plaza waterproofing and landscaping, Mississauga",
+              },
+              {
+                title: "Hospital Parking Structure",
+                detail: "Traffic deck waterproofing system, Brampton",
+              },
             ].map((project, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+              <Card
+                key={index}
+                className="p-6 hover:shadow-lg transition-shadow"
+              >
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 <p className="text-muted-foreground mb-4">{project.detail}</p>
                 <Button variant="link" className="p-0 h-auto" asChild>
-                  <Link to="/projects">View Project <ArrowRight className="w-4 h-4 ml-2" /></Link>
+                  <Link to="/projects">
+                    View Project <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
                 </Button>
               </Card>
             ))}
@@ -194,12 +255,17 @@ const Waterproofing = () => {
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Protect Your Building from Moisture</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Protect Your Building from Moisture
+          </h2>
           <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-            Expert waterproofing systems with comprehensive warranties and proven performance
+            Expert waterproofing systems with comprehensive warranties and
+            proven performance
           </p>
           <Button size="lg" variant="secondary" asChild>
-            <Link to="/contact">Request Assessment <ArrowRight className="ml-2 w-5 h-5" /></Link>
+            <Link to="/contact">
+              Request Assessment <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </Button>
         </div>
       </section>

@@ -5,8 +5,8 @@
  * Validates that all internal links point to valid routes
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
 const KNOWN_ROUTES = [
   "/",
@@ -62,26 +62,26 @@ const KNOWN_ROUTES = [
 
 function findLinks(dir: string): string[] {
   const links: string[] = [];
-  
+
   function walk(currentPath: string) {
     const entries = fs.readdirSync(currentPath, { withFileTypes: true });
 
     for (const entry of entries) {
       const fullPath = path.join(currentPath, entry.name);
 
-      if (entry.name.includes('node_modules') || entry.name.includes('.git')) {
+      if (entry.name.includes("node_modules") || entry.name.includes(".git")) {
         continue;
       }
 
       if (entry.isDirectory()) {
         walk(fullPath);
-      } else if (entry.name.endsWith('.tsx') || entry.name.endsWith('.ts')) {
-        const content = fs.readFileSync(fullPath, 'utf-8');
+      } else if (entry.name.endsWith(".tsx") || entry.name.endsWith(".ts")) {
+        const content = fs.readFileSync(fullPath, "utf-8");
         const matches = content.match(/to=["']([^"']+)["']/g);
         if (matches) {
-          matches.forEach(match => {
+          matches.forEach((match) => {
             const link = match.match(/to=["']([^"']+)["']/)?.[1];
-            if (link && link.startsWith('/')) {
+            if (link && link.startsWith("/")) {
               links.push(link);
             }
           });
@@ -94,20 +94,20 @@ function findLinks(dir: string): string[] {
   return [...new Set(links)];
 }
 
-const srcDir = path.join(process.cwd(), 'src');
+const srcDir = path.join(process.cwd(), "src");
 const foundLinks = findLinks(srcDir);
 
-const unknownLinks = foundLinks.filter(link => {
-  return !KNOWN_ROUTES.some(route => {
-    const pattern = route.replace(/:[\w]+/g, '[^/]+');
+const unknownLinks = foundLinks.filter((link) => {
+  return !KNOWN_ROUTES.some((route) => {
+    const pattern = route.replace(/:[\w]+/g, "[^/]+");
     return new RegExp(`^${pattern}$`).test(link);
   });
 });
 
 if (unknownLinks.length === 0) {
-  console.log('✅ Route audit passed - all links are valid');
+  console.log("✅ Route audit passed - all links are valid");
 } else {
   console.log(`\n⚠️  Found ${unknownLinks.length} unknown routes:\n`);
-  unknownLinks.forEach(link => console.log(`  - ${link}`));
-  console.log('\nConsider adding these to KNOWN_ROUTES or fixing the links.\n');
+  unknownLinks.forEach((link) => console.log(`  - ${link}`));
+  console.log("\nConsider adding these to KNOWN_ROUTES or fixing the links.\n");
 }

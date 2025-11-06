@@ -37,11 +37,20 @@ interface CTAsProps {
   secondaryHref?: string;
 }
 
-const PageHeroRoot = ({ children, backgroundImage, className }: PageHeroRootProps) => {
+const PageHeroRoot = ({
+  children,
+  backgroundImage,
+  className,
+}: PageHeroRootProps) => {
   const parallaxOffset = useParallax({ speed: 0.5 });
-  
+
   return (
-    <section className={cn("relative min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden", className)}>
+    <section
+      className={cn(
+        "relative min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden",
+        className,
+      )}
+    >
       {backgroundImage && (
         <>
           <div className="absolute inset-0 z-0">
@@ -55,11 +64,9 @@ const PageHeroRoot = ({ children, backgroundImage, className }: PageHeroRootProp
           <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/70 to-black/60" />
         </>
       )}
-      
+
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl">
-          {children}
-        </div>
+        <div className="max-w-3xl">{children}</div>
       </div>
     </section>
   );
@@ -72,15 +79,16 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
         {items.map((item, index) => (
           <li key={index} className="flex items-center gap-2">
             {item.href ? (
-              <Link to={item.href} className="hover:text-white transition-colors">
+              <Link
+                to={item.href}
+                className="hover:text-white transition-colors"
+              >
                 {item.label}
               </Link>
             ) : (
               <span className="text-white font-medium">{item.label}</span>
             )}
-            {index < items.length - 1 && (
-              <ChevronRight className="w-4 h-4" />
-            )}
+            {index < items.length - 1 && <ChevronRight className="w-4 h-4" />}
           </li>
         ))}
       </ol>
@@ -93,7 +101,11 @@ const Title = ({ children }: { children: ReactNode }) => {
 };
 
 const Subtitle = ({ children }: { children: ReactNode }) => {
-  return <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-2xl">{children}</p>;
+  return (
+    <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-2xl">
+      {children}
+    </p>
+  );
 };
 
 const Stats = ({ stats }: StatsProps) => {
@@ -113,7 +125,12 @@ const Stats = ({ stats }: StatsProps) => {
   );
 };
 
-const CTAs = ({ primaryText = "Request Proposal", primaryHref = "/contact", secondaryText, secondaryHref }: CTAsProps) => {
+const CTAs = ({
+  primaryText = "Request Proposal",
+  primaryHref = "/contact",
+  secondaryText,
+  secondaryHref,
+}: CTAsProps) => {
   return (
     <div className="flex flex-wrap items-center gap-4">
       <Button asChild size="lg">

@@ -25,7 +25,13 @@ interface MultiSelectFilterProps {
   className?: string;
 }
 
-export const MultiSelectFilter = ({ options, selected, onChange, label, className }: MultiSelectFilterProps) => {
+export const MultiSelectFilter = ({
+  options,
+  selected,
+  onChange,
+  label,
+  className,
+}: MultiSelectFilterProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOption = (value: string) => {
@@ -47,7 +53,10 @@ export const MultiSelectFilter = ({ options, selected, onChange, label, classNam
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className={cn("justify-between min-w-[180px]", className)}>
+        <Button
+          variant="outline"
+          className={cn("justify-between min-w-[180px]", className)}
+        >
           <span className="truncate">
             {label}
             {selected.length > 0 && (
@@ -61,10 +70,20 @@ export const MultiSelectFilter = ({ options, selected, onChange, label, classNam
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-64">
         <div className="flex gap-2 p-2 border-b">
-          <Button variant="ghost" size="sm" onClick={selectAll} className="flex-1 h-8">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={selectAll}
+            className="flex-1 h-8"
+          >
             Select All
           </Button>
-          <Button variant="ghost" size="sm" onClick={clearAll} className="flex-1 h-8">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={clearAll}
+            className="flex-1 h-8"
+          >
             Clear
           </Button>
         </div>
@@ -83,10 +102,12 @@ export const MultiSelectFilter = ({ options, selected, onChange, label, classNam
                 <div
                   className={cn(
                     "h-4 w-4 border rounded flex items-center justify-center",
-                    isSelected ? "bg-primary border-primary" : "border-input"
+                    isSelected ? "bg-primary border-primary" : "border-input",
                   )}
                 >
-                  {isSelected && <Check className="h-3 w-3 text-primary-foreground" />}
+                  {isSelected && (
+                    <Check className="h-3 w-3 text-primary-foreground" />
+                  )}
                 </div>
                 <span className="flex-1">{option.label}</span>
                 {option.count !== undefined && (

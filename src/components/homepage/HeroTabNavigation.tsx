@@ -6,7 +6,11 @@ interface HeroTabNavigationProps {
   onSlideChange: (index: number) => void;
 }
 
-const HeroTabNavigation = ({ slides, currentSlide, onSlideChange }: HeroTabNavigationProps) => {
+const HeroTabNavigation = ({
+  slides,
+  currentSlide,
+  onSlideChange,
+}: HeroTabNavigationProps) => {
   return (
     <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-6">
       <div className="flex gap-2 md:gap-4 justify-center flex-wrap">
@@ -19,7 +23,7 @@ const HeroTabNavigation = ({ slides, currentSlide, onSlideChange }: HeroTabNavig
               "after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[hsl(var(--brand-accent))] after:transition-transform after:duration-300",
               currentSlide === index
                 ? "text-white after:scale-x-100"
-                : "text-white/70 hover:text-white after:scale-x-0"
+                : "text-white/70 hover:text-white after:scale-x-0",
             )}
           >
             {slide.headline}

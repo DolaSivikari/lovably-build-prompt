@@ -1,7 +1,11 @@
 import { Star, CheckCircle2 } from "lucide-react";
 import { Card } from "./ui/card";
 import SEO from "./SEO";
-import { calculateISODate, inferServiceFromReview, getConsistentAggregateRating } from "@/utils/review-helpers";
+import {
+  calculateISODate,
+  inferServiceFromReview,
+  getConsistentAggregateRating,
+} from "@/utils/review-helpers";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 
 const GoogleReviews = () => {
@@ -18,7 +22,7 @@ const GoogleReviews = () => {
       text: "Marcus and his team did an outstanding job managing our 12-storey condo renovation. Finished in 3 weeks, minimal disruption to residents. Very impressed with their professionalism and attention to detail.",
       date: "5 days ago",
       avatar: "PP",
-      verified: true
+      verified: true,
     },
     {
       author: "David Kim",
@@ -26,7 +30,7 @@ const GoogleReviews = () => {
       text: "Professional team that knows what they're doing. Our parking garage looks brand new after their restoration work.",
       date: "2 weeks ago",
       avatar: "DK",
-      verified: true
+      verified: true,
     },
     {
       author: "Elena Martinez",
@@ -34,7 +38,7 @@ const GoogleReviews = () => {
       text: "Great quality work on our office space. Project ran 2 days over schedule but they communicated well and the final result was worth it.",
       date: "3 weeks ago",
       avatar: "EM",
-      verified: true
+      verified: true,
     },
     {
       author: "James Thompson",
@@ -42,7 +46,7 @@ const GoogleReviews = () => {
       text: "Best decision we made. They handled our commercial building renovation efficiently and delivered exceptional quality for the GTA market.",
       date: "1 month ago",
       avatar: "JT",
-      verified: true
+      verified: true,
     },
     {
       author: "Aisha Mohammed",
@@ -50,7 +54,7 @@ const GoogleReviews = () => {
       text: "Reliable and trustworthy. Fixed our stucco issues and even spotted other problems we weren't aware of. Highly recommend!",
       date: "1 month ago",
       avatar: "AM",
-      verified: true
+      verified: true,
     },
   ];
 
@@ -61,57 +65,57 @@ const GoogleReviews = () => {
       {
         "@type": "LocalBusiness",
         "@id": "https://ascentgroupconstruction.com/#localbusiness",
-        "name": settings?.companyName || "Ascent Group Construction",
-        "url": "https://ascentgroupconstruction.com/",
-        "telephone": settings?.phone ? `+1-${settings.phone}` : "+1-647-528-6804",
-        "address": {
+        name: settings?.companyName || "Ascent Group Construction",
+        url: "https://ascentgroupconstruction.com/",
+        telephone: settings?.phone ? `+1-${settings.phone}` : "+1-647-528-6804",
+        address: {
           "@type": "PostalAddress",
-          "streetAddress": "7895 Tranmere Drive, Unit #22",
-          "addressLocality": "Mississauga",
-          "addressRegion": "ON",
-          "postalCode": "L5S 1V9",
-          "addressCountry": "CA"
+          streetAddress: "7895 Tranmere Drive, Unit #22",
+          addressLocality: "Mississauga",
+          addressRegion: "ON",
+          postalCode: "L5S 1V9",
+          addressCountry: "CA",
         },
-        "aggregateRating": {
+        aggregateRating: {
           "@type": "AggregateRating",
-          "ratingValue": aggregateRating.ratingValue,
-          "reviewCount": aggregateRating.reviewCount,
-          "bestRating": aggregateRating.bestRating,
-          "worstRating": aggregateRating.worstRating
-        }
+          ratingValue: aggregateRating.ratingValue,
+          reviewCount: aggregateRating.reviewCount,
+          bestRating: aggregateRating.bestRating,
+          worstRating: aggregateRating.worstRating,
+        },
       },
-      ...reviews.map(review => {
+      ...reviews.map((review) => {
         const service = inferServiceFromReview(review.text);
         return {
           "@type": "Review",
-          "author": {
+          author: {
             "@type": "Person",
-            "name": review.author
+            name: review.author,
           },
-          "datePublished": calculateISODate(review.date),
-          "reviewBody": review.text,
-          "reviewRating": {
+          datePublished: calculateISODate(review.date),
+          reviewBody: review.text,
+          reviewRating: {
             "@type": "Rating",
-            "ratingValue": String(review.rating),
-            "bestRating": "5",
-            "worstRating": "1"
+            ratingValue: String(review.rating),
+            bestRating: "5",
+            worstRating: "1",
           },
-          "itemReviewed": {
+          itemReviewed: {
             "@type": "Service",
-            "name": service.name,
-            "serviceType": service.type,
-            "provider": {
+            name: service.name,
+            serviceType: service.type,
+            provider: {
               "@type": "LocalBusiness",
-              "@id": "https://ascentgroupconstruction.com/#localbusiness"
-            }
+              "@id": "https://ascentgroupconstruction.com/#localbusiness",
+            },
           },
-          "publisher": {
+          publisher: {
             "@type": "Organization",
-            "name": "Google"
-          }
+            name: "Google",
+          },
         };
-      })
-    ]
+      }),
+    ],
   };
 
   return (
@@ -196,7 +200,7 @@ const GoogleReviews = () => {
               className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
               </svg>
               See all {totalReviews} reviews
             </a>

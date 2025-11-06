@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/ui/Button';
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/ui/Button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
-import { Bell } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { Bell } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 
 interface Notification {
   id: string;
@@ -31,19 +31,21 @@ export const NotificationBell = () => {
     loadNotifications();
     const cleanup = subscribeToNotifications();
     return () => {
-      cleanup?.then(fn => fn?.());
+      cleanup?.then((fn) => fn?.());
     };
   }, []);
 
   const loadNotifications = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data } = await supabase
-      .from('notifications')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
+      .from("notifications")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
       .limit(10);
 
     if (data) {
@@ -53,23 +55,28 @@ export const NotificationBell = () => {
   };
 
   const subscribeToNotifications = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const channel = supabase
-      .channel('user-notifications')
+      .channel("user-notifications")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'notifications',
+          event: "INSERT",
+          schema: "public",
+          table: "notifications",
           filter: `user_id=eq.${user.id}`,
         },
         (payload) => {
-          setNotifications((prev) => [payload.new as Notification, ...prev.slice(0, 9)]);
+          setNotifications((prev) => [
+            payload.new as Notification,
+            ...prev.slice(0, 9),
+          ]);
           setUnreadCount((prev) => prev + 1);
-        }
+        },
       )
       .subscribe();
 
@@ -80,12 +87,12 @@ export const NotificationBell = () => {
 
   const markAsRead = async (notificationId: string, link: string | null) => {
     await supabase
-      .from('notifications')
+      .from("notifications")
       .update({ read: true })
-      .eq('id', notificationId);
+      .eq("id", notificationId);
 
     setNotifications((prev) =>
-      prev.map((n) => (n.id === notificationId ? { ...n, read: true } : n))
+      prev.map((n) => (n.id === notificationId ? { ...n, read: true } : n)),
     );
     setUnreadCount((prev) => Math.max(0, prev - 1));
 
@@ -95,14 +102,16 @@ export const NotificationBell = () => {
   };
 
   const markAllAsRead = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     await supabase
-      .from('notifications')
+      .from("notifications")
       .update({ read: true })
-      .eq('user_id', user.id)
-      .eq('read', false);
+      .eq("user_id", user.id)
+      .eq("read", false);
 
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
     setUnreadCount(0);
@@ -118,18 +127,23 @@ export const NotificationBell = () => {
               variant="destructive"
               className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
             >
-              {unreadCount > 9 ? '9+' : unreadCount}
+              {unreadCount > 9 ? "9+" : unreadCount}
             </Badge>
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 bg-slate-900 border-slate-700 text-[hsl(var(--bg))]">
+      <DropdownMenuContent
+        align="end"
+        className="w-80 bg-slate-900 border-slate-700 text-[hsl(var(--bg))]"
+      >
         <div className="flex items-center justify-between p-2 border-b border-slate-700">
-          <span className="font-semibold text-[hsl(var(--bg))]">Notifications</span>
+          <span className="font-semibold text-[hsl(var(--bg))]">
+            Notifications
+          </span>
           {unreadCount > 0 && (
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={markAllAsRead}
               className="text-slate-300 hover:text-[hsl(var(--bg))] hover:bg-slate-800"
             >
@@ -147,13 +161,15 @@ export const NotificationBell = () => {
               <DropdownMenuItem
                 key={notification.id}
                 className={`p-3 cursor-pointer hover:bg-slate-800 ${
-                  !notification.read ? 'bg-slate-800/50' : ''
+                  !notification.read ? "bg-slate-800/50" : ""
                 }`}
                 onClick={() => markAsRead(notification.id, notification.link)}
               >
                 <div className="flex flex-col gap-1 w-full">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm text-[hsl(var(--bg))]">{notification.title}</span>
+                    <span className="font-medium text-sm text-[hsl(var(--bg))]">
+                      {notification.title}
+                    </span>
                     {!notification.read && (
                       <span className="h-2 w-2 bg-primary rounded-full" />
                     )}
@@ -162,7 +178,7 @@ export const NotificationBell = () => {
                     {notification.message}
                   </p>
                   <span className="text-xs text-slate-500">
-                    {format(new Date(notification.created_at), 'MMM dd, HH:mm')}
+                    {format(new Date(notification.created_at), "MMM dd, HH:mm")}
                   </span>
                 </div>
               </DropdownMenuItem>

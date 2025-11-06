@@ -27,7 +27,7 @@ Object.entries(rawAssets).forEach(([fullPath, url]) => {
 
 export function resolveAssetPath(input?: string): string | undefined {
   if (!input) return "/placeholder.svg";
-  
+
   // Pass-through for absolute URLs or data URIs
   if (/^https?:\/\//.test(input) || input.startsWith("data:")) return input;
 
@@ -41,7 +41,8 @@ export function resolveAssetPath(input?: string): string | undefined {
 
   // Try mapping to /assets/<filename>
   const fileNameOnly = normalized.split("/").pop()!;
-  if (assetMap[`/assets/${fileNameOnly}`]) return assetMap[`/assets/${fileNameOnly}`];
+  if (assetMap[`/assets/${fileNameOnly}`])
+    return assetMap[`/assets/${fileNameOnly}`];
   if (assetMap[fileNameOnly]) return assetMap[fileNameOnly];
 
   // Log unresolved paths in development

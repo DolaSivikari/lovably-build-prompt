@@ -1,8 +1,8 @@
-import { useState, useRef } from 'react';
-import { Upload, X, Loader2 } from 'lucide-react';
-import { Button } from '@/ui/Button';
-import { uploadImage } from '@/utils/imageResolver';
-import { toast } from 'sonner';
+import { useState, useRef } from "react";
+import { Upload, X, Loader2 } from "lucide-react";
+import { Button } from "@/ui/Button";
+import { uploadImage } from "@/utils/imageResolver";
+import { toast } from "sonner";
 
 interface ImageUploadFieldProps {
   value?: string;
@@ -15,9 +15,9 @@ interface ImageUploadFieldProps {
 export const ImageUploadField = ({
   value,
   onChange,
-  bucket = 'project-images',
-  label = 'Upload Image',
-  accept = 'image/*'
+  bucket = "project-images",
+  label = "Upload Image",
+  accept = "image/*",
 }: ImageUploadFieldProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(value || null);
@@ -29,7 +29,7 @@ export const ImageUploadField = ({
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      toast.error('File size must be less than 5MB');
+      toast.error("File size must be less than 5MB");
       return;
     }
 
@@ -52,10 +52,10 @@ export const ImageUploadField = ({
       }
 
       onChange(url);
-      toast.success('Image uploaded successfully');
+      toast.success("Image uploaded successfully");
     } catch (error) {
-      console.error('Upload error:', error);
-      toast.error('Failed to upload image');
+      console.error("Upload error:", error);
+      toast.error("Failed to upload image");
     } finally {
       setIsUploading(false);
     }
@@ -63,16 +63,16 @@ export const ImageUploadField = ({
 
   const handleRemove = () => {
     setPreview(null);
-    onChange('');
+    onChange("");
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
   return (
     <div className="space-y-2">
       <label className="text-sm font-medium">{label}</label>
-      
+
       {preview ? (
         <div className="relative group">
           <img

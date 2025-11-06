@@ -13,7 +13,11 @@ import { supabase } from "@/integrations/supabase/client";
 import EstimatorStep1 from "@/components/estimator/EstimatorStep1";
 import EstimatorStep2Enhanced from "@/components/estimator/EstimatorStep2Enhanced";
 import { QuoteRequestDialog } from "@/components/estimator/QuoteRequestDialog";
-import { requiresQuote, getServiceMessage, isEstimatable } from "@/utils/estimator";
+import {
+  requiresQuote,
+  getServiceMessage,
+  isEstimatable,
+} from "@/utils/estimator";
 import EstimatorStep3 from "@/components/estimator/EstimatorStep3";
 import EstimatorStep4 from "@/components/estimator/EstimatorStep4";
 import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
@@ -85,18 +89,18 @@ const Estimate = () => {
           .split("_")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ");
-        
+
         setSelectedServiceInfo({
           name: serviceName,
           message: serviceMessage,
         });
         setShowQuoteDialog(true);
-        
+
         // Don't update form data - keep service empty so user must pick estimatable service
         return;
       }
     }
-    
+
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -157,11 +161,17 @@ const Estimate = () => {
         );
       case 2:
         // Base fields required for all services
-        let baseValid = formData.prepComplexity && formData.finishQuality && formData.region;
-        
+        let baseValid =
+          formData.prepComplexity && formData.finishQuality && formData.region;
+
         // Service-specific required fields
         if (formData.service === "commercial_painting") {
-          return baseValid && formData.buildingType && formData.accessibility && formData.businessHoursConstraint;
+          return (
+            baseValid &&
+            formData.buildingType &&
+            formData.accessibility &&
+            formData.businessHoursConstraint
+          );
         }
         if (formData.service === "condo_multi_unit_painting") {
           return baseValid && formData.unitCount;
@@ -169,7 +179,7 @@ const Estimate = () => {
         if (formData.service === "exterior_siding_cladding") {
           return baseValid && formData.materialType;
         }
-        
+
         return baseValid;
       case 3:
         return true; // Optional step
@@ -220,15 +230,15 @@ const Estimate = () => {
       // Sanitize and build message with validated data
       const sanitizedMessage = `
 Estimate Request:
-- Service: ${formData.service.replace(/[<>]/g, '')}
-- Square Footage: ${formData.sqft.replace(/[<>]/g, '')}
-- Stories: ${formData.stories.replace(/[<>]/g, '')}
-- Prep Complexity: ${formData.prepComplexity.replace(/[<>]/g, '')}
-- Finish Quality: ${formData.finishQuality.replace(/[<>]/g, '')}
-- Region: ${formData.region.replace(/[<>]/g, '')}
+- Service: ${formData.service.replace(/[<>]/g, "")}
+- Square Footage: ${formData.sqft.replace(/[<>]/g, "")}
+- Stories: ${formData.stories.replace(/[<>]/g, "")}
+- Prep Complexity: ${formData.prepComplexity.replace(/[<>]/g, "")}
+- Finish Quality: ${formData.finishQuality.replace(/[<>]/g, "")}
+- Region: ${formData.region.replace(/[<>]/g, "")}
 - Estimated Range: $${estimate.min.toLocaleString()} - $${estimate.max.toLocaleString()} CAD
-- Preferred Contact: ${validatedData.preferredContact || 'Not specified'}
-- Additional Notes: ${validatedData.notes || 'None'}
+- Preferred Contact: ${validatedData.preferredContact || "Not specified"}
+- Additional Notes: ${validatedData.notes || "None"}
 
 Add-ons:
 - Scaffolding: ${formData.scaffolding || "None"}
@@ -249,22 +259,26 @@ Add-ons:
       });
 
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Database request timeout")), 10000)
+        setTimeout(() => reject(new Error("Database request timeout")), 10000),
       );
 
-      const { error } = await Promise.race([insertPromise, timeoutPromise]) as any;
+      const { error } = (await Promise.race([
+        insertPromise,
+        timeoutPromise,
+      ])) as any;
       if (error) throw error;
 
       toast({
         title: "Estimate Request Submitted!",
-        description: "We'll contact you within 24 hours to schedule a site visit.",
+        description:
+          "We'll contact you within 24 hours to schedule a site visit.",
       });
 
       // Redirect to thank you or home page
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       console.error("Error submitting estimate:", error);
-      
+
       if (error instanceof z.ZodError) {
         toast({
           title: "Validation Error",
@@ -274,13 +288,15 @@ Add-ons:
       } else if (error instanceof Error && error.message.includes("timeout")) {
         toast({
           title: "Request Timeout",
-          description: "The request is taking longer than expected. Please try again.",
+          description:
+            "The request is taking longer than expected. Please try again.",
           variant: "destructive",
         });
       } else {
         toast({
           title: "Submission Error",
-          description: "There was an error submitting your request. Please try again.",
+          description:
+            "There was an error submitting your request. Please try again.",
           variant: "destructive",
         });
       }
@@ -306,8 +322,12 @@ Add-ons:
           <div className="max-w-4xl mx-auto">
             {/* Enhanced Header */}
             <div className="text-center mb-8 animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Get Your Free Estimate</h1>
-              <p className="text-lg text-muted-foreground">Answer a few quick questions to receive an instant estimate</p>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">
+                Get Your Free Estimate
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                Answer a few quick questions to receive an instant estimate
+              </p>
             </div>
 
             {/* Paint Calculator Tool */}
@@ -325,16 +345,70 @@ Add-ons:
                   {Math.round((currentStep / totalSteps) * 100)}% Complete
                 </span>
               </div>
-              <Progress value={(currentStep / totalSteps) * 100} className="h-2" />
+              <Progress
+                value={(currentStep / totalSteps) * 100}
+                className="h-2"
+              />
             </div>
 
             {/* Enhanced Step Content */}
             <Card className="p-6 md:p-8 mb-6 border-2 hover:border-primary/20 transition-all shadow-lg animate-fade-in-up">
-              {currentStep === 1 && (<EstimatorStep1 data={{ service: formData.service, sqft: formData.sqft, stories: formData.stories }} onChange={handleInputChange} />)}
-              {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
-              {currentStep === 3 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
-              {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
-              {currentStep === 5 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes }} onChange={handleInputChange} />)}
+              {currentStep === 1 && (
+                <EstimatorStep1
+                  data={{
+                    service: formData.service,
+                    sqft: formData.sqft,
+                    stories: formData.stories,
+                  }}
+                  onChange={handleInputChange}
+                />
+              )}
+              {currentStep === 2 && (
+                <EstimatorStep2Enhanced
+                  service={formData.service}
+                  data={{
+                    prepComplexity: formData.prepComplexity,
+                    finishQuality: formData.finishQuality,
+                    region: formData.region,
+                    buildingType: formData.buildingType,
+                    accessibility: formData.accessibility,
+                    businessHoursConstraint: formData.businessHoursConstraint,
+                    unitCount: formData.unitCount,
+                    includeCommonAreas: formData.includeCommonAreas,
+                    materialType: formData.materialType,
+                  }}
+                  onChange={handleInputChange}
+                />
+              )}
+              {currentStep === 3 && (
+                <EstimatorStep3
+                  data={{
+                    scaffolding: formData.scaffolding,
+                    colorConsultation: formData.colorConsultation,
+                    rushScheduling: formData.rushScheduling,
+                    warrantyExtension: formData.warrantyExtension,
+                    siteCleanup: formData.siteCleanup,
+                  }}
+                  sqft={parseInt(formData.sqft) || 0}
+                  onChange={handleInputChange}
+                />
+              )}
+              {currentStep === 4 && (
+                <EstimatorStep4 estimate={estimate} formData={formData} />
+              )}
+              {currentStep === 5 && (
+                <EstimatorStep5
+                  data={{
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    address: formData.address,
+                    preferredContact: formData.preferredContact,
+                    notes: formData.notes,
+                  }}
+                  onChange={handleInputChange}
+                />
+              )}
             </Card>
 
             {/* Navigation Buttons */}

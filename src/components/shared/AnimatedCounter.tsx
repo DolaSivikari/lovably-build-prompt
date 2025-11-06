@@ -15,7 +15,7 @@ export const AnimatedCounter = ({
   prefix = "",
   suffix = "",
   decimals = 0,
-  className
+  className,
 }: AnimatedCounterProps) => {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +29,7 @@ export const AnimatedCounter = ({
           setIsVisible(true);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     if (ref.current) {
@@ -44,7 +44,7 @@ export const AnimatedCounter = ({
       setHasAnimated(true);
       let start = 0;
       const increment = target / (duration / 16); // 60fps
-      
+
       const timer = setInterval(() => {
         start += increment;
         if (start >= target) {

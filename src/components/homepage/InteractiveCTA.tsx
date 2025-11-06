@@ -3,7 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
-import { Phone, Mail, MapPin, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
+  Shield,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -52,9 +60,11 @@ const InteractiveCTA = () => {
     message: "",
   });
   const { toast } = useToast();
-  
-  const displayPhone = settings?.phone ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') : '(647) 528-6804';
-  const telLink = settings?.phone ? `tel:${settings.phone}` : 'tel:6475286804';
+
+  const displayPhone = settings?.phone
+    ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
+    : "(647) 528-6804";
+  const telLink = settings?.phone ? `tel:${settings.phone}` : "tel:6475286804";
 
   // Rotate stories every 4 seconds (fixed memory leak)
   useEffect(() => {
@@ -66,7 +76,7 @@ const InteractiveCTA = () => {
 
   const handleQuickContact = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Prevent duplicate submissions with synchronous check
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
@@ -83,37 +93,44 @@ const InteractiveCTA = () => {
       const validatedData = contactSchema.parse(formData);
 
       // Insert into database with timeout
-      const dbPromise = supabase
-        .from("contact_submissions")
-        .insert({
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          message: validatedData.message || "Quick estimate request",
-          submission_type: "quote",
-        });
+      const dbPromise = supabase.from("contact_submissions").insert({
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        message: validatedData.message || "Quick estimate request",
+        submission_type: "quote",
+      });
 
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Database request timeout")), 10000)
+        setTimeout(() => reject(new Error("Database request timeout")), 10000),
       );
 
-      const { error: dbError } = await Promise.race([dbPromise, timeoutPromise]) as any;
+      const { error: dbError } = (await Promise.race([
+        dbPromise,
+        timeoutPromise,
+      ])) as any;
       if (dbError) throw dbError;
 
       // Send notification email with timeout
-      const emailPromise = supabase.functions.invoke("send-contact-notification", {
-        body: {
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          message: validatedData.message || "Quick estimate request",
+      const emailPromise = supabase.functions.invoke(
+        "send-contact-notification",
+        {
+          body: {
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            message: validatedData.message || "Quick estimate request",
+          },
         },
-      });
+      );
 
       await Promise.race([
         emailPromise,
         new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Email notification timeout")), 10000)
+          setTimeout(
+            () => reject(new Error("Email notification timeout")),
+            10000,
+          ),
         ),
       ]);
 
@@ -124,7 +141,7 @@ const InteractiveCTA = () => {
 
       // Reset form
       setFormData({ name: "", email: "", phone: "", message: "" });
-      
+
       // Use navigate instead of window.location for proper routing
       setTimeout(() => {
         navigate("/estimate");
@@ -133,7 +150,8 @@ const InteractiveCTA = () => {
       if (error instanceof Error && error.message.includes("timeout")) {
         toast({
           title: "Request Timeout",
-          description: "The request is taking longer than expected. We'll still process it.",
+          description:
+            "The request is taking longer than expected. We'll still process it.",
           variant: "destructive",
         });
       } else {
@@ -155,7 +173,6 @@ const InteractiveCTA = () => {
     <section className="relative py-20 bg-gradient-to-br from-primary to-primary/90 overflow-hidden">
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
           {/* Left Column - Rotating Visual Story */}
           <div className="text-[hsl(var(--bg))] space-y-8">
             <div>
@@ -163,7 +180,8 @@ const InteractiveCTA = () => {
                 Your Construction Partner For Success
               </h2>
               <p className="text-xl text-[hsl(var(--bg))]/90 leading-relaxed">
-                From concept to completion, we deliver exceptional results with transparent communication and expert craftsmanship.
+                From concept to completion, we deliver exceptional results with
+                transparent communication and expert craftsmanship.
               </p>
             </div>
 
@@ -182,7 +200,9 @@ const InteractiveCTA = () => {
                   >
                     <div className="flex items-start gap-4">
                       <div className="bg-secondary/20 rounded-full p-3 flex-shrink-0">
-                        {CurrentIcon && <CurrentIcon className="h-8 w-8 text-secondary" />}
+                        {CurrentIcon && (
+                          <CurrentIcon className="h-8 w-8 text-secondary" />
+                        )}
                       </div>
                       <div>
                         <div className="text-5xl font-bold mb-2 text-secondary">
@@ -221,15 +241,21 @@ const InteractiveCTA = () => {
             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[hsl(var(--bg))]/20">
               <div className="text-center">
                 <Shield className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-[hsl(var(--bg))]/80">Fully Licensed</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">
+                  Fully Licensed
+                </div>
               </div>
               <div className="text-center">
                 <CheckCircle2 className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-[hsl(var(--bg))]/80">WSIB Compliant</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">
+                  WSIB Compliant
+                </div>
               </div>
               <div className="text-center">
                 <Clock className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-[hsl(var(--bg))]/80">24/7 Support</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">
+                  24/7 Support
+                </div>
               </div>
             </div>
           </div>
@@ -253,7 +279,9 @@ const InteractiveCTA = () => {
                   required
                   className="h-12"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -263,7 +291,9 @@ const InteractiveCTA = () => {
                   required
                   className="h-12"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -273,7 +303,9 @@ const InteractiveCTA = () => {
                   required
                   className="h-12"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -282,10 +314,12 @@ const InteractiveCTA = () => {
                   rows={4}
                   className="resize-none"
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                 />
               </div>
-              
+
               <Button
                 type="submit"
                 size="lg"

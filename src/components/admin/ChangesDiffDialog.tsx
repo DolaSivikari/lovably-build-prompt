@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,11 +6,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/ui/Button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Badge } from '@/components/ui/badge';
-import { AlertCircle, Check } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Button } from "@/ui/Button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+import { AlertCircle, Check } from "lucide-react";
 
 interface ChangesDiffDialogProps {
   open: boolean;
@@ -21,7 +21,7 @@ interface ChangesDiffDialogProps {
   loading?: boolean;
 }
 
-type ChangeType = 'added' | 'modified' | 'removed';
+type ChangeType = "added" | "modified" | "removed";
 
 interface Change {
   field: string;
@@ -31,25 +31,28 @@ interface Change {
 }
 
 const formatValue = (value: any): string => {
-  if (value === null || value === undefined) return '(empty)';
-  if (typeof value === 'object') return JSON.stringify(value, null, 2);
+  if (value === null || value === undefined) return "(empty)";
+  if (typeof value === "object") return JSON.stringify(value, null, 2);
   return String(value);
 };
 
-const getChanges = (original: Record<string, any>, modified: Record<string, any>): Change[] => {
+const getChanges = (
+  original: Record<string, any>,
+  modified: Record<string, any>,
+): Change[] => {
   const changes: Change[] = [];
   const allKeys = new Set([...Object.keys(original), ...Object.keys(modified)]);
 
-  allKeys.forEach(key => {
+  allKeys.forEach((key) => {
     const oldValue = original[key];
     const newValue = modified[key];
 
     if (!(key in original)) {
-      changes.push({ field: key, type: 'added', newValue });
+      changes.push({ field: key, type: "added", newValue });
     } else if (!(key in modified)) {
-      changes.push({ field: key, type: 'removed', oldValue });
+      changes.push({ field: key, type: "removed", oldValue });
     } else if (JSON.stringify(oldValue) !== JSON.stringify(newValue)) {
-      changes.push({ field: key, type: 'modified', oldValue, newValue });
+      changes.push({ field: key, type: "modified", oldValue, newValue });
     }
   });
 
@@ -66,7 +69,7 @@ export const ChangesDiffDialog = ({
 }: ChangesDiffDialogProps) => {
   const changes = useMemo(
     () => getChanges(originalData, modifiedData),
-    [originalData, modifiedData]
+    [originalData, modifiedData],
   );
 
   const hasChanges = changes.length > 0;
@@ -94,11 +97,11 @@ export const ChangesDiffDialog = ({
                   <div className="flex items-center gap-2 mb-2">
                     <Badge
                       variant={
-                        change.type === 'added'
-                          ? 'default'
-                          : change.type === 'removed'
-                          ? 'destructive'
-                          : 'secondary'
+                        change.type === "added"
+                          ? "default"
+                          : change.type === "removed"
+                            ? "destructive"
+                            : "secondary"
                       }
                     >
                       {change.type}
@@ -107,17 +110,21 @@ export const ChangesDiffDialog = ({
                   </div>
 
                   <div className="space-y-2 text-sm">
-                    {change.type !== 'added' && (
+                    {change.type !== "added" && (
                       <div className="bg-destructive/10 p-2 rounded">
-                        <span className="text-destructive font-medium">- Old: </span>
+                        <span className="text-destructive font-medium">
+                          - Old:{" "}
+                        </span>
                         <span className="text-muted-foreground">
                           {formatValue(change.oldValue)}
                         </span>
                       </div>
                     )}
-                    {change.type !== 'removed' && (
+                    {change.type !== "removed" && (
                       <div className="bg-primary/10 p-2 rounded">
-                        <span className="text-primary font-medium">+ New: </span>
+                        <span className="text-primary font-medium">
+                          + New:{" "}
+                        </span>
                         <span>{formatValue(change.newValue)}</span>
                       </div>
                     )}
@@ -133,7 +140,8 @@ export const ChangesDiffDialog = ({
             <AlertCircle className="h-5 w-5 text-amber-500 mt-0.5" />
             <div className="text-sm">
               <p className="font-medium text-amber-500">
-                {changes.length} change{changes.length !== 1 ? 's' : ''} will be applied
+                {changes.length} change{changes.length !== 1 ? "s" : ""} will be
+                applied
               </p>
               <p className="text-muted-foreground mt-1">
                 These changes will be immediately visible on the public site
@@ -147,7 +155,7 @@ export const ChangesDiffDialog = ({
             Cancel
           </Button>
           <Button onClick={onConfirm} disabled={!hasChanges || loading}>
-            {loading ? 'Saving...' : 'Confirm & Save'}
+            {loading ? "Saving..." : "Confirm & Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

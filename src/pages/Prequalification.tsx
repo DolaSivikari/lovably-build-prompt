@@ -1,11 +1,33 @@
 import { useState, useEffect } from "react";
-import { Download, FileText, Shield, CheckCircle2, ArrowRight, Award, Building2, TrendingUp, Users, Calendar, DollarSign, MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import {
+  Download,
+  FileText,
+  Shield,
+  CheckCircle2,
+  ArrowRight,
+  Award,
+  Building2,
+  TrendingUp,
+  Users,
+  Calendar,
+  DollarSign,
+  MapPin,
+  Phone,
+  Mail,
+  ExternalLink,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
@@ -28,7 +50,7 @@ const categoryLabels: Record<string, string> = {
   "capability-statement": "Capability Statement",
   safety: "Safety",
   certifications: "Certifications",
-  other: "Other"
+  other: "Other",
 };
 
 const categoryIcons: Record<string, any> = {
@@ -37,23 +59,74 @@ const categoryIcons: Record<string, any> = {
   "capability-statement": FileText,
   safety: CheckCircle2,
   certifications: Shield,
-  other: FileText
+  other: FileText,
 };
 
 const companyHighlights = [
-  { icon: Calendar, label: "Experience", value: "15+ Years", desc: "Serving the GTA since 2009" },
-  { icon: DollarSign, label: "Annual Volume", value: "$10-30M", desc: "Consistent project delivery" },
-  { icon: Shield, label: "Bonding Capacity", value: "$5M", desc: "Single project capacity" },
-  { icon: Building2, label: "Insurance", value: "$5M", desc: "General liability coverage" },
-  { icon: Award, label: "Safety Record", value: "COR Certified", desc: "Zero lost-time incidents" },
-  { icon: Users, label: "Workforce", value: "20-50", desc: "Skilled tradespeople" },
+  {
+    icon: Calendar,
+    label: "Experience",
+    value: "15+ Years",
+    desc: "Serving the GTA since 2009",
+  },
+  {
+    icon: DollarSign,
+    label: "Annual Volume",
+    value: "$10-30M",
+    desc: "Consistent project delivery",
+  },
+  {
+    icon: Shield,
+    label: "Bonding Capacity",
+    value: "$5M",
+    desc: "Single project capacity",
+  },
+  {
+    icon: Building2,
+    label: "Insurance",
+    value: "$5M",
+    desc: "General liability coverage",
+  },
+  {
+    icon: Award,
+    label: "Safety Record",
+    value: "COR Certified",
+    desc: "Zero lost-time incidents",
+  },
+  {
+    icon: Users,
+    label: "Workforce",
+    value: "20-50",
+    desc: "Skilled tradespeople",
+  },
 ];
 
 const capabilities = [
-  { category: "Primary Delivery Methods", items: ["General Contracting", "Construction Management", "Design-Build"] },
-  { category: "Self-Perform Trades", items: ["EIFS & Stucco", "Masonry Restoration", "Waterproofing", "Exterior Cladding"] },
-  { category: "Market Sectors", items: ["Commercial", "Multi-Family", "Institutional", "Industrial"] },
-  { category: "Project Range", items: ["$100K - $5M single projects", "Multiple concurrent projects", "Emergency response available"] },
+  {
+    category: "Primary Delivery Methods",
+    items: ["General Contracting", "Construction Management", "Design-Build"],
+  },
+  {
+    category: "Self-Perform Trades",
+    items: [
+      "EIFS & Stucco",
+      "Masonry Restoration",
+      "Waterproofing",
+      "Exterior Cladding",
+    ],
+  },
+  {
+    category: "Market Sectors",
+    items: ["Commercial", "Multi-Family", "Institutional", "Industrial"],
+  },
+  {
+    category: "Project Range",
+    items: [
+      "$100K - $5M single projects",
+      "Multiple concurrent projects",
+      "Emergency response available",
+    ],
+  },
 ];
 
 const recentProjects = [
@@ -63,7 +136,7 @@ const recentProjects = [
     sector: "Multi-Family",
     value: "$2.5M",
     year: "2024",
-    scope: "Building envelope restoration, balcony repairs, waterproofing"
+    scope: "Building envelope restoration, balcony repairs, waterproofing",
   },
   {
     name: "Office Tower Renovation",
@@ -71,7 +144,7 @@ const recentProjects = [
     sector: "Commercial",
     value: "$1.8M",
     year: "2023",
-    scope: "Interior renovation, HVAC upgrades, accessibility improvements"
+    scope: "Interior renovation, HVAC upgrades, accessibility improvements",
   },
   {
     name: "School Interior Upgrade",
@@ -79,7 +152,7 @@ const recentProjects = [
     sector: "Institutional",
     value: "$950K",
     year: "2023",
-    scope: "Classroom renovations, accessibility upgrades, safety improvements"
+    scope: "Classroom renovations, accessibility upgrades, safety improvements",
   },
 ];
 
@@ -95,17 +168,19 @@ function DownloadableDocuments() {
   const fetchDocuments = async () => {
     try {
       const { data, error } = await supabase
-        .from('documents_library')
-        .select('id, title, description, category, file_url, file_name, version')
-        .eq('is_active', true)
-        .eq('requires_authentication', false)
-        .order('category')
-        .order('display_order');
+        .from("documents_library")
+        .select(
+          "id, title, description, category, file_url, file_name, version",
+        )
+        .eq("is_active", true)
+        .eq("requires_authentication", false)
+        .order("category")
+        .order("display_order");
 
       if (error) throw error;
       setDocuments(data || []);
     } catch (error: any) {
-      console.error('Error fetching documents:', error);
+      console.error("Error fetching documents:", error);
     } finally {
       setLoading(false);
     }
@@ -114,40 +189,47 @@ function DownloadableDocuments() {
   const handleDownload = async (doc: Document) => {
     try {
       // Log download
-      await supabase.from('document_access_log').insert({
+      await supabase.from("document_access_log").insert({
         document_id: doc.id,
         ip_address: null,
-        user_agent: navigator.userAgent
+        user_agent: navigator.userAgent,
       });
 
       // Increment download count
       const { data: currentDoc } = await supabase
-        .from('documents_library')
-        .select('download_count')
-        .eq('id', doc.id)
+        .from("documents_library")
+        .select("download_count")
+        .eq("id", doc.id)
         .single();
 
       if (currentDoc) {
         await supabase
-          .from('documents_library')
+          .from("documents_library")
           .update({ download_count: (currentDoc.download_count || 0) + 1 })
-          .eq('id', doc.id);
+          .eq("id", doc.id);
       }
 
       // Open file
-      window.open(doc.file_url, '_blank');
+      window.open(doc.file_url, "_blank");
     } catch (error: any) {
-      toast({ title: "Error", description: "Failed to download document", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to download document",
+        variant: "destructive",
+      });
     }
   };
 
-  const groupedDocuments = documents.reduce((acc, doc) => {
-    if (!acc[doc.category]) {
-      acc[doc.category] = [];
-    }
-    acc[doc.category].push(doc);
-    return acc;
-  }, {} as Record<string, Document[]>);
+  const groupedDocuments = documents.reduce(
+    (acc, doc) => {
+      if (!acc[doc.category]) {
+        acc[doc.category] = [];
+      }
+      acc[doc.category].push(doc);
+      return acc;
+    },
+    {} as Record<string, Document[]>,
+  );
 
   return (
     <div className="space-y-6">
@@ -160,7 +242,8 @@ function DownloadableDocuments() {
           <CardContent className="py-12 text-center">
             <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
             <p className="text-muted-foreground mb-4">
-              Documents are being prepared. Please contact us for immediate access.
+              Documents are being prepared. Please contact us for immediate
+              access.
             </p>
             <Button asChild>
               <Link to="/contact">Contact Us</Link>
@@ -174,22 +257,35 @@ function DownloadableDocuments() {
             <div key={category}>
               <div className="flex items-center gap-2 mb-4">
                 <Icon className="w-5 h-5 text-primary" />
-                <h3 className="text-xl font-semibold text-foreground">{categoryLabels[category]}</h3>
+                <h3 className="text-xl font-semibold text-foreground">
+                  {categoryLabels[category]}
+                </h3>
               </div>
               <div className="grid gap-4">
                 {docs.map((doc) => (
-                  <Card key={doc.id} className="hover:shadow-md transition-shadow">
+                  <Card
+                    key={doc.id}
+                    className="hover:shadow-md transition-shadow"
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <h4 className="font-semibold text-foreground">{doc.title}</h4>
-                            <Badge variant="outline" className="text-xs">v{doc.version}</Badge>
+                            <h4 className="font-semibold text-foreground">
+                              {doc.title}
+                            </h4>
+                            <Badge variant="outline" className="text-xs">
+                              v{doc.version}
+                            </Badge>
                           </div>
                           {doc.description && (
-                            <p className="text-sm text-muted-foreground mb-2">{doc.description}</p>
+                            <p className="text-sm text-muted-foreground mb-2">
+                              {doc.description}
+                            </p>
                           )}
-                          <p className="text-xs text-muted-foreground">{doc.file_name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {doc.file_name}
+                          </p>
                         </div>
                         <Button size="sm" onClick={() => handleDownload(doc)}>
                           <Download className="w-4 h-4 mr-2" />
@@ -216,7 +312,7 @@ const Prequalification = () => {
         description="Download Ascent Group Construction's complete pre-qualification package including certifications, insurance, bonding capacity, and safety documentation for RFP submissions."
       />
       <Navigation />
-      
+
       <PageHeader
         title="Pre-Qualification Package"
         description="Everything you need to evaluate Ascent Group as your construction partner"
@@ -232,9 +328,15 @@ const Prequalification = () => {
                 <Card key={index} className="border-primary/20">
                   <CardContent className="p-6 text-center">
                     <Icon className="w-8 h-8 text-primary mx-auto mb-3" />
-                    <p className="text-2xl font-bold text-primary mb-1">{highlight.value}</p>
-                    <p className="text-sm font-semibold text-foreground mb-1">{highlight.label}</p>
-                    <p className="text-xs text-muted-foreground">{highlight.desc}</p>
+                    <p className="text-2xl font-bold text-primary mb-1">
+                      {highlight.value}
+                    </p>
+                    <p className="text-sm font-semibold text-foreground mb-1">
+                      {highlight.label}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {highlight.desc}
+                    </p>
                   </CardContent>
                 </Card>
               );
@@ -252,19 +354,25 @@ const Prequalification = () => {
             <TabsContent value="overview" className="space-y-8">
               {/* Company Capabilities */}
               <section>
-                <h2 className="text-3xl font-bold mb-6">Company Capabilities</h2>
+                <h2 className="text-3xl font-bold mb-6">
+                  Company Capabilities
+                </h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {capabilities.map((cap, index) => (
                     <Card key={index}>
                       <CardHeader>
-                        <CardTitle className="text-xl">{cap.category}</CardTitle>
+                        <CardTitle className="text-xl">
+                          {cap.category}
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ul className="space-y-2">
                           {cap.items.map((item, idx) => (
                             <li key={idx} className="flex items-center gap-2">
                               <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                              <span className="text-muted-foreground">{item}</span>
+                              <span className="text-muted-foreground">
+                                {item}
+                              </span>
                             </li>
                           ))}
                         </ul>
@@ -276,32 +384,44 @@ const Prequalification = () => {
 
               {/* Key Differentiators */}
               <section>
-                <h2 className="text-3xl font-bold mb-6">Why Choose Ascent Group</h2>
+                <h2 className="text-3xl font-bold mb-6">
+                  Why Choose Ascent Group
+                </h2>
                 <div className="grid md:grid-cols-3 gap-6">
                   <Card className="border-primary/20">
                     <CardContent className="p-6">
                       <Shield className="w-12 h-12 text-primary mb-4" />
-                      <h3 className="font-bold text-lg mb-2">Safety Excellence</h3>
+                      <h3 className="font-bold text-lg mb-2">
+                        Safety Excellence
+                      </h3>
                       <p className="text-muted-foreground text-sm">
-                        COR certified with zero lost-time incidents across 500+ projects. Industry-leading safety protocols and training.
+                        COR certified with zero lost-time incidents across 500+
+                        projects. Industry-leading safety protocols and
+                        training.
                       </p>
                     </CardContent>
                   </Card>
                   <Card className="border-primary/20">
                     <CardContent className="p-6">
                       <Award className="w-12 h-12 text-primary mb-4" />
-                      <h3 className="font-bold text-lg mb-2">Quality Workmanship</h3>
+                      <h3 className="font-bold text-lg mb-2">
+                        Quality Workmanship
+                      </h3>
                       <p className="text-muted-foreground text-sm">
-                        ISO-compliant quality management systems. Every project backed by comprehensive warranties and guarantees.
+                        ISO-compliant quality management systems. Every project
+                        backed by comprehensive warranties and guarantees.
                       </p>
                     </CardContent>
                   </Card>
                   <Card className="border-primary/20">
                     <CardContent className="p-6">
                       <TrendingUp className="w-12 h-12 text-primary mb-4" />
-                      <h3 className="font-bold text-lg mb-2">Financial Stability</h3>
+                      <h3 className="font-bold text-lg mb-2">
+                        Financial Stability
+                      </h3>
                       <p className="text-muted-foreground text-sm">
-                        $5M bonding capacity, strong credit references, and audited financial statements available upon request.
+                        $5M bonding capacity, strong credit references, and
+                        audited financial statements available upon request.
                       </p>
                     </CardContent>
                   </Card>
@@ -311,9 +431,12 @@ const Prequalification = () => {
 
             <TabsContent value="documents" className="space-y-6">
               <div className="mb-6">
-                <h2 className="text-3xl font-bold mb-2">Downloadable Documents</h2>
+                <h2 className="text-3xl font-bold mb-2">
+                  Downloadable Documents
+                </h2>
                 <p className="text-muted-foreground">
-                  All required documentation for contractor pre-qualification and RFP submissions
+                  All required documentation for contractor pre-qualification
+                  and RFP submissions
                 </p>
               </div>
               <DownloadableDocuments />
@@ -321,40 +444,60 @@ const Prequalification = () => {
 
             <TabsContent value="projects" className="space-y-6">
               <div className="mb-6">
-                <h2 className="text-3xl font-bold mb-2">Recent Project Performance</h2>
+                <h2 className="text-3xl font-bold mb-2">
+                  Recent Project Performance
+                </h2>
                 <p className="text-muted-foreground">
-                  Representative projects demonstrating our capabilities and experience
+                  Representative projects demonstrating our capabilities and
+                  experience
                 </p>
               </div>
 
               <div className="space-y-4">
                 {recentProjects.map((project, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <Card
+                    key={index}
+                    className="hover:shadow-lg transition-shadow"
+                  >
                     <CardContent className="p-6">
                       <div className="grid md:grid-cols-4 gap-6">
                         <div className="md:col-span-2">
                           <div className="flex items-start gap-3 mb-3">
                             <Building2 className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                             <div>
-                              <h3 className="font-bold text-lg mb-1">{project.name}</h3>
-                              <p className="text-sm text-muted-foreground">{project.client}</p>
+                              <h3 className="font-bold text-lg mb-1">
+                                {project.name}
+                              </h3>
+                              <p className="text-sm text-muted-foreground">
+                                {project.client}
+                              </p>
                             </div>
                           </div>
-                          <p className="text-sm text-muted-foreground">{project.scope}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {project.scope}
+                          </p>
                         </div>
                         <div className="space-y-2">
                           <div>
-                            <p className="text-xs text-muted-foreground">Sector</p>
+                            <p className="text-xs text-muted-foreground">
+                              Sector
+                            </p>
                             <Badge variant="outline">{project.sector}</Badge>
                           </div>
                           <div>
-                            <p className="text-xs text-muted-foreground">Year</p>
+                            <p className="text-xs text-muted-foreground">
+                              Year
+                            </p>
                             <p className="font-semibold">{project.year}</p>
                           </div>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground mb-1">Project Value</p>
-                          <p className="text-2xl font-bold text-primary">{project.value}</p>
+                          <p className="text-xs text-muted-foreground mb-1">
+                            Project Value
+                          </p>
+                          <p className="text-2xl font-bold text-primary">
+                            {project.value}
+                          </p>
                         </div>
                       </div>
                     </CardContent>
@@ -385,7 +528,10 @@ const Prequalification = () => {
                           </div>
                           <div>
                             <p className="font-semibold mb-1">Phone</p>
-                            <a href="tel:+14165551234" className="text-muted-foreground hover:text-primary transition-colors">
+                            <a
+                              href="tel:+14165551234"
+                              className="text-muted-foreground hover:text-primary transition-colors"
+                            >
                               (416) 555-1234
                             </a>
                           </div>
@@ -401,7 +547,10 @@ const Prequalification = () => {
                           </div>
                           <div>
                             <p className="font-semibold mb-1">Email</p>
-                            <a href="mailto:info@ascentgroup.ca" className="text-muted-foreground hover:text-primary transition-colors">
+                            <a
+                              href="mailto:info@ascentgroup.ca"
+                              className="text-muted-foreground hover:text-primary transition-colors"
+                            >
                               info@ascentgroup.ca
                             </a>
                           </div>
@@ -417,7 +566,9 @@ const Prequalification = () => {
                           </div>
                           <div>
                             <p className="font-semibold mb-1">Service Area</p>
-                            <p className="text-muted-foreground">Greater Toronto Area</p>
+                            <p className="text-muted-foreground">
+                              Greater Toronto Area
+                            </p>
                           </div>
                         </div>
                       </CardContent>
@@ -437,20 +588,30 @@ const Prequalification = () => {
                       <div>
                         <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2" />
                         <p className="font-semibold text-sm">Fast Response</p>
-                        <p className="text-xs text-muted-foreground">48-hour turnaround</p>
+                        <p className="text-xs text-muted-foreground">
+                          48-hour turnaround
+                        </p>
                       </div>
                       <div>
                         <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2" />
-                        <p className="font-semibold text-sm">Detailed Proposals</p>
-                        <p className="text-xs text-muted-foreground">Itemized estimates</p>
+                        <p className="font-semibold text-sm">
+                          Detailed Proposals
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Itemized estimates
+                        </p>
                       </div>
                       <div>
                         <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2" />
-                        <p className="font-semibold text-sm">Value Engineering</p>
-                        <p className="text-xs text-muted-foreground">Cost optimization</p>
+                        <p className="font-semibold text-sm">
+                          Value Engineering
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Cost optimization
+                        </p>
                       </div>
                     </div>
-                    
+
                     <Button asChild size="lg" className="w-full">
                       <Link to="/submit-rfp">
                         Submit RFP Now

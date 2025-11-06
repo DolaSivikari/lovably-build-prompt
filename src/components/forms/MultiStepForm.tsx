@@ -18,7 +18,12 @@ interface MultiStepFormProps {
   className?: string;
 }
 
-export const MultiStepForm = ({ steps, onComplete, onStepChange, className }: MultiStepFormProps) => {
+export const MultiStepForm = ({
+  steps,
+  onComplete,
+  onStepChange,
+  className,
+}: MultiStepFormProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isValidating, setIsValidating] = useState(false);
 
@@ -26,12 +31,12 @@ export const MultiStepForm = ({ steps, onComplete, onStepChange, className }: Mu
 
   const handleNext = async () => {
     const step = steps[currentStep];
-    
+
     if (step.validate) {
       setIsValidating(true);
       const isValid = await step.validate();
       setIsValidating(false);
-      
+
       if (!isValid) return;
     }
 
@@ -61,14 +66,16 @@ export const MultiStepForm = ({ steps, onComplete, onStepChange, className }: Mu
             <h3 className="text-xl font-bold">
               Step {currentStep + 1} of {steps.length}
             </h3>
-            <p className="text-sm text-muted-foreground">{currentStepData.title}</p>
+            <p className="text-sm text-muted-foreground">
+              {currentStepData.title}
+            </p>
           </div>
           <span className="text-sm font-medium text-primary">
             {Math.round(progress)}% Complete
           </span>
         </div>
         <Progress value={progress} className="h-3 animate-fade-in" />
-        
+
         {/* Step Indicators */}
         <div className="flex gap-2">
           {steps.map((step, index) => (
@@ -76,9 +83,7 @@ export const MultiStepForm = ({ steps, onComplete, onStepChange, className }: Mu
               key={index}
               className={cn(
                 "flex-1 h-2 rounded-full transition-all duration-500",
-                index <= currentStep 
-                  ? "bg-primary scale-105" 
-                  : "bg-muted"
+                index <= currentStep ? "bg-primary scale-105" : "bg-muted",
               )}
             />
           ))}
@@ -88,11 +93,11 @@ export const MultiStepForm = ({ steps, onComplete, onStepChange, className }: Mu
       {/* Step Content */}
       <div className="animate-fade-in">
         {currentStepData.description && (
-          <p className="text-muted-foreground mb-6">{currentStepData.description}</p>
+          <p className="text-muted-foreground mb-6">
+            {currentStepData.description}
+          </p>
         )}
-        <div className="min-h-[300px]">
-          {currentStepData.content}
-        </div>
+        <div className="min-h-[300px]">{currentStepData.content}</div>
       </div>
 
       {/* Navigation Buttons */}

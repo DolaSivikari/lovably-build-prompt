@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { z } from 'zod';
+import { useState } from "react";
+import { z } from "zod";
 
 export function useSettingsValidation<T extends z.ZodType>(schema: T) {
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -13,7 +13,7 @@ export function useSettingsValidation<T extends z.ZodType>(schema: T) {
       if (error instanceof z.ZodError) {
         const formattedErrors: Record<string, string> = {};
         error.errors.forEach((err) => {
-          const path = err.path.join('.');
+          const path = err.path.join(".");
           formattedErrors[path] = err.message;
         });
         setErrors(formattedErrors);

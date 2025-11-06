@@ -10,7 +10,7 @@ export const useScrollDirection = () => {
 
     const updateScrollDirection = () => {
       const scrollY = window.scrollY;
-      
+
       // Update "at top" status (within 100px of top)
       setIsAtTop(scrollY < 100);
 
@@ -21,7 +21,7 @@ export const useScrollDirection = () => {
       }
 
       const direction = scrollY > lastScrollY ? "down" : "up";
-      
+
       if (direction !== scrollDirection) {
         setScrollDirection(direction);
       }

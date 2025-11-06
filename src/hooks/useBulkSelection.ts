@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 export const useBulkSelection = <T extends { id: string }>(items: T[]) => {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -33,11 +33,12 @@ export const useBulkSelection = <T extends { id: string }>(items: T[]) => {
     (id: string) => {
       return selectedIds.has(id);
     },
-    [selectedIds]
+    [selectedIds],
   );
 
   const isAllSelected = items.length > 0 && selectedIds.size === items.length;
-  const isSomeSelected = selectedIds.size > 0 && selectedIds.size < items.length;
+  const isSomeSelected =
+    selectedIds.size > 0 && selectedIds.size < items.length;
 
   const selectedItems = items.filter((item) => selectedIds.has(item.id));
 

@@ -22,7 +22,8 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
           Almost Done!
         </h3>
         <p className="text-muted-foreground">
-          Provide your contact information to receive your detailed estimate and schedule a site visit.
+          Provide your contact information to receive your detailed estimate and
+          schedule a site visit.
         </p>
       </div>
 
@@ -74,7 +75,10 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
         </div>
 
         <div>
-          <Label htmlFor="preferredContact" className="text-base font-medium mb-2 block">
+          <Label
+            htmlFor="preferredContact"
+            className="text-base font-medium mb-2 block"
+          >
             Preferred Contact Time
           </Label>
           <Input
@@ -115,7 +119,9 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
 
       <div className="bg-muted/50 rounded-lg p-4 text-sm text-muted-foreground">
         <p>
-          By submitting this form, you consent to Ascent Group Construction contacting you regarding your project estimate. We respect your privacy and will never share your information with third parties.
+          By submitting this form, you consent to Ascent Group Construction
+          contacting you regarding your project estimate. We respect your
+          privacy and will never share your information with third parties.
         </p>
       </div>
     </div>

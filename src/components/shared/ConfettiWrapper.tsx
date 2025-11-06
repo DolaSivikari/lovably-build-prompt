@@ -7,19 +7,31 @@ interface ConfettiWrapperProps {
   className?: string;
 }
 
-export const ConfettiWrapper = ({ trigger, onComplete, className }: ConfettiWrapperProps) => {
-  const [particles, setParticles] = useState<Array<{ id: number; x: number; delay: number; color: string }>>([]);
+export const ConfettiWrapper = ({
+  trigger,
+  onComplete,
+  className,
+}: ConfettiWrapperProps) => {
+  const [particles, setParticles] = useState<
+    Array<{ id: number; x: number; delay: number; color: string }>
+  >([]);
 
   useEffect(() => {
     if (trigger) {
-      const colors = ["hsl(var(--primary))", "hsl(var(--secondary))", "#10b981", "#f59e0b", "#ef4444"];
+      const colors = [
+        "hsl(var(--primary))",
+        "hsl(var(--secondary))",
+        "#10b981",
+        "#f59e0b",
+        "#ef4444",
+      ];
       const newParticles = Array.from({ length: 50 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
         delay: Math.random() * 0.5,
-        color: colors[Math.floor(Math.random() * colors.length)]
+        color: colors[Math.floor(Math.random() * colors.length)],
       }));
-      
+
       setParticles(newParticles);
 
       const timer = setTimeout(() => {
@@ -34,7 +46,12 @@ export const ConfettiWrapper = ({ trigger, onComplete, className }: ConfettiWrap
   if (particles.length === 0) return null;
 
   return (
-    <div className={cn("fixed inset-0 pointer-events-none z-50 overflow-hidden", className)}>
+    <div
+      className={cn(
+        "fixed inset-0 pointer-events-none z-50 overflow-hidden",
+        className,
+      )}
+    >
       {particles.map((particle) => (
         <div
           key={particle.id}

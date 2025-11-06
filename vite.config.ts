@@ -11,17 +11,18 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   plugins: [
-    react(), 
+    react(),
     mode === "development" && componentTagger(),
     // ViteImageOptimizer handles image optimization reliably in production
     // Removed vite-plugin-imagemin due to CI build failures
-    mode === "production" && ViteImageOptimizer({
-      jpeg: { quality: 80 },
-      jpg: { quality: 80 },
-      png: { quality: 80 },
-      webp: { quality: 85 },
-      avif: { quality: 75 },
-    }),
+    mode === "production" &&
+      ViteImageOptimizer({
+        jpeg: { quality: 80 },
+        jpg: { quality: 80 },
+        png: { quality: 80 },
+        webp: { quality: 85 },
+        avif: { quality: 75 },
+      }),
   ].filter(Boolean),
   resolve: {
     alias: {
@@ -29,27 +30,27 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    sourcemap: mode === 'development', // Only in dev mode
+    sourcemap: mode === "development", // Only in dev mode
     rollupOptions: {
       output: {
         manualChunks: {
           // Split vendor chunks for better caching
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui-core': [
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-ui-core": [
+            "@radix-ui/react-accordion",
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-dropdown-menu",
           ],
-          'vendor-ui-extended': [
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-tooltip',
-            '@radix-ui/react-select',
-            '@radix-ui/react-popover',
+          "vendor-ui-extended": [
+            "@radix-ui/react-tabs",
+            "@radix-ui/react-tooltip",
+            "@radix-ui/react-select",
+            "@radix-ui/react-popover",
           ],
-          'vendor-supabase': ['@supabase/supabase-js'],
-          'vendor-charts': ['recharts'],
-          'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
-          'vendor-editor': ['react-quill', 'quill'],
+          "vendor-supabase": ["@supabase/supabase-js"],
+          "vendor-charts": ["recharts"],
+          "vendor-forms": ["react-hook-form", "@hookform/resolvers", "zod"],
+          "vendor-editor": ["react-quill", "quill"],
         },
       },
     },

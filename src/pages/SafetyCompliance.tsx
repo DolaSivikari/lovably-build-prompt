@@ -1,18 +1,51 @@
-import { Shield, Award, HardHat, AlertCircle, Download, CheckCircle2 } from "lucide-react";
+import {
+  Shield,
+  Award,
+  HardHat,
+  AlertCircle,
+  Download,
+  CheckCircle2,
+} from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import MetricCounter from "@/components/MetricCounter";
 
 const SafetyCompliance = () => {
   const safetyMetrics = [
-    { value: 0.85, suffix: "", label: "EMR Rate", description: "Below industry average" },
-    { value: 1.2, suffix: "", label: "TRIR", description: "Total Recordable Incident Rate" },
-    { value: 0, suffix: "", label: "Lost-Time Incidents", description: "Last 18 months" },
-    { value: 2000, suffix: "+", label: "Training Hours", description: "Annually" },
+    {
+      value: 0.85,
+      suffix: "",
+      label: "EMR Rate",
+      description: "Below industry average",
+    },
+    {
+      value: 1.2,
+      suffix: "",
+      label: "TRIR",
+      description: "Total Recordable Incident Rate",
+    },
+    {
+      value: 0,
+      suffix: "",
+      label: "Lost-Time Incidents",
+      description: "Last 18 months",
+    },
+    {
+      value: 2000,
+      suffix: "+",
+      label: "Training Hours",
+      description: "Annually",
+    },
   ];
 
   const certifications = [
@@ -41,7 +74,7 @@ const SafetyCompliance = () => {
         description="Ascent Group Construction maintains industry-leading safety standards with COR certification, WSIB clearance, and comprehensive safety programs across all Ontario projects."
       />
       <Navigation />
-      
+
       <PageHeader
         title="Safety First, Every Project, Every Time"
         description="Industry-leading safety standards and comprehensive compliance programs"
@@ -51,7 +84,9 @@ const SafetyCompliance = () => {
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Safety Statistics */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Our Safety Performance</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Our Safety Performance
+            </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {safetyMetrics.map((metric, index) => (
                 <Card key={index}>
@@ -61,7 +96,9 @@ const SafetyCompliance = () => {
                       suffix={metric.suffix}
                       label={metric.label}
                     />
-                    <p className="text-sm text-muted-foreground mt-2">{metric.description}</p>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      {metric.description}
+                    </p>
                   </CardContent>
                 </Card>
               ))}
@@ -70,7 +107,9 @@ const SafetyCompliance = () => {
 
           {/* Certifications */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Safety Certifications</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Safety Certifications
+            </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {certifications.map((cert, index) => {
                 const Icon = cert.icon;
@@ -82,7 +121,9 @@ const SafetyCompliance = () => {
                           <Icon className="h-5 w-5 text-primary" />
                         </div>
                         <div>
-                          <CardTitle className="text-base">{cert.name}</CardTitle>
+                          <CardTitle className="text-base">
+                            {cert.name}
+                          </CardTitle>
                           <CardDescription className="flex items-center gap-1 mt-1">
                             <CheckCircle2 className="h-3 w-3 text-green-600" />
                             {cert.status}
@@ -98,12 +139,17 @@ const SafetyCompliance = () => {
 
           {/* Safety Programs */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Comprehensive Safety Programs</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Comprehensive Safety Programs
+            </h2>
             <Card>
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   {programs.map((program, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg border">
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 p-3 rounded-lg border"
+                    >
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                       <span className="font-medium">{program}</span>
                     </div>
@@ -117,13 +163,17 @@ const SafetyCompliance = () => {
           <section className="mb-16">
             <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
               <CardHeader>
-                <CardTitle className="text-2xl text-center">Our Safety Commitment</CardTitle>
+                <CardTitle className="text-2xl text-center">
+                  Our Safety Commitment
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground text-center max-w-3xl mx-auto">
-                  At Ascent Group Construction, safety isn't just a priority—it's the foundation of everything we do. 
-                  Every worker goes home safe, every day. We invest heavily in training, equipment, and protocols to 
-                  ensure zero incidents on every project.
+                  At Ascent Group Construction, safety isn't just a
+                  priority—it's the foundation of everything we do. Every worker
+                  goes home safe, every day. We invest heavily in training,
+                  equipment, and protocols to ensure zero incidents on every
+                  project.
                 </p>
                 <div className="grid md:grid-cols-3 gap-6 pt-6">
                   <div className="text-center">
@@ -154,12 +204,16 @@ const SafetyCompliance = () => {
 
           {/* Download Documents */}
           <section>
-            <h2 className="text-3xl font-bold mb-8 text-center">Safety Documentation</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Safety Documentation
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg">WSIB Certificate</CardTitle>
-                  <CardDescription>Current clearance certificate</CardDescription>
+                  <CardDescription>
+                    Current clearance certificate
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button variant="outline" className="w-full gap-2">
@@ -170,8 +224,12 @@ const SafetyCompliance = () => {
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Safety Policy Manual</CardTitle>
-                  <CardDescription>Comprehensive safety protocols</CardDescription>
+                  <CardTitle className="text-lg">
+                    Safety Policy Manual
+                  </CardTitle>
+                  <CardDescription>
+                    Comprehensive safety protocols
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button variant="outline" className="w-full gap-2">
@@ -182,7 +240,9 @@ const SafetyCompliance = () => {
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Insurance Certificate</CardTitle>
+                  <CardTitle className="text-lg">
+                    Insurance Certificate
+                  </CardTitle>
                   <CardDescription>$5M liability coverage</CardDescription>
                 </CardHeader>
                 <CardContent>

@@ -1,11 +1,13 @@
 # RLS Policy Audit Results
 
 ## Overview
+
 This document contains the results of the Row Level Security (RLS) policy audit conducted on the Ascent Group Construction database.
 
 ## How to Run the Audit
 
 Run the audit script in your Supabase SQL Editor:
+
 ```bash
 # Navigate to Backend → SQL Editor
 # Copy and paste the contents of scripts/audit-rls-policies.sql
@@ -15,6 +17,7 @@ Run the audit script in your Supabase SQL Editor:
 ## Audit Checklist
 
 ### Critical Security Checks
+
 - [ ] All tables have RLS enabled
 - [ ] No overly permissive policies (`qual = 'true'` for INSERT/UPDATE/DELETE)
 - [ ] Sensitive tables have multiple policies (SELECT, INSERT, UPDATE, DELETE)
@@ -24,12 +27,14 @@ Run the audit script in your Supabase SQL Editor:
 ### Table Categories
 
 #### Public Data (RLS enabled, SELECT policies allow public)
+
 - `projects` (published items only)
 - `blog_posts` (published items only)
 - `services` (published items only)
 - `case_studies` (published items only)
 
 #### Sensitive Data (RLS enabled, admin/owner only)
+
 - `profiles`
 - `contact_submissions`
 - `resume_submissions`
@@ -42,6 +47,7 @@ Run the audit script in your Supabase SQL Editor:
 - `user_sessions`
 
 #### System Tables (RLS enabled, restricted)
+
 - `rate_limits`
 - `content_versions`
 - `notifications`
@@ -51,6 +57,7 @@ Run the audit script in your Supabase SQL Editor:
 ### Date: [Run audit to populate]
 
 #### Summary
+
 - Total Tables: [TBD]
 - Tables with RLS: [TBD]
 - Total Policies: [TBD]
@@ -72,11 +79,13 @@ Run the audit script in your Supabase SQL Editor:
 ## Remediation Plan
 
 ### Immediate Actions Required
+
 1. Enable RLS on all tables
 2. Remove overly permissive policies
 3. Add auth checks to sensitive tables
 
 ### Best Practices
+
 1. **Use security definer functions** to avoid recursive policies
 2. **Test with different user roles** (admin, authenticated, anon)
 3. **Document policy intent** in SQL comments
@@ -85,7 +94,9 @@ Run the audit script in your Supabase SQL Editor:
 ## Manual Configuration Required
 
 ### Password Breach Detection
+
 ⚠️ **Manual Step Required:**
+
 1. Navigate to Backend → Authentication → Settings
 2. Enable "Breach Detection" toggle
 3. Set threshold: Medium (recommended)
@@ -93,12 +104,14 @@ Run the audit script in your Supabase SQL Editor:
 **Status:** [ ] Not configured [ ] Configured
 
 ### Rate Limiting
+
 ✅ Rate limiting implemented via `check_and_update_rate_limit` function
 ✅ Applied to all public edge functions
 
 ## Testing Validation
 
 ### Test Scenarios
+
 1. **Anonymous User**
    - Can read published content: ✅
    - Cannot read draft content: ✅

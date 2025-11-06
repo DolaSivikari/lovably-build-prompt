@@ -30,7 +30,9 @@ export const calculateISODate = (relativeDate: string): string => {
  * @param reviewText - The review content
  * @returns Service name and type
  */
-export const inferServiceFromReview = (reviewText: string): { name: string; type: string } => {
+export const inferServiceFromReview = (
+  reviewText: string,
+): { name: string; type: string } => {
   const text = reviewText.toLowerCase();
 
   if (text.includes("parking garage") || text.includes("garage restoration")) {
@@ -39,16 +41,28 @@ export const inferServiceFromReview = (reviewText: string): { name: string; type
   if (text.includes("condo") || text.includes("condominium")) {
     return { name: "Condo Painting & Restoration", type: "Service" };
   }
-  if (text.includes("paint") || text.includes("exterior") || text.includes("interior")) {
+  if (
+    text.includes("paint") ||
+    text.includes("exterior") ||
+    text.includes("interior")
+  ) {
     return { name: "Commercial Painting", type: "Service" };
   }
   if (text.includes("office") || text.includes("commercial")) {
     return { name: "Commercial Renovation", type: "Service" };
   }
-  if (text.includes("warehouse") || text.includes("floor") || text.includes("coating")) {
+  if (
+    text.includes("warehouse") ||
+    text.includes("floor") ||
+    text.includes("coating")
+  ) {
     return { name: "Industrial Flooring", type: "Service" };
   }
-  if (text.includes("stucco") || text.includes("masonry") || text.includes("concrete")) {
+  if (
+    text.includes("stucco") ||
+    text.includes("masonry") ||
+    text.includes("concrete")
+  ) {
     return { name: "Masonry & Concrete Restoration", type: "Service" };
   }
 
@@ -64,6 +78,6 @@ export const getConsistentAggregateRating = () => {
     ratingValue: "4.9",
     reviewCount: "127",
     bestRating: "5",
-    worstRating: "1"
+    worstRating: "1",
   };
 };

@@ -1,7 +1,11 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
-import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from "../_shared/rateLimiter.ts";
+import {
+  checkRateLimit,
+  getClientIdentifier,
+  createRateLimitResponse,
+} from "../_shared/rateLimiter.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -75,63 +79,67 @@ const sanitize = (str: string): string => {
 
 // Helper function for safe error responses
 function createErrorResponse(error: any) {
-  console.error('Function error:', {
+  console.error("Function error:", {
     message: error.message,
     stack: error.stack,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
-  
-  const isValidationError = error.message.includes('required') || 
-                           error.message.includes('invalid') ||
-                           error.message.includes('must be') ||
-                           error.message.includes('characters');
-  
-  const clientMessage = isValidationError 
+
+  const isValidationError =
+    error.message.includes("required") ||
+    error.message.includes("invalid") ||
+    error.message.includes("must be") ||
+    error.message.includes("characters");
+
+  const clientMessage = isValidationError
     ? error.message
-    : 'An error occurred processing your request. Please try again later.';
-  
+    : "An error occurred processing your request. Please try again later.";
+
   return new Response(
-    JSON.stringify({ 
+    JSON.stringify({
       error: clientMessage,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     }),
-    { 
-      status: isValidationError ? 400 : 500, 
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-    }
+    {
+      status: isValidationError ? 400 : 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    },
   );
 }
 
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests with comprehensive headers
   if (req.method === "OPTIONS") {
-    return new Response(null, { 
+    return new Response(null, {
       status: 200,
       headers: {
         ...corsHeaders,
-        'Access-Control-Max-Age': '86400', // 24 hours
-      }
+        "Access-Control-Max-Age": "86400", // 24 hours
+      },
     });
   }
 
   try {
     // Rate limiting check
     const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
     );
-    
+
     const clientId = getClientIdentifier(req);
     const rateLimitResult = await checkRateLimit(
       supabaseClient,
       `package-${clientId}`,
-      'send-package-notification',
+      "send-package-notification",
       10, // 10 requests per minute for package requests
-      1
+      1,
     );
 
     if (!rateLimitResult.allowed) {
-      return createRateLimitResponse(rateLimitResult.retry_after_seconds || 60, corsHeaders);
+      return createRateLimitResponse(
+        rateLimitResult.retry_after_seconds || 60,
+        corsHeaders,
+      );
     }
 
     const requestData: PackageNotificationRequest = await req.json();
@@ -139,21 +147,22 @@ const handler = async (req: Request): Promise<Response> => {
     // Validate input
     const validationError = validateInput(requestData);
     if (validationError) {
-      return new Response(
-        JSON.stringify({ error: validationError }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
-      );
+      return new Response(JSON.stringify({ error: validationError }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
     }
 
     // Sanitize all inputs
     const name = sanitize(requestData.name.trim());
     const email = requestData.email.trim().toLowerCase();
-    const phone = requestData.phone ? sanitize(requestData.phone.trim()) : undefined;
+    const phone = requestData.phone
+      ? sanitize(requestData.phone.trim())
+      : undefined;
     const packageName = sanitize(requestData.packageName.trim());
-    const message = requestData.message ? sanitize(requestData.message.trim()) : undefined;
+    const message = requestData.message
+      ? sanitize(requestData.message.trim())
+      : undefined;
 
     // Send notification to admin
     const adminEmail = await resend.emails.send({
@@ -165,11 +174,15 @@ const handler = async (req: Request): Promise<Response> => {
         <p><strong>Package:</strong> ${packageName}</p>
         <p><strong>Customer Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-        ${message ? `
+        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
+        ${
+          message
+            ? `
           <p><strong>Additional Message:</strong></p>
           <p>${message}</p>
-        ` : ''}
+        `
+            : ""
+        }
         <hr>
         <p><small>View full request in admin panel</small></p>
       `,

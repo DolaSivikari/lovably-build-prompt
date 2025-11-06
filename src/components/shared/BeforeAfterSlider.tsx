@@ -15,7 +15,7 @@ export const BeforeAfterSlider = ({
   afterImage,
   beforeLabel = "Before",
   afterLabel = "After",
-  className
+  className,
 }: BeforeAfterSliderProps) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -63,7 +63,7 @@ export const BeforeAfterSlider = ({
       ref={containerRef}
       className={cn(
         "relative w-full aspect-video overflow-hidden rounded-xl border-2 border-border cursor-ew-resize select-none",
-        className
+        className,
       )}
       onMouseDown={handleMouseDown}
       onTouchStart={() => setIsDragging(true)}

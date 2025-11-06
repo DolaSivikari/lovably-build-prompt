@@ -31,7 +31,11 @@ const quoteSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email").max(255),
   phone: z.string().trim().min(1, "Phone is required").max(20),
-  projectDescription: z.string().trim().min(10, "Please provide at least 10 characters").max(2000),
+  projectDescription: z
+    .string()
+    .trim()
+    .min(10, "Please provide at least 10 characters")
+    .max(2000),
 });
 
 export const QuoteRequestDialog = ({
@@ -78,7 +82,8 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
 
       toast({
         title: "Quote Request Submitted!",
-        description: "We'll contact you within 24 hours to schedule a consultation.",
+        description:
+          "We'll contact you within 24 hours to schedule a consultation.",
       });
 
       setTimeout(() => {
@@ -87,7 +92,7 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
       }, 2000);
     } catch (error) {
       console.error("Error submitting quote request:", error);
-      
+
       if (error instanceof z.ZodError) {
         toast({
           title: "Validation Error",
@@ -131,7 +136,9 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
             <Input
               id="name"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               placeholder="John Doe"
               required
             />
@@ -143,7 +150,9 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
               id="email"
               type="email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               placeholder="john@example.com"
               required
             />
@@ -155,7 +164,9 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
               id="phone"
               type="tel"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
               placeholder="(416) 555-0123"
               required
             />

@@ -38,9 +38,16 @@ export const AdminTopBar = () => {
         <div className="flex items-center justify-between">
           {/* Left: Logo + Title */}
           <div className="flex items-center gap-3">
-            <img src={ascentLogo} alt="Ascent Group Construction" className="h-10" />
+            <img
+              src={ascentLogo}
+              alt="Ascent Group Construction"
+              className="h-10"
+            />
             <div>
-              <h1 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
+              <h1
+                className="text-xl font-bold"
+                style={{ fontFamily: "Playfair Display, serif" }}
+              >
                 Ascent Group Construction
               </h1>
               <p className="text-xs text-muted-foreground">Admin Panel</p>
@@ -59,7 +66,7 @@ export const AdminTopBar = () => {
               <ExternalLink className="h-4 w-4" />
               <span className="hidden sm:inline">View Site</span>
             </Button>
-            
+
             <Button
               variant="outline"
               size="sm"
@@ -76,7 +83,7 @@ export const AdminTopBar = () => {
               <RefreshCw className="h-4 w-4" />
               <span className="hidden sm:inline">Refresh</span>
             </Button>
-            
+
             <Button
               variant="outline"
               size="sm"

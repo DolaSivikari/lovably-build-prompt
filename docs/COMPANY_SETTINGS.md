@@ -13,9 +13,11 @@ The company settings system provides a **single source of truth** for all compan
 ### Database Tables
 
 #### 1. `site_settings` (Primary Source)
+
 The main table for company-wide settings.
 
 **Fields:**
+
 - `company_name` - Official company name
 - `phone` - Primary phone number
 - `email` - Primary email address
@@ -28,9 +30,11 @@ The main table for company-wide settings.
 **Usage:** Global contact information, company details
 
 #### 2. `about_page_settings`
+
 Content specific to the About, Values, Safety, and Sustainability pages.
 
 **Fields:**
+
 - `years_in_business`, `total_projects`, `satisfaction_rate` - Stats
 - `values` - Array of company values
 - `sustainability_commitment`, `sustainability_initiatives` - Sustainability content
@@ -40,18 +44,22 @@ Content specific to the About, Values, Safety, and Sustainability pages.
 **Usage:** About page, Values page, Safety page
 
 #### 3. `footer_settings`
+
 Footer-specific content and links.
 
 **Fields:**
+
 - `quick_links`, `sectors_links` - Navigation arrays
 - `contact_info` - Contact details (should mirror site_settings)
 - `social_media` - Social links
 - `trust_bar_items` - Trust badges
 
 #### 4. `contact_page_settings`
+
 Contact page specific content.
 
 **Fields:**
+
 - `main_phone`, `toll_free_phone` - Phone numbers
 - `general_email`, `projects_email`, `careers_email` - Email addresses
 - `office_address` - Address
@@ -61,6 +69,7 @@ Contact page specific content.
 ## Hooks
 
 ### `useCompanySettings()`
+
 Primary hook for accessing company-wide settings from `site_settings` table.
 
 ```typescript
@@ -68,9 +77,9 @@ import { useCompanySettings } from '@/hooks/useCompanySettings';
 
 const MyComponent = () => {
   const { settings, loading, error } = useCompanySettings();
-  
+
   if (loading) return <div>Loading...</div>;
-  
+
   return (
     <div>
       <h1>{settings.companyName}</h1>
@@ -85,6 +94,7 @@ const MyComponent = () => {
 ```
 
 **Returns:**
+
 ```typescript
 interface CompanySettings {
   companyName: string;
@@ -109,6 +119,7 @@ interface CompanySettings {
 ```
 
 ### `useSettingsData(tableName, selectQuery)`
+
 Generic hook for accessing any settings table.
 
 ```typescript
@@ -116,10 +127,10 @@ import { useSettingsData } from '@/hooks/useSettingsData';
 
 const AboutPage = () => {
   const { data, loading, error, refetch } = useSettingsData('about_page_settings');
-  
+
   const values = (data?.values as any[]) || [];
   const sustainabilityData = data?.sustainability_commitment;
-  
+
   return (
     <div>
       {values.map(value => (
@@ -151,6 +162,7 @@ Monitor the consistency of your settings:
 **URL:** `/admin/settings-health`
 
 **Features:**
+
 - Scans all components for hardcoded values
 - Validates database settings completeness
 - Checks component integration status
@@ -173,9 +185,9 @@ const ContactButton = () => {
 
 ```typescript
 // ✅ Format phone numbers dynamically
-const displayPhone = settings?.phone 
-  ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')
-  : '';
+const displayPhone = settings?.phone
+  ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
+  : "";
 ```
 
 ```typescript
@@ -195,7 +207,7 @@ const ContactButton = () => {
 
 ```typescript
 // ❌ Don't use old JSON files
-import companyInfo from '@/data/company-info.json';
+import companyInfo from "@/data/company-info.json";
 ```
 
 ```typescript
@@ -210,14 +222,14 @@ The system includes automatic validation in development mode that warns when har
 ### How It Works
 
 ```typescript
-import { useContactValidation } from '@/utils/devContactValidation';
+import { useContactValidation } from "@/utils/devContactValidation";
 
 const MyComponent = () => {
   const { settings } = useCompanySettings();
-  
+
   // Automatically validates in dev mode
-  useContactValidation('MyComponent', [settings]);
-  
+  useContactValidation("MyComponent", [settings]);
+
   // Your component code...
 };
 ```
@@ -261,6 +273,7 @@ When hardcoded values are detected:
 Run the settings health check: `/admin/settings-health`
 
 Expected results:
+
 - ✅ All checks passing
 - ✅ No hardcoded values detected
 - ✅ Database connection successful
@@ -271,6 +284,7 @@ Expected results:
 ### Problem: Settings not updating on public site
 
 **Solution:**
+
 1. Check `/admin/site-settings` - is the data saved?
 2. Clear browser cache
 3. Check if component is using `useCompanySettings()`
@@ -279,6 +293,7 @@ Expected results:
 ### Problem: Conflicting data in different locations
 
 **Solution:**
+
 1. Run health check to identify conflicts
 2. Update all settings tables to match `site_settings`
 3. Ensure components use database hooks, not JSON files
@@ -286,6 +301,7 @@ Expected results:
 ### Problem: Development validation warnings
 
 **Solution:**
+
 1. Find the hardcoded value in the component
 2. Replace with `useCompanySettings()` hook
 3. Re-check - warning should disappear
@@ -293,21 +309,25 @@ Expected results:
 ## Migration History
 
 ### Phase 1: Database Consolidation ✅
+
 - Established `site_settings` as single source of truth
 - Updated database with consistent contact information
 - Fixed typos and inconsistencies
 
 ### Phase 2: Component Refactoring ✅
+
 - Created `useCompanySettings` hook
 - Updated all components to use database hooks
 - Removed hardcoded values from 10+ components
 
 ### Phase 3: Legacy Cleanup ✅
+
 - Deprecated `company-info.json` and `company-credentials.json`
 - Updated About.tsx, Safety.tsx, Values.tsx to use database
 - Added deprecation notice
 
 ### Phase 4: Monitoring & Prevention ✅
+
 - Built Settings Health Check dashboard
 - Added development mode validation
 - Created comprehensive documentation
@@ -323,11 +343,13 @@ Expected results:
 ## Adding New Settings Fields
 
 1. **Update Database Table**
+
    ```sql
    ALTER TABLE site_settings ADD COLUMN new_field TEXT;
    ```
 
 2. **Update Hook Interface**
+
    ```typescript
    // src/hooks/useCompanySettings.ts
    export interface CompanySettings {
@@ -337,10 +359,11 @@ Expected results:
    ```
 
 3. **Update Hook Logic**
+
    ```typescript
    setSettings({
      // ... existing mappings
-     newField: data.new_field || 'default',
+     newField: data.new_field || "default",
    });
    ```
 
@@ -356,6 +379,7 @@ Expected results:
 ## Support
 
 For questions or issues:
+
 - Check `/admin/settings-health` for diagnostics
 - Review console warnings in development mode
 - Refer to this documentation

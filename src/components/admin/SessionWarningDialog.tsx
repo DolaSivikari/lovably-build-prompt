@@ -6,8 +6,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { AlertTriangle } from 'lucide-react';
+} from "@/components/ui/alert-dialog";
+import { AlertTriangle } from "lucide-react";
 
 interface SessionWarningDialogProps {
   open: boolean;
@@ -29,8 +29,9 @@ export const SessionWarningDialog = ({
             <AlertDialogTitle>Session Timeout Warning</AlertDialogTitle>
           </div>
           <AlertDialogDescription>
-            Your session will expire in <strong>{remainingTime} seconds</strong> due to
-            inactivity. You will be automatically logged out for security reasons.
+            Your session will expire in <strong>{remainingTime} seconds</strong>{" "}
+            due to inactivity. You will be automatically logged out for security
+            reasons.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

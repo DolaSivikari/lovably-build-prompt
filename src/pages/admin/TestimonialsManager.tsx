@@ -5,10 +5,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ArrowLeft, Plus, Pencil, Trash2, Star } from "lucide-react";
@@ -26,7 +45,9 @@ const TestimonialsManager = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       setUserId(user?.id || null);
     };
     getUser();
@@ -39,9 +60,9 @@ const TestimonialsManager = () => {
   const fetchTestimonials = async () => {
     try {
       const { data, error } = await supabase
-        .from('testimonials')
-        .select('*')
-        .order('display_order');
+        .from("testimonials")
+        .select("*")
+        .order("display_order");
 
       if (error) throw error;
       setTestimonials(data || []);
@@ -57,19 +78,19 @@ const TestimonialsManager = () => {
       const testimonialData = {
         ...editingTestimonial,
         updated_by: userId,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
       if (editingTestimonial.id) {
         const { error } = await supabase
-          .from('testimonials')
+          .from("testimonials")
           .update(testimonialData)
-          .eq('id', editingTestimonial.id);
+          .eq("id", editingTestimonial.id);
         if (error) throw error;
         toast.success("Testimonial updated");
       } else {
         const { error } = await supabase
-          .from('testimonials')
+          .from("testimonials")
           .insert({ ...testimonialData, created_by: userId });
         if (error) throw error;
         toast.success("Testimonial created");
@@ -84,7 +105,9 @@ const TestimonialsManager = () => {
   };
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [testimonialToDelete, setTestimonialToDelete] = useState<string | null>(null);
+  const [testimonialToDelete, setTestimonialToDelete] = useState<string | null>(
+    null,
+  );
 
   const handleDeleteClick = (id: string) => {
     setTestimonialToDelete(id);
@@ -96,9 +119,9 @@ const TestimonialsManager = () => {
 
     try {
       const { error } = await supabase
-        .from('testimonials')
+        .from("testimonials")
         .delete()
-        .eq('id', testimonialToDelete);
+        .eq("id", testimonialToDelete);
 
       if (error) throw error;
       toast.success("Testimonial deleted");
@@ -112,15 +135,15 @@ const TestimonialsManager = () => {
 
   const newTestimonial = () => {
     setEditingTestimonial({
-      quote: '',
-      author_name: '',
-      author_position: '',
-      company_name: '',
-      project_name: '',
+      quote: "",
+      author_name: "",
+      author_position: "",
+      company_name: "",
+      project_name: "",
       rating: 5.0,
       is_featured: false,
       display_order: testimonials.length + 1,
-      publish_state: 'published'
+      publish_state: "published",
     });
     setDialogOpen(true);
   };
@@ -137,7 +160,7 @@ const TestimonialsManager = () => {
             <h1 className="text-3xl font-bold">Manage Testimonials</h1>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => navigate('/admin')}>
+            <Button variant="outline" onClick={() => navigate("/admin")}>
               Back to Dashboard
             </Button>
             <Button onClick={newTestimonial}>
@@ -165,21 +188,29 @@ const TestimonialsManager = () => {
                   <TableRow key={testimonial.id}>
                     <TableCell>
                       <div>
-                        <div className="font-medium">{testimonial.author_name}</div>
+                        <div className="font-medium">
+                          {testimonial.author_name}
+                        </div>
                         <div className="text-sm text-muted-foreground">
-                          {testimonial.author_position} at {testimonial.company_name}
+                          {testimonial.author_position} at{" "}
+                          {testimonial.company_name}
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="max-w-md truncate">{testimonial.quote}</TableCell>
+                    <TableCell className="max-w-md truncate">
+                      {testimonial.quote}
+                    </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-1">
-                        {testimonial.rating} <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
+                        {testimonial.rating}{" "}
+                        <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
                       </div>
                     </TableCell>
-                    <TableCell>{testimonial.is_featured ? '✓' : ''}</TableCell>
+                    <TableCell>{testimonial.is_featured ? "✓" : ""}</TableCell>
                     <TableCell>
-                      <span className={`px-2 py-1 rounded text-xs ${testimonial.publish_state === 'published' ? 'bg-[hsl(142_76%_85%)] text-[hsl(142_76%_25%)]' : 'bg-muted text-muted-foreground'}`}>
+                      <span
+                        className={`px-2 py-1 rounded text-xs ${testimonial.publish_state === "published" ? "bg-[hsl(142_76%_85%)] text-[hsl(142_76%_25%)]" : "bg-muted text-muted-foreground"}`}
+                      >
                         {testimonial.publish_state}
                       </span>
                     </TableCell>
@@ -215,15 +246,22 @@ const TestimonialsManager = () => {
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>
-                {editingTestimonial?.id ? 'Edit Testimonial' : 'New Testimonial'}
+                {editingTestimonial?.id
+                  ? "Edit Testimonial"
+                  : "New Testimonial"}
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div>
                 <Label>Quote *</Label>
                 <Textarea
-                  value={editingTestimonial?.quote || ''}
-                  onChange={(e) => setEditingTestimonial({ ...editingTestimonial, quote: e.target.value })}
+                  value={editingTestimonial?.quote || ""}
+                  onChange={(e) =>
+                    setEditingTestimonial({
+                      ...editingTestimonial,
+                      quote: e.target.value,
+                    })
+                  }
                   rows={4}
                   maxLength={500}
                 />
@@ -233,15 +271,25 @@ const TestimonialsManager = () => {
                 <div>
                   <Label>Author Name *</Label>
                   <Input
-                    value={editingTestimonial?.author_name || ''}
-                    onChange={(e) => setEditingTestimonial({ ...editingTestimonial, author_name: e.target.value })}
+                    value={editingTestimonial?.author_name || ""}
+                    onChange={(e) =>
+                      setEditingTestimonial({
+                        ...editingTestimonial,
+                        author_name: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div>
                   <Label>Position</Label>
                   <Input
-                    value={editingTestimonial?.author_position || ''}
-                    onChange={(e) => setEditingTestimonial({ ...editingTestimonial, author_position: e.target.value })}
+                    value={editingTestimonial?.author_position || ""}
+                    onChange={(e) =>
+                      setEditingTestimonial({
+                        ...editingTestimonial,
+                        author_position: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -250,15 +298,25 @@ const TestimonialsManager = () => {
                 <div>
                   <Label>Company</Label>
                   <Input
-                    value={editingTestimonial?.company_name || ''}
-                    onChange={(e) => setEditingTestimonial({ ...editingTestimonial, company_name: e.target.value })}
+                    value={editingTestimonial?.company_name || ""}
+                    onChange={(e) =>
+                      setEditingTestimonial({
+                        ...editingTestimonial,
+                        company_name: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div>
                   <Label>Project Name</Label>
                   <Input
-                    value={editingTestimonial?.project_name || ''}
-                    onChange={(e) => setEditingTestimonial({ ...editingTestimonial, project_name: e.target.value })}
+                    value={editingTestimonial?.project_name || ""}
+                    onChange={(e) =>
+                      setEditingTestimonial({
+                        ...editingTestimonial,
+                        project_name: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -272,7 +330,12 @@ const TestimonialsManager = () => {
                     max="5"
                     step="0.5"
                     value={editingTestimonial?.rating || 5}
-                    onChange={(e) => setEditingTestimonial({ ...editingTestimonial, rating: parseFloat(e.target.value) })}
+                    onChange={(e) =>
+                      setEditingTestimonial({
+                        ...editingTestimonial,
+                        rating: parseFloat(e.target.value),
+                      })
+                    }
                   />
                 </div>
                 <div>
@@ -280,14 +343,24 @@ const TestimonialsManager = () => {
                   <Input
                     type="number"
                     value={editingTestimonial?.display_order || 0}
-                    onChange={(e) => setEditingTestimonial({ ...editingTestimonial, display_order: parseInt(e.target.value) })}
+                    onChange={(e) =>
+                      setEditingTestimonial({
+                        ...editingTestimonial,
+                        display_order: parseInt(e.target.value),
+                      })
+                    }
                   />
                 </div>
                 <div>
                   <Label>Status</Label>
                   <Select
-                    value={editingTestimonial?.publish_state || 'published'}
-                    onValueChange={(value) => setEditingTestimonial({ ...editingTestimonial, publish_state: value })}
+                    value={editingTestimonial?.publish_state || "published"}
+                    onValueChange={(value) =>
+                      setEditingTestimonial({
+                        ...editingTestimonial,
+                        publish_state: value,
+                      })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -303,7 +376,12 @@ const TestimonialsManager = () => {
               <div className="flex items-center gap-2">
                 <Switch
                   checked={editingTestimonial?.is_featured || false}
-                  onCheckedChange={(checked) => setEditingTestimonial({ ...editingTestimonial, is_featured: checked })}
+                  onCheckedChange={(checked) =>
+                    setEditingTestimonial({
+                      ...editingTestimonial,
+                      is_featured: checked,
+                    })
+                  }
                 />
                 <Label>Featured (show on homepage)</Label>
               </div>
@@ -312,9 +390,7 @@ const TestimonialsManager = () => {
                 <Button variant="outline" onClick={() => setDialogOpen(false)}>
                   Cancel
                 </Button>
-                <Button onClick={handleSave}>
-                  Save Testimonial
-                </Button>
+                <Button onClick={handleSave}>Save Testimonial</Button>
               </div>
             </div>
           </DialogContent>

@@ -2,7 +2,13 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Shield, CheckCircle2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -13,20 +19,25 @@ export const InsuranceCalculator = () => {
 
   const calculateCoverage = () => {
     // Industry standard rates based on project type and complexity
-    const baseRate = projectType === "commercial" ? 2.0 : projectType === "residential" ? 1.5 : 2.5;
+    const baseRate =
+      projectType === "commercial"
+        ? 2.0
+        : projectType === "residential"
+          ? 1.5
+          : 2.5;
     const durationMultiplier = duration > 12 ? 1.2 : 1.0; // Longer projects need more coverage
-    
+
     const recommendedCoverage = projectValue * baseRate * durationMultiplier;
     const minimumCoverage = projectValue * 1.5; // Industry minimum
-    
+
     // Ascent Group's actual coverage
     const ourCoverage = 5000000;
-    
+
     return {
       recommended: Math.round(recommendedCoverage),
       minimum: Math.round(minimumCoverage),
       ourCoverage,
-      adequate: ourCoverage >= recommendedCoverage
+      adequate: ourCoverage >= recommendedCoverage,
     };
   };
 
@@ -49,7 +60,9 @@ export const InsuranceCalculator = () => {
         <div className="space-y-3">
           <div className="flex justify-between">
             <Label>Project Value</Label>
-            <span className="font-bold text-primary">{formatCurrency(projectValue)}</span>
+            <span className="font-bold text-primary">
+              {formatCurrency(projectValue)}
+            </span>
           </div>
           <Slider
             value={[projectValue]}
@@ -93,22 +106,30 @@ export const InsuranceCalculator = () => {
         {/* Results */}
         <div className="space-y-4 pt-4 border-t">
           <h4 className="font-semibold">Coverage Analysis</h4>
-          
+
           <div className="grid gap-3">
             <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
               <span className="text-sm">Minimum Required</span>
-              <span className="font-semibold">{formatCurrency(coverage.minimum)}</span>
+              <span className="font-semibold">
+                {formatCurrency(coverage.minimum)}
+              </span>
             </div>
-            
+
             <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
               <span className="text-sm">Recommended Coverage</span>
-              <span className="font-semibold">{formatCurrency(coverage.recommended)}</span>
+              <span className="font-semibold">
+                {formatCurrency(coverage.recommended)}
+              </span>
             </div>
-            
-            <div className={cn(
-              "flex justify-between items-center p-4 rounded-lg border-2",
-              coverage.adequate ? "bg-green-500/10 border-green-500/30" : "bg-red-500/10 border-red-500/30"
-            )}>
+
+            <div
+              className={cn(
+                "flex justify-between items-center p-4 rounded-lg border-2",
+                coverage.adequate
+                  ? "bg-green-500/10 border-green-500/30"
+                  : "bg-red-500/10 border-red-500/30",
+              )}
+            >
               <div className="flex items-center gap-2">
                 {coverage.adequate ? (
                   <CheckCircle2 className="w-5 h-5 text-green-600" />
@@ -117,7 +138,9 @@ export const InsuranceCalculator = () => {
                 )}
                 <span className="font-semibold">Our Coverage</span>
               </div>
-              <span className="font-bold text-lg">{formatCurrency(coverage.ourCoverage)}</span>
+              <span className="font-bold text-lg">
+                {formatCurrency(coverage.ourCoverage)}
+              </span>
             </div>
           </div>
 

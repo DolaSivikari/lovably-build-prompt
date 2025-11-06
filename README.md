@@ -9,6 +9,7 @@ Full-service general contractor website specializing in commercial, multi-family
 ## 🎯 Business Positioning
 
 **Primary Focus:** General Contractor for commercial, multi-family, and institutional projects
+
 - ❌ **Not a residential painter**
 - ✅ **Full-service construction management**
 - ✅ **Design-build capabilities**
@@ -19,6 +20,7 @@ Full-service general contractor website specializing in commercial, multi-family
 ## 🏗️ Tech Stack
 
 **Frontend:**
+
 - React 18 + TypeScript
 - Vite (build tool & dev server)
 - Tailwind CSS (styling)
@@ -28,6 +30,7 @@ Full-service general contractor website specializing in commercial, multi-family
 - Framer Motion (animations)
 
 **Backend (Lovable Cloud/Supabase):**
+
 - PostgreSQL database
 - Row Level Security (RLS)
 - Authentication (email/password)
@@ -35,6 +38,7 @@ Full-service general contractor website specializing in commercial, multi-family
 - Edge Functions (serverless backend logic)
 
 **Key Libraries:**
+
 - `react-hook-form` + `zod` - Form validation
 - `react-quill` - Rich text editor (admin)
 - `@react-pdf/renderer` - PDF generation (estimates/invoices)
@@ -76,6 +80,7 @@ src/
 ## ✨ Active Features
 
 ### **Public-Facing:**
+
 - ✅ Homepage with hero, metrics, certifications
 - ✅ Services explorer (21+ services)
 - ✅ Project portfolio (case studies)
@@ -90,6 +95,7 @@ src/
 - ✅ Accessibility (WCAG AA)
 
 ### **Admin Dashboard:**
+
 - ✅ Content Management System (CMS)
   - Services editor
   - Project/case study manager
@@ -110,6 +116,7 @@ src/
 - ✅ Security center
 
 ### **Business Module:**
+
 - ✅ Client management (CRM-lite)
 - ✅ Project tracking
 - ✅ Estimates/quotes generator
@@ -122,6 +129,7 @@ src/
 ## 🚀 Getting Started
 
 ### **Prerequisites:**
+
 - Node.js 18+ and npm
 - Git
 
@@ -160,21 +168,25 @@ VITE_SUPABASE_PROJECT_ID=<auto-configured>
 ## 📦 Build & Deploy
 
 ### **Build for Production:**
+
 ```sh
 npm run build
 ```
 
 ### **Preview Production Build:**
+
 ```sh
 npm run preview
 ```
 
 ### **Deploy via Lovable:**
+
 1. Visit [Lovable Project](https://lovable.dev/projects/3174d3a8-9b0e-45f6-bf01-0f48b1c02607)
 2. Click "Publish" button
 3. Your site will be deployed to `yoursite.lovable.app`
 
 ### **Custom Domain:**
+
 - Navigate to Project > Settings > Domains
 - Click "Connect Domain"
 - Follow DNS configuration instructions
@@ -184,19 +196,23 @@ npm run preview
 ## 🎨 Design System
 
 **Colors (HSL):**
+
 - Primary: Navy (#003366)
 - Charcoal: Gray (#36454F)
 - Accent: Orange (#FF6B35)
 - Semantic tokens defined in `src/index.css`
 
 **Typography:**
+
 - Font: Inter (400, 600, 700 weights)
 - Scale: 12px → 14px → 16px → 18px → 20px → 24px → 32px → 48px → 64px
 
 **Spacing:**
+
 - Scale: 4px, 8px, 12px, 16px, 24px, 32px, 48px, 64px, 96px, 128px
 
 **Components:**
+
 - Base: shadcn/ui components
 - Custom variants for brand-specific styling
 - Consistent design tokens across all components
@@ -206,18 +222,21 @@ npm run preview
 ## 🧹 Recent Cleanup (January 2025)
 
 **Removed:**
+
 - 6 files (old hero components, residential pages)
 - 5 unused database tables
 - 15 unused image assets (blog/case study images)
 - 150+ instances of residential/painting language
 
 **Updated:**
+
 - All CTAs to "Request Proposal" (from "Get Free Quote/Estimate")
 - Target audience to property owners/developers (from homeowners)
 - Service descriptions to GC-focused (from painting services)
 - Meta tags & SEO to commercial construction keywords
 
 **Results:**
+
 - 100% message consistency (pure GC positioning)
 - Cleaner codebase (fewer files, less code)
 - Smaller bundle size (~30% reduction estimated)
@@ -238,11 +257,13 @@ npm run preview
 ## 🤝 Contributing
 
 **Edit via Lovable:**
+
 - Visit [Lovable Project](https://lovable.dev/projects/3174d3a8-9b0e-45f6-bf01-0f48b1c02607)
 - Start prompting for changes
 - Changes auto-commit to this repo
 
 **Edit Locally:**
+
 1. Make changes in your preferred IDE
 2. Commit and push to GitHub
 3. Changes will reflect in Lovable

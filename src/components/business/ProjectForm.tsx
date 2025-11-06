@@ -78,10 +78,7 @@ export const ProjectForm = ({
             <FormItem>
               <FormLabel>Client</FormLabel>
               <FormControl>
-                <ClientSelector
-                  value={field.value}
-                  onChange={field.onChange}
-                />
+                <ClientSelector value={field.value} onChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -148,7 +145,11 @@ export const ProjectForm = ({
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Textarea {...field} placeholder="Project description" rows={4} />
+                <Textarea
+                  {...field}
+                  placeholder="Project description"
+                  rows={4}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

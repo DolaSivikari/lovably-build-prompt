@@ -7,20 +7,20 @@ export const logError = async (error: Error, context?: Record<string, any>) => {
   try {
     // Avoid logging in development to reduce noise
     if (import.meta.env.DEV) {
-      console.error('[Error Logger]', error, context);
+      console.error("[Error Logger]", error, context);
       return;
     }
 
-    await supabase.from('error_logs').insert({
+    await supabase.from("error_logs").insert({
       message: error.message,
-      stack: error.stack || '',
+      stack: error.stack || "",
       context: context ? JSON.stringify(context) : null,
       url: window.location.href,
       user_agent: navigator.userAgent,
     });
   } catch (logError) {
     // Silently fail - don't break the app if logging fails
-    console.error('[Error Logger] Failed to log error:', logError);
+    console.error("[Error Logger] Failed to log error:", logError);
   }
 };
 
@@ -38,7 +38,7 @@ export const initErrorLogging = () => {
         column: colno,
       });
     }
-    
+
     if (originalOnError) {
       return originalOnError(message, source, lineno, colno, error);
     }
@@ -46,18 +46,17 @@ export const initErrorLogging = () => {
   };
 
   // Intercept unhandled promise rejections
-  window.addEventListener('unhandledrejection', (event) => {
-    logError(
-      new Error(`Unhandled Promise Rejection: ${event.reason}`),
-      { reason: event.reason }
-    );
+  window.addEventListener("unhandledrejection", (event) => {
+    logError(new Error(`Unhandled Promise Rejection: ${event.reason}`), {
+      reason: event.reason,
+    });
   });
 
   // Intercept console.error
   const originalError = console.error;
   console.error = (...args) => {
     originalError(...args);
-    
+
     // Only log if first argument is an Error object
     if (args[0] instanceof Error) {
       logError(args[0], { additionalArgs: args.slice(1) });

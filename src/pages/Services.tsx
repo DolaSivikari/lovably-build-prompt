@@ -6,10 +6,10 @@ import SEO from "@/components/SEO";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Paintbrush, 
-  Building2, 
-  Home, 
+import {
+  Paintbrush,
+  Building2,
+  Home,
   ArrowRight,
   CheckCircle2,
   Users,
@@ -17,7 +17,7 @@ import {
   Briefcase,
   HardHat,
   Wrench,
-  ChevronRight
+  ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -34,7 +34,7 @@ const iconMap: Record<string, any> = {
   Building,
   Home,
   HardHat,
-  Wrench
+  Wrench,
 };
 
 // Category configuration with Lucide icons
@@ -42,38 +42,41 @@ const categoryIcons: Record<string, any> = {
   "Construction Services": Paintbrush,
   "Exterior Systems": Building2,
   "Construction Management": HardHat,
-  "Specialty Services": Wrench
+  "Specialty Services": Wrench,
 };
 
 // Category color map
-const categoryColorMap: Record<string, {
-  bg: string;
-  iconBg: string;
-  iconColor: string;
-  border: string;
-  hoverBg: string;
-}> = {
+const categoryColorMap: Record<
+  string,
+  {
+    bg: string;
+    iconBg: string;
+    iconColor: string;
+    border: string;
+    hoverBg: string;
+  }
+> = {
   primary: {
     bg: "bg-primary/10",
     iconBg: "bg-primary/20",
     iconColor: "text-primary",
     border: "border-primary/30",
-    hoverBg: "hover:bg-primary/5"
+    hoverBg: "hover:bg-primary/5",
   },
   terracotta: {
     bg: "bg-terracotta/10",
     iconBg: "bg-terracotta/20",
     iconColor: "text-terracotta",
     border: "border-terracotta/30",
-    hoverBg: "hover:bg-terracotta/5"
+    hoverBg: "hover:bg-terracotta/5",
   },
   sage: {
     bg: "bg-sage/10",
     iconBg: "bg-sage/20",
     iconColor: "text-sage",
     border: "border-sage/30",
-    hoverBg: "hover:bg-sage/5"
-  }
+    hoverBg: "hover:bg-sage/5",
+  },
 };
 
 interface Service {
@@ -108,31 +111,36 @@ const Services = () => {
 
   const loadServices = async () => {
     const { data } = await supabase
-      .from('services')
-      .select('id, name, slug, short_description, icon_name, category, category_description, category_icon, category_color')
-      .eq('publish_state', 'published')
-      .order('featured', { ascending: false })
-      .order('category', { ascending: true })
-      .order('name', { ascending: true });
+      .from("services")
+      .select(
+        "id, name, slug, short_description, icon_name, category, category_description, category_icon, category_color",
+      )
+      .eq("publish_state", "published")
+      .order("featured", { ascending: false })
+      .order("category", { ascending: true })
+      .order("name", { ascending: true });
 
     if (data) {
       // Group services by category
-      const grouped = data.reduce((acc, service) => {
-        const cat = service.category || 'Other';
-        if (!acc[cat]) {
-          acc[cat] = {
-            name: cat,
-            slug: cat.toLowerCase().replace(/\s+/g, '-'),
-            description: service.category_description || '',
-            icon: service.category_icon || 'Building',
-            color: service.category_color || 'primary',
-            services: []
-          };
-        }
-        acc[cat].services.push(service);
-        return acc;
-      }, {} as Record<string, ServiceCategory>);
-      
+      const grouped = data.reduce(
+        (acc, service) => {
+          const cat = service.category || "Other";
+          if (!acc[cat]) {
+            acc[cat] = {
+              name: cat,
+              slug: cat.toLowerCase().replace(/\s+/g, "-"),
+              description: service.category_description || "",
+              icon: service.category_icon || "Building",
+              color: service.category_color || "primary",
+              services: [],
+            };
+          }
+          acc[cat].services.push(service);
+          return acc;
+        },
+        {} as Record<string, ServiceCategory>,
+      );
+
       setCategories(Object.values(grouped));
     }
   };
@@ -144,9 +152,9 @@ const Services = () => {
       setExpandedCategory(categorySlug);
       // Smooth scroll to expanded section after state update
       setTimeout(() => {
-        expandedSectionRef.current?.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
+        expandedSectionRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
         });
       }, 100);
     }
@@ -157,25 +165,25 @@ const Services = () => {
       title: "Property Owners",
       description: "Multi-family and residential property solutions",
       icon: Building2,
-      link: "/markets/multi-family"
+      link: "/markets/multi-family",
     },
     {
       title: "Property Managers",
       description: "Reliable service for multi-unit properties",
       icon: Building,
-      link: "/property-managers"
+      link: "/property-managers",
     },
     {
       title: "Commercial Clients",
       description: "Professional solutions for businesses",
       icon: Briefcase,
-      link: "/commercial-clients"
-    }
+      link: "/commercial-clients",
+    },
   ];
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEO 
+      <SEO
         title="Services"
         description="Professional general contracting, construction management, and building envelope services across the GTA. Expert craftsmanship for commercial and institutional projects."
         keywords="general contracting services, construction management, building envelope, exterior systems, commercial construction, institutional construction"
@@ -186,17 +194,15 @@ const Services = () => {
       {/* Breadcrumb */}
       <div className="pt-24 pb-0 bg-background">
         <div className="container mx-auto px-4">
-          <Breadcrumb items={[
-            { label: "Home", href: "/" },
-            { label: "Services" }
-          ]} />
+          <Breadcrumb
+            items={[{ label: "Home", href: "/" }, { label: "Services" }]}
+          />
         </div>
       </div>
 
       <PremiumServiceHero />
-      
-      <main className="flex-1">
 
+      <main className="flex-1">
         {/* Categories Grid Section */}
         <section className="py-16 md:py-20 bg-background">
           <div className="container mx-auto px-4">
@@ -214,10 +220,13 @@ const Services = () => {
               {/* Premium Service Pillar Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {categories.map((category, index) => {
-                  const CategoryIcon = categoryIcons[category.name] || Building2;
-                  const categoryColors = categoryColorMap[category.color] || categoryColorMap.primary;
+                  const CategoryIcon =
+                    categoryIcons[category.name] || Building2;
+                  const categoryColors =
+                    categoryColorMap[category.color] ||
+                    categoryColorMap.primary;
                   const isExpanded = expandedCategory === category.slug;
-                  
+
                   return (
                     <button
                       key={category.slug}
@@ -225,38 +234,45 @@ const Services = () => {
                       className={cn(
                         "group relative bg-card rounded-2xl p-6 md:p-8 cursor-pointer overflow-hidden",
                         "hover:-translate-y-3 border-2 transition-all duration-500",
-                        isExpanded 
-                          ? "ring-4 ring-primary/50 shadow-[0_20px_60px_-15px_rgba(var(--primary),0.3)] border-primary/50" 
+                        isExpanded
+                          ? "ring-4 ring-primary/50 shadow-[0_20px_60px_-15px_rgba(var(--primary),0.3)] border-primary/50"
                           : "border-border hover:border-primary/30 hover:shadow-[0_20px_60px_-15px_rgba(var(--primary),0.2)]",
-                        "text-left w-full animate-fade-in"
+                        "text-left w-full animate-fade-in",
                       )}
                       style={{
-                        animationDelay: `${index * 100}ms`
+                        animationDelay: `${index * 100}ms`,
                       }}
                     >
                       {/* Gradient glow effect on hover */}
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
+
                       {/* Icon with magnetic effect */}
-                      <div className={cn(
-                        "relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500",
-                        "bg-gradient-to-br shadow-lg",
-                        categoryColors.iconBg,
-                        "group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-xl"
-                      )}>
-                        <CategoryIcon className={cn("w-8 h-8 md:w-10 md:h-10", categoryColors.iconColor)} />
+                      <div
+                        className={cn(
+                          "relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500",
+                          "bg-gradient-to-br shadow-lg",
+                          categoryColors.iconBg,
+                          "group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-xl",
+                        )}
+                      >
+                        <CategoryIcon
+                          className={cn(
+                            "w-8 h-8 md:w-10 md:h-10",
+                            categoryColors.iconColor,
+                          )}
+                        />
                       </div>
-                      
+
                       {/* Category Name */}
                       <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                         {category.name}
                       </h3>
-                      
+
                       {/* Description */}
                       <p className="text-sm md:text-base text-muted-foreground mb-6 line-clamp-2">
                         {category.description}
                       </p>
-                      
+
                       {/* Service Count with animated badge */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center text-primary font-semibold text-sm md:text-base">
@@ -264,10 +280,14 @@ const Services = () => {
                             {category.services.length} Services
                           </span>
                         </div>
-                        <ChevronRight className={cn(
-                          "w-6 h-6 text-primary transition-transform duration-300",
-                          isExpanded ? "rotate-90" : "group-hover:translate-x-1"
-                        )} />
+                        <ChevronRight
+                          className={cn(
+                            "w-6 h-6 text-primary transition-transform duration-300",
+                            isExpanded
+                              ? "rotate-90"
+                              : "group-hover:translate-x-1",
+                          )}
+                        />
                       </div>
                     </button>
                   );
@@ -279,17 +299,19 @@ const Services = () => {
 
         {/* Expanded Category Services Section */}
         {expandedCategory && (
-          <section 
+          <section
             ref={expandedSectionRef}
             className="py-12 md:py-16 bg-muted/30 animate-fade-in scroll-mt-20"
           >
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto">
                 {categories
-                  .filter(cat => cat.slug === expandedCategory)
+                  .filter((cat) => cat.slug === expandedCategory)
                   .map((category) => {
-                    const categoryColors = categoryColorMap[category.color] || categoryColorMap.primary;
-                    
+                    const categoryColors =
+                      categoryColorMap[category.color] ||
+                      categoryColorMap.primary;
+
                     return (
                       <div key={category.slug}>
                         {/* Expanded Section Header */}
@@ -305,38 +327,50 @@ const Services = () => {
                         {/* Services Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                           {category.services.map((service, index) => {
-                            const ServiceIcon = (service.icon_name && iconMap[service.icon_name]) || Building;
-                            
+                            const ServiceIcon =
+                              (service.icon_name &&
+                                iconMap[service.icon_name]) ||
+                              Building;
+
                             return (
                               <Link
                                 key={service.id}
                                 to={`/services/${service.slug}`}
                                 className="group block animate-fade-in"
                                 style={{
-                                  animationDelay: `${index * 50}ms`
+                                  animationDelay: `${index * 50}ms`,
                                 }}
                               >
-                                <Card className={cn(
-                                  "h-full border-2 card-hover",
-                                  "hover:[box-shadow:var(--shadow-card-elevated)] hover:border-primary/30"
-                                )}>
+                                <Card
+                                  className={cn(
+                                    "h-full border-2 card-hover",
+                                    "hover:[box-shadow:var(--shadow-card-elevated)] hover:border-primary/30",
+                                  )}
+                                >
                                   <CardContent className="p-6">
                                     <div className="flex items-start justify-between">
                                       {/* Service Info */}
                                       <div className="flex-1">
                                         {/* Service Icon */}
-                                        <div className={cn(
-                                          "w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-4",
-                                          categoryColors.bg
-                                        )}>
-                                          <ServiceIcon className={cn("w-6 h-6", categoryColors.iconColor)} />
+                                        <div
+                                          className={cn(
+                                            "w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-4",
+                                            categoryColors.bg,
+                                          )}
+                                        >
+                                          <ServiceIcon
+                                            className={cn(
+                                              "w-6 h-6",
+                                              categoryColors.iconColor,
+                                            )}
+                                          />
                                         </div>
-                                        
+
                                         {/* Service Name */}
                                         <h4 className="text-lg md:text-xl font-bold mb-2 text-foreground group-hover:text-primary link-hover">
                                           {service.name}
                                         </h4>
-                                        
+
                                         {/* Service Description */}
                                         <p className="text-sm md:text-base text-muted-foreground mb-4 line-clamp-2">
                                           {service.short_description}
@@ -375,16 +409,17 @@ const Services = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 {audiences.map((audience, index) => (
-                  <Link 
-                    key={audience.title} 
+                  <Link
+                    key={audience.title}
                     to={audience.link}
                     className="group"
                   >
-                    <Card className={cn(
-                      "p-6 md:p-8 h-full card-hover border-2",
-                      "hover:[box-shadow:var(--shadow-card-elevated)] hover:border-primary/30 hover:-translate-y-2",
-                      "text-center animate-fade-in"
-                    )}
+                    <Card
+                      className={cn(
+                        "p-6 md:p-8 h-full card-hover border-2",
+                        "hover:[box-shadow:var(--shadow-card-elevated)] hover:border-primary/30 hover:-translate-y-2",
+                        "text-center animate-fade-in",
+                      )}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
                       <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 hover-scale-icon">
@@ -397,7 +432,8 @@ const Services = () => {
                         {audience.description}
                       </p>
                       <div className="flex items-center justify-center gap-2 text-primary font-semibold text-sm md:text-base group-hover:gap-3 card-hover">
-                        Learn more <ArrowRight className="w-4 h-4 hover-translate-arrow" />
+                        Learn more{" "}
+                        <ArrowRight className="w-4 h-4 hover-translate-arrow" />
                       </div>
                     </Card>
                   </Link>
@@ -414,8 +450,12 @@ const Services = () => {
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Licensed, Insured & Certified</h2>
-              <p className="text-muted-foreground">Industry-leading credentials and safety standards</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Licensed, Insured & Certified
+              </h2>
+              <p className="text-muted-foreground">
+                Industry-leading credentials and safety standards
+              </p>
             </div>
             <CertificationBadges size="lg" />
           </div>
@@ -425,8 +465,12 @@ const Services = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Client Success Stories</h2>
-              <p className="text-muted-foreground">See what our partners say about working with us</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Client Success Stories
+              </h2>
+              <p className="text-muted-foreground">
+                See what our partners say about working with us
+              </p>
             </div>
             <TestimonialRatings />
           </div>
@@ -441,7 +485,8 @@ const Services = () => {
                   Why Choose Ascent Group Construction
                 </h2>
                 <p className="text-base md:text-lg text-primary-foreground/90 max-w-2xl mx-auto">
-                  Professional craftsmanship backed by comprehensive warranties and insurance
+                  Professional craftsmanship backed by comprehensive warranties
+                  and insurance
                 </p>
               </div>
 
@@ -450,26 +495,29 @@ const Services = () => {
                   {
                     icon: Users,
                     title: "Experienced Team",
-                    description: "15+ years of expertise with certified professionals"
+                    description:
+                      "15+ years of expertise with certified professionals",
                   },
                   {
                     icon: CheckCircle2,
                     title: "Quality Materials",
-                    description: "Premium brands like Benjamin Moore and Sherwin-Williams"
+                    description:
+                      "Premium brands like Benjamin Moore and Sherwin-Williams",
                   },
                   {
                     icon: Briefcase,
                     title: "Licensed & Insured",
-                    description: "Full licensing, WSIB coverage, and liability insurance"
-                  }
+                    description:
+                      "Full licensing, WSIB coverage, and liability insurance",
+                  },
                 ].map((item, index) => (
-                  <div 
-                    key={item.title} 
+                  <div
+                    key={item.title}
                     className={cn(
                       "text-center p-6 md:p-8 rounded-2xl transition-all duration-300",
                       "bg-primary-foreground/10 backdrop-blur-sm",
                       "hover:bg-primary-foreground/20 hover:-translate-y-2",
-                      "animate-fade-in"
+                      "animate-fade-in",
                     )}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
@@ -499,16 +547,16 @@ const Services = () => {
               <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-10">
                 Let's discuss how we can bring your construction vision to life
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button 
+                <Button
                   size="lg"
                   asChild
                   className="w-full sm:w-auto min-w-[220px] text-base md:text-lg"
                 >
                   <Link to="/contact">Request Free Consultation</Link>
                 </Button>
-                <Button 
+                <Button
                   size="lg"
                   variant="outline"
                   asChild
@@ -520,9 +568,8 @@ const Services = () => {
             </div>
           </div>
         </section>
-
       </main>
-      
+
       <Footer />
     </div>
   );

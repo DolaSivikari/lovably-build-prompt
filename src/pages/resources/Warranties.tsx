@@ -7,7 +7,7 @@ import heroWarrantiesImage from "@/assets/heroes/hero-warranties.jpg";
 const Warranties = () => {
   return (
     <>
-      <SEO 
+      <SEO
         title="Warranties & Guarantees | Ascent Group Construction"
         description="Learn about our comprehensive warranties and guarantees. We stand behind our work with industry-leading protection for your investment."
         canonical="/resources/warranties"
@@ -24,7 +24,9 @@ const Warranties = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-3xl mx-auto text-center">
                 <p className="text-lg text-muted-foreground mb-8">
-                  We stand behind every project with industry-leading warranties. Contact us to learn more about our comprehensive guarantee programs.
+                  We stand behind every project with industry-leading
+                  warranties. Contact us to learn more about our comprehensive
+                  guarantee programs.
                 </p>
               </div>
             </div>

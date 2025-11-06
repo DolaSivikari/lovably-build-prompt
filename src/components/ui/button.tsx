@@ -10,18 +10,26 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
-        primary: "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
-        secondary: "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-transparent hover:bg-[hsl(var(--bg-soft))]",
-        outline: "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-transparent hover:bg-[hsl(var(--bg-soft))]",
+        default:
+          "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
+        primary:
+          "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
+        secondary:
+          "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-transparent hover:bg-[hsl(var(--bg-soft))]",
+        outline:
+          "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-transparent hover:bg-[hsl(var(--bg-soft))]",
         navy: "bg-[hsl(var(--brand-primary))] text-white hover:opacity-90 shadow-lg",
-        ghost: "text-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--bg-soft))]",
+        ghost:
+          "text-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--bg-soft))]",
         danger: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
         destructive: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
         link: "text-[hsl(var(--brand-primary))] underline-offset-4 hover:underline",
-        "admin-glass": "bg-[hsl(var(--admin-bg-card))] text-[hsl(var(--admin-text-primary))] border border-[hsl(var(--admin-border))] hover:bg-[hsl(var(--admin-bg-hover))] backdrop-blur-md",
-        "admin-primary": "bg-gradient-to-r from-[hsl(var(--admin-primary))] to-[hsl(221_83%_53%)] text-white hover:opacity-90 shadow-lg",
-        "admin-success": "bg-[hsl(var(--admin-success))] text-white hover:opacity-90 shadow-lg"
+        "admin-glass":
+          "bg-[hsl(var(--admin-bg-card))] text-[hsl(var(--admin-text-primary))] border border-[hsl(var(--admin-border))] hover:bg-[hsl(var(--admin-bg-hover))] backdrop-blur-md",
+        "admin-primary":
+          "bg-gradient-to-r from-[hsl(var(--admin-primary))] to-[hsl(221_83%_53%)] text-white hover:opacity-90 shadow-lg",
+        "admin-success":
+          "bg-[hsl(var(--admin-success))] text-white hover:opacity-90 shadow-lg",
       },
       size: {
         default: "px-4 py-2.5 text-sm rounded-[var(--radius-sm)] min-h-[44px]",
@@ -35,8 +43,20 @@ export const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
-export type ButtonVariant = "default" | "primary" | "secondary" | "outline" | "navy" | "ghost" | "danger" | "destructive" | "link" | "admin-glass" | "admin-primary" | "admin-success";
+export type ButtonVariant =
+  | "default"
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "navy"
+  | "ghost"
+  | "danger"
+  | "destructive"
+  | "link"
+  | "admin-glass"
+  | "admin-primary"
+  | "admin-success";
 export type ButtonSize = "default" | "sm" | "md" | "lg" | "icon";

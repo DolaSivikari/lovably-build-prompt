@@ -40,10 +40,14 @@ class ErrorBoundary extends Component<Props, State> {
               Oops! Something went wrong
             </h1>
             <p className="text-muted-foreground mb-6">
-              We encountered an unexpected error. Please try refreshing the page or return to the homepage.
+              We encountered an unexpected error. Please try refreshing the page
+              or return to the homepage.
             </p>
             <div className="flex gap-4 justify-center">
-              <Button onClick={() => window.location.reload()} variant="outline">
+              <Button
+                onClick={() => window.location.reload()}
+                variant="outline"
+              >
                 Refresh Page
               </Button>
               <Button onClick={this.handleReset} variant="default">

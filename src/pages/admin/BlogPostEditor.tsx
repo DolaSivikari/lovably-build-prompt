@@ -6,7 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ArrowLeft, Save, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
@@ -36,7 +42,11 @@ const BlogPostEditor = () => {
     seo_keywords: "",
     read_time_minutes: 5,
     publish_state: "draft" as "draft" | "published" | "archived" | "scheduled",
-    content_type: "article" as "article" | "case-study" | "case_study" | "insight",
+    content_type: "article" as
+      | "article"
+      | "case-study"
+      | "case_study"
+      | "insight",
     // Case study specific fields
     project_location: "",
     project_size: "",
@@ -59,7 +69,9 @@ const BlogPostEditor = () => {
   }, [id]);
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
     if (!session) {
       navigate("/auth");
     }
@@ -105,9 +117,13 @@ const BlogPostEditor = () => {
         results: data.results || "",
         client_name: data.client_name || "",
         budget_range: data.budget_range || "",
-        before_images: Array.isArray(data.before_images) ? data.before_images : [],
+        before_images: Array.isArray(data.before_images)
+          ? data.before_images
+          : [],
         after_images: Array.isArray(data.after_images) ? data.after_images : [],
-        process_steps: Array.isArray(data.process_steps) ? data.process_steps : [],
+        process_steps: Array.isArray(data.process_steps)
+          ? data.process_steps
+          : [],
       });
     }
   };
@@ -145,7 +161,9 @@ const BlogPostEditor = () => {
       return;
     }
 
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const postData = {
@@ -154,14 +172,23 @@ const BlogPostEditor = () => {
       summary: formData.summary,
       content: formData.content,
       category: formData.category,
-      tags: formData.tags.split(",").map(t => t.trim()).filter(Boolean),
+      tags: formData.tags
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
       featured_image: formData.featured_image,
       seo_title: formData.seo_title || formData.title,
       seo_description: formData.seo_description || formData.summary,
-      seo_keywords: formData.seo_keywords.split(",").map(k => k.trim()).filter(Boolean),
+      seo_keywords: formData.seo_keywords
+        .split(",")
+        .map((k) => k.trim())
+        .filter(Boolean),
       read_time_minutes: formData.read_time_minutes,
       publish_state: formData.publish_state,
-      published_at: formData.publish_state === "published" ? new Date().toISOString() : null,
+      published_at:
+        formData.publish_state === "published"
+          ? new Date().toISOString()
+          : null,
       content_type: formData.content_type,
       ...(formData.content_type === "case-study" && {
         project_location: formData.project_location,
@@ -181,7 +208,12 @@ const BlogPostEditor = () => {
 
     const { error, data } = isNewPost
       ? await supabase.from("blog_posts").insert(postData).select().single()
-      : await supabase.from("blog_posts").update(postData).eq("id", id).select().single();
+      : await supabase
+          .from("blog_posts")
+          .update(postData)
+          .eq("id", id)
+          .select()
+          .single();
 
     if (error) {
       toast({
@@ -194,14 +226,14 @@ const BlogPostEditor = () => {
         title: "Success",
         description: `Blog post ${isNewPost ? "created" : "updated"} successfully`,
       });
-      
+
       if (data && formData.publish_state === "published") {
         toast({
           title: "Published!",
           description: "Blog post is now live on the site",
         });
       }
-      
+
       navigate("/admin/blog");
     }
   };
@@ -217,7 +249,7 @@ const BlogPostEditor = () => {
     }
 
     const token = generatePreviewToken();
-    
+
     // Save preview token to database
     if (id && !isNewPost) {
       await supabase
@@ -247,329 +279,417 @@ const BlogPostEditor = () => {
         cancelText="Stay"
         variant="destructive"
       />
-    <div className="min-h-screen bg-muted/30">
-      <header className="border-b bg-background">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/admin/blog")}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-              <h1 className="text-2xl font-bold">
-                {isNewPost ? "New Blog Post" : "Edit Blog Post"}
-              </h1>
-            </div>
-            <div className="flex gap-2">
-              {!isNewPost && (
-                <Button variant="outline" onClick={handlePreview} type="button">
-                  <Eye className="h-4 w-4 mr-2" />
-                  Preview Draft
+      <div className="min-h-screen bg-muted/30">
+        <header className="border-b bg-background">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate("/admin/blog")}
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Back
                 </Button>
-              )}
-              <Button onClick={handleSubmit}>
-                <Save className="h-4 w-4 mr-2" />
-                Save
-              </Button>
+                <h1 className="text-2xl font-bold">
+                  {isNewPost ? "New Blog Post" : "Edit Blog Post"}
+                </h1>
+              </div>
+              <div className="flex gap-2">
+                {!isNewPost && (
+                  <Button
+                    variant="outline"
+                    onClick={handlePreview}
+                    type="button"
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    Preview Draft
+                  </Button>
+                )}
+                <Button onClick={handleSubmit}>
+                  <Save className="h-4 w-4 mr-2" />
+                  Save
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Basic Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label htmlFor="title">Title *</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => handleFormChange({ title: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="slug">Slug</Label>
-                <Input
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  placeholder="Auto-generated from title"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="summary">Summary</Label>
-                <Textarea
-                  id="summary"
-                  value={formData.summary}
-                  onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-                  rows={3}
-                  maxLength={500}
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  {formData.summary.length} / 500 characters
-                  {formData.summary.length > 450 && (
-                    <span className="text-warning ml-2">⚠️ Approaching limit</span>
-                  )}
-                </p>
-              </div>
-
-              <div>
-                <Label htmlFor="content">Content *</Label>
-                <Textarea
-                  id="content"
-                  value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  rows={15}
-                  required
-                  placeholder="Write your blog post content here..."
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  {formData.content.length.toLocaleString()} / 50,000 characters
-                  {formData.content.length > 45000 && (
-                    <span className="text-warning ml-2">⚠️ Approaching limit</span>
-                  )}
-                  {formData.content.length >= 50000 && (
-                    <span className="text-destructive ml-2">⛔ Maximum reached</span>
-                  )}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="content_type">Content Type</Label>
-                <Select 
-                  value={formData.content_type} 
-                  onValueChange={(value: any) => setFormData({ ...formData, content_type: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="article">Article</SelectItem>
-                    <SelectItem value="case-study">Case Study</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label htmlFor="category">Category</Label>
-                <Select 
-                  value={formData.category} 
-                  onValueChange={(value) => setFormData({ ...formData, category: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Case Study">Case Study</SelectItem>
-                    <SelectItem value="Painting">Painting</SelectItem>
-                    <SelectItem value="Commercial">Commercial</SelectItem>
-                    <SelectItem value="Residential">Residential</SelectItem>
-                    <SelectItem value="Industrial">Industrial</SelectItem>
-                    <SelectItem value="Institutional">Institutional</SelectItem>
-                    <SelectItem value="Restoration">Restoration</SelectItem>
-                    <SelectItem value="Waterproofing">Waterproofing</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label htmlFor="read_time">Read Time (minutes)</Label>
-                <Input
-                  id="read_time"
-                  type="number"
-                  value={formData.read_time_minutes}
-                  onChange={(e) => setFormData({ ...formData, read_time_minutes: parseInt(e.target.value) })}
-                />
-              </div>
-              </div>
-
-              <div>
-                <Label htmlFor="tags">Tags (comma-separated)</Label>
-                <Input
-                  id="tags"
-                  value={formData.tags}
-                  onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                  placeholder="painting, commercial, tips"
-                />
-              </div>
-
-              <ImageUploadField
-                value={formData.featured_image}
-                onChange={(url) => setFormData({ ...formData, featured_image: url })}
-                bucket="project-images"
-                label="Featured Image"
-              />
-
-              <div>
-                <Label htmlFor="publish_state">Publish State</Label>
-                <Select 
-                  value={formData.publish_state} 
-                  onValueChange={(value: any) => setFormData({ ...formData, publish_state: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="draft">Draft</SelectItem>
-                    <SelectItem value="published">Published</SelectItem>
-                    <SelectItem value="archived">Archived</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>SEO Settings</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label htmlFor="seo_title">SEO Title</Label>
-                <Input
-                  id="seo_title"
-                  value={formData.seo_title}
-                  onChange={(e) => setFormData({ ...formData, seo_title: e.target.value })}
-                  placeholder="Defaults to post title"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="seo_description">SEO Description</Label>
-                <Textarea
-                  id="seo_description"
-                  value={formData.seo_description}
-                  onChange={(e) => setFormData({ ...formData, seo_description: e.target.value })}
-                  rows={2}
-                  placeholder="Defaults to summary"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="seo_keywords">SEO Keywords (comma-separated)</Label>
-                <Input
-                  id="seo_keywords"
-                  value={formData.seo_keywords}
-                  onChange={(e) => setFormData({ ...formData, seo_keywords: e.target.value })}
-                  placeholder="painting services, commercial painting"
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {formData.content_type === "case-study" && (
+        <main className="container mx-auto px-4 py-8 max-w-4xl">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Case Study Details</CardTitle>
+                <CardTitle>Basic Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="project_location">Project Location</Label>
-                    <Input
-                      id="project_location"
-                      value={formData.project_location}
-                      onChange={(e) => setFormData({ ...formData, project_location: e.target.value })}
-                      placeholder="e.g., Toronto, ON"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="project_size">Project Size</Label>
-                    <Input
-                      id="project_size"
-                      value={formData.project_size}
-                      onChange={(e) => setFormData({ ...formData, project_size: e.target.value })}
-                      placeholder="e.g., 50,000 sq ft"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="project_duration">Duration</Label>
-                    <Input
-                      id="project_duration"
-                      value={formData.project_duration}
-                      onChange={(e) => setFormData({ ...formData, project_duration: e.target.value })}
-                      placeholder="e.g., 6 months"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="client_name">Client Name</Label>
-                    <Input
-                      id="client_name"
-                      value={formData.client_name}
-                      onChange={(e) => setFormData({ ...formData, client_name: e.target.value })}
-                    />
-                  </div>
-                </div>
-
                 <div>
-                  <Label htmlFor="budget_range">Budget Range</Label>
+                  <Label htmlFor="title">Title *</Label>
                   <Input
-                    id="budget_range"
-                    value={formData.budget_range}
-                    onChange={(e) => setFormData({ ...formData, budget_range: e.target.value })}
-                    placeholder="e.g., $500K - $1M"
+                    id="title"
+                    value={formData.title}
+                    onChange={(e) =>
+                      handleFormChange({ title: e.target.value })
+                    }
+                    required
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="challenge">Challenge</Label>
-                  <Textarea
-                    id="challenge"
-                    value={formData.challenge}
-                    onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
-                    rows={3}
-                    placeholder="What was the main challenge?"
+                  <Label htmlFor="slug">Slug</Label>
+                  <Input
+                    id="slug"
+                    value={formData.slug}
+                    onChange={(e) =>
+                      setFormData({ ...formData, slug: e.target.value })
+                    }
+                    placeholder="Auto-generated from title"
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="solution">Solution</Label>
+                  <Label htmlFor="summary">Summary</Label>
                   <Textarea
-                    id="solution"
-                    value={formData.solution}
-                    onChange={(e) => setFormData({ ...formData, solution: e.target.value })}
+                    id="summary"
+                    value={formData.summary}
+                    onChange={(e) =>
+                      setFormData({ ...formData, summary: e.target.value })
+                    }
                     rows={3}
-                    placeholder="How did you solve it?"
+                    maxLength={500}
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {formData.summary.length} / 500 characters
+                    {formData.summary.length > 450 && (
+                      <span className="text-warning ml-2">
+                        ⚠️ Approaching limit
+                      </span>
+                    )}
+                  </p>
+                </div>
+
+                <div>
+                  <Label htmlFor="content">Content *</Label>
+                  <Textarea
+                    id="content"
+                    value={formData.content}
+                    onChange={(e) =>
+                      setFormData({ ...formData, content: e.target.value })
+                    }
+                    rows={15}
+                    required
+                    placeholder="Write your blog post content here..."
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {formData.content.length.toLocaleString()} / 50,000
+                    characters
+                    {formData.content.length > 45000 && (
+                      <span className="text-warning ml-2">
+                        ⚠️ Approaching limit
+                      </span>
+                    )}
+                    {formData.content.length >= 50000 && (
+                      <span className="text-destructive ml-2">
+                        ⛔ Maximum reached
+                      </span>
+                    )}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="content_type">Content Type</Label>
+                    <Select
+                      value={formData.content_type}
+                      onValueChange={(value: any) =>
+                        setFormData({ ...formData, content_type: value })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="article">Article</SelectItem>
+                        <SelectItem value="case-study">Case Study</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="category">Category</Label>
+                    <Select
+                      value={formData.category}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, category: value })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Case Study">Case Study</SelectItem>
+                        <SelectItem value="Painting">Painting</SelectItem>
+                        <SelectItem value="Commercial">Commercial</SelectItem>
+                        <SelectItem value="Residential">Residential</SelectItem>
+                        <SelectItem value="Industrial">Industrial</SelectItem>
+                        <SelectItem value="Institutional">
+                          Institutional
+                        </SelectItem>
+                        <SelectItem value="Restoration">Restoration</SelectItem>
+                        <SelectItem value="Waterproofing">
+                          Waterproofing
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="read_time">Read Time (minutes)</Label>
+                    <Input
+                      id="read_time"
+                      type="number"
+                      value={formData.read_time_minutes}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          read_time_minutes: parseInt(e.target.value),
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="tags">Tags (comma-separated)</Label>
+                  <Input
+                    id="tags"
+                    value={formData.tags}
+                    onChange={(e) =>
+                      setFormData({ ...formData, tags: e.target.value })
+                    }
+                    placeholder="painting, commercial, tips"
+                  />
+                </div>
+
+                <ImageUploadField
+                  value={formData.featured_image}
+                  onChange={(url) =>
+                    setFormData({ ...formData, featured_image: url })
+                  }
+                  bucket="project-images"
+                  label="Featured Image"
+                />
+
+                <div>
+                  <Label htmlFor="publish_state">Publish State</Label>
+                  <Select
+                    value={formData.publish_state}
+                    onValueChange={(value: any) =>
+                      setFormData({ ...formData, publish_state: value })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="draft">Draft</SelectItem>
+                      <SelectItem value="published">Published</SelectItem>
+                      <SelectItem value="archived">Archived</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>SEO Settings</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label htmlFor="seo_title">SEO Title</Label>
+                  <Input
+                    id="seo_title"
+                    value={formData.seo_title}
+                    onChange={(e) =>
+                      setFormData({ ...formData, seo_title: e.target.value })
+                    }
+                    placeholder="Defaults to post title"
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="results">Results</Label>
+                  <Label htmlFor="seo_description">SEO Description</Label>
                   <Textarea
-                    id="results"
-                    value={formData.results}
-                    onChange={(e) => setFormData({ ...formData, results: e.target.value })}
-                    rows={3}
-                    placeholder="What were the outcomes?"
+                    id="seo_description"
+                    value={formData.seo_description}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        seo_description: e.target.value,
+                      })
+                    }
+                    rows={2}
+                    placeholder="Defaults to summary"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="seo_keywords">
+                    SEO Keywords (comma-separated)
+                  </Label>
+                  <Input
+                    id="seo_keywords"
+                    value={formData.seo_keywords}
+                    onChange={(e) =>
+                      setFormData({ ...formData, seo_keywords: e.target.value })
+                    }
+                    placeholder="painting services, commercial painting"
                   />
                 </div>
               </CardContent>
             </Card>
-          )}
 
-          <div className="flex justify-end gap-4">
-            <Button type="button" variant="outline" onClick={() => navigate("/admin/blog")}>
-              Cancel
-            </Button>
-            <Button type="submit">
-              <Save className="h-4 w-4 mr-2" />
-              {isNewPost ? "Create" : "Update"} Blog Post
-            </Button>
-          </div>
-        </form>
-      </main>
-    </div>
+            {formData.content_type === "case-study" && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Case Study Details</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="project_location">Project Location</Label>
+                      <Input
+                        id="project_location"
+                        value={formData.project_location}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            project_location: e.target.value,
+                          })
+                        }
+                        placeholder="e.g., Toronto, ON"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="project_size">Project Size</Label>
+                      <Input
+                        id="project_size"
+                        value={formData.project_size}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            project_size: e.target.value,
+                          })
+                        }
+                        placeholder="e.g., 50,000 sq ft"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="project_duration">Duration</Label>
+                      <Input
+                        id="project_duration"
+                        value={formData.project_duration}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            project_duration: e.target.value,
+                          })
+                        }
+                        placeholder="e.g., 6 months"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="client_name">Client Name</Label>
+                      <Input
+                        id="client_name"
+                        value={formData.client_name}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            client_name: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="budget_range">Budget Range</Label>
+                    <Input
+                      id="budget_range"
+                      value={formData.budget_range}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          budget_range: e.target.value,
+                        })
+                      }
+                      placeholder="e.g., $500K - $1M"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="challenge">Challenge</Label>
+                    <Textarea
+                      id="challenge"
+                      value={formData.challenge}
+                      onChange={(e) =>
+                        setFormData({ ...formData, challenge: e.target.value })
+                      }
+                      rows={3}
+                      placeholder="What was the main challenge?"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="solution">Solution</Label>
+                    <Textarea
+                      id="solution"
+                      value={formData.solution}
+                      onChange={(e) =>
+                        setFormData({ ...formData, solution: e.target.value })
+                      }
+                      rows={3}
+                      placeholder="How did you solve it?"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="results">Results</Label>
+                    <Textarea
+                      id="results"
+                      value={formData.results}
+                      onChange={(e) =>
+                        setFormData({ ...formData, results: e.target.value })
+                      }
+                      rows={3}
+                      placeholder="What were the outcomes?"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            <div className="flex justify-end gap-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => navigate("/admin/blog")}
+              >
+                Cancel
+              </Button>
+              <Button type="submit">
+                <Save className="h-4 w-4 mr-2" />
+                {isNewPost ? "Create" : "Update"} Blog Post
+              </Button>
+            </div>
+          </form>
+        </main>
+      </div>
     </>
   );
 };

@@ -20,13 +20,13 @@ const defaultLogos: ClientLogo[] = [
   { name: "Dream", logo: "/placeholder.svg" },
   { name: "Tridel", logo: "/placeholder.svg" },
   { name: "Daniels", logo: "/placeholder.svg" },
-  { name: "Menkes", logo: "/placeholder.svg" }
+  { name: "Menkes", logo: "/placeholder.svg" },
 ];
 
 export const ClientLogosCarousel = ({
   logos = defaultLogos,
   speed = 30,
-  className
+  className,
 }: ClientLogosCarouselProps) => {
   const [isPaused, setIsPaused] = useState(false);
 
@@ -34,11 +34,17 @@ export const ClientLogosCarousel = ({
   const duplicatedLogos = [...logos, ...logos, ...logos];
 
   return (
-    <div className={cn("relative overflow-hidden bg-muted/30 py-12", className)}>
+    <div
+      className={cn("relative overflow-hidden bg-muted/30 py-12", className)}
+    >
       <div className="container mx-auto px-4 mb-8">
         <div className="text-center">
-          <h3 className="text-2xl font-bold mb-2">Trusted By Industry Leaders</h3>
-          <p className="text-muted-foreground">Proudly serving Ontario's top developers and property managers</p>
+          <h3 className="text-2xl font-bold mb-2">
+            Trusted By Industry Leaders
+          </h3>
+          <p className="text-muted-foreground">
+            Proudly serving Ontario's top developers and property managers
+          </p>
         </div>
       </div>
 
@@ -52,7 +58,9 @@ export const ClientLogosCarousel = ({
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         style={{
-          animation: isPaused ? "none" : `scroll-left ${speed}s linear infinite`,
+          animation: isPaused
+            ? "none"
+            : `scroll-left ${speed}s linear infinite`,
         }}
       >
         {duplicatedLogos.map((logo, index) => (

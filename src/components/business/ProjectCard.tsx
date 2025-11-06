@@ -35,13 +35,18 @@ export const ProjectCard = ({
   onClick,
 }: ProjectCardProps) => {
   return (
-    <Card className="p-4 hover:shadow-md transition-shadow cursor-pointer" onClick={() => onClick(project.id)}>
+    <Card
+      className="p-4 hover:shadow-md transition-shadow cursor-pointer"
+      onClick={() => onClick(project.id)}
+    >
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <h3 className="font-semibold text-lg mb-1">{project.name}</h3>
           {project.client && (
             <p className="text-sm text-muted-foreground mb-2">
-              {project.client.company ? `${project.client.name} (${project.client.company})` : project.client.name}
+              {project.client.company
+                ? `${project.client.name} (${project.client.company})`
+                : project.client.name}
             </p>
           )}
           {project.description && (
@@ -65,12 +70,20 @@ export const ProjectCard = ({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={(e) => { e.stopPropagation(); onEdit(project.id); }}>
+            <DropdownMenuItem
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(project.id);
+              }}
+            >
               <Edit className="h-4 w-4 mr-2" />
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem 
-              onClick={(e) => { e.stopPropagation(); onDelete(project.id); }}
+            <DropdownMenuItem
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(project.id);
+              }}
               className="text-destructive"
             >
               <Trash className="h-4 w-4 mr-2" />

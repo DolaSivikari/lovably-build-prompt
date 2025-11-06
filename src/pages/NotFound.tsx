@@ -6,16 +6,21 @@ import { Home, Search, ArrowLeft } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
-  const [suggestions, setSuggestions] = useState<Array<{ slug: string; title: string; type: string }>>([]);
+  const [suggestions, setSuggestions] = useState<
+    Array<{ slug: string; title: string; type: string }>
+  >([]);
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
 
   useEffect(() => {
     if (import.meta.env.DEV) {
-      console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+      console.error(
+        "404 Error: User attempted to access non-existent route:",
+        location.pathname,
+      );
     }
 
     // Detect if this looks like a project/case study URL
-    if (location.pathname.startsWith('/projects/')) {
+    if (location.pathname.startsWith("/projects/")) {
       loadSuggestions();
     }
   }, [location.pathname]);
@@ -25,30 +30,30 @@ const NotFound = () => {
     try {
       // Try to find similar published projects
       const { data: projects } = await supabase
-        .from('projects')
-        .select('slug, title')
-        .eq('publish_state', 'published')
+        .from("projects")
+        .select("slug, title")
+        .eq("publish_state", "published")
         .limit(5);
 
       if (projects && projects.length > 0) {
-        setSuggestions(projects.map(p => ({ ...p, type: 'case-study' })));
+        setSuggestions(projects.map((p) => ({ ...p, type: "case-study" })));
       }
     } catch (error) {
-      console.error('Failed to load suggestions:', error);
+      console.error("Failed to load suggestions:", error);
     } finally {
       setIsLoadingSuggestions(false);
     }
   };
 
   const getErrorMessage = () => {
-    if (location.pathname.startsWith('/projects/')) {
+    if (location.pathname.startsWith("/projects/")) {
       return "This project or case study doesn't exist";
     }
     return "Oops! Page not found";
   };
 
   const getHelpText = () => {
-    if (location.pathname.startsWith('/projects/')) {
+    if (location.pathname.startsWith("/projects/")) {
       return "The project you're looking for may have been moved or deleted.";
     }
     return "The page you're looking for doesn't exist or may have been moved.";
@@ -66,10 +71,8 @@ const NotFound = () => {
         <h2 className="mb-4 text-4xl font-bold text-foreground">
           {getErrorMessage()}
         </h2>
-        
-        <p className="mb-8 text-xl text-muted-foreground">
-          {getHelpText()}
-        </p>
+
+        <p className="mb-8 text-xl text-muted-foreground">{getHelpText()}</p>
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -79,9 +82,9 @@ const NotFound = () => {
               Return to Home
             </Link>
           </Button>
-          
+
           <Button asChild variant="outline" size="lg">
-            <Link to={location.state?.from || -1 as any}>
+            <Link to={location.state?.from || (-1 as any)}>
               <ArrowLeft className="mr-2 h-5 w-5" />
               Go Back
             </Link>
@@ -122,10 +125,11 @@ const NotFound = () => {
         )}
 
         {/* Invalid URL Pattern Detection */}
-        {location.pathname.includes('=') && (
+        {location.pathname.includes("=") && (
           <div className="mt-8 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
             <p className="text-sm text-destructive">
-              <strong>Note:</strong> The URL contains invalid characters. Project URLs should only contain letters, numbers, and hyphens.
+              <strong>Note:</strong> The URL contains invalid characters.
+              Project URLs should only contain letters, numbers, and hyphens.
             </p>
           </div>
         )}

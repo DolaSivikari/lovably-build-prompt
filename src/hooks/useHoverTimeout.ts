@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
 /**
  * Custom hook to manage hover timeouts with automatic cleanup
@@ -13,11 +13,14 @@ export const useHoverTimeout = () => {
     }
   }, [timeout]);
 
-  const scheduleAction = useCallback((action: () => void, delay: number) => {
-    clearPendingTimeout();
-    const newTimeout = globalThis.setTimeout(action, delay);
-    setTimeout(newTimeout);
-  }, [clearPendingTimeout]);
+  const scheduleAction = useCallback(
+    (action: () => void, delay: number) => {
+      clearPendingTimeout();
+      const newTimeout = globalThis.setTimeout(action, delay);
+      setTimeout(newTimeout);
+    },
+    [clearPendingTimeout],
+  );
 
   // Cleanup on unmount
   useEffect(() => {

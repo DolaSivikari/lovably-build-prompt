@@ -1,4 +1,12 @@
-import { Shield, Award, Clock, CheckCircle, Users, Phone, ThumbsUp } from "lucide-react";
+import {
+  Shield,
+  Award,
+  Clock,
+  CheckCircle,
+  Users,
+  Phone,
+  ThumbsUp,
+} from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useRef } from "react";
 
@@ -38,7 +46,10 @@ const TrustBar = () => {
   const isVisible = useIntersectionObserver(sectionRef);
 
   return (
-    <section ref={sectionRef} className="py-8 bg-muted/30 border-y border-border/40">
+    <section
+      ref={sectionRef}
+      className="py-8 bg-muted/30 border-y border-border/40"
+    >
       <div className="container mx-auto px-4">
         <div className="flex overflow-x-auto gap-8 pb-2 scrollbar-hide snap-x snap-mandatory md:justify-center">
           {trustIndicators.map((item, index) => {

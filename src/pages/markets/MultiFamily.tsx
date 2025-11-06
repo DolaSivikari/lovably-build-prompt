@@ -1,9 +1,21 @@
-import { Building2, Users, TrendingUp, CheckCircle2, ArrowRight } from "lucide-react";
+import {
+  Building2,
+  Users,
+  TrendingUp,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroMultiFamily from "@/assets/heroes/hero-multi-family.jpg";
@@ -20,17 +32,20 @@ const MultiFamily = () => {
   const solutions = [
     {
       title: "Phased Approach",
-      description: "Break projects into manageable phases that minimize disruption to residents while maintaining progress.",
+      description:
+        "Break projects into manageable phases that minimize disruption to residents while maintaining progress.",
       icon: TrendingUp,
     },
     {
       title: "Resident Communication",
-      description: "Comprehensive communication plans including notices, newsletters, and dedicated contact persons.",
+      description:
+        "Comprehensive communication plans including notices, newsletters, and dedicated contact persons.",
       icon: Users,
     },
     {
       title: "Value Engineering",
-      description: "Identify cost-saving alternatives without compromising quality to stay within reserve fund budgets.",
+      description:
+        "Identify cost-saving alternatives without compromising quality to stay within reserve fund budgets.",
       icon: Building2,
     },
   ];
@@ -42,7 +57,7 @@ const MultiFamily = () => {
         description="Specialized general contracting services for multi-family residential projects: condo restorations, apartment building renovations, and student housing construction across Ontario."
       />
       <Navigation />
-      
+
       <PageHeader
         title="Multi-Family Residential Construction"
         description="Specialized expertise in condos, apartments, and multi-unit residential buildings"
@@ -55,17 +70,21 @@ const MultiFamily = () => {
           <section className="mb-16">
             <div className="prose prose-lg max-w-none">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                With over 15 years serving the multi-family residential market, we understand the unique challenges 
-                of working in occupied buildings. From condo reserve fund projects to complete building repositioning, 
-                our team coordinates complex renovations while minimizing disruption to residents and maintaining strict 
-                budget compliance.
+                With over 15 years serving the multi-family residential market,
+                we understand the unique challenges of working in occupied
+                buildings. From condo reserve fund projects to complete building
+                repositioning, our team coordinates complex renovations while
+                minimizing disruption to residents and maintaining strict budget
+                compliance.
               </p>
             </div>
           </section>
 
           {/* Challenges */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Multi-Family Construction Challenges</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Multi-Family Construction Challenges
+            </h2>
             <Card>
               <CardContent className="pt-6">
                 <ul className="space-y-4">
@@ -82,7 +101,9 @@ const MultiFamily = () => {
 
           {/* Our Solutions */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">How We Deliver Success</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              How We Deliver Success
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {solutions.map((solution, index) => {
                 const Icon = solution.icon;
@@ -103,7 +124,9 @@ const MultiFamily = () => {
 
           {/* Services */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Multi-Family Services</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Multi-Family Services
+            </h2>
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -113,19 +136,27 @@ const MultiFamily = () => {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Balcony restoration and waterproofing</span>
+                      <span className="text-muted-foreground">
+                        Balcony restoration and waterproofing
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Window and door replacement</span>
+                      <span className="text-muted-foreground">
+                        Window and door replacement
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Exterior cladding and EIFS repair</span>
+                      <span className="text-muted-foreground">
+                        Exterior cladding and EIFS repair
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Roofing and flashing upgrades</span>
+                      <span className="text-muted-foreground">
+                        Roofing and flashing upgrades
+                      </span>
                     </li>
                   </ul>
                 </CardContent>
@@ -139,19 +170,27 @@ const MultiFamily = () => {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Corridor and lobby upgrades</span>
+                      <span className="text-muted-foreground">
+                        Corridor and lobby upgrades
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Common area renovations</span>
+                      <span className="text-muted-foreground">
+                        Common area renovations
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Parking garage restoration</span>
+                      <span className="text-muted-foreground">
+                        Parking garage restoration
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Suite turnover and upgrades</span>
+                      <span className="text-muted-foreground">
+                        Suite turnover and upgrades
+                      </span>
                     </li>
                   </ul>
                 </CardContent>
@@ -163,8 +202,12 @@ const MultiFamily = () => {
           <section>
             <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Ready to Discuss Your Multi-Family Project?</CardTitle>
-                <CardDescription>Schedule a building assessment and receive a detailed proposal</CardDescription>
+                <CardTitle className="text-2xl">
+                  Ready to Discuss Your Multi-Family Project?
+                </CardTitle>
+                <CardDescription>
+                  Schedule a building assessment and receive a detailed proposal
+                </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="gap-2">

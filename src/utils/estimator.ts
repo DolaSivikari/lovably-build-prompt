@@ -3,28 +3,28 @@ import estimatorModel from "@/data/estimator-model.json";
 // Service classification system
 export const SERVICE_CLASSIFICATION = {
   estimatable: [
-    'residential_painting',
-    'commercial_painting',
-    'condo_multi_unit_painting',
-    'stucco_eifs',
-    'exterior_siding_cladding',
-    'drywall_interior_finishing',
+    "residential_painting",
+    "commercial_painting",
+    "condo_multi_unit_painting",
+    "stucco_eifs",
+    "exterior_siding_cladding",
+    "drywall_interior_finishing",
   ],
   requiresQuote: [
-    'masonry',
-    'roofing',
-    'metal_cladding',
-    'waterproofing',
-    'sealants',
-    'parking_garage',
-    'windows_doors',
-    'general_contracting',
-    'design_build',
-    'construction_management',
-    'preconstruction',
-    'suite_buildouts',
-    'tile_flooring',
-    'sustainable_building',
+    "masonry",
+    "roofing",
+    "metal_cladding",
+    "waterproofing",
+    "sealants",
+    "parking_garage",
+    "windows_doors",
+    "general_contracting",
+    "design_build",
+    "construction_management",
+    "preconstruction",
+    "suite_buildouts",
+    "tile_flooring",
+    "sustainable_building",
   ],
 } as const;
 
@@ -44,86 +44,103 @@ export function getServiceMessage(service: string): {
   const messages: Record<string, any> = {
     masonry: {
       title: "Custom Masonry Quote Required",
-      description: "Masonry projects vary significantly based on materials, structural requirements, and site conditions. We'll schedule a free site inspection to provide accurate pricing.",
+      description:
+        "Masonry projects vary significantly based on materials, structural requirements, and site conditions. We'll schedule a free site inspection to provide accurate pricing.",
       ballparkRange: "$15,000 - $150,000+ (depending on scope)",
     },
     roofing: {
       title: "Roofing Quote Required",
-      description: "Roofing costs depend on roof pitch, access, existing layers, and material selection. Let's schedule a free roof inspection.",
+      description:
+        "Roofing costs depend on roof pitch, access, existing layers, and material selection. Let's schedule a free roof inspection.",
       ballparkRange: "$8,000 - $50,000+ (typical commercial building)",
     },
     parking_garage: {
       title: "Parking Garage Coating Quote",
-      description: "Coating selection depends on traffic level, surface condition, and performance requirements. We'll assess your garage and recommend the right system.",
+      description:
+        "Coating selection depends on traffic level, surface condition, and performance requirements. We'll assess your garage and recommend the right system.",
       ballparkRange: "$3 - $12/sqft (depending on coating type)",
     },
     metal_cladding: {
       title: "Metal Cladding Quote Required",
-      description: "Metal panel systems require detailed engineering, material selection, and custom fabrication. Let's discuss your project specifications.",
+      description:
+        "Metal panel systems require detailed engineering, material selection, and custom fabrication. Let's discuss your project specifications.",
       ballparkRange: "$25 - $60/sqft (installed)",
     },
     waterproofing: {
       title: "Waterproofing & Restoration Quote",
-      description: "Building envelope restoration requires thorough assessment of existing conditions and moisture intrusion. We'll conduct a comprehensive building audit.",
+      description:
+        "Building envelope restoration requires thorough assessment of existing conditions and moisture intrusion. We'll conduct a comprehensive building audit.",
       ballparkRange: "$20,000 - $200,000+ (varies by building size)",
     },
     sealants: {
       title: "Sealants & Caulking Quote",
-      description: "Joint sealing costs depend on linear footage, accessibility, and material specifications. We'll assess your building's envelope needs.",
+      description:
+        "Joint sealing costs depend on linear footage, accessibility, and material specifications. We'll assess your building's envelope needs.",
       ballparkRange: "$8 - $25/linear foot",
     },
     windows_doors: {
       title: "Window & Door Installation Quote",
-      description: "Installation costs vary by product selection, size, quantity, and structural requirements. Let's review your specifications and site conditions.",
+      description:
+        "Installation costs vary by product selection, size, quantity, and structural requirements. Let's review your specifications and site conditions.",
       ballparkRange: "$500 - $3,000+ per unit installed",
     },
     general_contracting: {
       title: "General Contracting Services",
-      description: "Project-based pricing requires understanding your full scope, timeline, and deliverables. Let's discuss your project goals.",
+      description:
+        "Project-based pricing requires understanding your full scope, timeline, and deliverables. Let's discuss your project goals.",
       ballparkRange: "Custom pricing based on project scope",
     },
     design_build: {
       title: "Design-Build Quote Required",
-      description: "Design-Build services include design, permits, and construction. Pricing depends on project complexity and design requirements.",
+      description:
+        "Design-Build services include design, permits, and construction. Pricing depends on project complexity and design requirements.",
       ballparkRange: "Custom pricing based on project scope",
     },
     construction_management: {
       title: "Construction Management Services",
-      description: "CM fees are typically a percentage of construction costs or fixed monthly fee. Let's discuss your project requirements.",
+      description:
+        "CM fees are typically a percentage of construction costs or fixed monthly fee. Let's discuss your project requirements.",
       ballparkRange: "3-8% of construction value",
     },
     preconstruction: {
       title: "Preconstruction & Advisory Services",
-      description: "Preconstruction services include cost estimating, value engineering, and constructability review. Pricing varies by project scope.",
+      description:
+        "Preconstruction services include cost estimating, value engineering, and constructability review. Pricing varies by project scope.",
       ballparkRange: "$5,000 - $50,000+ depending on project size",
     },
     suite_buildouts: {
       title: "Suite Buildout Quote Required",
-      description: "Tenant improvement costs depend on finishes, mechanical/electrical work, and existing conditions. We'll review your space plan and specifications.",
+      description:
+        "Tenant improvement costs depend on finishes, mechanical/electrical work, and existing conditions. We'll review your space plan and specifications.",
       ballparkRange: "$50 - $200/sqft (varies widely by finish level)",
     },
     tile_flooring: {
       title: "Tile & Flooring Quote",
-      description: "Flooring costs vary by material selection, pattern complexity, and substrate preparation. Let's discuss your design and functional requirements.",
+      description:
+        "Flooring costs vary by material selection, pattern complexity, and substrate preparation. Let's discuss your design and functional requirements.",
       ballparkRange: "$8 - $35/sqft installed",
     },
     sustainable_building: {
       title: "Sustainable Building Consultation",
-      description: "Green building strategies and certifications require detailed analysis and custom solutions. Let's explore your sustainability goals.",
+      description:
+        "Green building strategies and certifications require detailed analysis and custom solutions. Let's explore your sustainability goals.",
       ballparkRange: "Custom pricing based on certification target",
     },
   };
 
-  return messages[service] || {
-    title: "Custom Quote Required",
-    description: "This service requires a detailed consultation to provide accurate pricing. We'll work with you to understand your needs and provide a comprehensive quote.",
-    ballparkRange: "Custom pricing based on project scope",
-  };
+  return (
+    messages[service] || {
+      title: "Custom Quote Required",
+      description:
+        "This service requires a detailed consultation to provide accurate pricing. We'll work with you to understand your needs and provide a comprehensive quote.",
+      ballparkRange: "Custom pricing based on project scope",
+    }
+  );
 }
 
 export interface EstimateInput {
-  service: 
-    | "residential_painting" 
+  service:
+    | "residential_painting"
     | "stucco_eifs"
     | "commercial_painting"
     | "condo_multi_unit_painting"
@@ -205,50 +222,70 @@ export function calculateEstimate(input: EstimateInput): EstimateResult {
   maxPrice *= storiesMultiplier;
 
   // Step 4.5: Apply service-specific modifiers
-  const serviceModifiers = (estimatorModel as any).service_specific_modifiers || {};
+  const serviceModifiers =
+    (estimatorModel as any).service_specific_modifiers || {};
 
-  if (input.service === "commercial_painting" && serviceModifiers.commercial_painting) {
+  if (
+    input.service === "commercial_painting" &&
+    serviceModifiers.commercial_painting
+  ) {
     const commercialMods = serviceModifiers.commercial_painting;
-    
+
     if (input.buildingType && commercialMods.building_type) {
-      const buildingMultiplier = commercialMods.building_type[input.buildingType] ?? 1;
+      const buildingMultiplier =
+        commercialMods.building_type[input.buildingType] ?? 1;
       minPrice *= buildingMultiplier;
       maxPrice *= buildingMultiplier;
     }
-    
+
     if (input.accessibility && commercialMods.accessibility) {
-      const accessMultiplier = commercialMods.accessibility[input.accessibility] ?? 1;
+      const accessMultiplier =
+        commercialMods.accessibility[input.accessibility] ?? 1;
       minPrice *= accessMultiplier;
       maxPrice *= accessMultiplier;
     }
-    
-    if (input.businessHoursConstraint && commercialMods.business_hours_constraint) {
-      const scheduleMultiplier = commercialMods.business_hours_constraint[input.businessHoursConstraint] ?? 1;
+
+    if (
+      input.businessHoursConstraint &&
+      commercialMods.business_hours_constraint
+    ) {
+      const scheduleMultiplier =
+        commercialMods.business_hours_constraint[
+          input.businessHoursConstraint
+        ] ?? 1;
       minPrice *= scheduleMultiplier;
       maxPrice *= scheduleMultiplier;
     }
   }
 
-  if (input.service === "condo_multi_unit_painting" && serviceModifiers.condo_multi_unit_painting) {
+  if (
+    input.service === "condo_multi_unit_painting" &&
+    serviceModifiers.condo_multi_unit_painting
+  ) {
     const condoMods = serviceModifiers.condo_multi_unit_painting;
-    
+
     if (input.unitCount && condoMods.unit_count_discount) {
-      const discountMultiplier = condoMods.unit_count_discount[input.unitCount] ?? 1;
+      const discountMultiplier =
+        condoMods.unit_count_discount[input.unitCount] ?? 1;
       minPrice *= discountMultiplier;
       maxPrice *= discountMultiplier;
     }
-    
+
     if (input.includeCommonAreas && condoMods.common_areas_multiplier) {
       minPrice *= condoMods.common_areas_multiplier;
       maxPrice *= condoMods.common_areas_multiplier;
     }
   }
 
-  if (input.service === "exterior_siding_cladding" && serviceModifiers.exterior_siding_cladding) {
+  if (
+    input.service === "exterior_siding_cladding" &&
+    serviceModifiers.exterior_siding_cladding
+  ) {
     const sidingMods = serviceModifiers.exterior_siding_cladding;
-    
+
     if (input.materialType && sidingMods.material_type) {
-      const materialMultiplier = sidingMods.material_type[input.materialType] ?? 1;
+      const materialMultiplier =
+        sidingMods.material_type[input.materialType] ?? 1;
       minPrice *= materialMultiplier;
       maxPrice *= materialMultiplier;
     }
@@ -260,7 +297,7 @@ export function calculateEstimate(input: EstimateInput): EstimateResult {
 
   if (addOnInput.scaffolding) {
     const tier = addOns.scaffolding.tiers.find(
-      (t) => t.name === addOnInput.scaffolding
+      (t) => t.name === addOnInput.scaffolding,
     );
     if (tier) {
       addOnsMin += tier.min;
@@ -344,7 +381,7 @@ function generateExplanation(
     finishMultiplier: number;
     storiesMultiplier: number;
     regionalMultiplier: number;
-  }
+  },
 ): string {
   const parts: string[] = [];
 
@@ -370,7 +407,10 @@ function generateExplanation(
     if (input.accessibility === "high_rise") {
       parts.push("high-rise accessibility");
     }
-    if (input.businessHoursConstraint === "after_hours" || input.businessHoursConstraint === "weekends_only") {
+    if (
+      input.businessHoursConstraint === "after_hours" ||
+      input.businessHoursConstraint === "weekends_only"
+    ) {
       parts.push("after-hours scheduling");
     }
   }
@@ -395,13 +435,13 @@ function generateExplanation(
   }
 
   return `Estimate includes: ${parts.join(
-    ", "
+    ", ",
   )}. Final price depends on site inspection and material selection.`;
 }
 
 export function formatCurrency(
   amount: number,
-  currency: string = "CAD"
+  currency: string = "CAD",
 ): string {
   return new Intl.NumberFormat("en-CA", {
     style: "currency",

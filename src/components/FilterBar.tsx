@@ -1,7 +1,20 @@
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Badge } from "@/components/ui/badge";
-import { Search, X, Building2, Home, School, Factory, Grid3x3, List, Filter, DollarSign, CheckCircle2, Award } from "lucide-react";
+import {
+  Search,
+  X,
+  Building2,
+  Home,
+  School,
+  Factory,
+  Grid3x3,
+  List,
+  Filter,
+  DollarSign,
+  CheckCircle2,
+  Award,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Select,
@@ -41,7 +54,11 @@ interface FilterBarProps {
     onBudget: boolean;
     zeroIncidents: boolean;
   };
-  onPerformanceBadgesChange?: (badges: { onTime: boolean; onBudget: boolean; zeroIncidents: boolean }) => void;
+  onPerformanceBadgesChange?: (badges: {
+    onTime: boolean;
+    onBudget: boolean;
+    zeroIncidents: boolean;
+  }) => void;
 }
 
 const FilterBar = ({
@@ -84,7 +101,11 @@ const FilterBar = ({
     onDeliveryMethodChange?.("All");
     onClientTypeChange?.("All");
     onValueRangeChange?.("All");
-    onPerformanceBadgesChange?.({ onTime: false, onBudget: false, zeroIncidents: false });
+    onPerformanceBadgesChange?.({
+      onTime: false,
+      onBudget: false,
+      zeroIncidents: false,
+    });
   };
 
   return (
@@ -123,7 +144,7 @@ const FilterBar = ({
                 onClick={() => onCategoryChange(cat.value)}
                 className={cn(
                   "rounded-full transition-all",
-                  selectedCategory === cat.value && "shadow-lg"
+                  selectedCategory === cat.value && "shadow-lg",
                 )}
               >
                 <Icon className="w-4 h-4 mr-2" />
@@ -152,14 +173,21 @@ const FilterBar = ({
           <div className="flex items-center gap-2 flex-wrap">
             {/* Delivery Method Filter */}
             {onDeliveryMethodChange && (
-              <Select value={selectedDeliveryMethod} onValueChange={onDeliveryMethodChange}>
+              <Select
+                value={selectedDeliveryMethod}
+                onValueChange={onDeliveryMethodChange}
+              >
                 <SelectTrigger className="w-[180px] h-9">
                   <SelectValue placeholder="Delivery Method" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="All">All Methods</SelectItem>
-                  <SelectItem value="General Contracting">General Contracting</SelectItem>
-                  <SelectItem value="Construction Management">Construction Management</SelectItem>
+                  <SelectItem value="General Contracting">
+                    General Contracting
+                  </SelectItem>
+                  <SelectItem value="Construction Management">
+                    Construction Management
+                  </SelectItem>
                   <SelectItem value="Design-Build">Design-Build</SelectItem>
                   <SelectItem value="CM at Risk">CM at Risk</SelectItem>
                 </SelectContent>
@@ -168,16 +196,23 @@ const FilterBar = ({
 
             {/* Client Type Filter */}
             {onClientTypeChange && (
-              <Select value={selectedClientType} onValueChange={onClientTypeChange}>
+              <Select
+                value={selectedClientType}
+                onValueChange={onClientTypeChange}
+              >
                 <SelectTrigger className="w-[160px] h-9">
                   <SelectValue placeholder="Client Type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="All">All Clients</SelectItem>
                   <SelectItem value="Developer">Developer</SelectItem>
-                  <SelectItem value="Property Manager">Property Manager</SelectItem>
+                  <SelectItem value="Property Manager">
+                    Property Manager
+                  </SelectItem>
                   <SelectItem value="Owner Direct">Owner Direct</SelectItem>
-                  <SelectItem value="General Contractor">General Contractor</SelectItem>
+                  <SelectItem value="General Contractor">
+                    General Contractor
+                  </SelectItem>
                   <SelectItem value="Government">Government</SelectItem>
                 </SelectContent>
               </Select>
@@ -185,7 +220,10 @@ const FilterBar = ({
 
             {/* Project Value Range Filter */}
             {onValueRangeChange && (
-              <Select value={selectedValueRange} onValueChange={onValueRangeChange}>
+              <Select
+                value={selectedValueRange}
+                onValueChange={onValueRangeChange}
+              >
                 <SelectTrigger className="w-[160px] h-9">
                   <DollarSign className="w-4 h-4 mr-2" />
                   <SelectValue placeholder="Project Value" />
@@ -205,26 +243,39 @@ const FilterBar = ({
             {onPerformanceBadgesChange && (
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     className={cn(
                       "h-9",
-                      (performanceBadges.onTime || performanceBadges.onBudget || performanceBadges.zeroIncidents) && "border-primary"
+                      (performanceBadges.onTime ||
+                        performanceBadges.onBudget ||
+                        performanceBadges.zeroIncidents) &&
+                        "border-primary",
                     )}
                   >
                     <Award className="w-4 h-4 mr-2" />
                     Performance
-                    {(performanceBadges.onTime || performanceBadges.onBudget || performanceBadges.zeroIncidents) && (
+                    {(performanceBadges.onTime ||
+                      performanceBadges.onBudget ||
+                      performanceBadges.zeroIncidents) && (
                       <Badge variant="primary" size="xs" className="ml-2">
-                        {[performanceBadges.onTime, performanceBadges.onBudget, performanceBadges.zeroIncidents].filter(Boolean).length}
+                        {
+                          [
+                            performanceBadges.onTime,
+                            performanceBadges.onBudget,
+                            performanceBadges.zeroIncidents,
+                          ].filter(Boolean).length
+                        }
                       </Badge>
                     )}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-64">
                   <div className="space-y-4">
-                    <h4 className="font-semibold text-sm">Performance Badges</h4>
+                    <h4 className="font-semibold text-sm">
+                      Performance Badges
+                    </h4>
                     <div className="space-y-3">
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -324,11 +375,12 @@ const FilterBar = ({
             </span>
             {activeFiltersCount > 0 && (
               <Badge variant="info" size="sm">
-                {activeFiltersCount} {activeFiltersCount === 1 ? "filter" : "filters"} active
+                {activeFiltersCount}{" "}
+                {activeFiltersCount === 1 ? "filter" : "filters"} active
               </Badge>
             )}
           </div>
-          
+
           {activeFiltersCount > 0 && (
             <Button variant="ghost" size="sm" onClick={clearFilters}>
               <X className="w-4 h-4 mr-2" />

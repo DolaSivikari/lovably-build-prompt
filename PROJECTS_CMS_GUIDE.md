@@ -9,25 +9,31 @@ Your Projects page is now **100% CMS-managed**! All projects displayed on the pu
 ## 📝 How to Add/Edit Projects (3 Simple Steps)
 
 ### Step 1: Access the Admin Panel
+
 1. Go to `https://ascentgroupconstruction.com/auth`
 2. Log in with your admin credentials
 3. Click **"Projects"** in the left sidebar
 
 ### Step 2: Create or Edit a Project
+
 **To Create New:**
+
 - Click the **"Add Project"** button (top right)
 
 **To Edit Existing:**
+
 - Click the **Edit** icon on any project card
 
 ### Step 3: Fill the Form & Publish
 
 #### Required Fields:
+
 - **Project Title**: Name of the project (e.g., "Bay Street Office Tower")
 - **Slug**: URL-friendly name (auto-generated from title)
 - **Status**: Set to **"Published"** to make it live
 
 #### Recommended Fields for Best Display:
+
 - **Featured Image URL**: Link to main project photo
 - **Location**: City/address (e.g., "Toronto, ON")
 - **Category**: Commercial / Residential / Institutional / Industrial
@@ -38,6 +44,7 @@ Your Projects page is now **100% CMS-managed**! All projects displayed on the pu
 - **Summary**: Brief overview (shown in project card hover)
 
 #### Special Options:
+
 - **Featured Project**: Set to "Yes" to show in spotlight section at top of Projects page
 - **SEO Title/Description**: Customize search engine appearance
 
@@ -56,10 +63,12 @@ Your Projects page is now **100% CMS-managed**! All projects displayed on the pu
 ## 🎯 Project Display Rules
 
 ### Regular Projects
+
 - All projects with Status = "Published" appear in the main grid
 - Sorted by newest first (creation date)
 
 ### Featured Projects
+
 - Check "Featured = Yes" to show in the spotlight section at top
 - Up to 3 featured projects display prominently
 - Great for award-winning or notable projects
@@ -77,11 +86,13 @@ Your Projects page is now **100% CMS-managed**! All projects displayed on the pu
 ## 🚨 Troubleshooting
 
 **Project not showing on live site?**
+
 - ✅ Check Status is set to **"Published"** (not "Draft")
 - ✅ Refresh your browser (Ctrl+F5 / Cmd+Shift+R)
 - ✅ Try a different browser or incognito mode (clear cache)
 
 **Image not loading?**
+
 - Use full URLs: `https://example.com/image.jpg`
 - OR relative paths: `/images/project.jpg`
 - Ensure image is publicly accessible
@@ -90,17 +101,17 @@ Your Projects page is now **100% CMS-managed**! All projects displayed on the pu
 
 ## 📊 Field Guide
 
-| Field | Purpose | Example |
-|-------|---------|---------|
-| Title | Project name | "Heritage Building Restoration" |
-| Slug | URL path | "heritage-building-restoration" |
-| Category | Project type filter | "Commercial" |
-| Location | Where project happened | "Toronto, ON" |
-| Year | Completion year | "2024" |
-| Duration | How long it took | "8 months" |
-| Project Size | Square footage | "75,000 sq ft" |
-| Featured | Show in spotlight | Yes/No |
-| Status | Published/Draft/Archived | "Published" |
+| Field        | Purpose                  | Example                         |
+| ------------ | ------------------------ | ------------------------------- |
+| Title        | Project name             | "Heritage Building Restoration" |
+| Slug         | URL path                 | "heritage-building-restoration" |
+| Category     | Project type filter      | "Commercial"                    |
+| Location     | Where project happened   | "Toronto, ON"                   |
+| Year         | Completion year          | "2024"                          |
+| Duration     | How long it took         | "8 months"                      |
+| Project Size | Square footage           | "75,000 sq ft"                  |
+| Featured     | Show in spotlight        | Yes/No                          |
+| Status       | Published/Draft/Archived | "Published"                     |
 
 ---
 
@@ -127,12 +138,14 @@ Your Projects page is now **100% CMS-managed**! All projects displayed on the pu
 ## 📞 Need Help?
 
 Your CMS is working correctly when:
+
 - ✅ Projects save without errors
 - ✅ Published projects appear on live site within seconds
 - ✅ Filters work (category, year, search)
 - ✅ Featured section shows marked projects
 
 If any of the above fail, contact your developer with:
+
 1. Screenshot of the admin form
 2. Screenshot of what you see on `/projects`
 3. Browser console errors (F12 → Console tab)

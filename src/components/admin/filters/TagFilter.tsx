@@ -9,7 +9,12 @@ interface TagFilterProps {
   className?: string;
 }
 
-export const TagFilter = ({ tags, selectedTags, onChange, className }: TagFilterProps) => {
+export const TagFilter = ({
+  tags,
+  selectedTags,
+  onChange,
+  className,
+}: TagFilterProps) => {
   const toggleTag = (tag: string) => {
     if (selectedTags.includes(tag)) {
       onChange(selectedTags.filter((t) => t !== tag));
@@ -29,7 +34,12 @@ export const TagFilter = ({ tags, selectedTags, onChange, className }: TagFilter
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">Tags</span>
         {selectedTags.length > 0 && (
-          <Button variant="ghost" size="sm" onClick={clearAll} className="h-7 text-xs">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={clearAll}
+            className="h-7 text-xs"
+          >
             Clear all
           </Button>
         )}

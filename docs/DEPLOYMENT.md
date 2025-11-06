@@ -13,6 +13,7 @@
 Add the following DNS records at your domain registrar:
 
 **Option 1: CNAME Record (Recommended)**
+
 ```
 Type: CNAME
 Name: @ (or root)
@@ -21,6 +22,7 @@ TTL: 3600
 ```
 
 **Option 2: A Record**
+
 ```
 Type: A
 Name: @ (or root)
@@ -33,6 +35,7 @@ TTL: 3600
 ✅ **Automatic**: Lovable's hosting platform automatically handles `www` to non-`www` redirects when your custom domain is connected.
 
 No manual `.htaccess` or nginx configuration needed. The platform ensures:
+
 - `https://www.ascentgroupconstruction.com` → `https://ascentgroupconstruction.com`
 - Permanent 301 redirects for SEO
 - SSL/TLS certificates auto-provisioned
@@ -111,7 +114,7 @@ After deploying with custom domain:
 ✅ Request indexing for key pages  
 ✅ Monitor Core Web Vitals report  
 ✅ Check Mobile Usability report  
-✅ Review Coverage report for indexing issues  
+✅ Review Coverage report for indexing issues
 
 ---
 

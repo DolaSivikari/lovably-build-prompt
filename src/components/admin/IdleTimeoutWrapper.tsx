@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { useIdleTimeout } from '@/hooks/useIdleTimeout';
-import { SessionWarningDialog } from './SessionWarningDialog';
+import { ReactNode } from "react";
+import { useIdleTimeout } from "@/hooks/useIdleTimeout";
+import { SessionWarningDialog } from "./SessionWarningDialog";
 
 interface IdleTimeoutWrapperProps {
   children: ReactNode;

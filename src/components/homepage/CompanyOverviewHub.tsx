@@ -1,6 +1,15 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Award, Users, Target, Shield, Lightbulb, Heart } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle,
+  Award,
+  Users,
+  Target,
+  Shield,
+  Lightbulb,
+  Heart,
+} from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -9,22 +18,26 @@ const COMPANY_VALUES = [
   {
     icon: Shield,
     title: "Safety First",
-    description: "Comprehensive safety protocols and training for every project, ensuring zero-incident worksites.",
+    description:
+      "Comprehensive safety protocols and training for every project, ensuring zero-incident worksites.",
   },
   {
     icon: Award,
     title: "Quality Craftsmanship",
-    description: "Premium materials and skilled trades deliver results that exceed industry standards.",
+    description:
+      "Premium materials and skilled trades deliver results that exceed industry standards.",
   },
   {
     icon: Lightbulb,
     title: "Innovation",
-    description: "Latest techniques and sustainable solutions for modern construction challenges.",
+    description:
+      "Latest techniques and sustainable solutions for modern construction challenges.",
   },
   {
     icon: Heart,
     title: "Client Partnership",
-    description: "Transparent communication and dedicated support throughout your project journey.",
+    description:
+      "Transparent communication and dedicated support throughout your project journey.",
   },
 ];
 
@@ -40,19 +53,23 @@ const OUR_APPROACH = [
 const OUR_PROMISE = [
   {
     title: "On-Time Delivery",
-    description: "We respect your schedule with efficient project management and clear timelines.",
+    description:
+      "We respect your schedule with efficient project management and clear timelines.",
   },
   {
     title: "Budget Certainty",
-    description: "Detailed estimates upfront with no surprise costs or change orders.",
+    description:
+      "Detailed estimates upfront with no surprise costs or change orders.",
   },
   {
     title: "Quality Guarantee",
-    description: "Comprehensive warranties backed by 15+ years of proven excellence.",
+    description:
+      "Comprehensive warranties backed by 15+ years of proven excellence.",
   },
   {
     title: "Safety Compliance",
-    description: "WSIB certified with strict adherence to all safety regulations.",
+    description:
+      "WSIB certified with strict adherence to all safety regulations.",
   },
 ];
 
@@ -69,22 +86,22 @@ const CompanyOverviewHub = () => {
     >
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
-        <div className={`text-center mb-12 ${!prefersReducedMotion && 'animate-fade-in'}`}>
+        <div
+          className={`text-center mb-12 ${!prefersReducedMotion && "animate-fade-in"}`}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Your Complete Construction Partner Across Ontario
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            From design-build to construction management and building restoration, we deliver comprehensive solutions 
-            with the expertise, safety standards, and quality you expect from a trusted general contractor.
+            From design-build to construction management and building
+            restoration, we deliver comprehensive solutions with the expertise,
+            safety standards, and quality you expect from a trusted general
+            contractor.
           </p>
         </div>
 
         {/* Interactive Tabs */}
-        <Tabs
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="w-full"
-        >
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-8 max-w-2xl mx-auto h-auto p-1">
             <TabsTrigger value="approach" className="text-sm md:text-base py-3">
               Our Approach
@@ -98,15 +115,18 @@ const CompanyOverviewHub = () => {
           </TabsList>
 
           {/* Our Approach Tab */}
-          <TabsContent value="approach" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
+          <TabsContent
+            value="approach"
+            className={!prefersReducedMotion ? "animate-fade-in" : ""}
+          >
             <div className="bg-card rounded-2xl p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
                   How We Deliver Excellence
                 </h3>
                 <p className="text-muted-foreground mb-8 text-lg">
-                  Our proven process ensures every project is completed to the highest standards, 
-                  on time and within budget.
+                  Our proven process ensures every project is completed to the
+                  highest standards, on time and within budget.
                 </p>
                 <div className="grid md:grid-cols-2 gap-4">
                   {OUR_APPROACH.map((item, index) => (
@@ -124,14 +144,18 @@ const CompanyOverviewHub = () => {
           </TabsContent>
 
           {/* Our Values Tab */}
-          <TabsContent value="values" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
+          <TabsContent
+            value="values"
+            className={!prefersReducedMotion ? "animate-fade-in" : ""}
+          >
             <div className="bg-card rounded-2xl p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
                   Built on Core Values
                 </h3>
                 <p className="text-muted-foreground mb-10 text-lg text-center">
-                  These principles guide every decision we make and every project we undertake.
+                  These principles guide every decision we make and every
+                  project we undertake.
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   {COMPANY_VALUES.map((value, index) => (
@@ -160,7 +184,10 @@ const CompanyOverviewHub = () => {
           </TabsContent>
 
           {/* Our Promise Tab */}
-          <TabsContent value="promise" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
+          <TabsContent
+            value="promise"
+            className={!prefersReducedMotion ? "animate-fade-in" : ""}
+          >
             <div className="bg-card rounded-2xl p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
@@ -196,8 +223,12 @@ const CompanyOverviewHub = () => {
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/contact"
-            className={`inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-semibold shadow-lg hover:shadow-xl group ${!prefersReducedMotion && 'hover-scale'}`}
-            style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
+            className={`inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-semibold shadow-lg hover:shadow-xl group ${!prefersReducedMotion && "hover-scale"}`}
+            style={{
+              transition: prefersReducedMotion
+                ? "box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                : "var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
           >
             Start Your Project
             <ArrowRight className="h-5 w-5 hover-translate-arrow" />
@@ -205,7 +236,7 @@ const CompanyOverviewHub = () => {
           <Link
             to="/projects"
             className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 font-semibold"
-            style={{ transition: 'var(--transition-colors)' }}
+            style={{ transition: "var(--transition-colors)" }}
           >
             View Our Work
             <ArrowRight className="h-5 w-5" />

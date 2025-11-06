@@ -123,7 +123,7 @@ export function useNavigationSearch() {
     // Apply category filter
     if (activeCategory !== "all") {
       results = results.filter(
-        (item) => item.section.toLowerCase() === activeCategory.toLowerCase()
+        (item) => item.section.toLowerCase() === activeCategory.toLowerCase(),
       );
     }
 
@@ -134,10 +134,13 @@ export function useNavigationSearch() {
   useEffect(() => {
     if (searchQuery.trim() && filteredResults.length >= 0) {
       // Calculate section distribution
-      const sectionDistribution = filteredResults.reduce((acc, result) => {
-        acc[result.section] = (acc[result.section] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>);
+      const sectionDistribution = filteredResults.reduce(
+        (acc, result) => {
+          acc[result.section] = (acc[result.section] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>,
+      );
 
       trackSearch({
         search_query: searchQuery,

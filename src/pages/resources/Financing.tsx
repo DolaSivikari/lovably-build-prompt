@@ -7,7 +7,7 @@ import heroFinancingImage from "@/assets/heroes/hero-financing.jpg";
 const Financing = () => {
   return (
     <>
-      <SEO 
+      <SEO
         title="Financing Options | Ascent Group Construction"
         description="Flexible financing solutions for your construction project. Explore payment plans and financing options that fit your budget."
         canonical="/resources/financing"
@@ -24,7 +24,9 @@ const Financing = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-3xl mx-auto text-center">
                 <p className="text-lg text-muted-foreground mb-8">
-                  We offer flexible financing options to make your project more affordable. Contact us to discuss payment plans tailored to your needs.
+                  We offer flexible financing options to make your project more
+                  affordable. Contact us to discuss payment plans tailored to
+                  your needs.
                 </p>
               </div>
             </div>

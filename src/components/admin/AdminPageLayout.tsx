@@ -1,4 +1,4 @@
-import { AdminPageHeader } from './AdminPageHeader';
+import { AdminPageHeader } from "./AdminPageHeader";
 
 interface AdminPageLayoutProps {
   title: string;
@@ -32,9 +32,7 @@ export const AdminPageLayout = ({
         />
       </div>
       <div className="flex-1 overflow-y-auto px-6 pb-6">
-        <div className="space-y-6 max-w-7xl">
-          {children}
-        </div>
+        <div className="space-y-6 max-w-7xl">{children}</div>
       </div>
     </div>
   );

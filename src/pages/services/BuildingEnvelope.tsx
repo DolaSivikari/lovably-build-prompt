@@ -1,4 +1,13 @@
-import { Shield, Droplets, Wind, ThermometerSun, CheckCircle2, ArrowRight, Clock, Wrench } from "lucide-react";
+import {
+  Shield,
+  Droplets,
+  Wind,
+  ThermometerSun,
+  CheckCircle2,
+  ArrowRight,
+  Clock,
+  Wrench,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,23 +22,27 @@ const BuildingEnvelope = () => {
     {
       icon: Droplets,
       title: "Waterproofing Excellence",
-      description: "Advanced membrane systems, flashing details, and drainage solutions preventing water infiltration and moisture damage."
+      description:
+        "Advanced membrane systems, flashing details, and drainage solutions preventing water infiltration and moisture damage.",
     },
     {
       icon: ThermometerSun,
       title: "Thermal Performance",
-      description: "Continuous insulation systems, air barrier integration, and energy-efficient assemblies reducing operational costs."
+      description:
+        "Continuous insulation systems, air barrier integration, and energy-efficient assemblies reducing operational costs.",
     },
     {
       icon: Wind,
       title: "Air Sealing Systems",
-      description: "Comprehensive air barrier installation with tested continuity, minimizing energy loss and improving comfort."
+      description:
+        "Comprehensive air barrier installation with tested continuity, minimizing energy loss and improving comfort.",
     },
     {
       icon: Shield,
       title: "Structural Protection",
-      description: "Durable cladding systems, proper attachment methods, and long-term warranty coverage protecting your investment."
-    }
+      description:
+        "Durable cladding systems, proper attachment methods, and long-term warranty coverage protecting your investment.",
+    },
   ];
 
   const howWeWork = [
@@ -39,8 +52,8 @@ const BuildingEnvelope = () => {
         "Building envelope assessment and condition analysis",
         "Thermal imaging and moisture testing",
         "System selection and material specifications",
-        "Value engineering and lifecycle cost analysis"
-      ]
+        "Value engineering and lifecycle cost analysis",
+      ],
     },
     {
       phase: "Execution",
@@ -48,8 +61,8 @@ const BuildingEnvelope = () => {
         "Proper substrate preparation and repair",
         "Quality-controlled installation by certified crews",
         "Third-party testing and commissioning",
-        "Comprehensive photo documentation"
-      ]
+        "Comprehensive photo documentation",
+      ],
     },
     {
       phase: "Closeout",
@@ -57,9 +70,9 @@ const BuildingEnvelope = () => {
         "System performance testing and validation",
         "Complete warranty documentation",
         "Maintenance guidelines and schedules",
-        "Long-term service and support agreements"
-      ]
-    }
+        "Long-term service and support agreements",
+      ],
+    },
   ];
 
   const systemsWeInstall = [
@@ -70,7 +83,7 @@ const BuildingEnvelope = () => {
     "Rainscreen and Cavity Wall Systems",
     "Below-Grade and Plaza Deck Waterproofing",
     "Window and Door Flashing Integration",
-    "Expansion Joint Systems"
+    "Expansion Joint Systems",
   ];
 
   const caseStudies = [
@@ -79,22 +92,25 @@ const BuildingEnvelope = () => {
       location: "Toronto, ON",
       size: "200,000 sq ft",
       duration: "18 months",
-      description: "Complete envelope rehabilitation including EIFS replacement, window upgrades, and balcony waterproofing for 25-story residential tower."
+      description:
+        "Complete envelope rehabilitation including EIFS replacement, window upgrades, and balcony waterproofing for 25-story residential tower.",
     },
     {
       title: "Commercial Office Enclosure",
       location: "Mississauga, ON",
       size: "60,000 sq ft",
       duration: "12 months",
-      description: "New metal panel rainscreen system with continuous insulation achieving LEED Silver thermal performance targets."
+      description:
+        "New metal panel rainscreen system with continuous insulation achieving LEED Silver thermal performance targets.",
     },
     {
       title: "Institutional Building Retrofit",
       location: "Vaughan, ON",
       size: "85,000 sq ft",
       duration: "14 months",
-      description: "Heritage masonry restoration with modern air barrier integration and below-grade waterproofing remediation."
-    }
+      description:
+        "Heritage masonry restoration with modern air barrier integration and below-grade waterproofing remediation.",
+    },
   ];
 
   return (
@@ -105,25 +121,30 @@ const BuildingEnvelope = () => {
         keywords="building envelope, exterior envelope, EIFS, stucco, masonry restoration, waterproofing, Toronto envelope contractor"
       />
       <Navigation />
-      
+
       <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
-          { label: "Home", href: "/" },
-          { label: "Services", href: "/services" },
-          { label: "Building Envelope" }
-        ]} />
+        <PageHero.Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Services", href: "/services" },
+            { label: "Building Envelope" },
+          ]}
+        />
         <PageHero.Title>Building Envelope</PageHero.Title>
         <PageHero.Subtitle>
-          Durable, energy-efficient building performance through expert envelope systems.
+          Durable, energy-efficient building performance through expert envelope
+          systems.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "25+", label: "Years Experience" },
-          { value: "100%", label: "Warranty Coverage" },
-          { value: "300+", label: "Envelope Projects" },
-          { value: "ZERO", label: "Warranty Claims" }
-        ]} />
-        <PageHero.CTAs 
-          primaryText="Request Assessment" 
+        <PageHero.Stats
+          stats={[
+            { value: "25+", label: "Years Experience" },
+            { value: "100%", label: "Warranty Coverage" },
+            { value: "300+", label: "Envelope Projects" },
+            { value: "ZERO", label: "Warranty Claims" },
+          ]}
+        />
+        <PageHero.CTAs
+          primaryText="Request Assessment"
           primaryHref="/contact"
           secondaryText="View Envelope Projects"
           secondaryHref="/projects?type=envelope"
@@ -135,9 +156,12 @@ const BuildingEnvelope = () => {
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-foreground mb-4">Comprehensive Envelope Solutions</h2>
+              <h2 className="text-foreground mb-4">
+                Comprehensive Envelope Solutions
+              </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                We deliver complete building envelope systems engineered for long-term durability, energy efficiency, and weather protection.
+                We deliver complete building envelope systems engineered for
+                long-term durability, energy efficiency, and weather protection.
               </p>
             </div>
 
@@ -145,7 +169,10 @@ const BuildingEnvelope = () => {
               {whatWeDeliver.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <Card
+                    key={index}
+                    className="hover:shadow-lg transition-shadow"
+                  >
                     <CardHeader>
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                         <Icon className="w-6 h-6 text-primary" />
@@ -153,7 +180,9 @@ const BuildingEnvelope = () => {
                       <CardTitle className="text-lg">{item.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {item.description}
+                      </p>
                     </CardContent>
                   </Card>
                 );
@@ -169,7 +198,8 @@ const BuildingEnvelope = () => {
               <div className="text-center mb-12">
                 <h2 className="text-foreground mb-4">Systems We Install</h2>
                 <p className="text-lg text-muted-foreground">
-                  Full-service envelope capabilities from below-grade waterproofing to wall cladding systems.
+                  Full-service envelope capabilities from below-grade
+                  waterproofing to wall cladding systems.
                 </p>
               </div>
 
@@ -195,7 +225,8 @@ const BuildingEnvelope = () => {
             <div className="text-center mb-12">
               <h2 className="text-foreground mb-4">Our Envelope Process</h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Proven methodology ensuring proper design, quality installation, and long-term performance.
+                Proven methodology ensuring proper design, quality installation,
+                and long-term performance.
               </p>
             </div>
 
@@ -215,7 +246,9 @@ const BuildingEnvelope = () => {
                       {phase.activities.map((activity, actIndex) => (
                         <li key={actIndex} className="flex items-start gap-2">
                           <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                          <span className="text-sm text-muted-foreground">{activity}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {activity}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -230,11 +263,14 @@ const BuildingEnvelope = () => {
         <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-foreground mb-6">Why Self-Perform Envelope Work</h2>
+              <h2 className="text-foreground mb-6">
+                Why Self-Perform Envelope Work
+              </h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                We directly employ certified envelope technicians rather than subcontracting critical envelope work. This ensures:
+                We directly employ certified envelope technicians rather than
+                subcontracting critical envelope work. This ensures:
               </p>
-              
+
               <div className="grid md:grid-cols-2 gap-6 text-left">
                 <Card>
                   <CardHeader>
@@ -245,7 +281,8 @@ const BuildingEnvelope = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Our crews receive ongoing training on latest systems, materials, and installation techniques.
+                      Our crews receive ongoing training on latest systems,
+                      materials, and installation techniques.
                     </p>
                   </CardContent>
                 </Card>
@@ -259,7 +296,8 @@ const BuildingEnvelope = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Same crews, same standards, same quality control processes across all projects.
+                      Same crews, same standards, same quality control processes
+                      across all projects.
                     </p>
                   </CardContent>
                 </Card>
@@ -273,7 +311,8 @@ const BuildingEnvelope = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Direct control eliminates subcontractor scheduling conflicts and availability issues.
+                      Direct control eliminates subcontractor scheduling
+                      conflicts and availability issues.
                     </p>
                   </CardContent>
                 </Card>
@@ -287,7 +326,8 @@ const BuildingEnvelope = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      We stand behind our work with comprehensive warranties and responsive service.
+                      We stand behind our work with comprehensive warranties and
+                      responsive service.
                     </p>
                   </CardContent>
                 </Card>
@@ -300,15 +340,21 @@ const BuildingEnvelope = () => {
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-foreground mb-4">Envelope Project Showcase</h2>
+              <h2 className="text-foreground mb-4">
+                Envelope Project Showcase
+              </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Recent envelope projects demonstrating our technical capabilities and quality standards.
+                Recent envelope projects demonstrating our technical
+                capabilities and quality standards.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {caseStudies.map((project, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all hover:-translate-y-1">
+                <Card
+                  key={index}
+                  className="hover:shadow-lg transition-all hover:-translate-y-1"
+                >
                   <CardHeader>
                     <CardTitle className="text-lg">{project.title}</CardTitle>
                     <div className="flex flex-wrap gap-2 mt-2">
@@ -321,7 +367,9 @@ const BuildingEnvelope = () => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {project.description}
+                    </p>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Clock className="w-3 h-3" />
                       <span>Completed in {project.duration}</span>
@@ -342,9 +390,12 @@ const BuildingEnvelope = () => {
         {/* CTA Band */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Upgrade Your Building Envelope?</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              Ready to Upgrade Your Building Envelope?
+            </h2>
             <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Request a comprehensive envelope assessment and let's discuss solutions for your building.
+              Request a comprehensive envelope assessment and let's discuss
+              solutions for your building.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg" variant="secondary">
@@ -353,7 +404,12 @@ const BuildingEnvelope = () => {
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              >
                 <Link to="/about">Talk to an Envelope Specialist</Link>
               </Button>
             </div>

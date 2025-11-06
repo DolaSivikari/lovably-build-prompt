@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTableFilters } from "@/hooks/useTableFilters";
@@ -12,7 +18,17 @@ import { DateRangePicker } from "@/components/admin/filters/DateRangePicker";
 import { MultiSelectFilter } from "@/components/admin/filters/MultiSelectFilter";
 import { FilterBar } from "@/components/admin/filters/FilterBar";
 import { ExportButton, ExportColumn } from "@/components/admin/ExportButton";
-import { ArrowLeft, Mail, Phone, Building2, AlertCircle, CheckCircle2, Clock, Package, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Mail,
+  Phone,
+  Building2,
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  Package,
+  Trash2,
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
@@ -35,9 +51,17 @@ const PrequalificationSubmissions = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("all");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
+  const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(
+    null,
+  );
 
-  const { filters, updateFilter, clearFilters, hasActiveFilters, applyFilters } = useTableFilters();
+  const {
+    filters,
+    updateFilter,
+    clearFilters,
+    hasActiveFilters,
+    applyFilters,
+  } = useTableFilters();
   useUrlFilters(filters, updateFilter);
 
   useEffect(() => {
@@ -46,17 +70,17 @@ const PrequalificationSubmissions = () => {
 
       // Set up real-time subscription
       const channel = supabase
-        .channel('prequalification-submissions-list')
+        .channel("prequalification-submissions-list")
         .on(
-          'postgres_changes',
+          "postgres_changes",
           {
-            event: '*',
-            schema: 'public',
-            table: 'prequalification_downloads'
+            event: "*",
+            schema: "public",
+            table: "prequalification_downloads",
           },
           () => {
             loadSubmissions();
-          }
+          },
         )
         .subscribe();
 
@@ -132,30 +156,40 @@ const PrequalificationSubmissions = () => {
       });
       loadSubmissions();
     }
-    
+
     setDeleteDialogOpen(false);
     setSubmissionToDelete(null);
   };
 
-  const getStatusVariant = (status: string): "new" | "contacted" | "completed" | "default" => {
+  const getStatusVariant = (
+    status: string,
+  ): "new" | "contacted" | "completed" | "default" => {
     switch (status) {
-      case "new": return "new";
-      case "contacted": return "contacted";
-      case "completed": return "completed";
-      default: return "default";
+      case "new":
+        return "new";
+      case "contacted":
+        return "contacted";
+      case "completed":
+        return "completed";
+      default:
+        return "default";
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "new": return <AlertCircle className="h-4 w-4" />;
-      case "contacted": return <Clock className="h-4 w-4" />;
-      case "completed": return <CheckCircle2 className="h-4 w-4" />;
-      default: return <Package className="h-4 w-4" />;
+      case "new":
+        return <AlertCircle className="h-4 w-4" />;
+      case "contacted":
+        return <Clock className="h-4 w-4" />;
+      case "completed":
+        return <CheckCircle2 className="h-4 w-4" />;
+      default:
+        return <Package className="h-4 w-4" />;
     }
   };
 
-  const tabFilteredSubmissions = submissions.filter(sub => {
+  const tabFilteredSubmissions = submissions.filter((sub) => {
     if (activeTab === "all") return true;
     if (activeTab === "new") return sub.status === "new";
     if (activeTab === "contacted") return sub.status === "contacted";
@@ -165,31 +199,45 @@ const PrequalificationSubmissions = () => {
 
   const filteredSubmissions = applyFilters(
     tabFilteredSubmissions,
-    ['company_name', 'contact_name', 'email', 'phone', 'message'],
-    'downloaded_at',
-    'status'
+    ["company_name", "contact_name", "email", "phone", "message"],
+    "downloaded_at",
+    "status",
   );
 
   const statusOptions = [
-    { label: 'New', value: 'new', count: submissions.filter(s => s.status === 'new').length },
-    { label: 'Contacted', value: 'contacted', count: submissions.filter(s => s.status === 'contacted').length },
-    { label: 'Completed', value: 'completed', count: submissions.filter(s => s.status === 'completed').length },
+    {
+      label: "New",
+      value: "new",
+      count: submissions.filter((s) => s.status === "new").length,
+    },
+    {
+      label: "Contacted",
+      value: "contacted",
+      count: submissions.filter((s) => s.status === "contacted").length,
+    },
+    {
+      label: "Completed",
+      value: "completed",
+      count: submissions.filter((s) => s.status === "completed").length,
+    },
   ];
 
   const exportColumns: ExportColumn[] = [
-    { key: 'downloaded_at', label: 'Date Submitted', enabled: true },
-    { key: 'company_name', label: 'Company', enabled: true },
-    { key: 'contact_name', label: 'Contact Name', enabled: true },
-    { key: 'email', label: 'Email', enabled: true },
-    { key: 'phone', label: 'Phone', enabled: true },
-    { key: 'project_type', label: 'Project Type', enabled: true },
-    { key: 'project_value_range', label: 'Project Value', enabled: true },
-    { key: 'message', label: 'Message', enabled: true },
-    { key: 'status', label: 'Status', enabled: true },
+    { key: "downloaded_at", label: "Date Submitted", enabled: true },
+    { key: "company_name", label: "Company", enabled: true },
+    { key: "contact_name", label: "Contact Name", enabled: true },
+    { key: "email", label: "Email", enabled: true },
+    { key: "phone", label: "Phone", enabled: true },
+    { key: "project_type", label: "Project Type", enabled: true },
+    { key: "project_value_range", label: "Project Value", enabled: true },
+    { key: "message", label: "Message", enabled: true },
+    { key: "status", label: "Status", enabled: true },
   ];
 
-  const newCount = submissions.filter(s => s.status === "new").length;
-  const contactedCount = submissions.filter(s => s.status === "contacted").length;
+  const newCount = submissions.filter((s) => s.status === "new").length;
+  const contactedCount = submissions.filter(
+    (s) => s.status === "contacted",
+  ).length;
 
   if (authLoading) {
     return (
@@ -211,20 +259,27 @@ const PrequalificationSubmissions = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/admin")}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate("/admin")}
+              >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Button>
               <div className="flex items-center gap-3">
                 <Package className="h-6 w-6 text-primary" />
-                <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
+                <h1
+                  className="text-2xl font-bold"
+                  style={{ fontFamily: "Playfair Display, serif" }}
+                >
                   Prequalification Requests
                 </h1>
               </div>
             </div>
             <ExportButton
               data={filteredSubmissions}
-              filename={`prequalification-requests-${new Date().toISOString().split('T')[0]}`}
+              filename={`prequalification-requests-${new Date().toISOString().split("T")[0]}`}
               columns={exportColumns}
             />
           </div>
@@ -243,42 +298,50 @@ const PrequalificationSubmissions = () => {
           <Card>
             <CardHeader className="pb-3">
               <CardDescription>New Requests</CardDescription>
-              <CardTitle className="text-3xl text-secondary">{newCount}</CardTitle>
+              <CardTitle className="text-3xl text-secondary">
+                {newCount}
+              </CardTitle>
             </CardHeader>
           </Card>
           <Card>
             <CardHeader className="pb-3">
               <CardDescription>In Progress</CardDescription>
-              <CardTitle className="text-3xl text-blue-600">{contactedCount}</CardTitle>
+              <CardTitle className="text-3xl text-blue-600">
+                {contactedCount}
+              </CardTitle>
             </CardHeader>
           </Card>
           <Card>
             <CardHeader className="pb-3">
               <CardDescription>Completed</CardDescription>
               <CardTitle className="text-3xl text-green-600">
-                {submissions.filter(s => s.status === "completed").length}
+                {submissions.filter((s) => s.status === "completed").length}
               </CardTitle>
             </CardHeader>
           </Card>
         </div>
 
         {/* Filters */}
-        <FilterBar onClearAll={clearFilters} hasActiveFilters={hasActiveFilters} className="mb-6">
+        <FilterBar
+          onClearAll={clearFilters}
+          hasActiveFilters={hasActiveFilters}
+          className="mb-6"
+        >
           <SearchInput
             value={filters.search}
-            onChange={(value) => updateFilter('search', value)}
+            onChange={(value) => updateFilter("search", value)}
             placeholder="Search by company, contact, or message..."
             className="w-full md:w-[300px]"
           />
           <DateRangePicker
             value={filters.dateRange}
-            onChange={(range) => updateFilter('dateRange', range)}
+            onChange={(range) => updateFilter("dateRange", range)}
             placeholder="Filter by date"
           />
           <MultiSelectFilter
             options={statusOptions}
             selected={filters.status}
-            onChange={(selected) => updateFilter('status', selected)}
+            onChange={(selected) => updateFilter("status", selected)}
             label="Status"
           />
         </FilterBar>
@@ -288,7 +351,10 @@ const PrequalificationSubmissions = () => {
             <TabsTrigger value="all" className="relative">
               All
               {submissions.length > 0 && (
-                <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 text-xs">
+                <Badge
+                  variant="secondary"
+                  className="ml-2 h-5 w-5 rounded-full p-0 text-xs"
+                >
                   {submissions.length}
                 </Badge>
               )}
@@ -304,7 +370,10 @@ const PrequalificationSubmissions = () => {
             <TabsTrigger value="contacted">
               In Progress
               {contactedCount > 0 && (
-                <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 text-xs">
+                <Badge
+                  variant="secondary"
+                  className="ml-2 h-5 w-5 rounded-full p-0 text-xs"
+                >
                   {contactedCount}
                 </Badge>
               )}
@@ -320,38 +389,43 @@ const PrequalificationSubmissions = () => {
                 <CardContent className="py-12 text-center">
                   <Package className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                   <p className="text-muted-foreground">
-                    {hasActiveFilters 
-                      ? 'No prequalification requests match your filters' 
-                      : 'No prequalification requests in this category'
-                    }
+                    {hasActiveFilters
+                      ? "No prequalification requests match your filters"
+                      : "No prequalification requests in this category"}
                   </p>
                 </CardContent>
               </Card>
             ) : (
               <div className="grid gap-4">
                 {filteredSubmissions.map((submission) => (
-                  <Card 
+                  <Card
                     key={submission.id}
                     className={`${
-                      submission.status === 'new' 
-                        ? 'border-secondary border-2 bg-primary/5'
-                        : ''
+                      submission.status === "new"
+                        ? "border-secondary border-2 bg-primary/5"
+                        : ""
                     }`}
                   >
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
-                            {submission.status === 'new' && (
+                            {submission.status === "new" && (
                               <AlertCircle className="h-5 w-5 text-secondary" />
                             )}
-                            <CardTitle className="text-lg">{submission.company_name}</CardTitle>
+                            <CardTitle className="text-lg">
+                              {submission.company_name}
+                            </CardTitle>
                             <Badge variant="outline" className="text-xs">
                               {submission.project_type || "Package Request"}
                             </Badge>
                           </div>
                           <CardDescription>
-                            Contact: {submission.contact_name} • {format(new Date(submission.downloaded_at), 'MMMM d, yyyy • h:mm a')}
+                            Contact: {submission.contact_name} •{" "}
+                            {format(
+                              new Date(submission.downloaded_at),
+                              "MMMM d, yyyy • h:mm a",
+                            )}
                           </CardDescription>
                         </div>
                         <Badge variant={getStatusVariant(submission.status)}>
@@ -366,14 +440,20 @@ const PrequalificationSubmissions = () => {
                       <div className="grid md:grid-cols-3 gap-4 text-sm">
                         <div className="flex items-center gap-2">
                           <Mail className="h-4 w-4 text-muted-foreground" />
-                          <a href={`mailto:${submission.email}`} className="text-primary hover:underline">
+                          <a
+                            href={`mailto:${submission.email}`}
+                            className="text-primary hover:underline"
+                          >
                             {submission.email}
                           </a>
                         </div>
                         {submission.phone && (
                           <div className="flex items-center gap-2">
                             <Phone className="h-4 w-4 text-muted-foreground" />
-                            <a href={`tel:${submission.phone}`} className="text-primary hover:underline">
+                            <a
+                              href={`tel:${submission.phone}`}
+                              className="text-primary hover:underline"
+                            >
                               {submission.phone}
                             </a>
                           </div>
@@ -387,32 +467,38 @@ const PrequalificationSubmissions = () => {
                       </div>
                       {submission.message && (
                         <div className="bg-muted p-4 rounded-lg">
-                          <p className="text-sm whitespace-pre-wrap">{submission.message}</p>
+                          <p className="text-sm whitespace-pre-wrap">
+                            {submission.message}
+                          </p>
                         </div>
                       )}
                       <div className="flex gap-2 justify-between">
                         <div className="flex gap-2">
-                          {submission.status === 'new' && (
+                          {submission.status === "new" && (
                             <Button
                               size="sm"
                               className="bg-primary hover:bg-primary/90"
-                              onClick={() => updateStatus(submission.id, "contacted")}
+                              onClick={() =>
+                                updateStatus(submission.id, "contacted")
+                              }
                             >
                               <Mail className="h-4 w-4 mr-2" />
                               Mark Contacted
                             </Button>
                           )}
-                          {submission.status === 'contacted' && (
+                          {submission.status === "contacted" && (
                             <Button
                               size="sm"
                               className="bg-green-600 hover:bg-green-700"
-                              onClick={() => updateStatus(submission.id, "completed")}
+                              onClick={() =>
+                                updateStatus(submission.id, "completed")
+                              }
                             >
                               <CheckCircle2 className="h-4 w-4 mr-2" />
                               Mark Completed
                             </Button>
                           )}
-                          {submission.status === 'completed' && (
+                          {submission.status === "completed" && (
                             <Button
                               size="sm"
                               variant="outline"
@@ -444,12 +530,16 @@ const PrequalificationSubmissions = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Prequalification Request</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this prequalification request? This action cannot be undone.
+              Are you sure you want to delete this prequalification request?
+              This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={deleteSubmission} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+            <AlertDialogAction
+              onClick={deleteSubmission}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

@@ -18,8 +18,13 @@ const QuickFacts = ({ title, facts, className = "" }: QuickFactsProps) => {
         <h3 className="text-xl font-bold mb-4">{title}</h3>
         <dl className="space-y-3">
           {facts.map((fact, index) => (
-            <div key={index} className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-              <dt className="font-semibold text-foreground min-w-[140px]">{fact.label}:</dt>
+            <div
+              key={index}
+              className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2"
+            >
+              <dt className="font-semibold text-foreground min-w-[140px]">
+                {fact.label}:
+              </dt>
               <dd className="text-muted-foreground">{fact.value}</dd>
             </div>
           ))}

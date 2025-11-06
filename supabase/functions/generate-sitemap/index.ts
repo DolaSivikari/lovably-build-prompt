@@ -1,117 +1,124 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.74.0';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.74.0";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
 };
 
 // Helper function for safe error responses
 function createErrorResponse(error: any) {
-  console.error('Function error:', {
+  console.error("Function error:", {
     message: error.message,
     stack: error.stack,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
-  
-  const isValidationError = error.message.includes('required') || 
-                           error.message.includes('invalid');
-  
-  const clientMessage = isValidationError 
+
+  const isValidationError =
+    error.message.includes("required") || error.message.includes("invalid");
+
+  const clientMessage = isValidationError
     ? error.message
-    : 'An error occurred processing your request. Please try again later.';
-  
+    : "An error occurred processing your request. Please try again later.";
+
   return new Response(
-    JSON.stringify({ 
+    JSON.stringify({
       error: clientMessage,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     }),
-    { 
-      status: isValidationError ? 400 : 500, 
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-    }
+    {
+      status: isValidationError ? 400 : 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    },
   );
 }
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Verify caller is authenticated and is an admin
-    const authHeader = req.headers.get('Authorization');
+    const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
-    
+    const token = authHeader.replace("Bearer ", "");
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser(token);
+
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Check if user has admin or super_admin role
     const { data: roleData, error: roleError } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', user.id)
-      .in('role', ['admin', 'super_admin'])
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .in("role", ["admin", "super_admin"])
       .maybeSingle();
-      
+
     if (roleError || !roleData) {
       console.log(`Access denied for user ${user.id}: not an admin`);
       return new Response(
-        JSON.stringify({ error: 'Forbidden: Admin access required' }),
-        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: "Forbidden: Admin access required" }),
+        {
+          status: 403,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
-    console.log('Generating sitemap...');
+    console.log("Generating sitemap...");
 
     const baseUrl = new URL(req.url).origin;
     const urls: Array<{ loc: string; lastmod: string; priority: string }> = [];
 
     // Add static pages
     const staticPages = [
-      { path: '/', priority: '1.0' },
-      { path: '/about', priority: '0.8' },
-      { path: '/services', priority: '0.8' },
-      { path: '/projects', priority: '0.8' },
-      { path: '/contact', priority: '0.7' },
+      { path: "/", priority: "1.0" },
+      { path: "/about", priority: "0.8" },
+      { path: "/services", priority: "0.8" },
+      { path: "/projects", priority: "0.8" },
+      { path: "/contact", priority: "0.7" },
     ];
 
-    staticPages.forEach(page => {
+    staticPages.forEach((page) => {
       urls.push({
         loc: `${baseUrl}${page.path}`,
-        lastmod: new Date().toISOString().split('T')[0],
+        lastmod: new Date().toISOString().split("T")[0],
         priority: page.priority,
       });
     });
 
     // Add published blog posts
     const { data: blogPosts } = await supabase
-      .from('blog_posts')
-      .select('slug, updated_at')
-      .eq('publish_state', 'published')
-      .order('updated_at', { ascending: false });
+      .from("blog_posts")
+      .select("slug, updated_at")
+      .eq("publish_state", "published")
+      .order("updated_at", { ascending: false });
 
     if (blogPosts) {
-      blogPosts.forEach(post => {
+      blogPosts.forEach((post) => {
         urls.push({
           loc: `${baseUrl}/blog/${post.slug}`,
-          lastmod: new Date(post.updated_at).toISOString().split('T')[0],
-          priority: '0.7',
+          lastmod: new Date(post.updated_at).toISOString().split("T")[0],
+          priority: "0.7",
         });
       });
     }
@@ -119,23 +126,23 @@ Deno.serve(async (req) => {
     // Add blog index
     urls.push({
       loc: `${baseUrl}/blog`,
-      lastmod: new Date().toISOString().split('T')[0],
-      priority: '0.8',
+      lastmod: new Date().toISOString().split("T")[0],
+      priority: "0.8",
     });
 
     // Add published case studies
     const { data: caseStudies } = await supabase
-      .from('case_studies')
-      .select('slug, updated_at')
-      .eq('publish_state', 'published')
-      .order('updated_at', { ascending: false });
+      .from("case_studies")
+      .select("slug, updated_at")
+      .eq("publish_state", "published")
+      .order("updated_at", { ascending: false });
 
     if (caseStudies) {
-      caseStudies.forEach(study => {
+      caseStudies.forEach((study) => {
         urls.push({
           loc: `${baseUrl}/case-studies/${study.slug}`,
-          lastmod: new Date(study.updated_at).toISOString().split('T')[0],
-          priority: '0.7',
+          lastmod: new Date(study.updated_at).toISOString().split("T")[0],
+          priority: "0.7",
         });
       });
     }
@@ -143,23 +150,23 @@ Deno.serve(async (req) => {
     // Add case studies index
     urls.push({
       loc: `${baseUrl}/case-studies`,
-      lastmod: new Date().toISOString().split('T')[0],
-      priority: '0.8',
+      lastmod: new Date().toISOString().split("T")[0],
+      priority: "0.8",
     });
 
     // Add published projects
     const { data: projects } = await supabase
-      .from('projects')
-      .select('slug, updated_at')
-      .eq('publish_state', 'published')
-      .order('updated_at', { ascending: false });
+      .from("projects")
+      .select("slug, updated_at")
+      .eq("publish_state", "published")
+      .order("updated_at", { ascending: false });
 
     if (projects) {
-      projects.forEach(project => {
+      projects.forEach((project) => {
         urls.push({
           loc: `${baseUrl}/projects/${project.slug}`,
-          lastmod: new Date(project.updated_at).toISOString().split('T')[0],
-          priority: '0.7',
+          lastmod: new Date(project.updated_at).toISOString().split("T")[0],
+          priority: "0.7",
         });
       });
     }
@@ -167,23 +174,23 @@ Deno.serve(async (req) => {
     // Add projects index
     urls.push({
       loc: `${baseUrl}/projects`,
-      lastmod: new Date().toISOString().split('T')[0],
-      priority: '0.8',
+      lastmod: new Date().toISOString().split("T")[0],
+      priority: "0.8",
     });
 
     // Add published services
     const { data: services } = await supabase
-      .from('services')
-      .select('slug, updated_at')
-      .eq('publish_state', 'published')
-      .order('updated_at', { ascending: false });
+      .from("services")
+      .select("slug, updated_at")
+      .eq("publish_state", "published")
+      .order("updated_at", { ascending: false });
 
     if (services) {
-      services.forEach(service => {
+      services.forEach((service) => {
         urls.push({
           loc: `${baseUrl}/services/${service.slug}`,
-          lastmod: new Date(service.updated_at).toISOString().split('T')[0],
-          priority: '0.85',
+          lastmod: new Date(service.updated_at).toISOString().split("T")[0],
+          priority: "0.85",
         });
       });
     }
@@ -191,27 +198,30 @@ Deno.serve(async (req) => {
     // Generate XML
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(url => `  <url>
+${urls
+  .map(
+    (url) => `  <url>
     <loc>${url.loc}</loc>
     <lastmod>${url.lastmod}</lastmod>
     <priority>${url.priority}</priority>
-  </url>`).join('\n')}
+  </url>`,
+  )
+  .join("\n")}
 </urlset>`;
 
     console.log(`Sitemap generated with ${urls.length} URLs`);
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         success: true,
         url_count: urls.length,
         sitemap,
       }),
-      { 
-        status: 200, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      }
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
     );
-
   } catch (error: any) {
     return createErrorResponse(error);
   }

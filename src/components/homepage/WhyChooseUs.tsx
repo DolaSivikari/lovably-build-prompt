@@ -1,4 +1,11 @@
-import { BadgeCheck, Building2, ShieldCheck, Clock, Users, Award } from "lucide-react";
+import {
+  BadgeCheck,
+  Building2,
+  ShieldCheck,
+  Clock,
+  Users,
+  Award,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
@@ -46,14 +53,15 @@ const WhyChooseUs = () => {
   return (
     <section className="py-20 md:py-24 bg-muted/30">
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-        
         {/* Section Header - Enterprise Style */}
         <div className="max-w-3xl mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
             Why Partner With Ascent Group
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            With over 15 years of proven expertise serving Ontario, we deliver exceptional construction results through licensed professionals, comprehensive capabilities, and unwavering commitment to quality.
+            With over 15 years of proven expertise serving Ontario, we deliver
+            exceptional construction results through licensed professionals,
+            comprehensive capabilities, and unwavering commitment to quality.
           </p>
         </div>
 
@@ -78,7 +86,7 @@ const WhyChooseUs = () => {
                     <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground leading-tight">
                       {item.title}
                     </h3>
-                    
+
                     <p className="text-base text-muted-foreground mb-6 leading-relaxed">
                       {item.desc}
                     </p>
@@ -104,13 +112,24 @@ const WhyChooseUs = () => {
                 Ready to Start Your Project?
               </h3>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Get a detailed proposal for your construction project with transparent pricing and comprehensive scope documentation.
+                Get a detailed proposal for your construction project with
+                transparent pricing and comprehensive scope documentation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" variant="primary" className="min-w-[200px]">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="primary"
+                  className="min-w-[200px]"
+                >
                   <Link to="/contact">Request Proposal</Link>
                 </Button>
-                <Button asChild size="lg" variant="secondary" className="min-w-[200px]">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="secondary"
+                  className="min-w-[200px]"
+                >
                   <Link to="/projects">View Portfolio</Link>
                 </Button>
               </div>

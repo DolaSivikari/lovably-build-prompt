@@ -1,8 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { 
-  Search, Clock, TrendingUp, X, Building2, Wrench, Target, 
-  Briefcase, Shield, ChevronRight, Sparkles
+import {
+  Search,
+  Clock,
+  TrendingUp,
+  X,
+  Building2,
+  Wrench,
+  Target,
+  Briefcase,
+  Shield,
+  ChevronRight,
+  Sparkles,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -32,20 +41,19 @@ export function DesktopFooterMega({
   projectLinks,
   certifications,
   displayTrustItems,
-  trustBarItems
+  trustBarItems,
 }: DesktopFooterMegaProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
-  
-  const { history, trackNavigation, getRecentlyViewed } = useNavigationHistory();
+
+  const { history, trackNavigation, getRecentlyViewed } =
+    useNavigationHistory();
   const { recommendations } = useRecommendations();
   const { popularSearches } = usePopularSearches();
-  const { 
-    setSearchQuery: setNavSearchQuery,
-    filteredResults 
-  } = useNavigationSearch();
+  const { setSearchQuery: setNavSearchQuery, filteredResults } =
+    useNavigationSearch();
 
   // Sync search with navigation search
   const handleSearchChange = (value: string) => {
@@ -65,7 +73,10 @@ export function DesktopFooterMega({
   // Close search results when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
         setSearchFocused(false);
       }
     };
@@ -76,15 +87,17 @@ export function DesktopFooterMega({
 
   const recentlyViewed = getRecentlyViewed(5);
   const hasSearchResults = searchQuery.length > 0;
-  const showSearchDropdown = searchFocused && (hasSearchResults || recentlyViewed.length > 0 || popularSearches.length > 0);
+  const showSearchDropdown =
+    searchFocused &&
+    (hasSearchResults ||
+      recentlyViewed.length > 0 ||
+      popularSearches.length > 0);
 
   return (
     <div className="hidden md:block">
       <div className="grid grid-cols-12 gap-8 mb-12">
-        
         {/* Main Content - 9 columns */}
         <div className="col-span-9 space-y-8">
-          
           {/* Search Bar with Dropdown */}
           <div className="relative" ref={searchRef}>
             <div className="relative group">
@@ -114,7 +127,6 @@ export function DesktopFooterMega({
             {/* Search Dropdown */}
             {showSearchDropdown && (
               <Card className="absolute top-full mt-2 w-full p-4 shadow-2xl border-2 border-primary/10 z-50 max-h-[500px] overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
-                
                 {/* Search Results */}
                 {hasSearchResults ? (
                   <div className="space-y-2">
@@ -123,11 +135,12 @@ export function DesktopFooterMega({
                         {filteredResults.length} results found
                       </p>
                     </div>
-                    
+
                     {filteredResults.length > 0 ? (
                       <div className="space-y-1">
                         {filteredResults.map((result, index) => {
-                          const Icon = NAVIGATION_ICONS[result.link] || Briefcase;
+                          const Icon =
+                            NAVIGATION_ICONS[result.link] || Briefcase;
                           return (
                             <Link
                               key={`${result.link}-${index}`}
@@ -150,7 +163,10 @@ export function DesktopFooterMega({
                                       {result.name}
                                     </span>
                                     {result.badge && (
-                                      <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-5">
+                                      <Badge
+                                        variant="secondary"
+                                        className="text-[10px] px-1.5 py-0 h-5"
+                                      >
                                         {result.badge}
                                       </Badge>
                                     )}
@@ -158,11 +174,12 @@ export function DesktopFooterMega({
                                   <div className="text-xs text-muted-foreground mt-0.5">
                                     {result.category} • {result.section}
                                   </div>
-                                  {hoveredLink === result.link && NAVIGATION_DESCRIPTIONS[result.link] && (
-                                    <p className="text-xs text-muted-foreground/80 mt-1 animate-in fade-in slide-in-from-top-1 duration-200">
-                                      {NAVIGATION_DESCRIPTIONS[result.link]}
-                                    </p>
-                                  )}
+                                  {hoveredLink === result.link &&
+                                    NAVIGATION_DESCRIPTIONS[result.link] && (
+                                      <p className="text-xs text-muted-foreground/80 mt-1 animate-in fade-in slide-in-from-top-1 duration-200">
+                                        {NAVIGATION_DESCRIPTIONS[result.link]}
+                                      </p>
+                                    )}
                                 </div>
                                 <ChevronRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-0.5" />
                               </div>
@@ -189,7 +206,8 @@ export function DesktopFooterMega({
                         </div>
                         <div className="space-y-1">
                           {recentlyViewed.map((item, index) => {
-                            const Icon = NAVIGATION_ICONS[item.path] || Briefcase;
+                            const Icon =
+                              NAVIGATION_ICONS[item.path] || Briefcase;
                             return (
                               <Link
                                 key={`${item.path}-${index}`}
@@ -236,7 +254,9 @@ export function DesktopFooterMega({
                               className="px-3 py-1.5 bg-muted/50 hover:bg-muted rounded-full text-xs font-medium text-foreground hover:text-primary transition-all hover:scale-105"
                             >
                               {search.query}
-                              <span className="ml-1.5 text-muted-foreground">({search.count})</span>
+                              <span className="ml-1.5 text-muted-foreground">
+                                ({search.count})
+                              </span>
                             </button>
                           ))}
                         </div>
@@ -250,7 +270,6 @@ export function DesktopFooterMega({
 
           {/* Main Grid - 4 columns */}
           <div className="grid grid-cols-4 gap-6">
-            
             {/* Company Column */}
             <div className="space-y-4">
               <div className="flex items-center gap-2 mb-3">
@@ -265,15 +284,17 @@ export function DesktopFooterMega({
                 <ul className="space-y-2">
                   {companyLinks.map((link, index) => (
                     <li key={index}>
-                      <Link 
+                      <Link
                         to={link.href}
-                        onClick={() => handleLinkClick(link.label, 'Company')}
+                        onClick={() => handleLinkClick(link.label, "Company")}
                         onMouseEnter={() => setHoveredLink(link.href)}
                         onMouseLeave={() => setHoveredLink(null)}
                         className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-all py-1"
                       >
                         <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all" />
-                        <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
+                        <span className="group-hover:translate-x-1 transition-transform">
+                          {link.label}
+                        </span>
                       </Link>
                     </li>
                   ))}
@@ -290,25 +311,35 @@ export function DesktopFooterMega({
                 <h3 className="text-xs font-bold text-primary uppercase tracking-wider">
                   Services
                 </h3>
-                <Badge variant="secondary" className="ml-auto text-[10px] px-1.5 py-0 h-5">
+                <Badge
+                  variant="secondary"
+                  className="ml-auto text-[10px] px-1.5 py-0 h-5"
+                >
                   {services.length}
                 </Badge>
               </div>
               <nav>
                 <ul className="space-y-2 max-h-[300px] overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-primary/50">
                   {services.map((service, index) => {
-                    const Icon = NAVIGATION_ICONS[`/services/${service.slug}`] || Wrench;
+                    const Icon =
+                      NAVIGATION_ICONS[`/services/${service.slug}`] || Wrench;
                     return (
                       <li key={index}>
-                        <Link 
+                        <Link
                           to={`/services/${service.slug}`}
-                          onClick={() => handleLinkClick(service.name, 'Services')}
-                          onMouseEnter={() => setHoveredLink(`/services/${service.slug}`)}
+                          onClick={() =>
+                            handleLinkClick(service.name, "Services")
+                          }
+                          onMouseEnter={() =>
+                            setHoveredLink(`/services/${service.slug}`)
+                          }
                           onMouseLeave={() => setHoveredLink(null)}
                           className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-all py-1"
                         >
                           <Icon className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-opacity flex-shrink-0" />
-                          <span className="group-hover:translate-x-1 transition-transform line-clamp-1">{service.name}</span>
+                          <span className="group-hover:translate-x-1 transition-transform line-clamp-1">
+                            {service.name}
+                          </span>
                         </Link>
                       </li>
                     );
@@ -331,15 +362,17 @@ export function DesktopFooterMega({
                 <ul className="space-y-2">
                   {marketLinks.map((link, index) => (
                     <li key={index}>
-                      <Link 
+                      <Link
                         to={link.href}
-                        onClick={() => handleLinkClick(link.label, 'Markets')}
+                        onClick={() => handleLinkClick(link.label, "Markets")}
                         onMouseEnter={() => setHoveredLink(link.href)}
                         onMouseLeave={() => setHoveredLink(null)}
                         className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-all py-1"
                       >
                         <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all" />
-                        <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
+                        <span className="group-hover:translate-x-1 transition-transform">
+                          {link.label}
+                        </span>
                       </Link>
                     </li>
                   ))}
@@ -361,15 +394,17 @@ export function DesktopFooterMega({
                 <ul className="space-y-2">
                   {projectLinks.map((link, index) => (
                     <li key={index}>
-                      <Link 
+                      <Link
                         to={link.href}
-                        onClick={() => handleLinkClick(link.label, 'Projects')}
+                        onClick={() => handleLinkClick(link.label, "Projects")}
                         onMouseEnter={() => setHoveredLink(link.href)}
                         onMouseLeave={() => setHoveredLink(null)}
                         className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-all py-1"
                       >
                         <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all" />
-                        <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
+                        <span className="group-hover:translate-x-1 transition-transform">
+                          {link.label}
+                        </span>
                       </Link>
                     </li>
                   ))}
@@ -381,7 +416,6 @@ export function DesktopFooterMega({
 
         {/* Sidebar - 3 columns */}
         <div className="col-span-3 space-y-6">
-          
           {/* Recommendations Card */}
           {recommendations.length > 0 && (
             <Card className="p-5 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 border-primary/20">
@@ -409,7 +443,9 @@ export function DesktopFooterMega({
                           <div className="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-1">
                             {rec.name}
                           </div>
-                          <div className="text-xs text-muted-foreground">{rec.category}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {rec.category}
+                          </div>
                         </div>
                         <ChevronRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                       </div>
@@ -425,21 +461,25 @@ export function DesktopFooterMega({
             <div className="flex items-center gap-2 mb-4">
               <Shield className="h-4 w-4 text-primary" />
               <h3 className="text-xs font-bold text-primary uppercase tracking-wider">
-                {displayTrustItems ? 'Credentials' : 'Certifications'}
+                {displayTrustItems ? "Credentials" : "Certifications"}
               </h3>
             </div>
             <div className="space-y-3">
               {displayTrustItems ? (
                 <>
                   {trustBarItems.map((item, index) => (
-                    <div 
-                      key={index} 
+                    <div
+                      key={index}
                       className="flex items-start gap-3 p-2.5 bg-muted/30 rounded-md hover:bg-muted/50 transition-colors group"
                     >
                       <Shield className="w-4 h-4 text-accent flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                       <div>
-                        <div className="text-xs font-semibold text-foreground">{item.label}</div>
-                        <div className="text-[10px] text-muted-foreground mt-0.5">{item.value}</div>
+                        <div className="text-xs font-semibold text-foreground">
+                          {item.label}
+                        </div>
+                        <div className="text-[10px] text-muted-foreground mt-0.5">
+                          {item.value}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -449,14 +489,18 @@ export function DesktopFooterMega({
                   {certifications.map((cert, index) => {
                     const Icon = cert.icon;
                     return (
-                      <div 
-                        key={index} 
+                      <div
+                        key={index}
                         className="flex items-start gap-3 p-2.5 bg-muted/30 rounded-md hover:bg-muted/50 transition-colors group"
                       >
                         <Icon className="w-4 h-4 text-accent flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                         <div>
-                          <div className="text-xs font-semibold text-foreground">{cert.title}</div>
-                          <div className="text-[10px] text-muted-foreground mt-0.5">{cert.subtitle}</div>
+                          <div className="text-xs font-semibold text-foreground">
+                            {cert.title}
+                          </div>
+                          <div className="text-[10px] text-muted-foreground mt-0.5">
+                            {cert.subtitle}
+                          </div>
                         </div>
                       </div>
                     );

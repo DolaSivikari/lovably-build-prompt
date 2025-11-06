@@ -29,7 +29,11 @@ interface AboutPageSettings {
   values: Array<{ icon: string; title: string; description: string }>;
   sustainability_headline: string;
   sustainability_commitment: string | null;
-  sustainability_initiatives: Array<{ title: string; description: string; impact: string }>;
+  sustainability_initiatives: Array<{
+    title: string;
+    description: string;
+    impact: string;
+  }>;
   safety_headline: string;
   safety_commitment: string | null;
   safety_stats: Array<{ value: string; label: string }>;
@@ -47,7 +51,7 @@ interface AboutPageSettings {
 const AboutPageSettings = () => {
   const { toast } = useToast();
   const { isLoading: authLoading } = useAdminAuth();
-  
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState<AboutPageSettings | null>(null);
@@ -59,17 +63,17 @@ const AboutPageSettings = () => {
   const loadSettings = async () => {
     try {
       const { data, error } = await supabase
-        .from('about_page_settings')
-        .select('*')
-        .eq('is_active', true)
+        .from("about_page_settings")
+        .select("*")
+        .eq("is_active", true)
         .single();
 
       if (error) throw error;
-      
+
       // Parse JSONB fields - cast data directly since types match
       setSettings(data as any);
     } catch (error) {
-      console.error('Error loading settings:', error);
+      console.error("Error loading settings:", error);
       toast({
         title: "Error",
         description: "Failed to load About page settings",
@@ -85,13 +89,15 @@ const AboutPageSettings = () => {
 
     setSaving(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
       // Deactivate all existing active rows
       await supabase
-        .from('about_page_settings')
+        .from("about_page_settings")
         .update({ is_active: false })
-        .eq('is_active', true);
+        .eq("is_active", true);
 
       const settingsData = {
         years_in_business: settings.years_in_business,
@@ -125,14 +131,14 @@ const AboutPageSettings = () => {
 
       if (settings.id) {
         const { error } = await supabase
-          .from('about_page_settings')
+          .from("about_page_settings")
           .update(settingsData)
-          .eq('id', settings.id);
+          .eq("id", settings.id);
         if (error) throw error;
       } else {
         // Create if doesn't exist
         const { error } = await supabase
-          .from('about_page_settings')
+          .from("about_page_settings")
           .insert([{ ...settingsData, created_by: user?.id }]);
         if (error) throw error;
       }
@@ -143,7 +149,7 @@ const AboutPageSettings = () => {
       });
       loadSettings(); // Reload
     } catch (error) {
-      console.error('Error saving settings:', error);
+      console.error("Error saving settings:", error);
       toast({
         title: "Error",
         description: "Failed to save settings",
@@ -156,7 +162,10 @@ const AboutPageSettings = () => {
 
   if (authLoading || loading || !settings) {
     return (
-      <AdminPageLayout title="About Page Settings" description="Configure content for the About Us page">
+      <AdminPageLayout
+        title="About Page Settings"
+        description="Configure content for the About Us page"
+      >
         <div className="flex items-center justify-center p-8">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
@@ -171,14 +180,21 @@ const AboutPageSettings = () => {
       actions={
         <Button onClick={handleSave} disabled={saving}>
           <Save className="h-4 w-4 mr-2" />
-          {saving ? 'Saving...' : 'Save Changes'}
+          {saving ? "Saving..." : "Save Changes"}
         </Button>
       }
     >
-      <Accordion type="single" collapsible defaultValue="header-stats" className="space-y-4">
+      <Accordion
+        type="single"
+        collapsible
+        defaultValue="header-stats"
+        className="space-y-4"
+      >
         {/* Header Stats */}
         <AccordionItem value="header-stats">
-          <AccordionTrigger className="text-lg font-semibold">Header Stats</AccordionTrigger>
+          <AccordionTrigger className="text-lg font-semibold">
+            Header Stats
+          </AccordionTrigger>
           <AccordionContent>
             <Card>
               <CardContent className="pt-6 space-y-4">
@@ -188,7 +204,12 @@ const AboutPageSettings = () => {
                     <Input
                       type="number"
                       value={settings.years_in_business}
-                      onChange={(e) => setSettings({ ...settings, years_in_business: parseInt(e.target.value) })}
+                      onChange={(e) =>
+                        setSettings({
+                          ...settings,
+                          years_in_business: parseInt(e.target.value),
+                        })
+                      }
                     />
                   </div>
                   <div>
@@ -196,7 +217,12 @@ const AboutPageSettings = () => {
                     <Input
                       type="number"
                       value={settings.total_projects}
-                      onChange={(e) => setSettings({ ...settings, total_projects: parseInt(e.target.value) })}
+                      onChange={(e) =>
+                        setSettings({
+                          ...settings,
+                          total_projects: parseInt(e.target.value),
+                        })
+                      }
                     />
                   </div>
                   <div>
@@ -204,7 +230,12 @@ const AboutPageSettings = () => {
                     <Input
                       type="number"
                       value={settings.satisfaction_rate}
-                      onChange={(e) => setSettings({ ...settings, satisfaction_rate: parseInt(e.target.value) })}
+                      onChange={(e) =>
+                        setSettings({
+                          ...settings,
+                          satisfaction_rate: parseInt(e.target.value),
+                        })
+                      }
                     />
                   </div>
                 </div>
@@ -215,7 +246,9 @@ const AboutPageSettings = () => {
 
         {/* Company Story */}
         <AccordionItem value="story">
-          <AccordionTrigger className="text-lg font-semibold">Company Story</AccordionTrigger>
+          <AccordionTrigger className="text-lg font-semibold">
+            Company Story
+          </AccordionTrigger>
           <AccordionContent>
             <Card>
               <CardContent className="pt-6 space-y-4">
@@ -223,29 +256,49 @@ const AboutPageSettings = () => {
                   <Label>Story Headline</Label>
                   <Input
                     value={settings.story_headline}
-                    onChange={(e) => setSettings({ ...settings, story_headline: e.target.value })}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        story_headline: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div>
                   <Label>Story Paragraphs (one per line)</Label>
                   <Textarea
                     rows={6}
-                    value={settings.story_content.join('\n\n')}
-                    onChange={(e) => setSettings({ ...settings, story_content: e.target.value.split('\n\n') })}
+                    value={settings.story_content.join("\n\n")}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        story_content: e.target.value.split("\n\n"),
+                      })
+                    }
                   />
                 </div>
                 <div>
                   <Label>Promise Title</Label>
                   <Input
                     value={settings.story_promise_title}
-                    onChange={(e) => setSettings({ ...settings, story_promise_title: e.target.value })}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        story_promise_title: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div>
                   <Label>Promise Text</Label>
                   <Input
-                    value={settings.story_promise_text || ''}
-                    onChange={(e) => setSettings({ ...settings, story_promise_text: e.target.value })}
+                    value={settings.story_promise_text || ""}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        story_promise_text: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </CardContent>
@@ -255,7 +308,9 @@ const AboutPageSettings = () => {
 
         {/* CTA Section */}
         <AccordionItem value="cta">
-          <AccordionTrigger className="text-lg font-semibold">Call-to-Action Section</AccordionTrigger>
+          <AccordionTrigger className="text-lg font-semibold">
+            Call-to-Action Section
+          </AccordionTrigger>
           <AccordionContent>
             <Card>
               <CardContent className="pt-6 space-y-4">
@@ -263,14 +318,21 @@ const AboutPageSettings = () => {
                   <Label>CTA Headline</Label>
                   <Input
                     value={settings.cta_headline}
-                    onChange={(e) => setSettings({ ...settings, cta_headline: e.target.value })}
+                    onChange={(e) =>
+                      setSettings({ ...settings, cta_headline: e.target.value })
+                    }
                   />
                 </div>
                 <div>
                   <Label>CTA Subheadline</Label>
                   <Input
-                    value={settings.cta_subheadline || ''}
-                    onChange={(e) => setSettings({ ...settings, cta_subheadline: e.target.value })}
+                    value={settings.cta_subheadline || ""}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        cta_subheadline: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </CardContent>
@@ -280,58 +342,89 @@ const AboutPageSettings = () => {
 
         {/* Credentials Section */}
         <AccordionItem value="credentials">
-          <AccordionTrigger className="text-lg font-semibold">Credentials & Insurance</AccordionTrigger>
+          <AccordionTrigger className="text-lg font-semibold">
+            Credentials & Insurance
+          </AccordionTrigger>
           <AccordionContent>
             <Card>
               <CardContent className="pt-6 space-y-6">
                 <div>
                   <Label>Credentials CTA Headline</Label>
                   <Input
-                    value={settings.credentials_cta_headline || 'Our Credentials'}
-                    onChange={(e) => setSettings({ ...settings, credentials_cta_headline: e.target.value })}
+                    value={
+                      settings.credentials_cta_headline || "Our Credentials"
+                    }
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        credentials_cta_headline: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div>
                   <Label>Credentials CTA Text</Label>
                   <Input
-                    value={settings.credentials_cta_text || ''}
-                    onChange={(e) => setSettings({ ...settings, credentials_cta_text: e.target.value })}
+                    value={settings.credentials_cta_text || ""}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        credentials_cta_text: e.target.value,
+                      })
+                    }
                   />
                 </div>
-                
+
                 <div className="pt-4 border-t">
-                  <Label className="text-base font-semibold">Insurance Coverage</Label>
+                  <Label className="text-base font-semibold">
+                    Insurance Coverage
+                  </Label>
                   <div className="grid grid-cols-3 gap-4 mt-3">
                     <div>
                       <Label className="text-sm">Liability Coverage</Label>
                       <Input
-                        value={settings.insurance?.liability || ''}
-                        onChange={(e) => setSettings({ 
-                          ...settings, 
-                          insurance: { ...settings.insurance, liability: e.target.value }
-                        })}
+                        value={settings.insurance?.liability || ""}
+                        onChange={(e) =>
+                          setSettings({
+                            ...settings,
+                            insurance: {
+                              ...settings.insurance,
+                              liability: e.target.value,
+                            },
+                          })
+                        }
                         placeholder="$5,000,000"
                       />
                     </div>
                     <div>
                       <Label className="text-sm">WSIB Coverage</Label>
                       <Input
-                        value={settings.insurance?.wsib || ''}
-                        onChange={(e) => setSettings({ 
-                          ...settings, 
-                          insurance: { ...settings.insurance, wsib: e.target.value }
-                        })}
+                        value={settings.insurance?.wsib || ""}
+                        onChange={(e) =>
+                          setSettings({
+                            ...settings,
+                            insurance: {
+                              ...settings.insurance,
+                              wsib: e.target.value,
+                            },
+                          })
+                        }
                         placeholder="Active"
                       />
                     </div>
                     <div>
                       <Label className="text-sm">Bonding</Label>
                       <Input
-                        value={settings.insurance?.bonding || ''}
-                        onChange={(e) => setSettings({ 
-                          ...settings, 
-                          insurance: { ...settings.insurance, bonding: e.target.value }
-                        })}
+                        value={settings.insurance?.bonding || ""}
+                        onChange={(e) =>
+                          setSettings({
+                            ...settings,
+                            insurance: {
+                              ...settings.insurance,
+                              bonding: e.target.value,
+                            },
+                          })
+                        }
                         placeholder="Available"
                       />
                     </div>
@@ -339,13 +432,18 @@ const AboutPageSettings = () => {
                 </div>
 
                 <div className="pt-4 border-t">
-                  <Label className="text-base font-semibold">Licenses (JSON format)</Label>
+                  <Label className="text-base font-semibold">
+                    Licenses (JSON format)
+                  </Label>
                   <Textarea
                     rows={6}
                     value={JSON.stringify(settings.licenses || [], null, 2)}
                     onChange={(e) => {
                       try {
-                        setSettings({ ...settings, licenses: JSON.parse(e.target.value) });
+                        setSettings({
+                          ...settings,
+                          licenses: JSON.parse(e.target.value),
+                        });
                       } catch (err) {
                         // Invalid JSON, don't update
                       }
@@ -356,26 +454,41 @@ const AboutPageSettings = () => {
                 </div>
 
                 <div className="pt-4 border-t">
-                  <Label className="text-base font-semibold">Memberships (one per line)</Label>
+                  <Label className="text-base font-semibold">
+                    Memberships (one per line)
+                  </Label>
                   <Textarea
                     rows={4}
-                    value={(settings.memberships || []).join('\n')}
-                    onChange={(e) => setSettings({ 
-                      ...settings, 
-                      memberships: e.target.value.split('\n').filter(m => m.trim())
-                    })}
+                    value={(settings.memberships || []).join("\n")}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        memberships: e.target.value
+                          .split("\n")
+                          .filter((m) => m.trim()),
+                      })
+                    }
                     placeholder="Ontario General Contractors Association&#10;Toronto Construction Association"
                   />
                 </div>
 
                 <div className="pt-4 border-t">
-                  <Label className="text-base font-semibold">Certifications (JSON format)</Label>
+                  <Label className="text-base font-semibold">
+                    Certifications (JSON format)
+                  </Label>
                   <Textarea
                     rows={6}
-                    value={JSON.stringify(settings.certifications || [], null, 2)}
+                    value={JSON.stringify(
+                      settings.certifications || [],
+                      null,
+                      2,
+                    )}
                     onChange={(e) => {
                       try {
-                        setSettings({ ...settings, certifications: JSON.parse(e.target.value) });
+                        setSettings({
+                          ...settings,
+                          certifications: JSON.parse(e.target.value),
+                        });
                       } catch (err) {
                         // Invalid JSON, don't update
                       }

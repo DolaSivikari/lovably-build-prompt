@@ -12,7 +12,7 @@ interface UseImageLoadReturn {
 }
 
 export const useImageLoad = (
-  options: UseImageLoadOptions = {}
+  options: UseImageLoadOptions = {},
 ): UseImageLoadReturn => {
   const [isInView, setIsInView] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -33,7 +33,7 @@ export const useImageLoad = (
       {
         rootMargin: options.rootMargin || "50px",
         threshold: options.threshold || 0.01,
-      }
+      },
     );
 
     observer.observe(element);
@@ -46,7 +46,7 @@ export const useImageLoad = (
     if (!element || !isInView) return;
 
     const handleLoad = () => setIsLoaded(true);
-    
+
     if (element.complete) {
       setIsLoaded(true);
     } else {

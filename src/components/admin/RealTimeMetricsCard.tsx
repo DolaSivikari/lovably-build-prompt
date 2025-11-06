@@ -1,14 +1,20 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { useEffect, useState, useCallback } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface MetricData {
   value: number;
   change: number;
   changePercent: number;
-  trend: 'up' | 'down' | 'neutral';
+  trend: "up" | "down" | "neutral";
   sparklineData: number[];
 }
 
@@ -35,14 +41,16 @@ export const RealTimeMetricsCard = ({
     value: 0,
     change: 0,
     changePercent: 0,
-    trend: 'neutral',
+    trend: "neutral",
     sparklineData: [],
   });
   const [isLoading, setIsLoading] = useState(true);
 
   const loadMetric = useCallback(async () => {
     try {
-      let query = supabase.from(table as any).select('*', { count: 'exact', head: true });
+      let query = supabase
+        .from(table as any)
+        .select("*", { count: "exact", head: true });
 
       if (statusField && statusFilter) {
         query = query.eq(statusField, statusFilter);
@@ -58,23 +66,26 @@ export const RealTimeMetricsCard = ({
         // Calculate change
         const previousValue = prev.value > 0 ? prev.value : currentValue;
         const change = currentValue - previousValue;
-        const changePercent = previousValue > 0 ? (change / previousValue) * 100 : 0;
+        const changePercent =
+          previousValue > 0 ? (change / previousValue) * 100 : 0;
 
         // Update sparkline data
-        const newSparklineData = [...prev.sparklineData, currentValue].slice(-7);
+        const newSparklineData = [...prev.sparklineData, currentValue].slice(
+          -7,
+        );
 
         return {
           value: currentValue,
           change,
           changePercent,
-          trend: change > 0 ? 'up' : change < 0 ? 'down' : 'neutral',
+          trend: change > 0 ? "up" : change < 0 ? "down" : "neutral",
           sparklineData: newSparklineData,
         };
       });
 
       setIsLoading(false);
     } catch (error) {
-      console.error('Error loading metric:', error);
+      console.error("Error loading metric:", error);
       setIsLoading(false);
     }
   }, [table, statusField, statusFilter]);
@@ -86,15 +97,15 @@ export const RealTimeMetricsCard = ({
     const channel = supabase
       .channel(`${table}-metrics-${Math.random()}`)
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
+          event: "*",
+          schema: "public",
           table: table,
         },
         () => {
           loadMetric();
-        }
+        },
       )
       .subscribe();
 
@@ -109,9 +120,9 @@ export const RealTimeMetricsCard = ({
 
   const getTrendIcon = () => {
     switch (metric.trend) {
-      case 'up':
+      case "up":
         return <TrendingUp className="h-4 w-4 text-green-600" />;
-      case 'down':
+      case "down":
         return <TrendingDown className="h-4 w-4 text-red-600" />;
       default:
         return <Minus className="h-4 w-4 text-muted-foreground" />;
@@ -120,12 +131,12 @@ export const RealTimeMetricsCard = ({
 
   const getTrendColor = () => {
     switch (metric.trend) {
-      case 'up':
-        return 'text-green-600';
-      case 'down':
-        return 'text-red-600';
+      case "up":
+        return "text-green-600";
+      case "down":
+        return "text-red-600";
       default:
-        return 'text-muted-foreground';
+        return "text-muted-foreground";
     }
   };
 
@@ -140,14 +151,21 @@ export const RealTimeMetricsCard = ({
             <div>
               <CardTitle className="text-sm font-medium">{title}</CardTitle>
               {description && (
-                <CardDescription className="text-xs mt-1">{description}</CardDescription>
+                <CardDescription className="text-xs mt-1">
+                  {description}
+                </CardDescription>
               )}
             </div>
           </div>
-          {metric.trend !== 'neutral' && (
-            <Badge variant={metric.trend === 'up' ? 'default' : 'destructive'} className="text-xs">
+          {metric.trend !== "neutral" && (
+            <Badge
+              variant={metric.trend === "up" ? "default" : "destructive"}
+              className="text-xs"
+            >
               {getTrendIcon()}
-              <span className="ml-1">{Math.abs(metric.changePercent).toFixed(1)}%</span>
+              <span className="ml-1">
+                {Math.abs(metric.changePercent).toFixed(1)}%
+              </span>
             </Badge>
           )}
         </div>
@@ -156,11 +174,11 @@ export const RealTimeMetricsCard = ({
         <div className="space-y-2">
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-bold">
-              {isLoading ? '—' : metric.value.toLocaleString()}
+              {isLoading ? "—" : metric.value.toLocaleString()}
             </span>
             {metric.change !== 0 && (
               <span className={`text-sm font-medium ${getTrendColor()}`}>
-                {metric.change > 0 ? '+' : ''}
+                {metric.change > 0 ? "+" : ""}
                 {metric.change}
               </span>
             )}
@@ -176,7 +194,7 @@ export const RealTimeMetricsCard = ({
                   <div
                     key={index}
                     className="flex-1 bg-primary/20 rounded-t transition-all"
-                    style={{ height: `${height}%`, minHeight: '4px' }}
+                    style={{ height: `${height}%`, minHeight: "4px" }}
                   />
                 );
               })}

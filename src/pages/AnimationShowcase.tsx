@@ -1,7 +1,12 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { PageTransition, ParallaxSection, ScrollReveal, StaggerContainer } from "@/components/animations";
+import {
+  PageTransition,
+  ParallaxSection,
+  ScrollReveal,
+  StaggerContainer,
+} from "@/components/animations";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
@@ -13,10 +18,26 @@ import { Zap, Sparkles, Wind, Eye } from "lucide-react";
  */
 const AnimationShowcase = () => {
   const features = [
-    { icon: Zap, title: "Fast Performance", description: "60fps animations using requestAnimationFrame" },
-    { icon: Sparkles, title: "Beautiful Effects", description: "Professional parallax and transitions" },
-    { icon: Wind, title: "Smooth Motion", description: "Optimized for all devices" },
-    { icon: Eye, title: "Accessible", description: "Respects reduced motion preferences" },
+    {
+      icon: Zap,
+      title: "Fast Performance",
+      description: "60fps animations using requestAnimationFrame",
+    },
+    {
+      icon: Sparkles,
+      title: "Beautiful Effects",
+      description: "Professional parallax and transitions",
+    },
+    {
+      icon: Wind,
+      title: "Smooth Motion",
+      description: "Optimized for all devices",
+    },
+    {
+      icon: Eye,
+      title: "Accessible",
+      description: "Respects reduced motion preferences",
+    },
   ];
 
   const cardItems = [
@@ -30,7 +51,7 @@ const AnimationShowcase = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEO 
+      <SEO
         title="Animation System Showcase"
         description="Comprehensive demonstration of parallax effects, stagger animations, and page transitions"
       />
@@ -39,32 +60,42 @@ const AnimationShowcase = () => {
       <PageTransition type="fade">
         <main className="flex-1">
           {/* Hero with Parallax Background */}
-          <ParallaxSection speed="slow" className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+          <ParallaxSection
+            speed="slow"
+            className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
+          >
             <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80 z-10" />
-            
+
             {/* Parallax decorative elements */}
             <div className="absolute top-20 right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl parallax-float" />
-            <div className="absolute bottom-20 left-20 w-96 h-96 bg-white/5 rounded-full blur-3xl parallax-float" style={{ animationDelay: '1s' }} />
-            
+            <div
+              className="absolute bottom-20 left-20 w-96 h-96 bg-white/5 rounded-full blur-3xl parallax-float"
+              style={{ animationDelay: "1s" }}
+            />
+
             <div className="relative z-20 container mx-auto px-4 text-center text-primary-foreground">
               <ScrollReveal direction="up">
                 <h1 className="text-4xl md:text-6xl font-bold mb-6">
                   Advanced Animation System
                 </h1>
               </ScrollReveal>
-              
+
               <ScrollReveal direction="up" delay={200}>
                 <p className="text-xl md:text-2xl mb-8 text-primary-foreground/90">
                   Parallax, stagger, transitions, and scroll reveals
                 </p>
               </ScrollReveal>
-              
+
               <ScrollReveal direction="up" delay={400}>
                 <div className="flex gap-4 justify-center">
                   <Button size="lg" variant="secondary">
                     View Components
                   </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-white text-white hover:bg-white/10"
+                  >
                     Read Docs
                   </Button>
                 </div>
@@ -77,7 +108,9 @@ const AnimationShowcase = () => {
             <div className="container mx-auto px-4">
               <ScrollReveal direction="up">
                 <div className="text-center mb-12">
-                  <Badge variant="primary" className="mb-4">Features</Badge>
+                  <Badge variant="primary" className="mb-4">
+                    Features
+                  </Badge>
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">
                     Why Use This Animation System?
                   </h2>
@@ -87,15 +120,25 @@ const AnimationShowcase = () => {
                 </div>
               </ScrollReveal>
 
-              <StaggerContainer type="scale" className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <StaggerContainer
+                type="scale"
+                className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+              >
                 {features.map((feature) => (
-                  <Card key={feature.title} className="text-center border-2 hover:border-primary/30 card-hover">
+                  <Card
+                    key={feature.title}
+                    className="text-center border-2 hover:border-primary/30 card-hover"
+                  >
                     <CardContent className="p-6">
                       <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 hover-scale-icon">
                         <feature.icon className="w-8 h-8 text-primary" />
                       </div>
-                      <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                      <h3 className="text-xl font-bold mb-2">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {feature.description}
+                      </p>
                     </CardContent>
                   </Card>
                 ))}
@@ -115,14 +158,16 @@ const AnimationShowcase = () => {
             <div className="container mx-auto px-4 relative z-10">
               <ScrollReveal direction="left">
                 <div className="max-w-3xl">
-                  <Badge variant="success" className="mb-4">Parallax Effect</Badge>
+                  <Badge variant="success" className="mb-4">
+                    Parallax Effect
+                  </Badge>
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">
                     Multi-Layer Depth
                   </h2>
                   <p className="text-lg text-muted-foreground mb-6">
-                    The background elements move at different speeds as you scroll, 
-                    creating an immersive 3D-like effect. This technique adds depth 
-                    and visual interest to your pages.
+                    The background elements move at different speeds as you
+                    scroll, creating an immersive 3D-like effect. This technique
+                    adds depth and visual interest to your pages.
                   </p>
                   <Button variant="primary">Learn More About Parallax</Button>
                 </div>
@@ -135,7 +180,9 @@ const AnimationShowcase = () => {
             <div className="container mx-auto px-4">
               <ScrollReveal direction="up">
                 <div className="text-center mb-12">
-                  <Badge variant="info" className="mb-4">Stagger Animations</Badge>
+                  <Badge variant="info" className="mb-4">
+                    Stagger Animations
+                  </Badge>
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">
                     Sequential Reveals
                   </h2>
@@ -145,14 +192,21 @@ const AnimationShowcase = () => {
                 </div>
               </ScrollReveal>
 
-              <StaggerContainer type="fade" className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <StaggerContainer
+                type="fade"
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
+              >
                 {cardItems.map((item) => (
-                  <Card key={item.id} className="overflow-hidden border-2 hover:border-primary/30 card-hover">
+                  <Card
+                    key={item.id}
+                    className="overflow-hidden border-2 hover:border-primary/30 card-hover"
+                  >
                     <div className={`h-32 bg-gradient-to-br ${item.color}`} />
                     <CardContent className="p-6">
                       <h3 className="text-xl font-bold">{item.title}</h3>
                       <p className="text-sm text-muted-foreground mt-2">
-                        Each card animates with a slight delay, creating a cascade effect
+                        Each card animates with a slight delay, creating a
+                        cascade effect
                       </p>
                     </CardContent>
                   </Card>
@@ -167,21 +221,25 @@ const AnimationShowcase = () => {
               <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
                 <ScrollReveal direction="left">
                   <Card className="p-8 border-2">
-                    <Badge variant="warning" className="mb-4">Scroll Reveal</Badge>
+                    <Badge variant="warning" className="mb-4">
+                      Scroll Reveal
+                    </Badge>
                     <h3 className="text-2xl font-bold mb-4">From Left</h3>
                     <p className="text-muted-foreground">
-                      Content slides in from the left side as you scroll down the page.
-                      Perfect for alternating content layouts.
+                      Content slides in from the left side as you scroll down
+                      the page. Perfect for alternating content layouts.
                     </p>
                   </Card>
                 </ScrollReveal>
 
                 <ScrollReveal direction="right" delay={200}>
                   <Card className="p-8 border-2">
-                    <Badge variant="success" className="mb-4">Scroll Reveal</Badge>
+                    <Badge variant="success" className="mb-4">
+                      Scroll Reveal
+                    </Badge>
                     <h3 className="text-2xl font-bold mb-4">From Right</h3>
                     <p className="text-muted-foreground">
-                      Content slides in from the right side, creating a balanced 
+                      Content slides in from the right side, creating a balanced
                       and dynamic scrolling experience.
                     </p>
                   </Card>
@@ -191,7 +249,9 @@ const AnimationShowcase = () => {
               <ScrollReveal direction="up" delay={400}>
                 <div className="text-center mt-12">
                   <Card className="inline-block p-8 border-2">
-                    <Badge variant="primary" className="mb-4">Scroll Reveal</Badge>
+                    <Badge variant="primary" className="mb-4">
+                      Scroll Reveal
+                    </Badge>
                     <h3 className="text-2xl font-bold mb-4">From Bottom</h3>
                     <p className="text-muted-foreground">
                       The classic reveal animation that fades and slides up.
@@ -207,7 +267,9 @@ const AnimationShowcase = () => {
             <div className="container mx-auto px-4">
               <ScrollReveal direction="up">
                 <div className="text-center mb-12">
-                  <Badge variant="danger" className="mb-4">Special Effects</Badge>
+                  <Badge variant="danger" className="mb-4">
+                    Special Effects
+                  </Badge>
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">
                     Advanced Animations
                   </h2>
@@ -264,7 +326,8 @@ const AnimationShowcase = () => {
                   Ready to Get Started?
                 </h2>
                 <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-                  Check out the complete documentation for implementation details and examples
+                  Check out the complete documentation for implementation
+                  details and examples
                 </p>
                 <Button size="lg" variant="secondary">
                   View Animation Guide

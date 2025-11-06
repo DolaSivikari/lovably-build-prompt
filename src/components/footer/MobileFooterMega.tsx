@@ -1,13 +1,29 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { 
-  Search, Clock, TrendingUp, X, Building2, Wrench, Target, 
-  Briefcase, Shield, ChevronDown, Phone, Mail, MapPin
+import {
+  Search,
+  Clock,
+  TrendingUp,
+  X,
+  Building2,
+  Wrench,
+  Target,
+  Briefcase,
+  Shield,
+  ChevronDown,
+  Phone,
+  Mail,
+  MapPin,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { ScreenReaderAnnouncement } from "@/components/ui/ScreenReaderAnnouncement";
 import { useNavigationHistory } from "@/hooks/useNavigationHistory";
 import { useRecommendations } from "@/hooks/useRecommendations";
@@ -40,20 +56,21 @@ export function MobileFooterMega({
   certifications,
   displayTrustItems,
   trustBarItems,
-  contactInfo
+  contactInfo,
 }: MobileFooterMegaProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
   const [announcement, setAnnouncement] = useState("");
   const [expandedAccordions, setExpandedAccordions] = useState<string[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
-  
-  const { history, trackNavigation, getRecentlyViewed } = useNavigationHistory();
+
+  const { history, trackNavigation, getRecentlyViewed } =
+    useNavigationHistory();
   const { recommendations } = useRecommendations();
-  const { 
-    searchQuery: navSearchQuery, 
+  const {
+    searchQuery: navSearchQuery,
     setSearchQuery: setNavSearchQuery,
-    filteredResults 
+    filteredResults,
   } = useNavigationSearch();
   const { isScrollable, isAtBottom } = useScrollIndicator(contentRef);
 
@@ -98,7 +115,7 @@ export function MobileFooterMega({
   return (
     <div className="md:hidden space-y-4">
       <ScreenReaderAnnouncement message={announcement} />
-      
+
       {/* Search Bar */}
       <div className="relative">
         <div className="relative">
@@ -133,7 +150,11 @@ export function MobileFooterMega({
         {hasSearchResults && (
           <div className="mt-2 px-3 py-2 bg-muted/50 rounded-md border border-border/30">
             <p className="text-xs text-muted-foreground">
-              Found <span className="font-semibold text-foreground">{filteredResults.length}</span> results
+              Found{" "}
+              <span className="font-semibold text-foreground">
+                {filteredResults.length}
+              </span>{" "}
+              results
             </p>
           </div>
         )}
@@ -155,9 +176,9 @@ export function MobileFooterMega({
                       handleLinkClick(result.name, result.category);
                     }}
                     className="block p-3 bg-muted/30 hover:bg-muted/60 rounded-lg border border-border/50 transition-all active:scale-[0.98]"
-                    style={{ 
+                    style={{
                       animationDelay: `${index * 50}ms`,
-                      touchAction: 'manipulation'
+                      touchAction: "manipulation",
                     }}
                   >
                     <div className="flex items-start gap-3">
@@ -165,7 +186,9 @@ export function MobileFooterMega({
                         <Icon className="h-4 w-4 text-primary" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-sm text-foreground">{result.name}</div>
+                        <div className="font-medium text-sm text-foreground">
+                          {result.name}
+                        </div>
                         <div className="text-xs text-muted-foreground mt-0.5">
                           {result.category} • {result.section}
                         </div>
@@ -176,7 +199,10 @@ export function MobileFooterMega({
                         )}
                       </div>
                       {result.badge && (
-                        <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-5">
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] px-1.5 py-0 h-5"
+                        >
                           {result.badge}
                         </Badge>
                       )}
@@ -214,15 +240,19 @@ export function MobileFooterMega({
                         handleLinkClick(item.name, item.category);
                       }}
                       className="block p-3 bg-gradient-to-br from-primary/5 to-accent/5 hover:from-primary/10 hover:to-accent/10 rounded-lg border border-primary/20 transition-all active:scale-[0.98]"
-                      style={{ touchAction: 'manipulation' }}
+                      style={{ touchAction: "manipulation" }}
                     >
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-md bg-primary/10">
                           <Icon className="h-4 w-4 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="font-medium text-sm text-foreground truncate">{item.name}</div>
-                          <div className="text-xs text-muted-foreground">{item.category}</div>
+                          <div className="font-medium text-sm text-foreground truncate">
+                            {item.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {item.category}
+                          </div>
                         </div>
                       </div>
                     </Link>
@@ -253,7 +283,7 @@ export function MobileFooterMega({
                         handleLinkClick(rec.name, rec.category);
                       }}
                       className="p-3 bg-muted/30 hover:bg-muted/60 rounded-lg border border-border/50 transition-all active:scale-[0.98]"
-                      style={{ touchAction: 'manipulation' }}
+                      style={{ touchAction: "manipulation" }}
                     >
                       <div className="flex flex-col items-center text-center gap-2">
                         <div className="p-2 rounded-md bg-accent/10">
@@ -271,15 +301,18 @@ export function MobileFooterMega({
           )}
 
           {/* Accordion Sections */}
-          <Accordion 
-            type="multiple" 
+          <Accordion
+            type="multiple"
             value={expandedAccordions}
             onValueChange={setExpandedAccordions}
             className="space-y-3"
           >
             {/* Company Section */}
-            <AccordionItem value="company" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-              <AccordionTrigger 
+            <AccordionItem
+              value="company"
+              className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden"
+            >
+              <AccordionTrigger
                 onClick={(e) => {
                   addRipple(e);
                   haptics.light();
@@ -296,17 +329,17 @@ export function MobileFooterMega({
               <AccordionContent className="px-4 pb-4 pt-2">
                 <nav className="space-y-1">
                   {companyLinks.map((link, index) => (
-                    <Link 
+                    <Link
                       key={index}
                       to={link.href}
                       onClick={(e) => {
                         addRipple(e);
-                        handleLinkClick(link.label, 'Company');
+                        handleLinkClick(link.label, "Company");
                       }}
                       className="block py-2.5 px-3 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-all active:scale-95 stagger-item"
-                      style={{ 
+                      style={{
                         animationDelay: `${index * 50}ms`,
-                        touchAction: 'manipulation' 
+                        touchAction: "manipulation",
                       }}
                     >
                       {link.label}
@@ -317,8 +350,11 @@ export function MobileFooterMega({
             </AccordionItem>
 
             {/* Services Section */}
-            <AccordionItem value="services" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-              <AccordionTrigger 
+            <AccordionItem
+              value="services"
+              className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden"
+            >
+              <AccordionTrigger
                 onClick={(e) => {
                   addRipple(e);
                   haptics.light();
@@ -329,7 +365,9 @@ export function MobileFooterMega({
                   <div className="p-2 rounded-md bg-primary/10">
                     <Wrench className="h-4 w-4 text-primary" />
                   </div>
-                  <span className="font-semibold text-foreground">Services</span>
+                  <span className="font-semibold text-foreground">
+                    Services
+                  </span>
                   <Badge variant="secondary" className="ml-auto mr-2 text-xs">
                     {services.length}
                   </Badge>
@@ -338,17 +376,17 @@ export function MobileFooterMega({
               <AccordionContent className="px-4 pb-4 pt-2">
                 <nav className="grid grid-cols-2 gap-2">
                   {services.map((service, index) => (
-                    <Link 
+                    <Link
                       key={index}
                       to={`/services/${service.slug}`}
                       onClick={(e) => {
                         addRipple(e);
-                        handleLinkClick(service.name, 'Services');
+                        handleLinkClick(service.name, "Services");
                       }}
                       className="py-2.5 px-3 text-xs text-muted-foreground hover:text-primary bg-background/50 hover:bg-muted rounded-md transition-all active:scale-95 border border-border/30 stagger-item"
-                      style={{ 
+                      style={{
                         animationDelay: `${index * 30}ms`,
-                        touchAction: 'manipulation' 
+                        touchAction: "manipulation",
                       }}
                     >
                       {service.name}
@@ -359,8 +397,11 @@ export function MobileFooterMega({
             </AccordionItem>
 
             {/* Markets Section */}
-            <AccordionItem value="markets" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-              <AccordionTrigger 
+            <AccordionItem
+              value="markets"
+              className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden"
+            >
+              <AccordionTrigger
                 onClick={(e) => {
                   addRipple(e);
                   haptics.light();
@@ -377,17 +418,17 @@ export function MobileFooterMega({
               <AccordionContent className="px-4 pb-4 pt-2">
                 <nav className="space-y-1">
                   {marketLinks.map((link, index) => (
-                    <Link 
+                    <Link
                       key={index}
                       to={link.href}
                       onClick={(e) => {
                         addRipple(e);
-                        handleLinkClick(link.label, 'Markets');
+                        handleLinkClick(link.label, "Markets");
                       }}
                       className="block py-2.5 px-3 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-all active:scale-95 stagger-item"
-                      style={{ 
+                      style={{
                         animationDelay: `${index * 50}ms`,
-                        touchAction: 'manipulation' 
+                        touchAction: "manipulation",
                       }}
                     >
                       {link.label}
@@ -398,8 +439,11 @@ export function MobileFooterMega({
             </AccordionItem>
 
             {/* Projects Section */}
-            <AccordionItem value="projects" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-              <AccordionTrigger 
+            <AccordionItem
+              value="projects"
+              className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden"
+            >
+              <AccordionTrigger
                 onClick={(e) => {
                   addRipple(e);
                   haptics.light();
@@ -410,23 +454,25 @@ export function MobileFooterMega({
                   <div className="p-2 rounded-md bg-primary/10">
                     <Briefcase className="h-4 w-4 text-primary" />
                   </div>
-                  <span className="font-semibold text-foreground">Projects</span>
+                  <span className="font-semibold text-foreground">
+                    Projects
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 pt-2">
                 <nav className="space-y-1">
                   {projectLinks.map((link, index) => (
-                    <Link 
+                    <Link
                       key={index}
                       to={link.href}
                       onClick={(e) => {
                         addRipple(e);
-                        handleLinkClick(link.label, 'Projects');
+                        handleLinkClick(link.label, "Projects");
                       }}
                       className="block py-2.5 px-3 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-all active:scale-95 stagger-item"
-                      style={{ 
+                      style={{
                         animationDelay: `${index * 50}ms`,
-                        touchAction: 'manipulation' 
+                        touchAction: "manipulation",
                       }}
                     >
                       {link.label}
@@ -437,8 +483,11 @@ export function MobileFooterMega({
             </AccordionItem>
 
             {/* Certifications Section */}
-            <AccordionItem value="certifications" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-              <AccordionTrigger 
+            <AccordionItem
+              value="certifications"
+              className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden"
+            >
+              <AccordionTrigger
                 onClick={(e) => {
                   addRipple(e);
                   haptics.light();
@@ -449,18 +498,28 @@ export function MobileFooterMega({
                   <div className="p-2 rounded-md bg-primary/10">
                     <Shield className="h-4 w-4 text-primary" />
                   </div>
-                  <span className="font-semibold text-foreground">{displayTrustItems ? 'Credentials' : 'Certifications'}</span>
+                  <span className="font-semibold text-foreground">
+                    {displayTrustItems ? "Credentials" : "Certifications"}
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 pt-2">
                 {displayTrustItems ? (
                   <div className="space-y-3">
                     {trustBarItems.map((item, index) => (
-                      <div key={index} className="flex items-start gap-3 p-3 bg-background/50 rounded-md border border-border/30 stagger-item" style={{ animationDelay: `${index * 50}ms` }}>
+                      <div
+                        key={index}
+                        className="flex items-start gap-3 p-3 bg-background/50 rounded-md border border-border/30 stagger-item"
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
                         <Shield className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                         <div>
-                          <div className="text-sm font-semibold text-foreground">{item.label}</div>
-                          <div className="text-xs text-muted-foreground">{item.value}</div>
+                          <div className="text-sm font-semibold text-foreground">
+                            {item.label}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {item.value}
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -470,11 +529,19 @@ export function MobileFooterMega({
                     {certifications.map((cert, index) => {
                       const Icon = cert.icon;
                       return (
-                        <div key={index} className="flex items-start gap-3 p-3 bg-background/50 rounded-md border border-border/30 stagger-item" style={{ animationDelay: `${index * 50}ms` }}>
+                        <div
+                          key={index}
+                          className="flex items-start gap-3 p-3 bg-background/50 rounded-md border border-border/30 stagger-item"
+                          style={{ animationDelay: `${index * 50}ms` }}
+                        >
                           <Icon className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                           <div>
-                            <div className="text-sm font-semibold text-foreground">{cert.title}</div>
-                            <div className="text-xs text-muted-foreground">{cert.subtitle}</div>
+                            <div className="text-sm font-semibold text-foreground">
+                              {cert.title}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              {cert.subtitle}
+                            </div>
                           </div>
                         </div>
                       );
@@ -493,22 +560,22 @@ export function MobileFooterMega({
             </h3>
             <div className="space-y-2.5 text-sm">
               {contactInfo.phone && (
-                <a 
-                  href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}
+                <a
+                  href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, "")}`}
                   onClick={() => haptics.light()}
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors min-h-[44px] active:scale-95"
-                  style={{ touchAction: 'manipulation' }}
+                  style={{ touchAction: "manipulation" }}
                 >
                   <Phone className="h-4 w-4 flex-shrink-0" />
                   <span className="font-medium">{contactInfo.phone}</span>
                 </a>
               )}
               {contactInfo.email && (
-                <a 
+                <a
                   href={`mailto:${contactInfo.email}`}
                   onClick={() => haptics.light()}
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors min-h-[44px] active:scale-95"
-                  style={{ touchAction: 'manipulation' }}
+                  style={{ touchAction: "manipulation" }}
                 >
                   <Mail className="h-4 w-4 flex-shrink-0" />
                   <span>{contactInfo.email}</span>
@@ -517,7 +584,9 @@ export function MobileFooterMega({
               {contactInfo.address && (
                 <div className="flex items-start gap-2 text-muted-foreground pt-1">
                   <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
-                  <span className="text-xs leading-relaxed">{contactInfo.address}</span>
+                  <span className="text-xs leading-relaxed">
+                    {contactInfo.address}
+                  </span>
                 </div>
               )}
             </div>

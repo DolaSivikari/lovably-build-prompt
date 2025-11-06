@@ -10,7 +10,10 @@ interface RFPStep1CompanyProps {
 }
 
 export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
-  const { register, formState: { errors } } = form;
+  const {
+    register,
+    formState: { errors },
+  } = form;
 
   return (
     <Card>
@@ -21,7 +24,9 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
           </div>
           <div>
             <h2 className="text-2xl font-bold">Company Information</h2>
-            <p className="text-sm text-muted-foreground">Tell us about your organization</p>
+            <p className="text-sm text-muted-foreground">
+              Tell us about your organization
+            </p>
           </div>
         </div>
 
@@ -38,7 +43,9 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
               className={errors.company_name ? "border-destructive" : ""}
             />
             {errors.company_name && (
-              <p className="text-sm text-destructive">{errors.company_name.message}</p>
+              <p className="text-sm text-destructive">
+                {errors.company_name.message}
+              </p>
             )}
           </div>
 
@@ -54,7 +61,9 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
               className={errors.contact_name ? "border-destructive" : ""}
             />
             {errors.contact_name && (
-              <p className="text-sm text-destructive">{errors.contact_name.message}</p>
+              <p className="text-sm text-destructive">
+                {errors.contact_name.message}
+              </p>
             )}
           </div>
 
@@ -92,9 +101,7 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
           </div>
 
           <div className="space-y-2 md:col-span-2">
-            <Label htmlFor="title">
-              Title / Position
-            </Label>
+            <Label htmlFor="title">Title / Position</Label>
             <Input
               id="title"
               {...register("title")}
@@ -105,7 +112,9 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
 
         <div className="bg-muted/50 border border-border rounded-lg p-4 mt-6">
           <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">Privacy Notice:</strong> Your information is secure and will only be used to respond to your RFP. We never share contact details with third parties.
+            <strong className="text-foreground">Privacy Notice:</strong> Your
+            information is secure and will only be used to respond to your RFP.
+            We never share contact details with third parties.
           </p>
         </div>
       </CardContent>

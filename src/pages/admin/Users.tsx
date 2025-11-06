@@ -30,7 +30,7 @@ const Users = () => {
 
   const loadUsers = async () => {
     setIsLoading(true);
-    
+
     const { data: profiles, error: profilesError } = await supabase
       .from("profiles")
       .select("id, email, full_name");
@@ -59,9 +59,9 @@ const Users = () => {
       return;
     }
 
-    const usersWithRoles = profiles.map(profile => ({
+    const usersWithRoles = profiles.map((profile) => ({
       ...profile,
-      roles: roles.filter(r => r.user_id === profile.id).map(r => r.role),
+      roles: roles.filter((r) => r.user_id === profile.id).map((r) => r.role),
     }));
 
     setUsers(usersWithRoles);
@@ -119,7 +119,9 @@ const Users = () => {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="business-page-title">User Management</h1>
-          <p className="business-page-subtitle">Manage user accounts and roles</p>
+          <p className="business-page-subtitle">
+            Manage user accounts and roles
+          </p>
         </div>
         <InviteUserDialog onUserCreated={loadUsers} />
       </div>
@@ -135,15 +137,21 @@ const Users = () => {
         <div className="grid md:grid-cols-2 gap-4 text-sm">
           <div className="p-3 border border-border rounded-lg">
             <Badge className="mb-2 bg-red-600">Super Admin</Badge>
-            <p className="text-muted-foreground">Full access + user management</p>
+            <p className="text-muted-foreground">
+              Full access + user management
+            </p>
           </div>
           <div className="p-3 border border-border rounded-lg">
             <Badge className="mb-2 bg-secondary">Admin</Badge>
-            <p className="text-muted-foreground">Content management + project creation</p>
+            <p className="text-muted-foreground">
+              Content management + project creation
+            </p>
           </div>
           <div className="p-3 border border-border rounded-lg">
             <Badge className="mb-2 bg-primary">Editor</Badge>
-            <p className="text-muted-foreground">Content editing + task management</p>
+            <p className="text-muted-foreground">
+              Content editing + task management
+            </p>
           </div>
           <div className="p-3 border border-border rounded-lg">
             <Badge className="mb-2 bg-blue-600">Contributor</Badge>
@@ -159,7 +167,9 @@ const Users = () => {
           <div className="p-6 border-b border-border">
             <div className="flex items-center gap-2">
               <UsersIcon className="h-5 w-5" />
-              <h2 className="text-lg font-semibold">Team Members ({users.length})</h2>
+              <h2 className="text-lg font-semibold">
+                Team Members ({users.length})
+              </h2>
             </div>
           </div>
           <div className="p-6">
@@ -173,12 +183,17 @@ const Users = () => {
                     <div className="flex items-center gap-3">
                       <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
                         <span className="text-sm font-medium">
-                          {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
+                          {user.full_name?.[0] ||
+                            user.email?.[0]?.toUpperCase()}
                         </span>
                       </div>
                       <div>
-                        <p className="font-medium">{user.full_name || "No name"}</p>
-                        <p className="text-sm text-muted-foreground">{user.email}</p>
+                        <p className="font-medium">
+                          {user.full_name || "No name"}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {user.email}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -186,16 +201,22 @@ const Users = () => {
                     {user.roles.length > 0 ? (
                       <Select
                         value={user.roles[0]}
-                        onValueChange={(value) => handleRoleChange(user.id, value)}
+                        onValueChange={(value) =>
+                          handleRoleChange(user.id, value)
+                        }
                       >
                         <SelectTrigger className="w-[160px]">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="super_admin">Super Admin</SelectItem>
+                          <SelectItem value="super_admin">
+                            Super Admin
+                          </SelectItem>
                           <SelectItem value="admin">Admin</SelectItem>
                           <SelectItem value="editor">Editor</SelectItem>
-                          <SelectItem value="contributor">Contributor</SelectItem>
+                          <SelectItem value="contributor">
+                            Contributor
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     ) : (

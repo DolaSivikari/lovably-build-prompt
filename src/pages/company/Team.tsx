@@ -19,15 +19,15 @@ const Team = () => {
     const fetchTeam = async () => {
       try {
         const { data, error } = await supabase
-          .from('leadership_team')
-          .select('*')
-          .eq('is_active', true)
-          .order('display_order', { ascending: true });
+          .from("leadership_team")
+          .select("*")
+          .eq("is_active", true)
+          .order("display_order", { ascending: true });
 
         if (error) throw error;
         setTeamMembers(data || []);
       } catch (error) {
-        console.error('Error fetching team:', error);
+        console.error("Error fetching team:", error);
       } finally {
         setLoading(false);
       }
@@ -37,12 +37,16 @@ const Team = () => {
   }, []);
 
   const getInitials = (name: string) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
   };
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Our Team | Ascent Group Construction"
         description="Meet the experienced professionals behind Ascent Group Construction. Our leadership team brings decades of expertise in commercial and residential construction across the Greater Toronto Area."
         canonical="/company/team"
@@ -57,10 +61,10 @@ const Team = () => {
             breadcrumbs={[
               { label: "Home", href: "/" },
               { label: "Company", href: "/about" },
-              { label: "Our Team" }
+              { label: "Our Team" },
             ]}
           />
-          
+
           {/* Team Introduction */}
           <section className="py-16 bg-muted/30">
             <div className="container mx-auto px-4">
@@ -69,8 +73,10 @@ const Team = () => {
                   Leadership That Delivers Excellence
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Our team combines decades of construction expertise with a genuine passion for quality work. 
-                  Each member brings specialized skills and a commitment to exceeding client expectations on every project.
+                  Our team combines decades of construction expertise with a
+                  genuine passion for quality work. Each member brings
+                  specialized skills and a commitment to exceeding client
+                  expectations on every project.
                 </p>
               </div>
 
@@ -103,8 +109,8 @@ const Team = () => {
               ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                   {teamMembers.map((member) => (
-                    <Card 
-                      key={member.id} 
+                    <Card
+                      key={member.id}
                       className="group hover:shadow-xl transition-all duration-300 overflow-hidden"
                     >
                       <CardContent className="p-0">
@@ -136,7 +142,7 @@ const Team = () => {
                           <p className="text-sm font-semibold text-primary mb-4">
                             {member.position}
                           </p>
-                          
+
                           {member.bio && (
                             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                               {member.bio}
@@ -144,52 +150,63 @@ const Team = () => {
                           )}
 
                           {/* Credentials */}
-                          {member.credentials && member.credentials.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {member.credentials.map((cred: string, idx: number) => (
-                                <Badge key={idx} variant="secondary" className="text-xs">
-                                  {cred}
-                                </Badge>
-                              ))}
-                            </div>
-                          )}
+                          {member.credentials &&
+                            member.credentials.length > 0 && (
+                              <div className="flex flex-wrap gap-2 mb-4">
+                                {member.credentials.map(
+                                  (cred: string, idx: number) => (
+                                    <Badge
+                                      key={idx}
+                                      variant="secondary"
+                                      className="text-xs"
+                                    >
+                                      {cred}
+                                    </Badge>
+                                  ),
+                                )}
+                              </div>
+                            )}
 
                           {/* Notable Projects */}
-                          {member.notable_projects && member.notable_projects.length > 0 && (
-                            <div className="mb-4 text-xs">
-                              <p className="font-semibold text-muted-foreground mb-1">Notable Projects:</p>
-                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                                {member.notable_projects.slice(0, 3).map((project: string, idx: number) => (
-                                  <li key={idx}>{project}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
+                          {member.notable_projects &&
+                            member.notable_projects.length > 0 && (
+                              <div className="mb-4 text-xs">
+                                <p className="font-semibold text-muted-foreground mb-1">
+                                  Notable Projects:
+                                </p>
+                                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                  {member.notable_projects
+                                    .slice(0, 3)
+                                    .map((project: string, idx: number) => (
+                                      <li key={idx}>{project}</li>
+                                    ))}
+                                </ul>
+                              </div>
+                            )}
 
                           {/* Contact Buttons */}
                           <div className="flex gap-3">
                             {member.email && (
-                              <Button 
-                                variant="outline" 
-                                size="sm" 
+                              <Button
+                                variant="outline"
+                                size="sm"
                                 className="flex-1"
                                 asChild
                               >
-                                <a href={`mailto:${member.email}`} className="flex items-center justify-center gap-2">
+                                <a
+                                  href={`mailto:${member.email}`}
+                                  className="flex items-center justify-center gap-2"
+                                >
                                   <Mail className="h-4 w-4" />
                                   Email
                                 </a>
                               </Button>
                             )}
                             {member.linkedin_url && (
-                              <Button 
-                                variant="outline" 
-                                size="sm"
-                                asChild
-                              >
-                                <a 
-                                  href={member.linkedin_url} 
-                                  target="_blank" 
+                              <Button variant="outline" size="sm" asChild>
+                                <a
+                                  href={member.linkedin_url}
+                                  target="_blank"
                                   rel="noopener noreferrer"
                                   className="flex items-center justify-center"
                                   aria-label={`${member.full_name}'s LinkedIn profile`}
@@ -217,8 +234,9 @@ const Team = () => {
                     Join Our Growing Team
                   </h2>
                   <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                    We're always looking for talented professionals who share our commitment to excellence. 
-                    Explore career opportunities with Ascent Group Construction.
+                    We're always looking for talented professionals who share
+                    our commitment to excellence. Explore career opportunities
+                    with Ascent Group Construction.
                   </p>
                   <Button size="lg" asChild>
                     <a href="/careers">View Career Opportunities</a>

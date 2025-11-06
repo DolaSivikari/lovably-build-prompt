@@ -8,8 +8,6 @@ import { Card } from "@/components/ui/card";
 import { InvoiceStats } from "@/components/business/InvoiceStats";
 import { InvoiceList } from "@/components/business/InvoiceList";
 import { InvoiceEditor } from "@/components/business/InvoiceEditor";
-import { InvoicePDF } from "@/components/business/InvoicePDF";
-import { PDFDownloadButton } from "@/components/business/PDFDownloadButton";
 import { RecordPaymentModal } from "@/components/business/RecordPaymentModal";
 
 export default function BusinessInvoices() {
@@ -35,7 +33,7 @@ export default function BusinessInvoices() {
         .select("company_name, phone, email, address")
         .eq("is_active", true)
         .single();
-      
+
       if (error) throw error;
       if (data) {
         setCompanyInfo({
@@ -52,16 +50,20 @@ export default function BusinessInvoices() {
 
   const fetchInvoices = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) return;
 
       const { data, error } = await supabase
         .from("invoices")
-        .select(`
+        .select(
+          `
           *,
           client:clients(name, company, email, phone),
           project:business_projects(name)
-        `)
+        `,
+        )
         .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
@@ -78,7 +80,9 @@ export default function BusinessInvoices() {
 
   const handleSave = async (formData: any) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
       if (editingInvoice) {
@@ -108,11 +112,16 @@ export default function BusinessInvoices() {
     }
   };
 
-  const handleRecordPayment = async (payment: { amount_cents: number; payment_date: string; notes?: string }) => {
+  const handleRecordPayment = async (payment: {
+    amount_cents: number;
+    payment_date: string;
+    notes?: string;
+  }) => {
     if (!recordingPaymentFor) return;
 
     try {
-      const newPaidCents = recordingPaymentFor.paid_cents + payment.amount_cents;
+      const newPaidCents =
+        recordingPaymentFor.paid_cents + payment.amount_cents;
       const newBalanceCents = recordingPaymentFor.total_cents - newPaidCents;
       const newStatus = newBalanceCents === 0 ? "paid" : "sent";
 
@@ -157,8 +166,10 @@ export default function BusinessInvoices() {
 
   const stats = {
     total: invoices.length,
-    paid: invoices.filter(i => i.status === "paid").length,
-    overdue: invoices.filter(i => new Date(i.due_date) < new Date() && i.balance_cents > 0).length,
+    paid: invoices.filter((i) => i.status === "paid").length,
+    overdue: invoices.filter(
+      (i) => new Date(i.due_date) < new Date() && i.balance_cents > 0,
+    ).length,
     outstanding: invoices.reduce((sum, i) => sum + i.balance_cents, 0),
     totalRevenue: invoices.reduce((sum, i) => sum + i.total_cents, 0),
   };
@@ -169,13 +180,18 @@ export default function BusinessInvoices() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">{editingInvoice ? "Edit" : "Create"} Invoice</h1>
+          <h1 className="text-3xl font-bold">
+            {editingInvoice ? "Edit" : "Create"} Invoice
+          </h1>
         </div>
         <Card className="p-6">
           <InvoiceEditor
             invoice={editingInvoice}
             onSave={handleSave}
-            onCancel={() => { setShowEditor(false); setEditingInvoice(null); }}
+            onCancel={() => {
+              setShowEditor(false);
+              setEditingInvoice(null);
+            }}
           />
         </Card>
       </div>
@@ -189,7 +205,12 @@ export default function BusinessInvoices() {
           <h1 className="text-3xl font-bold">Invoices</h1>
           <p className="text-muted-foreground">Manage invoices and payments</p>
         </div>
-        <Button onClick={() => { setEditingInvoice(null); setShowEditor(true); }}>
+        <Button
+          onClick={() => {
+            setEditingInvoice(null);
+            setShowEditor(true);
+          }}
+        >
           <Plus className="h-4 w-4 mr-2" />
           Create Invoice
         </Button>
@@ -200,41 +221,58 @@ export default function BusinessInvoices() {
       <Card>
         <InvoiceList
           invoices={invoices}
-          onEdit={(id) => { setEditingInvoice(invoices.find(i => i.id === id)); setShowEditor(true); }}
+          onEdit={(id) => {
+            setEditingInvoice(invoices.find((i) => i.id === id));
+            setShowEditor(true);
+          }}
           onDelete={handleDelete}
           onDownload={(id) => {
-            const invoice = invoices.find(i => i.id === id);
+            const invoice = invoices.find((i) => i.id === id);
             if (invoice && companyInfo) {
               // Trigger PDF download via PDFDownloadButton
-              const pdfElement = document.createElement('div');
+              const pdfElement = document.createElement("div");
               document.body.appendChild(pdfElement);
-              
-              const root = document.createElement('div');
+
+              const root = document.createElement("div");
               pdfElement.appendChild(root);
-              
-              import('react-dom/client').then(({ createRoot }) => {
-                const reactRoot = createRoot(root);
-                reactRoot.render(
-                  <PDFDownloadButton
-                    fileName={`invoice-${invoice.invoice_number}.pdf`}
-                    pdfDocument={<InvoicePDF invoice={invoice} client={invoice.client} companyInfo={companyInfo} />}
-                  />
-                );
-                
-                setTimeout(() => {
-                  const button = root.querySelector('button');
-                  if (button) {
-                    button.click();
-                    setTimeout(() => {
-                      reactRoot.unmount();
-                      document.body.removeChild(pdfElement);
-                    }, 100);
-                  }
-                }, 100);
-              });
+
+              Promise.all([
+                import("react-dom/client"),
+                import("@/components/business/PDFDownloadButton"),
+                import("@/components/business/InvoicePDF"),
+              ]).then(
+                ([{ createRoot }, { PDFDownloadButton }, { InvoicePDF }]) => {
+                  const reactRoot = createRoot(root);
+                  reactRoot.render(
+                    <PDFDownloadButton
+                      fileName={`invoice-${invoice.invoice_number}.pdf`}
+                      pdfDocument={
+                        <InvoicePDF
+                          invoice={invoice}
+                          client={invoice.client}
+                          companyInfo={companyInfo}
+                        />
+                      }
+                    />,
+                  );
+
+                  setTimeout(() => {
+                    const button = root.querySelector("button");
+                    if (button) {
+                      button.click();
+                      setTimeout(() => {
+                        reactRoot.unmount();
+                        document.body.removeChild(pdfElement);
+                      }, 100);
+                    }
+                  }, 100);
+                },
+              );
             }
           }}
-          onRecordPayment={(id) => setRecordingPaymentFor(invoices.find(i => i.id === id))}
+          onRecordPayment={(id) =>
+            setRecordingPaymentFor(invoices.find((i) => i.id === id))
+          }
         />
       </Card>
 

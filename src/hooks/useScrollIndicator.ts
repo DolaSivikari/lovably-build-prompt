@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject } from 'react';
+import { useState, useEffect, RefObject } from "react";
 
 export function useScrollIndicator(ref: RefObject<HTMLElement>) {
   const [isScrollable, setIsScrollable] = useState(false);
@@ -12,7 +12,10 @@ export function useScrollIndicator(ref: RefObject<HTMLElement>) {
     const checkScroll = () => {
       const scrollable = element.scrollHeight > element.clientHeight;
       const atTop = element.scrollTop === 0;
-      const atBottom = Math.abs(element.scrollHeight - element.clientHeight - element.scrollTop) < 1;
+      const atBottom =
+        Math.abs(
+          element.scrollHeight - element.clientHeight - element.scrollTop,
+        ) < 1;
 
       setIsScrollable(scrollable);
       setIsAtTop(atTop);
@@ -25,11 +28,11 @@ export function useScrollIndicator(ref: RefObject<HTMLElement>) {
     resizeObserver.observe(element);
 
     // Check on scroll
-    element.addEventListener('scroll', checkScroll);
+    element.addEventListener("scroll", checkScroll);
 
     return () => {
       resizeObserver.disconnect();
-      element.removeEventListener('scroll', checkScroll);
+      element.removeEventListener("scroll", checkScroll);
     };
   }, [ref]);
 

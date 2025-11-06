@@ -8,8 +8,6 @@ import { Card } from "@/components/ui/card";
 import { EstimateStats } from "@/components/business/EstimateStats";
 import { EstimateList } from "@/components/business/EstimateList";
 import { EstimateEditor } from "@/components/business/EstimateEditor";
-import { EstimatePDF } from "@/components/business/EstimatePDF";
-import { PDFDownloadButton } from "@/components/business/PDFDownloadButton";
 
 export default function BusinessEstimates() {
   const { isLoading, isAdmin } = useAdminAuth();
@@ -33,7 +31,7 @@ export default function BusinessEstimates() {
         .select("company_name, phone, email, address")
         .eq("is_active", true)
         .single();
-      
+
       if (error) throw error;
       if (data) {
         setCompanyInfo({
@@ -50,16 +48,20 @@ export default function BusinessEstimates() {
 
   const fetchEstimates = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) return;
 
       const { data, error } = await supabase
         .from("estimates")
-        .select(`
+        .select(
+          `
           *,
           client:clients(name, company, email, phone),
           project:business_projects(name)
-        `)
+        `,
+        )
         .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
@@ -76,7 +78,9 @@ export default function BusinessEstimates() {
 
   const handleSave = async (formData: any) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
       if (editingEstimate) {
@@ -125,9 +129,9 @@ export default function BusinessEstimates() {
 
   const stats = {
     total: estimates.length,
-    draft: estimates.filter(e => e.status === "draft").length,
-    sent: estimates.filter(e => e.status === "sent").length,
-    approved: estimates.filter(e => e.status === "approved").length,
+    draft: estimates.filter((e) => e.status === "draft").length,
+    sent: estimates.filter((e) => e.status === "sent").length,
+    approved: estimates.filter((e) => e.status === "approved").length,
     totalValue: estimates.reduce((sum, e) => sum + e.total_cents, 0),
   };
 
@@ -137,13 +141,18 @@ export default function BusinessEstimates() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">{editingEstimate ? "Edit" : "Create"} Estimate</h1>
+          <h1 className="text-3xl font-bold">
+            {editingEstimate ? "Edit" : "Create"} Estimate
+          </h1>
         </div>
         <Card className="p-6">
           <EstimateEditor
             estimate={editingEstimate}
             onSave={handleSave}
-            onCancel={() => { setShowEditor(false); setEditingEstimate(null); }}
+            onCancel={() => {
+              setShowEditor(false);
+              setEditingEstimate(null);
+            }}
           />
         </Card>
       </div>
@@ -157,7 +166,12 @@ export default function BusinessEstimates() {
           <h1 className="text-3xl font-bold">Estimates</h1>
           <p className="text-muted-foreground">Manage project estimates</p>
         </div>
-        <Button onClick={() => { setEditingEstimate(null); setShowEditor(true); }}>
+        <Button
+          onClick={() => {
+            setEditingEstimate(null);
+            setShowEditor(true);
+          }}
+        >
           <Plus className="h-4 w-4 mr-2" />
           Create Estimate
         </Button>
@@ -168,38 +182,53 @@ export default function BusinessEstimates() {
       <Card>
         <EstimateList
           estimates={estimates}
-          onEdit={(id) => { setEditingEstimate(estimates.find(e => e.id === id)); setShowEditor(true); }}
+          onEdit={(id) => {
+            setEditingEstimate(estimates.find((e) => e.id === id));
+            setShowEditor(true);
+          }}
           onDelete={handleDelete}
           onDownload={(id) => {
-            const estimate = estimates.find(e => e.id === id);
+            const estimate = estimates.find((e) => e.id === id);
             if (estimate && companyInfo) {
               // Trigger PDF download via PDFDownloadButton
-              const pdfElement = document.createElement('div');
+              const pdfElement = document.createElement("div");
               document.body.appendChild(pdfElement);
-              
-              const root = document.createElement('div');
+
+              const root = document.createElement("div");
               pdfElement.appendChild(root);
-              
-              import('react-dom/client').then(({ createRoot }) => {
-                const reactRoot = createRoot(root);
-                reactRoot.render(
-                  <PDFDownloadButton
-                    fileName={`estimate-${estimate.estimate_number}.pdf`}
-                    pdfDocument={<EstimatePDF estimate={estimate} client={estimate.client} companyInfo={companyInfo} />}
-                  />
-                );
-                
-                setTimeout(() => {
-                  const button = root.querySelector('button');
-                  if (button) {
-                    button.click();
-                    setTimeout(() => {
-                      reactRoot.unmount();
-                      document.body.removeChild(pdfElement);
-                    }, 100);
-                  }
-                }, 100);
-              });
+
+              Promise.all([
+                import("react-dom/client"),
+                import("@/components/business/PDFDownloadButton"),
+                import("@/components/business/EstimatePDF"),
+              ]).then(
+                ([{ createRoot }, { PDFDownloadButton }, { EstimatePDF }]) => {
+                  const reactRoot = createRoot(root);
+                  reactRoot.render(
+                    <PDFDownloadButton
+                      fileName={`estimate-${estimate.estimate_number}.pdf`}
+                      pdfDocument={
+                        <EstimatePDF
+                          estimate={estimate}
+                          client={estimate.client}
+                          companyInfo={companyInfo}
+                        />
+                      }
+                    />,
+                  );
+
+                  setTimeout(() => {
+                    const button = root.querySelector("button");
+                    if (button) {
+                      button.click();
+                      setTimeout(() => {
+                        reactRoot.unmount();
+                        document.body.removeChild(pdfElement);
+                      }, 100);
+                    }
+                  }, 100);
+                },
+              );
             }
           }}
         />

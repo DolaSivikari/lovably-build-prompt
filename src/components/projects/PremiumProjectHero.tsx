@@ -35,7 +35,9 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length,
+    );
   };
 
   const currentProject = featuredProjects[currentIndex] || featuredProjects[0];
@@ -47,7 +49,9 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
         {currentProject && (
           <div
             className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
-            style={{ backgroundImage: `url(${currentProject?.image || '/hero-poster-1.webp'})` }}
+            style={{
+              backgroundImage: `url(${currentProject?.image || "/hero-poster-1.webp"})`,
+            }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
           </div>
@@ -64,11 +68,11 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
                 {currentProject?.location || "Greater Toronto Area"}
               </span>
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary-foreground">
               {currentProject?.title || "Our Project Portfolio"}
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8">
               {currentProject?.category || "500+ Successful Projects"}
             </p>
@@ -79,24 +83,30 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
                 <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">
                   {projectCount}+
                 </div>
-                <div className="text-sm text-primary-foreground/80">Projects</div>
+                <div className="text-sm text-primary-foreground/80">
+                  Projects
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">
                   ${totalValue}B+
                 </div>
-                <div className="text-sm text-primary-foreground/80">Total Value</div>
+                <div className="text-sm text-primary-foreground/80">
+                  Total Value
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">
                   {satisfaction}%
                 </div>
-                <div className="text-sm text-primary-foreground/80">Satisfaction</div>
+                <div className="text-sm text-primary-foreground/80">
+                  Satisfaction
+                </div>
               </div>
             </div>
 
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               variant="secondary"
               className="shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
             >
@@ -132,8 +142,8 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-2 h-2 rounded-full transition-all ${
-                index === currentIndex 
-                  ? "bg-primary-foreground w-8" 
+                index === currentIndex
+                  ? "bg-primary-foreground w-8"
                   : "bg-primary-foreground/40"
               }`}
               aria-label={`Go to slide ${index + 1}`}

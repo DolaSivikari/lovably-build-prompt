@@ -16,7 +16,7 @@ export const FileUploadZone = ({
   maxFiles = 5,
   acceptedTypes = ["image/*", "application/pdf", ".doc", ".docx"],
   maxSizeMB = 10,
-  className
+  className,
 }: FileUploadZoneProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -32,22 +32,25 @@ export const FileUploadZone = ({
     return true;
   };
 
-  const handleFiles = useCallback((newFiles: FileList | null) => {
-    if (!newFiles) return;
+  const handleFiles = useCallback(
+    (newFiles: FileList | null) => {
+      if (!newFiles) return;
 
-    const fileArray = Array.from(newFiles);
-    const validFiles = fileArray.filter(validateFile);
+      const fileArray = Array.from(newFiles);
+      const validFiles = fileArray.filter(validateFile);
 
-    if (files.length + validFiles.length > maxFiles) {
-      setError(`Maximum ${maxFiles} files allowed`);
-      return;
-    }
+      if (files.length + validFiles.length > maxFiles) {
+        setError(`Maximum ${maxFiles} files allowed`);
+        return;
+      }
 
-    const updatedFiles = [...files, ...validFiles];
-    setFiles(updatedFiles);
-    onFilesChange(updatedFiles);
-    setError(null);
-  }, [files, maxFiles, onFilesChange]);
+      const updatedFiles = [...files, ...validFiles];
+      setFiles(updatedFiles);
+      onFilesChange(updatedFiles);
+      setError(null);
+    },
+    [files, maxFiles, onFilesChange],
+  );
 
   const removeFile = (index: number) => {
     const updatedFiles = files.filter((_, i) => i !== index);
@@ -86,22 +89,26 @@ export const FileUploadZone = ({
         onDrop={handleDrop}
         className={cn(
           "border-2 border-dashed rounded-xl p-8 transition-all duration-300",
-          isDragging 
-            ? "border-primary bg-primary/5 scale-105" 
-            : "border-border hover:border-primary/50 hover:bg-muted/50"
+          isDragging
+            ? "border-primary bg-primary/5 scale-105"
+            : "border-border hover:border-primary/50 hover:bg-muted/50",
         )}
       >
         <div className="flex flex-col items-center justify-center gap-4 text-center">
-          <div className={cn(
-            "w-16 h-16 rounded-full flex items-center justify-center transition-all",
-            isDragging ? "bg-primary/20 scale-110" : "bg-muted"
-          )}>
-            <Upload className={cn(
-              "w-8 h-8 transition-colors",
-              isDragging ? "text-primary" : "text-muted-foreground"
-            )} />
+          <div
+            className={cn(
+              "w-16 h-16 rounded-full flex items-center justify-center transition-all",
+              isDragging ? "bg-primary/20 scale-110" : "bg-muted",
+            )}
+          >
+            <Upload
+              className={cn(
+                "w-8 h-8 transition-colors",
+                isDragging ? "text-primary" : "text-muted-foreground",
+              )}
+            />
           </div>
-          
+
           <div>
             <p className="text-lg font-semibold mb-1">
               Drop files here or click to upload
@@ -148,9 +155,7 @@ export const FileUploadZone = ({
               key={index}
               className="flex items-center gap-3 p-3 bg-muted rounded-lg animate-fade-in"
             >
-              <div className="text-primary">
-                {getFileIcon(file)}
-              </div>
+              <div className="text-primary">{getFileIcon(file)}</div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{file.name}</p>
                 <p className="text-xs text-muted-foreground">

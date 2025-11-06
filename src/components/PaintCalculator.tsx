@@ -22,10 +22,10 @@ const PaintCalculator = () => {
 
     // Calculate wall area (4 walls)
     const wallArea = 2 * (l * h) + 2 * (w * h);
-    
+
     // Typical coverage: 350 sq ft per gallon
     const gallonsNeeded = (wallArea * c) / 350;
-    
+
     setResult(Math.ceil(gallonsNeeded));
   };
 
@@ -34,7 +34,9 @@ const PaintCalculator = () => {
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           Paint Coverage Calculator
-          <Badge variant="info" size="sm">Free Tool</Badge>
+          <Badge variant="info" size="sm">
+            Free Tool
+          </Badge>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -91,7 +93,9 @@ const PaintCalculator = () => {
 
         {result !== null && (
           <div className="p-4 bg-primary/10 rounded-lg text-center">
-            <p className="text-sm text-muted-foreground mb-1">You'll need approximately:</p>
+            <p className="text-sm text-muted-foreground mb-1">
+              You'll need approximately:
+            </p>
             <p className="text-3xl font-bold text-primary">
               {result} {result === 1 ? "Gallon" : "Gallons"}
             </p>
@@ -102,8 +106,8 @@ const PaintCalculator = () => {
         )}
 
         <p className="text-xs text-muted-foreground">
-          * This calculator provides estimates. Actual coverage may vary based on surface texture,
-          porosity, and application method.
+          * This calculator provides estimates. Actual coverage may vary based
+          on surface texture, porosity, and application method.
         </p>
       </CardContent>
     </Card>

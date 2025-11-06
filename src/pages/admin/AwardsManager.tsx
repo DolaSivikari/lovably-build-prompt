@@ -1,21 +1,47 @@
-import { useState, useEffect } from 'react';
-import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
-import { toast } from '@/hooks/use-toast';
-import { Plus, Pencil, Trash2, Award, AlertCircle, ChevronLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Switch } from '@/components/ui/switch';
-import { ImageUploadField } from '@/components/admin/ImageUploadField';
-import { ConfirmDialog } from '@/components/admin/ConfirmDialog';
+import { useState, useEffect } from "react";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "@/hooks/use-toast";
+import {
+  Plus,
+  Pencil,
+  Trash2,
+  Award,
+  AlertCircle,
+  ChevronLeft,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Switch } from "@/components/ui/switch";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface AwardCertification {
   id: string;
@@ -23,7 +49,7 @@ interface AwardCertification {
   issuing_organization: string;
   date_received: string;
   expiry_date: string | null;
-  category: 'certification' | 'award' | 'membership' | 'accreditation';
+  category: "certification" | "award" | "membership" | "accreditation";
   badge_image_url: string | null;
   credential_number: string | null;
   verification_url: string | null;
@@ -40,12 +66,15 @@ const AwardsManager = () => {
   const [awards, setAwards] = useState<AwardCertification[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingAward, setEditingAward] = useState<Partial<AwardCertification> | null>(null);
+  const [editingAward, setEditingAward] =
+    useState<Partial<AwardCertification> | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (user) setUserId(user.id);
     };
     getUser();
@@ -53,18 +82,18 @@ const AwardsManager = () => {
 
   const fetchAwards = async () => {
     try {
-        const { data, error } = await supabase
-        .from('awards_certifications')
-        .select('*')
-        .order('display_order', { ascending: true });
+      const { data, error } = await supabase
+        .from("awards_certifications")
+        .select("*")
+        .order("display_order", { ascending: true });
 
       if (error) throw error;
-      setAwards(data as AwardCertification[] || []);
+      setAwards((data as AwardCertification[]) || []);
     } catch (error: any) {
       toast({
-        title: 'Error',
+        title: "Error",
         description: error.message,
-        variant: 'destructive',
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -80,9 +109,9 @@ const AwardsManager = () => {
   const handleSave = async () => {
     if (!editingAward?.title || !editingAward?.issuing_organization) {
       toast({
-        title: 'Validation Error',
-        description: 'Title and issuing organization are required',
-        variant: 'destructive',
+        title: "Validation Error",
+        description: "Title and issuing organization are required",
+        variant: "destructive",
       });
       return;
     }
@@ -93,7 +122,7 @@ const AwardsManager = () => {
         issuing_organization: editingAward.issuing_organization,
         date_received: editingAward.date_received,
         expiry_date: editingAward.expiry_date,
-        category: editingAward.category || 'certification',
+        category: editingAward.category || "certification",
         badge_image_url: editingAward.badge_image_url,
         credential_number: editingAward.credential_number,
         verification_url: editingAward.verification_url,
@@ -106,24 +135,26 @@ const AwardsManager = () => {
 
       if (editingAward.id) {
         const { error } = await supabase
-          .from('awards_certifications')
+          .from("awards_certifications")
           .update(payload)
-          .eq('id', editingAward.id);
+          .eq("id", editingAward.id);
 
         if (error) throw error;
-        toast({ 
-          title: 'Success', 
-          description: 'Award updated successfully. View on website to see changes.'
+        toast({
+          title: "Success",
+          description:
+            "Award updated successfully. View on website to see changes.",
         });
       } else {
         const { error } = await supabase
-          .from('awards_certifications')
+          .from("awards_certifications")
           .insert([payload]);
 
         if (error) throw error;
-        toast({ 
-          title: 'Success', 
-          description: 'Award created successfully. View on website to see changes.'
+        toast({
+          title: "Success",
+          description:
+            "Award created successfully. View on website to see changes.",
         });
       }
 
@@ -132,9 +163,9 @@ const AwardsManager = () => {
       fetchAwards();
     } catch (error: any) {
       toast({
-        title: 'Error',
+        title: "Error",
         description: error.message,
-        variant: 'destructive',
+        variant: "destructive",
       });
     }
   };
@@ -152,18 +183,18 @@ const AwardsManager = () => {
 
     try {
       const { error } = await supabase
-        .from('awards_certifications')
+        .from("awards_certifications")
         .delete()
-        .eq('id', awardToDelete);
+        .eq("id", awardToDelete);
 
       if (error) throw error;
-      toast({ title: 'Success', description: 'Award deleted successfully' });
+      toast({ title: "Success", description: "Award deleted successfully" });
       fetchAwards();
     } catch (error: any) {
       toast({
-        title: 'Error',
+        title: "Error",
         description: error.message,
-        variant: 'destructive',
+        variant: "destructive",
       });
     }
     setDeleteDialogOpen(false);
@@ -172,11 +203,11 @@ const AwardsManager = () => {
 
   const newAward = () => {
     setEditingAward({
-      title: '',
-      issuing_organization: '',
-      date_received: new Date().toISOString().split('T')[0],
+      title: "",
+      issuing_organization: "",
+      date_received: new Date().toISOString().split("T")[0],
       expiry_date: null,
-      category: 'certification',
+      category: "certification",
       badge_image_url: null,
       credential_number: null,
       verification_url: null,
@@ -219,7 +250,8 @@ const AwardsManager = () => {
           <div>
             <h1 className="text-3xl font-bold">Awards & Certifications</h1>
             <p className="text-muted-foreground">
-              Manage company certifications, awards, and professional memberships
+              Manage company certifications, awards, and professional
+              memberships
             </p>
           </div>
         </div>
@@ -227,7 +259,7 @@ const AwardsManager = () => {
           <Plus className="w-4 h-4 mr-2" />
           Add Award
         </Button>
-        <Button variant="outline" onClick={() => window.open('/', '_blank')}>
+        <Button variant="outline" onClick={() => window.open("/", "_blank")}>
           View on Website
         </Button>
       </div>
@@ -250,8 +282,12 @@ const AwardsManager = () => {
           <TableBody>
             {awards.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                  No awards or certifications found. Click "Add Award" to create one.
+                <TableCell
+                  colSpan={8}
+                  className="text-center py-8 text-muted-foreground"
+                >
+                  No awards or certifications found. Click "Add Award" to create
+                  one.
                 </TableCell>
               </TableRow>
             ) : (
@@ -276,17 +312,23 @@ const AwardsManager = () => {
                   </TableCell>
                   <TableCell>
                     {award.expiry_date ? (
-                      <span className={isExpired(award.expiry_date) ? 'text-destructive font-semibold' : ''}>
+                      <span
+                        className={
+                          isExpired(award.expiry_date)
+                            ? "text-destructive font-semibold"
+                            : ""
+                        }
+                      >
                         {new Date(award.expiry_date).toLocaleDateString()}
-                        {isExpired(award.expiry_date) && ' (Expired)'}
+                        {isExpired(award.expiry_date) && " (Expired)"}
                       </span>
                     ) : (
                       <span className="text-muted-foreground">No expiry</span>
                     )}
                   </TableCell>
                   <TableCell>
-                    <Badge variant={award.is_active ? 'default' : 'secondary'}>
-                      {award.is_active ? 'Active' : 'Inactive'}
+                    <Badge variant={award.is_active ? "default" : "secondary"}>
+                      {award.is_active ? "Active" : "Inactive"}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -327,7 +369,7 @@ const AwardsManager = () => {
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {editingAward?.id ? 'Edit Award' : 'Add New Award'}
+              {editingAward?.id ? "Edit Award" : "Add New Award"}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
@@ -335,7 +377,7 @@ const AwardsManager = () => {
               <Label htmlFor="title">Title *</Label>
               <Input
                 id="title"
-                value={editingAward?.title || ''}
+                value={editingAward?.title || ""}
                 onChange={(e) =>
                   setEditingAward({ ...editingAward, title: e.target.value })
                 }
@@ -347,7 +389,7 @@ const AwardsManager = () => {
               <Label htmlFor="organization">Issuing Organization *</Label>
               <Input
                 id="organization"
-                value={editingAward?.issuing_organization || ''}
+                value={editingAward?.issuing_organization || ""}
                 onChange={(e) =>
                   setEditingAward({
                     ...editingAward,
@@ -362,7 +404,7 @@ const AwardsManager = () => {
               <div>
                 <Label htmlFor="category">Category</Label>
                 <Select
-                  value={editingAward?.category || 'certification'}
+                  value={editingAward?.category || "certification"}
                   onValueChange={(value: any) =>
                     setEditingAward({ ...editingAward, category: value })
                   }
@@ -401,9 +443,12 @@ const AwardsManager = () => {
                 <Input
                   id="date_received"
                   type="date"
-                  value={editingAward?.date_received || ''}
+                  value={editingAward?.date_received || ""}
                   onChange={(e) =>
-                    setEditingAward({ ...editingAward, date_received: e.target.value })
+                    setEditingAward({
+                      ...editingAward,
+                      date_received: e.target.value,
+                    })
                   }
                 />
               </div>
@@ -413,7 +458,7 @@ const AwardsManager = () => {
                 <Input
                   id="expiry_date"
                   type="date"
-                  value={editingAward?.expiry_date || ''}
+                  value={editingAward?.expiry_date || ""}
                   onChange={(e) =>
                     setEditingAward({
                       ...editingAward,
@@ -425,10 +470,12 @@ const AwardsManager = () => {
             </div>
 
             <div>
-              <Label htmlFor="credential_number">Credential Number (optional)</Label>
+              <Label htmlFor="credential_number">
+                Credential Number (optional)
+              </Label>
               <Input
                 id="credential_number"
-                value={editingAward?.credential_number || ''}
+                value={editingAward?.credential_number || ""}
                 onChange={(e) =>
                   setEditingAward({
                     ...editingAward,
@@ -440,10 +487,12 @@ const AwardsManager = () => {
             </div>
 
             <div>
-              <Label htmlFor="verification_url">Verification URL (optional)</Label>
+              <Label htmlFor="verification_url">
+                Verification URL (optional)
+              </Label>
               <Input
                 id="verification_url"
-                value={editingAward?.verification_url || ''}
+                value={editingAward?.verification_url || ""}
                 onChange={(e) =>
                   setEditingAward({
                     ...editingAward,
@@ -458,9 +507,12 @@ const AwardsManager = () => {
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
-                value={editingAward?.description || ''}
+                value={editingAward?.description || ""}
                 onChange={(e) =>
-                  setEditingAward({ ...editingAward, description: e.target.value || null })
+                  setEditingAward({
+                    ...editingAward,
+                    description: e.target.value || null,
+                  })
                 }
                 placeholder="Brief description of this award or certification"
                 rows={3}
@@ -470,9 +522,12 @@ const AwardsManager = () => {
             <div>
               <Label>Badge Image (optional)</Label>
               <ImageUploadField
-                value={editingAward?.badge_image_url || ''}
+                value={editingAward?.badge_image_url || ""}
                 onChange={(url) =>
-                  setEditingAward({ ...editingAward, badge_image_url: url || null })
+                  setEditingAward({
+                    ...editingAward,
+                    badge_image_url: url || null,
+                  })
                 }
                 bucket="project-images"
               />
@@ -495,7 +550,10 @@ const AwardsManager = () => {
                   id="show_on_homepage"
                   checked={editingAward?.show_on_homepage || false}
                   onCheckedChange={(checked) =>
-                    setEditingAward({ ...editingAward, show_on_homepage: checked })
+                    setEditingAward({
+                      ...editingAward,
+                      show_on_homepage: checked,
+                    })
                   }
                 />
                 <Label htmlFor="show_on_homepage">Show on Homepage</Label>
@@ -507,7 +565,7 @@ const AwardsManager = () => {
                 Cancel
               </Button>
               <Button onClick={handleSave}>
-                {editingAward?.id ? 'Update' : 'Create'}
+                {editingAward?.id ? "Update" : "Create"}
               </Button>
             </div>
           </div>

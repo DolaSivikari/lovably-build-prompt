@@ -4,7 +4,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Building2 } from "lucide-react";
 
@@ -17,7 +23,9 @@ const Auth = () => {
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session) {
         navigate("/admin");
       }
@@ -31,14 +39,19 @@ const Auth = () => {
 
     try {
       // Check if account is locked before attempting login
-      const lockoutCheck = await supabase.functions.invoke('check-login-attempt', {
-        body: { email, success: false },
-      });
+      const lockoutCheck = await supabase.functions.invoke(
+        "check-login-attempt",
+        {
+          body: { email, success: false },
+        },
+      );
 
       if (lockoutCheck.data?.locked) {
         toast({
           title: "Account Locked",
-          description: lockoutCheck.data.reason || "Too many failed attempts. Please try again later.",
+          description:
+            lockoutCheck.data.reason ||
+            "Too many failed attempts. Please try again later.",
           variant: "destructive",
         });
         setIsLoading(false);
@@ -52,15 +65,15 @@ const Auth = () => {
 
       if (error) {
         // Record failed attempt
-        await supabase.functions.invoke('check-login-attempt', {
+        await supabase.functions.invoke("check-login-attempt", {
           body: { email, success: false },
         });
-        
+
         throw error;
       }
 
       // Record successful login
-      await supabase.functions.invoke('check-login-attempt', {
+      await supabase.functions.invoke("check-login-attempt", {
         body: { email, success: true },
       });
 
@@ -81,7 +94,6 @@ const Auth = () => {
       setIsLoading(false);
     }
   };
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary-light/5 p-4">

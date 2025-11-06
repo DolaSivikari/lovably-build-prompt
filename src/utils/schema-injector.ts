@@ -5,8 +5,8 @@
 
 export const injectSchemas = (...schemas: object[]) => {
   return schemas.map((schema, i) => ({
-    type: 'application/ld+json',
-    innerHTML: JSON.stringify(schema)
+    type: "application/ld+json",
+    innerHTML: JSON.stringify(schema),
   }));
 };
 
@@ -22,19 +22,19 @@ export const createHowToSchema = (options: {
     "@type": "HowTo",
     name: options.name,
     description: options.description,
-    step: options.steps.map(step => ({
+    step: options.steps.map((step) => ({
       "@type": "HowToStep",
       position: step.position,
       name: step.name,
-      text: step.text
-    }))
+      text: step.text,
+    })),
   };
 
   if (options.estimatedCost) {
     schema.estimatedCost = {
       "@type": "MonetaryAmount",
       currency: "CAD",
-      value: `${options.estimatedCost.min}-${options.estimatedCost.max}`
+      value: `${options.estimatedCost.min}-${options.estimatedCost.max}`,
     };
   }
 
@@ -51,8 +51,8 @@ export const createQASchema = (question: string, answer: string) => ({
   name: question,
   acceptedAnswer: {
     "@type": "Answer",
-    text: answer
-  }
+    text: answer,
+  },
 });
 
 export const createServiceSchema = (options: {
@@ -66,17 +66,17 @@ export const createServiceSchema = (options: {
   serviceType: options.serviceType,
   provider: {
     "@type": "LocalBusiness",
-    name: "Ascent Group Construction"
+    name: "Ascent Group Construction",
   },
-  areaServed: options.areaServed.map(city => ({
+  areaServed: options.areaServed.map((city) => ({
     "@type": "City",
-    name: city
+    name: city,
   })),
   offers: {
     "@type": "Offer",
     availability: "https://schema.org/InStock",
     priceRange: options.priceRange,
-    priceCurrency: "CAD"
+    priceCurrency: "CAD",
   },
   ...(options.subServices && {
     hasOfferCatalog: {
@@ -86,11 +86,11 @@ export const createServiceSchema = (options: {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: service
-        }
-      }))
-    }
-  })
+          name: service,
+        },
+      })),
+    },
+  }),
 });
 
 export const createSiteSearchSchema = (baseUrl: string) => ({
@@ -101,8 +101,8 @@ export const createSiteSearchSchema = (baseUrl: string) => ({
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: `${baseUrl}/services?search={search_term_string}`
+      urlTemplate: `${baseUrl}/services?search={search_term_string}`,
     },
-    "query-input": "required name=search_term_string"
-  }
+    "query-input": "required name=search_term_string",
+  },
 });

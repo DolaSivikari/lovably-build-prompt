@@ -38,9 +38,7 @@ const BeforeAfterSlider = ({
       </div>
 
       {/* Slider Line */}
-      <div
-        className="absolute top-0 bottom-0 w-1 bg-[hsl(var(--bg))] shadow-lg"
-      >
+      <div className="absolute top-0 bottom-0 w-1 bg-[hsl(var(--bg))] shadow-lg">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-[hsl(var(--bg))] rounded-full shadow-lg flex items-center justify-center">
           <div className="flex gap-0.5">
             <div className="w-0.5 h-4 bg-primary"></div>

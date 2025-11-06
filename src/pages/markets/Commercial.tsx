@@ -1,9 +1,21 @@
-import { Building2, Clock, DollarSign, CheckCircle2, ArrowRight } from "lucide-react";
+import {
+  Building2,
+  Clock,
+  DollarSign,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroCommercial from "@/assets/heroes/hero-commercial.jpg";
@@ -20,17 +32,20 @@ const Commercial = () => {
   const solutions = [
     {
       title: "Off-Hours Work",
-      description: "Weekend and evening scheduling to minimize impact on business operations and building tenants.",
+      description:
+        "Weekend and evening scheduling to minimize impact on business operations and building tenants.",
       icon: Clock,
     },
     {
       title: "Fast-Track Delivery",
-      description: "Expedited permitting, procurement, and construction to meet aggressive move-in dates.",
+      description:
+        "Expedited permitting, procurement, and construction to meet aggressive move-in dates.",
       icon: Building2,
     },
     {
       title: "Budget Certainty",
-      description: "Fixed-price contracts with detailed allowances and comprehensive change order procedures.",
+      description:
+        "Fixed-price contracts with detailed allowances and comprehensive change order procedures.",
       icon: DollarSign,
     },
   ];
@@ -42,7 +57,7 @@ const Commercial = () => {
         description="General contractor for commercial construction projects: office tenant improvements, retail buildouts, and mixed-use developments across the GTA."
       />
       <Navigation />
-      
+
       <PageHeader
         title="Commercial Construction"
         description="Expert delivery of office buildings, tenant improvements, and retail spaces"
@@ -55,16 +70,20 @@ const Commercial = () => {
           <section className="mb-16">
             <div className="prose prose-lg max-w-none">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We deliver commercial construction projects that meet aggressive timelines while maintaining the highest 
-                quality standards. From ground-up office buildings to tenant improvements and retail renovations, our team 
-                coordinates all trades to ensure on-time, on-budget delivery.
+                We deliver commercial construction projects that meet aggressive
+                timelines while maintaining the highest quality standards. From
+                ground-up office buildings to tenant improvements and retail
+                renovations, our team coordinates all trades to ensure on-time,
+                on-budget delivery.
               </p>
             </div>
           </section>
 
           {/* Challenges */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Commercial Construction Challenges</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Commercial Construction Challenges
+            </h2>
             <Card>
               <CardContent className="pt-6">
                 <ul className="space-y-4">
@@ -81,7 +100,9 @@ const Commercial = () => {
 
           {/* Our Solutions */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">How We Deliver Success</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              How We Deliver Success
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {solutions.map((solution, index) => {
                 const Icon = solution.icon;
@@ -102,7 +123,9 @@ const Commercial = () => {
 
           {/* Services */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Commercial Services</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Commercial Services
+            </h2>
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -112,19 +135,27 @@ const Commercial = () => {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Office building construction</span>
+                      <span className="text-muted-foreground">
+                        Office building construction
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Mixed-use developments</span>
+                      <span className="text-muted-foreground">
+                        Mixed-use developments
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Retail plaza construction</span>
+                      <span className="text-muted-foreground">
+                        Retail plaza construction
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Ground-up commercial buildings</span>
+                      <span className="text-muted-foreground">
+                        Ground-up commercial buildings
+                      </span>
                     </li>
                   </ul>
                 </CardContent>
@@ -138,19 +169,27 @@ const Commercial = () => {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Office space buildouts</span>
+                      <span className="text-muted-foreground">
+                        Office space buildouts
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Retail fit-outs</span>
+                      <span className="text-muted-foreground">
+                        Retail fit-outs
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Building renovations</span>
+                      <span className="text-muted-foreground">
+                        Building renovations
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Facade upgrades</span>
+                      <span className="text-muted-foreground">
+                        Facade upgrades
+                      </span>
                     </li>
                   </ul>
                 </CardContent>
@@ -162,8 +201,13 @@ const Commercial = () => {
           <section>
             <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Ready to Start Your Commercial Project?</CardTitle>
-                <CardDescription>Let's discuss your requirements and create a comprehensive proposal</CardDescription>
+                <CardTitle className="text-2xl">
+                  Ready to Start Your Commercial Project?
+                </CardTitle>
+                <CardDescription>
+                  Let's discuss your requirements and create a comprehensive
+                  proposal
+                </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="gap-2">

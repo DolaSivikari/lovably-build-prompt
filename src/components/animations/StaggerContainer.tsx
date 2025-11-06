@@ -11,7 +11,7 @@ interface StaggerContainerProps {
 
 /**
  * Container that automatically staggers animations of direct children
- * 
+ *
  * @example
  * ```tsx
  * <StaggerContainer type="fade">
@@ -19,7 +19,7 @@ interface StaggerContainerProps {
  *   <Card>Item 2 - Fades in second</Card>
  *   <Card>Item 3 - Fades in third</Card>
  * </StaggerContainer>
- * 
+ *
  * <StaggerContainer type="scale">
  *   {items.map(item => (
  *     <div key={item.id}>{item.name}</div>
@@ -34,9 +34,5 @@ export const StaggerContainer = ({
 }: StaggerContainerProps) => {
   const staggerClass = type === "fade" ? "stagger-fade-in" : "stagger-scale";
 
-  return (
-    <div className={cn(staggerClass, className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn(staggerClass, className)}>{children}</div>;
 };

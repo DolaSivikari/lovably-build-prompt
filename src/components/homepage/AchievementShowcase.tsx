@@ -24,11 +24,11 @@ const AchievementShowcase = () => {
   useEffect(() => {
     const fetchStats = async () => {
       const { data } = await supabase
-        .from('stats')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order');
-      
+        .from("stats")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order");
+
       if (data) {
         setStats(data as StatData[]);
       }
@@ -39,17 +39,17 @@ const AchievementShowcase = () => {
 
   const getIconComponent = (iconName: string) => {
     const iconMap: Record<string, any> = {
-      'Building': Building,
-      'Users': Users,
-      'Award': Award,
-      'TrendingUp': TrendingUp
+      Building: Building,
+      Users: Users,
+      Award: Award,
+      TrendingUp: TrendingUp,
     };
     return iconMap[iconName] || Building;
   };
 
   return (
-    <section 
-      ref={sectionRef} 
+    <section
+      ref={sectionRef}
       className="relative py-20 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden"
     >
       {/* Decorative Background */}
@@ -73,7 +73,8 @@ const AchievementShowcase = () => {
               Numbers That Speak For Themselves
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Over 15 years of delivering exceptional construction services across Ontario
+              Over 15 years of delivering exceptional construction services
+              across Ontario
             </p>
           </motion.div>
         </div>
@@ -83,7 +84,7 @@ const AchievementShowcase = () => {
           {stats.map((stat, index) => {
             const Icon = getIconComponent(stat.icon_name);
             const isExpanded = expandedStat === stat.id;
-            
+
             return (
               <StatCard
                 key={stat.id}
@@ -131,7 +132,14 @@ interface StatCardProps {
   onToggle: () => void;
 }
 
-const StatCard = ({ stat, Icon, index, isVisible, isExpanded, onToggle }: StatCardProps) => {
+const StatCard = ({
+  stat,
+  Icon,
+  index,
+  isVisible,
+  isExpanded,
+  onToggle,
+}: StatCardProps) => {
   const count = useCountUp(stat.value, 2000, isVisible);
 
   return (
@@ -160,7 +168,7 @@ const StatCard = ({ stat, Icon, index, isVisible, isExpanded, onToggle }: StatCa
           >
             <Icon className="h-8 w-8" />
           </div>
-          
+
           {/* Animated Ring */}
           {isVisible && (
             <svg className="absolute inset-0 w-16 h-16 -rotate-90">

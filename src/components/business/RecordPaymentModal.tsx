@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,7 +14,11 @@ import { Textarea } from "@/components/ui/textarea";
 interface RecordPaymentModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (payment: { amount_cents: number; payment_date: string; notes?: string }) => void;
+  onSubmit: (payment: {
+    amount_cents: number;
+    payment_date: string;
+    notes?: string;
+  }) => void;
   remainingBalance: number;
 }
 
@@ -20,7 +29,9 @@ export const RecordPaymentModal = ({
   remainingBalance,
 }: RecordPaymentModalProps) => {
   const [amountCents, setAmountCents] = useState(remainingBalance);
-  const [paymentDate, setPaymentDate] = useState(new Date().toISOString().split('T')[0]);
+  const [paymentDate, setPaymentDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
   const [notes, setNotes] = useState("");
 
   const handleSubmit = () => {
@@ -71,9 +82,7 @@ export const RecordPaymentModal = ({
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleSubmit}>
-              Record Payment
-            </Button>
+            <Button onClick={handleSubmit}>Record Payment</Button>
           </div>
         </div>
       </DialogContent>

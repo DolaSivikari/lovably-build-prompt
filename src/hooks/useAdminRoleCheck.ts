@@ -14,7 +14,9 @@ export const useAdminRoleCheck = () => {
     checkAdminRole();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
       checkAdminRole();
     });
 
@@ -23,8 +25,10 @@ export const useAdminRoleCheck = () => {
 
   const checkAdminRole = async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
       if (!session) {
         setIsAdmin(false);
         setIsLoading(false);

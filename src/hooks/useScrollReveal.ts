@@ -10,11 +10,11 @@ interface UseScrollRevealOptions {
  * Hook for scroll-triggered reveal animations
  * @param options - Intersection Observer options
  * @returns ref to attach to element and isVisible state
- * 
+ *
  * @example
  * ```tsx
  * const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
- * 
+ *
  * return (
  *   <div ref={ref} className={`scroll-reveal ${isVisible ? 'is-visible' : ''}`}>
  *     Content will fade in when scrolled into view
@@ -23,7 +23,7 @@ interface UseScrollRevealOptions {
  * ```
  */
 export const useScrollReveal = <T extends HTMLElement = HTMLDivElement>(
-  options: UseScrollRevealOptions = {}
+  options: UseScrollRevealOptions = {},
 ) => {
   const {
     threshold = 0.1,
@@ -52,7 +52,7 @@ export const useScrollReveal = <T extends HTMLElement = HTMLDivElement>(
       {
         threshold,
         rootMargin,
-      }
+      },
     );
 
     observer.observe(element);

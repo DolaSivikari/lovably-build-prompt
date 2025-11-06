@@ -7,11 +7,13 @@ This document outlines the performance optimizations implemented in the Ascen Gr
 ## Performance Targets
 
 ### Core Web Vitals
+
 - **Largest Contentful Paint (LCP)**: < 2.5s ✅
 - **First Input Delay (FID)**: < 100ms ✅
 - **Cumulative Layout Shift (CLS)**: < 0.1 ✅
 
 ### Lighthouse Scores (Target: 90+)
+
 - Performance: 92-98
 - Accessibility: 95+
 - Best Practices: 95+
@@ -22,7 +24,9 @@ This document outlines the performance optimizations implemented in the Ascen Gr
 ### 1. Image Optimization
 
 #### OptimizedImage Component
+
 All images use the `<OptimizedImage>` component which provides:
+
 - **Lazy loading** with Intersection Observer API
 - **Progressive loading** with opacity transitions
 - **Responsive images** with proper sizing
@@ -34,7 +38,7 @@ All images use the `<OptimizedImage>` component which provides:
 
 ```tsx
 // Hero/above-fold images - load immediately
-<OptimizedImage 
+<OptimizedImage
   src={heroImage}
   alt="Construction site at sunset"
   priority={true}
@@ -44,7 +48,7 @@ All images use the `<OptimizedImage>` component which provides:
 />
 
 // Below-fold images - lazy load
-<OptimizedImage 
+<OptimizedImage
   src={projectImage}
   alt="Downtown office tower exterior with reflective glass windows"
   priority={false}
@@ -55,6 +59,7 @@ All images use the `<OptimizedImage>` component which provides:
 ```
 
 #### Best Practices
+
 - Set `priority={true}` only for hero images and above-the-fold content
 - Always provide descriptive `alt` text
 - Specify `width` and `height` to prevent layout shift
@@ -70,28 +75,38 @@ All images use the `<OptimizedImage>` component which provides:
 ### 3. Resource Optimization
 
 #### Fonts
+
 - Preload critical fonts in `index.html`
 - Use `font-display: swap` for web fonts
 - Subset fonts when possible
 
 #### Critical Resources
+
 ```html
 <!-- Preconnect to external domains -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="dns-prefetch" href="https://xdowuirheazerlwatwja.supabase.co">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://xdowuirheazerlwatwja.supabase.co" />
 
 <!-- Preload critical fonts -->
-<link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin>
+<link
+  rel="preload"
+  href="/fonts/main-font.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 ```
 
 ### 4. Performance Monitoring
 
 #### Tools
+
 - **Google Lighthouse**: Run in Chrome DevTools
 - **WebPageTest**: https://webpagetest.org
 - **Chrome DevTools Performance Tab**: Record and analyze runtime performance
 
 #### Testing Checklist
+
 - [ ] Run Lighthouse on all major pages
 - [ ] Test on 3G connection (DevTools Network throttling)
 - [ ] Verify Core Web Vitals in Chrome DevTools
@@ -101,12 +116,14 @@ All images use the `<OptimizedImage>` component which provides:
 ## Performance Budget
 
 ### Bundle Size Limits
+
 - **Initial JS Bundle**: < 250KB (gzipped)
 - **Initial CSS**: < 50KB (gzipped)
 - **Total Initial Load**: < 1MB
 - **Images per page**: < 2MB total
 
 ### Timing Budgets
+
 - **Time to Interactive**: < 3.8s
 - **First Contentful Paint**: < 1.8s
 - **Speed Index**: < 3.4s
@@ -127,21 +144,27 @@ When adding new features, ensure:
 ## Common Performance Issues
 
 ### Issue: Slow Initial Load
+
 **Solutions:**
+
 - Check for large JavaScript bundles
 - Verify images are optimized and lazy loaded
 - Ensure fonts are preloaded
 - Remove unused dependencies
 
 ### Issue: Poor Mobile Performance
+
 **Solutions:**
+
 - Test on actual devices
 - Use network throttling in DevTools
 - Optimize images for mobile screens
 - Reduce JavaScript execution
 
 ### Issue: High CLS (Layout Shift)
+
 **Solutions:**
+
 - Set explicit width/height on images
 - Reserve space for dynamic content
 - Avoid inserting content above existing content
@@ -150,12 +173,14 @@ When adding new features, ensure:
 ## Monitoring in Production
 
 ### Key Metrics to Track
+
 1. **Core Web Vitals** from Chrome UX Report
 2. **Page Load Time** from analytics
 3. **Bounce Rate** correlation with performance
 4. **Conversion Rate** impact
 
 ### Regular Audits
+
 - Run Lighthouse monthly
 - Review Core Web Vitals weekly
 - Check bundle size after each deployment

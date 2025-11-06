@@ -1,8 +1,30 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/ui/Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { FileText, Briefcase, Image, Users, Search, Activity, ExternalLink, Settings } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  FileText,
+  Briefcase,
+  Image,
+  Users,
+  Search,
+  Activity,
+  ExternalLink,
+  Settings,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -16,16 +38,53 @@ interface QuickAction {
 }
 
 const DEFAULT_ACTIONS: QuickAction[] = [
-  { label: "New Project", icon: "Briefcase", path: "/admin/projects/new", color: "text-primary" },
-  { label: "New Blog Post", icon: "FileText", path: "/admin/blog/new", color: "text-secondary" },
-  { label: "Media Library", icon: "Image", path: ADMIN_ROUTES.media, color: "text-blue-600" },
-  { label: "Manage Users", icon: "Users", path: ADMIN_ROUTES.users, color: "text-purple-600" },
-  { label: "SEO Dashboard", icon: "Search", path: ADMIN_ROUTES.seoDashboard, color: "text-green-600" },
-  { label: "View Site", icon: "ExternalLink", path: "/", color: "text-orange-600" },
+  {
+    label: "New Project",
+    icon: "Briefcase",
+    path: "/admin/projects/new",
+    color: "text-primary",
+  },
+  {
+    label: "New Blog Post",
+    icon: "FileText",
+    path: "/admin/blog/new",
+    color: "text-secondary",
+  },
+  {
+    label: "Media Library",
+    icon: "Image",
+    path: ADMIN_ROUTES.media,
+    color: "text-blue-600",
+  },
+  {
+    label: "Manage Users",
+    icon: "Users",
+    path: ADMIN_ROUTES.users,
+    color: "text-purple-600",
+  },
+  {
+    label: "SEO Dashboard",
+    icon: "Search",
+    path: ADMIN_ROUTES.seoDashboard,
+    color: "text-green-600",
+  },
+  {
+    label: "View Site",
+    icon: "ExternalLink",
+    path: "/",
+    color: "text-orange-600",
+  },
 ];
 
 const ICON_MAP: Record<string, any> = {
-  FileText, Briefcase, Image, Users, Search, Activity, ExternalLink, Settings
+  FileText,
+  Briefcase,
+  Image,
+  Users,
+  Search,
+  Activity,
+  ExternalLink,
+  Settings,
 };
 
 const QuickActions = () => {
@@ -41,12 +100,16 @@ const QuickActions = () => {
   const loadQuickActions = async () => {
     try {
       const { data, error } = await supabase
-        .from('site_settings')
-        .select('admin_quick_actions')
-        .eq('is_active', true)
+        .from("site_settings")
+        .select("admin_quick_actions")
+        .eq("is_active", true)
         .single();
 
-      if (!error && Array.isArray(data?.admin_quick_actions) && data.admin_quick_actions.length > 0) {
+      if (
+        !error &&
+        Array.isArray(data?.admin_quick_actions) &&
+        data.admin_quick_actions.length > 0
+      ) {
         setActions(data.admin_quick_actions as any as QuickAction[]);
       } else {
         setActions(DEFAULT_ACTIONS);
@@ -59,9 +122,9 @@ const QuickActions = () => {
   const saveQuickActions = async () => {
     try {
       const { error } = await supabase
-        .from('site_settings')
+        .from("site_settings")
         .update({ admin_quick_actions: actions as any })
-        .eq('is_active', true);
+        .eq("is_active", true);
 
       if (error) throw error;
 
@@ -115,11 +178,16 @@ const QuickActions = () => {
                 {actions.map((action, idx) => (
                   <li key={idx} className="flex items-center gap-2">
                     <span className="font-medium">{action.label}</span>
-                    <span className="text-muted-foreground">→ {action.path}</span>
+                    <span className="text-muted-foreground">
+                      → {action.path}
+                    </span>
                   </li>
                 ))}
               </ul>
-              <Button onClick={() => setIsEditDialogOpen(false)} className="w-full">
+              <Button
+                onClick={() => setIsEditDialogOpen(false)}
+                className="w-full"
+              >
                 Close
               </Button>
             </div>

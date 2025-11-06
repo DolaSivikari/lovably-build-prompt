@@ -18,7 +18,7 @@ const BenefitsSection = ({
   title,
   description,
   benefits,
-  className = ""
+  className = "",
 }: BenefitsSectionProps) => {
   return (
     <section className={`py-16 bg-background ${className}`}>
@@ -26,9 +26,7 @@ const BenefitsSection = ({
         <div className="text-center mb-12 max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-4">{title}</h2>
           {description && (
-            <p className="text-lg text-muted-foreground">
-              {description}
-            </p>
+            <p className="text-lg text-muted-foreground">{description}</p>
           )}
         </div>
 

@@ -16,35 +16,35 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;   /* White background */
-    --foreground: 210 10% 30%;     /* Charcoal gray text */
+    --background: 0 0% 100%; /* White background */
+    --foreground: 210 10% 30%; /* Charcoal gray text */
 
-    --card: 0 0% 100%;          /* White cards */
+    --card: 0 0% 100%; /* White cards */
     --card-foreground: 210 10% 30%; /* Charcoal on cards */
 
     --popover: 0 0% 100%;
     --popover-foreground: 210 10% 30%;
 
     /* GC Professional Color Palette */
-    --primary: 210 100% 20%;        /* Navy Blue #003366 */
+    --primary: 210 100% 20%; /* Navy Blue #003366 */
     --primary-foreground: 0 0% 100%; /* White */
     --primary-light: 210 100% 30%;
     --primary-dark: 210 100% 15%;
     --primary-glow: 210 100% 24%;
-    
-    --secondary: 210 10% 30%;       /* Charcoal Gray #36454F */
+
+    --secondary: 210 10% 30%; /* Charcoal Gray #36454F */
     --secondary-foreground: 0 0% 100%; /* White on charcoal */
 
-    --accent: 14 100% 60%;          /* Safety Orange #FF6B35 */
+    --accent: 14 100% 60%; /* Safety Orange #FF6B35 */
     --accent-foreground: 0 0% 100%; /* White text on orange */
 
     /* Steel Blue - Secondary accent for links, icons, highlights */
-    --steel-blue: 193 37% 48%;      /* Steel Blue #4A90A4 */
+    --steel-blue: 193 37% 48%; /* Steel Blue #4A90A4 */
     --steel-blue-foreground: 0 0% 100%; /* White text on steel blue */
 
-    --muted: 210 15% 96%;        /* Light gray-blue muted */
+    --muted: 210 15% 96%; /* Light gray-blue muted */
     --muted-foreground: 210 10% 40%; /* Darker gray-blue text */
-    
+
     /* Accessible color variants for WCAG AA compliance */
     --accent-orange-dark: 14 100% 50%; /* Darker orange for contrast */
     --text-on-orange: 0 0% 100%; /* White text on orange */
@@ -52,40 +52,60 @@ All colors MUST be HSL.
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 90%;         /* Light gray-blue borders */
+    --border: 210 15% 90%; /* Light gray-blue borders */
     --input: 210 15% 90%;
-    --ring: 14 100% 60%;           /* Orange focus rings */
+    --ring: 14 100% 60%; /* Orange focus rings */
 
     --radius: 0.5rem;
-    
+
     /* GC Professional theme variables */
-    --gradient-hero: linear-gradient(135deg, hsl(210 100% 20%) 0%, hsl(210 100% 30%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(14 100% 60%) 0%, hsl(14 100% 70%) 100%);
-    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(210 100% 20% / 0.9) 100%);
-    --gradient-orb: radial-gradient(circle, hsl(14 100% 60% / 0.3) 0%, transparent 70%);
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(210 100% 20%) 0%,
+      hsl(210 100% 30%) 100%
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(14 100% 60%) 0%,
+      hsl(14 100% 70%) 100%
+    );
+    --gradient-overlay: linear-gradient(
+      180deg,
+      transparent 0%,
+      hsl(210 100% 20% / 0.9) 100%
+    );
+    --gradient-orb: radial-gradient(
+      circle,
+      hsl(14 100% 60% / 0.3) 0%,
+      transparent 70%
+    );
     --shadow-soft: 0 2px 10px hsl(210 100% 20% / 0.1);
     --shadow-medium: 0 4px 20px hsl(210 100% 20% / 0.15);
     --shadow-strong: 0 10px 40px -10px hsl(210 100% 20% / 0.25);
     --shadow-accent: 0 8px 30px -8px hsl(14 100% 60% / 0.4);
     --shadow-glow: 0 0 40px hsl(14 100% 60% / 0.4);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     /* Card Shadows */
-    --shadow-card: 0 4px 6px -1px hsl(var(--primary) / 0.1), 0 2px 4px -2px hsl(var(--primary) / 0.1);
-    --shadow-card-hover: 0 10px 15px -3px hsl(var(--primary) / 0.1), 0 4px 6px -4px hsl(var(--primary) / 0.1);
+    --shadow-card:
+      0 4px 6px -1px hsl(var(--primary) / 0.1),
+      0 2px 4px -2px hsl(var(--primary) / 0.1);
+    --shadow-card-hover:
+      0 10px 15px -3px hsl(var(--primary) / 0.1),
+      0 4px 6px -4px hsl(var(--primary) / 0.1);
 
     /* Z-Index System - Organized in layers from base to top */
-    --z-base: 0;           /* Default layer */
-    --z-dropdown: 10;      /* Dropdowns and popovers */
-    --z-sticky: 20;        /* Sticky elements */
-    --z-fixed: 30;         /* Fixed position elements */
-    --z-overlay: 40;       /* Overlays and backdrops */
-    --z-navigation: 50;    /* Navigation bar */
-    --z-mega-menu: 60;     /* Mega menus and complex dropdowns */
-    --z-modal: 70;         /* Modal dialogs */
-    --z-toast: 80;         /* Toast notifications */
-    --z-tooltip: 90;       /* Tooltips */
-    --z-skip-link: 100;    /* Skip to content link (highest) */
+    --z-base: 0; /* Default layer */
+    --z-dropdown: 10; /* Dropdowns and popovers */
+    --z-sticky: 20; /* Sticky elements */
+    --z-fixed: 30; /* Fixed position elements */
+    --z-overlay: 40; /* Overlays and backdrops */
+    --z-navigation: 50; /* Navigation bar */
+    --z-mega-menu: 60; /* Mega menus and complex dropdowns */
+    --z-modal: 70; /* Modal dialogs */
+    --z-toast: 80; /* Toast notifications */
+    --z-tooltip: 90; /* Tooltips */
+    --z-skip-link: 100; /* Skip to content link (highest) */
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -107,25 +127,25 @@ All colors MUST be HSL.
     --popover: 215 28% 12%;
     --popover-foreground: 210 20% 95%;
 
-    --primary: 210 100% 70%;        /* Light navy for dark mode */
+    --primary: 210 100% 70%; /* Light navy for dark mode */
     --primary-foreground: 210 100% 10%; /* Dark navy text */
     --primary-light: 210 100% 80%;
     --primary-dark: 210 100% 60%;
     --primary-glow: 210 100% 75%;
 
-    --secondary: 210 10% 40%;    /* Light charcoal */
+    --secondary: 210 10% 40%; /* Light charcoal */
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 14 100% 65%;      /* Bright orange for dark mode */
+    --accent: 14 100% 65%; /* Bright orange for dark mode */
     --accent-foreground: 0 0% 100%;
 
     /* Steel Blue - Dark mode */
-    --steel-blue: 193 37% 58%;      /* Lighter steel blue for dark mode */
+    --steel-blue: 193 37% 58%; /* Lighter steel blue for dark mode */
     --steel-blue-foreground: 0 0% 100%;
 
     --muted: 210 15% 20%;
     --muted-foreground: 210 15% 65%;
-    
+
     /* Accessible color variants for dark mode */
     --accent-orange-dark: 14 100% 55%;
     --text-on-orange: 0 0% 100%;
@@ -136,11 +156,27 @@ All colors MUST be HSL.
     --border: 210 15% 25%;
     --input: 210 15% 25%;
     --ring: 14 100% 65%;
-    
-    --gradient-hero: linear-gradient(135deg, hsl(210 100% 18%) 0%, hsl(210 100% 25%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(14 100% 65%) 0%, hsl(14 100% 75%) 100%);
-    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(210 100% 18% / 0.9) 100%);
-    --gradient-orb: radial-gradient(circle, hsl(14 100% 65% / 0.3) 0%, transparent 70%);
+
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(210 100% 18%) 0%,
+      hsl(210 100% 25%) 100%
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(14 100% 65%) 0%,
+      hsl(14 100% 75%) 100%
+    );
+    --gradient-overlay: linear-gradient(
+      180deg,
+      transparent 0%,
+      hsl(210 100% 18% / 0.9) 100%
+    );
+    --gradient-orb: radial-gradient(
+      circle,
+      hsl(14 100% 65% / 0.3) 0%,
+      transparent 70%
+    );
     --shadow-soft: 0 2px 10px hsl(14 100% 65% / 0.2);
     --shadow-medium: 0 4px 20px hsl(14 100% 65% / 0.3);
     --shadow-strong: 0 10px 40px -10px hsl(14 100% 65% / 0.4);
@@ -168,13 +204,23 @@ All colors MUST be HSL.
 
   /* Professional Typography System - Inter Only */
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
     font-size: 16px;
     line-height: 1.75;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Inter", sans-serif;
     font-weight: 700;
   }
 
@@ -202,8 +248,14 @@ All colors MUST be HSL.
   }
 
   /* Body text */
-  p, li, span, a, button, input, textarea {
-    font-family: 'Inter', sans-serif;
+  p,
+  li,
+  span,
+  a,
+  button,
+  input,
+  textarea {
+    font-family: "Inter", sans-serif;
   }
 }
 
@@ -239,8 +291,16 @@ All colors MUST be HSL.
 
   /* Grid pattern background */
   .grid-pattern {
-    background-image: linear-gradient(hsl(var(--primary-foreground) / 0.05) 1px, transparent 1px),
-                      linear-gradient(90deg, hsl(var(--primary-foreground) / 0.05) 1px, transparent 1px);
+    background-image:
+      linear-gradient(
+        hsl(var(--primary-foreground) / 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        hsl(var(--primary-foreground) / 0.05) 1px,
+        transparent 1px
+      );
     background-size: 40px 40px;
   }
 
@@ -387,13 +447,13 @@ All colors MUST be HSL.
     hyphens: auto;
     max-width: 100%;
   }
-  
+
   .whitespace-mobile-safe {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: anywhere;
   }
-  
+
   /* Prevent layout shift from images */
   .img-mobile-safe {
     max-width: 100%;
@@ -402,7 +462,7 @@ All colors MUST be HSL.
   }
 
   /* === Multi-Level Mega-Menu with Sections === */
-  
+
   /* Mega-menu container with sections */
   .mega-menu-sections {
     @apply absolute left-1/2 -translate-x-1/2 w-[600px] max-w-[90vw];
@@ -511,7 +571,7 @@ All colors MUST be HSL.
     .mega-menu-sections {
       @apply w-[95vw];
     }
-    
+
     .mega-menu-sections-wrapper {
       max-height: 70vh;
     }
@@ -549,29 +609,29 @@ All colors MUST be HSL.
   object-fit: cover;
 }
 
+.landing-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: calc(var(--z-base) + 1);
+  background: linear-gradient(
+    135deg,
+    hsl(var(--background) / 0.5) 0%,
+    hsl(var(--background) / 0.35) 50%,
+    hsl(var(--background) / 0.2) 100%
+  );
+}
+
+/* Darker overlay on mobile for better text contrast */
+@media (max-width: 768px) {
   .landing-hero__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: calc(var(--z-base) + 1);
     background: linear-gradient(
       135deg,
-      hsl(var(--background) / 0.50) 0%,
-      hsl(var(--background) / 0.35) 50%,
-      hsl(var(--background) / 0.20) 100%
+      hsl(var(--background) / 0.65) 0%,
+      hsl(var(--background) / 0.5) 50%,
+      hsl(var(--background) / 0.35) 100%
     );
   }
-  
-  /* Darker overlay on mobile for better text contrast */
-  @media (max-width: 768px) {
-    .landing-hero__overlay {
-      background: linear-gradient(
-        135deg,
-        hsl(var(--background) / 0.65) 0%,
-        hsl(var(--background) / 0.50) 50%,
-        hsl(var(--background) / 0.35) 100%
-      );
-    }
-  }
+}
 
 .landing-hero__content {
   position: relative;
@@ -621,7 +681,7 @@ All colors MUST be HSL.
   font-size: 3.5rem;
   font-weight: 700;
   color: hsl(var(--primary) / 0.3);
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   line-height: 1;
   transition: all 0.3s ease;
 }
@@ -638,21 +698,21 @@ All colors MUST be HSL.
   gap: 0.5rem;
 }
 
+.landing-menu-item__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+}
+
+@media (max-width: 768px) {
   .landing-menu-item__title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: hsl(var(--foreground));
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    line-height: 1.3;
-    transition: color 0.3s ease;
+    text-shadow: 0 2px 8px hsl(var(--background) / 0.8);
   }
-  
-  @media (max-width: 768px) {
-    .landing-menu-item__title {
-      text-shadow: 0 2px 8px hsl(var(--background) / 0.8);
-    }
-  }
+}
 
 .landing-menu-item:hover .landing-menu-item__title {
   color: hsl(var(--primary));
@@ -716,7 +776,8 @@ All colors MUST be HSL.
 }
 
 @keyframes scroll-pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.3;
     transform: translateY(0);
   }
@@ -789,7 +850,7 @@ All colors MUST be HSL.
     margin-top: 0.5rem;
     font-size: 0.75rem;
   }
-  
+
   /* Hide CTA text on very small screens, show only icon */
   .landing-menu-item__cta span {
     display: none;
@@ -818,7 +879,7 @@ All colors MUST be HSL.
     font-size: 1.125rem;
     line-height: 1.3;
   }
-  
+
   .landing-menu-item {
     padding: 1rem 0.75rem; /* Tighter spacing for small screens */
   }

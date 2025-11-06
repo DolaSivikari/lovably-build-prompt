@@ -1,5 +1,16 @@
 import { useState } from "react";
-import { Shield, FileText, Download, Package, CheckCircle2, Award, Building2, Truck, Users, HardHat } from "lucide-react";
+import {
+  Shield,
+  FileText,
+  Download,
+  Package,
+  CheckCircle2,
+  Award,
+  Building2,
+  Truck,
+  Users,
+  HardHat,
+} from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
@@ -36,20 +47,60 @@ const ContractorPortal = () => {
     phone: "",
     projectDetails: "",
     documents: [] as string[],
-    honeypot: "" // Honeypot for bot detection
+    honeypot: "", // Honeypot for bot detection
   });
 
   const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
   const documents = [
-    { name: "Certificate of Insurance", icon: Shield, size: "2MB", description: "Current liability coverage" },
-    { name: "WSIB Clearance Certificate", icon: CheckCircle2, size: "1MB", description: "Valid workplace safety clearance" },
-    { name: "Bonding Letter", icon: Award, size: "500KB", description: "Bonding capacity confirmation" },
-    { name: "Business License", icon: FileText, size: "1MB", description: "Current business registration" },
-    { name: "Company Profile & Capabilities", icon: Building2, size: "5MB", description: "Detailed company overview" },
-    { name: "Safety Manual & Certifications", icon: HardHat, size: "3MB", description: "Safety policies and COR certification" },
-    { name: "Project References List", icon: Users, size: "2MB", description: "Recent project references" },
-    { name: "Equipment Inventory", icon: Truck, size: "2MB", description: "Available equipment and resources" },
+    {
+      name: "Certificate of Insurance",
+      icon: Shield,
+      size: "2MB",
+      description: "Current liability coverage",
+    },
+    {
+      name: "WSIB Clearance Certificate",
+      icon: CheckCircle2,
+      size: "1MB",
+      description: "Valid workplace safety clearance",
+    },
+    {
+      name: "Bonding Letter",
+      icon: Award,
+      size: "500KB",
+      description: "Bonding capacity confirmation",
+    },
+    {
+      name: "Business License",
+      icon: FileText,
+      size: "1MB",
+      description: "Current business registration",
+    },
+    {
+      name: "Company Profile & Capabilities",
+      icon: Building2,
+      size: "5MB",
+      description: "Detailed company overview",
+    },
+    {
+      name: "Safety Manual & Certifications",
+      icon: HardHat,
+      size: "3MB",
+      description: "Safety policies and COR certification",
+    },
+    {
+      name: "Project References List",
+      icon: Users,
+      size: "2MB",
+      description: "Recent project references",
+    },
+    {
+      name: "Equipment Inventory",
+      icon: Truck,
+      size: "2MB",
+      description: "Available equipment and resources",
+    },
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,9 +121,10 @@ const ContractorPortal = () => {
 
     try {
       // Format documents list
-      const documentsRequested = formData.documents.length > 0
-        ? `Requested Documents:\n${formData.documents.map(doc => `• ${doc}`).join('\n')}`
-        : "Complete package requested";
+      const documentsRequested =
+        formData.documents.length > 0
+          ? `Requested Documents:\n${formData.documents.map((doc) => `• ${doc}`).join("\n")}`
+          : "Complete package requested";
 
       // Combine project details with documents
       const fullMessage = formData.projectDetails
@@ -80,23 +132,23 @@ const ContractorPortal = () => {
         : documentsRequested;
 
       // Submit via edge function with bot protection
-      const { error } = await supabase.functions.invoke('submit-form', {
+      const { error } = await supabase.functions.invoke("submit-form", {
         body: {
-          formType: 'prequalification',
+          formType: "prequalification",
           data: {
             contactName: formData.name,
             companyName: formData.company,
             email: formData.email,
             phone: formData.phone,
             projectType: "custom_package",
-            message: fullMessage
+            message: fullMessage,
           },
-          honeypot: formData.honeypot
-        }
+          honeypot: formData.honeypot,
+        },
       });
 
       if (error) {
-        if (error.message?.includes('Rate limit exceeded')) {
+        if (error.message?.includes("Rate limit exceeded")) {
           toast({
             title: "Too many submissions",
             description: "Please try again in a few minutes.",
@@ -120,7 +172,7 @@ const ContractorPortal = () => {
         phone: "",
         projectDetails: "",
         documents: [],
-        honeypot: ""
+        honeypot: "",
       });
       setLastSubmitTime(now);
     } catch (error) {
@@ -136,17 +188,17 @@ const ContractorPortal = () => {
   };
 
   const toggleDocument = (docName: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       documents: prev.documents.includes(docName)
-        ? prev.documents.filter(d => d !== docName)
-        : [...prev.documents, docName]
+        ? prev.documents.filter((d) => d !== docName)
+        : [...prev.documents, docName],
     }));
   };
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Contractor Portal | Ascent Group Construction"
         description="Access our complete contractor documentation package including insurance certificates, WSIB clearance, bonding letters, and company profile."
         keywords="contractor portal, bid documents, insurance certificates, WSIB, bonding, subcontractor"
@@ -159,18 +211,23 @@ const ContractorPortal = () => {
         </div>
 
         <Navigation />
-        
+
         <PageHeader
           title="Contractor Portal"
           description="Everything you need to bid with confidence"
           backgroundImage={heroContractorImage}
         />
 
-        <main id="main-content" className="container mx-auto px-4 py-12 space-y-12">
+        <main
+          id="main-content"
+          className="container mx-auto px-4 py-12 space-y-12"
+        >
           {/* Introduction */}
           <section className="text-center max-w-3xl mx-auto">
             <p className="text-lg text-muted-foreground">
-              Download our complete contractor package or request specific documents for your RFP. All documentation is current and updated regularly.
+              Download our complete contractor package or request specific
+              documents for your RFP. All documentation is current and updated
+              regularly.
             </p>
           </section>
 
@@ -178,9 +235,13 @@ const ContractorPortal = () => {
 
           {/* Request Custom Package Form */}
           <section className="bg-muted/30 rounded-lg p-8">
-            <h2 className="text-3xl font-bold text-foreground mb-2">Request Custom Package</h2>
-            <p className="text-muted-foreground mb-8">Need specific documents for your RFP? Let us know what you need.</p>
-            
+            <h2 className="text-3xl font-bold text-foreground mb-2">
+              Request Custom Package
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Need specific documents for your RFP? Let us know what you need.
+            </p>
+
             <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -188,7 +249,9 @@ const ContractorPortal = () => {
                   <Input
                     id="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     required
                   />
                 </div>
@@ -197,7 +260,9 @@ const ContractorPortal = () => {
                   <Input
                     id="company"
                     value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, company: e.target.value })
+                    }
                     required
                   />
                 </div>
@@ -210,7 +275,9 @@ const ContractorPortal = () => {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     required
                   />
                 </div>
@@ -220,7 +287,9 @@ const ContractorPortal = () => {
                     id="phone"
                     type="tel"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -230,7 +299,9 @@ const ContractorPortal = () => {
                 <Textarea
                   id="projectDetails"
                   value={formData.projectDetails}
-                  onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, projectDetails: e.target.value })
+                  }
                   placeholder="Tell us about your project and timeline..."
                   rows={4}
                 />
@@ -246,7 +317,10 @@ const ContractorPortal = () => {
                         checked={formData.documents.includes(doc.name)}
                         onCheckedChange={() => toggleDocument(doc.name)}
                       />
-                      <Label htmlFor={doc.name} className="text-sm cursor-pointer">
+                      <Label
+                        htmlFor={doc.name}
+                        className="text-sm cursor-pointer"
+                      >
                         {doc.name}
                       </Label>
                     </div>
@@ -255,18 +329,28 @@ const ContractorPortal = () => {
               </div>
 
               {/* Honeypot field - hidden from users */}
-              <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+              <div
+                style={{ position: "absolute", left: "-9999px" }}
+                aria-hidden="true"
+              >
                 <Input
                   type="text"
                   name="website"
                   tabIndex={-1}
                   autoComplete="off"
                   value={formData.honeypot}
-                  onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, honeypot: e.target.value })
+                  }
                 />
               </div>
 
-              <Button type="submit" size="lg" className="w-full md:w-auto" disabled={isSubmitting}>
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full md:w-auto"
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? "Submitting..." : "Submit Request"}
               </Button>
             </form>
@@ -274,7 +358,9 @@ const ContractorPortal = () => {
 
           {/* Interactive Calculators */}
           <section className="bg-muted/30 rounded-lg p-8">
-            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Project Planning Tools</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
+              Project Planning Tools
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               <InsuranceCalculator />
               <BondingCapacityVisualizer />
@@ -290,35 +376,58 @@ const ContractorPortal = () => {
 
           {/* Why Partner Section */}
           <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Why Partner With Us</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
+              Why Partner With Us
+            </h2>
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <CheckCircle2 className="h-8 w-8 text-secondary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Proven Track Record</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    Proven Track Record
+                  </h3>
                   <p className="text-muted-foreground">
-                    <AnimatedCounter target={1000} suffix="+" className="font-bold text-2xl text-primary" /> units completed annually with consistent quality
+                    <AnimatedCounter
+                      target={1000}
+                      suffix="+"
+                      className="font-bold text-2xl text-primary"
+                    />{" "}
+                    units completed annually with consistent quality
                   </p>
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+              <Card
+                className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
+                style={{ animationDelay: "100ms" }}
+              >
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Award className="h-8 w-8 text-secondary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Financial Strength</h3>
-                  <p className="text-muted-foreground">$5M liability, $10M bonding capacity per project</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    Financial Strength
+                  </h3>
+                  <p className="text-muted-foreground">
+                    $5M liability, $10M bonding capacity per project
+                  </p>
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <Card
+                className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
+                style={{ animationDelay: "200ms" }}
+              >
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Shield className="h-8 w-8 text-secondary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Safety First</h3>
-                  <p className="text-muted-foreground">COR certified with zero lost-time incidents</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    Safety First
+                  </h3>
+                  <p className="text-muted-foreground">
+                    COR certified with zero lost-time incidents
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -326,30 +435,50 @@ const ContractorPortal = () => {
 
           {/* FAQ Section */}
           <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8">
+              Frequently Asked Questions
+            </h2>
             <Accordion type="single" collapsible className="max-w-3xl">
               <AccordionItem value="item-1">
-                <AccordionTrigger>How current are these documents?</AccordionTrigger>
+                <AccordionTrigger>
+                  How current are these documents?
+                </AccordionTrigger>
                 <AccordionContent>
-                  All documents are updated monthly. Insurance certificates and WSIB clearances are always current. We recommend downloading fresh copies for each RFP submission.
+                  All documents are updated monthly. Insurance certificates and
+                  WSIB clearances are always current. We recommend downloading
+                  fresh copies for each RFP submission.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger>Do you provide project-specific documentation?</AccordionTrigger>
+                <AccordionTrigger>
+                  Do you provide project-specific documentation?
+                </AccordionTrigger>
                 <AccordionContent>
-                  Yes! Use the custom package request form to specify your project requirements. We can provide tailored documentation including project-specific references, equipment lists, and safety plans.
+                  Yes! Use the custom package request form to specify your
+                  project requirements. We can provide tailored documentation
+                  including project-specific references, equipment lists, and
+                  safety plans.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>What's your typical response time for RFPs?</AccordionTrigger>
+                <AccordionTrigger>
+                  What's your typical response time for RFPs?
+                </AccordionTrigger>
                 <AccordionContent>
-                  We typically respond to RFPs within 3-5 business days. For urgent bids, we can accommodate faster turnarounds with advance notice.
+                  We typically respond to RFPs within 3-5 business days. For
+                  urgent bids, we can accommodate faster turnarounds with
+                  advance notice.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
-                <AccordionTrigger>Do you offer design-build services?</AccordionTrigger>
+                <AccordionTrigger>
+                  Do you offer design-build services?
+                </AccordionTrigger>
                 <AccordionContent>
-                  Yes, we provide full design-build services for painting, restoration, and building envelope projects. Our team can work with your specifications or develop complete solutions from concept to completion.
+                  Yes, we provide full design-build services for painting,
+                  restoration, and building envelope projects. Our team can work
+                  with your specifications or develop complete solutions from
+                  concept to completion.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

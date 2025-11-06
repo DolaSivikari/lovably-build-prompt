@@ -54,7 +54,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
         )}
       </div>
       <Link to={`/blog/${project.slug}`}>
-      <h3 className="text-xl font-bold mb-2 hover:text-primary link-hover">
+        <h3 className="text-xl font-bold mb-2 hover:text-primary link-hover">
           {project.title}
         </h3>
       </Link>
@@ -72,13 +72,15 @@ const FeaturedProjects = () => {
   useEffect(() => {
     const fetchFeaturedProjects = async () => {
       const { data } = await supabase
-        .from('projects')
-        .select('id, title, slug, location, category, summary, featured_image, year')
-        .eq('publish_state', 'published')
-        .eq('featured', true)
-        .order('created_at', { ascending: false })
+        .from("projects")
+        .select(
+          "id, title, slug, location, category, summary, featured_image, year",
+        )
+        .eq("publish_state", "published")
+        .eq("featured", true)
+        .order("created_at", { ascending: false })
         .limit(3);
-      
+
       if (data) {
         setProjects(data);
       }
@@ -108,9 +110,12 @@ const FeaturedProjects = () => {
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+            Featured Projects
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Showcasing our commitment to quality, innovation, and excellence in every project we undertake
+            Showcasing our commitment to quality, innovation, and excellence in
+            every project we undertake
           </p>
         </div>
 

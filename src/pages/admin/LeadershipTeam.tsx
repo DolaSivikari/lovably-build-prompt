@@ -10,10 +10,30 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Plus, Edit, Trash2, GripVertical, Mail, Linkedin } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
@@ -32,19 +52,41 @@ interface TeamMember {
   is_active: boolean;
 }
 
-function SortableTeamCard({ member, onEdit, onDelete }: { member: TeamMember; onEdit: (member: TeamMember) => void; onDelete: (id: string) => void }) {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: member.id });
+function SortableTeamCard({
+  member,
+  onEdit,
+  onDelete,
+}: {
+  member: TeamMember;
+  onEdit: (member: TeamMember) => void;
+  onDelete: (id: string) => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: member.id });
   const style = { transform: CSS.Transform.toString(transform), transition };
 
   return (
-    <div ref={setNodeRef} style={style} className="bg-card border rounded-lg p-4">
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="bg-card border rounded-lg p-4"
+    >
       <div className="flex items-center gap-4">
-        <button {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing">
+        <button
+          {...attributes}
+          {...listeners}
+          className="cursor-grab active:cursor-grabbing"
+        >
           <GripVertical className="w-5 h-5 text-muted-foreground" />
         </button>
         <Avatar className="h-12 w-12">
-          <AvatarImage src={member.photo_url || ''} alt={member.full_name} />
-          <AvatarFallback>{member.full_name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+          <AvatarImage src={member.photo_url || ""} alt={member.full_name} />
+          <AvatarFallback>
+            {member.full_name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
+          </AvatarFallback>
         </Avatar>
         <div className="flex-1">
           <h3 className="font-semibold">{member.full_name}</h3>
@@ -52,7 +94,9 @@ function SortableTeamCard({ member, onEdit, onDelete }: { member: TeamMember; on
         </div>
         <div className="flex items-center gap-2">
           {member.email && <Mail className="w-4 h-4 text-muted-foreground" />}
-          {member.linkedin_url && <Linkedin className="w-4 h-4 text-muted-foreground" />}
+          {member.linkedin_url && (
+            <Linkedin className="w-4 h-4 text-muted-foreground" />
+          )}
           <Switch checked={member.is_active} disabled />
           <Button variant="ghost" size="sm" onClick={() => onEdit(member)}>
             <Edit className="w-4 h-4" />
@@ -73,7 +117,7 @@ export default function LeadershipTeam() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
-  
+
   const [formData, setFormData] = useState({
     full_name: "",
     position: "",
@@ -83,12 +127,14 @@ export default function LeadershipTeam() {
     linkedin_url: "",
     credentials: [] as string[],
     notable_projects: [] as string[],
-    is_active: true
+    is_active: true,
   });
 
   const sensors = useSensors(
     useSensor(PointerSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   useEffect(() => {
@@ -100,14 +146,18 @@ export default function LeadershipTeam() {
   const fetchMembers = async () => {
     try {
       const { data, error } = await supabase
-        .from('leadership_team')
-        .select('*')
-        .order('display_order', { ascending: true });
+        .from("leadership_team")
+        .select("*")
+        .order("display_order", { ascending: true });
 
       if (error) throw error;
       setMembers(data || []);
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -117,19 +167,26 @@ export default function LeadershipTeam() {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
 
-    const oldIndex = members.findIndex(m => m.id === active.id);
-    const newIndex = members.findIndex(m => m.id === over.id);
+    const oldIndex = members.findIndex((m) => m.id === active.id);
+    const newIndex = members.findIndex((m) => m.id === over.id);
     const newMembers = arrayMove(members, oldIndex, newIndex);
     setMembers(newMembers);
 
     try {
-      const updates = newMembers.map((member, index) => 
-        supabase.from('leadership_team').update({ display_order: index }).eq('id', member.id)
+      const updates = newMembers.map((member, index) =>
+        supabase
+          .from("leadership_team")
+          .update({ display_order: index })
+          .eq("id", member.id),
       );
       await Promise.all(updates);
       toast({ title: "Success", description: "Order updated successfully" });
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
       fetchMembers();
     }
   };
@@ -137,32 +194,48 @@ export default function LeadershipTeam() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
       const payload = {
         ...formData,
-        display_order: editingMember ? editingMember.display_order : members.length,
-        ...(editingMember ? { updated_by: user.id } : { created_by: user.id })
+        display_order: editingMember
+          ? editingMember.display_order
+          : members.length,
+        ...(editingMember ? { updated_by: user.id } : { created_by: user.id }),
       };
 
       if (editingMember) {
         const { error } = await supabase
-          .from('leadership_team')
+          .from("leadership_team")
           .update(payload)
-          .eq('id', editingMember.id);
+          .eq("id", editingMember.id);
         if (error) throw error;
-        toast({ title: "Success", description: "Team member updated. View on website to see changes." });
+        toast({
+          title: "Success",
+          description: "Team member updated. View on website to see changes.",
+        });
       } else {
-        const { error } = await supabase.from('leadership_team').insert([payload]);
+        const { error } = await supabase
+          .from("leadership_team")
+          .insert([payload]);
         if (error) throw error;
-        toast({ title: "Success", description: "Team member added. View on website to see changes." });
+        toast({
+          title: "Success",
+          description: "Team member added. View on website to see changes.",
+        });
       }
       setDialogOpen(false);
       resetForm();
       fetchMembers();
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     }
   };
 
@@ -177,12 +250,22 @@ export default function LeadershipTeam() {
   const handleDelete = async () => {
     if (!memberToDelete) return;
     try {
-      const { error } = await supabase.from('leadership_team').delete().eq('id', memberToDelete);
+      const { error } = await supabase
+        .from("leadership_team")
+        .delete()
+        .eq("id", memberToDelete);
       if (error) throw error;
-      toast({ title: "Success", description: "Team member deleted successfully" });
+      toast({
+        title: "Success",
+        description: "Team member deleted successfully",
+      });
       fetchMembers();
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     }
     setDeleteDialogOpen(false);
     setMemberToDelete(null);
@@ -199,7 +282,7 @@ export default function LeadershipTeam() {
       linkedin_url: member.linkedin_url || "",
       credentials: member.credentials || [],
       notable_projects: member.notable_projects || [],
-      is_active: member.is_active
+      is_active: member.is_active,
     });
     setDialogOpen(true);
   };
@@ -215,7 +298,7 @@ export default function LeadershipTeam() {
       linkedin_url: "",
       credentials: [],
       notable_projects: [],
-      is_active: true
+      is_active: true,
     });
   };
 
@@ -234,121 +317,216 @@ export default function LeadershipTeam() {
       <UnifiedSidebar collapsed={false} onToggle={() => {}} />
       <div className="flex-1 overflow-auto">
         <div className="p-8">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold">Leadership Team</h1>
-            <p className="text-muted-foreground">Manage your leadership team profiles</p>
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h1 className="text-3xl font-bold">Leadership Team</h1>
+              <p className="text-muted-foreground">
+                Manage your leadership team profiles
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() => window.open("/company/team", "_blank")}
+              >
+                View on Website
+              </Button>
+              <Dialog
+                open={dialogOpen}
+                onOpenChange={(open) => {
+                  setDialogOpen(open);
+                  if (!open) resetForm();
+                }}
+              >
+                <DialogTrigger asChild>
+                  <Button>
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add Team Member
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>
+                      {editingMember ? "Edit" : "Add"} Team Member
+                    </DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="col-span-2">
+                        <Label>Photo</Label>
+                        <ImageUploadField
+                          value={formData.photo_url}
+                          onChange={(url) =>
+                            setFormData({ ...formData, photo_url: url })
+                          }
+                          bucket="project-images"
+                          label="Upload team member photo"
+                        />
+                      </div>
+                      <div>
+                        <Label>Full Name *</Label>
+                        <Input
+                          required
+                          value={formData.full_name}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              full_name: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Label>Position *</Label>
+                        <Input
+                          required
+                          value={formData.position}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              position: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Label>Email</Label>
+                        <Input
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) =>
+                            setFormData({ ...formData, email: e.target.value })
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Label>LinkedIn URL</Label>
+                        <Input
+                          value={formData.linkedin_url}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              linkedin_url: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <Label>Bio</Label>
+                        <Textarea
+                          rows={4}
+                          value={formData.bio}
+                          onChange={(e) =>
+                            setFormData({ ...formData, bio: e.target.value })
+                          }
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <Label>Credentials (one per line)</Label>
+                        <Textarea
+                          rows={3}
+                          value={formData.credentials.join("\n")}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              credentials: e.target.value
+                                .split("\n")
+                                .filter((c) => c.trim()),
+                            })
+                          }
+                          placeholder="LEED AP&#10;PMP Certified&#10;Gold Seal Certification"
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <Label>Notable Projects (one per line)</Label>
+                        <Textarea
+                          rows={3}
+                          value={formData.notable_projects.join("\n")}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              notable_projects: e.target.value
+                                .split("\n")
+                                .filter((p) => p.trim()),
+                            })
+                          }
+                          placeholder="Waterfront Condo Tower&#10;Heritage Building Restoration"
+                        />
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          checked={formData.is_active}
+                          onCheckedChange={(checked) =>
+                            setFormData({ ...formData, is_active: checked })
+                          }
+                        />
+                        <Label>Active</Label>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 justify-end">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setDialogOpen(false)}
+                      >
+                        Cancel
+                      </Button>
+                      <Button type="submit">
+                        {editingMember ? "Update" : "Create"}
+                      </Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => window.open('/company/team', '_blank')}>
-              View on Website
-            </Button>
-            <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
-              <DialogTrigger asChild>
-                <Button><Plus className="w-4 h-4 mr-2" />Add Team Member</Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>{editingMember ? 'Edit' : 'Add'} Team Member</DialogTitle>
-              </DialogHeader>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="col-span-2">
-                    <Label>Photo</Label>
-                    <ImageUploadField
-                      value={formData.photo_url}
-                      onChange={(url) => setFormData({ ...formData, photo_url: url })}
-                      bucket="project-images"
-                      label="Upload team member photo"
-                    />
-                  </div>
-                  <div>
-                    <Label>Full Name *</Label>
-                    <Input required value={formData.full_name} onChange={(e) => setFormData({ ...formData, full_name: e.target.value })} />
-                  </div>
-                  <div>
-                    <Label>Position *</Label>
-                    <Input required value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} />
-                  </div>
-                  <div>
-                    <Label>Email</Label>
-                    <Input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
-                  </div>
-                  <div>
-                    <Label>LinkedIn URL</Label>
-                    <Input value={formData.linkedin_url} onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })} />
-                  </div>
-                  <div className="col-span-2">
-                    <Label>Bio</Label>
-                    <Textarea rows={4} value={formData.bio} onChange={(e) => setFormData({ ...formData, bio: e.target.value })} />
-                  </div>
-                  <div className="col-span-2">
-                    <Label>Credentials (one per line)</Label>
-                    <Textarea 
-                      rows={3} 
-                      value={formData.credentials.join('\n')} 
-                      onChange={(e) => setFormData({ ...formData, credentials: e.target.value.split('\n').filter(c => c.trim()) })} 
-                      placeholder="LEED AP&#10;PMP Certified&#10;Gold Seal Certification"
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <Label>Notable Projects (one per line)</Label>
-                    <Textarea 
-                      rows={3} 
-                      value={formData.notable_projects.join('\n')} 
-                      onChange={(e) => setFormData({ ...formData, notable_projects: e.target.value.split('\n').filter(p => p.trim()) })} 
-                      placeholder="Waterfront Condo Tower&#10;Heritage Building Restoration"
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Switch checked={formData.is_active} onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })} />
-                    <Label>Active</Label>
-                  </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Team Members ({members.length})</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {members.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  No team members yet. Click "Add Team Member" to get started.
                 </div>
-                <div className="flex gap-2 justify-end">
-                  <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-                  <Button type="submit">{editingMember ? 'Update' : 'Create'}</Button>
-                </div>
-              </form>
-            </DialogContent>
-          </Dialog>
-          </div>
+              ) : (
+                <DndContext
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
+                  onDragEnd={handleDragEnd}
+                >
+                  <SortableContext
+                    items={members.map((m) => m.id)}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <div className="space-y-2">
+                      {members.map((member) => (
+                        <SortableTeamCard
+                          key={member.id}
+                          member={member}
+                          onEdit={openEditDialog}
+                          onDelete={handleDeleteClick}
+                        />
+                      ))}
+                    </div>
+                  </SortableContext>
+                </DndContext>
+              )}
+            </CardContent>
+          </Card>
+
+          <ConfirmDialog
+            open={deleteDialogOpen}
+            onOpenChange={setDeleteDialogOpen}
+            onConfirm={handleDelete}
+            title="Delete Team Member"
+            description="Are you sure you want to delete this team member? This action cannot be undone."
+            confirmText="Delete"
+            variant="destructive"
+          />
         </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Team Members ({members.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {members.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                No team members yet. Click "Add Team Member" to get started.
-              </div>
-            ) : (
-              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                <SortableContext items={members.map(m => m.id)} strategy={verticalListSortingStrategy}>
-                  <div className="space-y-2">
-                    {members.map(member => (
-                      <SortableTeamCard key={member.id} member={member} onEdit={openEditDialog} onDelete={handleDeleteClick} />
-                    ))}
-                  </div>
-                </SortableContext>
-              </DndContext>
-            )}
-          </CardContent>
-        </Card>
-
-        <ConfirmDialog
-          open={deleteDialogOpen}
-          onOpenChange={setDeleteDialogOpen}
-          onConfirm={handleDelete}
-          title="Delete Team Member"
-          description="Are you sure you want to delete this team member? This action cannot be undone."
-          confirmText="Delete"
-          variant="destructive"
-        />
       </div>
-    </div>
     </div>
   );
 }

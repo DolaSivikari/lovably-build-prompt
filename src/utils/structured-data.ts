@@ -7,12 +7,14 @@ interface OrganizationSchemaOptions {
 
 export const organizationSchema = (options?: OrganizationSchemaOptions) => {
   const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
     name: options?.name || "Ascent Group Construction",
-    description: options?.description || "Professional construction management services in Ontario. Specializing in commercial, industrial, and institutional projects with LEED certification support.",
+    description:
+      options?.description ||
+      "Professional construction management services in Ontario. Specializing in commercial, industrial, and institutional projects with LEED certification support.",
     url: options?.url || siteUrl,
     logo: options?.logo || `${siteUrl}/logo.png`,
     address: {
@@ -34,9 +36,7 @@ export const organizationSchema = (options?: OrganizationSchemaOptions) => {
       email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
     },
-    sameAs: [
-      "https://www.linkedin.com/company/ascent-group-construction",
-    ],
+    sameAs: ["https://www.linkedin.com/company/ascent-group-construction"],
     priceRange: "$$$$",
   };
 };
@@ -51,7 +51,7 @@ interface ServiceSchemaOptions {
 
 export const serviceSchema = (options: ServiceSchemaOptions) => {
   const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -82,7 +82,7 @@ interface ArticleSchemaOptions {
 
 export const articleSchema = (options: ArticleSchemaOptions) => {
   const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -103,7 +103,9 @@ export const articleSchema = (options: ArticleSchemaOptions) => {
     datePublished: options.datePublished,
     dateModified: options.dateModified || options.datePublished,
     image: options.image || `${siteUrl}/og-image.jpg`,
-    url: options.url || (typeof window !== "undefined" ? window.location.href : ""),
+    url:
+      options.url ||
+      (typeof window !== "undefined" ? window.location.href : ""),
   };
 };
 
@@ -134,7 +136,7 @@ interface BreadcrumbItem {
 
 export const breadcrumbSchema = (items: BreadcrumbItem[]) => {
   const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -193,7 +195,7 @@ interface ReviewSchemaOptions {
 
 export const reviewSchema = (options: ReviewSchemaOptions) => {
   const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "Review",

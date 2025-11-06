@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Shield,
+  Award,
+  FileCheck,
+  Building2,
+} from "lucide-react";
 import ascentLogo from "@/assets/ascent-logo.png";
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,11 +27,23 @@ const Footer = () => {
     const fetchSettings = async () => {
       try {
         const [siteData, footerData, servicesData] = await Promise.all([
-          supabase.from('site_settings').select('*').eq('is_active', true).single(),
-          supabase.from('footer_settings').select('*').eq('is_active', true).single(),
-          supabase.from('services').select('name, slug, service_tier').eq('publish_state', 'published').order('service_tier, name')
+          supabase
+            .from("site_settings")
+            .select("*")
+            .eq("is_active", true)
+            .single(),
+          supabase
+            .from("footer_settings")
+            .select("*")
+            .eq("is_active", true)
+            .single(),
+          supabase
+            .from("services")
+            .select("name, slug, service_tier")
+            .eq("publish_state", "published")
+            .order("service_tier, name"),
         ]);
-        
+
         if (siteData.data) setSiteSettings(siteData.data);
         if (footerData.data) setFooterSettings(footerData.data);
         if (servicesData.data) setServices(servicesData.data);
@@ -38,30 +59,36 @@ const Footer = () => {
   const quickLinks = (footerSettings?.quick_links as any[]) || [];
   const sectorsLinks = (footerSettings?.sectors_links as any[]) || [];
   const trustBarItems = (footerSettings?.trust_bar_items as any[]) || [];
-  
+
   const contactInfo = footerSettings?.contact_info || {};
   const socialMedia = footerSettings?.social_media || {};
-  
+
   // Primary source: site_settings, fallback to footer_settings
-  const address = siteSettings?.address || contactInfo.address || '';
-  const phone = siteSettings?.phone || contactInfo.phone || '';
-  const email = siteSettings?.email || contactInfo.email || '';
-  const linkedinUrl = socialMedia.linkedin || '';
+  const address = siteSettings?.address || contactInfo.address || "";
+  const phone = siteSettings?.phone || contactInfo.phone || "";
+  const email = siteSettings?.email || contactInfo.email || "";
+  const linkedinUrl = socialMedia.linkedin || "";
 
   // Static fallback links if admin hasn't configured them
-  const companyLinks = quickLinks.length > 0 ? quickLinks : [
-    { label: "About", href: "/about" },
-    { label: "Leadership", href: "/company/team" },
-    { label: "Careers", href: "/careers" },
-    { label: "Contact", href: "/contact" },
-  ];
+  const companyLinks =
+    quickLinks.length > 0
+      ? quickLinks
+      : [
+          { label: "About", href: "/about" },
+          { label: "Leadership", href: "/company/team" },
+          { label: "Careers", href: "/careers" },
+          { label: "Contact", href: "/contact" },
+        ];
 
-  const marketLinks = sectorsLinks.length > 0 ? sectorsLinks : [
-    { label: "Multi-Family", href: "/markets/multi-family" },
-    { label: "Commercial", href: "/markets/commercial" },
-    { label: "Institutional", href: "/markets/institutional" },
-    { label: "Industrial", href: "/markets/industrial" },
-  ];
+  const marketLinks =
+    sectorsLinks.length > 0
+      ? sectorsLinks
+      : [
+          { label: "Multi-Family", href: "/markets/multi-family" },
+          { label: "Commercial", href: "/markets/commercial" },
+          { label: "Institutional", href: "/markets/institutional" },
+          { label: "Industrial", href: "/markets/industrial" },
+        ];
 
   const projectLinks = [
     { label: "Featured Projects", href: "/projects" },
@@ -86,8 +113,16 @@ const Footer = () => {
     image: "https://ascentgroupconstruction.com/og-image.jpg",
     email: "info@ascentgroupconstruction.com",
     areaServed: { "@type": "State", name: "Ontario" },
-    address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
-    serviceType: ["General Contracting", "Construction Management", "Design-Build Services"],
+    address: {
+      "@type": "PostalAddress",
+      addressRegion: "ON",
+      addressCountry: "CA",
+    },
+    serviceType: [
+      "General Contracting",
+      "Construction Management",
+      "Design-Build Services",
+    ],
     priceRange: "$$-$$$",
   };
 
@@ -116,10 +151,8 @@ const Footer = () => {
     <>
       <SEO structuredData={citationSchema} />
       <footer className="w-full bg-background border-t border-border">
-        
         {/* Footer Layout */}
         <div className="container mx-auto px-4 py-12 md:py-16">
-          
           {/* Mobile: Enhanced Mega Footer */}
           <MobileFooterMega
             companyLinks={companyLinks}
@@ -145,38 +178,46 @@ const Footer = () => {
 
           {/* Desktop: Legacy Certifications Column (keep for compatibility) */}
           <div className="hidden">
-              <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">
-                {displayTrustItems ? 'Credentials' : 'Certifications'}
-              </h3>
-              {displayTrustItems ? (
-                <div className="space-y-3">
-                  {trustBarItems.map((item, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <Shield className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-sm font-semibold text-foreground">{item.label}</div>
-                        <div className="text-xs text-muted-foreground">{item.value}</div>
+            <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">
+              {displayTrustItems ? "Credentials" : "Certifications"}
+            </h3>
+            {displayTrustItems ? (
+              <div className="space-y-3">
+                {trustBarItems.map((item, index) => (
+                  <div key={index} className="flex items-start gap-2">
+                    <Shield className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-sm font-semibold text-foreground">
+                        {item.label}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {item.value}
                       </div>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {certifications.map((cert, index) => {
-                    const Icon = cert.icon;
-                    return (
-                      <div key={index} className="flex items-start gap-2">
-                        <Icon className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                        <div>
-                          <div className="text-sm font-semibold text-foreground">{cert.title}</div>
-                          <div className="text-xs text-muted-foreground">{cert.subtitle}</div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {certifications.map((cert, index) => {
+                  const Icon = cert.icon;
+                  return (
+                    <div key={index} className="flex items-start gap-2">
+                      <Icon className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-sm font-semibold text-foreground">
+                          {cert.title}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {cert.subtitle}
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-border">
@@ -184,10 +225,15 @@ const Footer = () => {
               {/* Logo & Service Area */}
               <div className="flex-1">
                 <Link to="/" className="inline-block mb-3">
-                  <img src={ascentLogo} alt="Ascent Group Construction" className="h-16 w-auto" />
+                  <img
+                    src={ascentLogo}
+                    alt="Ascent Group Construction"
+                    className="h-16 w-auto"
+                  />
                 </Link>
                 <p className="text-sm text-muted-foreground max-w-md">
-                  Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area
+                  Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the
+                  Greater Toronto Area
                 </p>
               </div>
 
@@ -202,7 +248,10 @@ const Footer = () => {
                 {phone && (
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4" />
-                    <a href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-primary link-hover">
+                    <a
+                      href={`tel:${phone.replace(/[^0-9+]/g, "")}`}
+                      className="hover:text-primary link-hover"
+                    >
                       {phone}
                     </a>
                   </div>
@@ -210,14 +259,23 @@ const Footer = () => {
                 {email && (
                   <div className="flex items-center gap-2">
                     <Mail className="h-4 w-4" />
-                    <a href={`mailto:${email}`} className="hover:text-primary link-hover">
+                    <a
+                      href={`mailto:${email}`}
+                      className="hover:text-primary link-hover"
+                    >
                       {email}
                     </a>
                   </div>
                 )}
                 {linkedinUrl && (
                   <div className="flex gap-3 mt-2">
-                    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary link-hover" aria-label="LinkedIn">
+                    <a
+                      href={linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary link-hover"
+                      aria-label="LinkedIn"
+                    >
                       <Linkedin className="h-5 w-5" />
                     </a>
                   </div>
@@ -229,10 +287,17 @@ const Footer = () => {
           {/* Legal */}
           <div className="mt-8 pt-6 border-t border-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-              <p>&copy; {new Date().getFullYear()} Ascent Group Construction. All rights reserved.</p>
+              <p>
+                &copy; {new Date().getFullYear()} Ascent Group Construction. All
+                rights reserved.
+              </p>
               <nav className="flex gap-6">
-                <Link to="/privacy" className="hover:text-primary link-hover">Privacy</Link>
-                <Link to="/terms" className="hover:text-primary link-hover">Terms</Link>
+                <Link to="/privacy" className="hover:text-primary link-hover">
+                  Privacy
+                </Link>
+                <Link to="/terms" className="hover:text-primary link-hover">
+                  Terms
+                </Link>
               </nav>
             </div>
           </div>

@@ -11,11 +11,11 @@ const MobileStickyCTA = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { settings } = useCompanySettings();
-  
+
   // Development-only validation
-  useContactValidation('MobileStickyCTA', [settings]);
-  
-  const telLink = settings?.phone ? `tel:${settings.phone}` : '#';
+  useContactValidation("MobileStickyCTA", [settings]);
+
+  const telLink = settings?.phone ? `tel:${settings.phone}` : "#";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,17 +32,17 @@ const MobileStickyCTA = () => {
     const checkMobileMenu = () => {
       setIsMobileMenuOpen(document.body.dataset.mobileMenuOpen === "true");
     };
-    
+
     // Initial check
     checkMobileMenu();
-    
+
     // Observe changes to body data attribute
     const observer = new MutationObserver(checkMobileMenu);
     observer.observe(document.body, {
       attributes: true,
       attributeFilter: ["data-mobile-menu-open"],
     });
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -53,7 +53,7 @@ const MobileStickyCTA = () => {
     <div
       className={cn(
         "mobile-sticky-cta fixed bottom-0 left-0 right-0 z-50 md:hidden transition-transform duration-300",
-        isVisible && !shouldHide ? "translate-y-0" : "translate-y-full"
+        isVisible && !shouldHide ? "translate-y-0" : "translate-y-full",
       )}
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >

@@ -19,7 +19,9 @@ const SEO = ({
   structuredData,
   includeRating = false,
 }: SEOProps) => {
-  const fullTitle = title.includes("Ascen") ? title : `${title} | Ascen Group Construction`;
+  const fullTitle = title.includes("Ascen")
+    ? title
+    : `${title} | Ascen Group Construction`;
   const siteUrl = window.location.origin;
   const currentUrl = canonical || window.location.href;
 
@@ -38,7 +40,7 @@ const SEO = ({
       "@type": "ImageObject",
       url: `${siteUrl}/ascent-logo.png`,
       width: "250",
-      height: "60"
+      height: "60",
     },
     image: `${siteUrl}/og-image.jpg`,
     email: "info@ascentgroupconstruction.com",
@@ -53,53 +55,53 @@ const SEO = ({
     geo: {
       "@type": "GeoCoordinates",
       latitude: "43.6532",
-      longitude: "-79.3832"
+      longitude: "-79.3832",
     },
     areaServed: [
       {
         "@type": "City",
         name: "Toronto",
-        "@id": "https://en.wikipedia.org/wiki/Toronto"
+        "@id": "https://en.wikipedia.org/wiki/Toronto",
       },
       {
         "@type": "City",
         name: "Mississauga",
-        "@id": "https://en.wikipedia.org/wiki/Mississauga"
+        "@id": "https://en.wikipedia.org/wiki/Mississauga",
       },
       {
         "@type": "City",
         name: "Brampton",
-        "@id": "https://en.wikipedia.org/wiki/Brampton"
+        "@id": "https://en.wikipedia.org/wiki/Brampton",
       },
       {
         "@type": "City",
         name: "Vaughan",
-        "@id": "https://en.wikipedia.org/wiki/Vaughan"
+        "@id": "https://en.wikipedia.org/wiki/Vaughan",
       },
       {
         "@type": "City",
         name: "Markham",
-        "@id": "https://en.wikipedia.org/wiki/Markham,_Ontario"
+        "@id": "https://en.wikipedia.org/wiki/Markham,_Ontario",
       },
       {
         "@type": "State",
         name: "Ontario",
-        "@id": "https://en.wikipedia.org/wiki/Ontario"
-      }
+        "@id": "https://en.wikipedia.org/wiki/Ontario",
+      },
     ],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         opens: "08:00",
-        closes: "18:00"
+        closes: "18:00",
       },
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: "Saturday",
         opens: "09:00",
-        closes: "16:00"
-      }
+        closes: "16:00",
+      },
     ],
     contactPoint: {
       "@type": "ContactPoint",
@@ -107,10 +109,16 @@ const SEO = ({
       telephone: "+1-647-123-4567",
       email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
-      areaServed: "CA"
+      areaServed: "CA",
     },
     priceRange: "$$-$$$",
-    paymentAccepted: ["Cash", "Check", "Credit Card", "Bank Transfer", "Financing Available"],
+    paymentAccepted: [
+      "Cash",
+      "Check",
+      "Credit Card",
+      "Bank Transfer",
+      "Financing Available",
+    ],
     currenciesAccepted: "CAD",
     foundingDate: "2009",
     knowsAbout: [
@@ -123,12 +131,12 @@ const SEO = ({
       "Building Envelope Systems",
       "Exterior Systems",
       "Construction Project Management",
-      "Sustainable Construction"
+      "Sustainable Construction",
     ],
     award: [
       "15+ Years Excellence in Construction Services",
       "WSIB Certified Contractor",
-      "Licensed General Contractor Ontario"
+      "Licensed General Contractor Ontario",
     ],
     ...(includeRating && {
       aggregateRating: {
@@ -136,8 +144,8 @@ const SEO = ({
         ratingValue: "4.9",
         reviewCount: "127",
         bestRating: "5",
-        worstRating: "1"
-      }
+        worstRating: "1",
+      },
     }),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -148,59 +156,64 @@ const SEO = ({
           itemOffered: {
             "@type": "Service",
             name: "Commercial Construction",
-            description: "Professional commercial construction services for offices, retail spaces, and industrial facilities"
-          }
+            description:
+              "Professional commercial construction services for offices, retail spaces, and industrial facilities",
+          },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
             name: "Residential Construction & Renovation",
-            description: "Expert interior and exterior residential construction services"
-          }
+            description:
+              "Expert interior and exterior residential construction services",
+          },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
             name: "Multi-Family Building Construction",
-            description: "Specialized multi-family and condo building construction services"
-          }
+            description:
+              "Specialized multi-family and condo building construction services",
+          },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
             name: "Stucco & EIFS",
-            description: "Professional stucco and EIFS installation and repair"
-          }
+            description: "Professional stucco and EIFS installation and repair",
+          },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
             name: "Masonry Repair",
-            description: "Expert masonry restoration and repair services"
-          }
+            description: "Expert masonry restoration and repair services",
+          },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
             name: "Metal Cladding",
-            description: "Professional metal cladding installation and finishing"
-          }
+            description:
+              "Professional metal cladding installation and finishing",
+          },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
             name: "Parking Garage Restoration",
-            description: "Comprehensive parking garage restoration and waterproofing"
-          }
-        }
-      ]
-    }
+            description:
+              "Comprehensive parking garage restoration and waterproofing",
+          },
+        },
+      ],
+    },
   };
 
   // Combine schemas if custom structured data is provided

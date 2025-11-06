@@ -11,8 +11,13 @@ interface RFPStep4ScopeProps {
 }
 
 export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
-  const { register, setValue, watch, formState: { errors } } = form;
-  
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = form;
+
   const plansAvailable = watch("plans_available");
   const siteVisitRequired = watch("site_visit_required");
 
@@ -25,7 +30,9 @@ export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
           </div>
           <div>
             <h2 className="text-2xl font-bold">Scope of Work</h2>
-            <p className="text-sm text-muted-foreground">Describe the project requirements in detail</p>
+            <p className="text-sm text-muted-foreground">
+              Describe the project requirements in detail
+            </p>
           </div>
         </div>
 
@@ -47,10 +54,13 @@ export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
             className={errors.scope_of_work ? "border-destructive" : ""}
           />
           {errors.scope_of_work && (
-            <p className="text-sm text-destructive">{errors.scope_of_work.message}</p>
+            <p className="text-sm text-destructive">
+              {errors.scope_of_work.message}
+            </p>
           )}
           <p className="text-xs text-muted-foreground">
-            Minimum 50 characters. The more detail you provide, the more accurate our proposal will be.
+            Minimum 50 characters. The more detail you provide, the more
+            accurate our proposal will be.
           </p>
         </div>
 
@@ -70,20 +80,24 @@ export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
             rows={6}
           />
           {errors.additional_requirements && (
-            <p className="text-sm text-destructive">{errors.additional_requirements.message}</p>
+            <p className="text-sm text-destructive">
+              {errors.additional_requirements.message}
+            </p>
           )}
         </div>
 
         <div className="space-y-4 pt-4 border-t">
           <div className="flex items-start gap-3">
-            <Checkbox 
+            <Checkbox
               id="plans_available"
               checked={plansAvailable}
-              onCheckedChange={(checked) => setValue("plans_available", checked as boolean)}
+              onCheckedChange={(checked) =>
+                setValue("plans_available", checked as boolean)
+              }
             />
             <div className="flex-1">
-              <Label 
-                htmlFor="plans_available" 
+              <Label
+                htmlFor="plans_available"
                 className="text-base font-medium cursor-pointer flex items-center gap-2"
               >
                 <FileText className="w-4 h-4" />
@@ -96,14 +110,16 @@ export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
           </div>
 
           <div className="flex items-start gap-3">
-            <Checkbox 
+            <Checkbox
               id="site_visit_required"
               checked={siteVisitRequired}
-              onCheckedChange={(checked) => setValue("site_visit_required", checked as boolean)}
+              onCheckedChange={(checked) =>
+                setValue("site_visit_required", checked as boolean)
+              }
             />
             <div className="flex-1">
-              <Label 
-                htmlFor="site_visit_required" 
+              <Label
+                htmlFor="site_visit_required"
                 className="text-base font-medium cursor-pointer flex items-center gap-2"
               >
                 <MapPin className="w-4 h-4" />

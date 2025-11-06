@@ -14,7 +14,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle } from "lucide-react";
+import {
+  Award,
+  MessageCircle,
+  Shield,
+  Heart,
+  Leaf,
+  HelpCircle,
+} from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
 import teamWork from "@/assets/team-work.jpg";
@@ -30,7 +37,9 @@ const iconMap: { [key: string]: any } = {
 
 const About = () => {
   const navigate = useNavigate();
-  const { data: aboutSettings, loading } = useSettingsData('about_page_settings');
+  const { data: aboutSettings, loading } = useSettingsData(
+    "about_page_settings",
+  );
   const [leadershipTeam, setLeadershipTeam] = useState<any[]>([]);
 
   useEffect(() => {
@@ -40,15 +49,15 @@ const About = () => {
   const fetchLeadershipTeam = async () => {
     try {
       const { data, error } = await supabase
-        .from('leadership_team')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order', { ascending: true });
-      
+        .from("leadership_team")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order", { ascending: true });
+
       if (error) throw error;
       setLeadershipTeam(data || []);
     } catch (error) {
-      console.error('Error fetching leadership team:', error);
+      console.error("Error fetching leadership team:", error);
     }
   };
 
@@ -59,18 +68,18 @@ const About = () => {
 
   const values = (aboutSettings?.values as any[]) || [];
   const sustainabilityData = {
-    commitment: aboutSettings?.sustainability_commitment || '',
-    initiatives: (aboutSettings?.sustainability_initiatives as any[]) || []
+    commitment: aboutSettings?.sustainability_commitment || "",
+    initiatives: (aboutSettings?.sustainability_initiatives as any[]) || [],
   };
   const safetyData = {
-    commitment: aboutSettings?.safety_commitment || '',
+    commitment: aboutSettings?.safety_commitment || "",
     stats: (aboutSettings?.safety_stats as any[]) || [],
-    programs: (aboutSettings?.safety_programs as any[]) || []
+    programs: (aboutSettings?.safety_programs as any[]) || [],
   };
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <SEO
         title="About Us"
         description="Learn about Ascent Group Construction - 15+ years of excellence in commercial construction and building envelope systems across the GTA. Meet our team and discover our values."
         keywords="about Ascent Group, construction company Mississauga, general contractor team, company values, sustainability"
@@ -98,22 +107,18 @@ const About = () => {
             title="Building Excellence Since 2009"
             description="We're not just another construction company. We're your partners in creating lasting value through quality craftsmanship and innovative solutions."
             backgroundImage={heroAboutImage}
-            breadcrumbs={[
-              { label: "Home", href: "/" },
-              { label: "About Us" }
-            ]}
+            breadcrumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]}
             variant="with-stats"
             stats={[
               { value: `${yearsInBusiness}+`, label: "Years" },
               { value: `${totalProjects}+`, label: "Projects" },
-              { value: `${satisfactionRate}%`, label: "Satisfaction" }
+              { value: `${satisfactionRate}%`, label: "Satisfaction" },
             ]}
           />
         </>
       )}
-      
-      <main>
 
+      <main>
         {/* Company Story */}
         <section className="container mx-auto px-4 py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
@@ -121,13 +126,22 @@ const About = () => {
               <h2 className="text-5xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Founded in 2009, Ascent Group Construction began with a simple mission: deliver exceptional construction and project management services with uncompromising quality and integrity.
+                  Founded in 2009, Ascent Group Construction began with a simple
+                  mission: deliver exceptional construction and project
+                  management services with uncompromising quality and integrity.
                 </p>
                 <p>
-                  What started as a small team of dedicated craftsmen has grown into one of the GTA's most trusted contractors. We've completed over 500 projects, built lasting relationships with hundreds of satisfied clients, and established a reputation for excellence that speaks for itself.
+                  What started as a small team of dedicated craftsmen has grown
+                  into one of the GTA's most trusted contractors. We've
+                  completed over 500 projects, built lasting relationships with
+                  hundreds of satisfied clients, and established a reputation
+                  for excellence that speaks for itself.
                 </p>
                 <p>
-                  Today, we continue to uphold the same values that guided us from day one—quality first, transparent communication, unwavering commitment to safety, and complete customer satisfaction.
+                  Today, we continue to uphold the same values that guided us
+                  from day one—quality first, transparent communication,
+                  unwavering commitment to safety, and complete customer
+                  satisfaction.
                 </p>
               </div>
             </div>
@@ -140,7 +154,8 @@ const About = () => {
               <div className="absolute -bottom-6 -left-6 bg-secondary text-primary p-6 rounded-lg shadow-xl max-w-xs">
                 <p className="font-bold text-lg mb-2">Our Promise</p>
                 <p className="text-sm">
-                  Every project completed on time, within budget, and exceeding expectations.
+                  Every project completed on time, within budget, and exceeding
+                  expectations.
                 </p>
               </div>
             </div>
@@ -163,7 +178,10 @@ const About = () => {
               {values.map((value, index) => {
                 const IconComponent = iconMap[value.icon];
                 return (
-                  <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                  <Card
+                    key={index}
+                    className="text-center hover:shadow-lg transition-shadow"
+                  >
                     <CardContent className="p-8">
                       <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <IconComponent className="w-8 h-8 text-primary" />
@@ -180,14 +198,15 @@ const About = () => {
           </div>
         </section>
 
-
         {/* Sustainability */}
         <section className="bg-muted py-24">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 mb-4">
                 <Leaf className="w-8 h-8 text-sustainability" />
-                <h2 className="text-5xl font-bold">Sustainability Commitment</h2>
+                <h2 className="text-5xl font-bold">
+                  Sustainability Commitment
+                </h2>
               </div>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
                 {sustainabilityData.commitment}
@@ -197,7 +216,9 @@ const About = () => {
               {sustainabilityData.initiatives.map((initiative, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-bold mb-2">{initiative.title}</h3>
+                    <h3 className="text-lg font-bold mb-2">
+                      {initiative.title}
+                    </h3>
                     <p className="text-sm text-muted-foreground mb-3">
                       {initiative.description}
                     </p>
@@ -228,7 +249,10 @@ const About = () => {
 
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               {safetyData.stats.map((stat, index) => (
-                <Card key={index} className="text-center p-6 bg-primary text-primary-foreground">
+                <Card
+                  key={index}
+                  className="text-center p-6 bg-primary text-primary-foreground"
+                >
                   <div className="text-3xl font-bold mb-2">{stat.value}</div>
                   <p className="text-sm opacity-90">{stat.label}</p>
                 </Card>
@@ -256,31 +280,43 @@ const About = () => {
             <div className="text-center mb-12">
               <h2 className="text-5xl font-bold mb-4">Leadership Team</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Meet the experienced professionals leading our commitment to excellence
+                Meet the experienced professionals leading our commitment to
+                excellence
               </p>
             </div>
             {leadershipTeam.length > 0 ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {leadershipTeam.map((member) => (
-                  <Card key={member.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <Card
+                    key={member.id}
+                    className="overflow-hidden hover:shadow-lg transition-shadow"
+                  >
                     {member.photo_url && (
                       <div className="aspect-[3/4] bg-muted relative overflow-hidden">
-                        <img 
-                          src={member.photo_url} 
+                        <img
+                          src={member.photo_url}
                           alt={member.full_name}
                           className="object-cover w-full h-full"
                         />
                       </div>
                     )}
                     <CardContent className="p-6">
-                      <h3 className="text-xl font-bold mb-1">{member.full_name}</h3>
-                      <p className="text-primary font-semibold mb-3">{member.position}</p>
+                      <h3 className="text-xl font-bold mb-1">
+                        {member.full_name}
+                      </h3>
+                      <p className="text-primary font-semibold mb-3">
+                        {member.position}
+                      </p>
                       {member.bio && (
-                        <p className="text-sm text-muted-foreground mb-3">{member.bio}</p>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          {member.bio}
+                        </p>
                       )}
                       {member.credentials && member.credentials.length > 0 && (
                         <div className="pt-3 border-t">
-                          <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                          <p className="font-semibold text-foreground mb-2">
+                            Credentials:
+                          </p>
                           <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                             {member.credentials.map((cred, idx) => (
                               <li key={idx}>{cred}</li>
@@ -288,12 +324,17 @@ const About = () => {
                           </ul>
                         </div>
                       )}
-                      {member.notable_projects && member.notable_projects.length > 0 && (
-                        <div className="pt-3 border-t">
-                          <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
-                          <p className="text-sm text-muted-foreground">{member.notable_projects.join(', ')}</p>
-                        </div>
-                      )}
+                      {member.notable_projects &&
+                        member.notable_projects.length > 0 && (
+                          <div className="pt-3 border-t">
+                            <p className="font-semibold text-foreground mb-1">
+                              Notable Projects:
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {member.notable_projects.join(", ")}
+                            </p>
+                          </div>
+                        )}
                     </CardContent>
                   </Card>
                 ))}
@@ -309,18 +350,28 @@ const About = () => {
                   </div>
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold mb-1">John Smith</h3>
-                    <p className="text-primary font-semibold mb-3">President & CEO</p>
+                    <p className="text-primary font-semibold mb-3">
+                      President & CEO
+                    </p>
                     <div className="space-y-3 text-sm text-muted-foreground">
-                      <p>25+ years in construction management. Licensed General Contractor with expertise in commercial and multi-family projects.</p>
+                      <p>
+                        25+ years in construction management. Licensed General
+                        Contractor with expertise in commercial and multi-family
+                        projects.
+                      </p>
                       <div className="pt-3 border-t">
-                        <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                        <p className="font-semibold text-foreground mb-2">
+                          Credentials:
+                        </p>
                         <ul className="list-disc list-inside space-y-1">
                           <li>P.Eng, PMP Certified</li>
                           <li>LEED AP, Gold Seal Certified</li>
                         </ul>
                       </div>
                       <div className="pt-3 border-t">
-                        <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                        <p className="font-semibold text-foreground mb-1">
+                          Notable Projects:
+                        </p>
                         <p>Waterfront Condos, Heritage Office Tower</p>
                       </div>
                     </div>
@@ -334,18 +385,27 @@ const About = () => {
                   </div>
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold mb-1">Sarah Johnson</h3>
-                    <p className="text-primary font-semibold mb-3">VP of Operations</p>
+                    <p className="text-primary font-semibold mb-3">
+                      VP of Operations
+                    </p>
                     <div className="space-y-3 text-sm text-muted-foreground">
-                      <p>20+ years managing complex construction operations. Expert in project delivery and quality control.</p>
+                      <p>
+                        20+ years managing complex construction operations.
+                        Expert in project delivery and quality control.
+                      </p>
                       <div className="pt-3 border-t">
-                        <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                        <p className="font-semibold text-foreground mb-2">
+                          Credentials:
+                        </p>
                         <ul className="list-disc list-inside space-y-1">
                           <li>B.Eng Civil, PMP</li>
                           <li>CQM Certified Quality Manager</li>
                         </ul>
                       </div>
                       <div className="pt-3 border-t">
-                        <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                        <p className="font-semibold text-foreground mb-1">
+                          Notable Projects:
+                        </p>
                         <p>School Renovation, Retail Plaza Expansion</p>
                       </div>
                     </div>
@@ -359,18 +419,28 @@ const About = () => {
                   </div>
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold mb-1">Michael Chen</h3>
-                    <p className="text-primary font-semibold mb-3">Director of Safety & Compliance</p>
+                    <p className="text-primary font-semibold mb-3">
+                      Director of Safety & Compliance
+                    </p>
                     <div className="space-y-3 text-sm text-muted-foreground">
-                      <p>15+ years specializing in construction safety and regulatory compliance. WSIB Certified Safety Professional.</p>
+                      <p>
+                        15+ years specializing in construction safety and
+                        regulatory compliance. WSIB Certified Safety
+                        Professional.
+                      </p>
                       <div className="pt-3 border-t">
-                        <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                        <p className="font-semibold text-foreground mb-2">
+                          Credentials:
+                        </p>
                         <ul className="list-disc list-inside space-y-1">
                           <li>CRSP, NCSO Certified</li>
                           <li>COR Auditor, JHSC Certified</li>
                         </ul>
                       </div>
                       <div className="pt-3 border-t">
-                        <p className="font-semibold text-foreground mb-1">Notable Projects:</p>
+                        <p className="font-semibold text-foreground mb-1">
+                          Notable Projects:
+                        </p>
                         <p>Industrial Warehouse, Parking Restoration</p>
                       </div>
                     </div>
@@ -388,10 +458,11 @@ const About = () => {
               <div className="text-center mb-12">
                 <h2 className="text-5xl font-bold mb-4">Company Credentials</h2>
                 <p className="text-lg text-muted-foreground">
-                  Our qualifications demonstrate our commitment to excellence and professionalism
+                  Our qualifications demonstrate our commitment to excellence
+                  and professionalism
                 </p>
               </div>
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Bonding Capacity */}
                 <Card>
@@ -401,10 +472,15 @@ const About = () => {
                         <Shield className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold mb-2">Bonding Capacity</h3>
-                        <p className="text-2xl font-bold text-primary mb-2">$5,000,000</p>
+                        <h3 className="text-xl font-bold mb-2">
+                          Bonding Capacity
+                        </h3>
+                        <p className="text-2xl font-bold text-primary mb-2">
+                          $5,000,000
+                        </p>
                         <p className="text-sm text-muted-foreground">
-                          Fully bonded with approved surety for projects of all sizes
+                          Fully bonded with approved surety for projects of all
+                          sizes
                         </p>
                       </div>
                     </div>
@@ -419,7 +495,9 @@ const About = () => {
                         <Shield className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold mb-2">Insurance Coverage</h3>
+                        <h3 className="text-xl font-bold mb-2">
+                          Insurance Coverage
+                        </h3>
                         <ul className="space-y-1 text-sm text-muted-foreground">
                           <li>• General Liability: $5,000,000</li>
                           <li>• WSIB Clearance Certificate</li>
@@ -439,9 +517,13 @@ const About = () => {
                         <Award className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold mb-2">Certifications</h3>
+                        <h3 className="text-xl font-bold mb-2">
+                          Certifications
+                        </h3>
                         <ul className="space-y-1 text-sm text-muted-foreground">
-                          <li>• COR™ Certified (Certificate of Recognition)</li>
+                          <li>
+                            • COR™ Certified (Certificate of Recognition)
+                          </li>
                           <li>• LEED Accredited Professional</li>
                           <li>• WSIB Certified Safety Training</li>
                           <li>• Gold Seal Certification</li>
@@ -460,9 +542,13 @@ const About = () => {
                         <Award className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold mb-2">Industry Affiliations</h3>
+                        <h3 className="text-xl font-bold mb-2">
+                          Industry Affiliations
+                        </h3>
                         <ul className="space-y-1 text-sm text-muted-foreground">
-                          <li>• Ontario General Contractors Association (OGCA)</li>
+                          <li>
+                            • Ontario General Contractors Association (OGCA)
+                          </li>
                           <li>• Canadian Construction Association (CCA)</li>
                           <li>• Better Business Bureau (A+ Rating)</li>
                           <li>• Greater Toronto Contractors Association</li>
@@ -478,13 +564,16 @@ const About = () => {
               <div className="mt-12 text-center">
                 <Card className="bg-primary text-primary-foreground">
                   <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold mb-3">View Our Full Credentials Package</h3>
+                    <h3 className="text-2xl font-bold mb-3">
+                      View Our Full Credentials Package
+                    </h3>
                     <p className="mb-6 opacity-90">
-                      Download our complete prequalification package including insurance certificates, 
-                      bonding letters, safety records, and project references
+                      Download our complete prequalification package including
+                      insurance certificates, bonding letters, safety records,
+                      and project references
                     </p>
-                    <Button 
-                      size="lg" 
+                    <Button
+                      size="lg"
                       variant="secondary"
                       onClick={() => navigate("/prequalification")}
                     >
@@ -503,10 +592,13 @@ const About = () => {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 mb-4">
                 <HelpCircle className="w-8 h-8 text-primary" />
-                <h2 className="text-5xl font-bold">Frequently Asked Questions</h2>
+                <h2 className="text-5xl font-bold">
+                  Frequently Asked Questions
+                </h2>
               </div>
               <p className="text-lg text-muted-foreground">
-                Find answers to the most common questions about our services, pricing, and process
+                Find answers to the most common questions about our services,
+                pricing, and process
               </p>
             </div>
 
@@ -519,7 +611,9 @@ const About = () => {
                     How long have you been in business?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Ascent Group Construction has been serving the GTA since 2009, with over 15 years of experience delivering quality commercial construction and building envelope services.
+                    Ascent Group Construction has been serving the GTA since
+                    2009, with over 15 years of experience delivering quality
+                    commercial construction and building envelope services.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -528,7 +622,10 @@ const About = () => {
                     Are you licensed and insured?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Yes, we are fully licensed and carry $5 million in liability insurance coverage. We also maintain WSIB coverage for all our employees. We provide certificates of insurance upon request for your peace of mind.
+                    Yes, we are fully licensed and carry $5 million in liability
+                    insurance coverage. We also maintain WSIB coverage for all
+                    our employees. We provide certificates of insurance upon
+                    request for your peace of mind.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -537,7 +634,11 @@ const About = () => {
                     Do you offer warranties?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Yes, all our work comes with comprehensive warranties. We offer a 2-year warranty on workmanship and material warranties ranging from 5-15 years depending on the products used. All warranty details are clearly outlined in your contract.
+                    Yes, all our work comes with comprehensive warranties. We
+                    offer a 2-year warranty on workmanship and material
+                    warranties ranging from 5-15 years depending on the products
+                    used. All warranty details are clearly outlined in your
+                    contract.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -546,7 +647,11 @@ const About = () => {
                     What areas do you serve?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    We proudly serve the Greater Toronto Area (GTA) including Toronto, Mississauga, Brampton, Oakville, Burlington, Hamilton, Vaughan, Richmond Hill, and surrounding communities. Contact us to confirm service availability in your specific area.
+                    We proudly serve the Greater Toronto Area (GTA) including
+                    Toronto, Mississauga, Brampton, Oakville, Burlington,
+                    Hamilton, Vaughan, Richmond Hill, and surrounding
+                    communities. Contact us to confirm service availability in
+                    your specific area.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -554,14 +659,21 @@ const About = () => {
 
             {/* Pricing & Estimates */}
             <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-primary">Pricing & Estimates</h3>
+              <h3 className="text-2xl font-bold mb-4 text-primary">
+                Pricing & Estimates
+              </h3>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-5">
                   <AccordionTrigger className="text-left font-semibold">
                     How do you calculate estimates?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Our estimates are based on several factors including project size (square footage), surface condition, preparation required, type of materials selected, and project complexity. We provide detailed line-item breakdowns so you know exactly what you are paying for. For accurate pricing, we conduct an on-site assessment.
+                    Our estimates are based on several factors including project
+                    size (square footage), surface condition, preparation
+                    required, type of materials selected, and project
+                    complexity. We provide detailed line-item breakdowns so you
+                    know exactly what you are paying for. For accurate pricing,
+                    we conduct an on-site assessment.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -570,7 +682,11 @@ const About = () => {
                     Do you offer free estimates?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Yes, we provide free, no-obligation estimates for all residential and commercial projects. We will visit your property, assess the work required, discuss your preferences, and provide a detailed written quote typically within 24-48 hours.
+                    Yes, we provide free, no-obligation estimates for all
+                    residential and commercial projects. We will visit your
+                    property, assess the work required, discuss your
+                    preferences, and provide a detailed written quote typically
+                    within 24-48 hours.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -579,7 +695,12 @@ const About = () => {
                     What payment methods do you accept?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    We accept various payment methods including cash, checks, credit cards (Visa, Mastercard, American Express), and e-transfers. Payment schedules are typically structured as: deposit upon contract signing, progress payments at project milestones, and final payment upon completion and your satisfaction.
+                    We accept various payment methods including cash, checks,
+                    credit cards (Visa, Mastercard, American Express), and
+                    e-transfers. Payment schedules are typically structured as:
+                    deposit upon contract signing, progress payments at project
+                    milestones, and final payment upon completion and your
+                    satisfaction.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -588,7 +709,10 @@ const About = () => {
                     Can I get financing?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Yes, we offer flexible financing options through our lending partners for qualified customers. This includes low-interest payment plans and deferred payment options. Contact us to discuss financing solutions that fit your budget.
+                    Yes, we offer flexible financing options through our lending
+                    partners for qualified customers. This includes low-interest
+                    payment plans and deferred payment options. Contact us to
+                    discuss financing solutions that fit your budget.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -596,14 +720,21 @@ const About = () => {
 
             {/* Project Process */}
             <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-primary">Project Process</h3>
+              <h3 className="text-2xl font-bold mb-4 text-primary">
+                Project Process
+              </h3>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-9">
                   <AccordionTrigger className="text-left font-semibold">
                     How long will my project take?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Project timelines vary based on scope and size. Small commercial projects typically take 2-4 weeks. Full building envelope projects range from 4-12 weeks. Exterior systems projects take 6-16 weeks depending on weather. Stucco and EIFS projects can range from 4-12 weeks. We provide detailed schedules in your project proposal.
+                    Project timelines vary based on scope and size. Small
+                    commercial projects typically take 2-4 weeks. Full building
+                    envelope projects range from 4-12 weeks. Exterior systems
+                    projects take 6-16 weeks depending on weather. Stucco and
+                    EIFS projects can range from 4-12 weeks. We provide detailed
+                    schedules in your project proposal.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -612,7 +743,12 @@ const About = () => {
                     Will you protect my furniture and belongings?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Absolutely. We take extensive precautions to protect your property. This includes covering furniture and equipment with protective sheeting, protecting floors with drop cloths and protective paper, masking fixtures and hardware, and sealing off work areas to minimize dust. We treat your property with the same care we would our own.
+                    Absolutely. We take extensive precautions to protect your
+                    property. This includes covering furniture and equipment
+                    with protective sheeting, protecting floors with drop cloths
+                    and protective paper, masking fixtures and hardware, and
+                    sealing off work areas to minimize dust. We treat your
+                    property with the same care we would our own.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -621,7 +757,12 @@ const About = () => {
                     Can I stay in my home during the work?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Yes, most clients remain in their homes during interior projects. We work room by room to minimize disruption, use low-VOC paints to reduce odors, maintain clean work areas, and can adjust our schedule to work around your routines. For exterior projects, you can stay home with minimal impact on your daily activities.
+                    Yes, most clients remain in their homes during interior
+                    projects. We work room by room to minimize disruption, use
+                    low-VOC paints to reduce odors, maintain clean work areas,
+                    and can adjust our schedule to work around your routines.
+                    For exterior projects, you can stay home with minimal impact
+                    on your daily activities.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -630,7 +771,12 @@ const About = () => {
                     What if weather delays my exterior project?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    We monitor weather forecasts closely and schedule exterior work during optimal conditions. If unexpected weather occurs, we will pause work to ensure quality and reschedule at the earliest opportunity. Weather delays do not affect your project cost, and we maintain open communication throughout any schedule adjustments.
+                    We monitor weather forecasts closely and schedule exterior
+                    work during optimal conditions. If unexpected weather
+                    occurs, we will pause work to ensure quality and reschedule
+                    at the earliest opportunity. Weather delays do not affect
+                    your project cost, and we maintain open communication
+                    throughout any schedule adjustments.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -638,14 +784,21 @@ const About = () => {
 
             {/* Materials & Quality */}
             <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-primary">Materials & Quality</h3>
+              <h3 className="text-2xl font-bold mb-4 text-primary">
+                Materials & Quality
+              </h3>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-13">
                   <AccordionTrigger className="text-left font-semibold">
                     What paint brands do you use?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    We use premium paint brands including Benjamin Moore, Sherwin-Williams, and Behr. These professional-grade products provide superior coverage, durability, and color retention. We select products based on project requirements and client preferences, always using top-tier formulations for lasting results.
+                    We use premium paint brands including Benjamin Moore,
+                    Sherwin-Williams, and Behr. These professional-grade
+                    products provide superior coverage, durability, and color
+                    retention. We select products based on project requirements
+                    and client preferences, always using top-tier formulations
+                    for lasting results.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -654,7 +807,11 @@ const About = () => {
                     Do you offer eco-friendly options?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Yes, we offer a full range of eco-friendly options including zero-VOC and low-VOC paints, water-based coatings, and environmentally responsible disposal methods. These products are safe for families, pets, and the environment while still delivering exceptional performance and durability.
+                    Yes, we offer a full range of eco-friendly options including
+                    zero-VOC and low-VOC paints, water-based coatings, and
+                    environmentally responsible disposal methods. These products
+                    are safe for families, pets, and the environment while still
+                    delivering exceptional performance and durability.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -663,7 +820,13 @@ const About = () => {
                     How do you ensure quality?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Quality is our top priority. We ensure excellence through meticulous surface preparation, skilled application techniques by experienced professionals, multi-coat systems for durability, quality control inspections at each project stage, and a final walkthrough with you before project completion. Our 98% client satisfaction rate reflects our commitment to quality.
+                    Quality is our top priority. We ensure excellence through
+                    meticulous surface preparation, skilled application
+                    techniques by experienced professionals, multi-coat systems
+                    for durability, quality control inspections at each project
+                    stage, and a final walkthrough with you before project
+                    completion. Our 98% client satisfaction rate reflects our
+                    commitment to quality.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -672,7 +835,12 @@ const About = () => {
                     Can you match my existing color?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Yes, we use advanced color matching technology to perfectly match any existing color from a sample. We can also provide digital mockups of new color schemes to help you visualize options before making a final decision. Our color consultation service ensures you get exactly the look you want.
+                    Yes, we use advanced color matching technology to perfectly
+                    match any existing color from a sample. We can also provide
+                    digital mockups of new color schemes to help you visualize
+                    options before making a final decision. Our color
+                    consultation service ensures you get exactly the look you
+                    want.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -682,7 +850,8 @@ const About = () => {
             <Card className="bg-muted/50 p-8 text-center mt-12">
               <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
               <p className="text-muted-foreground mb-6">
-                We are here to help! Contact us and our friendly team will be happy to answer any additional questions you may have.
+                We are here to help! Contact us and our friendly team will be
+                happy to answer any additional questions you may have.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/contact">
@@ -703,20 +872,26 @@ const About = () => {
         {/* CTA */}
         <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-16">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-4">
-              Ready to Work with Us?
-            </h2>
+            <h2 className="text-4xl font-bold mb-4">Ready to Work with Us?</h2>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Experience the Ascen Group difference—quality craftsmanship, transparent communication, and complete satisfaction.
+              Experience the Ascen Group difference—quality craftsmanship,
+              transparent communication, and complete satisfaction.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/estimate">
-                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-primary font-bold px-8">
+                <Button
+                  size="lg"
+                  className="bg-secondary hover:bg-secondary/90 text-primary font-bold px-8"
+                >
                   Request Proposal
                 </Button>
               </Link>
               <Link to="/projects">
-                <Button size="lg" variant="outline" className="border-2 border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))]/10">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))]/10"
+                >
                   View Our Work
                 </Button>
               </Link>
@@ -724,7 +899,7 @@ const About = () => {
           </div>
         </section>
       </main>
-      
+
       <Footer />
     </div>
   );

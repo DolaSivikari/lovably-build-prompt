@@ -6,38 +6,45 @@ const milestones = [
   {
     year: "2009",
     title: "Company Founded",
-    description: "Ascent Group Construction established with a focus on quality general contracting and construction management services in the GTA"
+    description:
+      "Ascent Group Construction established with a focus on quality general contracting and construction management services in the GTA",
   },
   {
     year: "2012",
     title: "First $1M+ Project",
-    description: "Completed our first major commercial project, a 20-story condo tower exterior restoration in downtown Toronto"
+    description:
+      "Completed our first major commercial project, a 20-story condo tower exterior restoration in downtown Toronto",
   },
   {
     year: "2015",
     title: "Commercial Expansion",
-    description: "Expanded services to include design-build, construction management, and specialized building envelope systems across Ontario"
+    description:
+      "Expanded services to include design-build, construction management, and specialized building envelope systems across Ontario",
   },
   {
     year: "2018",
     title: "500 Projects Milestone",
-    description: "Reached 500 successfully completed projects with 98% client satisfaction rate"
+    description:
+      "Reached 500 successfully completed projects with 98% client satisfaction rate",
   },
   {
     year: "2020",
     title: "Safety Excellence",
-    description: "Achieved OSHA Safety Excellence certification and maintained zero lost-time incident record"
+    description:
+      "Achieved OSHA Safety Excellence certification and maintained zero lost-time incident record",
   },
   {
     year: "2022",
     title: "Sustainability Leadership",
-    description: "Launched green construction initiatives and became certified in low-VOC and eco-friendly application methods"
+    description:
+      "Launched green construction initiatives and became certified in low-VOC and eco-friendly application methods",
   },
   {
     year: "2025",
     title: "Industry Recognition",
-    description: "Named as one of the top construction contractors in the GTA, serving 1,000+ satisfied clients"
-  }
+    description:
+      "Named as one of the top construction contractors in the GTA, serving 1,000+ satisfied clients",
+  },
 ];
 
 const CompanyTimeline = () => {
@@ -50,7 +57,8 @@ const CompanyTimeline = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Our Journey</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            15+ years of consistent growth, innovation, and excellence in construction services
+            15+ years of consistent growth, innovation, and excellence in
+            construction services
           </p>
         </div>
 
@@ -64,22 +72,28 @@ const CompanyTimeline = () => {
               <div
                 key={index}
                 className={`relative mb-12 transition-all duration-700 ${
-                  isVisible 
-                    ? "opacity-100 translate-x-0" 
+                  isVisible
+                    ? "opacity-100 translate-x-0"
                     : "opacity-0 -translate-x-8"
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <div className={`flex items-start gap-8 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}>
+                <div
+                  className={`flex items-start gap-8 ${
+                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
+                >
                   {/* Content */}
-                  <div className={`flex-1 ${
-                    index % 2 === 0 ? 'md:text-right' : 'md:text-left'
-                  }`}>
-                    <div className={`inline-block ${
-                      index % 2 === 0 ? 'md:mr-0' : 'md:ml-0'
-                    }`}>
+                  <div
+                    className={`flex-1 ${
+                      index % 2 === 0 ? "md:text-right" : "md:text-left"
+                    }`}
+                  >
+                    <div
+                      className={`inline-block ${
+                        index % 2 === 0 ? "md:mr-0" : "md:ml-0"
+                      }`}
+                    >
                       <div className="bg-card border-2 border-primary/20 rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
                         <div className="text-3xl font-bold text-primary mb-2">
                           {milestone.year}

@@ -3,8 +3,23 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Upload, Search, Image, FileText, File, Trash2, Download, Copy } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Upload,
+  Search,
+  Image,
+  FileText,
+  File,
+  Trash2,
+  Download,
+  Copy,
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
@@ -40,12 +55,14 @@ const MediaLibrary = () => {
     setIsLoading(false);
   };
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     setIsUploading(true);
-    const fileExt = file.name.split('.').pop();
+    const fileExt = file.name.split(".").pop();
     const fileName = `${Math.random()}.${fileExt}`;
 
     const { error } = await supabase.storage
@@ -90,9 +107,9 @@ const MediaLibrary = () => {
   };
 
   const getFileIcon = (name: string) => {
-    const ext = name.split('.').pop()?.toLowerCase();
-    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext || '')) return Image;
-    if (['pdf'].includes(ext || '')) return FileText;
+    const ext = name.split(".").pop()?.toLowerCase();
+    if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext || "")) return Image;
+    if (["pdf"].includes(ext || "")) return FileText;
     return File;
   };
 
@@ -111,9 +128,13 @@ const MediaLibrary = () => {
     });
   };
 
-  const filteredFiles = files.filter(file => {
-    const matchesSearch = file.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = filterType === "all" || file.name.toLowerCase().endsWith(`.${filterType}`);
+  const filteredFiles = files.filter((file) => {
+    const matchesSearch = file.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesType =
+      filterType === "all" ||
+      file.name.toLowerCase().endsWith(`.${filterType}`);
     return matchesSearch && matchesType;
   });
 
@@ -171,7 +192,9 @@ const MediaLibrary = () => {
       {filteredFiles.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center">
-            <p className="text-muted-foreground">No files found. Upload your first file to get started.</p>
+            <p className="text-muted-foreground">
+              No files found. Upload your first file to get started.
+            </p>
           </CardContent>
         </Card>
       ) : (
@@ -180,15 +203,17 @@ const MediaLibrary = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
             {filteredFiles.map((file) => {
               const FileIcon = getFileIcon(file.name);
-              const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(
-                file.name.split('.').pop()?.toLowerCase() || ''
+              const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(
+                file.name.split(".").pop()?.toLowerCase() || "",
               );
-              
+
               return (
                 <Card
                   key={file.name}
                   className={`cursor-pointer hover:shadow-lg transition-all ${
-                    selectedFile?.name === file.name ? 'ring-2 ring-primary' : ''
+                    selectedFile?.name === file.name
+                      ? "ring-2 ring-primary"
+                      : ""
                   }`}
                   onClick={() => setSelectedFile(file)}
                 >
@@ -206,9 +231,9 @@ const MediaLibrary = () => {
                     </div>
                     <p className="text-xs font-medium truncate">{file.name}</p>
                     <p className="text-xs text-muted-foreground">
-                      {file.metadata?.size 
+                      {file.metadata?.size
                         ? `${(file.metadata.size / 1024).toFixed(0)} KB`
-                        : 'Size unknown'}
+                        : "Size unknown"}
                     </p>
                   </CardContent>
                 </Card>
@@ -220,12 +245,16 @@ const MediaLibrary = () => {
           {selectedFile && (
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Selected: {selectedFile.name}</h3>
+                <h3 className="font-semibold mb-4">
+                  Selected: {selectedFile.name}
+                </h3>
                 <div className="flex gap-2">
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => copyToClipboard(getFileUrl(selectedFile.name))}
+                    onClick={() =>
+                      copyToClipboard(getFileUrl(selectedFile.name))
+                    }
                   >
                     <Copy className="h-4 w-4 mr-2" />
                     Copy URL
@@ -233,7 +262,9 @@ const MediaLibrary = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => window.open(getFileUrl(selectedFile.name), '_blank')}
+                    onClick={() =>
+                      window.open(getFileUrl(selectedFile.name), "_blank")
+                    }
                   >
                     <Download className="h-4 w-4 mr-2" />
                     Download

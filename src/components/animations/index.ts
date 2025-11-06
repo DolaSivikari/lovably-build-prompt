@@ -1,6 +1,6 @@
 /**
  * Animation Components and Utilities
- * 
+ *
  * This module provides reusable animation components and hooks
  * for creating smooth, performant animations throughout the application.
  */

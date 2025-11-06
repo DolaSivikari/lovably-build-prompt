@@ -1,22 +1,26 @@
-import { Clock, TrendingUp, ArrowRight, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useRecentSearches } from '@/hooks/useRecentSearches';
-import { usePopularSearches } from '@/hooks/usePopularSearches';
-import { haptics } from '@/utils/haptics';
+import { Clock, TrendingUp, ArrowRight, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useRecentSearches } from "@/hooks/useRecentSearches";
+import { usePopularSearches } from "@/hooks/usePopularSearches";
+import { haptics } from "@/utils/haptics";
 
 interface SearchSuggestionsProps {
   onSelectSearch: (query: string) => void;
   onNavigate: () => void;
 }
 
-export function SearchSuggestions({ onSelectSearch, onNavigate }: SearchSuggestionsProps) {
-  const { recentSearches, removeSearch, clearRecentSearches } = useRecentSearches();
+export function SearchSuggestions({
+  onSelectSearch,
+  onNavigate,
+}: SearchSuggestionsProps) {
+  const { recentSearches, removeSearch, clearRecentSearches } =
+    useRecentSearches();
   const { popularSearches } = usePopularSearches();
 
   const quickLinks = [
-    { name: 'Contact Us', link: '/contact' },
-    { name: 'Submit RFP', link: '/submit-rfp' },
-    { name: 'Our Services', link: '/services' },
+    { name: "Contact Us", link: "/contact" },
+    { name: "Submit RFP", link: "/submit-rfp" },
+    { name: "Our Services", link: "/services" },
   ];
 
   const handleSelectSearch = (query: string) => {
@@ -43,7 +47,9 @@ export function SearchSuggestions({ onSelectSearch, onNavigate }: SearchSuggesti
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium text-foreground">Recent Searches</span>
+              <span className="text-sm font-medium text-foreground">
+                Recent Searches
+              </span>
             </div>
             <button
               onClick={handleClearAll}
@@ -77,7 +83,9 @@ export function SearchSuggestions({ onSelectSearch, onNavigate }: SearchSuggesti
         <div className="p-4 border-b border-border">
           <div className="flex items-center gap-2 mb-3">
             <TrendingUp className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-foreground">Popular Searches</span>
+            <span className="text-sm font-medium text-foreground">
+              Popular Searches
+            </span>
           </div>
           <div className="space-y-1">
             {popularSearches.map((search, index) => (
@@ -86,8 +94,12 @@ export function SearchSuggestions({ onSelectSearch, onNavigate }: SearchSuggesti
                 onClick={() => handleSelectSearch(search.query)}
                 className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-accent transition-colors ripple"
               >
-                <span className="text-sm text-foreground capitalize">{search.query}</span>
-                <span className="text-xs text-muted-foreground">{search.count} searches</span>
+                <span className="text-sm text-foreground capitalize">
+                  {search.query}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {search.count} searches
+                </span>
               </button>
             ))}
           </div>
@@ -98,7 +110,9 @@ export function SearchSuggestions({ onSelectSearch, onNavigate }: SearchSuggesti
       <div className="p-4">
         <div className="flex items-center gap-2 mb-3">
           <ArrowRight className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm font-medium text-foreground">Quick Links</span>
+          <span className="text-sm font-medium text-foreground">
+            Quick Links
+          </span>
         </div>
         <div className="space-y-1">
           {quickLinks.map((link, index) => (

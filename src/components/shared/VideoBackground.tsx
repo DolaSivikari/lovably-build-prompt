@@ -20,7 +20,7 @@ export const VideoBackground = ({
   overlayOpacity = 0.6,
   children,
   className,
-  showControls = true
+  showControls = true,
 }: VideoBackgroundProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -77,9 +77,7 @@ export const VideoBackground = ({
       )}
 
       {/* Content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
 
       {/* Video Controls */}
       {showControls && (

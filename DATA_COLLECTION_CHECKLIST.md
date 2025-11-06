@@ -13,19 +13,15 @@ This checklist identifies all real company data needed to complete the General C
 Update these values in `src/components/homepage/GCTrustStrip.tsx`:
 
 - [ ] **Total Project Value Delivered**: Currently "$30M+" (line 10)
-  - *Actual value: $_____________*
-  
+  - _Actual value: $******\_******_
 - [ ] **Buildings Completed**: Currently "500+" (line 17)
-  - *Actual count: _____________*
-  
+  - _Actual count: ******\_******_
 - [ ] **Years in Business**: Currently "15+" (line 24)
-  - *Actual years: _____________*
-  
+  - _Actual years: ******\_******_
 - [ ] **Bonding Capacity**: Currently "$5M" (line 31)
-  - *Actual capacity: $_____________*
-  
+  - _Actual capacity: $******\_******_
 - [ ] **On-Time Completion Rate**: Currently "98%" (line 38)
-  - *Actual percentage: _____________%*
+  - _Actual percentage: ******\_******%_
 
 ### Company Certifications
 
@@ -33,7 +29,7 @@ Update certifications row in `GCTrustStrip.tsx` (lines 47-67):
 
 - [ ] **WSIB Certification**: Status and certificate expiry date
 - [ ] **Liability Coverage Amount**: Currently "$5M"
-  - *Actual coverage: $_____________*
+  - _Actual coverage: $******\_******_
 - [ ] **COR Safety Certification**: Do you have this? If not, remove or replace
 - [ ] **OGCA Membership**: Are you a member? If not, replace with another affiliation
 
@@ -45,44 +41,44 @@ Update certifications row in `GCTrustStrip.tsx` (lines 47-67):
 
 For `/prequalification` page (to be created):
 
-- [ ] **Company Legal Name**: _____________________________
-- [ ] **Years in Business**: __________
-- [ ] **Annual Revenue Range**: $_________ - $_________
-- [ ] **Bonding Capacity**: $_____________
-- [ ] **General Liability Insurance**: $_____________
-- [ ] **WSIB Account Number**: _____________________________
-- [ ] **WSIB Clearance Expiry**: _____________________________
-- [ ] **Geographic Service Area**: _____________________________
-- [ ] **Number of Full-Time Employees**: __________
-- [ ] **Union Affiliations** (if any): _____________________________
+- [ ] **Company Legal Name**: **************\_**************
+- [ ] **Years in Business**: ****\_\_****
+- [ ] **Annual Revenue Range**: $****\_**** - $****\_****
+- [ ] **Bonding Capacity**: $******\_******
+- [ ] **General Liability Insurance**: $******\_******
+- [ ] **WSIB Account Number**: **************\_**************
+- [ ] **WSIB Clearance Expiry**: **************\_**************
+- [ ] **Geographic Service Area**: **************\_**************
+- [ ] **Number of Full-Time Employees**: ****\_\_****
+- [ ] **Union Affiliations** (if any): **************\_**************
 
 ### Safety & Compliance Statistics
 
 For `/safety` page:
 
-- [ ] **Current EMR Rate**: __________ (should be <1.0)
-- [ ] **TRIR (Total Recordable Incident Rate)**: __________
-- [ ] **Lost-Time Incidents**: __________ (last 18 months)
-- [ ] **Annual Safety Training Hours**: __________
-- [ ] **OSHA 30-Hour Trained Supervisors**: __________ (count)
+- [ ] **Current EMR Rate**: ****\_\_**** (should be <1.0)
+- [ ] **TRIR (Total Recordable Incident Rate)**: ****\_\_****
+- [ ] **Lost-Time Incidents**: ****\_\_**** (last 18 months)
+- [ ] **Annual Safety Training Hours**: ****\_\_****
+- [ ] **OSHA 30-Hour Trained Supervisors**: ****\_\_**** (count)
 - [ ] **Safety Certifications Held**:
   - [ ] WSIB Clearance ✓
-  - [ ] COR Certification (yes/no): __________
-  - [ ] OSHA 30-Hour (yes/no): __________
-  - [ ] Fall Protection (yes/no): __________
-  - [ ] First Aid & CPR (yes/no): __________
+  - [ ] COR Certification (yes/no): ****\_\_****
+  - [ ] OSHA 30-Hour (yes/no): ****\_\_****
+  - [ ] Fall Protection (yes/no): ****\_\_****
+  - [ ] First Aid & CPR (yes/no): ****\_\_****
 
 ### Capabilities Overview
 
 For `/capabilities` page:
 
-- [ ] **Typical Project Size Range**: $_________ - $_________
-- [ ] **Largest Project Completed**: $_____________
-  - Project name: _____________________________
-  - Location: _____________________________
-  - Year: __________
-- [ ] **Available Bonding**: $_____________
-- [ ] **Number of Specialty Trades Coordinated**: __________
+- [ ] **Typical Project Size Range**: $****\_**** - $****\_****
+- [ ] **Largest Project Completed**: $******\_******
+  - Project name: **************\_**************
+  - Location: **************\_**************
+  - Year: ****\_\_****
+- [ ] **Available Bonding**: $******\_******
+- [ ] **Number of Specialty Trades Coordinated**: ****\_\_****
 - [ ] **Self-Perform Trade List**: (check all that apply)
   - [ ] Exterior Painting
   - [ ] Stucco & EIFS
@@ -91,7 +87,7 @@ For `/capabilities` page:
   - [ ] Waterproofing
   - [ ] Interior Painting
   - [ ] Drywall
-  - [ ] Other: _____________________________
+  - [ ] Other: **************\_**************
 
 ### Leadership Team
 
@@ -99,45 +95,45 @@ For `/about#team` section:
 
 **For Each Leadership Team Member:**
 
-1. **Name**: _____________________________
-   - **Title**: _____________________________
-   - **Years with Company**: __________
-   - **Years Industry Experience**: __________
-   - **Professional Licenses/Certifications**: _____________________________
-   - **Notable Projects Led**: _____________________________
-   - **Education**: _____________________________
+1. **Name**: **************\_**************
+   - **Title**: **************\_**************
+   - **Years with Company**: ****\_\_****
+   - **Years Industry Experience**: ****\_\_****
+   - **Professional Licenses/Certifications**: **************\_**************
+   - **Notable Projects Led**: **************\_**************
+   - **Education**: **************\_**************
    - **Professional Headshot**: (file path/URL)
 
-2. **Name**: _____________________________
-   - *(Repeat fields above)*
+2. **Name**: **************\_**************
+   - _(Repeat fields above)_
 
-3. **Name**: _____________________________
-   - *(Repeat fields above)*
+3. **Name**: **************\_**************
+   - _(Repeat fields above)_
 
 ### Project Portfolio Data
 
 For each major project to showcase, gather:
 
-- [ ] **Project Name**: _____________________________
-- [ ] **Client Name** (if allowed to disclose): _____________________________
-- [ ] **Project Value**: $_____________
-- [ ] **Square Footage**: _____________ sq ft
-- [ ] **Duration**: __________ months
+- [ ] **Project Name**: **************\_**************
+- [ ] **Client Name** (if allowed to disclose): **************\_**************
+- [ ] **Project Value**: $******\_******
+- [ ] **Square Footage**: ******\_****** sq ft
+- [ ] **Duration**: ****\_\_**** months
 - [ ] **Your Role**: (General Contractor / Construction Manager / Design-Build / Self-Perform)
 - [ ] **Delivery Method**: (Lump Sum / CM-at-Risk / Design-Build / etc.)
 - [ ] **Client Type**: (Multi-Family / Commercial / Institutional / Industrial)
-- [ ] **Number of Trades Coordinated**: __________
-- [ ] **Peak Workforce**: __________ workers
+- [ ] **Number of Trades Coordinated**: ****\_\_****
+- [ ] **Peak Workforce**: ****\_\_**** workers
 - [ ] **Completed On-Time?**: Yes / No
 - [ ] **Completed On-Budget?**: Yes / No
-- [ ] **Safety Incidents**: __________ (count)
-- [ ] **Completion Year**: __________
+- [ ] **Safety Incidents**: ****\_\_**** (count)
+- [ ] **Completion Year**: ****\_\_****
 - [ ] **Challenge Statement**: (2-3 sentences)
 - [ ] **Solution Narrative**: (2-3 sentences)
 - [ ] **Key Scope Items**: (bullet list)
-- [ ] **Project Manager Name**: _____________________________
-- [ ] **Superintendent Name**: _____________________________
-- [ ] **Architect/Engineer Partners**: _____________________________
+- [ ] **Project Manager Name**: **************\_**************
+- [ ] **Superintendent Name**: **************\_**************
+- [ ] **Architect/Engineer Partners**: **************\_**************
 - [ ] **High-Resolution Photos**:
   - [ ] Aerial/drone shot
   - [ ] Wide exterior (full building)
@@ -155,25 +151,18 @@ These PDFs need to be created and uploaded to the website:
 
 - [ ] **Company Capability Statement** (PDF)
   - 2-4 pages summarizing capabilities, experience, credentials
-  
 - [ ] **Current Insurance Certificate** (PDF)
   - General liability insurance certificate
-  
 - [ ] **WSIB Clearance Certificate** (PDF)
   - Current clearance certificate
-  
 - [ ] **Safety Program Summary** (PDF)
   - 1-2 page overview of safety protocols
-  
 - [ ] **Equipment List** (PDF)
   - List of owned/operated equipment and tools
-  
 - [ ] **Reference List** (PDF)
   - 5-10 client references with contact information
-  
 - [ ] **Sample Project Portfolio** (PDF)
   - 10-15 pages showcasing key projects with photos
-  
 - [ ] **Pre-Qualification Package** (PDF)
   - Combined document with all of the above
 
@@ -229,24 +218,28 @@ For each project, capture:
 ## 🎯 Priority Order
 
 ### Week 1 (Critical)
+
 1. ✅ Complete trust strip statistics
 2. ✅ Update certifications list
 3. ✅ Gather top 5 project data with photos
 4. ✅ Prepare capability statement PDF
 
 ### Week 2 (High Priority)
+
 1. ✅ Gather leadership team bios and headshots
 2. ✅ Complete safety statistics
 3. ✅ Prepare WSIB and insurance certificates
 4. ✅ Gather 10+ project portfolio data
 
 ### Week 3-4 (Medium Priority)
+
 1. ✅ Create all downloadable PDFs
 2. ✅ Update existing service page content
 3. ✅ Replace all CTAs site-wide
 4. ✅ Capture new hero photography
 
 ### Week 5-8 (Ongoing)
+
 1. ✅ Update blog content
 2. ✅ Create market sector content
 3. ✅ Develop case study narratives

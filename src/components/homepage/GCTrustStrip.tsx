@@ -43,7 +43,7 @@ const GCTrustStrip = () => {
   const isVisible = useIntersectionObserver(ref);
 
   return (
-    <section 
+    <section
       ref={ref}
       className="py-12 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border-y border-primary/20"
     >
@@ -57,7 +57,7 @@ const GCTrustStrip = () => {
                 className="flex flex-col items-center text-center space-y-2"
                 style={{
                   opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                  transform: isVisible ? "translateY(0)" : "translateY(20px)",
                   transition: `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`,
                 }}
               >

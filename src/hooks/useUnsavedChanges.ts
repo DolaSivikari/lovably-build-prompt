@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useBlocker } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useBlocker } from "react-router-dom";
 
 interface UseUnsavedChangesProps {
   hasUnsavedChanges: boolean;
@@ -8,15 +8,14 @@ interface UseUnsavedChangesProps {
 
 export const useUnsavedChanges = ({
   hasUnsavedChanges,
-  message = 'You have unsaved changes. Are you sure you want to leave?',
+  message = "You have unsaved changes. Are you sure you want to leave?",
 }: UseUnsavedChangesProps) => {
   const [showDialog, setShowDialog] = useState(false);
 
   // Block navigation when there are unsaved changes
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      hasUnsavedChanges &&
-      currentLocation.pathname !== nextLocation.pathname
+      hasUnsavedChanges && currentLocation.pathname !== nextLocation.pathname,
   );
 
   // Show browser alert on page reload/close
@@ -29,8 +28,8 @@ export const useUnsavedChanges = ({
       }
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasUnsavedChanges, message]);
 
   return {

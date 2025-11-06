@@ -13,110 +13,137 @@ const WhoWeServe = () => {
             Client Solutions
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Delivering comprehensive construction services to developers, general contractors, and property stakeholders across Ontario.
+            Delivering comprehensive construction services to developers,
+            general contractors, and property stakeholders across Ontario.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
           {/* Developers & General Contractors */}
-          <Card variant="elevated" className="relative overflow-hidden group hover-subtle">
+          <Card
+            variant="elevated"
+            className="relative overflow-hidden group hover-subtle"
+          >
             <div className="p-8 lg:p-10">
               {/* Icon with Steel Blue Accent */}
               <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6">
                 <Building2 className="h-7 w-7 text-steel-blue" />
               </div>
-              
+
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
                 Developers & General Contractors
               </h3>
               <p className="text-base text-muted-foreground mb-8 leading-relaxed">
-                Reliable subcontracting and specialized trade coordination for complex commercial and multi-unit residential projects.
+                Reliable subcontracting and specialized trade coordination for
+                complex commercial and multi-unit residential projects.
               </p>
 
               {/* Benefits List */}
               <ul className="space-y-4 mb-10 pb-8 border-b border-border">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Multi-unit residential construction and repositioning</span>
+                  <span className="text-muted-foreground">
+                    Multi-unit residential construction and repositioning
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Commercial development and tenant improvements</span>
+                  <span className="text-muted-foreground">
+                    Commercial development and tenant improvements
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Design-build project delivery</span>
+                  <span className="text-muted-foreground">
+                    Design-build project delivery
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Self-perform exterior envelope and specialty trades</span>
+                  <span className="text-muted-foreground">
+                    Self-perform exterior envelope and specialty trades
+                  </span>
                 </li>
               </ul>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild variant="primary" size="lg" className="group">
-                  <Link to="/capabilities" className="inline-flex items-center gap-2">
+                  <Link
+                    to="/capabilities"
+                    className="inline-flex items-center gap-2"
+                  >
                     View Capabilities
                     <ArrowRight className="h-4 w-4 hover-translate-arrow" />
                   </Link>
                 </Button>
                 <Button asChild variant="secondary" size="lg">
-                  <Link to="/prequalification">
-                    Pre-Qualification
-                  </Link>
+                  <Link to="/prequalification">Pre-Qualification</Link>
                 </Button>
               </div>
             </div>
           </Card>
 
           {/* Property Owners & Managers */}
-          <Card variant="elevated" className="relative overflow-hidden group hover-subtle">
+          <Card
+            variant="elevated"
+            className="relative overflow-hidden group hover-subtle"
+          >
             <div className="p-8 lg:p-10">
               {/* Icon with Steel Blue Accent */}
               <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6">
                 <Users className="h-7 w-7 text-steel-blue" />
               </div>
-              
+
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
                 Property Owners & Managers
               </h3>
               <p className="text-base text-muted-foreground mb-8 leading-relaxed">
-                Complete project management solutions from initial assessment through final completion and warranty support.
+                Complete project management solutions from initial assessment
+                through final completion and warranty support.
               </p>
 
               {/* Benefits List */}
               <ul className="space-y-4 mb-10 pb-8 border-b border-border">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Building envelope restoration and upgrades</span>
+                  <span className="text-muted-foreground">
+                    Building envelope restoration and upgrades
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Interior and exterior renovation projects</span>
+                  <span className="text-muted-foreground">
+                    Interior and exterior renovation projects
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Capital improvement programs</span>
+                  <span className="text-muted-foreground">
+                    Capital improvement programs
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Maintenance and repair services</span>
+                  <span className="text-muted-foreground">
+                    Maintenance and repair services
+                  </span>
                 </li>
               </ul>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild variant="primary" size="lg" className="group">
-                  <Link to="/contact" className="inline-flex items-center gap-2">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2"
+                  >
                     Request Proposal
                     <ArrowRight className="h-4 w-4 hover-translate-arrow" />
                   </Link>
                 </Button>
                 <Button asChild variant="secondary" size="lg">
-                  <Link to="/projects">
-                    View Projects
-                  </Link>
+                  <Link to="/projects">View Projects</Link>
                 </Button>
               </div>
             </div>

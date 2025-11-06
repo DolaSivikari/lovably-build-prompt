@@ -7,12 +7,12 @@ on:
     branches: [main]
   schedule:
     # Run every 6 hours
-    - cron: '0 */6 * * *'
+    - cron: "0 */6 * * *"
 
 jobs:
   smoke-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

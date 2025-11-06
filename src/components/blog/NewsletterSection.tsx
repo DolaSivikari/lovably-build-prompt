@@ -20,13 +20,15 @@ const NewsletterSection = () => {
     <section className="bg-primary text-primary-foreground py-16">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Stay Updated
-          </h2>
+          <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
           <p className="text-lg opacity-90 mb-6">
-            Get expert tips, industry insights, and project inspiration delivered to your inbox.
+            Get expert tips, industry insights, and project inspiration
+            delivered to your inbox.
           </p>
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-3"
+          >
             <Input
               type="email"
               placeholder="Enter your email"
@@ -35,7 +37,10 @@ const NewsletterSection = () => {
               required
               className="flex-1 bg-white text-primary"
             />
-            <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-primary font-bold">
+            <Button
+              type="submit"
+              className="bg-secondary hover:bg-secondary/90 text-primary font-bold"
+            >
               Subscribe
             </Button>
           </form>

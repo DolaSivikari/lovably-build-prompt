@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface CompanySettings {
   companyName: string;
@@ -38,12 +38,12 @@ export function useCompanySettings(): UseCompanySettingsResult {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Try maybeSingle first
         const { data, error: fetchError } = await supabase
-          .from('site_settings')
-          .select('*')
-          .eq('is_active', true)
+          .from("site_settings")
+          .select("*")
+          .eq("is_active", true)
           .maybeSingle();
 
         if (fetchError) throw fetchError;
@@ -52,15 +52,15 @@ export function useCompanySettings(): UseCompanySettingsResult {
         let settingsData = data;
         if (!settingsData) {
           const { data: latestData } = await supabase
-            .from('site_settings')
-            .select('*')
-            .eq('is_active', true)
-            .order('updated_at', { ascending: false })
+            .from("site_settings")
+            .select("*")
+            .eq("is_active", true)
+            .order("updated_at", { ascending: false })
             .limit(1)
             .maybeSingle();
-          
+
           if (latestData) {
-            console.warn('Multiple active rows in site_settings, using latest');
+            console.warn("Multiple active rows in site_settings, using latest");
             settingsData = latestData;
           }
         }
@@ -68,31 +68,38 @@ export function useCompanySettings(): UseCompanySettingsResult {
         if (settingsData) {
           const businessHours = settingsData.business_hours as any;
           const socialLinks = settingsData.social_links as any;
-          
+
           setSettings({
-            companyName: settingsData.company_name || 'Ascent Group Construction',
-            phone: settingsData.phone || '647-528-6804',
-            email: settingsData.email || 'info@ascentgroupconstruction.com',
-            address: settingsData.address || '7895 Tranmere Drive, Unit #22, Mississauga, ON L5S 1V9',
+            companyName:
+              settingsData.company_name || "Ascent Group Construction",
+            phone: settingsData.phone || "647-528-6804",
+            email: settingsData.email || "info@ascentgroupconstruction.com",
+            address:
+              settingsData.address ||
+              "7895 Tranmere Drive, Unit #22, Mississauga, ON L5S 1V9",
             businessHours: {
-              weekday: businessHours?.weekday || 'Mon-Fri: 8AM-6PM',
-              saturday: businessHours?.saturday || 'Sat: 9AM-4PM',
-              sunday: businessHours?.sunday || 'Closed',
+              weekday: businessHours?.weekday || "Mon-Fri: 8AM-6PM",
+              saturday: businessHours?.saturday || "Sat: 9AM-4PM",
+              sunday: businessHours?.sunday || "Closed",
             },
             socialLinks: {
-              linkedin: socialLinks?.linkedin || '',
-              facebook: socialLinks?.facebook || '',
-              instagram: socialLinks?.instagram || '',
-              twitter: socialLinks?.twitter || '',
+              linkedin: socialLinks?.linkedin || "",
+              facebook: socialLinks?.facebook || "",
+              instagram: socialLinks?.instagram || "",
+              twitter: socialLinks?.twitter || "",
             },
             certifications: (settingsData.certifications as string[]) || [],
-            metaTitle: settingsData.meta_title || 'Ascent Group Construction - Professional Painting & Restoration',
-            metaDescription: settingsData.meta_description || 'Leading construction and project management services across the GTA',
+            metaTitle:
+              settingsData.meta_title ||
+              "Ascent Group Construction - Professional Painting & Restoration",
+            metaDescription:
+              settingsData.meta_description ||
+              "Leading construction and project management services across the GTA",
           });
         }
       } catch (err) {
         setError(err as Error);
-        console.error('Error fetching company settings:', err);
+        console.error("Error fetching company settings:", err);
       } finally {
         setLoading(false);
       }

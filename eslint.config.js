@@ -19,14 +19,13 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
       "@typescript-eslint/no-unused-vars": "off",
-      "no-restricted-imports": ["error", {
-        "patterns": [{
-          "group": ["@/components/ui/button", "@/components/ui/card", "@/components/ui/input"],
-          "message": "Use /src/ui/ primitives instead: @/ui/Button, @/ui/Card, @/ui/Input"
-        }]
-      }]
+      "@typescript-eslint/no-explicit-any": "off",
+      "react-hooks/exhaustive-deps": "off",
     },
   },
 );

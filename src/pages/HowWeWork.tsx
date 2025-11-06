@@ -3,7 +3,13 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import CTASection from "@/components/sections/CTASection";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   ClipboardCheck,
   Users,
@@ -87,24 +93,20 @@ const HowWeWork = () => {
         structuredData={howToSchema}
       />
       <Navigation />
-      
+
       <PageHeader
         eyebrow="Our Process"
         title="Our Proven Process"
         description="Transparency, communication, and quality craftsmanship at every step. Here's exactly how we transform your space from start to finish."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "How We Work" }
-        ]}
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "How We Work" }]}
         variant="with-cta"
         cta={{
           label: "Start Your Project",
-          href: "/estimate"
+          href: "/estimate",
         }}
       />
-      
+
       <main>
-      
         {/* Process Steps */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
@@ -192,7 +194,11 @@ const HowWeWork = () => {
           title="Ready to Get Started?"
           description="Experience the Ascent Group difference. Contact us today for your free consultation and detailed quote."
           primaryCTA={{ label: "Request Proposal", href: "/contact" }}
-          secondaryCTA={{ label: "Contact Us", href: "/contact", variant: "secondary" }}
+          secondaryCTA={{
+            label: "Contact Us",
+            href: "/contact",
+            variant: "secondary",
+          }}
         />
       </main>
       <Footer />

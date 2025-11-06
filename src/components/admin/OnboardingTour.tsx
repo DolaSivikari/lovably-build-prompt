@@ -1,46 +1,57 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/ui/Button';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import { Button } from "@/ui/Button";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface TourStep {
   target: string;
   title: string;
   description: string;
-  position: 'top' | 'bottom' | 'left' | 'right';
+  position: "top" | "bottom" | "left" | "right";
 }
 
 const tourSteps: TourStep[] = [
   {
     target: '[data-tour="hero-management"]',
-    title: 'Hero Management',
-    description: 'Start here! Manage your homepage carousel and page hero images. This is the most visible content on your site.',
-    position: 'right',
+    title: "Hero Management",
+    description:
+      "Start here! Manage your homepage carousel and page hero images. This is the most visible content on your site.",
+    position: "right",
   },
   {
     target: '[data-tour="content"]',
-    title: 'Content Management',
-    description: 'Create and edit your Services, Projects, and Blog Posts. Keep your portfolio fresh and engaging.',
-    position: 'right',
+    title: "Content Management",
+    description:
+      "Create and edit your Services, Projects, and Blog Posts. Keep your portfolio fresh and engaging.",
+    position: "right",
   },
   {
     target: '[data-tour="inbox"]',
-    title: 'Inbox',
-    description: 'Review contact form submissions, RFPs, resumes, and prequalification requests from potential clients.',
-    position: 'right',
+    title: "Inbox",
+    description:
+      "Review contact form submissions, RFPs, resumes, and prequalification requests from potential clients.",
+    position: "right",
   },
   {
     target: '[data-tour="settings"]',
-    title: 'Settings',
-    description: 'Configure your homepage, footer, contact information, and site-wide settings.',
-    position: 'right',
+    title: "Settings",
+    description:
+      "Configure your homepage, footer, contact information, and site-wide settings.",
+    position: "right",
   },
   {
     target: '[data-tour="media"]',
-    title: 'Media Library',
-    description: 'Upload and organize images, documents, and other media files for your content.',
-    position: 'right',
+    title: "Media Library",
+    description:
+      "Upload and organize images, documents, and other media files for your content.",
+    position: "right",
   },
 ];
 
@@ -51,18 +62,23 @@ interface OnboardingTourProps {
 export const OnboardingTour = ({ onComplete }: OnboardingTourProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const [targetPosition, setTargetPosition] = useState({ top: 0, left: 0, width: 0, height: 0 });
+  const [targetPosition, setTargetPosition] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     updateTargetPosition();
-    window.addEventListener('resize', updateTargetPosition);
-    return () => window.removeEventListener('resize', updateTargetPosition);
+    window.addEventListener("resize", updateTargetPosition);
+    return () => window.removeEventListener("resize", updateTargetPosition);
   }, [currentStep]);
 
   const updateTargetPosition = () => {
     const step = tourSteps[currentStep];
     const element = document.querySelector(step.target);
-    
+
     if (element) {
       const rect = element.getBoundingClientRect();
       setTargetPosition({
@@ -71,9 +87,9 @@ export const OnboardingTour = ({ onComplete }: OnboardingTourProps) => {
         width: rect.width,
         height: rect.height,
       });
-      
+
       // Scroll element into view
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
@@ -114,7 +130,7 @@ export const OnboardingTour = ({ onComplete }: OnboardingTourProps) => {
               left: targetPosition.left - 8,
               width: targetPosition.width + 16,
               height: targetPosition.height + 16,
-              boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
+              boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.5)",
             }}
           />
         )}
@@ -159,8 +175,10 @@ export const OnboardingTour = ({ onComplete }: OnboardingTourProps) => {
               Back
             </Button>
             <Button size="sm" onClick={handleNext}>
-              {currentStep === tourSteps.length - 1 ? 'Finish' : 'Next'}
-              {currentStep < tourSteps.length - 1 && <ChevronRight className="h-4 w-4 ml-1" />}
+              {currentStep === tourSteps.length - 1 ? "Finish" : "Next"}
+              {currentStep < tourSteps.length - 1 && (
+                <ChevronRight className="h-4 w-4 ml-1" />
+              )}
             </Button>
           </div>
         </CardFooter>
@@ -170,30 +188,30 @@ export const OnboardingTour = ({ onComplete }: OnboardingTourProps) => {
 };
 
 function getTooltipPosition(
-  position: 'top' | 'bottom' | 'left' | 'right',
-  target: { top: number; left: number; width: number; height: number }
+  position: "top" | "bottom" | "left" | "right",
+  target: { top: number; left: number; width: number; height: number },
 ) {
   const offset = 24;
   const tooltipWidth = 320;
   const tooltipHeight = 200; // approximate
 
   switch (position) {
-    case 'right':
+    case "right":
       return {
         top: target.top + target.height / 2 - tooltipHeight / 2,
         left: target.left + target.width + offset,
       };
-    case 'left':
+    case "left":
       return {
         top: target.top + target.height / 2 - tooltipHeight / 2,
         left: target.left - tooltipWidth - offset,
       };
-    case 'top':
+    case "top":
       return {
         top: target.top - tooltipHeight - offset,
         left: target.left + target.width / 2 - tooltipWidth / 2,
       };
-    case 'bottom':
+    case "bottom":
       return {
         top: target.top + target.height + offset,
         left: target.left + target.width / 2 - tooltipWidth / 2,

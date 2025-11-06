@@ -21,7 +21,7 @@ export const BudgetSlider = ({
   max = 10000000,
   step = 25000,
   label = "Project Budget",
-  className
+  className,
 }: BudgetSliderProps) => {
   const formatCurrency = (amount: number) => {
     if (amount >= 1000000) {
@@ -79,7 +79,7 @@ export const BudgetSlider = ({
           { label: "Medium", max: 750000, threshold: 250000 },
           { label: "Large", max: 2000000, threshold: 750000 },
           { label: "Major", max: 5000000, threshold: 2000000 },
-          { label: "Enterprise", max: 10000000, threshold: 5000000 }
+          { label: "Enterprise", max: 10000000, threshold: 5000000 },
         ].map((bracket, index) => (
           <div
             key={index}
@@ -87,7 +87,7 @@ export const BudgetSlider = ({
               "p-2 rounded-lg transition-all",
               value > bracket.threshold && value <= bracket.max
                 ? "bg-primary/20 text-primary font-semibold"
-                : "bg-muted/50 text-muted-foreground"
+                : "bg-muted/50 text-muted-foreground",
             )}
           >
             {bracket.label}

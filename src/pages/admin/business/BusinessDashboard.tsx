@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Card } from "@/components/ui/card";
-import { Users, Briefcase, FileText, DollarSign, TrendingUp } from "lucide-react";
+import {
+  Users,
+  Briefcase,
+  FileText,
+  DollarSign,
+  TrendingUp,
+} from "lucide-react";
 import { formatCurrency } from "@/utils/currency";
 
 export default function BusinessDashboard() {
@@ -24,7 +30,9 @@ export default function BusinessDashboard() {
 
   const fetchDashboardStats = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) return;
 
       // Fetch clients count
@@ -54,9 +62,12 @@ export default function BusinessDashboard() {
         .select("total_cents, paid_cents, balance_cents")
         .eq("user_id", user.id);
 
-      const totalRevenue = invoices?.reduce((sum, inv) => sum + inv.total_cents, 0) || 0;
-      const paidRevenue = invoices?.reduce((sum, inv) => sum + inv.paid_cents, 0) || 0;
-      const outstanding = invoices?.reduce((sum, inv) => sum + inv.balance_cents, 0) || 0;
+      const totalRevenue =
+        invoices?.reduce((sum, inv) => sum + inv.total_cents, 0) || 0;
+      const paidRevenue =
+        invoices?.reduce((sum, inv) => sum + inv.paid_cents, 0) || 0;
+      const outstanding =
+        invoices?.reduce((sum, inv) => sum + inv.balance_cents, 0) || 0;
 
       setStats({
         totalClients: clientsCount || 0,
@@ -147,9 +158,7 @@ export default function BusinessDashboard() {
 
       <Card className="p-6">
         <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
-        <p className="text-muted-foreground">
-          Activity feed coming soon...
-        </p>
+        <p className="text-muted-foreground">Activity feed coming soon...</p>
       </Card>
     </div>
   );

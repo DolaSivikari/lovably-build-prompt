@@ -93,6 +93,7 @@
 ## Update Strategy by Priority
 
 ### Phase 1: Critical User-Facing Content (Do First)
+
 ```
 1. SEO.tsx - Update structured data descriptions
 2. About.tsx - Company history and description
@@ -102,6 +103,7 @@
 ```
 
 ### Phase 2: Navigation & Discovery
+
 ```
 6. navigation-structure-enhanced.ts - Menu labels
 7. DynamicServicesMegaMenu.tsx - Service categories
@@ -110,6 +112,7 @@
 ```
 
 ### Phase 3: Supporting Content
+
 ```
 10. FAQ.tsx - Question topics
 11. Contact.tsx - Meta descriptions
@@ -124,6 +127,7 @@
 ## Search & Replace Recommendations
 
 ### Safe Replacements:
+
 - "painting services" → "construction services"
 - "painting and" → "construction and"
 - "painting contractor" → "general contractor"
@@ -132,6 +136,7 @@
 - "Apprentice Painter" → "Construction Apprentice"
 
 ### Context-Specific (Manual Review):
+
 - "Professional painting" → "Professional construction"
 - "residential painting" → "residential construction/renovation"
 - "commercial painting" → "commercial construction"
@@ -172,7 +177,7 @@
 ## Estimated Time to Complete
 
 - **Phase 1 (Critical)**: 2-3 hours
-- **Phase 2 (Navigation)**: 1-2 hours  
+- **Phase 2 (Navigation)**: 1-2 hours
 - **Phase 3 (Supporting)**: 1-2 hours
 - **Testing**: 1-2 hours
 

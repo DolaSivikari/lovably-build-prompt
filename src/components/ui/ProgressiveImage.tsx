@@ -12,17 +12,17 @@ interface ProgressiveImageProps {
 
 /**
  * Progressive Image Loading Component
- * 
+ *
  * Features:
  * - Lazy loading with Intersection Observer
  * - Low-quality placeholder with blur effect
  * - Smooth fade transition to full image
  * - Optimized performance with decoding="async"
- * 
+ *
  * @example
  * ```tsx
- * <ProgressiveImage 
- *   src={heroImage} 
+ * <ProgressiveImage
+ *   src={heroImage}
  *   alt="Hero background"
  *   className="w-full h-full object-cover"
  *   style={{ transform: `translateY(${parallaxOffset}px)` }}
@@ -35,7 +35,7 @@ export const ProgressiveImage = ({
   className,
   style,
   placeholderClassName,
-  loading = "lazy"
+  loading = "lazy",
 }: ProgressiveImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -59,7 +59,7 @@ export const ProgressiveImage = ({
       },
       {
         rootMargin: "50px", // Start loading 50px before entering viewport
-      }
+      },
     );
 
     if (imgRef.current) {
@@ -81,7 +81,7 @@ export const ProgressiveImage = ({
         className={cn(
           "absolute inset-0 bg-gradient-to-br from-muted/50 to-muted transition-opacity duration-700",
           isLoaded ? "opacity-0" : "opacity-100",
-          placeholderClassName
+          placeholderClassName,
         )}
         style={style}
       >
@@ -95,7 +95,7 @@ export const ProgressiveImage = ({
           alt={alt}
           className={cn(
             "w-full h-full object-cover transition-opacity duration-700",
-            isLoaded ? "opacity-100" : "opacity-0"
+            isLoaded ? "opacity-100" : "opacity-0",
           )}
           style={style}
           onLoad={handleImageLoad}

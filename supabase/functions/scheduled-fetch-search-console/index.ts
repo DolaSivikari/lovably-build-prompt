@@ -1,30 +1,31 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.74.0';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.74.0";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
 };
 
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    console.log('Starting scheduled Search Console data fetch...');
+    console.log("Starting scheduled Search Console data fetch...");
 
     // Get all users who have Google auth tokens
     const { data: tokens, error: tokensError } = await supabase
-      .from('google_auth_tokens')
-      .select('user_id, access_token, refresh_token, token_expiry, scope');
+      .from("google_auth_tokens")
+      .select("user_id, access_token, refresh_token, token_expiry, scope");
 
     if (tokensError) {
-      console.error('Error fetching tokens:', tokensError);
+      console.error("Error fetching tokens:", tokensError);
       throw tokensError;
     }
 
@@ -38,24 +39,29 @@ Deno.serve(async (req) => {
     for (const token of tokens || []) {
       try {
         console.log(`Processing user: ${token.user_id}`);
-        
+
         let accessToken = token.access_token;
         const tokenExpiry = new Date(token.token_expiry);
 
         // Refresh token if expired
         if (tokenExpiry <= new Date()) {
           console.log(`Token expired for user ${token.user_id}, refreshing...`);
-          
-          const refreshResponse = await fetch('https://oauth2.googleapis.com/token', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-              client_id: Deno.env.get('GOOGLE_SEARCH_CONSOLE_CLIENT_ID')!,
-              client_secret: Deno.env.get('GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET')!,
-              refresh_token: token.refresh_token!,
-              grant_type: 'refresh_token',
-            }),
-          });
+
+          const refreshResponse = await fetch(
+            "https://oauth2.googleapis.com/token",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: new URLSearchParams({
+                client_id: Deno.env.get("GOOGLE_SEARCH_CONSOLE_CLIENT_ID")!,
+                client_secret: Deno.env.get(
+                  "GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET",
+                )!,
+                refresh_token: token.refresh_token!,
+                grant_type: "refresh_token",
+              }),
+            },
+          );
 
           if (!refreshResponse.ok) {
             console.error(`Failed to refresh token for user ${token.user_id}`);
@@ -68,53 +74,62 @@ Deno.serve(async (req) => {
 
           // Update token in database
           await supabase
-            .from('google_auth_tokens')
+            .from("google_auth_tokens")
             .update({
               access_token: accessToken,
-              token_expiry: new Date(Date.now() + refreshData.expires_in * 1000).toISOString(),
+              token_expiry: new Date(
+                Date.now() + refreshData.expires_in * 1000,
+              ).toISOString(),
             })
-            .eq('user_id', token.user_id);
+            .eq("user_id", token.user_id);
         }
 
         // Get the user's site URL from previous fetches or use a default
         const { data: existingData } = await supabase
-          .from('search_console_data')
-          .select('site_url')
-          .eq('user_id', token.user_id)
+          .from("search_console_data")
+          .select("site_url")
+          .eq("user_id", token.user_id)
           .limit(1)
           .single();
 
         // If no existing data, skip this user (they need to manually fetch first)
         if (!existingData?.site_url) {
-          console.log(`No site URL found for user ${token.user_id}, skipping...`);
+          console.log(
+            `No site URL found for user ${token.user_id}, skipping...`,
+          );
           continue;
         }
 
         const siteUrl = existingData.site_url;
-        const startDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]; // Last 7 days
-        const endDate = new Date().toISOString().split('T')[0];
+        const startDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0]; // Last 7 days
+        const endDate = new Date().toISOString().split("T")[0];
 
         // Fetch Search Console data
         const searchConsoleResponse = await fetch(
           `https://searchconsole.googleapis.com/v1/webmasters/searchAnalytics/query?siteUrl=${encodeURIComponent(siteUrl)}`,
           {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Authorization': `Bearer ${accessToken}`,
-              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               startDate,
               endDate,
-              dimensions: ['page', 'query', 'date'],
+              dimensions: ["page", "query", "date"],
               rowLimit: 25000,
             }),
-          }
+          },
         );
 
         if (!searchConsoleResponse.ok) {
           const errorText = await searchConsoleResponse.text();
-          console.error(`Search Console API error for user ${token.user_id}:`, errorText);
+          console.error(
+            `Search Console API error for user ${token.user_id}:`,
+            errorText,
+          );
           errorCount++;
           continue;
         }
@@ -140,13 +155,16 @@ Deno.serve(async (req) => {
           }));
 
           const { error: insertError } = await supabase
-            .from('search_console_data')
+            .from("search_console_data")
             .upsert(batch, {
-              onConflict: 'user_id,site_url,page_path,query,date',
+              onConflict: "user_id,site_url,page_path,query,date",
             });
 
           if (insertError) {
-            console.error(`Error storing batch for user ${token.user_id}:`, insertError);
+            console.error(
+              `Error storing batch for user ${token.user_id}:`,
+              insertError,
+            );
           } else {
             totalRecordsStored += batch.length;
           }
@@ -160,7 +178,9 @@ Deno.serve(async (req) => {
       }
     }
 
-    console.log(`Scheduled fetch complete: ${successCount} successful, ${errorCount} errors, ${totalRecordsStored} total records stored`);
+    console.log(
+      `Scheduled fetch complete: ${successCount} successful, ${errorCount} errors, ${totalRecordsStored} total records stored`,
+    );
 
     return new Response(
       JSON.stringify({
@@ -170,19 +190,17 @@ Deno.serve(async (req) => {
         recordsStored: totalRecordsStored,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
-      }
+      },
     );
   } catch (error) {
-    console.error('Scheduled fetch error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    return new Response(
-      JSON.stringify({ error: errorMessage }),
-      {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 500,
-      }
-    );
+    console.error("Scheduled fetch error:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error occurred";
+    return new Response(JSON.stringify({ error: errorMessage }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 500,
+    });
   }
 });

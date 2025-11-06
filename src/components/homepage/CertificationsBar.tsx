@@ -27,11 +27,11 @@ const CertificationsBar = () => {
   useEffect(() => {
     const fetchCertifications = async () => {
       const { data } = await supabase
-        .from('certifications')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order');
-      
+        .from("certifications")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order");
+
       if (data) {
         setCertifications(data);
       }
@@ -46,14 +46,18 @@ const CertificationsBar = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-16 bg-background border-y border-border/40">
+    <section
+      ref={sectionRef}
+      className="py-16 bg-background border-y border-border/40"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
             Certifications & Affiliations
           </h2>
           <p className="text-muted-foreground">
-            Industry credentials that demonstrate our commitment to quality and safety
+            Industry credentials that demonstrate our commitment to quality and
+            safety
           </p>
         </div>
 
@@ -64,9 +68,7 @@ const CertificationsBar = () => {
               <div
                 key={cert.id}
                 className={`flex flex-col items-center text-center p-6 rounded-lg border border-border/50 bg-card hover:shadow-md transition-all duration-300 group ${
-                  isVisible
-                    ? "opacity-100 scale-100"
-                    : "opacity-0 scale-95"
+                  isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
                 }`}
                 style={{ transitionDelay: `${index * 75}ms` }}
               >

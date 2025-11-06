@@ -19,7 +19,10 @@ import DirectAnswer from "@/components/seo/DirectAnswer";
 import { serviceQuickFacts } from "@/data/service-quick-facts";
 import { servicePeopleAlsoAsk } from "@/data/service-people-ask";
 import { serviceAreaCities } from "@/data/service-area-cities";
-import { createServiceSchema, createHowToSchema } from "@/utils/schema-injector";
+import {
+  createServiceSchema,
+  createHowToSchema,
+} from "@/utils/schema-injector";
 import { breadcrumbSchema } from "@/utils/structured-data";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 import { priorityServicesData } from "@/data/priority-services-data";
@@ -50,7 +53,7 @@ interface Service {
   process_steps: ProcessStep[] | null;
   what_we_provide: string[] | null;
   typical_applications: string[] | null;
-  key_benefits: Array<{title: string; description: string}> | null;
+  key_benefits: Array<{ title: string; description: string }> | null;
   faq_items: FAQItem[] | null;
 }
 
@@ -72,10 +75,10 @@ const ServiceDetail = () => {
     }
 
     const { data, error } = await supabase
-      .from('services')
-      .select('*')
-      .eq('slug', slug)
-      .eq('publish_state', 'published')
+      .from("services")
+      .select("*")
+      .eq("slug", slug)
+      .eq("publish_state", "published")
       .single();
 
     if (error || !data) {
@@ -133,24 +136,29 @@ const ServiceDetail = () => {
     serviceType: service.name,
     areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham"],
     priceRange: "$$-$$$",
-    subServices: service.what_we_provide || []
+    subServices: service.what_we_provide || [],
   });
 
-  const howToSchemaData = service.process_steps ? createHowToSchema({
-    name: `How ${service.name} Works: Professional Process`,
-    description: `Step-by-step process for ${service.name.toLowerCase()} services by Ascent Group Construction`,
-    steps: service.process_steps.map(step => ({
-      position: step.step_number,
-      name: step.title,
-      text: step.description
-    })),
-    totalTime: "P7D"
-  }) : null;
+  const howToSchemaData = service.process_steps
+    ? createHowToSchema({
+        name: `How ${service.name} Works: Professional Process`,
+        description: `Step-by-step process for ${service.name.toLowerCase()} services by Ascent Group Construction`,
+        steps: service.process_steps.map((step) => ({
+          position: step.step_number,
+          name: step.title,
+          text: step.description,
+        })),
+        totalTime: "P7D",
+      })
+    : null;
 
   const breadcrumbSchemaData = breadcrumbSchema([
     { name: "Home", url: "https://ascentgroupconstruction.com/" },
     { name: "Services", url: "https://ascentgroupconstruction.com/services" },
-    { name: service.name, url: `https://ascentgroupconstruction.com/services/${service.slug}` }
+    {
+      name: service.name,
+      url: `https://ascentgroupconstruction.com/services/${service.slug}`,
+    },
   ]);
 
   const structuredDataArray = [serviceSchemaData, breadcrumbSchemaData];
@@ -165,7 +173,7 @@ const ServiceDetail = () => {
         structuredData={structuredDataArray}
       />
       <Navigation />
-      
+
       <PageHeader
         eyebrow="Our Services"
         title={service.name}
@@ -173,18 +181,21 @@ const ServiceDetail = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
-          { label: service.name }
+          { label: service.name },
         ]}
         variant="standard"
       />
-      
+
       <main className="min-h-screen">
         {/* Direct Answer Section - "What is [Service]?" */}
         {service.short_description && (
           <DirectAnswer>
             <p className="text-lg leading-relaxed">
               <strong>What is {service.name}?</strong>{" "}
-              {service.short_description} Ascent Group Construction provides professional {service.name.toLowerCase()} services throughout the Greater Toronto Area, including Toronto, Mississauga, Brampton, Vaughan, and Markham.
+              {service.short_description} Ascent Group Construction provides
+              professional {service.name.toLowerCase()} services throughout the
+              Greater Toronto Area, including Toronto, Mississauga, Brampton,
+              Vaughan, and Markham.
             </p>
           </DirectAnswer>
         )}
@@ -194,7 +205,10 @@ const ServiceDetail = () => {
           <section className="py-12 bg-background">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <QuickFacts title={`Quick Facts: ${service.name}`} facts={quickFacts} />
+                <QuickFacts
+                  title={`Quick Facts: ${service.name}`}
+                  facts={quickFacts}
+                />
               </div>
             </div>
           </section>
@@ -221,8 +235,8 @@ const ServiceDetail = () => {
           <section className="py-0">
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto">
-                <img 
-                  src={service.featured_image} 
+                <img
+                  src={service.featured_image}
                   alt={service.name}
                   className="w-full rounded-lg shadow-xl"
                 />
@@ -246,8 +260,12 @@ const ServiceDetail = () => {
                             {step.step_number}
                           </div>
                           <div className="flex-1">
-                            <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                            <p className="text-muted-foreground">{step.description}</p>
+                            <h3 className="text-xl font-bold mb-2">
+                              {step.title}
+                            </h3>
+                            <p className="text-muted-foreground">
+                              {step.description}
+                            </p>
                           </div>
                         </div>
                       </CardContent>
@@ -279,24 +297,27 @@ const ServiceDetail = () => {
         )}
 
         {/* Typical Applications */}
-        {service.typical_applications && service.typical_applications.length > 0 && (
-          <section className="py-16 bg-muted/50">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold mb-8">Typical Applications</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {service.typical_applications.map((app, index) => (
-                    <Card key={index}>
-                      <CardContent className="p-6">
-                        <p className="text-muted-foreground">{app}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
+        {service.typical_applications &&
+          service.typical_applications.length > 0 && (
+            <section className="py-16 bg-muted/50">
+              <div className="container mx-auto px-4">
+                <div className="max-w-4xl mx-auto">
+                  <h2 className="text-3xl font-bold mb-8">
+                    Typical Applications
+                  </h2>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {service.typical_applications.map((app, index) => (
+                      <Card key={index}>
+                        <CardContent className="p-6">
+                          <p className="text-muted-foreground">{app}</p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          )}
 
         {/* Key Benefits */}
         {service.key_benefits && service.key_benefits.length > 0 && (
@@ -311,8 +332,12 @@ const ServiceDetail = () => {
                         <div className="flex items-start gap-3">
                           <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                           <div>
-                            <h3 className="text-lg font-bold mb-2">{benefit.title}</h3>
-                            <p className="text-muted-foreground">{benefit.description}</p>
+                            <h3 className="text-lg font-bold mb-2">
+                              {benefit.title}
+                            </h3>
+                            <p className="text-muted-foreground">
+                              {benefit.description}
+                            </p>
                           </div>
                         </div>
                       </CardContent>
@@ -329,12 +354,16 @@ const ServiceDetail = () => {
           <section className="py-16 bg-muted/50">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold mb-8">Frequently Asked Questions</h2>
+                <h2 className="text-3xl font-bold mb-8">
+                  Frequently Asked Questions
+                </h2>
                 <div className="space-y-4">
                   {service.faq_items.map((faq, index) => (
                     <Card key={index}>
                       <CardContent className="p-6">
-                        <h3 className="text-lg font-bold mb-2">{faq.question}</h3>
+                        <h3 className="text-lg font-bold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </CardContent>
                     </Card>
@@ -369,7 +398,12 @@ const ServiceDetail = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div className="prose prose-lg max-w-none mb-12">
-                  <div dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(service.long_description).sanitized }} />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizeAndValidate(service.long_description)
+                        .sanitized,
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -386,11 +420,14 @@ const ServiceDetail = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="secondary" asChild>
-                  <Link to="/estimate">
-                    Request Proposal
-                  </Link>
+                  <Link to="/estimate">Request Proposal</Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))] hover:text-[hsl(var(--brand-primary))]" asChild>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))] hover:text-[hsl(var(--brand-primary))]"
+                  asChild
+                >
                   <Link to="/contact">
                     <Phone className="mr-2 w-5 h-5" />
                     Contact Us
@@ -401,7 +438,7 @@ const ServiceDetail = () => {
           </div>
         </section>
       </main>
-      
+
       <Footer />
     </div>
   );

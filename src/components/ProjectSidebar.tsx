@@ -1,6 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Building2, DollarSign, User, Clock, CheckCircle2 } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Building2,
+  DollarSign,
+  User,
+  Clock,
+  CheckCircle2,
+} from "lucide-react";
 import { format } from "date-fns";
 
 interface ProjectSidebarProps {
@@ -97,7 +105,12 @@ export const ProjectSidebar = ({
               <Building2 className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
               <div>
                 <p className="text-sm text-muted-foreground">Category</p>
-                <Badge variant="primary" size="sm" icon={Building2} className="mt-1">
+                <Badge
+                  variant="primary"
+                  size="sm"
+                  icon={Building2}
+                  className="mt-1"
+                >
                   {category}
                 </Badge>
               </div>
@@ -109,7 +122,7 @@ export const ProjectSidebar = ({
               <CheckCircle2 className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
               <div>
                 <p className="text-sm text-muted-foreground">Status</p>
-                <Badge 
+                <Badge
                   variant={status === "completed" ? "success" : "info"}
                   size="sm"
                   icon={CheckCircle2}

@@ -1,20 +1,20 @@
-import { Eye } from 'lucide-react';
-import { Button } from '@/ui/Button';
+import { Eye } from "lucide-react";
+import { Button } from "@/ui/Button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
 
 interface FieldPreviewButtonProps {
   onClick: () => void;
   tooltip?: string;
 }
 
-export const FieldPreviewButton = ({ 
-  onClick, 
-  tooltip = "Preview on public site" 
+export const FieldPreviewButton = ({
+  onClick,
+  tooltip = "Preview on public site",
 }: FieldPreviewButtonProps) => {
   return (
     <TooltipProvider>

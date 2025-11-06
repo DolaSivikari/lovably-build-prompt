@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/ui/Button';
-import { Monitor, Tablet, Smartphone, X, ExternalLink } from 'lucide-react';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/dialog";
+import { Button } from "@/ui/Button";
+import { Monitor, Tablet, Smartphone, X, ExternalLink } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PreviewModalProps {
   open: boolean;
@@ -16,12 +16,17 @@ interface PreviewModalProps {
   title: string;
 }
 
-type ViewportSize = 'desktop' | 'tablet' | 'mobile';
+type ViewportSize = "desktop" | "tablet" | "mobile";
 
 const viewportSizes = {
-  desktop: { width: '100%', height: '100%', icon: Monitor, label: 'Desktop' },
-  tablet: { width: '768px', height: '1024px', icon: Tablet, label: 'Tablet' },
-  mobile: { width: '375px', height: '667px', icon: Smartphone, label: 'Mobile' },
+  desktop: { width: "100%", height: "100%", icon: Monitor, label: "Desktop" },
+  tablet: { width: "768px", height: "1024px", icon: Tablet, label: "Tablet" },
+  mobile: {
+    width: "375px",
+    height: "667px",
+    icon: Smartphone,
+    label: "Mobile",
+  },
 };
 
 export const PreviewModal = ({
@@ -30,7 +35,7 @@ export const PreviewModal = ({
   previewUrl,
   title,
 }: PreviewModalProps) => {
-  const [viewport, setViewport] = useState<ViewportSize>('desktop');
+  const [viewport, setViewport] = useState<ViewportSize>("desktop");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -46,22 +51,24 @@ export const PreviewModal = ({
                   return (
                     <Button
                       key={size}
-                      variant={viewport === size ? 'default' : 'ghost'}
+                      variant={viewport === size ? "default" : "ghost"}
                       size="sm"
                       onClick={() => setViewport(size)}
                       className="h-8 w-8 p-0"
                     >
                       <Icon className="h-4 w-4" />
-                      <span className="sr-only">{viewportSizes[size].label}</span>
+                      <span className="sr-only">
+                        {viewportSizes[size].label}
+                      </span>
                     </Button>
                   );
                 })}
               </div>
-              
+
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => window.open(previewUrl, '_blank')}
+                onClick={() => window.open(previewUrl, "_blank")}
               >
                 <ExternalLink className="h-4 w-4 mr-2" />
                 Open in New Tab
@@ -74,9 +81,9 @@ export const PreviewModal = ({
           <div
             className={cn(
               "bg-background rounded-lg shadow-lg overflow-hidden transition-all",
-              viewport === 'desktop' && "w-full h-full",
-              viewport === 'tablet' && "w-[768px] h-[1024px]",
-              viewport === 'mobile' && "w-[375px] h-[667px]"
+              viewport === "desktop" && "w-full h-full",
+              viewport === "tablet" && "w-[768px] h-[1024px]",
+              viewport === "mobile" && "w-[375px] h-[667px]",
             )}
             style={{
               maxWidth: viewportSizes[viewport].width,

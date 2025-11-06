@@ -1,4 +1,11 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { MoreVertical, Edit, Trash, Download, DollarSign } from "lucide-react";
 import {
@@ -55,20 +62,30 @@ export const InvoiceList = ({
       </TableHeader>
       <TableBody>
         {invoices.map((invoice) => {
-          const isOverdue = new Date(invoice.due_date) < new Date() && invoice.balance_cents > 0;
-          
+          const isOverdue =
+            new Date(invoice.due_date) < new Date() &&
+            invoice.balance_cents > 0;
+
           return (
             <TableRow key={invoice.id}>
-              <TableCell className="font-mono">#{invoice.invoice_number}</TableCell>
+              <TableCell className="font-mono">
+                #{invoice.invoice_number}
+              </TableCell>
               <TableCell>
                 {invoice.client?.name}
                 {invoice.client?.company && (
-                  <div className="text-sm text-muted-foreground">{invoice.client.company}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {invoice.client.company}
+                  </div>
                 )}
               </TableCell>
               <TableCell>{invoice.project?.name || "-"}</TableCell>
-              <TableCell>{new Date(invoice.issue_date).toLocaleDateString()}</TableCell>
-              <TableCell className={isOverdue ? "text-destructive font-semibold" : ""}>
+              <TableCell>
+                {new Date(invoice.issue_date).toLocaleDateString()}
+              </TableCell>
+              <TableCell
+                className={isOverdue ? "text-destructive font-semibold" : ""}
+              >
                 {new Date(invoice.due_date).toLocaleDateString()}
                 {isOverdue && <div className="text-xs">OVERDUE</div>}
               </TableCell>
@@ -94,7 +111,9 @@ export const InvoiceList = ({
                       Edit
                     </DropdownMenuItem>
                     {invoice.balance_cents > 0 && (
-                      <DropdownMenuItem onClick={() => onRecordPayment(invoice.id)}>
+                      <DropdownMenuItem
+                        onClick={() => onRecordPayment(invoice.id)}
+                      >
                         <DollarSign className="h-4 w-4 mr-2" />
                         Record Payment
                       </DropdownMenuItem>
@@ -103,7 +122,10 @@ export const InvoiceList = ({
                       <Download className="h-4 w-4 mr-2" />
                       Download PDF
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => onDelete(invoice.id)} className="text-destructive">
+                    <DropdownMenuItem
+                      onClick={() => onDelete(invoice.id)}
+                      className="text-destructive"
+                    >
                       <Trash className="h-4 w-4 mr-2" />
                       Delete
                     </DropdownMenuItem>

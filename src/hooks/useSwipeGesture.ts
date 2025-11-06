@@ -1,4 +1,4 @@
-import { useState, TouchEvent } from 'react';
+import { useState, TouchEvent } from "react";
 
 interface SwipeState {
   startX: number;
@@ -18,12 +18,12 @@ export function useSwipeGesture(onSwipeRight: () => void) {
     startY: 0,
     currentX: 0,
     startTime: 0,
-    isSwiping: false
+    isSwiping: false,
   });
 
   const onTouchStart = (e: TouchEvent) => {
     const touch = e.touches[0];
-    
+
     // Only start tracking if touch begins near left edge
     if (touch.clientX > EDGE_THRESHOLD) return;
 
@@ -32,7 +32,7 @@ export function useSwipeGesture(onSwipeRight: () => void) {
       startY: touch.clientY,
       currentX: touch.clientX,
       startTime: Date.now(),
-      isSwiping: true
+      isSwiping: true,
     });
   };
 
@@ -45,13 +45,13 @@ export function useSwipeGesture(onSwipeRight: () => void) {
 
     // Cancel if vertical movement is too large (likely scrolling)
     if (deltaY > 30) {
-      setSwipeState(prev => ({ ...prev, isSwiping: false }));
+      setSwipeState((prev) => ({ ...prev, isSwiping: false }));
       return;
     }
 
     // Only allow right swipes
     if (deltaX > 0) {
-      setSwipeState(prev => ({ ...prev, currentX: touch.clientX }));
+      setSwipeState((prev) => ({ ...prev, currentX: touch.clientX }));
     }
   };
 
@@ -71,12 +71,12 @@ export function useSwipeGesture(onSwipeRight: () => void) {
       startY: 0,
       currentX: 0,
       startTime: 0,
-      isSwiping: false
+      isSwiping: false,
     });
   };
 
-  const translateX = swipeState.isSwiping 
-    ? Math.max(0, swipeState.currentX - swipeState.startX) 
+  const translateX = swipeState.isSwiping
+    ? Math.max(0, swipeState.currentX - swipeState.startX)
     : 0;
 
   return {
@@ -84,6 +84,6 @@ export function useSwipeGesture(onSwipeRight: () => void) {
     onTouchMove,
     onTouchEnd,
     translateX,
-    isSwiping: swipeState.isSwiping
+    isSwiping: swipeState.isSwiping,
   };
 }

@@ -13,11 +13,11 @@ interface UseParallaxOptions {
  * Hook for creating parallax scroll effects
  * @param options - Parallax configuration
  * @returns Current parallax offset value
- * 
+ *
  * @example
  * ```tsx
  * const offset = useParallax({ speed: 0.5 });
- * 
+ *
  * return (
  *   <div style={{ transform: `translateY(${offset}px)` }}>
  *     Parallax content
@@ -27,10 +27,9 @@ interface UseParallaxOptions {
  */
 export const useParallax = (options: UseParallaxOptions | number = {}) => {
   // Support legacy number parameter
-  const config: UseParallaxOptions = typeof options === "number" 
-    ? { speed: options }
-    : options;
-    
+  const config: UseParallaxOptions =
+    typeof options === "number" ? { speed: options } : options;
+
   const { speed = 0.5, reverse = false, enableInViewport = false } = config;
   const [offset, setOffset] = useState(0);
 
@@ -42,7 +41,7 @@ export const useParallax = (options: UseParallaxOptions | number = {}) => {
         window.requestAnimationFrame(() => {
           const scrollY = window.scrollY;
           const multiplier = reverse ? -1 : 1;
-          
+
           if (enableInViewport) {
             // Only apply parallax when element would be in viewport
             const viewportHeight = window.innerHeight;
@@ -52,7 +51,7 @@ export const useParallax = (options: UseParallaxOptions | number = {}) => {
           } else {
             setOffset(scrollY * speed * multiplier);
           }
-          
+
           ticking = false;
         });
         ticking = true;
@@ -61,7 +60,7 @@ export const useParallax = (options: UseParallaxOptions | number = {}) => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initial calculation
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [speed, reverse, enableInViewport]);
 

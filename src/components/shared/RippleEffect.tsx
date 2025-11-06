@@ -19,7 +19,7 @@ export const RippleEffect = ({
   children,
   color = "rgba(var(--primary), 0.3)",
   duration = 600,
-  className
+  className,
 }: RippleEffectProps) => {
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,7 +37,7 @@ export const RippleEffect = ({
       x,
       y,
       size,
-      id: Date.now()
+      id: Date.now(),
     };
 
     setRipples((prev) => [...prev, newRipple]);
@@ -64,7 +64,7 @@ export const RippleEffect = ({
             width: ripple.size,
             height: ripple.size,
             backgroundColor: color,
-            animationDuration: `${duration}ms`
+            animationDuration: `${duration}ms`,
           }}
         />
       ))}

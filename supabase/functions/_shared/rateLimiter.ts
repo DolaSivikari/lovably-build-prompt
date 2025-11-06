@@ -21,25 +21,25 @@ export const checkRateLimit = async (
   identifier: string,
   endpoint: string,
   limit: number = 50,
-  windowMinutes: number = 1
+  windowMinutes: number = 1,
 ): Promise<RateLimitResult> => {
   try {
-    const { data, error } = await supabase.rpc('check_and_update_rate_limit', {
+    const { data, error } = await supabase.rpc("check_and_update_rate_limit", {
       p_identifier: identifier,
       p_endpoint: endpoint,
       p_limit: limit,
-      p_window_minutes: windowMinutes
+      p_window_minutes: windowMinutes,
     });
 
     if (error) {
-      console.error('[Rate Limiter] Check failed:', error);
+      console.error("[Rate Limiter] Check failed:", error);
       // On error, allow request to prevent blocking legitimate users
       return { allowed: true };
     }
 
     return data as RateLimitResult;
   } catch (err) {
-    console.error('[Rate Limiter] Exception:', err);
+    console.error("[Rate Limiter] Exception:", err);
     // On exception, allow request
     return { allowed: true };
   }
@@ -51,11 +51,11 @@ export const checkRateLimit = async (
  * @returns string identifier (IP address or 'unknown')
  */
 export const getClientIdentifier = (req: Request): string => {
-  const forwarded = req.headers.get('x-forwarded-for');
-  const realIP = req.headers.get('x-real-ip');
-  const cfConnectingIP = req.headers.get('cf-connecting-ip');
-  
-  return cfConnectingIP || forwarded?.split(',')[0] || realIP || 'unknown';
+  const forwarded = req.headers.get("x-forwarded-for");
+  const realIP = req.headers.get("x-real-ip");
+  const cfConnectingIP = req.headers.get("cf-connecting-ip");
+
+  return cfConnectingIP || forwarded?.split(",")[0] || realIP || "unknown";
 };
 
 /**
@@ -66,21 +66,21 @@ export const getClientIdentifier = (req: Request): string => {
  */
 export const createRateLimitResponse = (
   retryAfterSeconds: number,
-  corsHeaders: Record<string, string>
+  corsHeaders: Record<string, string>,
 ): Response => {
   return new Response(
     JSON.stringify({
-      error: 'Rate limit exceeded',
+      error: "Rate limit exceeded",
       message: `Too many requests. Please try again in ${retryAfterSeconds} seconds.`,
       retry_after: retryAfterSeconds,
     }),
     {
       status: 429,
       headers: {
-        'Content-Type': 'application/json',
-        'Retry-After': retryAfterSeconds.toString(),
+        "Content-Type": "application/json",
+        "Retry-After": retryAfterSeconds.toString(),
         ...corsHeaders,
       },
-    }
+    },
   );
 };

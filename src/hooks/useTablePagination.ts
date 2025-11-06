@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 
 export const useTablePagination = <T>(
   data: T[],
-  itemsPerPageOptions: number[] = [25, 50, 100]
+  itemsPerPageOptions: number[] = [25, 50, 100],
 ) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
@@ -15,9 +15,12 @@ export const useTablePagination = <T>(
     return data.slice(startIndex, endIndex);
   }, [data, currentPage, itemsPerPage]);
 
-  const goToPage = useCallback((page: number) => {
-    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
-  }, [totalPages]);
+  const goToPage = useCallback(
+    (page: number) => {
+      setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+    },
+    [totalPages],
+  );
 
   const nextPage = useCallback(() => {
     if (currentPage < totalPages) {

@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+.reports
+.lighthouseci
+playwright-report
+bundles.html
 
 # Editor directories and files
 .vscode/*

@@ -4,7 +4,11 @@ import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "./SEO";
 import { reviewSchema } from "@/utils/structured-data";
 import { supabase } from "@/integrations/supabase/client";
-import { calculateISODate, inferServiceFromReview, getConsistentAggregateRating } from "@/utils/review-helpers";
+import {
+  calculateISODate,
+  inferServiceFromReview,
+  getConsistentAggregateRating,
+} from "@/utils/review-helpers";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useCarousel } from "@/hooks/useCarousel";
 import { Button } from "@/ui/Button";
@@ -17,10 +21,10 @@ const Testimonials = () => {
   const averageRating = parseFloat(aggregateRating.ratingValue);
   const totalReviews = parseInt(aggregateRating.reviewCount);
 
-  const carousel = useCarousel({ 
-    totalItems: testimonials.length, 
+  const carousel = useCarousel({
+    totalItems: testimonials.length,
     autoplayInterval: 5000,
-    itemsPerView: 1
+    itemsPerView: 1,
   });
 
   // Google Reviews
@@ -30,43 +34,43 @@ const Testimonials = () => {
       rating: 5,
       text: "Exceptional work on our office renovation. The team was professional, punctual, and delivered beyond expectations. Highly recommend!",
       date: "2 weeks ago",
-      avatar: "JM"
+      avatar: "JM",
     },
     {
       author: "Sarah Chen",
       rating: 5,
       text: "Outstanding service from start to finish. They transformed our condo building's exterior. Great communication throughout the project.",
       date: "1 month ago",
-      avatar: "SC"
+      avatar: "SC",
     },
     {
       author: "Michael Rodriguez",
       rating: 5,
       text: "Best construction company in the GTA. Quality workmanship, fair pricing, and they completed the project on time. Will use again!",
       date: "1 month ago",
-      avatar: "MR"
+      avatar: "MR",
     },
   ];
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       const { data } = await supabase
-        .from('testimonials')
-        .select('*')
-        .eq('publish_state', 'published')
-        .eq('is_featured', true)
-        .order('display_order')
+        .from("testimonials")
+        .select("*")
+        .eq("publish_state", "published")
+        .eq("is_featured", true)
+        .order("display_order")
         .limit(3);
-      
+
       if (data) {
-        const formattedData = data.map(t => ({
+        const formattedData = data.map((t) => ({
           quote: t.quote,
           author: t.author_name,
           position: t.author_position,
           company: t.company_name,
           rating: Number(t.rating),
           date: t.date_published,
-          project: t.project_name
+          project: t.project_name,
         }));
         setTestimonials(formattedData);
       }
@@ -76,7 +80,7 @@ const Testimonials = () => {
   }, []);
 
   // Generate review schemas for Google reviews
-  const googleReviewSchemas = googleReviews.map(review => {
+  const googleReviewSchemas = googleReviews.map((review) => {
     const service = inferServiceFromReview(review.text);
     return reviewSchema({
       author: review.author,
@@ -85,17 +89,17 @@ const Testimonials = () => {
       datePublished: calculateISODate(review.date),
       itemReviewed: {
         name: service.name,
-        type: service.type
+        type: service.type,
       },
       publisher: {
         name: "Google",
-        type: "Organization"
-      }
+        type: "Organization",
+      },
     });
   });
 
   // Generate review schemas for testimonials
-  const testimonialSchemas = testimonials.map(t => 
+  const testimonialSchemas = testimonials.map((t) =>
     reviewSchema({
       author: t.author,
       reviewRating: t.rating,
@@ -103,13 +107,13 @@ const Testimonials = () => {
       datePublished: t.date,
       itemReviewed: {
         name: t.project,
-        type: "Service"
+        type: "Service",
       },
       publisher: {
         name: t.company,
-        type: "Organization"
-      }
-    })
+        type: "Organization",
+      },
+    }),
   );
 
   return (
@@ -117,7 +121,6 @@ const Testimonials = () => {
       <SEO structuredData={[...googleReviewSchemas, ...testimonialSchemas]} />
       <section ref={sectionRef} className="py-20 md:py-24 bg-muted/30">
         <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-          
           {/* Section Header with Google Rating */}
           <div className="max-w-3xl mb-16 text-center mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
@@ -141,14 +144,19 @@ const Testimonials = () => {
               </span>
             </div>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Based on {totalReviews} Google reviews — Trusted partnerships built on exceptional results, reliable execution, and proven expertise across Ontario.
+              Based on {totalReviews} Google reviews — Trusted partnerships
+              built on exceptional results, reliable execution, and proven
+              expertise across Ontario.
             </p>
           </div>
 
           {/* Google Reviews Grid */}
           <div className="grid md:grid-cols-3 gap-6 mb-16">
             {googleReviews.map((review, idx) => (
-              <Card key={idx} className="hover:[box-shadow:var(--shadow-md)] card-hover">
+              <Card
+                key={idx}
+                className="hover:[box-shadow:var(--shadow-md)] card-hover"
+              >
                 <CardContent className="p-8">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
@@ -211,20 +219,24 @@ const Testimonials = () => {
                   </Button>
                 </div>
               </div>
-              
+
               <div className="relative overflow-hidden">
-                <div 
+                <div
                   className="flex transition-transform duration-500 ease-out"
-                  style={{ transform: `translateX(-${carousel.currentIndex * 100}%)` }}
+                  style={{
+                    transform: `translateX(-${carousel.currentIndex * 100}%)`,
+                  }}
                 >
                   {testimonials.map((testimonial) => {
                     const fullStars = Math.floor(testimonial.rating);
-                    
+
                     return (
-                      <div key={testimonial.author} className="w-full flex-shrink-0 px-2">
+                      <div
+                        key={testimonial.author}
+                        className="w-full flex-shrink-0 px-2"
+                      >
                         <Card className="relative border-border hover:[box-shadow:var(--shadow-card-elevated)] card-hover max-w-4xl mx-auto">
                           <CardContent className="p-8">
-                            
                             {/* Quote Icon */}
                             <div className="mb-6">
                               <div className="w-12 h-12 rounded-lg bg-steel-blue/10 flex items-center justify-center">
@@ -235,7 +247,10 @@ const Testimonials = () => {
                             {/* Star Rating */}
                             <div className="flex mb-6">
                               {[...Array(fullStars)].map((_, i) => (
-                                <Star key={i} className="w-5 h-5 fill-steel-blue text-steel-blue" />
+                                <Star
+                                  key={i}
+                                  className="w-5 h-5 fill-steel-blue text-steel-blue"
+                                />
                               ))}
                             </div>
 
@@ -276,9 +291,9 @@ const Testimonials = () => {
                     key={index}
                     onClick={() => carousel.goToSlide(index)}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      index === carousel.currentIndex 
-                        ? 'w-8 bg-steel-blue' 
-                        : 'w-2 bg-border hover:bg-muted-foreground'
+                      index === carousel.currentIndex
+                        ? "w-8 bg-steel-blue"
+                        : "w-2 bg-border hover:bg-muted-foreground"
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
@@ -296,7 +311,7 @@ const Testimonials = () => {
               className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
               </svg>
               Read more reviews on Google
             </a>

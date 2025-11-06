@@ -25,7 +25,9 @@ const EstimatorStep4 = ({ estimate, formData }: Step4Props) => {
     <div className="space-y-6">
       <Card className="p-8 bg-gradient-to-br from-primary to-slate-800 text-primary-foreground border-0">
         <div className="text-center">
-          <h3 className="text-2xl font-heading font-bold mb-2">Estimated Project Cost</h3>
+          <h3 className="text-2xl font-heading font-bold mb-2">
+            Estimated Project Cost
+          </h3>
           <div className="text-5xl md:text-6xl font-bold font-heading text-secondary my-6">
             {formatCurrency(estimate.min)} — {formatCurrency(estimate.max)}
           </div>
@@ -42,7 +44,9 @@ const EstimatorStep4 = ({ estimate, formData }: Step4Props) => {
         <div className="space-y-3 text-sm">
           <div className="flex justify-between py-2 border-b border-border">
             <span className="text-muted-foreground">Service</span>
-            <span className="font-medium">{serviceLabels[formData.service as keyof typeof serviceLabels]}</span>
+            <span className="font-medium">
+              {serviceLabels[formData.service as keyof typeof serviceLabels]}
+            </span>
           </div>
           <div className="flex justify-between py-2 border-b border-border">
             <span className="text-muted-foreground">Area</span>
@@ -50,11 +54,19 @@ const EstimatorStep4 = ({ estimate, formData }: Step4Props) => {
           </div>
           <div className="flex justify-between py-2 border-b border-border">
             <span className="text-muted-foreground">Stories</span>
-            <span className="font-medium">{formData.stories.replace('_', '+')} story</span>
+            <span className="font-medium">
+              {formData.stories.replace("_", "+")} story
+            </span>
           </div>
           <div className="flex justify-between py-2 border-b border-border">
             <span className="text-muted-foreground">Finish Quality</span>
-            <span className="font-medium">{finishLabels[formData.finishQuality as keyof typeof finishLabels]}</span>
+            <span className="font-medium">
+              {
+                finishLabels[
+                  formData.finishQuality as keyof typeof finishLabels
+                ]
+              }
+            </span>
           </div>
           {formData.scaffolding && (
             <div className="flex justify-between py-2 border-b border-border">
@@ -88,7 +100,8 @@ const EstimatorStep4 = ({ estimate, formData }: Step4Props) => {
 
       <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
         <p className="text-sm text-foreground/80">
-          <strong>Note:</strong> {estimate.explanation} This is an estimated range. Final pricing will be determined after an on-site inspection.
+          <strong>Note:</strong> {estimate.explanation} This is an estimated
+          range. Final pricing will be determined after an on-site inspection.
         </p>
       </div>
     </div>

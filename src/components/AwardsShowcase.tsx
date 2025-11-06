@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import React from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Award, Shield, Star, CheckCircle2, ExternalLink } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { useState, useEffect } from "react";
+import React from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Award, Shield, Star, CheckCircle2, ExternalLink } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface AwardCertification {
   id: string;
@@ -12,7 +12,7 @@ interface AwardCertification {
   issuing_organization: string;
   date_received: string;
   expiry_date: string | null;
-  category: 'certification' | 'award' | 'membership' | 'accreditation';
+  category: "certification" | "award" | "membership" | "accreditation";
   badge_image_url: string | null;
   credential_number: string | null;
   verification_url: string | null;
@@ -26,7 +26,10 @@ interface AwardsShowcaseProps {
   maxItems?: number;
 }
 
-const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps) => {
+const AwardsShowcase = ({
+  homepageOnly = false,
+  maxItems,
+}: AwardsShowcaseProps) => {
   const [awards, setAwards] = useState<AwardCertification[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,13 +37,13 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
     const fetchAwards = async () => {
       try {
         let query = supabase
-          .from('awards_certifications')
-          .select('*')
-          .eq('is_active', true)
-          .order('display_order', { ascending: true });
+          .from("awards_certifications")
+          .select("*")
+          .eq("is_active", true)
+          .order("display_order", { ascending: true });
 
         if (homepageOnly) {
-          query = query.eq('show_on_homepage', true);
+          query = query.eq("show_on_homepage", true);
         }
 
         if (maxItems) {
@@ -50,9 +53,9 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
         const { data, error } = await query;
 
         if (error) throw error;
-        setAwards(data as AwardCertification[] || []);
+        setAwards((data as AwardCertification[]) || []);
       } catch (error) {
-        console.error('Error fetching awards:', error);
+        console.error("Error fetching awards:", error);
       } finally {
         setLoading(false);
       }
@@ -63,13 +66,13 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'certification':
+      case "certification":
         return Shield;
-      case 'award':
+      case "award":
         return Star;
-      case 'membership':
+      case "membership":
         return CheckCircle2;
-      case 'accreditation':
+      case "accreditation":
         return Award;
       default:
         return Award;
@@ -90,13 +93,16 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
     return null;
   }
 
-  const groupedAwards = awards.reduce((acc, award) => {
-    if (!acc[award.category]) {
-      acc[award.category] = [];
-    }
-    acc[award.category].push(award);
-    return acc;
-  }, {} as Record<string, AwardCertification[]>);
+  const groupedAwards = awards.reduce(
+    (acc, award) => {
+      if (!acc[award.category]) {
+        acc[award.category] = [];
+      }
+      acc[award.category].push(award);
+      return acc;
+    },
+    {} as Record<string, AwardCertification[]>,
+  );
 
   return (
     <div className="space-y-12">
@@ -104,7 +110,7 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
         <div key={category}>
           <h3 className="text-2xl font-bold mb-6 capitalize flex items-center gap-2">
             {React.createElement(getCategoryIcon(category), {
-              className: 'w-6 h-6 text-primary',
+              className: "w-6 h-6 text-primary",
             })}
             {category}s
           </h3>
@@ -134,7 +140,9 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
                       </div>
                     )}
 
-                    <h4 className="text-lg font-bold mb-2 text-center">{award.title}</h4>
+                    <h4 className="text-lg font-bold mb-2 text-center">
+                      {award.title}
+                    </h4>
 
                     <p className="text-sm text-muted-foreground text-center mb-3">
                       {award.issuing_organization}
@@ -166,7 +174,9 @@ const AwardsShowcase = ({ homepageOnly = false, maxItems }: AwardsShowcaseProps)
                       {award.credential_number && (
                         <div className="flex justify-between">
                           <span>Credential:</span>
-                          <span className="font-mono text-xs">{award.credential_number}</span>
+                          <span className="font-mono text-xs">
+                            {award.credential_number}
+                          </span>
                         </div>
                       )}
                     </div>

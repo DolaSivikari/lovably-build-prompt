@@ -1,6 +1,10 @@
-import { Input } from '@/components/ui/input';
-import { formatCurrencyInput, parseCurrencyInput, centsToDollars } from '@/utils/currency';
-import { useState, useEffect } from 'react';
+import { Input } from "@/components/ui/input";
+import {
+  formatCurrencyInput,
+  parseCurrencyInput,
+  centsToDollars,
+} from "@/utils/currency";
+import { useState, useEffect } from "react";
 
 interface CurrencyInputProps {
   value: number; // Value in cents
@@ -13,11 +17,11 @@ interface CurrencyInputProps {
 export const CurrencyInput = ({
   value,
   onChange,
-  placeholder = '0.00',
+  placeholder = "0.00",
   disabled = false,
-  className = '',
+  className = "",
 }: CurrencyInputProps) => {
-  const [displayValue, setDisplayValue] = useState('');
+  const [displayValue, setDisplayValue] = useState("");
 
   useEffect(() => {
     // Initialize display value from cents
@@ -28,12 +32,12 @@ export const CurrencyInput = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
-    
+
     // Allow only numbers and one decimal point
     if (!/^\d*\.?\d{0,2}$/.test(input)) return;
-    
+
     setDisplayValue(input);
-    
+
     // Convert to cents and call onChange
     const cents = parseCurrencyInput(input);
     onChange(cents);

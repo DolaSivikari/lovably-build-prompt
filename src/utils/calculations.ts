@@ -14,7 +14,10 @@ export interface LineItem {
 /**
  * Calculate line item total
  */
-export const calculateLineTotal = (quantity: number, unitPriceCents: number): number => {
+export const calculateLineTotal = (
+  quantity: number,
+  unitPriceCents: number,
+): number => {
   return Math.round(quantity * unitPriceCents);
 };
 
@@ -23,7 +26,9 @@ export const calculateLineTotal = (quantity: number, unitPriceCents: number): nu
  */
 export const calculateSubtotal = (lineItems: LineItem[]): number => {
   return lineItems.reduce((sum, item) => {
-    const lineTotal = item.line_total_cents || calculateLineTotal(item.quantity, item.unit_price_cents);
+    const lineTotal =
+      item.line_total_cents ||
+      calculateLineTotal(item.quantity, item.unit_price_cents);
     return sum + lineTotal;
   }, 0);
 };
@@ -33,7 +38,10 @@ export const calculateSubtotal = (lineItems: LineItem[]): number => {
  * @param subtotalCents - Subtotal in cents
  * @param taxRate - Tax rate as decimal (e.g., 0.13 for 13%)
  */
-export const calculateTax = (subtotalCents: number, taxRate: number = 0.13): number => {
+export const calculateTax = (
+  subtotalCents: number,
+  taxRate: number = 0.13,
+): number => {
   return Math.round(subtotalCents * taxRate);
 };
 
@@ -46,7 +54,7 @@ export const calculateTax = (subtotalCents: number, taxRate: number = 0.13): num
 export const calculateDiscount = (
   subtotalCents: number,
   discount: number,
-  isPercentage: boolean = true
+  isPercentage: boolean = true,
 ): number => {
   if (isPercentage) {
     return Math.round(subtotalCents * (discount / 100));
@@ -60,7 +68,7 @@ export const calculateDiscount = (
 export const calculateTotal = (
   subtotalCents: number,
   taxCents: number,
-  discountCents: number = 0
+  discountCents: number = 0,
 ): number => {
   return subtotalCents - discountCents + taxCents;
 };
@@ -68,7 +76,10 @@ export const calculateTotal = (
 /**
  * Calculate balance due
  */
-export const calculateBalanceDue = (totalCents: number, paidCents: number): number => {
+export const calculateBalanceDue = (
+  totalCents: number,
+  paidCents: number,
+): number => {
   return Math.max(0, totalCents - paidCents);
 };
 
@@ -79,13 +90,24 @@ export const calculateInvoiceTotals = (
   lineItems: LineItem[],
   taxRate: number = 0.13,
   discountAmount: number = 0,
-  isDiscountPercentage: boolean = true
+  isDiscountPercentage: boolean = true,
 ) => {
   const subtotal_cents = calculateSubtotal(lineItems);
-  const discount_cents = calculateDiscount(subtotal_cents, discountAmount, isDiscountPercentage);
-  const tax_amount_cents = calculateTax(subtotal_cents - discount_cents, taxRate);
-  const total_cents = calculateTotal(subtotal_cents, tax_amount_cents, discount_cents);
-  
+  const discount_cents = calculateDiscount(
+    subtotal_cents,
+    discountAmount,
+    isDiscountPercentage,
+  );
+  const tax_amount_cents = calculateTax(
+    subtotal_cents - discount_cents,
+    taxRate,
+  );
+  const total_cents = calculateTotal(
+    subtotal_cents,
+    tax_amount_cents,
+    discount_cents,
+  );
+
   return {
     subtotal_cents,
     discount_cents,

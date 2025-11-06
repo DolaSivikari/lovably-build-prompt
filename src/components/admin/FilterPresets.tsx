@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/ui/Button';
-import { Badge } from '@/components/ui/badge';
-import { Star, Plus, Trash2 } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Button } from "@/ui/Button";
+import { Badge } from "@/components/ui/badge";
+import { Star, Plus, Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -10,11 +10,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/ui/Input';
-import { Label } from '@/components/ui/label';
-import { TableFilters } from '@/hooks/useTableFilters';
-import { toast } from 'sonner';
+} from "@/components/ui/dialog";
+import { Input } from "@/ui/Input";
+import { Label } from "@/components/ui/label";
+import { TableFilters } from "@/hooks/useTableFilters";
+import { toast } from "sonner";
 
 interface FilterPreset {
   id: string;
@@ -34,11 +34,11 @@ export const FilterPresets = ({
   pageType,
   currentFilters,
   onApplyPreset,
-  className = '',
+  className = "",
 }: FilterPresetsProps) => {
   const [presets, setPresets] = useState<FilterPreset[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [presetName, setPresetName] = useState('');
+  const [presetName, setPresetName] = useState("");
 
   // Load presets from localStorage on mount
   useEffect(() => {
@@ -47,7 +47,7 @@ export const FilterPresets = ({
       try {
         setPresets(JSON.parse(saved));
       } catch (error) {
-        console.error('Error loading presets:', error);
+        console.error("Error loading presets:", error);
       }
     }
   }, [pageType]);
@@ -55,13 +55,16 @@ export const FilterPresets = ({
   // Save presets to localStorage whenever they change
   useEffect(() => {
     if (presets.length > 0) {
-      localStorage.setItem(`filter-presets-${pageType}`, JSON.stringify(presets));
+      localStorage.setItem(
+        `filter-presets-${pageType}`,
+        JSON.stringify(presets),
+      );
     }
   }, [presets, pageType]);
 
   const savePreset = () => {
     if (!presetName.trim()) {
-      toast.error('Please enter a preset name');
+      toast.error("Please enter a preset name");
       return;
     }
 
@@ -73,7 +76,7 @@ export const FilterPresets = ({
     };
 
     setPresets([...presets, newPreset]);
-    setPresetName('');
+    setPresetName("");
     setIsDialogOpen(false);
     toast.success(`Preset "${newPreset.name}" saved`);
   };
@@ -92,7 +95,7 @@ export const FilterPresets = ({
   };
 
   const hasActiveFilters =
-    currentFilters.search !== '' ||
+    currentFilters.search !== "" ||
     currentFilters.dateRange.from !== undefined ||
     currentFilters.dateRange.to !== undefined ||
     currentFilters.status.length > 0 ||
@@ -100,7 +103,7 @@ export const FilterPresets = ({
     Object.keys(currentFilters.customFilters).some(
       (key) =>
         currentFilters.customFilters[key] !== undefined &&
-        currentFilters.customFilters[key] !== ''
+        currentFilters.customFilters[key] !== "",
     );
 
   return (
@@ -163,7 +166,7 @@ export const FilterPresets = ({
                 value={presetName}
                 onChange={(e) => setPresetName(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     savePreset();
                   }
                 }}
@@ -176,14 +179,17 @@ export const FilterPresets = ({
                 {currentFilters.search && (
                   <div className="flex gap-2">
                     <Badge variant="secondary">Search</Badge>
-                    <span className="text-muted-foreground">{currentFilters.search}</span>
+                    <span className="text-muted-foreground">
+                      {currentFilters.search}
+                    </span>
                   </div>
                 )}
-                {(currentFilters.dateRange.from || currentFilters.dateRange.to) && (
+                {(currentFilters.dateRange.from ||
+                  currentFilters.dateRange.to) && (
                   <div className="flex gap-2">
                     <Badge variant="secondary">Date Range</Badge>
                     <span className="text-muted-foreground">
-                      {currentFilters.dateRange.from?.toLocaleDateString()} -{' '}
+                      {currentFilters.dateRange.from?.toLocaleDateString()} -{" "}
                       {currentFilters.dateRange.to?.toLocaleDateString()}
                     </span>
                   </div>
@@ -192,14 +198,16 @@ export const FilterPresets = ({
                   <div className="flex gap-2">
                     <Badge variant="secondary">Status</Badge>
                     <span className="text-muted-foreground">
-                      {currentFilters.status.join(', ')}
+                      {currentFilters.status.join(", ")}
                     </span>
                   </div>
                 )}
                 {currentFilters.tags.length > 0 && (
                   <div className="flex gap-2">
                     <Badge variant="secondary">Tags</Badge>
-                    <span className="text-muted-foreground">{currentFilters.tags.join(', ')}</span>
+                    <span className="text-muted-foreground">
+                      {currentFilters.tags.join(", ")}
+                    </span>
                   </div>
                 )}
               </div>

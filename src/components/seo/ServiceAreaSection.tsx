@@ -7,10 +7,10 @@ interface ServiceAreaSectionProps {
   className?: string;
 }
 
-const ServiceAreaSection = ({ 
-  cities, 
-  radius = "100km", 
-  className = "" 
+const ServiceAreaSection = ({
+  cities,
+  radius = "100km",
+  className = "",
 }: ServiceAreaSectionProps) => {
   return (
     <section className={className}>
@@ -25,27 +25,26 @@ const ServiceAreaSection = ({
                   Serving the Greater Toronto Area
                 </h3>
                 <p className="text-muted-foreground mb-4">
-                  We proudly provide professional construction services throughout the GTA 
-                  and surrounding regions within a {radius} radius.
+                  We proudly provide professional construction services
+                  throughout the GTA and surrounding regions within a {radius}{" "}
+                  radius.
                 </p>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {cities.map((city, index) => (
-                <div 
-                  key={index}
-                  className="flex items-center gap-2 text-sm"
-                >
+                <div key={index} className="flex items-center gap-2 text-sm">
                   <div className="w-2 h-2 rounded-full bg-primary" />
                   <span>{city}</span>
                 </div>
               ))}
             </div>
-            
+
             <p className="text-sm text-muted-foreground mt-4 pt-4 border-t">
-              <strong>Coverage:</strong> Our service area includes but is not limited to the cities listed above. 
-              Contact us for projects in other Ontario locations.
+              <strong>Coverage:</strong> Our service area includes but is not
+              limited to the cities listed above. Contact us for projects in
+              other Ontario locations.
             </p>
           </CardContent>
         </Card>

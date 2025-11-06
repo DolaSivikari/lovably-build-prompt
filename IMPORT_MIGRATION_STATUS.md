@@ -1,14 +1,16 @@
 # Import Migration Status
 
 ## Summary
+
 **Completed**: 12 files migrated from `@/components/ui` to `@/ui` primitives  
 **Remaining**: ~150 files still need migration
 
 ## Completed Migrations ✅
 
 ### Root Components
+
 - ✅ BlogPreview.tsx
-- ✅ FilterBar.tsx  
+- ✅ FilterBar.tsx
 - ✅ PaintCalculator.tsx
 - ✅ ProjectCard.tsx
 - ✅ ProjectFeaturedCard.tsx
@@ -17,16 +19,19 @@
 - ✅ ResumeSubmissionDialog.tsx
 
 ### Admin Components
+
 - ✅ AdminPageHeader.tsx
 - ✅ BulkActionsBar.tsx
 - ✅ ImageUploadField.tsx
 
 ### UI Primitives
+
 - ✅ Badge.tsx (enhanced with className and variant support)
 
 ## Files Still Requiring Migration
 
 ### Root Components (~/components/)
+
 - FeaturedProjects.tsx
 - ProjectSidebar.tsx
 - QuoteWidget.tsx
@@ -40,6 +45,7 @@
 - MobileStickyCTA.tsx
 
 ### Admin Components (~/components/admin/)
+
 - ActivityFeed.tsx
 - AdminTopBar.tsx
 - ChangesDiffDialog.tsx
@@ -62,6 +68,7 @@
 - UnifiedSidebar.tsx
 
 ### Admin Filter Components
+
 - AdvancedFilterExample.tsx
 - DateRangePicker.tsx
 - FilterBar.tsx
@@ -70,6 +77,7 @@
 - TagFilter.tsx
 
 ### Blog Components
+
 - BlogCard.tsx
 - Breadcrumbs.tsx
 - NewsletterSection.tsx
@@ -77,6 +85,7 @@
 - ShareMenu.tsx
 
 ### Business Components
+
 - BusinessHeader.tsx
 - BusinessSidebar.tsx
 - ClientForm.tsx
@@ -101,6 +110,7 @@
 - UnitCostsModal.tsx
 
 ### Estimator Components
+
 - EstimatorStep1.tsx
 - EstimatorStep2.tsx
 - EstimatorStep2Enhanced.tsx
@@ -110,11 +120,13 @@
 - QuoteRequestDialog.tsx
 
 ### Footer Components
+
 - FooterNavCard.tsx
 - NewsletterBackend.tsx
 - SocialMediaButton.tsx
 
 ### Homepage Components
+
 - AchievementShowcase.tsx
 - CertificationBadges.tsx
 - CertificationsBar.tsx
@@ -133,9 +145,11 @@
 - WhyChooseUs.tsx
 
 ### Layout Components
+
 - PageLayout.tsx
 
 ### Navigation Components
+
 - AppLink.tsx
 - DynamicServicesMegaMenu.tsx
 - MegaMenuAccordionCategory.tsx
@@ -144,27 +158,32 @@
 - MobileNavSheet.tsx
 
 ### Projects Components
+
 - ProjectCaseStudy.tsx
 
 ### RFP Components
+
 - RFPStep1Company.tsx
 - RFPStep2Project.tsx
 - RFPStep3Timeline.tsx
 - RFPStep4Scope.tsx
 
 ### Sections Components
+
 - BenefitsSection.tsx
 - CTASection.tsx
 - PageHero.tsx
 - Section.tsx
 
 ### SEO Components
+
 - DirectAnswer.tsx
 - PeopleAlsoAsk.tsx
 - QuickFacts.tsx
 - ServiceAreaSection.tsx
 
 ### Services Components
+
 - CategoryTabs.tsx
 - SearchBar.tsx
 - ServiceCard.tsx
@@ -174,18 +193,21 @@
 - ServicesExplorer.tsx
 
 ### Page Files (~50 pages)
+
 All page files in:
-- src/pages/*.tsx
-- src/pages/admin/*.tsx
-- src/pages/admin/business/*.tsx
-- src/pages/company/*.tsx
-- src/pages/markets/*.tsx
-- src/pages/resources/*.tsx
-- src/pages/services/*.tsx
+
+- src/pages/\*.tsx
+- src/pages/admin/\*.tsx
+- src/pages/admin/business/\*.tsx
+- src/pages/company/\*.tsx
+- src/pages/markets/\*.tsx
+- src/pages/resources/\*.tsx
+- src/pages/services/\*.tsx
 
 ## Migration Pattern
 
 ### Standard Migration
+
 ```typescript
 // Before
 import { Button } from "@/components/ui/button";
@@ -203,7 +225,9 @@ import { Select } from "@/ui/Select";
 ```
 
 ### Components that DON'T Migrate
+
 These stay at `@/components/ui/`:
+
 - Card, CardContent, CardHeader, CardTitle (card.tsx)
 - Dialog, DialogContent, etc. (dialog.tsx)
 - Label (label.tsx)
@@ -220,10 +244,12 @@ These stay at `@/components/ui/`:
 5. **Visual QA** - Check that Badge, Button, Input, Textarea, Select all render correctly
 
 ## Estimated Completion
+
 - With automated batch processing: 30-60 minutes
 - Manual file-by-file: 4-6 hours
 
 ## Notes
+
 - Badge component was enhanced to support `className` and `variant` props
 - Button re-exports from @/ui/Button are working correctly
 - All new UI primitives support semantic design tokens

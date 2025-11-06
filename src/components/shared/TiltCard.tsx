@@ -7,7 +7,11 @@ interface TiltCardProps {
   className?: string;
 }
 
-export const TiltCard = ({ children, maxTilt = 10, className }: TiltCardProps) => {
+export const TiltCard = ({
+  children,
+  maxTilt = 10,
+  className,
+}: TiltCardProps) => {
   const [tiltX, setTiltX] = useState(0);
   const [tiltY, setTiltY] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -39,7 +43,7 @@ export const TiltCard = ({ children, maxTilt = 10, className }: TiltCardProps) =
       className={cn("transition-transform duration-200", className)}
       style={{
         transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`,
-        transformStyle: "preserve-3d"
+        transformStyle: "preserve-3d",
       }}
     >
       {children}

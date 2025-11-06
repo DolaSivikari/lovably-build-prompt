@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 interface ScreenReaderAnnouncementProps {
   message: string;
-  politeness?: 'polite' | 'assertive';
+  politeness?: "polite" | "assertive";
 }
 
-export function ScreenReaderAnnouncement({ 
-  message, 
-  politeness = 'polite' 
+export function ScreenReaderAnnouncement({
+  message,
+  politeness = "polite",
 }: ScreenReaderAnnouncementProps) {
-  const [announcement, setAnnouncement] = useState('');
+  const [announcement, setAnnouncement] = useState("");
 
   useEffect(() => {
     if (message) {
       setAnnouncement(message);
-      
+
       // Clear after announcement to allow re-announcing same message
       const timer = setTimeout(() => {
-        setAnnouncement('');
+        setAnnouncement("");
       }, 1000);
 
       return () => clearTimeout(timer);

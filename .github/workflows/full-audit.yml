@@ -1,0 +1,140 @@
+name: Full Audit
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "**"
+  pull_request:
+  schedule:
+    - cron: "0 3 * * *"
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  security-events: write
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: http://localhost:3000
+      ADMIN_USER: ${{ secrets.ADMIN_USER }}
+      ADMIN_PASS: ${{ secrets.ADMIN_PASS }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          registry-url: https://registry.npmjs.org
+
+      - name: Configure npm auth token
+        if: ${{ secrets.NPM_TOKEN != '' }}
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-chromium
+
+      - uses: browser-actions/setup-chrome@v1
+
+      - name: Install audit tooling
+        run: npm install --no-save --package-lock=false @playwright/test@1.49.1 @axe-core/playwright@4.10.0
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Build app
+        run: npm run build || true
+
+      - name: Start app
+        run: |
+          npm run start &
+          npx wait-on http://localhost:3000
+
+      - name: Route crawl
+        run: npm run crawl
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Dead code scan
+        run: npm run deadcode
+
+      - name: Circular dependency scan
+        run: npm run circles
+
+      - name: Unit tests
+        run: npm test
+
+      - name: End-to-end tests
+        run: npm run e2e
+
+      - name: Accessibility tests
+        run: npm run a11y
+
+      - name: Lighthouse audit
+        run: npm run lighthouse
+
+      - name: Bundle analysis
+        run: npm run bundle:analyze
+
+      - uses: google/osv-scanner-action@v1
+        with:
+          scan-args: "-r ."
+
+      - uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --no-git -v
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-reports
+          path: |
+            .reports/**
+            bundles.html
+            coverage/**
+            .lighthouseci/**
+            .reports/lhci/**
+            playwright-report/**
+          if-no-files-found: ignore
+
+      - name: Create summary
+        run: |
+          echo "## Audit summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Routes: $(jq length .reports/routes.json) discovered" >> $GITHUB_STEP_SUMMARY
+          echo "- Lighthouse reports uploaded" >> $GITHUB_STEP_SUMMARY
+          echo "- A11y/Playwright/Jest reports uploaded" >> $GITHUB_STEP_SUMMARY
+
+      - name: Open issues on failures
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `Automated audit failed on ${context.sha}.
+            See artifacts: **audit-reports**.
+            Please check ESLint, TypeScript, tests, a11y, or budgets.`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Audit failure: ${context.sha.slice(0, 7)}`,
+              body
+            });

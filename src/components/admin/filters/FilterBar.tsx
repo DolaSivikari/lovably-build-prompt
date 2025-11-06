@@ -11,7 +11,12 @@ interface FilterBarProps {
   className?: string;
 }
 
-export const FilterBar = ({ children, onClearAll, hasActiveFilters, className }: FilterBarProps) => {
+export const FilterBar = ({
+  children,
+  onClearAll,
+  hasActiveFilters,
+  className,
+}: FilterBarProps) => {
   return (
     <Card className={`p-4 ${className}`}>
       <div className="flex items-center gap-4 flex-wrap">

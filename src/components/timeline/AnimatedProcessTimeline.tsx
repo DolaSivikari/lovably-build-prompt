@@ -25,9 +25,11 @@ interface AnimatedProcessTimelineProps {
 const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
-  const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set([0]));
+  const [completedSteps, setCompletedSteps] = useState<Set<number>>(
+    new Set([0]),
+  );
   const prefersReducedMotion = useReducedMotion();
-  
+
   const timelineRef = useRef<HTMLDivElement>(null);
   const isIntersecting = useIntersectionObserver(timelineRef, {
     threshold: 0.1,
@@ -35,7 +37,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
 
   const handleStepClick = (stepNumber: number) => {
     setActiveStep(stepNumber);
-    setCompletedSteps(prev => new Set([...prev, stepNumber]));
+    setCompletedSteps((prev) => new Set([...prev, stepNumber]));
   };
 
   const handleExpandToggle = (stepNumber: number) => {
@@ -59,7 +61,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
             className={cn(
               "absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-full",
               !prefersReducedMotion && "[box-shadow:var(--shadow-glow)]",
-              "transition-all duration-700 ease-out"
+              "transition-all duration-700 ease-out",
             )}
             style={{ width: `${progress}%` }}
           />
@@ -75,7 +77,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
       <div className="relative max-w-6xl mx-auto">
         {/* Vertical Line */}
         <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20 -translate-x-1/2" />
-        
+
         {/* Active Progress Line */}
         <div
           className="absolute left-8 md:left-1/2 top-0 w-0.5 bg-gradient-to-b from-primary to-primary/60 -translate-x-1/2 [box-shadow:var(--shadow-glow)] transition-all duration-700 ease-out"
@@ -94,7 +96,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
               key={step.step}
               className={cn(
                 "relative mb-16 last:mb-0",
-                isLeft ? "md:pr-[50%]" : "md:pl-[50%]"
+                isLeft ? "md:pr-[50%]" : "md:pl-[50%]",
               )}
             >
               {/* Checkpoint */}
@@ -102,7 +104,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
                 onClick={() => handleStepClick(index)}
                 className={cn(
                   "absolute left-8 md:left-1/2 -translate-x-1/2 z-20 transition-all duration-300 group",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full"
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full",
                 )}
                 aria-label={`Go to ${step.title}`}
               >
@@ -113,7 +115,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
                     isCompleted
                       ? "bg-primary border-primary"
                       : "bg-background border-muted-foreground/30",
-                    !isActive && "group-hover:scale-110"
+                    !isActive && "group-hover:scale-110",
                   )}
                 >
                   {isCompleted ? (
@@ -121,13 +123,13 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
                   ) : (
                     <Circle className="w-full h-full p-2 text-muted-foreground" />
                   )}
-                  
+
                   {/* Pulse Animation for Active */}
                   {isActive && !prefersReducedMotion && (
                     <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
                   )}
                 </div>
-                
+
                 {/* Step Number Badge */}
                 <Badge
                   variant={isCompleted ? "default" : "outline"}
@@ -141,8 +143,10 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
               <div
                 className={cn(
                   "ml-24 md:ml-0 transition-all duration-500",
-                  isIntersecting && !prefersReducedMotion && "animate-fade-in-up",
-                  isLeft ? "md:mr-16" : "md:ml-16"
+                  isIntersecting &&
+                    !prefersReducedMotion &&
+                    "animate-fade-in-up",
+                  isLeft ? "md:mr-16" : "md:ml-16",
                 )}
                 style={{
                   animationDelay: !prefersReducedMotion ? `${delay}ms` : "0ms",
@@ -151,8 +155,10 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
                 <Card
                   className={cn(
                     "overflow-hidden card-hover",
-                    isActive && "ring-2 ring-primary [box-shadow:var(--shadow-card-elevated)] scale-[1.02]",
-                    !isActive && "hover:[box-shadow:var(--shadow-md)] hover:scale-[1.01]"
+                    isActive &&
+                      "ring-2 ring-primary [box-shadow:var(--shadow-card-elevated)] scale-[1.02]",
+                    !isActive &&
+                      "hover:[box-shadow:var(--shadow-md)] hover:scale-[1.01]",
                   )}
                 >
                   <CardContent className="p-6">
@@ -162,7 +168,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
                         <h3
                           className={cn(
                             "text-2xl font-bold mb-2 transition-colors",
-                            isActive ? "text-primary" : "text-foreground"
+                            isActive ? "text-primary" : "text-foreground",
                           )}
                         >
                           {step.title}
@@ -210,7 +216,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
                       <ChevronDown
                         className={cn(
                           "h-4 w-4 icon-rotate",
-                          isExpanded && "rotate-180"
+                          isExpanded && "rotate-180",
                         )}
                       />
                     </Button>

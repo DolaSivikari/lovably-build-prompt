@@ -15,7 +15,7 @@ interface PageTransitionProps {
 /**
  * Wrapper component for smooth page transitions
  * Automatically animates on route changes
- * 
+ *
  * @example
  * ```tsx
  * <PageTransition type="fade">
@@ -31,7 +31,9 @@ export const PageTransition = ({
 }: PageTransitionProps) => {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
-  const [transitionStage, setTransitionStage] = useState<"entering" | "exiting">("entering");
+  const [transitionStage, setTransitionStage] = useState<
+    "entering" | "exiting"
+  >("entering");
 
   useEffect(() => {
     if (location.pathname !== displayLocation.pathname) {
@@ -59,7 +61,7 @@ export const PageTransition = ({
       className={cn(
         "w-full",
         transitionClasses[type][transitionStage],
-        className
+        className,
       )}
       onAnimationEnd={() => {
         if (transitionStage === "exiting") {

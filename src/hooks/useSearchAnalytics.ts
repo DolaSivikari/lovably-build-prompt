@@ -13,12 +13,12 @@ interface SearchAnalyticsData {
 const getSessionId = (): string => {
   const SESSION_KEY = "search_session_id";
   let sessionId = sessionStorage.getItem(SESSION_KEY);
-  
+
   if (!sessionId) {
     sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
     sessionStorage.setItem(SESSION_KEY, sessionId);
   }
-  
+
   return sessionId;
 };
 
@@ -30,7 +30,10 @@ export function useSearchAnalytics() {
   // Debounced search tracking to avoid excessive database writes
   const trackSearch = useCallback(async (data: SearchAnalyticsData) => {
     // Avoid tracking empty queries or duplicate consecutive searches
-    if (!data.search_query.trim() || data.search_query === lastTrackedQuery.current) {
+    if (
+      !data.search_query.trim() ||
+      data.search_query === lastTrackedQuery.current
+    ) {
       return;
     }
 
@@ -59,24 +62,23 @@ export function useSearchAnalytics() {
   }, []);
 
   // Track when a user clicks on a search result
-  const trackResultClick = useCallback(async (
-    searchQuery: string,
-    resultName: string,
-    resultLink: string
-  ) => {
-    try {
-      await supabase.from("search_analytics").insert({
-        search_query: searchQuery.toLowerCase().trim(),
-        results_count: 1, // We know they found at least one result they clicked
-        clicked_result_name: resultName,
-        clicked_result_link: resultLink,
-        user_session_id: sessionId.current,
-        searched_at: new Date().toISOString(),
-      });
-    } catch (error) {
-      console.debug("Result click tracking failed:", error);
-    }
-  }, []);
+  const trackResultClick = useCallback(
+    async (searchQuery: string, resultName: string, resultLink: string) => {
+      try {
+        await supabase.from("search_analytics").insert({
+          search_query: searchQuery.toLowerCase().trim(),
+          results_count: 1, // We know they found at least one result they clicked
+          clicked_result_name: resultName,
+          clicked_result_link: resultLink,
+          user_session_id: sessionId.current,
+          searched_at: new Date().toISOString(),
+        });
+      } catch (error) {
+        console.debug("Result click tracking failed:", error);
+      }
+    },
+    [],
+  );
 
   // Cleanup timeout on unmount
   useEffect(() => {

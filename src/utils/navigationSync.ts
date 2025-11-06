@@ -13,20 +13,20 @@ export interface NavigationSyncResult {
  */
 export const EXPECTED_SERVICE_SLUGS = [
   // Primary Delivery
-  'general-contracting',
-  'construction-management',
-  'design-build',
-  
+  "general-contracting",
+  "construction-management",
+  "design-build",
+
   // Self-Perform Trades
-  'building-envelope',
-  'exterior-envelope',
-  'exterior-cladding',
-  'interior-buildouts',
-  'parking-rehabilitation',
-  'waterproofing',
-  'masonry-restoration',
-  'eifs-stucco',
-  'metal-cladding',
+  "building-envelope",
+  "exterior-envelope",
+  "exterior-cladding",
+  "interior-buildouts",
+  "parking-rehabilitation",
+  "waterproofing",
+  "masonry-restoration",
+  "eifs-stucco",
+  "metal-cladding",
 ];
 
 /**
@@ -34,12 +34,12 @@ export const EXPECTED_SERVICE_SLUGS = [
  */
 export async function validateNavigationSync(): Promise<NavigationSyncResult> {
   const { data: publishedServices, error } = await supabase
-    .from('services')
-    .select('slug, publish_state')
-    .eq('publish_state', 'published');
+    .from("services")
+    .select("slug, publish_state")
+    .eq("publish_state", "published");
 
   if (error) {
-    console.error('Error fetching services for sync validation:', error);
+    console.error("Error fetching services for sync validation:", error);
     return {
       isValid: false,
       missingSlugs: EXPECTED_SERVICE_SLUGS,
@@ -48,27 +48,28 @@ export async function validateNavigationSync(): Promise<NavigationSyncResult> {
     };
   }
 
-  const publishedSlugs = publishedServices?.map(s => s.slug) || [];
-  
+  const publishedSlugs = publishedServices?.map((s) => s.slug) || [];
+
   // Find services in navigation but not published in database
   const missingSlugs = EXPECTED_SERVICE_SLUGS.filter(
-    slug => !publishedSlugs.includes(slug)
+    (slug) => !publishedSlugs.includes(slug),
   );
 
   // Find services published in database but not in navigation
   const extraSlugs = publishedSlugs.filter(
-    slug => !EXPECTED_SERVICE_SLUGS.includes(slug)
+    (slug) => !EXPECTED_SERVICE_SLUGS.includes(slug),
   );
 
   // Check for services that exist but aren't published
   const { data: allServices } = await supabase
-    .from('services')
-    .select('slug, publish_state')
-    .in('slug', EXPECTED_SERVICE_SLUGS);
+    .from("services")
+    .select("slug, publish_state")
+    .in("slug", EXPECTED_SERVICE_SLUGS);
 
-  const unpublishedSlugs = allServices
-    ?.filter(s => s.publish_state !== 'published')
-    .map(s => s.slug) || [];
+  const unpublishedSlugs =
+    allServices
+      ?.filter((s) => s.publish_state !== "published")
+      .map((s) => s.slug) || [];
 
   return {
     isValid: missingSlugs.length === 0 && unpublishedSlugs.length === 0,
@@ -85,16 +86,16 @@ export function getSyncIssuesDescription(result: NavigationSyncResult): string {
   const issues: string[] = [];
 
   if (result.missingSlugs.length > 0) {
-    issues.push(`Missing from database: ${result.missingSlugs.join(', ')}`);
+    issues.push(`Missing from database: ${result.missingSlugs.join(", ")}`);
   }
 
   if (result.unpublishedSlugs.length > 0) {
-    issues.push(`Not published: ${result.unpublishedSlugs.join(', ')}`);
+    issues.push(`Not published: ${result.unpublishedSlugs.join(", ")}`);
   }
 
   if (result.extraSlugs.length > 0) {
-    issues.push(`Not in navigation: ${result.extraSlugs.join(', ')}`);
+    issues.push(`Not in navigation: ${result.extraSlugs.join(", ")}`);
   }
 
-  return issues.join(' | ');
+  return issues.join(" | ");
 }

@@ -23,7 +23,11 @@ interface ProjectDetailProps {
   onClose: () => void;
 }
 
-export const ProjectDetail = ({ project, onEdit, onClose }: ProjectDetailProps) => {
+export const ProjectDetail = ({
+  project,
+  onEdit,
+  onClose,
+}: ProjectDetailProps) => {
   return (
     <div className="space-y-6">
       <div className="flex items-start justify-between">
@@ -33,7 +37,9 @@ export const ProjectDetail = ({ project, onEdit, onClose }: ProjectDetailProps) 
         </div>
         <div className="flex gap-2">
           <Button onClick={onEdit}>Edit Project</Button>
-          <Button variant="outline" onClick={onClose}>Close</Button>
+          <Button variant="outline" onClick={onClose}>
+            Close
+          </Button>
         </div>
       </div>
 

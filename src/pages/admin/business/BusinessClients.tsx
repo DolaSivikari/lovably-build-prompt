@@ -6,10 +6,22 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ClientForm, ClientFormData } from "@/components/business/ClientForm";
 import { ImportContactsDialog } from "@/components/business/ImportContactsDialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default function BusinessClients() {
   const { isLoading, isAdmin } = useAdminAuth();
@@ -30,10 +42,11 @@ export default function BusinessClients() {
 
   useEffect(() => {
     if (searchTerm) {
-      const filtered = clients.filter(client =>
-        client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        client.company?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        client.email?.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = clients.filter(
+        (client) =>
+          client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          client.company?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          client.email?.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredClients(filtered);
     } else {
@@ -43,7 +56,9 @@ export default function BusinessClients() {
 
   const fetchClients = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) return;
 
       const { data, error } = await supabase
@@ -68,7 +83,9 @@ export default function BusinessClients() {
   const handleSubmit = async (formData: ClientFormData) => {
     setIsSubmitting(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
       const clientData = {
@@ -89,9 +106,7 @@ export default function BusinessClients() {
         if (error) throw error;
         toast({ title: "Client updated successfully" });
       } else {
-        const { error } = await supabase
-          .from("clients")
-          .insert(clientData);
+        const { error } = await supabase.from("clients").insert(clientData);
         if (error) throw error;
         toast({ title: "Client created successfully" });
       }
@@ -112,15 +127,17 @@ export default function BusinessClients() {
 
   const handleImport = async (contacts: any[]) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const clientsToInsert = contacts.map(c => ({ 
+      const clientsToInsert = contacts.map((c) => ({
         name: c.name,
         email: c.email || null,
         company: c.company || null,
         phone: c.phone || null,
-        user_id: user.id 
+        user_id: user.id,
       }));
       const { error } = await supabase.from("clients").insert(clientsToInsert);
       if (error) throw error;
@@ -149,7 +166,12 @@ export default function BusinessClients() {
           <Button variant="outline" onClick={() => setShowImport(true)}>
             Import
           </Button>
-          <Button onClick={() => { setEditingClient(null); setShowForm(true); }}>
+          <Button
+            onClick={() => {
+              setEditingClient(null);
+              setShowForm(true);
+            }}
+          >
             <Plus className="h-4 w-4 mr-2" />
             Add Client
           </Button>
@@ -190,7 +212,10 @@ export default function BusinessClients() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => { setEditingClient(client); setShowForm(true); }}
+                    onClick={() => {
+                      setEditingClient(client);
+                      setShowForm(true);
+                    }}
                   >
                     Edit
                   </Button>
@@ -204,7 +229,9 @@ export default function BusinessClients() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{editingClient ? "Edit Client" : "Add Client"}</DialogTitle>
+            <DialogTitle>
+              {editingClient ? "Edit Client" : "Add Client"}
+            </DialogTitle>
           </DialogHeader>
           <ClientForm
             defaultValues={editingClient}

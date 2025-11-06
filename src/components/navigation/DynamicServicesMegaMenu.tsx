@@ -10,7 +10,7 @@ interface Service {
   slug: string;
   name: string;
   short_description: string | null;
-  service_tier: 'primary_delivery' | 'self_perform' | null;
+  service_tier: "primary_delivery" | "self_perform" | null;
 }
 
 interface DynamicServicesMegaMenuProps {
@@ -18,17 +18,20 @@ interface DynamicServicesMegaMenuProps {
   onClose: () => void;
 }
 
-export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMegaMenuProps) => {
+export const DynamicServicesMegaMenu = ({
+  isOpen,
+  onClose,
+}: DynamicServicesMegaMenuProps) => {
   const [services, setServices] = useState<Service[]>([]);
 
   useEffect(() => {
     const fetchServices = async () => {
       const { data } = await supabase
-        .from('services')
-        .select('id, slug, name, short_description, service_tier')
-        .eq('publish_state', 'published')
-        .order('name');
-      
+        .from("services")
+        .select("id, slug, name, short_description, service_tier")
+        .eq("publish_state", "published")
+        .order("name");
+
       if (data) {
         setServices(data as Service[]);
       }
@@ -39,17 +42,19 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
     }
   }, [isOpen]);
 
-  const primaryDelivery = services.filter(s => s.service_tier === 'primary_delivery');
-  const selfPerform = services.filter(s => s.service_tier === 'self_perform');
-
-  
+  const primaryDelivery = services.filter(
+    (s) => s.service_tier === "primary_delivery",
+  );
+  const selfPerform = services.filter((s) => s.service_tier === "self_perform");
 
   return (
-    <div 
+    <div
       className={cn(
         "absolute left-0 top-full mt-0 w-[760px] bg-background border border-border rounded-[var(--radius-sm)] [box-shadow:var(--shadow-dropdown)] z-mega-menu",
         "mega-menu-transition origin-top",
-        isOpen ? "opacity-100 visible scale-y-100" : "opacity-0 invisible scale-y-95"
+        isOpen
+          ? "opacity-100 visible scale-y-100"
+          : "opacity-0 invisible scale-y-95",
       )}
       onMouseEnter={() => {}}
       onMouseLeave={onClose}
@@ -113,7 +118,8 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
               GC + Self-Perform = Schedule Certainty
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              By delivering both general contracting and self-perform trades, we control quality, timelines, and costs.
+              By delivering both general contracting and self-perform trades, we
+              control quality, timelines, and costs.
             </p>
             <Link
               to="/about"

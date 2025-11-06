@@ -17,9 +17,10 @@ export const CategoryTabs = ({
           onClick={() => onCategoryChange(category.value)}
           className={`
             px-5 py-2.5 text-sm font-semibold rounded-md transition-all duration-200
-            ${activeCategory === category.value
-              ? 'bg-primary text-primary-foreground shadow-sm' 
-              : 'bg-background text-muted-foreground hover:bg-muted hover:text-foreground border border-border'
+            ${
+              activeCategory === category.value
+                ? "bg-primary text-primary-foreground shadow-sm"
+                : "bg-background text-muted-foreground hover:bg-muted hover:text-foreground border border-border"
             }
           `}
         >

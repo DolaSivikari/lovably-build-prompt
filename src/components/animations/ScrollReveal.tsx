@@ -18,13 +18,13 @@ interface ScrollRevealProps {
 
 /**
  * Component wrapper that reveals content on scroll
- * 
+ *
  * @example
  * ```tsx
  * <ScrollReveal direction="up" delay={200}>
  *   <h2>This content will fade in from below when scrolled into view</h2>
  * </ScrollReveal>
- * 
+ *
  * <ScrollReveal direction="left">
  *   <Card>Content slides in from left</Card>
  * </ScrollReveal>
@@ -43,23 +43,24 @@ export const ScrollReveal = ({
     triggerOnce,
   });
 
-  const directionClass = direction === "up" 
-    ? "scroll-reveal"
-    : direction === "left"
-    ? "scroll-reveal-left"
-    : "scroll-reveal-right";
+  const directionClass =
+    direction === "up"
+      ? "scroll-reveal"
+      : direction === "left"
+        ? "scroll-reveal-left"
+        : "scroll-reveal-right";
 
   return (
     <div
       ref={ref}
-      className={cn(
-        directionClass,
-        isVisible && "is-visible",
-        className
-      )}
-      style={delay > 0 ? {
-        transitionDelay: `${delay}ms`,
-      } : undefined}
+      className={cn(directionClass, isVisible && "is-visible", className)}
+      style={
+        delay > 0
+          ? {
+              transitionDelay: `${delay}ms`,
+            }
+          : undefined
+      }
     >
       {children}
     </div>

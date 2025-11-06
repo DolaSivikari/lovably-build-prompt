@@ -1,14 +1,27 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
-import { Loader2, Shield, Smartphone, Key, Copy, CheckCircle } from 'lucide-react';
-import QRCode from 'qrcode';
-import { PasswordStrengthIndicator } from '@/components/admin/PasswordStrengthIndicator';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Loader2,
+  Shield,
+  Smartphone,
+  Key,
+  Copy,
+  CheckCircle,
+} from "lucide-react";
+import QRCode from "qrcode";
+import { PasswordStrengthIndicator } from "@/components/admin/PasswordStrengthIndicator";
 
 export default function SecuritySettings() {
   const navigate = useNavigate();
@@ -16,12 +29,12 @@ export default function SecuritySettings() {
   const [loading, setLoading] = useState(true);
   const [mfaEnabled, setMfaEnabled] = useState(false);
   const [showMfaSetup, setShowMfaSetup] = useState(false);
-  const [qrCode, setQrCode] = useState<string>('');
-  const [secret, setSecret] = useState<string>('');
-  const [verificationCode, setVerificationCode] = useState('');
+  const [qrCode, setQrCode] = useState<string>("");
+  const [secret, setSecret] = useState<string>("");
+  const [verificationCode, setVerificationCode] = useState("");
   const [verifying, setVerifying] = useState(false);
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [changingPassword, setChangingPassword] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -30,10 +43,12 @@ export default function SecuritySettings() {
   }, []);
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
     if (!session) {
-      navigate('/auth');
+      navigate("/auth");
       return;
     }
 
@@ -46,23 +61,29 @@ export default function SecuritySettings() {
   const startMfaEnrollment = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase.auth.mfa.enroll({ factorType: 'totp' });
-      
+      const { data, error } = await supabase.auth.mfa.enroll({
+        factorType: "totp",
+      });
+
       if (error) throw error;
 
       const { totp } = data;
       setSecret(totp.secret);
 
       // Generate QR code
-      const { data: { user } } = await supabase.auth.getUser();
-      const qrCodeUrl = totp.qr_code || `otpauth://totp/${user?.email}?secret=${totp.secret}&issuer=Ascent Group CMS`;
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      const qrCodeUrl =
+        totp.qr_code ||
+        `otpauth://totp/${user?.email}?secret=${totp.secret}&issuer=Ascent Group CMS`;
       const qr = await QRCode.toDataURL(qrCodeUrl);
       setQrCode(qr);
       setShowMfaSetup(true);
     } catch (error: any) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
+        variant: "destructive",
+        title: "Error",
         description: error.message,
       });
     } finally {
@@ -73,9 +94,9 @@ export default function SecuritySettings() {
   const verifyAndEnableMfa = async () => {
     if (!verificationCode || verificationCode.length !== 6) {
       toast({
-        variant: 'destructive',
-        title: 'Invalid Code',
-        description: 'Please enter a 6-digit verification code',
+        variant: "destructive",
+        title: "Invalid Code",
+        description: "Please enter a 6-digit verification code",
       });
       return;
     }
@@ -85,7 +106,7 @@ export default function SecuritySettings() {
       const { data: factors } = await supabase.auth.mfa.listFactors();
       const factor = factors?.totp?.[0];
 
-      if (!factor) throw new Error('No TOTP factor found');
+      if (!factor) throw new Error("No TOTP factor found");
 
       const { data, error } = await supabase.auth.mfa.challengeAndVerify({
         factorId: factor.id,
@@ -95,18 +116,18 @@ export default function SecuritySettings() {
       if (error) throw error;
 
       toast({
-        title: 'Success',
-        description: 'Two-factor authentication has been enabled',
+        title: "Success",
+        description: "Two-factor authentication has been enabled",
       });
 
       setMfaEnabled(true);
       setShowMfaSetup(false);
-      setVerificationCode('');
+      setVerificationCode("");
     } catch (error: any) {
       toast({
-        variant: 'destructive',
-        title: 'Verification Failed',
-        description: error.message || 'Invalid verification code',
+        variant: "destructive",
+        title: "Verification Failed",
+        description: error.message || "Invalid verification code",
       });
     } finally {
       setVerifying(false);
@@ -120,19 +141,21 @@ export default function SecuritySettings() {
       const factor = factors?.totp?.[0];
 
       if (factor) {
-        const { error } = await supabase.auth.mfa.unenroll({ factorId: factor.id });
+        const { error } = await supabase.auth.mfa.unenroll({
+          factorId: factor.id,
+        });
         if (error) throw error;
 
         toast({
-          title: 'Success',
-          description: 'Two-factor authentication has been disabled',
+          title: "Success",
+          description: "Two-factor authentication has been disabled",
         });
         setMfaEnabled(false);
       }
     } catch (error: any) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
+        variant: "destructive",
+        title: "Error",
         description: error.message,
       });
     } finally {
@@ -145,46 +168,48 @@ export default function SecuritySettings() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
     toast({
-      title: 'Copied',
-      description: 'Secret key copied to clipboard',
+      title: "Copied",
+      description: "Secret key copied to clipboard",
     });
   };
 
   const changePassword = async () => {
     if (newPassword !== confirmPassword) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Passwords do not match',
+        variant: "destructive",
+        title: "Error",
+        description: "Passwords do not match",
       });
       return;
     }
 
     if (newPassword.length < 12) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Password must be at least 12 characters',
+        variant: "destructive",
+        title: "Error",
+        description: "Password must be at least 12 characters",
       });
       return;
     }
 
     try {
       setChangingPassword(true);
-      const { error } = await supabase.auth.updateUser({ password: newPassword });
-      
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+
       if (error) throw error;
 
       toast({
-        title: 'Success',
-        description: 'Password has been changed successfully',
+        title: "Success",
+        description: "Password has been changed successfully",
       });
-      setNewPassword('');
-      setConfirmPassword('');
+      setNewPassword("");
+      setConfirmPassword("");
     } catch (error: any) {
       toast({
-        variant: 'destructive',
-        title: 'Error',
+        variant: "destructive",
+        title: "Error",
         description: error.message,
       });
     } finally {
@@ -206,7 +231,9 @@ export default function SecuritySettings() {
         <Shield className="h-8 w-8 text-primary" />
         <div>
           <h1 className="text-3xl font-bold">Security Settings</h1>
-          <p className="text-muted-foreground">Manage your authentication and security preferences</p>
+          <p className="text-muted-foreground">
+            Manage your authentication and security preferences
+          </p>
         </div>
       </div>
 
@@ -227,7 +254,8 @@ export default function SecuritySettings() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">
-                    Status: {mfaEnabled ? (
+                    Status:{" "}
+                    {mfaEnabled ? (
                       <span className="text-primary">Enabled ✓</span>
                     ) : (
                       <span className="text-muted-foreground">Disabled</span>
@@ -236,42 +264,69 @@ export default function SecuritySettings() {
                 </div>
                 <Button
                   onClick={mfaEnabled ? disableMfa : startMfaEnrollment}
-                  variant={mfaEnabled ? 'destructive' : 'default'}
+                  variant={mfaEnabled ? "destructive" : "default"}
                 >
-                  {mfaEnabled ? 'Disable' : 'Enable'} 2FA
+                  {mfaEnabled ? "Disable" : "Enable"} 2FA
                 </Button>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="flex flex-col items-center space-y-4">
-                  <img src={qrCode} alt="MFA QR Code" className="w-64 h-64 border rounded-lg" />
+                  <img
+                    src={qrCode}
+                    alt="MFA QR Code"
+                    className="w-64 h-64 border rounded-lg"
+                  />
                   <div className="w-full max-w-md space-y-2">
                     <Label>Or enter this secret key manually:</Label>
                     <div className="flex gap-2">
                       <Input value={secret} readOnly className="font-mono" />
-                      <Button onClick={copySecret} variant="outline" size="icon">
-                        {copied ? <CheckCircle className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                      <Button
+                        onClick={copySecret}
+                        variant="outline"
+                        size="icon"
+                      >
+                        {copied ? (
+                          <CheckCircle className="h-4 w-4" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
                       </Button>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="verification-code">Enter 6-digit verification code</Label>
+                  <Label htmlFor="verification-code">
+                    Enter 6-digit verification code
+                  </Label>
                   <Input
                     id="verification-code"
                     value={verificationCode}
-                    onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    onChange={(e) =>
+                      setVerificationCode(
+                        e.target.value.replace(/\D/g, "").slice(0, 6),
+                      )
+                    }
                     placeholder="000000"
                     maxLength={6}
                     className="text-center text-2xl tracking-widest"
                   />
                 </div>
                 <div className="flex gap-2">
-                  <Button onClick={verifyAndEnableMfa} disabled={verifying || verificationCode.length !== 6} className="flex-1">
-                    {verifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Button
+                    onClick={verifyAndEnableMfa}
+                    disabled={verifying || verificationCode.length !== 6}
+                    className="flex-1"
+                  >
+                    {verifying && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     Verify and Enable
                   </Button>
-                  <Button onClick={() => setShowMfaSetup(false)} variant="outline">
+                  <Button
+                    onClick={() => setShowMfaSetup(false)}
+                    variant="outline"
+                  >
                     Cancel
                   </Button>
                 </div>
@@ -315,9 +370,15 @@ export default function SecuritySettings() {
             </div>
             <Button
               onClick={changePassword}
-              disabled={changingPassword || !newPassword || newPassword !== confirmPassword}
+              disabled={
+                changingPassword ||
+                !newPassword ||
+                newPassword !== confirmPassword
+              }
             >
-              {changingPassword && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {changingPassword && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
               Change Password
             </Button>
           </CardContent>

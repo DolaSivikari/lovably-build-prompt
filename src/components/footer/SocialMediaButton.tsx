@@ -6,7 +6,11 @@ interface SocialMediaButtonProps {
   label: string;
 }
 
-const SocialMediaButton = ({ href, icon: Icon, label }: SocialMediaButtonProps) => {
+const SocialMediaButton = ({
+  href,
+  icon: Icon,
+  label,
+}: SocialMediaButtonProps) => {
   return (
     <a
       href={href}
@@ -15,7 +19,10 @@ const SocialMediaButton = ({ href, icon: Icon, label }: SocialMediaButtonProps) 
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Icon className="h-5 w-5 text-primary-foreground transition-colors group-hover:text-secondary" aria-hidden="true" />
+      <Icon
+        className="h-5 w-5 text-primary-foreground transition-colors group-hover:text-secondary"
+        aria-hidden="true"
+      />
     </a>
   );
 };

@@ -2,7 +2,14 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import * as LucideIcons from "lucide-react";
-import { Building2, Home, Factory, Clock, ArrowRight, Star } from "lucide-react";
+import {
+  Building2,
+  Home,
+  Factory,
+  Clock,
+  ArrowRight,
+  Star,
+} from "lucide-react";
 
 interface ServiceCardProps {
   id: string;
@@ -32,21 +39,29 @@ export const ServiceCard = ({
   typical_timeline,
   project_types,
 }: ServiceCardProps) => {
-  const IconComponent = icon_name && LucideIcons[icon_name as keyof typeof LucideIcons]
-    ? (LucideIcons[icon_name as keyof typeof LucideIcons] as React.ComponentType<{ className?: string }>)
-    : LucideIcons.Wrench;
+  const IconComponent =
+    icon_name && LucideIcons[icon_name as keyof typeof LucideIcons]
+      ? (LucideIcons[
+          icon_name as keyof typeof LucideIcons
+        ] as React.ComponentType<{ className?: string }>)
+      : LucideIcons.Wrench;
 
   return (
     <Link to={`/services/${slug}`} className="group">
       <Card variant="interactive" className="h-full relative overflow-hidden">
         {featured && (
           <div className="absolute top-4 right-4 z-10">
-            <Badge variant="warning" size="sm" icon={Star} className="animate-pulse">
+            <Badge
+              variant="warning"
+              size="sm"
+              icon={Star}
+              className="animate-pulse"
+            >
               Popular
             </Badge>
           </div>
         )}
-        
+
         <CardContent className="p-8 flex flex-col h-full">
           {/* Icon with Steel Blue Accent */}
           <div className="mb-6">
@@ -69,7 +84,8 @@ export const ServiceCard = ({
 
           {/* Description */}
           <p className="text-muted-foreground text-sm mb-6 line-clamp-3 flex-grow leading-relaxed">
-            {short_description || "Professional construction service tailored to your project requirements"}
+            {short_description ||
+              "Professional construction service tailored to your project requirements"}
           </p>
 
           {/* Project Types & Timeline */}
@@ -77,7 +93,8 @@ export const ServiceCard = ({
             {project_types && project_types.length > 0 && (
               <div className="flex items-center gap-3 flex-wrap">
                 {project_types.map((type) => {
-                  const Icon = projectTypeIcons[type as keyof typeof projectTypeIcons];
+                  const Icon =
+                    projectTypeIcons[type as keyof typeof projectTypeIcons];
                   return Icon ? (
                     <div
                       key={type}

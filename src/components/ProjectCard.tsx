@@ -2,7 +2,15 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import { MapPin, Calendar, Ruler, Eye, CheckCircle2, DollarSign, Shield } from "lucide-react";
+import {
+  MapPin,
+  Calendar,
+  Ruler,
+  Eye,
+  CheckCircle2,
+  DollarSign,
+  Shield,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
 
@@ -64,15 +72,17 @@ const ProjectCard = ({
           }}
           className={cn(
             "w-full h-full object-cover object-center transition-transform duration-500",
-            isHovered && "scale-110"
+            isHovered && "scale-110",
           )}
         />
-        
+
         {/* Clean overlay on hover */}
-        <div className={cn(
-          "absolute inset-0 bg-primary/90 flex items-center justify-center transition-opacity duration-300",
-          isHovered ? "opacity-100" : "opacity-0"
-        )}>
+        <div
+          className={cn(
+            "absolute inset-0 bg-primary/90 flex items-center justify-center transition-opacity duration-300",
+            isHovered ? "opacity-100" : "opacity-0",
+          )}
+        >
           <div className="text-center px-6">
             <Button variant="secondary" size="sm">
               <Eye className="w-4 h-4 mr-2" />
@@ -80,17 +90,19 @@ const ProjectCard = ({
             </Button>
           </div>
         </div>
-        
+
         {/* Simple category badge */}
         <div className="absolute top-4 right-4">
-          <Badge variant="primary" size="sm">{category}</Badge>
+          <Badge variant="primary" size="sm">
+            {category}
+          </Badge>
         </div>
       </div>
-      
+
       {/* Card Content - Clean PCL style */}
       <CardContent className="p-6">
         <h3 className="text-lg font-bold mb-3 line-clamp-2">{title}</h3>
-        
+
         {/* Compact stats */}
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
           <div className="flex items-center gap-1">
@@ -102,9 +114,13 @@ const ProjectCard = ({
             <span>{year}</span>
           </div>
         </div>
-        
+
         {/* GC Metrics Badges */}
-        {(project_value || your_role || on_time_completion !== undefined || on_budget !== undefined || safety_incidents !== undefined) && (
+        {(project_value ||
+          your_role ||
+          on_time_completion !== undefined ||
+          on_budget !== undefined ||
+          safety_incidents !== undefined) && (
           <div className="flex flex-wrap gap-1.5 mb-3">
             {project_value && (
               <Badge variant="outline" size="sm">
@@ -133,8 +149,10 @@ const ProjectCard = ({
             )}
           </div>
         )}
-        
-        <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+
+        <p className="text-sm text-muted-foreground line-clamp-2">
+          {description}
+        </p>
       </CardContent>
     </Card>
   );
