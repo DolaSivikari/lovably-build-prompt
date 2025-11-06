@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Ruler, Layers, PaintBucket, Building2, CheckCircle2, ArrowRight } from 'lucide-react';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
-import heroImage from '@/assets/hero-interior-buildouts.jpg';
+import heroImage from '@/assets/heroes/hero-tenant-improvements.jpg';
 
 const InteriorBuildouts = () => {
   const serviceSchema = createServiceSchema({

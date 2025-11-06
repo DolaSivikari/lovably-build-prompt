@@ -6,7 +6,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
-import heroImage from "@/assets/hero-general-contracting.jpg";
+import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 
 const GeneralContracting = () => {
   const whatWeDeliver = [
