@@ -2373,6 +2373,42 @@ export type Database = {
         }
         Relationships: []
       }
+      search_analytics: {
+        Row: {
+          clicked_result_link: string | null
+          clicked_result_name: string | null
+          created_at: string
+          id: string
+          results_count: number
+          search_query: string
+          searched_at: string
+          section_distribution: Json | null
+          user_session_id: string | null
+        }
+        Insert: {
+          clicked_result_link?: string | null
+          clicked_result_name?: string | null
+          created_at?: string
+          id?: string
+          results_count?: number
+          search_query: string
+          searched_at?: string
+          section_distribution?: Json | null
+          user_session_id?: string | null
+        }
+        Update: {
+          clicked_result_link?: string | null
+          clicked_result_name?: string | null
+          created_at?: string
+          id?: string
+          results_count?: number
+          search_query?: string
+          searched_at?: string
+          section_distribution?: Json | null
+          user_session_id?: string | null
+        }
+        Relationships: []
+      }
       search_console_data: {
         Row: {
           clicks: number | null

@@ -1,5 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
+import { useSearchAnalytics } from "./useSearchAnalytics";
 
 interface SearchResult {
   name: string;
@@ -11,6 +12,7 @@ interface SearchResult {
 
 export function useNavigationSearch() {
   const [searchQuery, setSearchQuery] = useState("");
+  const { trackSearch } = useSearchAnalytics();
 
   const allNavigationItems = useMemo(() => {
     const items: SearchResult[] = [];
@@ -117,6 +119,23 @@ export function useNavigationSearch() {
       );
     });
   }, [searchQuery, allNavigationItems]);
+
+  // Track search analytics when results change
+  useEffect(() => {
+    if (searchQuery.trim() && filteredResults.length >= 0) {
+      // Calculate section distribution
+      const sectionDistribution = filteredResults.reduce((acc, result) => {
+        acc[result.section] = (acc[result.section] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+
+      trackSearch({
+        search_query: searchQuery,
+        results_count: filteredResults.length,
+        section_distribution: sectionDistribution,
+      });
+    }
+  }, [searchQuery, filteredResults, trackSearch]);
 
   return {
     searchQuery,

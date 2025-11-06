@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Star, Building, Wrench, Users, TrendingUp } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { useSearchAnalytics } from "@/hooks/useSearchAnalytics";
 
 interface SearchResult {
   name: string;
@@ -54,6 +55,13 @@ const highlightMatch = (text: string, query: string) => {
 };
 
 export function MobileSearchResults({ results, searchQuery, onLinkClick }: MobileSearchResultsProps) {
+  const { trackResultClick } = useSearchAnalytics();
+
+  const handleResultClick = (result: SearchResult) => {
+    trackResultClick(searchQuery, result.name, result.link);
+    onLinkClick();
+  };
+
   if (results.length === 0) {
     return (
       <div className="px-6 py-12 text-center animate-fade-in">
@@ -105,7 +113,7 @@ export function MobileSearchResults({ results, searchQuery, onLinkClick }: Mobil
                   <Link
                     key={`${result.link}-${resultIndex}`}
                     to={result.link}
-                    onClick={onLinkClick}
+                    onClick={() => handleResultClick(result)}
                     className="group flex items-center justify-between py-3 px-4 min-h-[44px] bg-muted/30 hover:bg-primary/10 hover:border-primary/20 active:scale-[0.98] rounded-lg border border-transparent transition-all duration-200 touch-manipulation"
                   >
                     <div className="flex-1">
