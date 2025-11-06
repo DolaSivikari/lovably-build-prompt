@@ -7,12 +7,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { MobileFooterMega } from "@/components/footer/MobileFooterMega";
 import { DesktopFooterMega } from "@/components/footer/DesktopFooterMega";
+import { useContactEmails } from "@/hooks/useContactEmails";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
   const [footerSettings, setFooterSettings] = useState<any>(null);
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const { generalEmail } = useContactEmails();
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -42,10 +44,10 @@ const Footer = () => {
   const contactInfo = footerSettings?.contact_info || {};
   const socialMedia = footerSettings?.social_media || {};
   
-  // Primary source: site_settings, fallback to footer_settings
+  // Primary source: site_settings, fallback to footer_settings, then database email
   const address = siteSettings?.address || contactInfo.address || '';
   const phone = siteSettings?.phone || contactInfo.phone || '';
-  const email = siteSettings?.email || contactInfo.email || '';
+  const email = siteSettings?.email || contactInfo.email || generalEmail;
   const linkedinUrl = socialMedia.linkedin || '';
 
   // Static fallback links if admin hasn't configured them
@@ -84,7 +86,7 @@ const Footer = () => {
     "@id": "https://ascentgroupconstruction.com/#organization",
     name: "Ascent Group Construction",
     image: "https://ascentgroupconstruction.com/og-image.jpg",
-    email: "info@ascentgroupconstruction.com",
+    email: generalEmail,
     areaServed: { "@type": "State", name: "Ontario" },
     address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
     serviceType: ["General Contracting", "Construction Management", "Design-Build Services"],

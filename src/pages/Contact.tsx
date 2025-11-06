@@ -124,6 +124,7 @@ const Contact = () => {
   const generalEmail = contactSettings?.general_email || 'info@ascentgroupconstruction.com';
   const projectsEmail = contactSettings?.projects_email || 'projects@ascentgroupconstruction.com';
   const careersEmail = contactSettings?.careers_email || 'careers@ascentgroupconstruction.com';
+  const rfpEmail = contactSettings?.rfp_email || 'rfp@ascentgroupconstruction.com';
   const weekdayHours = contactSettings?.weekday_hours || 'Monday - Friday: 8:00 AM - 6:00 PM';
   const saturdayHours = contactSettings?.saturday_hours || 'Saturday: 9:00 AM - 2:00 PM';
   const sundayHours = contactSettings?.sunday_hours || 'Sunday: Closed';
@@ -142,6 +143,7 @@ const Contact = () => {
           generalEmail,
           projectsEmail,
           careersEmail,
+          rfpEmail,
           weekdayHours,
           saturdayHours,
           sundayHours

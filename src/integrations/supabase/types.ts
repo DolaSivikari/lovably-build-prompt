@@ -654,6 +654,7 @@ export type Database = {
           map_embed_url: string | null
           office_address: string | null
           projects_email: string | null
+          rfp_email: string | null
           saturday_hours: string | null
           sunday_hours: string | null
           toll_free_phone: string | null
@@ -672,6 +673,7 @@ export type Database = {
           map_embed_url?: string | null
           office_address?: string | null
           projects_email?: string | null
+          rfp_email?: string | null
           saturday_hours?: string | null
           sunday_hours?: string | null
           toll_free_phone?: string | null
@@ -690,6 +692,7 @@ export type Database = {
           map_embed_url?: string | null
           office_address?: string | null
           projects_email?: string | null
+          rfp_email?: string | null
           saturday_hours?: string | null
           sunday_hours?: string | null
           toll_free_phone?: string | null

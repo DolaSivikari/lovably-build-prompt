@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useCompanyStats } from "@/hooks/useCompanyStats";
+import { useContactEmails } from "@/hooks/useContactEmails";
 
 interface SEOProps {
   title?: string;
@@ -21,6 +22,7 @@ const SEO = ({
   includeRating = false,
 }: SEOProps) => {
   const { yearsInBusinessFormatted } = useCompanyStats();
+  const { generalEmail } = useContactEmails();
   const fullTitle = title.includes("Ascen") ? title : `${title} | Ascen Group Construction`;
   const siteUrl = window.location.origin;
   const currentUrl = canonical || window.location.href;
@@ -43,7 +45,7 @@ const SEO = ({
       height: "60"
     },
     image: `${siteUrl}/og-image.jpg`,
-    email: "info@ascentgroupconstruction.com",
+    email: generalEmail,
     address: {
       "@type": "PostalAddress",
       streetAddress: "Greater Toronto Area",
@@ -107,7 +109,7 @@ const SEO = ({
       "@type": "ContactPoint",
       contactType: "customer service",
       telephone: "+1-647-123-4567",
-      email: "info@ascentgroupconstruction.com",
+      email: generalEmail,
       availableLanguage: ["English"],
       areaServed: "CA"
     },

@@ -16,11 +16,13 @@ import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
 import { RFPStep3Timeline } from "@/components/rfp/RFPStep3Timeline";
 import { RFPStep4Scope } from "@/components/rfp/RFPStep4Scope";
+import { useContactEmails } from "@/hooks/useContactEmails";
 
 export default function SubmitRFPNew() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const { rfpEmail } = useContactEmails();
 
   const form = useForm<RFPSubmission>({
     resolver: zodResolver(rfpSubmissionSchema),
@@ -229,7 +231,7 @@ export default function SubmitRFPNew() {
               <p className="text-muted-foreground mb-4">Have questions about the RFP process or need assistance with your submission?</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div><p className="font-semibold mb-1">📞 Call Us</p><p className="text-muted-foreground">(416) 647-5286</p></div>
-                <div><p className="font-semibold mb-1">📧 Email</p><p className="text-muted-foreground">rfp@ascentgroupconstruction.com</p></div>
+                <div><p className="font-semibold mb-1">📧 Email</p><p className="text-muted-foreground">{rfpEmail}</p></div>
               </div>
             </CardContent>
           </Card>
