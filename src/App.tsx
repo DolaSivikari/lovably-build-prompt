@@ -122,7 +122,7 @@ const ResumeSubmissions = lazy(() => import("./pages/admin/ResumeSubmissions").c
 const PrequalificationSubmissions = lazy(() => import("./pages/admin/PrequalificationSubmissions").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Prequalification Submissions</p></div>
 })));
-const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary").catch(() => ({
+const MediaLibrary = lazy(() => import("./pages/admin/MediaLibraryEnhanced").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Media Library</p></div>
 })));
 const Users = lazy(() => import("./pages/admin/Users").catch(() => ({
@@ -133,6 +133,26 @@ const SecuritySettings = lazy(() => import("./pages/admin/SecuritySettings").cat
 })));
 const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Performance Dashboard</p></div>
+})));
+
+// Phase 1 & 2 Admin Pages
+const HomepageWhyChooseUs = lazy(() => import("./pages/admin/HomepageWhyChooseUs").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Editor</p></div>
+})));
+const HomepageCompanyOverview = lazy(() => import("./pages/admin/HomepageCompanyOverview").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Editor</p></div>
+})));
+const HomepageContent = lazy(() => import("./pages/admin/HomepageContent").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Content</p></div>
+})));
+const NavigationBuilder = lazy(() => import("./pages/admin/NavigationBuilder").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Builder</p></div>
+})));
+const RedirectsManager = lazy(() => import("./pages/admin/RedirectsManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Redirects Manager</p></div>
+})));
+const StructuredDataManager = lazy(() => import("./pages/admin/StructuredDataManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Structured Data Manager</p></div>
 })));
 const LandingMenuEditor = lazy(() => import("./pages/admin/LandingMenuEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Landing Menu Editor</p></div>
@@ -328,6 +348,14 @@ const App = () => (
                     <Route path="settings-health" element={<SettingsHealthCheck />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
+                    
+                    {/* Phase 1 & 2: Homepage & Navigation Management */}
+                    <Route path="homepage-content" element={<HomepageContent />} />
+                    <Route path="homepage-why-choose-us" element={<HomepageWhyChooseUs />} />
+                    <Route path="homepage-company-overview" element={<HomepageCompanyOverview />} />
+                    <Route path="navigation-builder" element={<NavigationBuilder />} />
+                    <Route path="redirects" element={<RedirectsManager />} />
+                    <Route path="structured-data" element={<StructuredDataManager />} />
                     
                     {/* Business Management Routes */}
                     <Route path="business" element={<BusinessDashboard />} />

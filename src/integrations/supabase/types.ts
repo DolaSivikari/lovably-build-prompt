@@ -296,6 +296,7 @@ export type Database = {
           created_by: string | null
           featured_image: string | null
           id: string
+          og_image_url: string | null
           preview_token: string | null
           preview_token_created_by: string | null
           preview_token_expires_at: string | null
@@ -335,6 +336,7 @@ export type Database = {
           created_by?: string | null
           featured_image?: string | null
           id?: string
+          og_image_url?: string | null
           preview_token?: string | null
           preview_token_created_by?: string | null
           preview_token_expires_at?: string | null
@@ -374,6 +376,7 @@ export type Database = {
           created_by?: string | null
           featured_image?: string | null
           id?: string
+          og_image_url?: string | null
           preview_token?: string | null
           preview_token_created_by?: string | null
           preview_token_expires_at?: string | null
@@ -646,6 +649,36 @@ export type Database = {
         }
         Relationships: []
       }
+      content_review_comments: {
+        Row: {
+          comment: string
+          created_at: string | null
+          created_by: string
+          entity_id: string
+          entity_type: string
+          id: string
+          status: string | null
+        }
+        Insert: {
+          comment: string
+          created_at?: string | null
+          created_by: string
+          entity_id: string
+          entity_type: string
+          id?: string
+          status?: string | null
+        }
+        Update: {
+          comment?: string
+          created_at?: string | null
+          created_by?: string
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          status?: string | null
+        }
+        Relationships: []
+      }
       content_versions: {
         Row: {
           change_summary: string | null
@@ -713,9 +746,11 @@ export type Database = {
       }
       documents_library: {
         Row: {
+          alt_text: string | null
           category: string
           created_at: string | null
           created_by: string | null
+          crop_presets: Json | null
           description: string | null
           display_order: number | null
           download_count: number | null
@@ -724,6 +759,8 @@ export type Database = {
           file_size: number | null
           file_type: string | null
           file_url: string
+          focal_point_x: number | null
+          focal_point_y: number | null
           id: string
           is_active: boolean | null
           requires_authentication: boolean | null
@@ -733,9 +770,11 @@ export type Database = {
           version: string | null
         }
         Insert: {
+          alt_text?: string | null
           category: string
           created_at?: string | null
           created_by?: string | null
+          crop_presets?: Json | null
           description?: string | null
           display_order?: number | null
           download_count?: number | null
@@ -744,6 +783,8 @@ export type Database = {
           file_size?: number | null
           file_type?: string | null
           file_url: string
+          focal_point_x?: number | null
+          focal_point_y?: number | null
           id?: string
           is_active?: boolean | null
           requires_authentication?: boolean | null
@@ -753,9 +794,11 @@ export type Database = {
           version?: string | null
         }
         Update: {
+          alt_text?: string | null
           category?: string
           created_at?: string | null
           created_by?: string | null
+          crop_presets?: Json | null
           description?: string | null
           display_order?: number | null
           download_count?: number | null
@@ -764,6 +807,8 @@ export type Database = {
           file_size?: number | null
           file_type?: string | null
           file_url?: string
+          focal_point_x?: number | null
+          focal_point_y?: number | null
           id?: string
           is_active?: boolean | null
           requires_authentication?: boolean | null
@@ -1659,6 +1704,7 @@ export type Database = {
           after_images: Json | null
           before_images: Json | null
           budget_range: string | null
+          canonical_url: string | null
           category: string | null
           client_name: string | null
           client_type: string | null
@@ -1675,6 +1721,7 @@ export type Database = {
           gallery: Json | null
           id: string
           location: string | null
+          og_image_url: string | null
           on_budget: boolean | null
           on_time_completion: boolean | null
           peak_workforce: number | null
@@ -1711,6 +1758,7 @@ export type Database = {
           after_images?: Json | null
           before_images?: Json | null
           budget_range?: string | null
+          canonical_url?: string | null
           category?: string | null
           client_name?: string | null
           client_type?: string | null
@@ -1727,6 +1775,7 @@ export type Database = {
           gallery?: Json | null
           id?: string
           location?: string | null
+          og_image_url?: string | null
           on_budget?: boolean | null
           on_time_completion?: boolean | null
           peak_workforce?: number | null
@@ -1763,6 +1812,7 @@ export type Database = {
           after_images?: Json | null
           before_images?: Json | null
           budget_range?: string | null
+          canonical_url?: string | null
           category?: string | null
           client_name?: string | null
           client_type?: string | null
@@ -1779,6 +1829,7 @@ export type Database = {
           gallery?: Json | null
           id?: string
           location?: string | null
+          og_image_url?: string | null
           on_budget?: boolean | null
           on_time_completion?: boolean | null
           peak_workforce?: number | null
@@ -1827,6 +1878,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      redirects: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          destination_path: string
+          hit_count: number | null
+          id: string
+          is_active: boolean | null
+          notes: string | null
+          redirect_type: number | null
+          source_path: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          destination_path: string
+          hit_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          notes?: string | null
+          redirect_type?: number | null
+          source_path: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          destination_path?: string
+          hit_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          notes?: string | null
+          redirect_type?: number | null
+          source_path?: string
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       resume_submissions: {
         Row: {
@@ -2037,6 +2127,7 @@ export type Database = {
       }
       services: {
         Row: {
+          canonical_url: string | null
           category: string | null
           category_color: string | null
           category_description: string | null
@@ -2051,6 +2142,7 @@ export type Database = {
           key_benefits: Json | null
           long_description: string | null
           name: string
+          og_image_url: string | null
           preview_token: string | null
           preview_token_created_by: string | null
           preview_token_expires_at: string | null
@@ -2073,6 +2165,7 @@ export type Database = {
           what_we_provide: Json | null
         }
         Insert: {
+          canonical_url?: string | null
           category?: string | null
           category_color?: string | null
           category_description?: string | null
@@ -2087,6 +2180,7 @@ export type Database = {
           key_benefits?: Json | null
           long_description?: string | null
           name: string
+          og_image_url?: string | null
           preview_token?: string | null
           preview_token_created_by?: string | null
           preview_token_expires_at?: string | null
@@ -2109,6 +2203,7 @@ export type Database = {
           what_we_provide?: Json | null
         }
         Update: {
+          canonical_url?: string | null
           category?: string | null
           category_color?: string | null
           category_description?: string | null
@@ -2123,6 +2218,7 @@ export type Database = {
           key_benefits?: Json | null
           long_description?: string | null
           name?: string
+          og_image_url?: string | null
           preview_token?: string | null
           preview_token_created_by?: string | null
           preview_token_expires_at?: string | null
@@ -2302,6 +2398,39 @@ export type Database = {
           updated_at?: string | null
           updated_by?: string | null
           value?: number
+        }
+        Relationships: []
+      }
+      structured_data_templates: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          schema_json: Json
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          schema_json: Json
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          schema_json?: Json
+          type?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
