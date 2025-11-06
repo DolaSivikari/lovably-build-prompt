@@ -118,7 +118,7 @@ function DownloadableDocuments() {
       //   document_id: doc.id,
       //   ip_address: null,
       //   user_agent: navigator.userAgent
-      });
+      // });
 
       // Increment download count
       const { data: currentDoc } = await supabase

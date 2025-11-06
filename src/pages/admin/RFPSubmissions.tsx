@@ -27,10 +27,7 @@ interface RFPSubmission {
   estimated_value_range: string | null;
   estimated_start_date: string | null;
   project_description: string | null;
-  delivery_method: string | null;
-  bonding_required: boolean;
-  prequalification_complete: boolean;
-  additional_requirements: string | null;
+  special_requirements: string | null;
   status: string;
   admin_notes: string | null;
   created_at: string;
@@ -302,11 +299,7 @@ export default function RFPSubmissions() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label className="text-sm">Type</Label>
-                      <p className="capitalize">{selectedSubmission.project_type.replace('-', ' ')}</p>
-                    </div>
-                    <div>
-                      <Label className="text-sm">Delivery Method</Label>
-                      <p className="capitalize">{selectedSubmission.delivery_method?.replace('-', ' ') || 'N/A'}</p>
+                      <p className="capitalize">{selectedSubmission.project_type?.replace('-', ' ') || 'Not specified'}</p>
                     </div>
                   </div>
                   <div>
@@ -322,36 +315,26 @@ export default function RFPSubmissions() {
                         <DollarSign className="w-3 h-3" />
                         Estimated Value
                       </Label>
-                      <p>{valueRangeLabels[selectedSubmission.estimated_value_range]}</p>
+                      <p>{valueRangeLabels[selectedSubmission.estimated_value_range] || 'Not specified'}</p>
                     </div>
                     <div>
                       <Label className="text-sm flex items-center gap-2">
                         <Calendar className="w-3 h-3" />
-                        Timeline
+                        Start Date
                       </Label>
-                      <p className="capitalize">{selectedSubmission.estimated_timeline?.replace('-', ' ') || 'N/A'}</p>
+                      <p>{selectedSubmission.estimated_start_date ? format(new Date(selectedSubmission.estimated_start_date), 'MMM d, yyyy') : 'Not specified'}</p>
                     </div>
                   </div>
                   <div>
-                    <Label className="text-sm">Scope of Work</Label>
-                    <p className="whitespace-pre-wrap text-sm bg-muted p-3 rounded">{selectedSubmission.scope_of_work}</p>
+                    <Label className="text-sm">Project Description</Label>
+                    <p className="whitespace-pre-wrap text-sm bg-muted p-3 rounded">{selectedSubmission.project_description || 'No description provided'}</p>
                   </div>
-                  {selectedSubmission.additional_requirements && (
+                  {selectedSubmission.special_requirements && (
                     <div>
-                      <Label className="text-sm">Additional Requirements</Label>
-                      <p className="whitespace-pre-wrap text-sm">{selectedSubmission.additional_requirements}</p>
+                      <Label className="text-sm">Special Requirements</Label>
+                      <p className="whitespace-pre-wrap text-sm">{selectedSubmission.special_requirements}</p>
                     </div>
                   )}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label className="text-sm">Bonding Required</Label>
-                      <p>{selectedSubmission.bonding_required ? 'Yes' : 'No'}</p>
-                    </div>
-                    <div>
-                      <Label className="text-sm">Prequalification Complete</Label>
-                      <p>{selectedSubmission.prequalification_complete ? 'Yes' : 'No'}</p>
-                    </div>
-                  </div>
                 </div>
               </div>
 

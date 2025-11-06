@@ -128,20 +128,11 @@ const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary").catch(() =>
 const Users = lazy(() => import("./pages/admin/Users").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Users</p></div>
 })));
-const SecurityCenter = lazy(() => import("./pages/admin/SecurityCenter").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Security Center</p></div>
-})));
 const SecuritySettings = lazy(() => import("./pages/admin/SecuritySettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Security Settings</p></div>
 })));
-const AdminSEODashboard = lazy(() => import("./pages/admin/SEODashboard").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
-})));
 const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Performance Dashboard</p></div>
-})));
-const TemplateManager = lazy(() => import("./pages/admin/TemplateManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Template Manager</p></div>
 })));
 const LandingMenuEditor = lazy(() => import("./pages/admin/LandingMenuEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Landing Menu Editor</p></div>
@@ -308,11 +299,8 @@ const App = () => (
                     <Route path="rfp-submissions" element={<RFPSubmissions />} />
                     <Route path="documents-library" element={<DocumentsLibrary />} />
                     <Route path="homepage-settings" element={<HomepageSettings />} />
-                    <Route path="security-center" element={<SecurityCenter />} />
                     <Route path="security-settings" element={<SecuritySettings />} />
-                    <Route path="seo-dashboard" element={<AdminSEODashboard />} />
                     <Route path="performance-dashboard" element={<PerformanceDashboard />} />
-                    <Route path="template-manager" element={<TemplateManager />} />
                     <Route path="site-settings" element={<SiteSettings />} />
                     <Route path="landing-menu" element={<LandingMenuEditor />} />
                     <Route path="about-page" element={<AboutPageSettings />} />
