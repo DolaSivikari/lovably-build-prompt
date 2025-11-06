@@ -18,7 +18,7 @@ import { FilterDrawer } from "@/components/projects/FilterDrawer";
 import { FilterChips } from "@/components/projects/FilterChips";
 import { ProjectQuickView } from "@/components/projects/ProjectQuickView";
 import { VideoTestimonials } from "@/components/shared/VideoTestimonials";
-import { ProjectCompletionTicker } from "@/components/shared/ProjectCompletionTicker";
+
 
 const categories = [
   { label: "All Projects", value: "All", icon: Building2 },
@@ -199,8 +199,6 @@ const Projects = () => {
         }))}
       />
 
-      {/* Project Completion Ticker */}
-      <ProjectCompletionTicker className="my-8" />
 
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (
