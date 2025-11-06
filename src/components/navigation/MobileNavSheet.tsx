@@ -35,30 +35,30 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
         side="left" 
-        className="w-full sm:max-w-md overflow-y-auto p-0"
+        className="w-full sm:max-w-md overflow-y-auto p-0 animate-slide-in-right"
       >
-        <SheetHeader className="p-6 pb-4 text-left border-b">
-          <SheetTitle>Menu</SheetTitle>
-          <SheetDescription>
+        <SheetHeader className="p-6 pb-4 text-left border-b animate-fade-in">
+          <SheetTitle className="text-2xl font-bold">Menu</SheetTitle>
+          <SheetDescription className="text-base">
             Explore our services and resources
           </SheetDescription>
         </SheetHeader>
 
         <div className="px-6 py-4">
-          {/* Search Bar */}
-          <div className="mb-6">
+          {/* Search Bar - Optimized Touch Target */}
+          <div className="mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
               <Input
                 type="search"
                 placeholder="Search services..."
-                className="pl-10 h-11"
+                className="pl-10 h-12 min-h-[44px] text-base touch-manipulation"
               />
             </div>
           </div>
 
-          {/* Popular Services Quick Links */}
-          <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[var(--radius-sm)] border border-primary/10">
+          {/* Popular Services Quick Links - Optimized Touch Targets */}
+          <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[var(--radius-sm)] border border-primary/10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-primary" />
               Popular Services
@@ -67,43 +67,43 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               <Link
                 to="/services/commercial-painting"
                 onClick={handleLinkClick}
-                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary menu-item-hover"
+                className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation"
               >
-                <Building className="h-3 w-3" />
+                <Building className="h-4 w-4" />
                 Commercial
               </Link>
               <Link
                 to="/services/residential-painting"
                 onClick={handleLinkClick}
-                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation"
               >
-                <Users className="h-3 w-3" />
+                <Users className="h-4 w-4" />
                 Residential
               </Link>
               <Link
                 to="/services/stucco-eifs"
                 onClick={handleLinkClick}
-                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation"
               >
-                <Wrench className="h-3 w-3" />
+                <Wrench className="h-4 w-4" />
                 Stucco
               </Link>
               <Link
                 to="/services/parking-garage"
                 onClick={handleLinkClick}
-                className="flex items-center gap-2 text-xs py-2 px-3 bg-background rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation"
               >
-                <Building className="h-3 w-3" />
+                <Building className="h-4 w-4" />
                 Restoration
               </Link>
             </div>
           </div>
-          {/* Top-level routes */}
-          <nav className="space-y-1 mb-6">
+          {/* Top-level routes - Optimized Touch Targets */}
+          <nav className="space-y-1 mb-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
             <Link
               to="/"
               onClick={handleLinkClick}
-              className={`block py-3 px-4 rounded-[var(--radius-xs)] text-base font-medium menu-item-hover ${
+              className={`block py-3 px-4 min-h-[44px] rounded-[var(--radius-xs)] text-base font-medium active:scale-[0.98] transition-all duration-200 touch-manipulation ${
                 isActive("/")
                   ? "bg-[hsl(var(--sage))]/20 text-[hsl(var(--sage-dark))]"
                   : "hover:bg-muted"
@@ -114,7 +114,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             <Link
               to="/contact"
               onClick={handleLinkClick}
-              className={`block py-3 px-4 rounded-md text-base font-medium transition-colors ${
+              className={`block py-3 px-4 min-h-[44px] rounded-[var(--radius-xs)] text-base font-medium active:scale-[0.98] transition-all duration-200 touch-manipulation ${
                 isActive("/contact")
                   ? "bg-[hsl(var(--sage))]/20 text-[hsl(var(--sage-dark))]"
                   : "hover:bg-muted"
@@ -124,11 +124,11 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </Link>
           </nav>
 
-          {/* Accordion sections */}
-          <Accordion type="multiple" className="space-y-2">
+          {/* Accordion sections with staggered animation */}
+          <Accordion type="multiple" className="space-y-2 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             {/* Services Section */}
             <AccordionItem value="services" className="border rounded-[var(--radius-xs)]">
-              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-[var(--radius-xs)] font-semibold">
+              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted active:bg-muted/70 rounded-[var(--radius-xs)] font-semibold transition-all duration-200 touch-manipulation">
                 Services
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
@@ -148,7 +148,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                   key={item.link}
                                   to={item.link}
                                   onClick={handleLinkClick}
-                                  className="block py-2 text-sm text-muted-foreground hover:text-[hsl(var(--sage-dark))] hover:bg-[hsl(var(--sage))]/10 px-2 rounded-[var(--radius-xs)] menu-item-hover"
+                                  className="block py-2 px-2 min-h-[44px] flex items-center text-sm text-muted-foreground hover:text-[hsl(var(--sage-dark))] hover:bg-[hsl(var(--sage))]/10 active:scale-[0.98] rounded-[var(--radius-xs)] transition-all duration-200 touch-manipulation"
                                 >
                                   {item.name}
                                 </Link>
@@ -164,8 +164,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </AccordionItem>
 
             {/* Markets Section */}
-            <AccordionItem value="markets" className="border rounded-md">
-              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
+            <AccordionItem value="markets" className="border rounded-[var(--radius-xs)]">
+              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted active:bg-muted/70 rounded-[var(--radius-xs)] font-semibold transition-all duration-200 touch-manipulation">
                 Markets
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
@@ -202,8 +202,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </AccordionItem>
 
             {/* Projects Section */}
-            <AccordionItem value="projects" className="border rounded-md">
-              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
+            <AccordionItem value="projects" className="border rounded-[var(--radius-xs)]">
+              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted active:bg-muted/70 rounded-[var(--radius-xs)] font-semibold transition-all duration-200 touch-manipulation">
                 Projects
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
@@ -236,8 +236,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </AccordionItem>
 
             {/* Company Section */}
-            <AccordionItem value="company" className="border rounded-md">
-              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
+            <AccordionItem value="company" className="border rounded-[var(--radius-xs)]">
+              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted active:bg-muted/70 rounded-[var(--radius-xs)] font-semibold transition-all duration-200 touch-manipulation">
                 Company
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
@@ -274,8 +274,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </AccordionItem>
 
             {/* Resources Section */}
-            <AccordionItem value="resources" className="border rounded-md">
-              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted rounded-md font-semibold">
+            <AccordionItem value="resources" className="border rounded-[var(--radius-xs)]">
+              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted active:bg-muted/70 rounded-[var(--radius-xs)] font-semibold transition-all duration-200 touch-manipulation">
                 Resources
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
@@ -313,12 +313,12 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
           </Accordion>
         </div>
 
-        {/* Pinned CTA at bottom */}
-        <div className="sticky bottom-0 left-0 right-0 p-6 border-t bg-background">
+        {/* Pinned CTA at bottom - Enhanced Touch Target */}
+        <div className="sticky bottom-0 left-0 right-0 p-6 border-t bg-background backdrop-blur-md animate-fade-in">
           <Button
             asChild
             size="lg"
-            className="w-full gap-2"
+            className="w-full gap-2 min-h-[48px] text-base active:scale-95 transition-transform duration-200 touch-manipulation"
           >
             <Link to="/estimate" onClick={handleLinkClick}>
               <Phone className="h-5 w-5" />
