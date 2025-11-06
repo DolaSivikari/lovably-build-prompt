@@ -22,12 +22,11 @@ interface RFPSubmission {
   email: string;
   phone: string | null;
   project_name: string;
-  project_type: string;
+  project_type: string | null;
   project_location: string | null;
-  estimated_value_range: string;
-  estimated_timeline: string | null;
-  project_start_date: string | null;
-  scope_of_work: string;
+  estimated_value_range: string | null;
+  estimated_start_date: string | null;
+  project_description: string | null;
   delivery_method: string | null;
   bonding_required: boolean;
   prequalification_complete: boolean;
