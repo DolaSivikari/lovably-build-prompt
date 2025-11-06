@@ -69,17 +69,18 @@ const Education = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-          <PageHeader
-            eyebrow="Education Market"
-            title="Transforming Learning Environments"
-            description="Expert construction and renovation services for K-12 schools, colleges, and universities with strategic scheduling and student-first safety"
-            breadcrumbs={[
-              { label: "Home", href: "/" },
-              { label: "Markets", href: "/markets/commercial" },
-              { label: "Education" }
-            ]}
-            variant="standard"
-          />
+        <PageHeader
+          eyebrow="Education Market"
+          title="Transforming Learning Environments"
+          description="Expert construction and renovation services for K-12 schools, colleges, and universities with strategic scheduling and student-first safety"
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Markets", href: "/markets/commercial" },
+            { label: "Education" }
+          ]}
+          variant="standard"
+          backgroundImage={heroEducation}
+        />
 
           {/* Value Propositions */}
           <section className="py-16 bg-background">

@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Shield, Clock, Award } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroHealthcare from "@/assets/heroes/hero-healthcare.jpg";
 
 const Healthcare = () => {
   const valuePropositions = [
@@ -78,6 +79,7 @@ const Healthcare = () => {
               { label: "Healthcare" }
             ]}
             variant="standard"
+            backgroundImage={heroHealthcare}
           />
 
           {/* Value Propositions */}

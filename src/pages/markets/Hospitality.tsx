@@ -79,6 +79,7 @@ const Hospitality = () => {
               { label: "Hospitality" }
             ]}
             variant="standard"
+            backgroundImage={heroHospitality}
           />
 
           {/* Value Propositions */}

@@ -69,17 +69,18 @@ const Retail = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-          <PageHeader
-            eyebrow="Retail Market"
-            title="Building Better Shopping Experiences"
-            description="Expert retail construction and renovation services with fast-track delivery and minimal business disruption"
-            breadcrumbs={[
-              { label: "Home", href: "/" },
-              { label: "Markets", href: "/markets/commercial" },
-              { label: "Retail" }
-            ]}
-            variant="standard"
-          />
+        <PageHeader
+          eyebrow="Retail Market"
+          title="Building Better Shopping Experiences"
+          description="Expert retail construction and renovation services with fast-track delivery and minimal business disruption"
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Markets", href: "/markets/commercial" },
+            { label: "Retail" }
+          ]}
+          variant="standard"
+          backgroundImage={heroRetail}
+        />
 
           {/* Value Propositions */}
           <section className="py-16 bg-background">
