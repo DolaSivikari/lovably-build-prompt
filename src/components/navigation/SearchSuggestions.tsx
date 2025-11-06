@@ -7,9 +7,10 @@ import { haptics } from '@/utils/haptics';
 interface SearchSuggestionsProps {
   onSelectSearch: (query: string) => void;
   onNavigate: () => void;
+  isMobileContext?: boolean;
 }
 
-export function SearchSuggestions({ onSelectSearch, onNavigate }: SearchSuggestionsProps) {
+export function SearchSuggestions({ onSelectSearch, onNavigate, isMobileContext = false }: SearchSuggestionsProps) {
   const { recentSearches, removeSearch, clearRecentSearches } = useRecentSearches();
   const { popularSearches } = usePopularSearches();
 
@@ -36,7 +37,7 @@ export function SearchSuggestions({ onSelectSearch, onNavigate }: SearchSuggesti
   };
 
   return (
-    <div className="absolute top-full left-0 right-0 mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-xl z-50 max-h-[60vh] overflow-y-auto">
+    <div className={`${isMobileContext ? 'relative' : 'absolute top-full left-0 right-0 mt-2 z-50'} bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-xl max-h-[60vh] overflow-y-auto`}>
       {/* Recent Searches */}
       {recentSearches.length > 0 && (
         <div className="p-4 border-b border-border">

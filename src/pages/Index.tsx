@@ -109,7 +109,7 @@ const Index = () => {
   const siteSearchSchema = createSiteSearchSchema("https://ascentgroupconstruction.com");
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative pt-20">
       <SkipLink />
       <ScrollProgress />
       <ParallaxShapes />
