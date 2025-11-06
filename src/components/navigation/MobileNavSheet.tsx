@@ -20,6 +20,7 @@ import { Separator } from "@/components/ui/separator";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { useNavigationSearch } from "@/hooks/useNavigationSearch";
 import { MobileSearchResults } from "./MobileSearchResults";
+import { usePopularServices } from "@/hooks/usePopularServices";
 
 interface MobileNavSheetProps {
   open: boolean;
@@ -29,6 +30,7 @@ interface MobileNavSheetProps {
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
   const { searchQuery, setSearchQuery, filteredResults, isSearching } = useNavigationSearch();
+  const { data: popularServices = [] } = usePopularServices();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -92,47 +94,39 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             />
           ) : (
             <>
-              {/* Popular Services Quick Links - Optimized Touch Targets */}
+              {/* Popular Services Quick Links - Dynamic & Analytics-Driven */}
               <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[var(--radius-sm)] border border-primary/10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-primary" />
-              Popular Services
-            </h4>
-            <div className="grid grid-cols-2 gap-2">
-              <Link
-                to="/services/commercial-painting"
-                onClick={handleLinkClick}
-                className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation"
-              >
-                <Building className="h-4 w-4" />
-                Commercial
-              </Link>
-              <Link
-                to="/services/residential-painting"
-                onClick={handleLinkClick}
-                className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation"
-              >
-                <Users className="h-4 w-4" />
-                Residential
-              </Link>
-              <Link
-                to="/services/stucco-eifs"
-                onClick={handleLinkClick}
-                className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation"
-              >
-                <Wrench className="h-4 w-4" />
-                Stucco
-              </Link>
-              <Link
-                to="/services/parking-garage"
-                onClick={handleLinkClick}
-                className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation"
-              >
-                <Building className="h-4 w-4" />
-                Restoration
-              </Link>
-            </div>
-          </div>
+                <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 text-primary" />
+                  Popular Services
+                </h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {popularServices.map((service) => {
+                    const IconComponent = service.icon;
+                    return (
+                      <Link
+                        key={service.link}
+                        to={service.link}
+                        onClick={handleLinkClick}
+                        className="flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation relative group"
+                      >
+                        <IconComponent className="h-4 w-4 flex-shrink-0" />
+                        <span className="truncate">{service.name}</span>
+                        {service.searchCount && service.searchCount >= 10 && (
+                          <Badge 
+                            variant="secondary" 
+                            size="xs" 
+                            className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                            title={`${service.searchCount} searches`}
+                          >
+                            <TrendingUp className="h-3 w-3" />
+                          </Badge>
+                        )}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
           {/* Top-level routes - Optimized Touch Targets */}
           <nav className="space-y-1 mb-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
             <Link
