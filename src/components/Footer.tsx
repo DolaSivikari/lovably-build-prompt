@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2, Wrench, Target, Briefcase, ChevronDown } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
 import ascentLogo from "@/assets/ascent-logo.png";
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
+import { MobileFooterMega } from "@/components/footer/MobileFooterMega";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
@@ -120,195 +119,17 @@ const Footer = () => {
         {/* Footer Layout */}
         <div className="container mx-auto px-4 py-12 md:py-16">
           
-          {/* Mobile: Accordion-style footer */}
-          <div className="md:hidden space-y-3 mb-8">
-            <Accordion type="multiple" className="space-y-3">
-              {/* Company Section */}
-              <AccordionItem value="company" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-                <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-md bg-primary/10">
-                      <Building2 className="h-4 w-4 text-primary" />
-                    </div>
-                    <span className="font-semibold text-foreground">Company</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 pt-2">
-                  <nav className="space-y-1">
-                    {companyLinks.map((link, index) => (
-                      <Link 
-                        key={index}
-                        to={link.href} 
-                        className="block py-2.5 px-3 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-all active:scale-95"
-                        style={{ touchAction: 'manipulation' }}
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </nav>
-                </AccordionContent>
-              </AccordionItem>
-              
-              {/* Services Section */}
-              <AccordionItem value="services" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-                <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
-                  <div className="flex items-center gap-3 flex-1">
-                    <div className="p-2 rounded-md bg-primary/10">
-                      <Wrench className="h-4 w-4 text-primary" />
-                    </div>
-                    <span className="font-semibold text-foreground">Services</span>
-                    <Badge variant="secondary" className="ml-auto mr-2 text-xs">
-                      {services.length}
-                    </Badge>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 pt-2">
-                  <nav className="grid grid-cols-2 gap-2">
-                    {services.map((service, index) => (
-                      <Link 
-                        key={index}
-                        to={`/services/${service.slug}`}
-                        className="py-2.5 px-3 text-xs text-muted-foreground hover:text-primary bg-background/50 hover:bg-muted rounded-md transition-all active:scale-95 border border-border/30"
-                        style={{ touchAction: 'manipulation' }}
-                      >
-                        {service.name}
-                      </Link>
-                    ))}
-                  </nav>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Markets Section */}
-              <AccordionItem value="markets" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-                <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-md bg-primary/10">
-                      <Target className="h-4 w-4 text-primary" />
-                    </div>
-                    <span className="font-semibold text-foreground">Markets</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 pt-2">
-                  <nav className="space-y-1">
-                    {marketLinks.map((link, index) => (
-                      <Link 
-                        key={index}
-                        to={link.href} 
-                        className="block py-2.5 px-3 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-all active:scale-95"
-                        style={{ touchAction: 'manipulation' }}
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </nav>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Projects Section */}
-              <AccordionItem value="projects" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-                <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-md bg-primary/10">
-                      <Briefcase className="h-4 w-4 text-primary" />
-                    </div>
-                    <span className="font-semibold text-foreground">Projects</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 pt-2">
-                  <nav className="space-y-1">
-                    {projectLinks.map((link, index) => (
-                      <Link 
-                        key={index}
-                        to={link.href} 
-                        className="block py-2.5 px-3 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-all active:scale-95"
-                        style={{ touchAction: 'manipulation' }}
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </nav>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Certifications Section */}
-              <AccordionItem value="certifications" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
-                <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-md bg-primary/10">
-                      <Shield className="h-4 w-4 text-primary" />
-                    </div>
-                    <span className="font-semibold text-foreground">{displayTrustItems ? 'Credentials' : 'Certifications'}</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 pt-2">
-                  {displayTrustItems ? (
-                    <div className="space-y-3">
-                      {trustBarItems.map((item, index) => (
-                        <div key={index} className="flex items-start gap-3 p-3 bg-background/50 rounded-md border border-border/30">
-                          <Shield className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                          <div>
-                            <div className="text-sm font-semibold text-foreground">{item.label}</div>
-                            <div className="text-xs text-muted-foreground">{item.value}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      {certifications.map((cert, index) => {
-                        const Icon = cert.icon;
-                        return (
-                          <div key={index} className="flex items-start gap-3 p-3 bg-background/50 rounded-md border border-border/30">
-                            <Icon className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                            <div>
-                              <div className="text-sm font-semibold text-foreground">{cert.title}</div>
-                              <div className="text-xs text-muted-foreground">{cert.subtitle}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            {/* Contact Card - Always visible on mobile */}
-            <div className="mt-4 p-4 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 rounded-lg border border-primary/20">
-              <h3 className="font-bold text-sm mb-3 flex items-center gap-2 text-foreground">
-                <Phone className="h-4 w-4 text-primary" />
-                Get In Touch
-              </h3>
-              <div className="space-y-2.5 text-sm">
-                {phone && (
-                  <a 
-                    href={`tel:${phone.replace(/[^0-9+]/g, '')}`} 
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors min-h-[44px] active:scale-95"
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    <Phone className="h-4 w-4 flex-shrink-0" />
-                    <span className="font-medium">{phone}</span>
-                  </a>
-                )}
-                {email && (
-                  <a 
-                    href={`mailto:${email}`} 
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors min-h-[44px] active:scale-95"
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    <Mail className="h-4 w-4 flex-shrink-0" />
-                    <span>{email}</span>
-                  </a>
-                )}
-                {address && (
-                  <div className="flex items-start gap-2 text-muted-foreground pt-1">
-                    <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
-                    <span className="text-xs leading-relaxed">{address}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          {/* Mobile: Enhanced Mega Footer */}
+          <MobileFooterMega
+            companyLinks={companyLinks}
+            services={services}
+            marketLinks={marketLinks}
+            projectLinks={projectLinks}
+            certifications={certifications}
+            displayTrustItems={displayTrustItems}
+            trustBarItems={trustBarItems}
+            contactInfo={{ phone, email, address }}
+          />
 
           {/* Desktop: 5-Column Grid */}
           <div className="hidden md:grid md:grid-cols-5 gap-8 mb-12">
