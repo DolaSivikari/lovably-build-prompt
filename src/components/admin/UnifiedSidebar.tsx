@@ -126,6 +126,27 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
         </nav>
 
+        {/* Business Management Section */}
+        <Collapsible defaultOpen={false} data-tour="business">
+          <CollapsibleTrigger className="business-nav-group-label">
+            {!collapsed && (
+              <>
+                <Briefcase size={16} />
+                <span>Business</span>
+              </>
+            )}
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <nav className="business-nav-group">
+              <NavItem to="/admin/business" icon={LayoutDashboard} label="Overview" />
+              <NavItem to="/admin/business/clients" icon={Users} label="Clients" />
+              <NavItem to="/admin/business/projects" icon={Briefcase} label="Projects" />
+              <NavItem to="/admin/business/estimates" icon={FileText} label="Estimates" />
+              <NavItem to="/admin/business/invoices" icon={Receipt} label="Invoices" />
+            </nav>
+          </CollapsibleContent>
+        </Collapsible>
+
         {/* Content Management Section */}
         <Collapsible open={contentOpen} onOpenChange={setContentOpen} data-tour="content">
           <CollapsibleTrigger className="business-nav-group-label">

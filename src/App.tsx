@@ -150,6 +150,23 @@ const HeroImagesManager = lazy(() => import("./pages/admin/HeroImagesManager").c
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Images Manager</p></div>
 })));
 
+// Business Management Pages
+const BusinessDashboard = lazy(() => import("./pages/admin/business/BusinessDashboard").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Dashboard</p></div>
+})));
+const BusinessClients = lazy(() => import("./pages/admin/business/BusinessClients").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Clients</p></div>
+})));
+const BusinessProjects = lazy(() => import("./pages/admin/business/BusinessProjects").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Projects</p></div>
+})));
+const BusinessEstimates = lazy(() => import("./pages/admin/business/BusinessEstimates").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Estimates</p></div>
+})));
+const BusinessInvoices = lazy(() => import("./pages/admin/business/BusinessInvoices").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Invoices</p></div>
+})));
+
 // Unified Admin Layout
 const UnifiedAdminLayout = lazy(() => import("./components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
@@ -311,6 +328,13 @@ const App = () => (
                     <Route path="settings-health" element={<SettingsHealthCheck />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
+                    
+                    {/* Business Management Routes */}
+                    <Route path="business" element={<BusinessDashboard />} />
+                    <Route path="business/clients" element={<BusinessClients />} />
+                    <Route path="business/projects" element={<BusinessProjects />} />
+                    <Route path="business/estimates" element={<BusinessEstimates />} />
+                    <Route path="business/invoices" element={<BusinessInvoices />} />
                   </Route>
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
