@@ -13,6 +13,34 @@ interface FormSubmission {
   honeypot?: string;
 }
 
+// Helper function for safe error responses
+function createErrorResponse(error: any) {
+  console.error('Form submission error:', {
+    message: error.message,
+    stack: error.stack,
+    timestamp: new Date().toISOString()
+  });
+  
+  const isValidationError = error.message?.includes('required') || 
+                           error.message?.includes('invalid') ||
+                           error.message?.includes('must be');
+  
+  const clientMessage = isValidationError 
+    ? error.message
+    : 'Failed to process submission. Please try again later.';
+  
+  return new Response(
+    JSON.stringify({ 
+      error: clientMessage,
+      timestamp: new Date().toISOString()
+    }),
+    { 
+      status: isValidationError ? 400 : 500, 
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+    }
+  );
+}
+
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -129,18 +157,7 @@ serve(async (req) => {
       }
     );
 
-  } catch (error) {
-    console.error('[Error]', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    return new Response(
-      JSON.stringify({ 
-        error: 'Failed to process submission',
-        message: errorMessage 
-      }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 500 
-      }
-    );
+  } catch (error: any) {
+    return createErrorResponse(error);
   }
 });
