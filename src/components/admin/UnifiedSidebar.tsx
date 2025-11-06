@@ -21,11 +21,13 @@ import {
   X,
   MessageSquare,
   BarChart,
-  Award
+  Award,
+  BookOpen
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { GlobalSearch } from './GlobalSearch';
 
 interface UnifiedSidebarProps {
   collapsed: boolean;
@@ -121,9 +123,17 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           )}
         </div>
 
+        {/* Search */}
+        {!collapsed && (
+          <div style={{ padding: '0 1rem', marginBottom: '1rem' }}>
+            <GlobalSearch />
+          </div>
+        )}
+
         {/* Main Dashboard */}
         <nav style={{ marginBottom: '1.5rem' }}>
           <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
+          <NavItem to="/admin/editor-guide" icon={BookOpen} label="Editor Guide" />
         </nav>
 
         {/* Business Management Section */}

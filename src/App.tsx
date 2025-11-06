@@ -148,6 +148,9 @@ const HomepageContent = lazy(() => import("./pages/admin/HomepageContent").catch
 const NavigationBuilder = lazy(() => import("./pages/admin/NavigationBuilder").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Builder</p></div>
 })));
+const EditorGuide = lazy(() => import("./pages/admin/EditorGuide").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Editor Guide</p></div>
+})));
 const RedirectsManager = lazy(() => import("./pages/admin/RedirectsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Redirects Manager</p></div>
 })));
@@ -356,6 +359,7 @@ const App = () => (
                     <Route path="navigation-builder" element={<NavigationBuilder />} />
                     <Route path="redirects" element={<RedirectsManager />} />
                     <Route path="structured-data" element={<StructuredDataManager />} />
+                    <Route path="editor-guide" element={<EditorGuide />} />
                     
                     {/* Business Management Routes */}
                     <Route path="business" element={<BusinessDashboard />} />
