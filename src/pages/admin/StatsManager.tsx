@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const StatsManager = () => {
   const { isLoading: authLoading } = useAdminAuth();
@@ -91,14 +92,22 @@ const StatsManager = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this stat?")) return;
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [statToDelete, setStatToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setStatToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!statToDelete) return;
 
     try {
       const { error } = await supabase
         .from('stats')
         .delete()
-        .eq('id', id);
+        .eq('id', statToDelete);
 
       if (error) throw error;
       toast.success("Stat deleted");
@@ -106,6 +115,8 @@ const StatsManager = () => {
     } catch (error: any) {
       toast.error("Failed to delete stat");
     }
+    setDeleteDialogOpen(false);
+    setStatToDelete(null);
   };
 
   const newStat = () => {
@@ -230,7 +241,7 @@ const StatsManager = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleDelete(stat.id)}
+                          onClick={() => handleDeleteClick(stat.id)}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -340,6 +351,16 @@ const StatsManager = () => {
             </div>
           </DialogContent>
         </Dialog>
+
+        <ConfirmDialog
+          open={deleteDialogOpen}
+          onOpenChange={setDeleteDialogOpen}
+          onConfirm={handleDelete}
+          title="Delete Statistic"
+          description="Are you sure you want to delete this statistic? This action cannot be undone."
+          confirmText="Delete"
+          variant="destructive"
+        />
       </div>
     </div>
   );

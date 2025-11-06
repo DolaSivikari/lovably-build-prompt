@@ -17,6 +17,8 @@ import { generatePreviewToken } from "@/utils/routeHelpers";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface ProjectImage {
   id: string;
@@ -32,6 +34,8 @@ const ProjectEditor = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const { blocker } = useUnsavedChanges({ hasUnsavedChanges });
   const [slugStatus, setSlugStatus] = useState<{
     isChecking: boolean;
     isAvailable: boolean;
@@ -167,6 +171,7 @@ const ProjectEditor = () => {
       .eq("project_id", id);
 
     if (data) {
+      setHasUnsavedChanges(false);
       setFormData({
         slug: data.slug || "",
         title: data.title || "",
@@ -215,11 +220,13 @@ const ProjectEditor = () => {
         scope_of_work: data.scope_of_work || "",
         team_credits: data.team_credits || [],
       });
+      setHasUnsavedChanges(false);
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setHasUnsavedChanges(false);
 
     // Check slug availability before saving
     if (!slugStatus.isAvailable) {
@@ -374,7 +381,23 @@ const ProjectEditor = () => {
     window.open(previewUrl, "_blank");
   };
 
+  const handleFormChange = (updates: Partial<typeof formData>) => {
+    setFormData({ ...formData, ...updates } as any);
+    setHasUnsavedChanges(true);
+  };
+
   return (
+    <>
+      <ConfirmDialog
+        open={blocker.state === "blocked"}
+        onOpenChange={(open) => !open && blocker.reset?.()}
+        onConfirm={() => blocker.proceed?.()}
+        title="Unsaved Changes"
+        description="You have unsaved changes. Are you sure you want to leave this page?"
+        confirmText="Leave"
+        cancelText="Stay"
+        variant="destructive"
+      />
     <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -410,7 +433,7 @@ const ProjectEditor = () => {
               <Input
                 id="title"
                 value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                onChange={(e) => handleFormChange({ title: e.target.value })}
                 required
               />
             </div>
@@ -935,6 +958,7 @@ const ProjectEditor = () => {
         </form>
       </main>
     </div>
+    </>
   );
 };
 

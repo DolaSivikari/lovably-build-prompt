@@ -12,12 +12,16 @@ import { useToast } from "@/hooks/use-toast";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { MultiImageUpload } from "@/components/admin/MultiImageUpload";
 import { generatePreviewToken } from "@/utils/routeHelpers";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const BlogPostEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   const isNewPost = id === "new";
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const { blocker } = useUnsavedChanges({ hasUnsavedChanges });
 
   const [formData, setFormData] = useState({
     title: "",
@@ -78,6 +82,7 @@ const BlogPostEditor = () => {
       });
       navigate("/admin/blog");
     } else if (data) {
+      setHasUnsavedChanges(false);
       setFormData({
         title: data.title || "",
         slug: data.slug || "",
@@ -116,6 +121,7 @@ const BlogPostEditor = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setHasUnsavedChanges(false);
 
     // Validate content length (client-side check before DB constraint)
     const MAX_CONTENT_LENGTH = 50000;
@@ -224,7 +230,23 @@ const BlogPostEditor = () => {
     window.open(previewUrl, "_blank");
   };
 
+  const handleFormChange = (updates: Partial<typeof formData>) => {
+    setFormData({ ...formData, ...updates });
+    setHasUnsavedChanges(true);
+  };
+
   return (
+    <>
+      <ConfirmDialog
+        open={blocker.state === "blocked"}
+        onOpenChange={(open) => !open && blocker.reset?.()}
+        onConfirm={() => blocker.proceed?.()}
+        title="Unsaved Changes"
+        description="You have unsaved changes. Are you sure you want to leave this page?"
+        confirmText="Leave"
+        cancelText="Stay"
+        variant="destructive"
+      />
     <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4">
@@ -266,7 +288,7 @@ const BlogPostEditor = () => {
                 <Input
                   id="title"
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) => handleFormChange({ title: e.target.value })}
                   required
                 />
               </div>
@@ -548,6 +570,7 @@ const BlogPostEditor = () => {
         </form>
       </main>
     </div>
+    </>
   );
 };
 

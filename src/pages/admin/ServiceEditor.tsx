@@ -9,12 +9,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { ArrowLeft, Save } from "lucide-react";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const ServiceEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const { blocker } = useUnsavedChanges({ hasUnsavedChanges });
   const [formData, setFormData] = useState({
     slug: "",
     name: "",
@@ -47,6 +51,7 @@ const ServiceEditor = () => {
         variant: "destructive",
       });
     } else if (data) {
+      setHasUnsavedChanges(false);
       setFormData({
         slug: data.slug || "",
         name: data.name || "",
@@ -64,6 +69,7 @@ const ServiceEditor = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setHasUnsavedChanges(false);
 
     // Validate content length (client-side check before DB constraint)
     const MAX_LONG_DESC_LENGTH = 20000;
@@ -117,7 +123,23 @@ const ServiceEditor = () => {
     setIsLoading(false);
   };
 
+  const handleFormChange = (updates: Partial<typeof formData>) => {
+    setFormData({ ...formData, ...updates });
+    setHasUnsavedChanges(true);
+  };
+
   return (
+    <>
+      <ConfirmDialog
+        open={blocker.state === "blocked"}
+        onOpenChange={(open) => !open && blocker.reset?.()}
+        onConfirm={() => blocker.proceed?.()}
+        title="Unsaved Changes"
+        description="You have unsaved changes. Are you sure you want to leave this page?"
+        confirmText="Leave"
+        cancelText="Stay"
+        variant="destructive"
+      />
     <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -141,7 +163,7 @@ const ServiceEditor = () => {
               <Input
                 id="name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) => handleFormChange({ name: e.target.value })}
                 required
               />
             </div>
@@ -252,6 +274,7 @@ const ServiceEditor = () => {
         </form>
       </main>
     </div>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
 import { generatePreviewToken } from "@/utils/previewToken";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const BlogPosts = () => {
   const navigate = useNavigate();
@@ -43,13 +44,21 @@ const BlogPosts = () => {
     setIsLoading(false);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this blog post?")) return;
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setPostToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!postToDelete) return;
 
     const { error } = await supabase
       .from("blog_posts")
       .delete()
-      .eq("id", id);
+      .eq("id", postToDelete);
 
     if (error) {
       toast({
@@ -64,6 +73,8 @@ const BlogPosts = () => {
       });
       loadPosts();
     }
+    setDeleteDialogOpen(false);
+    setPostToDelete(null);
   };
 
   const getStatusColor = (status: string) => {
@@ -192,7 +203,7 @@ const BlogPosts = () => {
                   <Button 
                     variant="outline" 
                     size="sm"
-                    onClick={() => handleDelete(post.id)}
+                    onClick={() => handleDeleteClick(post.id)}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -202,6 +213,16 @@ const BlogPosts = () => {
           ))}
         </div>
       )}
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+        title="Delete Blog Post"
+        description="Are you sure you want to delete this blog post? This action cannot be undone."
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 };

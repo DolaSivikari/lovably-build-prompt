@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Image, Upload, Eye, Edit, Trash2, Plus, ExternalLink } from "lucide-react";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface HeroImage {
   id: string;
@@ -142,14 +143,22 @@ const HeroImagesManager = () => {
     setIsDialogOpen(true);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this hero image?')) return;
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [imageToDelete, setImageToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setImageToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!imageToDelete) return;
 
     try {
       const { error } = await supabase
         .from('hero_images')
         .delete()
-        .eq('id', id);
+        .eq('id', imageToDelete);
 
       if (error) throw error;
 
@@ -165,6 +174,8 @@ const HeroImagesManager = () => {
         variant: "destructive",
       });
     }
+    setDeleteDialogOpen(false);
+    setImageToDelete(null);
   };
 
   const handleToggleActive = async (id: string, currentStatus: boolean) => {
@@ -424,7 +435,7 @@ const HeroImagesManager = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleDelete(image.id)}
+                          onClick={() => handleDeleteClick(image.id)}
                           title="Delete"
                           className="text-destructive hover:text-destructive"
                         >
@@ -485,6 +496,16 @@ const HeroImagesManager = () => {
             </div>
           </DialogContent>
         </Dialog>
+
+        <ConfirmDialog
+          open={deleteDialogOpen}
+          onOpenChange={setDeleteDialogOpen}
+          onConfirm={handleDelete}
+          title="Delete Hero Image"
+          description="Are you sure you want to delete this hero image? This action cannot be undone."
+          confirmText="Delete"
+          variant="destructive"
+        />
       </div>
     </>
   );

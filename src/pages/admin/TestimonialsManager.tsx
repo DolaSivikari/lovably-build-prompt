@@ -13,6 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ArrowLeft, Plus, Pencil, Trash2, Star } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const TestimonialsManager = () => {
   const { isLoading: authLoading } = useAdminAuth();
@@ -82,14 +83,22 @@ const TestimonialsManager = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this testimonial?")) return;
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [testimonialToDelete, setTestimonialToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setTestimonialToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!testimonialToDelete) return;
 
     try {
       const { error } = await supabase
         .from('testimonials')
         .delete()
-        .eq('id', id);
+        .eq('id', testimonialToDelete);
 
       if (error) throw error;
       toast.success("Testimonial deleted");
@@ -97,6 +106,8 @@ const TestimonialsManager = () => {
     } catch (error: any) {
       toast.error("Failed to delete testimonial");
     }
+    setDeleteDialogOpen(false);
+    setTestimonialToDelete(null);
   };
 
   const newTestimonial = () => {
@@ -187,7 +198,7 @@ const TestimonialsManager = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleDelete(testimonial.id)}
+                          onClick={() => handleDeleteClick(testimonial.id)}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -308,6 +319,16 @@ const TestimonialsManager = () => {
             </div>
           </DialogContent>
         </Dialog>
+
+        <ConfirmDialog
+          open={deleteDialogOpen}
+          onOpenChange={setDeleteDialogOpen}
+          onConfirm={handleDelete}
+          title="Delete Testimonial"
+          description="Are you sure you want to delete this testimonial? This action cannot be undone."
+          confirmText="Delete"
+          variant="destructive"
+        />
       </div>
     </div>
   );

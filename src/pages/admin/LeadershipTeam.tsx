@@ -16,6 +16,7 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, v
 import { CSS } from '@dnd-kit/utilities';
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface TeamMember {
   id: string;
@@ -165,16 +166,26 @@ export default function LeadershipTeam() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this team member?')) return;
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [memberToDelete, setMemberToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setMemberToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!memberToDelete) return;
     try {
-      const { error } = await supabase.from('leadership_team').delete().eq('id', id);
+      const { error } = await supabase.from('leadership_team').delete().eq('id', memberToDelete);
       if (error) throw error;
       toast({ title: "Success", description: "Team member deleted successfully" });
       fetchMembers();
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     }
+    setDeleteDialogOpen(false);
+    setMemberToDelete(null);
   };
 
   const openEditDialog = (member: TeamMember) => {
@@ -318,7 +329,7 @@ export default function LeadershipTeam() {
                 <SortableContext items={members.map(m => m.id)} strategy={verticalListSortingStrategy}>
                   <div className="space-y-2">
                     {members.map(member => (
-                      <SortableTeamCard key={member.id} member={member} onEdit={openEditDialog} onDelete={handleDelete} />
+                      <SortableTeamCard key={member.id} member={member} onEdit={openEditDialog} onDelete={handleDeleteClick} />
                     ))}
                   </div>
                 </SortableContext>
@@ -326,6 +337,16 @@ export default function LeadershipTeam() {
             )}
           </CardContent>
         </Card>
+
+        <ConfirmDialog
+          open={deleteDialogOpen}
+          onOpenChange={setDeleteDialogOpen}
+          onConfirm={handleDelete}
+          title="Delete Team Member"
+          description="Are you sure you want to delete this team member? This action cannot be undone."
+          confirmText="Delete"
+          variant="destructive"
+        />
       </div>
     </div>
     </div>

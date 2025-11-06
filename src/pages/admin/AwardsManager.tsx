@@ -15,6 +15,7 @@ import { Plus, Pencil, Trash2, Award, AlertCircle, ChevronLeft } from 'lucide-re
 import { Link } from 'react-router-dom';
 import { Switch } from '@/components/ui/switch';
 import { ImageUploadField } from '@/components/admin/ImageUploadField';
+import { ConfirmDialog } from '@/components/admin/ConfirmDialog';
 
 interface AwardCertification {
   id: string;
@@ -138,14 +139,22 @@ const AwardsManager = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this award?')) return;
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [awardToDelete, setAwardToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setAwardToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!awardToDelete) return;
 
     try {
       const { error } = await supabase
         .from('awards_certifications')
         .delete()
-        .eq('id', id);
+        .eq('id', awardToDelete);
 
       if (error) throw error;
       toast({ title: 'Success', description: 'Award deleted successfully' });
@@ -157,6 +166,8 @@ const AwardsManager = () => {
         variant: 'destructive',
       });
     }
+    setDeleteDialogOpen(false);
+    setAwardToDelete(null);
   };
 
   const newAward = () => {
@@ -298,7 +309,7 @@ const AwardsManager = () => {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => handleDelete(award.id)}
+                        onClick={() => handleDeleteClick(award.id)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -502,6 +513,16 @@ const AwardsManager = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+        title="Delete Award/Certification"
+        description="Are you sure you want to delete this award or certification? This action cannot be undone."
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 };

@@ -13,6 +13,7 @@ import { Plus, Pencil, GripVertical, Eye, EyeOff, Trash2 } from "lucide-react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface HeroSlide {
   id: string;
@@ -190,23 +191,33 @@ const HeroSlidesManager = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this slide?')) return;
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [slideToDelete, setSlideToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setSlideToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!slideToDelete) return;
 
     try {
       const { error } = await supabase
         .from('hero_slides')
         .delete()
-        .eq('id', id);
+        .eq('id', slideToDelete);
 
       if (error) throw error;
       
-      setSlides(slides.filter(s => s.id !== id));
+      setSlides(slides.filter(s => s.id !== slideToDelete));
       toast.success('Slide deleted');
     } catch (error) {
       console.error('Error deleting slide:', error);
       toast.error('Failed to delete slide');
     }
+    setDeleteDialogOpen(false);
+    setSlideToDelete(null);
   };
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -303,7 +314,7 @@ const HeroSlidesManager = () => {
                   slide={slide}
                   onEdit={(s) => { setEditingSlide(s); setIsDialogOpen(true); }}
                   onToggle={handleToggle}
-                  onDelete={handleDelete}
+                  onDelete={handleDeleteClick}
                 />
               ))}
             </SortableContext>
@@ -472,6 +483,16 @@ const HeroSlidesManager = () => {
           </form>
         </DialogContent>
       </Dialog>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+        title="Delete Hero Slide"
+        description="Are you sure you want to delete this hero slide? This action cannot be undone."
+        confirmText="Delete"
+        variant="destructive"
+      />
     </AdminPageLayout>
   );
 };
