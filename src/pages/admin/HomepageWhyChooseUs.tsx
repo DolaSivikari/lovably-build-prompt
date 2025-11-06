@@ -81,17 +81,17 @@ const HomepageWhyChooseUs = () => {
     queryKey: ["why-choose-us-items"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("why_choose_us_items")
+        .from("why_choose_us_items" as any)
         .select("*")
         .order("display_order");
       if (error) throw error;
-      return data as WhyChooseUsItem[];
+      return data as unknown as WhyChooseUsItem[];
     },
   });
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, updates }: { id: string; updates: Partial<WhyChooseUsItem> }) => {
-      const { error } = await supabase.from("why_choose_us_items").update(updates).eq("id", id);
+      const { error } = await supabase.from("why_choose_us_items" as any).update(updates).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -102,7 +102,7 @@ const HomepageWhyChooseUs = () => {
 
   const createMutation = useMutation({
     mutationFn: async (item: Omit<WhyChooseUsItem, "id" | "is_active">) => {
-      const { error } = await supabase.from("why_choose_us_items").insert(item);
+      const { error } = await supabase.from("why_choose_us_items" as any).insert(item as any);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -115,7 +115,7 @@ const HomepageWhyChooseUs = () => {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from("why_choose_us_items").delete().eq("id", id);
+      const { error } = await supabase.from("why_choose_us_items" as any).delete().eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {

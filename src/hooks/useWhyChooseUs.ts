@@ -15,13 +15,13 @@ export const useWhyChooseUs = () => {
     queryKey: ["why-choose-us-public"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("why_choose_us_items")
+        .from("why_choose_us_items" as any)
         .select("*")
         .eq("is_active", true)
         .order("display_order");
       
       if (error) throw error;
-      return data as WhyChooseUsItem[];
+      return data as unknown as WhyChooseUsItem[];
     },
   });
 };

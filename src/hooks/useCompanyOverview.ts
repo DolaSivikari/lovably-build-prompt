@@ -21,13 +21,13 @@ export const useCompanyOverview = () => {
     queryKey: ["company-overview-sections-public"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("company_overview_sections")
+        .from("company_overview_sections" as any)
         .select("*")
         .eq("is_active", true)
         .order("display_order");
       
       if (error) throw error;
-      return data as OverviewSection[];
+      return data as unknown as OverviewSection[];
     },
   });
 
@@ -35,13 +35,13 @@ export const useCompanyOverview = () => {
     queryKey: ["company-overview-items-public"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("company_overview_items")
+        .from("company_overview_items" as any)
         .select("*")
         .eq("is_active", true)
         .order("display_order");
       
       if (error) throw error;
-      return data as OverviewItem[];
+      return data as unknown as OverviewItem[];
     },
   });
 

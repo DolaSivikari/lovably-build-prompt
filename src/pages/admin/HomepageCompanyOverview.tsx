@@ -78,9 +78,9 @@ const HomepageCompanyOverview = () => {
   const { data: sections = [] } = useQuery({
     queryKey: ["company-overview-sections"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("company_overview_sections").select("*").order("display_order");
+      const { data, error } = await supabase.from("company_overview_sections" as any).select("*").order("display_order");
       if (error) throw error;
-      return data as OverviewSection[];
+      return data as unknown as OverviewSection[];
     },
   });
 
@@ -89,16 +89,16 @@ const HomepageCompanyOverview = () => {
     queryFn: async () => {
       const section = sections.find((s) => s.section_type === activeTab);
       if (!section) return [];
-      const { data, error } = await supabase.from("company_overview_items").select("*").eq("section_id", section.id).order("display_order");
+      const { data, error } = await supabase.from("company_overview_items" as any).select("*").eq("section_id", section.id).order("display_order");
       if (error) throw error;
-      return data as OverviewItem[];
+      return data as unknown as OverviewItem[];
     },
     enabled: sections.length > 0,
   });
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, updates }: { id: string; updates: Partial<OverviewItem> }) => {
-      const { error } = await supabase.from("company_overview_items").update(updates).eq("id", id);
+      const { error } = await supabase.from("company_overview_items" as any).update(updates).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -109,7 +109,7 @@ const HomepageCompanyOverview = () => {
 
   const createMutation = useMutation({
     mutationFn: async (item: Omit<OverviewItem, "id">) => {
-      const { error } = await supabase.from("company_overview_items").insert(item);
+      const { error } = await supabase.from("company_overview_items" as any).insert(item as any);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -122,7 +122,7 @@ const HomepageCompanyOverview = () => {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from("company_overview_items").delete().eq("id", id);
+      const { error } = await supabase.from("company_overview_items" as any).delete().eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
