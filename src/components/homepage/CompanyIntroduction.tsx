@@ -2,8 +2,10 @@ import { Button } from "@/ui/Button";
 import { ArrowRight, Building2, Users, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { organizationSchema } from "@/utils/structured-data";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 export default function CompanyIntroduction() {
+  const { yearsInBusinessFormatted } = useCompanyStats();
   const schema = organizationSchema({
     name: "Ascent Group Construction",
     description: "Full-service General Contractor in Toronto delivering commercial, multi-family residential, and institutional construction solutions across Ontario.",
@@ -81,7 +83,7 @@ export default function CompanyIntroduction() {
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Proven Track Record</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    15+ years of experience with proven on-time, on-budget delivery serving developers, 
+                    {yearsInBusinessFormatted} years of experience with proven on-time, on-budget delivery serving developers, 
                     property managers, and institutional clients across the Greater Toronto Area.
                   </p>
                 </div>

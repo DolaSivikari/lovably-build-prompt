@@ -124,7 +124,7 @@ const About = () => {
                   Founded in 2009, Ascent Group Construction began with a simple mission: deliver exceptional construction and project management services with uncompromising quality and integrity.
                 </p>
                 <p>
-                  What started as a small team of dedicated craftsmen has grown into one of the GTA's most trusted contractors. We've completed over 500 projects, built lasting relationships with hundreds of satisfied clients, and established a reputation for excellence that speaks for itself.
+                  What started as a small team of dedicated craftsmen has grown into one of the GTA's most trusted contractors. We've built lasting relationships with hundreds of satisfied clients, and established a reputation for excellence that speaks for itself.
                 </p>
                 <p>
                   Today, we continue to uphold the same values that guided us from day one—quality first, transparent communication, unwavering commitment to safety, and complete customer satisfaction.

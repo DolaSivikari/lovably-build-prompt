@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useCompanyOverview } from "@/hooks/useCompanyOverview";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 // Fallback data
 const fallbackApproach = [
@@ -27,7 +28,7 @@ const fallbackValues = [
 const fallbackPromise = [
   { title: "On-Time Delivery", description: "We respect your schedule with efficient project management and clear timelines." },
   { title: "Budget Certainty", description: "Detailed estimates upfront with no surprise costs or change orders." },
-  { title: "Quality Guarantee", description: "Comprehensive warranties backed by 15+ years of proven excellence." },
+  { title: "Quality Guarantee", description: "Comprehensive warranties backed by proven excellence." },
   { title: "Safety Compliance", description: "WSIB certified with strict adherence to all safety regulations." },
 ];
 
@@ -36,6 +37,7 @@ const CompanyOverviewHub = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   useIntersectionObserver(sectionRef, { threshold: 0.2 });
+  const { yearsInBusinessFormatted } = useCompanyStats();
   
   const { sections, items } = useCompanyOverview();
   

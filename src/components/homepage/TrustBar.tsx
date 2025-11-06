@@ -1,12 +1,9 @@
 import { Shield, Award, Clock, CheckCircle, Users, Phone, ThumbsUp } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useRef } from "react";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
-const trustIndicators = [
-  {
-    icon: Clock,
-    text: "15+ Years in Business",
-  },
+const staticIndicators = [
   {
     icon: Shield,
     text: "Licensed & Insured",
@@ -18,10 +15,6 @@ const trustIndicators = [
   {
     icon: CheckCircle,
     text: "WSIB Compliant",
-  },
-  {
-    icon: Users,
-    text: "500+ Projects Completed",
   },
   {
     icon: Phone,
@@ -36,6 +29,20 @@ const trustIndicators = [
 const TrustBar = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isVisible = useIntersectionObserver(sectionRef);
+  const { yearsInBusinessFormatted, totalProjectsFormatted } = useCompanyStats();
+
+  // Combine dynamic stats with static indicators
+  const trustIndicators = [
+    {
+      icon: Clock,
+      text: `${yearsInBusinessFormatted} Years in Business`,
+    },
+    ...staticIndicators,
+    {
+      icon: Users,
+      text: `${totalProjectsFormatted} Projects Completed`,
+    },
+  ];
 
   return (
     <section ref={sectionRef} className="py-8 bg-muted/30 border-y border-border/40">

@@ -3,10 +3,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 // Fallback data
 const fallbackDifferentiators = [
-  { icon: "BadgeCheck", title: "Licensed & Certified", desc: "Fully licensed and insured with $5M liability coverage, WSIB compliant, and municipally licensed across the Greater Toronto Area. Proven track record with 500+ successful commercial and residential projects.", stats: "500+ Projects Completed" },
+  { icon: "BadgeCheck", title: "Licensed & Certified", desc: "Fully licensed and insured with $5M liability coverage, WSIB compliant, and municipally licensed across the Greater Toronto Area with proven track record.", stats: "Fully Licensed & Insured" },
   { icon: "Building2", title: "Comprehensive Services", desc: "Complete construction solutions from envelope restoration to specialty trades. Single point of contact eliminates coordination complexity and streamlines project delivery.", stats: "21+ Service Offerings" },
   { icon: "ShieldCheck", title: "Premium Materials", desc: "Authorized contractor for industry-leading brands with extended manufacturer warranties. Premium materials and proven installation methods ensure lasting quality and performance.", stats: "Extended Warranties" },
   { icon: "Clock", title: "On-Time Delivery", desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach maintains a 95% on-time completion rate across all projects.", stats: "95% On-Time Rate" },
@@ -16,6 +17,7 @@ const fallbackDifferentiators = [
 
 const WhyChooseUs = () => {
   const { data: items, isLoading } = useWhyChooseUs();
+  const { yearsInBusinessFormatted } = useCompanyStats();
   
   const differentiators = items && items.length > 0 
     ? items.map(item => ({
@@ -35,7 +37,7 @@ const WhyChooseUs = () => {
             Why Partner With Ascent Group
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            With over 15 years of proven expertise serving Ontario, we deliver exceptional construction results through licensed professionals, comprehensive capabilities, and unwavering commitment to quality.
+            With over {yearsInBusinessFormatted} years of proven expertise serving Ontario, we deliver exceptional construction results through licensed professionals, comprehensive capabilities, and unwavering commitment to quality.
           </p>
         </div>
 

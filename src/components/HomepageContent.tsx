@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const HomepageContent = () => {
+  const { yearsInBusinessFormatted } = useCompanyStats();
   const [content, setContent] = useState({
     headline: "Ontario's Trusted General Contractor",
     subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
-    hero_description: "With 15+ years of construction management expertise across Ontario, Ascent Group Construction specializes in design-build, general contracting, and construction management for commercial, institutional, and multi-family projects. We deliver quality results through transparent project management and proven construction methodologies.",
+    hero_description: `With ${yearsInBusinessFormatted} years of construction management expertise across Ontario, Ascent Group Construction specializes in design-build, general contracting, and construction management for commercial, institutional, and multi-family projects. We deliver quality results through transparent project management and proven construction methodologies.`,
     cta_primary_text: "Submit RFP",
     cta_primary_url: "/submit-rfp",
     cta_secondary_text: "Request Proposal",
