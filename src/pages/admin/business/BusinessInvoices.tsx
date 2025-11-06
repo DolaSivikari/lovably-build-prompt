@@ -8,6 +8,8 @@ import { Card } from "@/components/ui/card";
 import { InvoiceStats } from "@/components/business/InvoiceStats";
 import { InvoiceList } from "@/components/business/InvoiceList";
 import { InvoiceEditor } from "@/components/business/InvoiceEditor";
+import { InvoicePDF } from "@/components/business/InvoicePDF";
+import { PDFDownloadButton } from "@/components/business/PDFDownloadButton";
 import { RecordPaymentModal } from "@/components/business/RecordPaymentModal";
 
 export default function BusinessInvoices() {
@@ -16,13 +18,37 @@ export default function BusinessInvoices() {
   const [showEditor, setShowEditor] = useState(false);
   const [editingInvoice, setEditingInvoice] = useState<any>(null);
   const [recordingPaymentFor, setRecordingPaymentFor] = useState<any>(null);
+  const [companyInfo, setCompanyInfo] = useState<any>(null);
   const { toast } = useToast();
 
   useEffect(() => {
     if (isAdmin) {
       fetchInvoices();
+      fetchCompanyInfo();
     }
   }, [isAdmin]);
+
+  const fetchCompanyInfo = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("company_name, phone, email, address")
+        .eq("is_active", true)
+        .single();
+      
+      if (error) throw error;
+      if (data) {
+        setCompanyInfo({
+          name: data.company_name,
+          phone: data.phone,
+          email: data.email,
+          address: data.address,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching company info:", error);
+    }
+  };
 
   const fetchInvoices = async () => {
     try {
@@ -178,7 +204,35 @@ export default function BusinessInvoices() {
           onDelete={handleDelete}
           onDownload={(id) => {
             const invoice = invoices.find(i => i.id === id);
-            // PDF download logic
+            if (invoice && companyInfo) {
+              // Trigger PDF download via PDFDownloadButton
+              const pdfElement = document.createElement('div');
+              document.body.appendChild(pdfElement);
+              
+              const root = document.createElement('div');
+              pdfElement.appendChild(root);
+              
+              import('react-dom/client').then(({ createRoot }) => {
+                const reactRoot = createRoot(root);
+                reactRoot.render(
+                  <PDFDownloadButton
+                    fileName={`invoice-${invoice.invoice_number}.pdf`}
+                    pdfDocument={<InvoicePDF invoice={invoice} client={invoice.client} companyInfo={companyInfo} />}
+                  />
+                );
+                
+                setTimeout(() => {
+                  const button = root.querySelector('button');
+                  if (button) {
+                    button.click();
+                    setTimeout(() => {
+                      reactRoot.unmount();
+                      document.body.removeChild(pdfElement);
+                    }, 100);
+                  }
+                }, 100);
+              });
+            }
           }}
           onRecordPayment={(id) => setRecordingPaymentFor(invoices.find(i => i.id === id))}
         />

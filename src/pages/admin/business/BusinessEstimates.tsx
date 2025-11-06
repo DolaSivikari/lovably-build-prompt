@@ -16,13 +16,37 @@ export default function BusinessEstimates() {
   const [estimates, setEstimates] = useState<any[]>([]);
   const [showEditor, setShowEditor] = useState(false);
   const [editingEstimate, setEditingEstimate] = useState<any>(null);
+  const [companyInfo, setCompanyInfo] = useState<any>(null);
   const { toast } = useToast();
 
   useEffect(() => {
     if (isAdmin) {
       fetchEstimates();
+      fetchCompanyInfo();
     }
   }, [isAdmin]);
+
+  const fetchCompanyInfo = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("company_name, phone, email, address")
+        .eq("is_active", true)
+        .single();
+      
+      if (error) throw error;
+      if (data) {
+        setCompanyInfo({
+          name: data.company_name,
+          phone: data.phone,
+          email: data.email,
+          address: data.address,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching company info:", error);
+    }
+  };
 
   const fetchEstimates = async () => {
     try {
@@ -148,8 +172,34 @@ export default function BusinessEstimates() {
           onDelete={handleDelete}
           onDownload={(id) => {
             const estimate = estimates.find(e => e.id === id);
-            if (estimate) {
-              // PDF download logic handled by PDFDownloadButton component
+            if (estimate && companyInfo) {
+              // Trigger PDF download via PDFDownloadButton
+              const pdfElement = document.createElement('div');
+              document.body.appendChild(pdfElement);
+              
+              const root = document.createElement('div');
+              pdfElement.appendChild(root);
+              
+              import('react-dom/client').then(({ createRoot }) => {
+                const reactRoot = createRoot(root);
+                reactRoot.render(
+                  <PDFDownloadButton
+                    fileName={`estimate-${estimate.estimate_number}.pdf`}
+                    pdfDocument={<EstimatePDF estimate={estimate} client={estimate.client} companyInfo={companyInfo} />}
+                  />
+                );
+                
+                setTimeout(() => {
+                  const button = root.querySelector('button');
+                  if (button) {
+                    button.click();
+                    setTimeout(() => {
+                      reactRoot.unmount();
+                      document.body.removeChild(pdfElement);
+                    }, 100);
+                  }
+                }, 100);
+              });
             }
           }}
         />
