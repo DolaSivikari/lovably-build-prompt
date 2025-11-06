@@ -109,7 +109,7 @@ const Navigation = () => {
         )}
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
-        <div className="flex items-center justify-between w-full h-20">
+        <div className="hidden md:flex items-center justify-between w-full h-20">
           {/* Left: Logo + Company Name */}
           <Link to="/" className="flex items-center gap-3 group" aria-label="Ascent Group Construction - Home">
               <img 

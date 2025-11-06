@@ -276,7 +276,7 @@ const EnhancedHero = () => {
 
   return (
     <section 
-      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -347,29 +347,29 @@ const EnhancedHero = () => {
 
       {/* Content */}
       <div 
-        className={`relative z-10 container mx-auto px-4 py-20 transition-opacity duration-1000 ${
+        className={`relative z-10 container mx-auto px-4 py-16 md:py-20 transition-opacity duration-1000 ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >
         <div className="max-w-5xl mx-auto">
           {/* Stat Callout */}
           <div 
-            className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
+            className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
           >
             <div className="flex flex-col items-center">
-              <span className="text-3xl font-bold text-[hsl(var(--bg))]">{slide.stat}</span>
+              <span className="text-2xl sm:text-3xl font-bold text-[hsl(var(--bg))]">{slide.stat}</span>
               <span className="text-xs text-[hsl(var(--bg))]/90 font-semibold whitespace-nowrap">{slide.statLabel}</span>
             </div>
-            <div className="flex items-center gap-2 bg-[hsl(var(--brand-accent))] px-3 py-1 rounded-full">
-              <Shield className="h-5 w-5 text-[hsl(var(--bg))]" />
-              <span className="text-sm font-semibold text-[hsl(var(--bg))]">COR Certified</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 bg-[hsl(var(--brand-accent))] px-2 sm:px-3 py-1 rounded-full">
+              <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-[hsl(var(--bg))]" />
+              <span className="text-xs sm:text-sm font-semibold text-[hsl(var(--bg))]">COR Certified</span>
             </div>
           </div>
 
           {/* Main Headline */}
           <h1 
-            className={`text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ 
               animationDelay: prefersReducedMotion ? "0s" : '0.2s',
               textShadow: '0 2px 20px rgba(0,0,0,0.3)'
@@ -378,7 +378,7 @@ const EnhancedHero = () => {
             {headline}
           </h1>
           <p 
-            className={`text-xl md:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
             {description}
