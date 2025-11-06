@@ -32,9 +32,10 @@ interface UnifiedSidebarProps {
   onToggle: () => void;
   mobileOpen?: boolean;
   onMobileClose?: () => void;
+  onRestartOnboarding?: () => void;
 }
 
-export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose }: UnifiedSidebarProps) => {
+export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose, onRestartOnboarding }: UnifiedSidebarProps) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -126,7 +127,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
         </nav>
 
         {/* Content Management Section */}
-        <Collapsible open={contentOpen} onOpenChange={setContentOpen}>
+        <Collapsible open={contentOpen} onOpenChange={setContentOpen} data-tour="content">
           <CollapsibleTrigger className="business-nav-group-label">
             {!collapsed && (
               <>
@@ -151,7 +152,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
         </Collapsible>
 
         {/* Inbox Section */}
-        <Collapsible open={inboxOpen} onOpenChange={setInboxOpen}>
+        <Collapsible open={inboxOpen} onOpenChange={setInboxOpen} data-tour="inbox">
           <CollapsibleTrigger className="business-nav-group-label">
             {!collapsed && (
               <>
@@ -171,7 +172,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
         </Collapsible>
 
         {/* Settings Section */}
-        <Collapsible open={settingsOpen} onOpenChange={setSettingsOpen}>
+        <Collapsible open={settingsOpen} onOpenChange={setSettingsOpen} data-tour="settings">
           <CollapsibleTrigger className="business-nav-group-label">
             {!collapsed && (
               <>
@@ -182,6 +183,10 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
           </CollapsibleTrigger>
           <CollapsibleContent>
             <nav className="business-nav-group">
+              <div data-tour="hero-management">
+                <NavItem to="/admin/hero-slides" icon={Image} label="Hero Slides" />
+                <NavItem to="/admin/hero-images" icon={Image} label="Hero Images" />
+              </div>
               <NavItem to="/admin/homepage-settings" icon={Settings} label="Homepage" />
               <NavItem to="/admin/landing-menu" icon={Settings} label="Landing Menu" />
               <NavItem to="/admin/about-page" icon={Settings} label="About Page" />
@@ -190,13 +195,27 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose 
               <NavItem to="/admin/site-settings" icon={Settings} label="Site" />
               <NavItem to="/admin/users" icon={UserCircle} label="Users" />
               <NavItem to="/admin/security-settings" icon={Shield} label="Security Settings" />
-              <NavItem to="/admin/hero-slides" icon={Image} label="Hero Slides" />
-              <NavItem to="/admin/hero-images" icon={Image} label="Hero Images" />
               <NavItem to="/admin/performance-dashboard" icon={Activity} label="Performance" />
               <NavItem to="/admin/settings-health" icon={Activity} label="Health Check" />
             </nav>
           </CollapsibleContent>
         </Collapsible>
+        
+        {/* Media Library Link */}
+        <nav style={{ marginTop: '1.5rem' }} data-tour="media">
+          <NavItem to="/admin/media" icon={Image} label="Media Library" />
+        </nav>
+
+        {onRestartOnboarding && !collapsed && (
+          <button 
+            onClick={onRestartOnboarding}
+            className="business-nav-item"
+            style={{ marginTop: 'auto', opacity: 0.7 }}
+          >
+            <Activity className="business-nav-icon" />
+            <span>Restart Tour</span>
+          </button>
+        )}
       </div>
 
         {/* Toggle Button */}
