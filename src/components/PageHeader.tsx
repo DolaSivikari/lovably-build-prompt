@@ -27,6 +27,7 @@ interface PageHeaderProps {
   variant?: "standard" | "with-cta" | "with-stats" | "minimal";
   cta?: CTA;
   stats?: Stat[];
+  backgroundImage?: string;
   className?: string;
 }
 
@@ -38,6 +39,7 @@ const PageHeader = ({
   variant = "standard",
   cta,
   stats,
+  backgroundImage,
   className
 }: PageHeaderProps) => {
   const location = useLocation();
@@ -48,25 +50,56 @@ const PageHeader = ({
     { label: title }
   ];
 
+  // Determine if we're using dark overlay mode (with background image)
+  const isDarkMode = !!backgroundImage;
+  
   return (
-    <section className={cn("pt-24 pb-16 bg-background", className)}>
-      <div className="container mx-auto px-6 sm:px-4">
+    <section className={cn(
+      "relative pt-24 pb-16 flex items-center overflow-hidden",
+      !backgroundImage && "bg-background",
+      backgroundImage && "min-h-[400px]",
+      className
+    )}>
+      {/* Background Image with Dark Overlay */}
+      {backgroundImage && (
+        <>
+          <div className="absolute inset-0 z-0">
+            <img
+              src={backgroundImage}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/70 to-black/60" />
+        </>
+      )}
+
+      <div className={cn("container mx-auto px-6 sm:px-4", backgroundImage && "relative z-10")}>
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumbs */}
           <nav aria-label="breadcrumb" className="mb-6">
-            <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <ol className={cn(
+              "flex flex-wrap items-center gap-2 text-sm",
+              isDarkMode ? "text-white/80" : "text-muted-foreground"
+            )}>
               {finalBreadcrumbs.map((crumb, index) => (
                 <li key={index} className="flex items-center gap-2">
                   {crumb.href ? (
                     <Link 
                       to={crumb.href} 
-                      className="hover:text-foreground transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center -m-2 p-2"
+                      className={cn(
+                        "transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center -m-2 p-2",
+                        isDarkMode ? "hover:text-white" : "hover:text-foreground"
+                      )}
                       aria-label={`Navigate to ${crumb.label}`}
                     >
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span className="text-foreground font-medium min-h-[44px] flex items-center">{crumb.label}</span>
+                    <span className={cn(
+                      "font-medium min-h-[44px] flex items-center",
+                      isDarkMode ? "text-white" : "text-foreground"
+                    )}>{crumb.label}</span>
                   )}
                   {index < finalBreadcrumbs.length - 1 && (
                     <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -81,13 +114,19 @@ const PageHeader = ({
             <div className="flex-1">
               {/* Eyebrow */}
               {eyebrow && (
-                <div className="text-sm uppercase tracking-wider text-muted-foreground mb-2 font-semibold">
+                <div className={cn(
+                  "text-sm uppercase tracking-wider mb-2 font-semibold",
+                  isDarkMode ? "text-white/80" : "text-muted-foreground"
+                )}>
                   {eyebrow}
                 </div>
               )}
 
               {/* Title */}
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+              <h1 className={cn(
+                "text-4xl md:text-5xl font-bold mb-4 leading-tight",
+                isDarkMode && "text-white"
+              )}>
                 {title}
               </h1>
 
@@ -96,20 +135,31 @@ const PageHeader = ({
 
               {/* Description */}
               {description && (
-                <p className="text-lg text-muted-foreground max-w-2xl">
+                <p className={cn(
+                  "text-lg max-w-2xl",
+                  isDarkMode ? "text-white/90" : "text-muted-foreground"
+                )}>
                   {description}
                 </p>
               )}
 
               {/* Stats (inline with description on with-stats variant) */}
               {variant === "with-stats" && stats && (
-                <div className="flex flex-wrap gap-8 mt-8">
+                <div className={cn(
+                  "flex flex-wrap gap-8 mt-8 p-6 rounded-lg border",
+                  isDarkMode 
+                    ? "bg-white/10 backdrop-blur-md border-white/20" 
+                    : "bg-background/80 border-border"
+                )}>
                   {stats.map((stat, index) => (
                     <div key={index} className="text-center">
                       <div className="text-3xl md:text-4xl font-bold text-primary">
                         {stat.value}
                       </div>
-                      <div className="text-sm text-muted-foreground mt-1">
+                      <div className={cn(
+                        "text-sm mt-1",
+                        isDarkMode ? "text-white/70" : "text-muted-foreground"
+                      )}>
                         {stat.label}
                       </div>
                     </div>
