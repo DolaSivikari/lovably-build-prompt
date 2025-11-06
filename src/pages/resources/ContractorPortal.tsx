@@ -19,6 +19,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { PremiumDocumentSuite } from "@/components/contractor/PremiumDocumentSuite";
+import { InsuranceCalculator } from "@/components/calculators/InsuranceCalculator";
+import { BondingCapacityVisualizer } from "@/components/calculators/BondingCapacityVisualizer";
+import { ProjectTimelineEstimator } from "@/components/calculators/ProjectTimelineEstimator";
+import { CertificationBadges } from "@/components/shared/CertificationBadges";
+import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
 
 const ContractorPortal = () => {
   const { toast } = useToast();
@@ -265,6 +270,22 @@ const ContractorPortal = () => {
             </form>
           </section>
 
+          {/* Interactive Calculators */}
+          <section className="bg-muted/30 rounded-lg p-8">
+            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Project Planning Tools</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <InsuranceCalculator />
+              <BondingCapacityVisualizer />
+              <ProjectTimelineEstimator />
+            </div>
+          </section>
+
+          {/* Certifications */}
+          <section className="text-center">
+            <h2 className="text-3xl font-bold mb-8">Our Credentials</h2>
+            <CertificationBadges size="lg" />
+          </section>
+
           {/* Why Partner Section */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Why Partner With Us</h2>
@@ -275,7 +296,9 @@ const ContractorPortal = () => {
                     <CheckCircle2 className="h-8 w-8 text-secondary" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Proven Track Record</h3>
-                  <p className="text-muted-foreground">1,000+ units completed annually with consistent quality</p>
+                  <p className="text-muted-foreground">
+                    <AnimatedCounter target={1000} suffix="+" className="font-bold text-2xl text-primary" /> units completed annually with consistent quality
+                  </p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '100ms' }}>

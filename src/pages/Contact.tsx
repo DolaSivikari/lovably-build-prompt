@@ -17,6 +17,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { PremiumContactHero } from "@/components/contact/PremiumContactHero";
+import { MultiStepForm } from "@/components/forms/MultiStepForm";
+import { FileUploadZone } from "@/components/forms/FileUploadZone";
+import { BudgetSlider } from "@/components/forms/BudgetSlider";
+import { TimelineSelector } from "@/components/forms/TimelineSelector";
+import { ProjectTypeSelector } from "@/components/forms/ProjectTypeSelector";
+import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
+import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
+import { RippleEffect } from "@/components/shared/RippleEffect";
 
 // Input validation schema
 const contactSchema = z.object({
@@ -36,6 +44,12 @@ const Contact = () => {
     name: "", email: "", phone: "", company: "", message: "", honeypot: "",
   });
   const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
+  const [useMultiStep, setUseMultiStep] = useState(false);
+  const [budget, setBudget] = useState(100000);
+  const [projectType, setProjectType] = useState("commercial");
+  const [startDate, setStartDate] = useState<Date>();
+  const [targetDate, setTargetDate] = useState<Date>();
+  const [files, setFiles] = useState<File[]>([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -137,13 +151,91 @@ const Contact = () => {
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <div className="flex justify-center gap-4 mb-8">
+              <Button
+                variant={!useMultiStep ? "default" : "outline"}
+                onClick={() => setUseMultiStep(false)}
+              >
+                Quick Contact
+              </Button>
+              <Button
+                variant={useMultiStep ? "default" : "outline"}
+                onClick={() => setUseMultiStep(true)}
+              >
+                Detailed Request
+              </Button>
+            </div>
+
             <Card className="border-2 hover:border-primary/20 transition-all shadow-2xl overflow-hidden">
               <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 border-b">
                 <h2 className="text-3xl font-bold mb-2">Request a Consultation</h2>
-                <p className="text-muted-foreground text-lg">Fill out the form below and our team will get back to you within 2 hours during business hours.</p>
+                <p className="text-muted-foreground text-lg">
+                  {useMultiStep 
+                    ? "Complete our detailed form for a comprehensive project assessment" 
+                    : "Fill out the form below and our team will get back to you within 2 hours during business hours"}
+                </p>
               </div>
               <CardContent className="p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                {useMultiStep ? (
+                  <MultiStepForm
+                    steps={[
+                      {
+                        title: "Contact Information",
+                        description: "Tell us about yourself",
+                        content: (
+                          <div className="space-y-6">
+                            <div className="grid md:grid-cols-2 gap-6">
+                              <div className="space-y-2"><Label htmlFor="name">Full Name *</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} required /></div>
+                              <div className="space-y-2"><Label htmlFor="email">Email *</Label><Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required /></div>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-6">
+                              <div className="space-y-2"><Label htmlFor="phone">Phone</Label><Input id="phone" name="phone" value={formData.phone} onChange={handleChange} /></div>
+                              <div className="space-y-2"><Label htmlFor="company">Company</Label><Input id="company" name="company" value={formData.company} onChange={handleChange} /></div>
+                            </div>
+                          </div>
+                        )
+                      },
+                      {
+                        title: "Project Type",
+                        description: "What type of project are you planning?",
+                        content: <ProjectTypeSelector selected={projectType} onChange={setProjectType} />
+                      },
+                      {
+                        title: "Budget & Timeline",
+                        description: "Help us understand your project scope",
+                        content: (
+                          <div className="space-y-8">
+                            <BudgetSlider value={budget} onChange={setBudget} />
+                            <TimelineSelector
+                              startDate={startDate}
+                              onStartDateChange={setStartDate}
+                              targetDate={targetDate}
+                              onTargetDateChange={setTargetDate}
+                            />
+                          </div>
+                        )
+                      },
+                      {
+                        title: "Project Details",
+                        description: "Tell us more about your project",
+                        content: (
+                          <div className="space-y-6">
+                            <div className="space-y-2">
+                              <Label htmlFor="message">Project Description *</Label>
+                              <Textarea id="message" name="message" value={formData.message} onChange={handleChange} required className="min-h-[150px]" />
+                            </div>
+                            <FileUploadZone onFilesChange={setFiles} maxFiles={3} />
+                          </div>
+                        )
+                      }
+                    ]}
+                    onComplete={async () => {
+                      const syntheticEvent = { preventDefault: () => {} } as React.FormEvent;
+                      await handleSubmit(syntheticEvent);
+                    }}
+                  />
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2"><Label htmlFor="name" className="text-base">Full Name *</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="John Smith" className="h-14 text-base" /></div>
                     <div className="space-y-2"><Label htmlFor="email" className="text-base">Email *</Label><Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="john@example.com" className="h-14 text-base" /></div>
@@ -154,14 +246,46 @@ const Contact = () => {
                   </div>
                   <div className="space-y-2"><Label htmlFor="message" className="text-base font-semibold">Project Details *</Label><Textarea id="message" name="message" value={formData.message} onChange={handleChange} required placeholder="Tell us about your project requirements, timeline, and budget..." className="min-h-[200px] text-base" /></div>
                   <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="honeypot" type="text" tabIndex={-1} autoComplete="off" value={formData.honeypot} onChange={handleChange} /></div>
-                  <Button type="submit" size="lg" className="w-full h-16 text-lg gap-3 hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl" disabled={isSubmitting}>
-                    {isSubmitting ? (<><Loader2 className="w-6 h-6 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-6 h-6" /></>)}
-                  </Button>
+                  <RippleEffect>
+                    <Button type="submit" size="lg" className="w-full h-16 text-lg gap-3 hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl" disabled={isSubmitting}>
+                      {isSubmitting ? (<><Loader2 className="w-6 h-6 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-6 h-6" /></>)}
+                    </Button>
+                  </RippleEffect>
                   <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-xl p-6 text-center"><p className="text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.</p></div>
                 </form>
+                )}
               </CardContent>
             </Card>
           </div>
+        </div>
+      </section>
+
+      {/* Before/After Showcase */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Our Work Speaks for Itself</h2>
+            <p className="text-lg text-muted-foreground">See the transformations we deliver</p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <BeforeAfterSlider
+              beforeImage="/placeholder.svg"
+              afterImage="/placeholder.svg"
+              beforeLabel="Before Restoration"
+              afterLabel="After Restoration"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">What Our Clients Say</h2>
+            <p className="text-lg text-muted-foreground">Real feedback from real projects</p>
+          </div>
+          <TestimonialRatings />
         </div>
       </section>
 

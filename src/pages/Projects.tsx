@@ -14,6 +14,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { useRealtimeProjects } from "@/hooks/useRealtimeProjects";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { PremiumProjectHero } from "@/components/projects/PremiumProjectHero";
+import { FilterDrawer } from "@/components/projects/FilterDrawer";
+import { FilterChips } from "@/components/projects/FilterChips";
+import { ProjectQuickView } from "@/components/projects/ProjectQuickView";
+import { VideoTestimonials } from "@/components/shared/VideoTestimonials";
+import { ProjectCompletionTicker } from "@/components/shared/ProjectCompletionTicker";
 
 const categories = [
   { label: "All Projects", value: "All", icon: Building2 },
@@ -34,6 +39,7 @@ const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(6);
   const [allProjects, setAllProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [quickViewProject, setQuickViewProject] = useState<any>(null);
   // Advanced filters
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("All");
   const [selectedClientType, setSelectedClientType] = useState("All");
@@ -193,6 +199,9 @@ const Projects = () => {
         }))}
       />
 
+      {/* Project Completion Ticker */}
+      <ProjectCompletionTicker className="my-8" />
+
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (
         <section className="py-20 bg-muted/30">
@@ -211,7 +220,45 @@ const Projects = () => {
         </section>
       )}
 
-      {/* Filter Bar */}
+      {/* Filter Bar with Advanced Filters */}
+      <div className="bg-muted/30 py-6 border-y">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap items-center gap-4 mb-4">
+            <FilterDrawer 
+              filters={{
+                minValue: selectedValueRange,
+                minYear: selectedYear,
+                onTime: performanceBadges.onTime,
+                onBudget: performanceBadges.onBudget,
+                zeroIncidents: performanceBadges.zeroIncidents
+              }}
+              onFiltersChange={(newFilters) => {
+                if (newFilters.minValue) setSelectedValueRange(newFilters.minValue);
+                if (newFilters.minYear) setSelectedYear(newFilters.minYear.toString());
+                if (newFilters.onTime !== undefined) setPerformanceBadges(prev => ({ ...prev, onTime: newFilters.onTime }));
+              }}
+            />
+          </div>
+          
+          <FilterChips
+            filters={[
+              selectedCategory !== "All" && { label: "Category", value: selectedCategory, onRemove: () => setSelectedCategory("All") },
+              selectedYear !== "All" && { label: "Year", value: selectedYear, onRemove: () => setSelectedYear("All") },
+              selectedDeliveryMethod !== "All" && { label: "Delivery", value: selectedDeliveryMethod, onRemove: () => setSelectedDeliveryMethod("All") },
+              performanceBadges.onTime && { label: "Performance", value: "On Time", onRemove: () => setPerformanceBadges(prev => ({ ...prev, onTime: false })) }
+            ].filter(Boolean) as any}
+            onClearAll={() => {
+              setSelectedCategory("All");
+              setSelectedYear("All");
+              setSelectedDeliveryMethod("All");
+              setSelectedClientType("All");
+              setSelectedValueRange("All");
+              setPerformanceBadges({ onTime: false, onBudget: false, zeroIncidents: false });
+            }}
+          />
+        </div>
+      </div>
+
       <FilterBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
@@ -263,12 +310,19 @@ const Projects = () => {
             <>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {visibleProjects.map((project) => (
-                  <ProjectCard
-                    key={project.slug}
-                    {...project}
-                    slug={project.slug}
-                    onViewDetails={handleViewDetails}
-                  />
+                  <div key={project.slug}>
+                    <ProjectCard
+                      {...project}
+                      slug={project.slug}
+                      onViewDetails={handleViewDetails}
+                    />
+                    <button
+                      onClick={() => setQuickViewProject(project)}
+                      className="mt-2 text-sm text-primary hover:underline w-full text-center"
+                    >
+                      Quick View
+                    </button>
+                  </div>
                 ))}
               </div>
 
@@ -287,6 +341,24 @@ const Projects = () => {
           )}
         </div>
       </section>
+
+      {/* Video Testimonials */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Client Testimonials</h2>
+            <p className="text-lg text-muted-foreground">Hear directly from our satisfied clients</p>
+          </div>
+          <VideoTestimonials />
+        </div>
+      </section>
+
+      {/* Quick View Modal */}
+      <ProjectQuickView
+        project={quickViewProject}
+        open={!!quickViewProject}
+        onOpenChange={(open) => !open && setQuickViewProject(null)}
+      />
 
       <Footer />
     </div>

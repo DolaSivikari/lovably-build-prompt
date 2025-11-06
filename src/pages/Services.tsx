@@ -22,6 +22,9 @@ import {
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { PremiumServiceHero } from "@/components/services/PremiumServiceHero";
+import { ClientLogosCarousel } from "@/components/shared/ClientLogosCarousel";
+import { CertificationBadges } from "@/components/shared/CertificationBadges";
+import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 
 // Icon map for dynamic service icons
 const iconMap: Record<string, any> = {
@@ -401,6 +404,31 @@ const Services = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Client Logos Carousel */}
+        <ClientLogosCarousel />
+
+        {/* Certifications Section */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Licensed, Insured & Certified</h2>
+              <p className="text-muted-foreground">Industry-leading credentials and safety standards</p>
+            </div>
+            <CertificationBadges size="lg" />
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Client Success Stories</h2>
+              <p className="text-muted-foreground">See what our partners say about working with us</p>
+            </div>
+            <TestimonialRatings />
           </div>
         </section>
 
