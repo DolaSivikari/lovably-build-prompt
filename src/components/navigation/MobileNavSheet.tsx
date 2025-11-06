@@ -14,14 +14,22 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Phone, Search, Users, Building, Wrench, Sparkles, Star, X, Home, Mail, FileText, Briefcase } from "lucide-react";
+import { Phone, Search, Users, Building, Wrench, Star, X, Home, Mail, FileText, Briefcase, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { useNavigationSearch } from "@/hooks/useNavigationSearch";
 import { MobileSearchResults } from "./MobileSearchResults";
 import { EnhancedPopularServices } from "./EnhancedPopularServices";
+import { SearchSuggestions } from "./SearchSuggestions";
+import { RecentlyViewed } from "./RecentlyViewed";
+import { useRecentSearches } from "@/hooks/useRecentSearches";
+import { useNavigationHistory } from "@/hooks/useNavigationHistory";
+import { useRecommendations } from "@/hooks/useRecommendations";
+import { useSwipeGesture } from "@/hooks/useSwipeGesture";
+import { haptics } from "@/utils/haptics";
 import { NavCategoryCard } from "./NavCategoryCard";
+import { useState } from "react";
 
 interface MobileNavSheetProps {
   open: boolean;
@@ -30,7 +38,16 @@ interface MobileNavSheetProps {
 
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
-  const { searchQuery, setSearchQuery, filteredResults, isSearching } = useNavigationSearch();
+  const { searchQuery, setSearchQuery, filteredResults, isSearching, activeCategory, setActiveCategory } = useNavigationSearch();
+  const { addRecentSearch } = useRecentSearches();
+  const { trackNavigation, getRecentlyViewed } = useNavigationHistory();
+  const { recommendations } = useRecommendations();
+  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
+  
+  const swipeGesture = useSwipeGesture(() => {
+    haptics.medium();
+    onOpenChange(false);
+  });
 
   const isActive = (path: string) => location.pathname === path;
 

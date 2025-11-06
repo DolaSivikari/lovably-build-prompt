@@ -85,12 +85,34 @@ export function MobileSearchResults({ results, searchQuery, onLinkClick }: Mobil
     return acc;
   }, {} as Record<string, SearchResult[]>);
 
+  // Calculate section counts
+  const sectionCounts = results.reduce((acc, result) => {
+    acc[result.section] = (acc[result.section] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const getSectionColor = (section: string) => {
+    const colors: Record<string, string> = {
+      Services: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
+      Markets: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+      Projects: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
+      Company: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
+      Resources: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+    };
+    return colors[section] || 'bg-muted text-muted-foreground';
+  };
+
   return (
     <div className="px-6 py-4 animate-fade-in">
-      <div className="mb-4">
+      <div className="mb-4 flex items-center gap-2 flex-wrap">
         <p className="text-sm text-muted-foreground">
           Found <span className="font-semibold text-foreground">{results.length}</span> result{results.length !== 1 ? "s" : ""}
         </p>
+        {Object.entries(sectionCounts).map(([section, count]) => (
+          <span key={section} className={`text-xs px-2 py-1 rounded-full ${getSectionColor(section)}`}>
+            {section}: {count}
+          </span>
+        ))}
       </div>
 
       <div className="space-y-4">

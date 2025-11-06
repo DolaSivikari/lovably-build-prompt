@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { useSearchAnalytics } from "./useSearchAnalytics";
 
-interface SearchResult {
+export interface SearchResult {
   name: string;
   link: string;
   category: string;
@@ -10,115 +10,125 @@ interface SearchResult {
   badge?: "new" | "popular" | "important";
 }
 
+// Export allNavigationItems as a separate variable for use in other hooks
+export const getAllNavigationItems = (): SearchResult[] => {
+  const items: SearchResult[] = [];
+
+  // Extract items from services
+  megaMenuDataEnhanced.services.forEach((section) => {
+    section.categories.forEach((category) => {
+      if (category.subItems) {
+        category.subItems.forEach((item) => {
+          items.push({
+            name: item.name,
+            link: item.link,
+            category: category.title,
+            section: "Services",
+            badge: item.badge as "new" | "popular" | "important" | undefined,
+          });
+        });
+      }
+    });
+  });
+
+  // Extract items from markets
+  megaMenuDataEnhanced.markets.forEach((section) => {
+    section.categories.forEach((category) => {
+      if (category.subItems) {
+        category.subItems.forEach((item) => {
+          items.push({
+            name: item.name,
+            link: item.link,
+            category: category.title,
+            section: "Markets",
+            badge: item.badge as "new" | "popular" | "important" | undefined,
+          });
+        });
+      }
+    });
+  });
+
+  // Extract items from projects
+  megaMenuDataEnhanced.projects.forEach((section) => {
+    section.categories.forEach((category) => {
+      if (category.subItems) {
+        category.subItems.forEach((item) => {
+          items.push({
+            name: item.name,
+            link: item.link,
+            category: "Projects",
+            section: "Projects",
+            badge: item.badge as "new" | "popular" | "important" | undefined,
+          });
+        });
+      }
+    });
+  });
+
+  // Extract items from company
+  megaMenuDataEnhanced.company.forEach((section) => {
+    section.categories.forEach((category) => {
+      if (category.subItems) {
+        category.subItems.forEach((item) => {
+          items.push({
+            name: item.name,
+            link: item.link,
+            category: section.sectionTitle,
+            section: "Company",
+            badge: item.badge as "new" | "popular" | "important" | undefined,
+          });
+        });
+      }
+    });
+  });
+
+  // Extract items from resources
+  megaMenuDataEnhanced.resources.forEach((section) => {
+    section.categories.forEach((category) => {
+      if (category.subItems) {
+        category.subItems.forEach((item) => {
+          items.push({
+            name: item.name,
+            link: item.link,
+            category: section.sectionTitle,
+            section: "Resources",
+            badge: item.badge as "new" | "popular" | "important" | undefined,
+          });
+        });
+      }
+    });
+  });
+
+  return items;
+};
+
 export function useNavigationSearch() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const { trackSearch } = useSearchAnalytics();
 
-  const allNavigationItems = useMemo(() => {
-    const items: SearchResult[] = [];
-
-    // Extract items from services
-    megaMenuDataEnhanced.services.forEach((section) => {
-      section.categories.forEach((category) => {
-        if (category.subItems) {
-          category.subItems.forEach((item) => {
-            items.push({
-              name: item.name,
-              link: item.link,
-              category: category.title,
-              section: "Services",
-              badge: item.badge as "new" | "popular" | "important" | undefined,
-            });
-          });
-        }
-      });
-    });
-
-    // Extract items from markets
-    megaMenuDataEnhanced.markets.forEach((section) => {
-      section.categories.forEach((category) => {
-        if (category.subItems) {
-          category.subItems.forEach((item) => {
-            items.push({
-              name: item.name,
-              link: item.link,
-              category: category.title,
-              section: "Markets",
-              badge: item.badge as "new" | "popular" | "important" | undefined,
-            });
-          });
-        }
-      });
-    });
-
-    // Extract items from projects
-    megaMenuDataEnhanced.projects.forEach((section) => {
-      section.categories.forEach((category) => {
-        if (category.subItems) {
-          category.subItems.forEach((item) => {
-            items.push({
-              name: item.name,
-              link: item.link,
-              category: "Projects",
-              section: "Projects",
-              badge: item.badge as "new" | "popular" | "important" | undefined,
-            });
-          });
-        }
-      });
-    });
-
-    // Extract items from company
-    megaMenuDataEnhanced.company.forEach((section) => {
-      section.categories.forEach((category) => {
-        if (category.subItems) {
-          category.subItems.forEach((item) => {
-            items.push({
-              name: item.name,
-              link: item.link,
-              category: section.sectionTitle,
-              section: "Company",
-              badge: item.badge as "new" | "popular" | "important" | undefined,
-            });
-          });
-        }
-      });
-    });
-
-    // Extract items from resources
-    megaMenuDataEnhanced.resources.forEach((section) => {
-      section.categories.forEach((category) => {
-        if (category.subItems) {
-          category.subItems.forEach((item) => {
-            items.push({
-              name: item.name,
-              link: item.link,
-              category: section.sectionTitle,
-              section: "Resources",
-              badge: item.badge as "new" | "popular" | "important" | undefined,
-            });
-          });
-        }
-      });
-    });
-
-    return items;
-  }, []);
+  const allNavigationItems = useMemo(() => getAllNavigationItems(), []);
 
   const filteredResults = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return [];
-    }
+    if (!searchQuery.trim()) return [];
 
     const query = searchQuery.toLowerCase();
-    return allNavigationItems.filter((item) => {
-      return (
-        item.name.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query) ||
-        item.section.toLowerCase().includes(query)
-      );
+    let results = allNavigationItems.filter((item) => {
+      const nameMatch = item.name.toLowerCase().includes(query);
+      const categoryMatch = item.category.toLowerCase().includes(query);
+      const sectionMatch = item.section.toLowerCase().includes(query);
+      return nameMatch || categoryMatch || sectionMatch;
     });
-  }, [searchQuery, allNavigationItems]);
+
+    // Apply category filter
+    if (activeCategory !== "all") {
+      results = results.filter(
+        (item) => item.section.toLowerCase() === activeCategory.toLowerCase()
+      );
+    }
+
+    return results;
+  }, [searchQuery, allNavigationItems, activeCategory]);
 
   // Track search analytics when results change
   useEffect(() => {
@@ -141,6 +151,8 @@ export function useNavigationSearch() {
     searchQuery,
     setSearchQuery,
     filteredResults,
-    isSearching: searchQuery.trim().length > 0,
+    isSearching: searchQuery.length > 0,
+    activeCategory,
+    setActiveCategory,
   };
 }
