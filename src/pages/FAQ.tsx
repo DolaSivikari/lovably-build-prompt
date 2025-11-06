@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 import {
   Accordion,
   AccordionContent,
@@ -16,6 +17,7 @@ import {
 } from "@/components/ui/accordion";
 
 const FAQ = () => {
+  const { yearsInBusinessFormatted, totalProjectsFormatted } = useCompanyStats();
   const [searchQuery, setSearchQuery] = useState("");
 
   const faqCategories = [
@@ -26,7 +28,7 @@ const FAQ = () => {
       questions: [
         {
           question: "How long has Ascent Group Construction been in business?",
-          answer: "Ascent Group Construction was founded in 2009 and has been providing expert construction services across the Greater Toronto Area for over 15 years. We've successfully completed over 500 projects ranging from residential homes to large commercial properties."
+          answer: `Ascent Group Construction was founded in 2009 and has been providing expert construction services across the Greater Toronto Area for over ${yearsInBusinessFormatted} years. We've successfully completed over ${totalProjectsFormatted} projects ranging from residential homes to large commercial properties.`
         },
         {
           question: "What areas do you serve in Ontario?",
@@ -154,7 +156,7 @@ const FAQ = () => {
         },
         {
           question: "Do you install or just repair EIFS?",
-          answer: "We do both! EIFS installation includes: moisture barrier, foam insulation board, base coat with mesh, finish coat, and trim details. We're certified EIFS installers with 15+ years experience. We also specialize in EIFS repairs, water damage remediation, and system upgrades."
+          answer: `We do both! EIFS installation includes: moisture barrier, foam insulation board, base coat with mesh, finish coat, and trim details. We're certified EIFS installers with ${yearsInBusinessFormatted} years experience. We also specialize in EIFS repairs, water damage remediation, and system upgrades.`
         },
         {
           question: "Can you paint kitchen cabinets?",

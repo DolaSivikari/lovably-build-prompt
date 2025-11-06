@@ -13,9 +13,11 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const Safety = () => {
   const { data: aboutSettings } = useSettingsData('about_page_settings');
+  const { totalProjectsFormatted } = useCompanyStats();
   
   const safetyData = {
     commitment: aboutSettings?.safety_commitment || 'Our comprehensive safety program protects our team, your property, and everyone on site.',
@@ -72,7 +74,7 @@ const Safety = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               <Card className="text-center p-8 bg-primary text-primary-foreground hover:shadow-xl transition-shadow">
-                <div className="text-5xl font-bold mb-2">500+</div>
+                <div className="text-5xl font-bold mb-2">{totalProjectsFormatted}</div>
                 <p className="text-lg opacity-90">Projects with Zero Lost-Time Incidents</p>
               </Card>
               <Card className="text-center p-8 bg-primary text-primary-foreground hover:shadow-xl transition-shadow">

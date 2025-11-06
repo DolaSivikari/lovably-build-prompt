@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 interface Document {
   id: string;
@@ -40,8 +41,8 @@ const categoryIcons: Record<string, any> = {
   other: FileText
 };
 
-const companyHighlights = [
-  { icon: Calendar, label: "Experience", value: "15+ Years", desc: "Serving the GTA since 2009" },
+const companyHighlightsBase = [
+  { icon: Calendar, label: "Experience", value: "years_in_business", desc: "Serving the GTA since 2009" },
   { icon: DollarSign, label: "Annual Volume", value: "$10-30M", desc: "Consistent project delivery" },
   { icon: Shield, label: "Bonding Capacity", value: "$5M", desc: "Single project capacity" },
   { icon: Building2, label: "Insurance", value: "$5M", desc: "General liability coverage" },
@@ -209,6 +210,13 @@ function DownloadableDocuments() {
 }
 
 const Prequalification = () => {
+  const { yearsInBusinessFormatted } = useCompanyStats();
+  
+  const companyHighlights = companyHighlightsBase.map(h => ({
+    ...h,
+    value: h.value === "years_in_business" ? `${yearsInBusinessFormatted} Years` : h.value
+  }));
+  
   return (
     <div className="min-h-screen">
       <SEO

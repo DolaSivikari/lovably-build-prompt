@@ -1,10 +1,13 @@
 import { Building2, Clock, Award, CheckCircle } from "lucide-react";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 interface ServiceStatsProps {
   serviceCount: number;
 }
 
 export const ServiceStats = ({ serviceCount }: ServiceStatsProps) => {
+  const { yearsInBusinessFormatted, totalProjectsFormatted } = useCompanyStats();
+  
   const stats = [
     {
       icon: Building2,
@@ -14,12 +17,12 @@ export const ServiceStats = ({ serviceCount }: ServiceStatsProps) => {
     {
       icon: Award,
       label: "Years Experience",
-      value: "15+",
+      value: yearsInBusinessFormatted,
     },
     {
       icon: CheckCircle,
       label: "Projects Completed",
-      value: "500+",
+      value: totalProjectsFormatted,
     },
     {
       icon: Clock,

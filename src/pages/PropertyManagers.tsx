@@ -7,8 +7,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CheckCircle, CreditCard } from "lucide-react";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const PropertyManagers = () => {
+  const { satisfactionRateFormatted } = useCompanyStats();
+  
   const benefits = [
     {
       icon: CreditCard,
@@ -51,7 +54,7 @@ const PropertyManagers = () => {
     {
       title: "Exterior Restoration",
       description: "Stucco, EIFS, and facade maintenance",
-      roi: "Extend building life 15+ years"
+      roi: "Extend building life decades"
     },
     {
       title: "Parking Garage Coatings",
@@ -121,7 +124,7 @@ const PropertyManagers = () => {
                 <div className="text-muted-foreground">Average Turnover Time</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">98%</div>
+                <div className="text-4xl font-bold text-primary mb-2">{satisfactionRateFormatted}</div>
                 <div className="text-muted-foreground">Tenant Satisfaction</div>
               </div>
             </div>

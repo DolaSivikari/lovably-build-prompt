@@ -8,6 +8,7 @@ import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { supabase } from "@/integrations/supabase/client";
+import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 // Helper to map icon names to Lucide icons
 const getIconComponent = (iconName?: string) => {
@@ -37,69 +38,6 @@ const formatTitle = (title: string) => {
     .join(' ');
 };
 
-const heroSlides = [
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-1.webp",
-    stat: "$2B+",
-    statLabel: "Total Project Value",
-    headline: "Ontario's Trusted General Contractor",
-    subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
-    primaryCTA: { label: "Submit RFP", icon: FileText, href: "/contact" },
-    secondaryCTA: { label: "View Portfolio", href: "/projects" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-2.webp",
-    stat: "500+",
-    statLabel: "Completed Projects",
-    headline: "Design-Build Excellence",
-    subheadline: "From concept through completion – comprehensive construction management across the GTA",
-    primaryCTA: { label: "Request Proposal", icon: Building2, href: "/contact" },
-    secondaryCTA: { label: "Our Services", href: "/services" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-3.webp",
-    stat: "98%",
-    statLabel: "Client Satisfaction",
-    headline: "Safety-First Construction",
-    subheadline: "Zero lost-time incidents across 500+ projects. COR-certified with industry-leading safety standards",
-    primaryCTA: { label: "View Safety Record", icon: Award, href: "/safety" },
-    secondaryCTA: { label: "Prequalification Package", href: "/prequalification" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-4.webp",
-    stat: "15+",
-    statLabel: "Years of Excellence",
-    headline: "Building Tomorrow's Infrastructure",
-    subheadline: "Leveraging cutting-edge construction technology and project management software for superior results",
-    primaryCTA: { label: "Our Technology", icon: Cpu, href: "/company/equipment-resources" },
-    secondaryCTA: { label: "Learn More", href: "/about" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-5.webp",
-    stat: "LEED",
-    statLabel: "Certified Projects",
-    headline: "Sustainable Construction Leaders",
-    subheadline: "Eco-friendly building practices reducing environmental impact while maximizing energy efficiency",
-    primaryCTA: { label: "Green Initiatives", icon: Leaf, href: "/sustainability" },
-    secondaryCTA: { label: "Case Studies", href: "/projects" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-6.webp",
-    stat: "150+",
-    statLabel: "Expert Professionals",
-    headline: "Powered by Industry Leaders",
-    subheadline: "Professional engineers, certified tradespeople, and project managers dedicated to your success",
-    primaryCTA: { label: "Meet Our Team", icon: Users, href: "/company/team" },
-    secondaryCTA: { label: "Careers", href: "/careers" }
-  }
-];
-
 interface HeroSlide {
   id: string;
   headline: string;
@@ -117,6 +55,71 @@ interface HeroSlide {
 }
 
 const EnhancedHero = () => {
+  const { yearsInBusinessFormatted, totalProjectsFormatted, satisfactionRateFormatted } = useCompanyStats();
+  
+  const heroSlides = [
+    {
+      video: heroClipchampVideo,
+      poster: "/hero-poster-1.webp",
+      stat: "$2B+",
+      statLabel: "Total Project Value",
+      headline: "Ontario's Trusted General Contractor",
+      subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
+      primaryCTA: { label: "Submit RFP", icon: FileText, href: "/contact" },
+      secondaryCTA: { label: "View Portfolio", href: "/projects" }
+    },
+    {
+      video: heroClipchampVideo,
+      poster: "/hero-poster-2.webp",
+      stat: totalProjectsFormatted,
+      statLabel: "Completed Projects",
+      headline: "Design-Build Excellence",
+      subheadline: "From concept through completion – comprehensive construction management across the GTA",
+      primaryCTA: { label: "Request Proposal", icon: Building2, href: "/contact" },
+      secondaryCTA: { label: "Our Services", href: "/services" }
+    },
+    {
+      video: heroClipchampVideo,
+      poster: "/hero-poster-3.webp",
+      stat: satisfactionRateFormatted,
+      statLabel: "Client Satisfaction",
+      headline: "Safety-First Construction",
+      subheadline: `Zero lost-time incidents across ${totalProjectsFormatted} projects. COR-certified with industry-leading safety standards`,
+      primaryCTA: { label: "View Safety Record", icon: Award, href: "/safety" },
+      secondaryCTA: { label: "Prequalification Package", href: "/prequalification" }
+    },
+    {
+      video: heroClipchampVideo,
+      poster: "/hero-poster-4.webp",
+      stat: yearsInBusinessFormatted,
+      statLabel: "Years of Excellence",
+      headline: "Building Tomorrow's Infrastructure",
+      subheadline: "Leveraging cutting-edge construction technology and project management software for superior results",
+      primaryCTA: { label: "Our Technology", icon: Cpu, href: "/company/equipment-resources" },
+      secondaryCTA: { label: "Learn More", href: "/about" }
+    },
+    {
+      video: heroClipchampVideo,
+      poster: "/hero-poster-5.webp",
+      stat: "LEED",
+      statLabel: "Certified Projects",
+      headline: "Sustainable Construction Leaders",
+      subheadline: "Eco-friendly building practices reducing environmental impact while maximizing energy efficiency",
+      primaryCTA: { label: "Green Initiatives", icon: Leaf, href: "/sustainability" },
+      secondaryCTA: { label: "Case Studies", href: "/projects" }
+    },
+    {
+      video: heroClipchampVideo,
+      poster: "/hero-poster-6.webp",
+      stat: "150+",
+      statLabel: "Expert Professionals",
+      headline: "Powered by Industry Leaders",
+      subheadline: "Professional engineers, certified tradespeople, and project managers dedicated to your success",
+      primaryCTA: { label: "Meet Our Team", icon: Users, href: "/company/team" },
+      secondaryCTA: { label: "Careers", href: "/careers" }
+    }
+  ];
+  
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [showPoster, setShowPoster] = useState(true);
