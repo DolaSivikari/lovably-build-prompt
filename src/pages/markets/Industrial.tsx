@@ -6,6 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroIndustrial from "@/assets/heroes/hero-industrial.jpg";
 
 const Industrial = () => {
   const challenges = [

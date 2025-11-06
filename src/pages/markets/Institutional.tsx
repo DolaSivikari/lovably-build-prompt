@@ -6,6 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroInstitutional from "@/assets/heroes/hero-institutional.jpg";
 
 const Institutional = () => {
   const challenges = [
@@ -45,6 +46,7 @@ const Institutional = () => {
       <PageHeader
         title="Institutional Construction"
         description="Trusted partner for schools, healthcare facilities, and government buildings"
+        backgroundImage={heroInstitutional}
       />
 
       <main className="py-16">

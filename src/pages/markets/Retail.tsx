@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Clock, TrendingUp, Store } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroRetail from "@/assets/heroes/hero-retail.jpg";
 
 const Retail = () => {
   const valuePropositions = [

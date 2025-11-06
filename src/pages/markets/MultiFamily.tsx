@@ -6,6 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroMultiFamily from "@/assets/heroes/hero-multi-family.jpg";
 
 const MultiFamily = () => {
   const challenges = [
@@ -45,6 +46,7 @@ const MultiFamily = () => {
       <PageHeader
         title="Multi-Family Residential Construction"
         description="Specialized expertise in condos, apartments, and multi-unit residential buildings"
+        backgroundImage={heroMultiFamily}
       />
 
       <main className="py-16">

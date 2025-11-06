@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Bed, Clock, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroHospitality from "@/assets/heroes/hero-hospitality.jpg";
 
 const Hospitality = () => {
   const valuePropositions = [

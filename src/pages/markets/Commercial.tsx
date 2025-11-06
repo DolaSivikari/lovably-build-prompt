@@ -6,6 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import heroCommercial from "@/assets/heroes/hero-commercial.jpg";
 
 const Commercial = () => {
   const challenges = [
@@ -45,6 +46,7 @@ const Commercial = () => {
       <PageHeader
         title="Commercial Construction"
         description="Expert delivery of office buildings, tenant improvements, and retail spaces"
+        backgroundImage={heroCommercial}
       />
 
       <main className="py-16">

@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Users, Calendar, Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroEducation from "@/assets/heroes/hero-education.jpg";
 
 const Education = () => {
   const valuePropositions = [
