@@ -8,6 +8,11 @@ import { ClientSelector } from "./ClientSelector";
 import { calculateInvoiceTotals } from "@/utils/calculations";
 import { formatCurrency } from "@/utils/currency";
 import { LineItem } from "@/utils/calculations";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { useEffect } from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { HelpCircle } from "lucide-react";
 
 interface InvoiceEditorProps {
   invoice?: any;
@@ -22,8 +27,24 @@ export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps)
   const [notes, setNotes] = useState(invoice?.notes || "");
   const [issueDate, setIssueDate] = useState(invoice?.issue_date || new Date().toISOString().split('T')[0]);
   const [dueDate, setDueDate] = useState(invoice?.due_date || "");
+  const [hasChanges, setHasChanges] = useState(false);
 
   const totals = calculateInvoiceTotals(lineItems);
+
+  const { blocker } = useUnsavedChanges({
+    hasUnsavedChanges: hasChanges,
+  });
+
+  useEffect(() => {
+    const changed = 
+      invoiceNumber !== (invoice?.invoice_number || `INV-${Date.now()}`) ||
+      clientId !== (invoice?.client_id || "") ||
+      JSON.stringify(lineItems) !== JSON.stringify(invoice?.line_items || []) ||
+      notes !== (invoice?.notes || "") ||
+      issueDate !== (invoice?.issue_date || new Date().toISOString().split('T')[0]) ||
+      dueDate !== (invoice?.due_date || "");
+    setHasChanges(changed);
+  }, [invoiceNumber, clientId, lineItems, notes, issueDate, dueDate, invoice]);
 
   const handleSubmit = () => {
     onSave({
@@ -40,26 +61,89 @@ export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps)
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-3">
-        <div>
-          <Label>Invoice Number</Label>
-          <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
-        </div>
-        <div>
-          <Label>Issue Date</Label>
-          <Input type="date" value={issueDate} onChange={(e) => setIssueDate(e.target.value)} />
-        </div>
-        <div>
-          <Label>Due Date</Label>
-          <Input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
-        </div>
-      </div>
+    <>
+      {blocker.state === "blocked" && (
+        <AlertDialog open={true}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
+              <AlertDialogDescription>
+                You have unsaved changes to this invoice. Are you sure you want to leave?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => blocker.reset?.()}>
+                Stay
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={() => blocker.proceed?.()}>
+                Leave
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
+      
+      <TooltipProvider>
+        <div className="space-y-6">
+          <div className="grid gap-4 md:grid-cols-3">
+            <div>
+              <Label className="flex items-center gap-2">
+                Invoice Number
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Unique identifier for this invoice</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Label>
+              <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
+            </div>
+            <div>
+              <Label className="flex items-center gap-2">
+                Issue Date
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Date when the invoice was issued</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Label>
+              <Input type="date" value={issueDate} onChange={(e) => setIssueDate(e.target.value)} />
+            </div>
+            <div>
+              <Label className="flex items-center gap-2">
+                Due Date
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Payment deadline for this invoice</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Label>
+              <Input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+            </div>
+          </div>
 
-      <div>
-        <Label>Client</Label>
-        <ClientSelector value={clientId} onChange={setClientId} />
-      </div>
+          <div>
+            <Label className="flex items-center gap-2">
+              Client
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Select the client to invoice</p>
+                </TooltipContent>
+              </Tooltip>
+            </Label>
+            <ClientSelector value={clientId} onChange={setClientId} />
+          </div>
 
       <div>
         <Label className="mb-2 block">Line Items</Label>
@@ -90,10 +174,12 @@ export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps)
         <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
       </div>
 
-      <div className="flex justify-end gap-2">
-        <Button variant="outline" onClick={onCancel}>Cancel</Button>
-        <Button onClick={handleSubmit}>Save Invoice</Button>
-      </div>
-    </div>
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={onCancel}>Cancel</Button>
+            <Button onClick={handleSubmit}>Save Invoice</Button>
+          </div>
+        </div>
+      </TooltipProvider>
+    </>
   );
 };

@@ -10,6 +10,7 @@ import { EstimateList } from "@/components/business/EstimateList";
 import { EstimateEditor } from "@/components/business/EstimateEditor";
 import { EstimatePDF } from "@/components/business/EstimatePDF";
 import { PDFDownloadButton } from "@/components/business/PDFDownloadButton";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export default function BusinessEstimates() {
   const { isLoading, isAdmin } = useAdminAuth();
@@ -17,6 +18,8 @@ export default function BusinessEstimates() {
   const [showEditor, setShowEditor] = useState(false);
   const [editingEstimate, setEditingEstimate] = useState<any>(null);
   const [companyInfo, setCompanyInfo] = useState<any>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [estimateToDelete, setEstimateToDelete] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -106,11 +109,16 @@ export default function BusinessEstimates() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this estimate?")) return;
+  const handleDeleteClick = (id: string) => {
+    setEstimateToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!estimateToDelete) return;
 
     try {
-      const { error } = await supabase.from("estimates").delete().eq("id", id);
+      const { error } = await supabase.from("estimates").delete().eq("id", estimateToDelete);
       if (error) throw error;
       toast({ title: "Estimate deleted successfully" });
       fetchEstimates();
@@ -121,6 +129,7 @@ export default function BusinessEstimates() {
         variant: "destructive",
       });
     }
+    setEstimateToDelete(null);
   };
 
   const stats = {
@@ -169,7 +178,7 @@ export default function BusinessEstimates() {
         <EstimateList
           estimates={estimates}
           onEdit={(id) => { setEditingEstimate(estimates.find(e => e.id === id)); setShowEditor(true); }}
-          onDelete={handleDelete}
+          onDelete={handleDeleteClick}
           onDownload={(id) => {
             const estimate = estimates.find(e => e.id === id);
             if (estimate && companyInfo) {
@@ -204,6 +213,16 @@ export default function BusinessEstimates() {
           }}
         />
       </Card>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+        title="Delete Estimate"
+        description="Are you sure you want to delete this estimate? This action cannot be undone."
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 }

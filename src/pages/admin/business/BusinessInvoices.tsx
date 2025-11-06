@@ -11,6 +11,7 @@ import { InvoiceEditor } from "@/components/business/InvoiceEditor";
 import { InvoicePDF } from "@/components/business/InvoicePDF";
 import { PDFDownloadButton } from "@/components/business/PDFDownloadButton";
 import { RecordPaymentModal } from "@/components/business/RecordPaymentModal";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export default function BusinessInvoices() {
   const { isLoading, isAdmin } = useAdminAuth();
@@ -19,6 +20,8 @@ export default function BusinessInvoices() {
   const [editingInvoice, setEditingInvoice] = useState<any>(null);
   const [recordingPaymentFor, setRecordingPaymentFor] = useState<any>(null);
   const [companyInfo, setCompanyInfo] = useState<any>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [invoiceToDelete, setInvoiceToDelete] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -138,11 +141,16 @@ export default function BusinessInvoices() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this invoice?")) return;
+  const handleDeleteClick = (id: string) => {
+    setInvoiceToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!invoiceToDelete) return;
 
     try {
-      const { error } = await supabase.from("invoices").delete().eq("id", id);
+      const { error } = await supabase.from("invoices").delete().eq("id", invoiceToDelete);
       if (error) throw error;
       toast({ title: "Invoice deleted successfully" });
       fetchInvoices();
@@ -153,6 +161,7 @@ export default function BusinessInvoices() {
         variant: "destructive",
       });
     }
+    setInvoiceToDelete(null);
   };
 
   const stats = {
@@ -201,7 +210,7 @@ export default function BusinessInvoices() {
         <InvoiceList
           invoices={invoices}
           onEdit={(id) => { setEditingInvoice(invoices.find(i => i.id === id)); setShowEditor(true); }}
-          onDelete={handleDelete}
+          onDelete={handleDeleteClick}
           onDownload={(id) => {
             const invoice = invoices.find(i => i.id === id);
             if (invoice && companyInfo) {
@@ -246,6 +255,16 @@ export default function BusinessInvoices() {
           remainingBalance={recordingPaymentFor.balance_cents}
         />
       )}
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+        title="Delete Invoice"
+        description="Are you sure you want to delete this invoice? This action cannot be undone."
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 }

@@ -20,6 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ClientSelector } from "./ClientSelector";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { useEffect } from "react";
 
 const projectSchema = z.object({
   name: z.string().min(1, "Project name is required"),
@@ -54,7 +57,38 @@ export const ProjectForm = ({
     },
   });
 
+  const { blocker } = useUnsavedChanges({
+    hasUnsavedChanges: form.formState.isDirty,
+  });
+
+  useEffect(() => {
+    if (blocker.state === "blocked") {
+      // Navigation is blocked, show custom dialog via blocker
+    }
+  }, [blocker.state]);
+
   return (
+    <>
+      {blocker.state === "blocked" && (
+        <AlertDialog open={true}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
+              <AlertDialogDescription>
+                You have unsaved changes. Are you sure you want to leave?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => blocker.reset?.()}>
+                Stay
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={() => blocker.proceed?.()}>
+                Leave
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
@@ -165,5 +199,6 @@ export const ProjectForm = ({
         </div>
       </form>
     </Form>
+    </>
   );
 };

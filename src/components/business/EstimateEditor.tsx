@@ -8,6 +8,11 @@ import { ClientSelector } from "./ClientSelector";
 import { calculateInvoiceTotals } from "@/utils/calculations";
 import { formatCurrency } from "@/utils/currency";
 import { LineItem } from "@/utils/calculations";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { useEffect } from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { HelpCircle } from "lucide-react";
 
 interface EstimateEditorProps {
   estimate?: any;
@@ -21,8 +26,23 @@ export const EstimateEditor = ({ estimate, onSave, onCancel }: EstimateEditorPro
   const [lineItems, setLineItems] = useState<LineItem[]>(estimate?.line_items || []);
   const [notes, setNotes] = useState(estimate?.notes || "");
   const [validUntil, setValidUntil] = useState(estimate?.valid_until || "");
+  const [hasChanges, setHasChanges] = useState(false);
 
   const totals = calculateInvoiceTotals(lineItems);
+
+  const { blocker } = useUnsavedChanges({
+    hasUnsavedChanges: hasChanges,
+  });
+
+  useEffect(() => {
+    const changed = 
+      estimateNumber !== (estimate?.estimate_number || `EST-${Date.now()}`) ||
+      clientId !== (estimate?.client_id || "") ||
+      JSON.stringify(lineItems) !== JSON.stringify(estimate?.line_items || []) ||
+      notes !== (estimate?.notes || "") ||
+      validUntil !== (estimate?.valid_until || "");
+    setHasChanges(changed);
+  }, [estimateNumber, clientId, lineItems, notes, validUntil, estimate]);
 
   const handleSubmit = () => {
     onSave({
@@ -36,21 +56,74 @@ export const EstimateEditor = ({ estimate, onSave, onCancel }: EstimateEditorPro
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-2">
-        <div>
-          <Label>Estimate Number</Label>
-          <Input value={estimateNumber} onChange={(e) => setEstimateNumber(e.target.value)} />
-        </div>
-        <div>
-          <Label>Client</Label>
-          <ClientSelector value={clientId} onChange={setClientId} />
-        </div>
-        <div>
-          <Label>Valid Until</Label>
-          <Input type="date" value={validUntil} onChange={(e) => setValidUntil(e.target.value)} />
-        </div>
-      </div>
+    <>
+      {blocker.state === "blocked" && (
+        <AlertDialog open={true}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
+              <AlertDialogDescription>
+                You have unsaved changes to this estimate. Are you sure you want to leave?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => blocker.reset?.()}>
+                Stay
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={() => blocker.proceed?.()}>
+                Leave
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
+      
+      <TooltipProvider>
+        <div className="space-y-6">
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <Label className="flex items-center gap-2">
+                Estimate Number
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Unique identifier for this estimate</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Label>
+              <Input value={estimateNumber} onChange={(e) => setEstimateNumber(e.target.value)} />
+            </div>
+            <div>
+              <Label className="flex items-center gap-2">
+                Client
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Select the client for this estimate</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Label>
+              <ClientSelector value={clientId} onChange={setClientId} />
+            </div>
+            <div>
+              <Label className="flex items-center gap-2">
+                Valid Until
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Expiration date for this estimate</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Label>
+              <Input type="date" value={validUntil} onChange={(e) => setValidUntil(e.target.value)} />
+            </div>
+          </div>
 
       <div>
         <Label className="mb-2 block">Line Items</Label>
@@ -81,10 +154,12 @@ export const EstimateEditor = ({ estimate, onSave, onCancel }: EstimateEditorPro
         <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
       </div>
 
-      <div className="flex justify-end gap-2">
-        <Button variant="outline" onClick={onCancel}>Cancel</Button>
-        <Button onClick={handleSubmit}>Save Estimate</Button>
-      </div>
-    </div>
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={onCancel}>Cancel</Button>
+            <Button onClick={handleSubmit}>Save Estimate</Button>
+          </div>
+        </div>
+      </TooltipProvider>
+    </>
   );
 };

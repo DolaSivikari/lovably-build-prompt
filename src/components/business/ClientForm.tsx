@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { useEffect } from "react";
 
 const clientSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -50,7 +53,38 @@ export const ClientForm = ({
     },
   });
 
+  const { blocker } = useUnsavedChanges({
+    hasUnsavedChanges: form.formState.isDirty,
+  });
+
+  useEffect(() => {
+    if (blocker.state === "blocked") {
+      // Navigation is blocked
+    }
+  }, [blocker.state]);
+
   return (
+    <>
+      {blocker.state === "blocked" && (
+        <AlertDialog open={true}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
+              <AlertDialogDescription>
+                You have unsaved changes. Are you sure you want to leave?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => blocker.reset?.()}>
+                Stay
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={() => blocker.proceed?.()}>
+                Leave
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
@@ -149,5 +183,6 @@ export const ClientForm = ({
         </div>
       </form>
     </Form>
+    </>
   );
 };
