@@ -155,6 +155,9 @@ const SettingsHealthCheck = lazy(() => import("./pages/admin/SettingsHealthCheck
 const HeroSlidesManager = lazy(() => import("./pages/admin/HeroSlidesManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Slides Manager</p></div>
 })));
+const HeroImagesManager = lazy(() => import("./pages/admin/HeroImagesManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Images Manager</p></div>
+})));
 
 // Unified Admin Layout
 const UnifiedAdminLayout = lazy(() => import("./components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
@@ -334,6 +337,7 @@ const App = () => (
                     <Route path="contact-page-settings" element={<ContactPageSettings />} />
                     <Route path="settings-health" element={<SettingsHealthCheck />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
+                    <Route path="hero-images" element={<HeroImagesManager />} />
                     
                     {/* Business Admin Routes */}
                     <Route path="business/dashboard" element={<BusinessDashboard />} />

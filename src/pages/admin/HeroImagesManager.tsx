@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
-import { UnifiedAdminLayout } from "@/components/admin/UnifiedAdminLayout";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -204,21 +203,19 @@ const HeroImagesManager = () => {
 
   if (authLoading || loading) {
     return (
-      <UnifiedAdminLayout>
-        <div className="p-8 space-y-4">
-          <Skeleton className="h-12 w-64" />
-          <Skeleton className="h-64 w-full" />
-        </div>
-      </UnifiedAdminLayout>
+      <div className="p-8 space-y-4">
+        <Skeleton className="h-12 w-64" />
+        <Skeleton className="h-64 w-full" />
+      </div>
     );
   }
 
   return (
-    <UnifiedAdminLayout>
+    <>
       <AdminPageHeader
         title="Hero Images Manager"
         description="Manage hero images for page headers across the website"
-        action={
+        actions={
           <Dialog open={isDialogOpen} onOpenChange={(open) => {
             setIsDialogOpen(open);
             if (!open) resetForm();
@@ -262,12 +259,12 @@ const HeroImagesManager = () => {
                 <div className="space-y-2">
                   <Label htmlFor="image_url">Image URL *</Label>
                   <ImageUploadField
-                    currentImageUrl={formData.image_url}
-                    onImageChange={(url) => setFormData({ ...formData, image_url: url })}
-                    bucketName="hero-images"
+                    value={formData.image_url}
+                    onChange={(url) => setFormData({ ...formData, image_url: url })}
+                    bucket="hero-images"
                     label="Upload Hero Image"
-                    description="Recommended size: 1920x1088px (16:9 ratio)"
                   />
+                  <p className="text-xs text-muted-foreground">Recommended size: 1920x1088px (16:9 ratio)</p>
                   <Input
                     id="image_url"
                     value={formData.image_url}
@@ -489,7 +486,7 @@ const HeroImagesManager = () => {
           </DialogContent>
         </Dialog>
       </div>
-    </UnifiedAdminLayout>
+    </>
   );
 };
 
