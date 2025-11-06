@@ -53,38 +53,30 @@ export const ClientForm = ({
     },
   });
 
-  const { blocker } = useUnsavedChanges({
+  const { showDialog, confirmNavigation, cancelNavigation, message } = useUnsavedChanges({
     hasUnsavedChanges: form.formState.isDirty,
   });
 
-  useEffect(() => {
-    if (blocker.state === "blocked") {
-      // Navigation is blocked
-    }
-  }, [blocker.state]);
-
   return (
     <>
-      {blocker.state === "blocked" && (
-        <AlertDialog open={true}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
-              <AlertDialogDescription>
-                You have unsaved changes. Are you sure you want to leave?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => blocker.reset?.()}>
-                Stay
-              </AlertDialogCancel>
-              <AlertDialogAction onClick={() => blocker.proceed?.()}>
-                Leave
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      )}
+      <AlertDialog open={showDialog} onOpenChange={() => {}}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
+            <AlertDialogDescription>
+              {message}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={cancelNavigation}>
+              Stay
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={confirmNavigation}>
+              Leave
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField

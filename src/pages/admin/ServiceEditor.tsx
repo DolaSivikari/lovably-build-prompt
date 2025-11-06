@@ -19,7 +19,7 @@ const ServiceEditor = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-  const { blocker } = useUnsavedChanges({ hasUnsavedChanges });
+  const { showDialog, confirmNavigation, cancelNavigation, message } = useUnsavedChanges({ hasUnsavedChanges });
   const [formData, setFormData] = useState({
     slug: "",
     name: "",
@@ -132,11 +132,11 @@ const ServiceEditor = () => {
   return (
     <>
       <ConfirmDialog
-        open={blocker.state === "blocked"}
-        onOpenChange={(open) => !open && blocker.reset?.()}
-        onConfirm={() => blocker.proceed?.()}
+        open={showDialog}
+        onOpenChange={cancelNavigation}
+        onConfirm={confirmNavigation}
         title="Unsaved Changes"
-        description="You have unsaved changes. Are you sure you want to leave this page?"
+        description={message}
         confirmText="Leave"
         cancelText="Stay"
         variant="destructive"

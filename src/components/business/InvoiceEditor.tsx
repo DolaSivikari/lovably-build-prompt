@@ -31,7 +31,7 @@ export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps)
 
   const totals = calculateInvoiceTotals(lineItems);
 
-  const { blocker } = useUnsavedChanges({
+  const { showDialog, confirmNavigation, cancelNavigation, message } = useUnsavedChanges({
     hasUnsavedChanges: hasChanges,
   });
 
@@ -62,26 +62,24 @@ export const InvoiceEditor = ({ invoice, onSave, onCancel }: InvoiceEditorProps)
 
   return (
     <>
-      {blocker.state === "blocked" && (
-        <AlertDialog open={true}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
-              <AlertDialogDescription>
-                You have unsaved changes to this invoice. Are you sure you want to leave?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => blocker.reset?.()}>
-                Stay
-              </AlertDialogCancel>
-              <AlertDialogAction onClick={() => blocker.proceed?.()}>
-                Leave
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      )}
+      <AlertDialog open={showDialog} onOpenChange={() => {}}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
+            <AlertDialogDescription>
+              {message}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={cancelNavigation}>
+              Stay
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={confirmNavigation}>
+              Leave
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       
       <TooltipProvider>
         <div className="space-y-6">
