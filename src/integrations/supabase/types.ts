@@ -553,6 +553,95 @@ export type Database = {
         }
         Relationships: []
       }
+      company_overview_items: {
+        Row: {
+          content: string
+          created_at: string | null
+          created_by: string | null
+          display_order: number | null
+          icon_name: string | null
+          id: string
+          is_active: boolean | null
+          section_id: string
+          title: string | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          section_id: string
+          title?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          section_id?: string
+          title?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_overview_items_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "company_overview_sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_overview_sections: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          display_order: number | null
+          id: string
+          is_active: boolean | null
+          section_type: string
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          section_type: string
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          section_type?: string
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       contact_page_settings: {
         Row: {
           careers_email: string | null
@@ -2516,6 +2605,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      why_choose_us_items: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          description: string
+          display_order: number | null
+          icon_name: string | null
+          id: string
+          is_active: boolean | null
+          stats_badge: string | null
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          description: string
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          stats_badge?: string | null
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          description?: string
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          stats_badge?: string | null
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
       }
     }
     Views: {
