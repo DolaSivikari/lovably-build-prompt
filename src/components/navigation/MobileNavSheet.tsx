@@ -14,13 +14,14 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Phone, Search, TrendingUp, Users, Building, Wrench, Sparkles, Star, X } from "lucide-react";
+import { Phone, Search, Users, Building, Wrench, Sparkles, Star, X, Home, Mail, FileText, Briefcase } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { useNavigationSearch } from "@/hooks/useNavigationSearch";
 import { MobileSearchResults } from "./MobileSearchResults";
-import { usePopularServices } from "@/hooks/usePopularServices";
+import { EnhancedPopularServices } from "./EnhancedPopularServices";
+import { NavCategoryCard } from "./NavCategoryCard";
 
 interface MobileNavSheetProps {
   open: boolean;
@@ -30,7 +31,6 @@ interface MobileNavSheetProps {
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
   const { searchQuery, setSearchQuery, filteredResults, isSearching } = useNavigationSearch();
-  const { data: popularServices = [] } = usePopularServices();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -47,31 +47,33 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
         side="left" 
-        className="w-full sm:max-w-md overflow-y-auto p-0 animate-slide-in-right"
+        className="w-full sm:max-w-md overflow-y-auto p-0 animate-slide-in-right bg-gradient-to-br from-background via-background to-muted/20"
       >
-        <SheetHeader className="p-6 pb-4 text-left border-b animate-fade-in">
-          <SheetTitle className="text-2xl font-bold">Menu</SheetTitle>
-          <SheetDescription className="text-base">
-            Explore our services and resources
+        <SheetHeader className="p-6 pb-4 text-left border-b border-border/50 backdrop-blur-xl bg-background/80 sticky top-0 z-10 animate-fade-in">
+          <SheetTitle className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            Navigation
+          </SheetTitle>
+          <SheetDescription className="text-base text-muted-foreground">
+            Explore our complete range of services
           </SheetDescription>
         </SheetHeader>
 
         <div className="px-6 py-4">
-          {/* Enhanced Search Bar with Clear Button */}
-          <div className="mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+          {/* Enhanced Search Bar with Gradient Border */}
+          <div className="mb-6 animate-fade-in search-input-focus" style={{ animationDelay: "0.1s" }}>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-primary pointer-events-none" />
               <Input
                 type="search"
                 placeholder="Search services, markets, projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-10 h-12 min-h-[44px] text-base touch-manipulation"
+                className="pl-11 pr-10 h-14 min-h-[44px] text-base touch-manipulation bg-background/50 backdrop-blur-sm border-2 border-border/50 focus:border-primary/50 rounded-[var(--radius-md)] shadow-lg"
               />
               {searchQuery && (
                 <button
                   onClick={handleClearSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-colors touch-manipulation"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-muted rounded-full transition-all hover:scale-110 touch-manipulation"
                   aria-label="Clear search"
                 >
                   <X className="h-4 w-4 text-muted-foreground" />
@@ -79,9 +81,10 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               )}
             </div>
             {isSearching && (
-              <p className="text-xs text-muted-foreground mt-2 animate-fade-in">
-                Searching through all navigation items...
-              </p>
+              <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground animate-fade-in">
+                <div className="h-1 w-1 rounded-full bg-primary animate-pulse" />
+                <span>Searching across all sections...</span>
+              </div>
             )}
           </div>
 
@@ -94,82 +97,71 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             />
           ) : (
             <>
-              {/* Popular Services Quick Links - Dynamic & Analytics-Driven */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[var(--radius-sm)] border border-primary/10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-                <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4 text-primary" />
-                  Popular Services
-                </h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {popularServices.map((service) => {
-                    const IconComponent = service.icon;
-                    return (
-                      <Link
-                        key={service.link}
-                        to={service.link}
-                        onClick={handleLinkClick}
-                        className={`flex items-center gap-2 text-sm py-3 px-3 min-h-[44px] bg-background rounded-[var(--radius-xs)] hover:bg-primary/10 hover:text-primary active:scale-95 transition-all duration-200 touch-manipulation relative group ${
-                          service.isTrending ? 'ring-1 ring-primary/30 shadow-[0_0_12px_-3px_hsl(var(--primary)/0.3)] animate-pulse' : ''
-                        }`}
-                        title={service.isTrending ? `Trending: ${service.trendPercentage}% increase` : undefined}
-                      >
-                        <IconComponent className={`h-4 w-4 flex-shrink-0 ${service.isTrending ? 'text-primary' : ''}`} />
-                        <span className="truncate">{service.name}</span>
-                        {service.isTrending && (
-                          <div className="absolute -top-1 -right-1 h-5 w-5 bg-primary rounded-full flex items-center justify-center animate-pulse">
-                            <TrendingUp className="h-3 w-3 text-primary-foreground" />
-                          </div>
-                        )}
-                        {!service.isTrending && service.searchCount && service.searchCount >= 10 && (
-                          <Badge 
-                            variant="secondary" 
-                            size="xs" 
-                            className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                            title={`${service.searchCount} searches`}
-                          >
-                            <TrendingUp className="h-3 w-3" />
-                          </Badge>
-                        )}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-          {/* Top-level routes - Optimized Touch Targets */}
-          <nav className="space-y-1 mb-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            <Link
-              to="/"
-              onClick={handleLinkClick}
-              className={`block py-3 px-4 min-h-[44px] rounded-[var(--radius-xs)] text-base font-medium active:scale-[0.98] transition-all duration-200 touch-manipulation ${
-                isActive("/")
-                  ? "bg-[hsl(var(--sage))]/20 text-[hsl(var(--sage-dark))]"
-                  : "hover:bg-muted"
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/contact"
-              onClick={handleLinkClick}
-              className={`block py-3 px-4 min-h-[44px] rounded-[var(--radius-xs)] text-base font-medium active:scale-[0.98] transition-all duration-200 touch-manipulation ${
-                isActive("/contact")
-                  ? "bg-[hsl(var(--sage))]/20 text-[hsl(var(--sage-dark))]"
-                  : "hover:bg-muted"
-              }`}
-            >
-              Contact
-            </Link>
-          </nav>
+              {/* Enhanced Popular Services Section */}
+              <EnhancedPopularServices onLinkClick={handleLinkClick} />
+          {/* Quick Access Section */}
+          <div className="mb-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3 px-2">
+              Quick Access
+            </h4>
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                to="/"
+                onClick={handleLinkClick}
+                className={`flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation ${
+                  isActive("/")
+                    ? "bg-gradient-to-br from-primary/20 to-primary/10 text-primary border-2 border-primary/30"
+                    : "bg-background/50 backdrop-blur-sm border border-border/50 hover:border-primary/30"
+                }`}
+              >
+                <Home className="h-5 w-5 flex-shrink-0" />
+                <span>Home</span>
+              </Link>
+              <Link
+                to="/contact"
+                onClick={handleLinkClick}
+                className={`flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation ${
+                  isActive("/contact")
+                    ? "bg-gradient-to-br from-secondary/20 to-secondary/10 text-secondary border-2 border-secondary/30"
+                    : "bg-background/50 backdrop-blur-sm border border-border/50 hover:border-secondary/30"
+                }`}
+              >
+                <Mail className="h-5 w-5 flex-shrink-0" />
+                <span>Contact</span>
+              </Link>
+              <Link
+                to="/submit-rfp"
+                onClick={handleLinkClick}
+                className="flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation bg-background/50 backdrop-blur-sm border border-border/50 hover:border-accent/30"
+              >
+                <FileText className="h-5 w-5 flex-shrink-0" />
+                <span>Submit RFP</span>
+              </Link>
+              <Link
+                to="/resources/contractor-portal"
+                onClick={handleLinkClick}
+                className="flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation bg-background/50 backdrop-blur-sm border border-border/50 hover:border-primary/30"
+              >
+                <Briefcase className="h-5 w-5 flex-shrink-0" />
+                <span>Portal</span>
+              </Link>
+            </div>
+          </div>
 
-          {/* Accordion sections with staggered animation */}
-          <Accordion type="multiple" className="space-y-3 animate-fade-in" style={{ animationDelay: "0.4s" }}>
+          {/* Enhanced Accordion Sections */}
+          <Accordion type="multiple" className="space-y-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             {/* Services Section */}
-            <AccordionItem value="services" className="border rounded-[var(--radius-sm)] bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 overflow-hidden">
-              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted/50 active:bg-muted/70 rounded-[var(--radius-sm)] font-semibold transition-all duration-200 touch-manipulation">
-                <div className="flex items-center gap-2">
-                  <Wrench className="h-4 w-4 text-primary" />
-                  Services
-                </div>
+            <AccordionItem value="services" className="border-none">
+              <AccordionTrigger className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(24,95%,53%)]/30 touch-manipulation group">
+                <NavCategoryCard
+                  icon={Wrench}
+                  title="Services"
+                  itemCount={megaMenuDataEnhanced.services.reduce((acc, section) => acc + section.categories.length, 0)}
+                  gradient="bg-gradient-to-br from-[hsl(24,95%,53%)] to-[hsl(20,91%,48%)]"
+                  iconColor="text-white"
+                >
+                  <span className="text-base font-bold">Services</span>
+                </NavCategoryCard>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 pt-2">
                 {megaMenuDataEnhanced.services.map((section, sectionIndex) => (
@@ -210,12 +202,17 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </AccordionItem>
 
             {/* Markets Section */}
-            <AccordionItem value="markets" className="border rounded-[var(--radius-sm)] bg-gradient-to-br from-secondary/5 via-transparent to-primary/5 overflow-hidden">
-              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted/50 active:bg-muted/70 rounded-[var(--radius-sm)] font-semibold transition-all duration-200 touch-manipulation">
-                <div className="flex items-center gap-2">
-                  <Building className="h-4 w-4 text-secondary" />
-                  Markets
-                </div>
+            <AccordionItem value="markets" className="border-none">
+              <AccordionTrigger className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(217,91%,60%)]/30 touch-manipulation group">
+                <NavCategoryCard
+                  icon={Building}
+                  title="Markets"
+                  itemCount={megaMenuDataEnhanced.markets.reduce((acc, section) => acc + section.categories.length, 0)}
+                  gradient="bg-gradient-to-br from-[hsl(217,91%,60%)] to-[hsl(221,83%,53%)]"
+                  iconColor="text-white"
+                >
+                  <span className="text-base font-bold">Markets</span>
+                </NavCategoryCard>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 pt-2">
                 {megaMenuDataEnhanced.markets.map((section, sectionIndex) => (
@@ -256,12 +253,17 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </AccordionItem>
 
             {/* Projects Section */}
-            <AccordionItem value="projects" className="border rounded-[var(--radius-sm)] bg-gradient-to-br from-accent/5 via-transparent to-primary/5 overflow-hidden">
-              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted/50 active:bg-muted/70 rounded-[var(--radius-sm)] font-semibold transition-all duration-200 touch-manipulation">
-                <div className="flex items-center gap-2">
-                  <Building className="h-4 w-4 text-accent" />
-                  Projects
-                </div>
+            <AccordionItem value="projects" className="border-none">
+              <AccordionTrigger className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(173,58%,39%)]/30 touch-manipulation group">
+                <NavCategoryCard
+                  icon={Building}
+                  title="Projects"
+                  itemCount={megaMenuDataEnhanced.projects.reduce((acc, section) => acc + section.categories.length, 0)}
+                  gradient="bg-gradient-to-br from-[hsl(158,64%,52%)] to-[hsl(173,58%,39%)]"
+                  iconColor="text-white"
+                >
+                  <span className="text-base font-bold">Projects</span>
+                </NavCategoryCard>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 pt-2">
                 {megaMenuDataEnhanced.projects.map((section) => (
@@ -297,12 +299,17 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </AccordionItem>
 
             {/* Company Section */}
-            <AccordionItem value="company" className="border rounded-[var(--radius-sm)] bg-gradient-to-br from-primary/5 via-transparent to-accent/5 overflow-hidden">
-              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted/50 active:bg-muted/70 rounded-[var(--radius-sm)] font-semibold transition-all duration-200 touch-manipulation">
-                <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-primary" />
-                  Company
-                </div>
+            <AccordionItem value="company" className="border-none">
+              <AccordionTrigger className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(221,83%,53%)]/30 touch-manipulation group">
+                <NavCategoryCard
+                  icon={Users}
+                  title="Company"
+                  itemCount={megaMenuDataEnhanced.company.reduce((acc, section) => acc + section.categories.length, 0)}
+                  gradient="bg-gradient-to-br from-[hsl(221,83%,53%)] to-[hsl(230,81%,48%)]"
+                  iconColor="text-white"
+                >
+                  <span className="text-base font-bold">Company</span>
+                </NavCategoryCard>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 pt-2">
                 {megaMenuDataEnhanced.company.map((section, sectionIndex) => (
@@ -347,12 +354,17 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </AccordionItem>
 
             {/* Resources Section */}
-            <AccordionItem value="resources" className="border rounded-[var(--radius-sm)] bg-gradient-to-br from-secondary/5 via-transparent to-accent/5 overflow-hidden">
-              <AccordionTrigger className="px-4 py-3 min-h-[44px] hover:no-underline hover:bg-muted/50 active:bg-muted/70 rounded-[var(--radius-sm)] font-semibold transition-all duration-200 touch-manipulation">
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4 text-secondary" />
-                  Resources
-                </div>
+            <AccordionItem value="resources" className="border-none">
+              <AccordionTrigger className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(262,83%,58%)]/30 touch-manipulation group">
+                <NavCategoryCard
+                  icon={Building}
+                  title="Resources"
+                  itemCount={megaMenuDataEnhanced.resources.reduce((acc, section) => acc + section.categories.length, 0)}
+                  gradient="bg-gradient-to-br from-[hsl(262,83%,58%)] to-[hsl(251,91%,60%)]"
+                  iconColor="text-white"
+                >
+                  <span className="text-base font-bold">Resources</span>
+                </NavCategoryCard>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 pt-2">
                 {megaMenuDataEnhanced.resources.map((section, sectionIndex) => (
@@ -400,16 +412,17 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
           )}
         </div>
 
-        {/* Pinned CTA at bottom - Enhanced Touch Target */}
-        <div className="sticky bottom-0 left-0 right-0 p-6 border-t bg-background backdrop-blur-md animate-fade-in">
+        {/* Enhanced Pinned CTA at bottom */}
+        <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-border/50 bottom-cta-enhanced backdrop-blur-xl animate-fade-in z-20">
           <Button
             asChild
             size="lg"
-            className="w-full gap-2 min-h-[48px] text-base active:scale-95 transition-transform duration-200 touch-manipulation"
+            className="w-full gap-3 min-h-[56px] text-base font-bold active:scale-[0.98] transition-all duration-300 bg-gradient-to-r from-primary to-primary-dark hover:shadow-2xl hover:-translate-y-0.5 text-white touch-manipulation relative overflow-hidden group"
           >
             <Link to="/estimate" onClick={handleLinkClick}>
-              <Phone className="h-5 w-5" />
-              Request Proposal
+              <Phone className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
+              <span>Request Proposal</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </Link>
           </Button>
         </div>

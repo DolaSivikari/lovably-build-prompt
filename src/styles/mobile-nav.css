@@ -1,0 +1,203 @@
+/* Mobile Navigation Custom Animations and Styles */
+
+/* Stagger Fade In Animation */
+@keyframes stagger-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-item {
+  animation: stagger-fade-in 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+/* Shine Effect Animation */
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Pulse Glow Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.5);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Ripple Effect */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Glass Morphism Effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Category Color Coding */
+.category-services {
+  --category-color: hsl(24, 95%, 53%);
+  --category-color-light: hsl(24, 95%, 63%);
+  --category-gradient: linear-gradient(135deg, hsl(24, 95%, 53%) 0%, hsl(20, 91%, 48%) 100%);
+}
+
+.category-markets {
+  --category-color: hsl(217, 91%, 60%);
+  --category-color-light: hsl(217, 91%, 70%);
+  --category-gradient: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(221, 83%, 53%) 100%);
+}
+
+.category-projects {
+  --category-color: hsl(173, 58%, 39%);
+  --category-color-light: hsl(173, 58%, 49%);
+  --category-gradient: linear-gradient(135deg, hsl(158, 64%, 52%) 0%, hsl(173, 58%, 39%) 100%);
+}
+
+.category-company {
+  --category-color: hsl(221, 83%, 53%);
+  --category-color-light: hsl(221, 83%, 63%);
+  --category-gradient: linear-gradient(135deg, hsl(221, 83%, 53%) 0%, hsl(230, 81%, 48%) 100%);
+}
+
+.category-resources {
+  --category-color: hsl(262, 83%, 58%);
+  --category-color-light: hsl(262, 83%, 68%);
+  --category-gradient: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(251, 91%, 60%) 100%);
+}
+
+/* Hover Lift Effect */
+.hover-lift {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Touch Optimization */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .hover-lift:hover {
+    transform: none;
+  }
+  
+  /* Add active state feedback */
+  .touch-feedback:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+/* Accordion Enhanced Animations */
+.accordion-content-enter {
+  animation: accordion-slide-down 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes accordion-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Search Bar Focus Effect */
+.search-input-focus {
+  position: relative;
+}
+
+.search-input-focus::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, hsl(24, 95%, 53%), hsl(217, 91%, 60%), hsl(262, 83%, 58%));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.search-input-focus:focus-within::before {
+  opacity: 1;
+}
+
+/* Bottom CTA Enhanced */
+.bottom-cta-enhanced {
+  background: linear-gradient(135deg, hsl(24, 95%, 53%) 0%, hsl(20, 91%, 48%) 100%);
+  box-shadow: 0 -4px 20px rgba(249, 115, 22, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.bottom-cta-enhanced::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shine 3s ease-in-out infinite;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
