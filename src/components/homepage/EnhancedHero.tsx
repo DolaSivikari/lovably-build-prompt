@@ -439,8 +439,8 @@ const EnhancedHero = () => {
         )}
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--ink))]/70 via-[hsl(var(--ink))]/60 to-[hsl(var(--ink))]/80" />
+      {/* Gradient Overlay - Strong darkening for text readability */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/70 to-black/60" />
 
       {/* Content */}
       <div 
