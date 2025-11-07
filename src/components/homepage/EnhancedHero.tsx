@@ -367,7 +367,7 @@ const EnhancedHero = () => {
 
   return (
     <section 
-      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center pt-20"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -440,7 +440,7 @@ const EnhancedHero = () => {
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--ink))]/70 via-[hsl(var(--ink))]/60 to-[hsl(var(--ink))]/80" />
+      <div className="absolute -top-20 left-0 right-0 bottom-0 z-[45] bg-gradient-to-b from-[hsl(var(--ink))]/70 via-[hsl(var(--ink))]/60 to-[hsl(var(--ink))]/80" />
 
       {/* Content */}
       <div 
