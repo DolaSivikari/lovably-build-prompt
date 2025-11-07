@@ -514,7 +514,7 @@ const EnhancedHero = () => {
 
       {/* Hero Tab Navigation - Use landing menu if available */}
       {landingMenuItems.length > 0 ? (
-        <div className="absolute bottom-24 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
+        <div className="relative md:absolute md:bottom-24 md:left-1/2 md:-translate-x-1/2 z-20 w-full max-w-7xl px-4 mt-6 md:mt-0">
           
           {/* Mobile: Horizontal scrollable premium cards */}
           <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
