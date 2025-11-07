@@ -470,7 +470,7 @@ const EnhancedHero = () => {
 
           {/* Dual CTAs */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 mb-16 md:mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`flex flex-col sm:flex-row gap-4 mb-24 md:mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.8s" }}
           >
             <Button asChild size="lg" variant="primary" className="group shadow-accent">
@@ -489,7 +489,7 @@ const EnhancedHero = () => {
           </div>
 
           {/* Slide Indicators */}
-          <div className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
+          <div className={`flex gap-2 justify-center md:justify-start mb-8 ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
             {heroSlides.map((_, index) => (
               <button
                 key={index}
@@ -514,7 +514,7 @@ const EnhancedHero = () => {
 
       {/* Hero Tab Navigation - Use landing menu if available */}
       {landingMenuItems.length > 0 ? (
-        <div className="absolute bottom-10 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
+        <div className="absolute bottom-16 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
           
           {/* Mobile: Horizontal scrollable premium cards */}
           <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
