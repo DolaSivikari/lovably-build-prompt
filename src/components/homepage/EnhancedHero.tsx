@@ -382,8 +382,11 @@ const EnhancedHero = () => {
           autoPlay
           muted
           playsInline
+          controls={false}
+          disablePictureInPicture
+          disableRemotePlayback
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none"
           onLoadedData={handleVideoReady}
           style={{ opacity: videoOpacity.a }}
         >
@@ -395,8 +398,11 @@ const EnhancedHero = () => {
           ref={videoRefB}
           muted
           playsInline
+          controls={false}
+          disablePictureInPicture
+          disableRemotePlayback
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none"
           style={{ opacity: videoOpacity.b }}
         >
           <source src={videoUrl} type="video/mp4" />
