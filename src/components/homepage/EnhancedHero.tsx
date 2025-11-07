@@ -330,6 +330,13 @@ const EnhancedHero = () => {
   const slide = activeSlides[currentSlide];
   const prefersReducedMotion = useReducedMotion();
 
+  // Pause autoplay for users who prefer reduced motion
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setIsPlaying(false);
+    }
+  }, [prefersReducedMotion]);
+
   // Extract slide data (handle both DB and hardcoded formats)
   const isDbSlide = 'primary_cta_text' in slide;
   const headline = isDbSlide ? slide.headline : (slide as any).headline;
@@ -576,7 +583,7 @@ const EnhancedHero = () => {
       {/* Play/Pause Control */}
       <button
         onClick={togglePlayPause}
-        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 backdrop-blur-md border border-[hsl(var(--bg))]/30 flex items-center justify-center transition-all duration-300 group"
+        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 backdrop-blur-md border border-[hsl(var(--bg))]/30 hidden md:flex items-center justify-center transition-all duration-300 group"
         aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
       >
         {isPlaying ? (
