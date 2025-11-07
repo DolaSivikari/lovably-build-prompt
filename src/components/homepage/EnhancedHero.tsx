@@ -431,7 +431,7 @@ const EnhancedHero = () => {
 
       {/* Content */}
       <div 
-        className={`relative z-10 container mx-auto px-4 py-20 md:py-24 transition-opacity duration-1000 ${
+        className={`relative z-10 container mx-auto px-4 py-20 pb-40 md:py-24 md:pb-24 transition-opacity duration-1000 ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >
@@ -489,7 +489,7 @@ const EnhancedHero = () => {
           </div>
 
           {/* Slide Indicators */}
-          <div className={`flex gap-2 justify-center md:justify-start mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
+          <div className={`flex gap-2 justify-center md:justify-start mb-32 md:mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
             {heroSlides.map((_, index) => (
               <button
                 key={index}
@@ -514,7 +514,7 @@ const EnhancedHero = () => {
 
       {/* Hero Tab Navigation - Use landing menu if available */}
       {landingMenuItems.length > 0 ? (
-        <div className="absolute bottom-10 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
+        <div className="absolute bottom-6 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
           
           {/* Mobile: Horizontal scrollable premium cards */}
           <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
