@@ -431,14 +431,14 @@ const EnhancedHero = () => {
 
       {/* Content */}
       <div 
-        className={`relative z-10 container mx-auto px-4 py-16 md:py-20 transition-opacity duration-1000 ${
+        className={`relative z-10 container mx-auto px-4 py-20 md:py-24 transition-opacity duration-1000 ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >
         <div className="max-w-5xl mx-auto">
           {/* Stat Callout */}
           <div 
-            className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
+            className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-8 md:mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
           >
             <div className="flex flex-col items-center">
@@ -453,7 +453,7 @@ const EnhancedHero = () => {
 
           {/* Main Headline */}
           <h1 
-            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-8 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ 
               animationDelay: prefersReducedMotion ? "0s" : '0.2s',
               textShadow: '0 2px 20px rgba(0,0,0,0.3)'
@@ -462,7 +462,7 @@ const EnhancedHero = () => {
             {headline}
           </h1>
           <p 
-            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-12 md:mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
             {description}
@@ -470,7 +470,7 @@ const EnhancedHero = () => {
 
           {/* Dual CTAs */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`flex flex-col sm:flex-row gap-4 mb-16 md:mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.8s" }}
           >
             <Button asChild size="lg" variant="primary" className="group shadow-accent">
@@ -514,18 +514,18 @@ const EnhancedHero = () => {
 
       {/* Hero Tab Navigation - Use landing menu if available */}
       {landingMenuItems.length > 0 ? (
-        <div className="absolute bottom-6 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
+        <div className="absolute bottom-10 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
           
           {/* Mobile: Horizontal scrollable premium cards */}
           <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
-            <div className="flex gap-3 pb-4">
+            <div className="flex gap-4 pb-4">
               {landingMenuItems.map((item) => {
                 const Icon = getIconForTitle(item.title);
                 return (
                   <Link
                     key={item.id}
                     to={item.link}
-                    className="flex-shrink-0 w-48 bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20 hover:bg-white/15 transition-all active:scale-95"
+                    className="flex-shrink-0 w-52 bg-white/10 backdrop-blur-md rounded-lg p-5 border border-white/20 hover:bg-white/15 transition-all active:scale-95"
                     style={{ touchAction: 'manipulation' }}
                   >
                     <div className="flex items-center gap-2 mb-2">
