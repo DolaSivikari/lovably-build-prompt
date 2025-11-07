@@ -367,7 +367,7 @@ const EnhancedHero = () => {
 
   return (
     <section 
-      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center pt-20"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -440,7 +440,7 @@ const EnhancedHero = () => {
       </div>
 
       {/* Gradient Overlay - Strong darkening for text readability */}
-      <div className="absolute -top-20 left-0 right-0 bottom-0 z-[1] bg-gradient-to-r from-black/80 via-black/70 to-black/60" />
+      <div className="absolute -top-20 left-0 right-0 bottom-0 z-[45] bg-gradient-to-r from-black/80 via-black/70 to-black/60" />
 
       {/* Content */}
       <div 
