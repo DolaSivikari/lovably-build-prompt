@@ -440,7 +440,7 @@ const EnhancedHero = () => {
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute -top-20 left-0 right-0 h-screen bg-gradient-to-b from-[hsl(var(--ink))]/70 via-[hsl(var(--ink))]/60 to-[hsl(var(--ink))]/80" />
+      <div className="pointer-events-none absolute -top-20 left-0 right-0 h-[40vh] md:h-[50vh] z-[1] bg-gradient-to-b from-[hsl(var(--ink))]/80 via-[hsl(var(--ink))]/40 to-transparent" />
 
       {/* Content */}
       <div 
