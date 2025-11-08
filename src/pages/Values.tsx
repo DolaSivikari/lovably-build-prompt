@@ -5,7 +5,6 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, MessageCircle, Shield, Heart, Users, Target } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const iconMap: { [key: string]: any } = {
   award: Award,
@@ -16,7 +15,6 @@ const iconMap: { [key: string]: any } = {
 
 const Values = () => {
   const { data: aboutSettings } = useSettingsData('about_page_settings');
-  const { totalProjectsFormatted, satisfactionRateFormatted } = useCompanyStats();
   
   const values = (aboutSettings?.values as any[]) || [];
   const coreValues = [
@@ -159,7 +157,7 @@ const Values = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-primary">Safety First, Always</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {totalProjectsFormatted} projects with zero lost-time incidents. COR-certified safety protocols on every site.
+                    500+ projects with zero lost-time incidents. COR-certified safety protocols on every site.
                   </p>
                 </CardContent>
               </Card>
@@ -239,7 +237,7 @@ const Values = () => {
                     </p>
                     <div className="flex items-center gap-2 text-sm text-primary font-semibold">
                       <Award className="w-4 h-4" />
-                      <span>{satisfactionRateFormatted} Client Satisfaction Rate</span>
+                      <span>98% Client Satisfaction Rate</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -259,14 +257,14 @@ const Values = () => {
 
                 <Card className="border-l-4 border-l-primary">
                   <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-3">Safety Without Compromise</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Our 100% OSHA compliance rate and zero lost-time incident record on {totalProjectsFormatted} projects demonstrate our unwavering commitment to safety for our team, clients, and the public.
-                  </p>
-                  <div className="flex items-center gap-2 text-sm text-primary font-semibold">
-                    <Shield className="w-4 h-4" />
-                    <span>{totalProjectsFormatted} Projects with Zero Lost-Time Incidents</span>
-                  </div>
+                    <h3 className="text-xl font-bold mb-3">Safety Without Compromise</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Our 100% OSHA compliance rate and zero lost-time incident record on 500+ projects demonstrate our unwavering commitment to safety for our team, clients, and the public.
+                    </p>
+                    <div className="flex items-center gap-2 text-sm text-primary font-semibold">
+                      <Shield className="w-4 h-4" />
+                      <span>500+ Projects with Zero Lost-Time Incidents</span>
+                    </div>
                   </CardContent>
                 </Card>
 

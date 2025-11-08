@@ -231,7 +231,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               <SearchSuggestions
                 onSelectSearch={handleSelectSearch}
                 onNavigate={() => handleLinkClick()}
-                isMobileContext={true}
               />
             </div>
           )}

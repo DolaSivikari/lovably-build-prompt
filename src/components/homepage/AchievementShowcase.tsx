@@ -4,7 +4,6 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useCountUp } from "@/hooks/useCountUp";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 interface StatData {
   id: string;
@@ -21,7 +20,6 @@ const AchievementShowcase = () => {
   const isVisible = useIntersectionObserver(sectionRef);
   const [stats, setStats] = useState<StatData[]>([]);
   const [expandedStat, setExpandedStat] = useState<string | null>(null);
-  const { yearsInBusinessFormatted } = useCompanyStats();
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -75,7 +73,7 @@ const AchievementShowcase = () => {
               Numbers That Speak For Themselves
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Over {yearsInBusinessFormatted} years of delivering exceptional construction services across Ontario
+              Over 15 years of delivering exceptional construction services across Ontario
             </p>
           </motion.div>
         </div>

@@ -8,7 +8,6 @@ import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { supabase } from "@/integrations/supabase/client";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 // Helper to map icon names to Lucide icons
 const getIconComponent = (iconName?: string) => {
@@ -38,6 +37,69 @@ const formatTitle = (title: string) => {
     .join(' ');
 };
 
+const heroSlides = [
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-1.webp",
+    stat: "$2B+",
+    statLabel: "Total Project Value",
+    headline: "Ontario's Trusted General Contractor",
+    subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
+    primaryCTA: { label: "Submit RFP", icon: FileText, href: "/contact" },
+    secondaryCTA: { label: "View Portfolio", href: "/projects" }
+  },
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-2.webp",
+    stat: "500+",
+    statLabel: "Completed Projects",
+    headline: "Design-Build Excellence",
+    subheadline: "From concept through completion – comprehensive construction management across the GTA",
+    primaryCTA: { label: "Request Proposal", icon: Building2, href: "/contact" },
+    secondaryCTA: { label: "Our Services", href: "/services" }
+  },
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-3.webp",
+    stat: "98%",
+    statLabel: "Client Satisfaction",
+    headline: "Safety-First Construction",
+    subheadline: "Zero lost-time incidents across 500+ projects. COR-certified with industry-leading safety standards",
+    primaryCTA: { label: "View Safety Record", icon: Award, href: "/safety" },
+    secondaryCTA: { label: "Prequalification Package", href: "/prequalification" }
+  },
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-4.webp",
+    stat: "15+",
+    statLabel: "Years of Excellence",
+    headline: "Building Tomorrow's Infrastructure",
+    subheadline: "Leveraging cutting-edge construction technology and project management software for superior results",
+    primaryCTA: { label: "Our Technology", icon: Cpu, href: "/company/equipment-resources" },
+    secondaryCTA: { label: "Learn More", href: "/about" }
+  },
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-5.webp",
+    stat: "LEED",
+    statLabel: "Certified Projects",
+    headline: "Sustainable Construction Leaders",
+    subheadline: "Eco-friendly building practices reducing environmental impact while maximizing energy efficiency",
+    primaryCTA: { label: "Green Initiatives", icon: Leaf, href: "/sustainability" },
+    secondaryCTA: { label: "Case Studies", href: "/projects" }
+  },
+  {
+    video: heroClipchampVideo,
+    poster: "/hero-poster-6.webp",
+    stat: "150+",
+    statLabel: "Expert Professionals",
+    headline: "Powered by Industry Leaders",
+    subheadline: "Professional engineers, certified tradespeople, and project managers dedicated to your success",
+    primaryCTA: { label: "Meet Our Team", icon: Users, href: "/company/team" },
+    secondaryCTA: { label: "Careers", href: "/careers" }
+  }
+];
+
 interface HeroSlide {
   id: string;
   headline: string;
@@ -55,71 +117,6 @@ interface HeroSlide {
 }
 
 const EnhancedHero = () => {
-  const { yearsInBusinessFormatted, totalProjectsFormatted, satisfactionRateFormatted } = useCompanyStats();
-  
-  const heroSlides = [
-    {
-      video: heroClipchampVideo,
-      poster: "/hero-poster-1.webp",
-      stat: "$2B+",
-      statLabel: "Total Project Value",
-      headline: "Ontario's Trusted General Contractor",
-      subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
-      primaryCTA: { label: "Submit RFP", icon: FileText, href: "/contact" },
-      secondaryCTA: { label: "View Portfolio", href: "/projects" }
-    },
-    {
-      video: heroClipchampVideo,
-      poster: "/hero-poster-2.webp",
-      stat: totalProjectsFormatted,
-      statLabel: "Completed Projects",
-      headline: "Design-Build Excellence",
-      subheadline: "From concept through completion – comprehensive construction management across the GTA",
-      primaryCTA: { label: "Request Proposal", icon: Building2, href: "/contact" },
-      secondaryCTA: { label: "Our Services", href: "/services" }
-    },
-    {
-      video: heroClipchampVideo,
-      poster: "/hero-poster-3.webp",
-      stat: satisfactionRateFormatted,
-      statLabel: "Client Satisfaction",
-      headline: "Safety-First Construction",
-      subheadline: `Zero lost-time incidents across ${totalProjectsFormatted} projects. COR-certified with industry-leading safety standards`,
-      primaryCTA: { label: "View Safety Record", icon: Award, href: "/safety" },
-      secondaryCTA: { label: "Prequalification Package", href: "/prequalification" }
-    },
-    {
-      video: heroClipchampVideo,
-      poster: "/hero-poster-4.webp",
-      stat: yearsInBusinessFormatted,
-      statLabel: "Years of Excellence",
-      headline: "Building Tomorrow's Infrastructure",
-      subheadline: "Leveraging cutting-edge construction technology and project management software for superior results",
-      primaryCTA: { label: "Our Technology", icon: Cpu, href: "/company/equipment-resources" },
-      secondaryCTA: { label: "Learn More", href: "/about" }
-    },
-    {
-      video: heroClipchampVideo,
-      poster: "/hero-poster-5.webp",
-      stat: "LEED",
-      statLabel: "Certified Projects",
-      headline: "Sustainable Construction Leaders",
-      subheadline: "Eco-friendly building practices reducing environmental impact while maximizing energy efficiency",
-      primaryCTA: { label: "Green Initiatives", icon: Leaf, href: "/sustainability" },
-      secondaryCTA: { label: "Case Studies", href: "/projects" }
-    },
-    {
-      video: heroClipchampVideo,
-      poster: "/hero-poster-6.webp",
-      stat: "150+",
-      statLabel: "Expert Professionals",
-      headline: "Powered by Industry Leaders",
-      subheadline: "Professional engineers, certified tradespeople, and project managers dedicated to your success",
-      primaryCTA: { label: "Meet Our Team", icon: Users, href: "/company/team" },
-      secondaryCTA: { label: "Careers", href: "/careers" }
-    }
-  ];
-  
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [showPoster, setShowPoster] = useState(true);
@@ -330,13 +327,6 @@ const EnhancedHero = () => {
   const slide = activeSlides[currentSlide];
   const prefersReducedMotion = useReducedMotion();
 
-  // Pause autoplay for users who prefer reduced motion
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setIsPlaying(false);
-    }
-  }, [prefersReducedMotion]);
-
   // Extract slide data (handle both DB and hardcoded formats)
   const isDbSlide = 'primary_cta_text' in slide;
   const headline = isDbSlide ? slide.headline : (slide as any).headline;
@@ -367,7 +357,7 @@ const EnhancedHero = () => {
 
   return (
     <section 
-      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center pt-20"
+      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -375,11 +365,11 @@ const EnhancedHero = () => {
       {/* Geometric Shapes */}
       <GeometricShapes currentSlide={currentSlide} />
       
-      {/* Video Background - No Scroll Parallax */}
+      {/* Video Background with Parallax Effect and Smooth Loop */}
       <div 
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-[120%] -top-[10%]"
         style={{ 
-          transform: `translateX(${mouseParallaxX}px) translateY(${mouseParallaxY}px)`,
+          transform: `translateY(${parallaxOffset}px) translateX(${mouseParallaxX}px) translateY(${mouseParallaxY}px)`,
           transition: 'transform 0.3s ease-out'
         }}
       >
@@ -389,11 +379,8 @@ const EnhancedHero = () => {
           autoPlay
           muted
           playsInline
-          controls={false}
-          disablePictureInPicture
-          disableRemotePlayback
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
           onLoadedData={handleVideoReady}
           style={{ opacity: videoOpacity.a }}
         >
@@ -405,11 +392,8 @@ const EnhancedHero = () => {
           ref={videoRefB}
           muted
           playsInline
-          controls={false}
-          disablePictureInPicture
-          disableRemotePlayback
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
           style={{ opacity: videoOpacity.b }}
         >
           <source src={videoUrl} type="video/mp4" />
@@ -440,18 +424,18 @@ const EnhancedHero = () => {
       </div>
 
       {/* Gradient Overlay */}
-      <div className="pointer-events-none absolute -top-20 left-0 right-0 h-[40vh] md:h-[50vh] z-[1] bg-gradient-to-b from-[hsl(var(--ink))]/80 via-[hsl(var(--ink))]/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--ink))]/70 via-[hsl(var(--ink))]/60 to-[hsl(var(--ink))]/80" />
 
       {/* Content */}
       <div 
-        className={`relative z-10 container mx-auto px-4 py-20 pb-40 md:py-24 md:pb-24 transition-opacity duration-1000 ${
+        className={`relative z-10 container mx-auto px-4 py-16 md:py-20 transition-opacity duration-1000 ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >
         <div className="max-w-5xl mx-auto">
           {/* Stat Callout */}
           <div 
-            className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-8 md:mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
+            className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
           >
             <div className="flex flex-col items-center">
@@ -466,7 +450,7 @@ const EnhancedHero = () => {
 
           {/* Main Headline */}
           <h1 
-            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-8 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ 
               animationDelay: prefersReducedMotion ? "0s" : '0.2s',
               textShadow: '0 2px 20px rgba(0,0,0,0.3)'
@@ -475,7 +459,7 @@ const EnhancedHero = () => {
             {headline}
           </h1>
           <p 
-            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-12 md:mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
             {description}
@@ -483,7 +467,7 @@ const EnhancedHero = () => {
 
           {/* Dual CTAs */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 mb-16 md:mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`flex flex-col sm:flex-row gap-4 mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.8s" }}
           >
             <Button asChild size="lg" variant="primary" className="group shadow-accent">
@@ -502,7 +486,7 @@ const EnhancedHero = () => {
           </div>
 
           {/* Slide Indicators */}
-          <div className={`flex gap-2 justify-center md:justify-start mb-32 md:mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
+          <div className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
             {heroSlides.map((_, index) => (
               <button
                 key={index}
@@ -531,14 +515,14 @@ const EnhancedHero = () => {
           
           {/* Mobile: Horizontal scrollable premium cards */}
           <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
-            <div className="flex gap-4 pb-4">
+            <div className="flex gap-3 pb-4">
               {landingMenuItems.map((item) => {
                 const Icon = getIconForTitle(item.title);
                 return (
                   <Link
                     key={item.id}
                     to={item.link}
-                    className="flex-shrink-0 w-52 bg-white/10 backdrop-blur-md rounded-lg p-5 border border-white/20 hover:bg-white/15 transition-all active:scale-95"
+                    className="flex-shrink-0 w-48 bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20 hover:bg-white/15 transition-all active:scale-95"
                     style={{ touchAction: 'manipulation' }}
                   >
                     <div className="flex items-center gap-2 mb-2">
@@ -583,7 +567,7 @@ const EnhancedHero = () => {
       {/* Play/Pause Control */}
       <button
         onClick={togglePlayPause}
-        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 backdrop-blur-md border border-[hsl(var(--bg))]/30 hidden md:flex items-center justify-center transition-all duration-300 group"
+        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 backdrop-blur-md border border-[hsl(var(--bg))]/30 flex items-center justify-center transition-all duration-300 group"
         aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
       >
         {isPlaying ? (

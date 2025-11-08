@@ -7,11 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroMultiFamily from "@/assets/heroes/hero-multi-family.jpg";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const MultiFamily = () => {
-  const { yearsInBusinessFormatted } = useCompanyStats();
-  
   const challenges = [
     "Coordinating work in occupied buildings without disrupting residents",
     "Meeting strict reserve fund budgets and approval processes",
@@ -58,7 +55,7 @@ const MultiFamily = () => {
           <section className="mb-16">
             <div className="prose prose-lg max-w-none">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                With over {yearsInBusinessFormatted} years serving the multi-family residential market, we understand the unique challenges 
+                With over 15 years serving the multi-family residential market, we understand the unique challenges 
                 of working in occupied buildings. From condo reserve fund projects to complete building repositioning, 
                 our team coordinates complex renovations while minimizing disruption to residents and maintaining strict 
                 budget compliance.

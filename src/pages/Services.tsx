@@ -25,7 +25,6 @@ import { PremiumServiceHero } from "@/components/services/PremiumServiceHero";
 import { ClientLogosCarousel } from "@/components/shared/ClientLogosCarousel";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 // Icon map for dynamic service icons
 const iconMap: Record<string, any> = {
@@ -99,7 +98,6 @@ interface ServiceCategory {
 }
 
 const Services = () => {
-  const { yearsInBusinessFormatted } = useCompanyStats();
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const expandedSectionRef = useRef<HTMLDivElement>(null);

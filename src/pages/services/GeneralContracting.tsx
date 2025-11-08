@@ -7,11 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const GeneralContracting = () => {
-  const { totalProjectsFormatted } = useCompanyStats();
-  
   const whatWeDeliver = [
     {
       icon: Building2,
@@ -111,7 +108,7 @@ const GeneralContracting = () => {
         <PageHero.Stats stats={[
           { value: "95%", label: "On-Time Delivery" },
           { value: "0", label: "Lost-Time Incidents" },
-          { value: totalProjectsFormatted, label: "Projects Completed" },
+          { value: "500+", label: "Projects Completed" },
           { value: "$2B+", label: "Total Value" }
         ]} />
         <PageHero.CTAs 

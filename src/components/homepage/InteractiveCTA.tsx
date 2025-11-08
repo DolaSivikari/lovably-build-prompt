@@ -9,7 +9,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -18,32 +17,30 @@ const contactSchema = z.object({
   message: z.string().trim().max(1000).optional(),
 });
 
+const stories = [
+  {
+    stat: "500+",
+    label: "Projects Completed",
+    detail: "From small renovations to major restorations",
+    icon: CheckCircle2,
+  },
+  {
+    stat: "15+",
+    label: "Years Experience",
+    detail: "Trusted by Ontario property owners since 2009",
+    icon: Clock,
+  },
+  {
+    stat: "98%",
+    label: "Client Satisfaction",
+    detail: "Based on verified reviews and repeat business",
+    icon: Shield,
+  },
+];
+
 const InteractiveCTA = () => {
   const navigate = useNavigate();
   const { settings } = useCompanySettings();
-  const { yearsInBusinessFormatted, totalProjectsFormatted, satisfactionRateFormatted } = useCompanyStats();
-  
-  const stories = [
-    {
-      stat: totalProjectsFormatted,
-      label: "Projects Completed",
-      detail: "From small renovations to major restorations",
-      icon: CheckCircle2,
-    },
-    {
-      stat: yearsInBusinessFormatted,
-      label: "Years Experience",
-      detail: "Trusted by Ontario property owners since 2009",
-      icon: Clock,
-    },
-    {
-      stat: satisfactionRateFormatted,
-      label: "Client Satisfaction",
-      detail: "Based on verified reviews and repeat business",
-      icon: Shield,
-    },
-  ];
-  
   const [currentStory, setCurrentStory] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);

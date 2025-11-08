@@ -1,7 +1,6 @@
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useRef } from "react";
 import { CheckCircle } from "lucide-react";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const milestones = [
   {
@@ -21,8 +20,8 @@ const milestones = [
   },
   {
     year: "2018",
-    title: "Major Projects Milestone",
-    description: "Reached major project milestone with exceptional client satisfaction rate"
+    title: "500 Projects Milestone",
+    description: "Reached 500 successfully completed projects with 98% client satisfaction rate"
   },
   {
     year: "2020",
@@ -44,7 +43,6 @@ const milestones = [
 const CompanyTimeline = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isVisible = useIntersectionObserver(sectionRef);
-  const { yearsInBusinessFormatted } = useCompanyStats();
 
   return (
     <section ref={sectionRef} className="py-16 bg-background">
@@ -52,7 +50,7 @@ const CompanyTimeline = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Our Journey</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {yearsInBusinessFormatted} years of consistent growth, innovation, and excellence in construction services
+            15+ years of consistent growth, innovation, and excellence in construction services
           </p>
         </div>
 

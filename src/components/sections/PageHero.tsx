@@ -41,7 +41,7 @@ const PageHeroRoot = ({ children, backgroundImage, className }: PageHeroRootProp
   const parallaxOffset = useParallax({ speed: 0.5 });
   
   return (
-    <section className={cn("relative min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden pt-20", className)}>
+    <section className={cn("relative min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden", className)}>
       {backgroundImage && (
         <>
           <div className="absolute inset-0 z-0">

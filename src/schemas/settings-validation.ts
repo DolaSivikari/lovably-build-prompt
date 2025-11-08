@@ -7,7 +7,6 @@ export const contactPageSettingsSchema = z.object({
   office_email: z.string().email('Invalid email format').max(255),
   emergency_phone: z.string().max(20).optional().nullable(),
   careers_email: z.string().email('Invalid email format').max(255).optional().nullable(),
-  rfp_email: z.string().email('Invalid email format').max(255).optional().or(z.literal('')),
   business_hours: z.string().min(1, 'Business hours are required').max(500),
   map_embed_url: z.string().url('Invalid URL format').max(1000).optional().nullable(),
 });

@@ -27,7 +27,6 @@ export default function ContactPageSettings() {
     office_email: '',
     emergency_phone: '',
     careers_email: '',
-    rfp_email: '',
     business_hours: '',
     map_embed_url: ''
   });
@@ -69,7 +68,6 @@ export default function ContactPageSettings() {
           office_email: data.general_email || '',
           emergency_phone: data.toll_free_phone || '',
           careers_email: data.careers_email || '',
-          rfp_email: data.rfp_email || '',
           business_hours: [data.weekday_hours, data.saturday_hours, data.sunday_hours].filter(Boolean).join('\n') || '',
           map_embed_url: data.map_embed_url || '',
         };
@@ -118,7 +116,6 @@ export default function ContactPageSettings() {
         toll_free_phone: settings.emergency_phone,
         general_email: settings.office_email,
         careers_email: settings.careers_email,
-        rfp_email: settings.rfp_email,
         weekday_hours: settings.business_hours.split('\n')[0] || '',
         saturday_hours: settings.business_hours.split('\n')[1] || '',
         sunday_hours: settings.business_hours.split('\n')[2] || '',
@@ -303,20 +300,6 @@ export default function ContactPageSettings() {
                 value={settings.careers_email}
                 onChange={(e) => updateField('careers_email', e.target.value)}
                 placeholder="careers@ascentgroupconstruction.com"
-              />
-            </div>
-            <div>
-              <div className="flex items-center">
-                <Label>RFP Email (Optional)</Label>
-                <FieldPreviewButton
-                  onClick={() => openPreview('RFP Email', '/submit-rfp', 'Email for RFP submissions')}
-                />
-              </div>
-              <Input
-                type="email"
-                value={settings.rfp_email}
-                onChange={(e) => updateField('rfp_email', e.target.value)}
-                placeholder="rfp@ascentgroupconstruction.com"
               />
             </div>
           </CardContent>

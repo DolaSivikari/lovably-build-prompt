@@ -7,11 +7,8 @@ import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const CommercialClients = () => {
-  const { satisfactionRateFormatted } = useCompanyStats();
-  
   const benefits = [
     {
       icon: Moon,
@@ -108,7 +105,7 @@ const CommercialClients = () => {
                 <div className="text-muted-foreground">Business Disruptions</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">{satisfactionRateFormatted}</div>
+                <div className="text-4xl font-bold text-primary mb-2">98%</div>
                 <div className="text-muted-foreground">On-Time Completion</div>
               </div>
             </div>

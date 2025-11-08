@@ -3,7 +3,6 @@ interface OrganizationSchemaOptions {
   description?: string;
   url?: string;
   logo?: string;
-  email?: string;
 }
 
 export const organizationSchema = (options?: OrganizationSchemaOptions) => {
@@ -32,7 +31,7 @@ export const organizationSchema = (options?: OrganizationSchemaOptions) => {
       "@type": "ContactPoint",
       telephone: "+1-647-528-6804",
       contactType: "customer service",
-      email: options?.email || "info@ascentgroupconstruction.com",
+      email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
     },
     sameAs: [

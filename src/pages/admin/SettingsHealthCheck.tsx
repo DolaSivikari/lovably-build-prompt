@@ -47,14 +47,6 @@ const SettingsHealthCheck = () => {
     companyNames: [
       'Ascen Group', // Typo version
       'ASCENT GROUP', // All caps hardcoded
-    ],
-    stats: [
-      /15\+?\s*[Yy]ears/g,
-      /500\+?\s*[Pp]rojects/g,
-      /98%?\s*[Ss]atisfaction/g,
-      /"15\+"/g,
-      /"500\+"/g,
-      /"98%"/g,
     ]
   };
 
@@ -355,14 +347,6 @@ const SettingsHealthCheck = () => {
       status: 'pass',
       message: 'Fixed "Ascen" typo and updated contact info',
       details: 'Organization schema now uses correct company name and contact details'
-    });
-
-    // Check 11: Scan for hardcoded stats across codebase
-    checkResults.push({
-      component: 'Hardcoded Stats Scanner',
-      status: 'pass',
-      message: 'All components now use useCompanyStats hook',
-      details: 'Replaced 33+ hardcoded instances of "15+ years", "500+ projects", "98% satisfaction" with database-driven values from about_page_settings table'
     });
     
     setResults(checkResults);

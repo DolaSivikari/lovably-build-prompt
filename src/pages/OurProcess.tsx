@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { generateHowToSchema } from "@/utils/faq-schema";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 import {
   Accordion,
   AccordionContent,
@@ -130,8 +129,6 @@ const faqs = [
 ];
 
 const OurProcess = () => {
-  const { yearsInBusinessFormatted, totalProjectsFormatted } = useCompanyStats();
-  
   // Generate HowTo schema for SEO
   const howToSchema = generateHowToSchema({
     name: "How Ascent Group Construction Delivers Your Project",
@@ -205,7 +202,7 @@ const OurProcess = () => {
             <Badge variant="secondary" className="mb-4">Step-by-Step Excellence</Badge>
             <h2 className="text-4xl font-bold mb-4">Our Proven Process</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every project follows our time-tested 4-step methodology, refined over {yearsInBusinessFormatted} years and {totalProjectsFormatted} successful completions
+              Every project follows our time-tested 4-step methodology, refined over 15 years and 500+ successful completions
             </p>
           </div>
 
@@ -218,12 +215,12 @@ const OurProcess = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Results That Speak for Themselves</h2>
-            <p className="text-primary-foreground/90 text-lg">Over {yearsInBusinessFormatted} years of consistent excellence across the GTA</p>
+            <p className="text-primary-foreground/90 text-lg">Over 15 years of consistent excellence across the GTA</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">{totalProjectsFormatted}</div>
+              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">500+</div>
               <div className="text-primary-foreground/80">Completed Projects</div>
             </div>
             <div className="text-center">
@@ -231,7 +228,7 @@ const OurProcess = () => {
               <div className="text-primary-foreground/80">On-Time Delivery</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">{yearsInBusinessFormatted}</div>
+              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">15+</div>
               <div className="text-primary-foreground/80">Years Experience</div>
             </div>
             <div className="text-center">

@@ -22,13 +22,13 @@ export const landingMenuItems: LandingMenuItem[] = [
     number: "03",
     title: "ABOUT US",
     link: "/about",
-    subtext: "Craftsmanship & Excellence"
+    subtext: "15+ Years of Craftsmanship & Excellence"
   },
   {
     number: "04",
     title: "OUR PROJECTS",
     link: "/projects",
-    subtext: "Completed Projects Across the GTA"
+    subtext: "500+ Completed Projects Across the GTA"
   },
   {
     number: "05",

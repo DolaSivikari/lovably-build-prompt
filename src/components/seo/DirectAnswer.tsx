@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, MapPin, Shield, ArrowRight, Phone } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 interface DirectAnswerProps {
   children?: React.ReactNode;
@@ -15,7 +14,6 @@ interface DirectAnswerProps {
  */
 const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
   const { settings } = useCompanySettings();
-  const { yearsInBusinessFormatted } = useCompanyStats();
   const displayPhone = settings?.phone ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') : '(647) 528-6804';
   const telLink = settings?.phone ? `tel:${settings.phone}` : 'tel:6475286804';
   
@@ -41,7 +39,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
                   </p>
                   
                   <p className="text-base leading-relaxed text-muted-foreground">
-                    With over {yearsInBusinessFormatted} years of hands-on experience, we serve property managers, commercial building owners, developers, 
+                    With over 15 years of hands-on experience, we serve property managers, commercial building owners, developers, 
                     and property owners throughout Toronto, Mississauga, Brampton, Vaughan, Markham, and surrounding GTA municipalities. 
                     Our team delivers turnkey solutions from initial consultation through project completion, backed by comprehensive 
                     warranties and ongoing support.
@@ -62,7 +60,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="h-5 w-5 text-primary" />
-                <span className="text-muted-foreground">{yearsInBusinessFormatted} Years Experience</span>
+                <span className="text-muted-foreground">15+ Years Experience</span>
               </div>
             </div>
           </div>

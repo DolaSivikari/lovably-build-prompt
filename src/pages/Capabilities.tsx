@@ -6,11 +6,8 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const Capabilities = () => {
-  const { yearsInBusinessFormatted } = useCompanyStats();
-  
   const deliveryMethods = [
     {
       title: "General Contracting",

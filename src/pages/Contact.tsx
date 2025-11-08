@@ -124,14 +124,13 @@ const Contact = () => {
   const generalEmail = contactSettings?.general_email || 'info@ascentgroupconstruction.com';
   const projectsEmail = contactSettings?.projects_email || 'projects@ascentgroupconstruction.com';
   const careersEmail = contactSettings?.careers_email || 'careers@ascentgroupconstruction.com';
-  const rfpEmail = contactSettings?.rfp_email || 'rfp@ascentgroupconstruction.com';
   const weekdayHours = contactSettings?.weekday_hours || 'Monday - Friday: 8:00 AM - 6:00 PM';
   const saturdayHours = contactSettings?.saturday_hours || 'Saturday: 9:00 AM - 2:00 PM';
   const sundayHours = contactSettings?.sunday_hours || 'Sunday: Closed';
   const mapEmbedUrl = contactSettings?.map_embed_url || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184551.90977289474!2d-79.51814069999999!3d43.7184038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1234567890123!5m2!1sen!2sca';
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/10 pt-20">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/10">
       <SEO title="Contact Us - Request Proposal | Ascent Group" description="Contact Ascent Group for a free consultation and estimate. Serving the Greater Toronto Area with professional construction and project management services." canonical="https://ascentgroupconstruction.com/contact" />
       <Navigation />
 
@@ -143,7 +142,6 @@ const Contact = () => {
           generalEmail,
           projectsEmail,
           careersEmail,
-          rfpEmail,
           weekdayHours,
           saturdayHours,
           sundayHours

@@ -1,6 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
-import { useContactEmails } from "@/hooks/useContactEmails";
 
 interface SEOProps {
   title?: string;
@@ -14,15 +12,13 @@ interface SEOProps {
 
 const SEO = ({
   title = "Ascent Group Construction | Ontario's Trusted General Contractor - Commercial, Multi-Family & Institutional",
-  description = "Ontario's trusted general contractor. Specializing in design-build, construction management, exterior systems, interior build-outs, and specialty construction. Serving Toronto, Mississauga, Brampton, Vaughan, Markham. Licensed, insured, WSIB compliant. Submit your RFP today.",
+  description = "Ontario's trusted general contractor for 15+ years. Specializing in design-build, construction management, exterior systems, interior build-outs, and specialty construction. Serving Toronto, Mississauga, Brampton, Vaughan, Markham. Licensed, insured, WSIB compliant. Submit your RFP today.",
   keywords = "general contractor ontario, construction management toronto, design build GTA, commercial construction toronto, multi-family construction, institutional construction ontario, construction services GTA, building contractor mississauga, construction manager ontario, project management construction, LEED certified contractor, building restoration GTA, exterior systems contractor, construction company toronto",
   ogImage = "/og-image.jpg",
   canonical,
   structuredData,
   includeRating = false,
 }: SEOProps) => {
-  const { yearsInBusinessFormatted } = useCompanyStats();
-  const { generalEmail } = useContactEmails();
   const fullTitle = title.includes("Ascen") ? title : `${title} | Ascen Group Construction`;
   const siteUrl = window.location.origin;
   const currentUrl = canonical || window.location.href;
@@ -45,7 +41,7 @@ const SEO = ({
       height: "60"
     },
     image: `${siteUrl}/og-image.jpg`,
-    email: generalEmail,
+    email: "info@ascentgroupconstruction.com",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Greater Toronto Area",
@@ -109,7 +105,7 @@ const SEO = ({
       "@type": "ContactPoint",
       contactType: "customer service",
       telephone: "+1-647-123-4567",
-      email: generalEmail,
+      email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
       areaServed: "CA"
     },
@@ -130,7 +126,7 @@ const SEO = ({
       "Sustainable Construction"
     ],
     award: [
-      `${yearsInBusinessFormatted} Years Excellence in Construction Services`,
+      "15+ Years Excellence in Construction Services",
       "WSIB Certified Contractor",
       "Licensed General Contractor Ontario"
     ],

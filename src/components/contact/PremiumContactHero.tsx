@@ -9,7 +9,6 @@ interface ContactInfo {
   generalEmail: string;
   projectsEmail: string;
   careersEmail: string;
-  rfpEmail: string;
   weekdayHours: string;
   saturdayHours: string;
   sundayHours: string;
@@ -83,17 +82,11 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
               <CardTitle className="text-lg">Email</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <a href={`mailto:${contactInfo.generalEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors break-words">
-                <span className="font-medium">General:</span> {contactInfo.generalEmail}
+              <a href={`mailto:${contactInfo.generalEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors truncate">
+                <span className="font-medium">General:</span> {contactInfo.generalEmail.split('@')[0]}@...
               </a>
-              <a href={`mailto:${contactInfo.projectsEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors break-words">
-                <span className="font-medium">Projects:</span> {contactInfo.projectsEmail}
-              </a>
-              <a href={`mailto:${contactInfo.careersEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors break-words">
-                <span className="font-medium">Careers:</span> {contactInfo.careersEmail}
-              </a>
-              <a href={`mailto:${contactInfo.rfpEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors break-words">
-                <span className="font-medium">RFP:</span> {contactInfo.rfpEmail}
+              <a href={`mailto:${contactInfo.projectsEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors truncate">
+                <span className="font-medium">Projects:</span> {contactInfo.projectsEmail.split('@')[0]}@...
               </a>
             </CardContent>
           </Card>

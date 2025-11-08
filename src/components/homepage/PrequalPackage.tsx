@@ -10,7 +10,6 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
-import { useCompanyStats } from "@/hooks/useCompanyStats";
 
 const packageItems = [
   { icon: Shield, label: "Insurance & Bonding Certificates", desc: "$5M liability, $5M bonding capacity" },
@@ -21,18 +20,17 @@ const packageItems = [
   { icon: CheckCircle, label: "Quality Systems", desc: "ISO-compliant processes & documentation" },
 ];
 
+const stats = [
+  { value: "15+", label: "Years Experience" },
+  { value: "$5M", label: "Bonding Capacity" },
+  { value: "500+", label: "Projects Completed" },
+  { value: "98%", label: "Client Satisfaction" },
+];
+
 const PrequalPackage = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const { yearsInBusinessFormatted, totalProjectsFormatted, satisfactionRateFormatted } = useCompanyStats();
-
-  const stats = [
-    { value: yearsInBusinessFormatted, label: "Years Experience" },
-    { value: "$5M", label: "Bonding Capacity" },
-    { value: totalProjectsFormatted, label: "Projects Completed" },
-    { value: satisfactionRateFormatted, label: "Client Satisfaction" },
-  ];
   const [formData, setFormData] = useState({
     companyName: "",
     contactName: "",
