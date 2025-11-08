@@ -375,11 +375,11 @@ const EnhancedHero = () => {
       {/* Geometric Shapes */}
       <GeometricShapes currentSlide={currentSlide} />
       
-      {/* Video Background with Parallax Effect and Smooth Loop */}
+      {/* Video Background - Fixed Position */}
       <div 
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        className="fixed inset-0 w-full h-full"
         style={{ 
-          transform: `translateY(${parallaxOffset}px) translateX(${mouseParallaxX}px) translateY(${mouseParallaxY}px)`,
+          transform: `translateX(${mouseParallaxX}px) translateY(${mouseParallaxY}px)`,
           transition: 'transform 0.3s ease-out'
         }}
       >
