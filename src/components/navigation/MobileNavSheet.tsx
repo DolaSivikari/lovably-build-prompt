@@ -229,6 +229,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
           {showSearchSuggestions && !isSearching && (
             <div className="mb-4 animate-fade-in">
               <SearchSuggestions
+                mobile={true}
                 onSelectSearch={handleSelectSearch}
                 onNavigate={() => handleLinkClick()}
               />
