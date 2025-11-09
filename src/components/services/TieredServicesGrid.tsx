@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { ServiceCardTier1 } from "./ServiceCardTier1";
-import { ServiceCardTier2 } from "./ServiceCardTier2";
 import { ServiceCardTier3 } from "./ServiceCardTier3";
+import { ServiceCategoryCard } from "./ServiceCategoryCard";
+import { ServiceDetailsModal } from "./ServiceDetailsModal";
+import { SERVICE_CATEGORIES, getServicesInCategory, type ServiceCategory } from "./categoryMapping";
 
 interface Service {
   id: string;
@@ -21,10 +24,21 @@ interface TieredServicesGridProps {
 }
 
 export const TieredServicesGrid = ({ services }: TieredServicesGridProps) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<ServiceCategory | null>(null);
+  const [modalServices, setModalServices] = useState<Service[]>([]);
+
   // Separate services by tier
   const tier1Services = services.filter(s => s.service_tier === 'primary_delivery');
   const tier2Services = services.filter(s => s.service_tier === 'self_perform');
   const tier3Services = services.filter(s => s.service_tier === 'specialized');
+
+  const handleOpenModal = (category: ServiceCategory) => {
+    const categoryServices = getServicesInCategory(category.id, tier2Services);
+    setSelectedCategory(category);
+    setModalServices(categoryServices);
+    setModalOpen(true);
+  };
 
   return (
     <div className="space-y-16">
@@ -47,7 +61,7 @@ export const TieredServicesGrid = ({ services }: TieredServicesGridProps) => {
         </section>
       )}
 
-      {/* Tier 2: Self-Performed Capabilities */}
+      {/* Tier 2: Self-Performed Capabilities - Consolidated Categories */}
       {tier2Services.length > 0 && (
         <section>
           <div className="text-center mb-8">
@@ -58,10 +72,25 @@ export const TieredServicesGrid = ({ services }: TieredServicesGridProps) => {
               Self-performed capabilities ensuring quality, coordination, and schedule control
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tier2Services.map((service) => (
-              <ServiceCardTier2 key={service.id} {...service} />
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {SERVICE_CATEGORIES.map((category) => {
+              const categoryServices = getServicesInCategory(category.id, tier2Services);
+              const uniqueChallengeTags = Array.from(
+                new Set(
+                  categoryServices.flatMap(s => s.challenge_tags || [])
+                )
+              );
+              
+              return (
+                <ServiceCategoryCard
+                  key={category.id}
+                  category={category}
+                  serviceCount={categoryServices.length}
+                  challengeTags={uniqueChallengeTags}
+                  onClick={() => handleOpenModal(category)}
+                />
+              );
+            })}
           </div>
         </section>
       )}
@@ -84,6 +113,14 @@ export const TieredServicesGrid = ({ services }: TieredServicesGridProps) => {
           </div>
         </section>
       )}
+
+      {/* Service Details Modal */}
+      <ServiceDetailsModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        category={selectedCategory}
+        services={modalServices}
+      />
     </div>
   );
 };
