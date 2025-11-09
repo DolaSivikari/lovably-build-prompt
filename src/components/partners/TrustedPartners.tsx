@@ -1,7 +1,7 @@
 import { ExternalLink, Building2, Factory, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import nobleExteriors from "@/assets/partners/noble-exteriors.png";
+import nobleExteriors from "@/assets/partners/noble-exteriors.webp";
 import eagleContracting from "@/assets/partners/eagle-contracting.png";
 import eagleCladding from "@/assets/partners/eagle-cladding.png";
 import miralCladding from "@/assets/partners/miral-cladding.png";
@@ -9,8 +9,8 @@ import elipsYapi from "@/assets/partners/elips-yapi.png";
 import ostim from "@/assets/partners/ostim.png";
 import silverstone from "@/assets/partners/silverstone.png";
 import durmusGroup from "@/assets/partners/durmus-group.png";
-import skocc from "@/assets/partners/skocc.png";
-import musiadCanada from "@/assets/partners/musiad-canada.png";
+import skocc from "@/assets/partners/skocc.jpg";
+import musiadCanada from "@/assets/partners/musiad-canada.svg";
 
 interface Partner {
   name: string;

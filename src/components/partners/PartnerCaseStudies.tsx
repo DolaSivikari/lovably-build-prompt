@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, TrendingUp, Users, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
-import nobleExteriors from "@/assets/partners/noble-exteriors.png";
+import nobleExteriors from "@/assets/partners/noble-exteriors.webp";
 import miralCladding from "@/assets/partners/miral-cladding.png";
 import eagleContracting from "@/assets/partners/eagle-contracting.png";
 
