@@ -11,7 +11,7 @@ interface PageLayoutProps {
  */
 export const PageLayout = ({ children, className }: PageLayoutProps) => {
   return (
-    <main id="main-content" className={cn("min-h-screen pt-20", className)}>
+    <main id="main-content" className={cn("min-h-screen pt-24", className)}>
       {children}
     </main>
   );

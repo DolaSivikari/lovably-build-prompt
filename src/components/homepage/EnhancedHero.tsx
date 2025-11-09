@@ -381,7 +381,7 @@ const EnhancedHero = () => {
 
   return (
     <section 
-      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-24"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
