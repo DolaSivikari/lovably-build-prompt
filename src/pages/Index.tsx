@@ -7,8 +7,7 @@ import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import SEO from "@/components/SEO";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
-import WhoWeServe from "@/components/homepage/WhoWeServe";
-import WhyChooseUs from "@/components/homepage/WhyChooseUs";
+import ClientValueProposition from "@/components/homepage/ClientValueProposition";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
 import SkipLink from "@/components/SkipLink";
@@ -127,13 +126,8 @@ const Index = () => {
         {/* Market Intelligence Hub - Industry Pulse + Challenge/Response */}
         <MarketIntelligenceHub />
         
-        {/* Target Audiences */}
-        <WhoWeServe />
-        
-        {/* Value Proposition */}
-        <div className="py-24">
-          <WhyChooseUs />
-        </div>
+        {/* Unified Client Value Proposition */}
+        <ClientValueProposition />
         
         {/* Services Explorer */}
         <div className="py-24">
