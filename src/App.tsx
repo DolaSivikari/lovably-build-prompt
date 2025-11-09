@@ -60,6 +60,7 @@ import Developers from "./pages/company/Developers";
 import Warranties from "./pages/resources/Warranties";
 import Financing from "./pages/resources/Financing";
 import SubmitRFPNew from "./pages/SubmitRFPNew";
+import Insights from "./pages/Insights";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -334,6 +335,7 @@ const App = () => (
                   {/* Heavy content pages - lazy loaded */}
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/insights" element={<Insights />} />
                   {/* Redirect old case study routes to blog */}
                   <Route path="/case-studies" element={<Blog />} />
                   <Route path="/case-study/:slug" element={<BlogPost />} />

@@ -17,6 +17,7 @@ import Testimonials from "@/components/Testimonials";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 import ScrollProgress from "@/components/ScrollProgress";
 import ParallaxShapes from "@/components/homepage/ParallaxShapes";
+import InsightsFeed from "@/components/insights/InsightsFeed";
 
 const Index = () => {
   // AEO/GEO Structured Data
@@ -137,7 +138,7 @@ const Index = () => {
         {/* Social Proof */}
         <Testimonials />
         <PrequalPackage />
-        <ContentHub />
+        <InsightsFeed limit={9} showFilters={true} showPinnedFirst={true} />
       </main>
       <Footer />
     </div>

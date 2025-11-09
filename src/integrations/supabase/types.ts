@@ -296,6 +296,7 @@ export type Database = {
           created_by: string | null
           featured_image: string | null
           id: string
+          is_pinned: boolean | null
           og_image_url: string | null
           preview_token: string | null
           preview_token_created_by: string | null
@@ -310,11 +311,13 @@ export type Database = {
           results: string | null
           scheduled_publish: string | null
           scheduled_publish_at: string | null
+          sector: string | null
           seo_description: string | null
           seo_keywords: string[] | null
           seo_title: string | null
           slug: string
           solution: string | null
+          source: string | null
           summary: string | null
           tags: string[] | null
           title: string
@@ -336,6 +339,7 @@ export type Database = {
           created_by?: string | null
           featured_image?: string | null
           id?: string
+          is_pinned?: boolean | null
           og_image_url?: string | null
           preview_token?: string | null
           preview_token_created_by?: string | null
@@ -350,11 +354,13 @@ export type Database = {
           results?: string | null
           scheduled_publish?: string | null
           scheduled_publish_at?: string | null
+          sector?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
           slug: string
           solution?: string | null
+          source?: string | null
           summary?: string | null
           tags?: string[] | null
           title: string
@@ -376,6 +382,7 @@ export type Database = {
           created_by?: string | null
           featured_image?: string | null
           id?: string
+          is_pinned?: boolean | null
           og_image_url?: string | null
           preview_token?: string | null
           preview_token_created_by?: string | null
@@ -390,11 +397,13 @@ export type Database = {
           results?: string | null
           scheduled_publish?: string | null
           scheduled_publish_at?: string | null
+          sector?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
           seo_title?: string | null
           slug?: string
           solution?: string | null
+          source?: string | null
           summary?: string | null
           tags?: string[] | null
           title?: string

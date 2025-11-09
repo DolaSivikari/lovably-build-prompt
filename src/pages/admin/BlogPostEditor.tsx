@@ -37,6 +37,9 @@ const BlogPostEditor = () => {
     read_time_minutes: 5,
     publish_state: "draft" as "draft" | "published" | "archived" | "scheduled",
     content_type: "article" as "article" | "case-study" | "case_study" | "insight",
+    sector: "General" as "General" | "Infrastructure" | "Buildings" | "Both",
+    source: "",
+    is_pinned: false,
     // Case study specific fields
     project_location: "",
     project_size: "",
@@ -97,6 +100,9 @@ const BlogPostEditor = () => {
         read_time_minutes: data.read_time_minutes || 5,
         publish_state: (data.publish_state as any) || "draft",
         content_type: data.content_type || "article",
+        sector: (data.sector as any) || "General",
+        source: data.source || "",
+        is_pinned: data.is_pinned || false,
         project_location: data.project_location || "",
         project_size: data.project_size || "",
         project_duration: data.project_duration || "",
@@ -381,6 +387,24 @@ const BlogPostEditor = () => {
               </div>
 
               <div>
+                <Label htmlFor="sector">Sector</Label>
+                <Select 
+                  value={formData.sector} 
+                  onValueChange={(value: any) => setFormData({ ...formData, sector: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select sector" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="General">General</SelectItem>
+                    <SelectItem value="Infrastructure">Infrastructure</SelectItem>
+                    <SelectItem value="Buildings">Buildings</SelectItem>
+                    <SelectItem value="Both">Both</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
                 <Label htmlFor="read_time">Read Time (minutes)</Label>
                 <Input
                   id="read_time"
@@ -389,6 +413,32 @@ const BlogPostEditor = () => {
                   onChange={(e) => setFormData({ ...formData, read_time_minutes: parseInt(e.target.value) })}
                 />
               </div>
+              </div>
+
+              <div>
+                <Label htmlFor="source">Source Attribution</Label>
+                <Input
+                  id="source"
+                  value={formData.source}
+                  onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+                  placeholder="e.g., WSP, Autodesk, Procore (leave empty if original content)"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Add source if this content references or is attributed to an external source
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="is_pinned"
+                  checked={formData.is_pinned}
+                  onChange={(e) => setFormData({ ...formData, is_pinned: e.target.checked })}
+                  className="h-4 w-4 rounded border-border"
+                />
+                <Label htmlFor="is_pinned" className="cursor-pointer">
+                  Pin this insight (appears first in feeds)
+                </Label>
               </div>
 
               <div>
