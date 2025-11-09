@@ -134,6 +134,8 @@ const EnhancedHero = () => {
   const [landingMenuItems, setLandingMenuItems] = useState<any[]>([]);
   const [dbSlides, setDbSlides] = useState<HeroSlide[]>([]);
   const [isLoadingSlides, setIsLoadingSlides] = useState(true);
+  const mobileCardsRef = useRef<HTMLDivElement>(null);
+  const [mobileCardAutoScroll, setMobileCardAutoScroll] = useState(true);
 
   // Fetch hero slides from database
   useEffect(() => {
@@ -170,6 +172,28 @@ const EnhancedHero = () => {
     };
     fetchLandingMenu();
   }, []);
+
+  // Auto-scroll mobile cards
+  useEffect(() => {
+    if (!mobileCardAutoScroll || !mobileCardsRef.current || landingMenuItems.length === 0) return;
+    
+    const container = mobileCardsRef.current;
+    let currentIndex = 0;
+    
+    const scrollInterval = setInterval(() => {
+      if (container) {
+        const cardWidth = 200; // 192px (w-48) + 12px gap
+        currentIndex = (currentIndex + 1) % landingMenuItems.length;
+        
+        container.scrollTo({
+          left: currentIndex * cardWidth,
+          behavior: 'smooth'
+        });
+      }
+    }, 3000); // Auto-scroll every 3 seconds
+    
+    return () => clearInterval(scrollInterval);
+  }, [mobileCardAutoScroll, landingMenuItems]);
 
   // Use database slides if available, fallback to hardcoded
   const activeSlides = dbSlides.length > 0 ? dbSlides : heroSlides;
@@ -513,8 +537,13 @@ const EnhancedHero = () => {
       {landingMenuItems.length > 0 ? (
         <div className="absolute bottom-6 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
           
-          {/* Mobile: Horizontal scrollable premium cards */}
-          <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
+          {/* Mobile: Horizontal scrollable premium cards with auto-scroll */}
+          <div 
+            ref={mobileCardsRef}
+            className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4 scroll-smooth"
+            onTouchStart={() => setMobileCardAutoScroll(false)}
+            onMouseDown={() => setMobileCardAutoScroll(false)}
+          >
             <div className="flex gap-3 pb-4">
               {landingMenuItems.map((item) => {
                 const Icon = getIconForTitle(item.title);
