@@ -7,6 +7,7 @@ export interface Challenge {
   description: string;
   color: string;
   tags: string[];
+  metricName?: string; // Links to industry_pulse_metrics.metric_name
 }
 
 export const CHALLENGES: Challenge[] = [
@@ -16,7 +17,8 @@ export const CHALLENGES: Challenge[] = [
     icon: Home,
     description: "Addressing Ontario's residential construction needs",
     color: "hsl(var(--primary))",
-    tags: ["housing"]
+    tags: ["housing"],
+    metricName: "Residential Construction Investment"
   },
   {
     id: "envelope",
@@ -24,7 +26,8 @@ export const CHALLENGES: Challenge[] = [
     icon: Building2,
     description: "Solving the building envelope crisis",
     color: "hsl(var(--accent))",
-    tags: ["envelope"]
+    tags: ["envelope"],
+    metricName: "Building Envelope Market"
   },
   {
     id: "infrastructure",
@@ -32,7 +35,8 @@ export const CHALLENGES: Challenge[] = [
     icon: TrendingUp,
     description: "Bridging commercial & institutional needs",
     color: "hsl(var(--chart-2))",
-    tags: ["infrastructure"]
+    tags: ["infrastructure"],
+    metricName: "Infrastructure Investment"
   },
   {
     id: "sustainability",
@@ -40,7 +44,8 @@ export const CHALLENGES: Challenge[] = [
     icon: Leaf,
     description: "Green building & efficiency services",
     color: "hsl(var(--chart-3))",
-    tags: ["sustainability"]
+    tags: ["sustainability"],
+    metricName: "Green Building Market"
   }
 ];
 
