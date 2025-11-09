@@ -26,6 +26,7 @@ import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
 import { RippleEffect } from "@/components/shared/RippleEffect";
 import { TrustedPartners } from "@/components/partners/TrustedPartners";
+import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
 import heroMasonry from "@/assets/hero-masonry-restoration.jpg";
 import projectCommercial from "@/assets/project-commercial.jpg";
 
@@ -294,6 +295,9 @@ const Contact = () => {
 
       {/* Trusted Partners */}
       <TrustedPartners variant="simple" background="muted" showDescription={false} />
+
+      {/* Partner Case Studies */}
+      <PartnerCaseStudies background="default" />
 
       {/* Enhanced Map Section */}
       <section className="py-20 bg-gradient-to-b from-muted/50 to-background">

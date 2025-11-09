@@ -1,11 +1,22 @@
 import { ExternalLink, Building2, Factory, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import nobleExteriors from "@/assets/partners/noble-exteriors.png";
+import eagleContracting from "@/assets/partners/eagle-contracting.png";
+import eagleCladding from "@/assets/partners/eagle-cladding.png";
+import miralCladding from "@/assets/partners/miral-cladding.png";
+import elipsYapi from "@/assets/partners/elips-yapi.png";
+import ostim from "@/assets/partners/ostim.png";
+import silverstone from "@/assets/partners/silverstone.png";
+import durmusGroup from "@/assets/partners/durmus-group.png";
+import skocc from "@/assets/partners/skocc.png";
+import musiadCanada from "@/assets/partners/musiad-canada.png";
 
 interface Partner {
   name: string;
   url: string;
   category: "installation" | "fabrication" | "affiliations";
+  logo: string;
 }
 
 interface TrustedPartnersProps {
@@ -15,16 +26,16 @@ interface TrustedPartnersProps {
 }
 
 const partners: Partner[] = [
-  { name: "Noble Exteriors", url: "https://www.nobleexteriors.ca/", category: "installation" },
-  { name: "Eagle Contracting Inc.", url: "https://eaglecontractinginc.ca/services/", category: "installation" },
-  { name: "Eagle Cladding", url: "https://eaglecladding.com/", category: "installation" },
-  { name: "Miral Cladding", url: "https://miralcladding.com/", category: "fabrication" },
-  { name: "Elips Yapı", url: "https://elipsyapi.com.tr/", category: "fabrication" },
-  { name: "OSTIM", url: "https://ostim.ca/services/", category: "fabrication" },
-  { name: "My Silverstone Ltd.", url: "http://www.mysilverstoneltd.com/", category: "fabrication" },
-  { name: "Durmus Group", url: "https://www.durmusgroup.ca/", category: "fabrication" },
-  { name: "SKOCC", url: "https://skocc.ca/", category: "fabrication" },
-  { name: "MÜSİAD Canada", url: "https://musiadcanada.org/", category: "affiliations" },
+  { name: "Noble Exteriors", url: "https://www.nobleexteriors.ca/", category: "installation", logo: nobleExteriors },
+  { name: "Eagle Contracting Inc.", url: "https://eaglecontractinginc.ca/services/", category: "installation", logo: eagleContracting },
+  { name: "Eagle Cladding", url: "https://eaglecladding.com/", category: "installation", logo: eagleCladding },
+  { name: "Miral Cladding", url: "https://miralcladding.com/", category: "fabrication", logo: miralCladding },
+  { name: "Elips Yapı", url: "https://elipsyapi.com.tr/", category: "fabrication", logo: elipsYapi },
+  { name: "OSTIM", url: "https://ostim.ca/services/", category: "fabrication", logo: ostim },
+  { name: "My Silverstone Ltd.", url: "http://www.mysilverstoneltd.com/", category: "fabrication", logo: silverstone },
+  { name: "Durmus Group", url: "https://www.durmusgroup.ca/", category: "fabrication", logo: durmusGroup },
+  { name: "SKOCC", url: "https://skocc.ca/", category: "fabrication", logo: skocc },
+  { name: "MÜSİAD Canada", url: "https://musiadcanada.org/", category: "affiliations", logo: musiadCanada },
 ];
 
 const categoryConfig = {
@@ -56,18 +67,28 @@ export function TrustedPartners({
   );
 
   const PartnerCard = ({ partner }: { partner: Partner }) => (
-    <Card className="group hover:shadow-lg hover:border-primary/30 transition-all h-full">
-      <CardContent className="p-6 flex items-center justify-between h-full">
+    <Card className="group hover:shadow-xl hover:border-primary/30 transition-all h-full overflow-hidden">
+      <CardContent className="p-0">
         <a
           href={partner.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-between w-full gap-3"
+          className="block relative"
         >
-          <span className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
-            {partner.name}
-          </span>
-          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+          <div className="aspect-[4/3] bg-gradient-to-br from-muted/30 to-muted/10 flex items-center justify-center p-6 relative overflow-hidden">
+            <img
+              src={partner.logo}
+              alt={`${partner.name} logo`}
+              className="w-full h-full object-contain transition-all duration-300 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ExternalLink className="absolute bottom-3 right-3 w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
+          <div className="p-4 text-center border-t bg-card">
+            <span className="font-medium text-sm text-foreground group-hover:text-primary transition-colors line-clamp-1">
+              {partner.name}
+            </span>
+          </div>
         </a>
       </CardContent>
     </Card>
