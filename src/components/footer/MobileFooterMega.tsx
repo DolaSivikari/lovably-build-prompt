@@ -96,7 +96,7 @@ export function MobileFooterMega({
   const hasSearchResults = searchQuery.length > 0;
 
   return (
-    <div className="md:hidden space-y-4">
+    <div className="md:hidden space-y-4 relative z-0">
       <ScreenReaderAnnouncement message={announcement} />
       
       {/* Search Bar */}
@@ -486,7 +486,7 @@ export function MobileFooterMega({
           </Accordion>
 
           {/* Contact Card */}
-          <div className="p-4 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 rounded-lg border border-primary/20">
+          <div className="p-4 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 rounded-lg border border-primary/20 relative z-0">
             <h3 className="font-bold text-sm mb-3 flex items-center gap-2 text-foreground">
               <Phone className="h-4 w-4 text-primary" />
               Get In Touch

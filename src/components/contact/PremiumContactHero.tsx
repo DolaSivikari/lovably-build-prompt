@@ -82,11 +82,11 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
               <CardTitle className="text-lg">Email</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <a href={`mailto:${contactInfo.generalEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors truncate">
-                <span className="font-medium">General:</span> {contactInfo.generalEmail.split('@')[0]}@...
+              <a href={`mailto:${contactInfo.generalEmail}`} className="block text-xs text-muted-foreground hover:text-primary transition-colors break-all">
+                <span className="font-medium">General:</span> {contactInfo.generalEmail}
               </a>
-              <a href={`mailto:${contactInfo.projectsEmail}`} className="block text-sm text-muted-foreground hover:text-primary transition-colors truncate">
-                <span className="font-medium">Projects:</span> {contactInfo.projectsEmail.split('@')[0]}@...
+              <a href={`mailto:${contactInfo.projectsEmail}`} className="block text-xs text-muted-foreground hover:text-primary transition-colors break-all">
+                <span className="font-medium">Projects:</span> {contactInfo.projectsEmail}
               </a>
             </CardContent>
           </Card>
