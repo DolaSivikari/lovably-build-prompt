@@ -25,6 +25,7 @@ import { ProjectTypeSelector } from "@/components/forms/ProjectTypeSelector";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
 import { RippleEffect } from "@/components/shared/RippleEffect";
+import { TrustedPartners } from "@/components/partners/TrustedPartners";
 import heroMasonry from "@/assets/hero-masonry-restoration.jpg";
 import projectCommercial from "@/assets/project-commercial.jpg";
 
@@ -290,6 +291,9 @@ const Contact = () => {
           <TestimonialRatings />
         </div>
       </section>
+
+      {/* Trusted Partners */}
+      <TrustedPartners variant="simple" background="muted" showDescription={false} />
 
       {/* Enhanced Map Section */}
       <section className="py-20 bg-gradient-to-b from-muted/50 to-background">

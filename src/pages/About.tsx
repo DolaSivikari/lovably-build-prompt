@@ -20,6 +20,7 @@ import { supabase } from "@/integrations/supabase/client";
 import teamWork from "@/assets/team-work.jpg";
 import heroAboutImage from "@/assets/heroes/hero-about-company.jpg";
 import CompanyTimeline from "@/components/homepage/CompanyTimeline";
+import { TrustedPartners } from "@/components/partners/TrustedPartners";
 
 const iconMap: { [key: string]: any } = {
   award: Award,
@@ -380,6 +381,9 @@ const About = () => {
             )}
           </div>
         </section>
+
+        {/* Trusted Partners */}
+        <TrustedPartners variant="grouped" background="default" showDescription={true} />
 
         {/* Company Credentials */}
         <section className="py-24 bg-muted">
