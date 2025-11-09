@@ -66,6 +66,8 @@ import Terms from "./pages/Terms";
 import Accessibility from "./pages/Accessibility";
 import Unsubscribe from "./pages/Unsubscribe";
 import CookieBanner from "./components/CookieBanner";
+import NewsletterSubscribers from "./pages/admin/NewsletterSubscribers";
+import PartnerPermissions from "./pages/admin/PartnerPermissions";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -389,6 +391,8 @@ const App = () => (
                     <Route path="error-logs" element={<ErrorLogs />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
+                    <Route path="newsletter-subscribers" element={<Suspense fallback={<PageLoader />}><NewsletterSubscribers /></Suspense>} />
+                    <Route path="partner-permissions" element={<Suspense fallback={<PageLoader />}><PartnerPermissions /></Suspense>} />
                     
                     {/* Phase 1 & 2: Homepage & Navigation Management */}
                     <Route path="homepage-content" element={<HomepageContent />} />

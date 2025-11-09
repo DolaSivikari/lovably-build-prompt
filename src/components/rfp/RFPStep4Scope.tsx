@@ -15,6 +15,7 @@ export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
   
   const plansAvailable = watch("plans_available");
   const siteVisitRequired = watch("site_visit_required");
+  const consent = watch("consent");
 
   return (
     <Card>
@@ -114,6 +115,31 @@ export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="space-y-4 pt-6 border-t">
+          <div className="flex items-start gap-3">
+            <Checkbox 
+              id="consent"
+              checked={consent}
+              onCheckedChange={(checked) => setValue("consent", checked as boolean)}
+              required
+            />
+            <div className="flex-1">
+              <Label 
+                htmlFor="consent" 
+                className="text-base font-medium cursor-pointer"
+              >
+                I consent to Ascent Group Construction contacting me about this RFP *
+              </Label>
+              <p className="text-sm text-muted-foreground mt-1">
+                We'll use your information only to prepare and deliver your proposal. <a href="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</a>
+              </p>
+            </div>
+          </div>
+          {errors.consent && (
+            <p className="text-sm text-destructive">{errors.consent.message}</p>
+          )}
         </div>
 
         <div className="bg-accent/10 border border-accent/20 rounded-lg p-4 mt-6">

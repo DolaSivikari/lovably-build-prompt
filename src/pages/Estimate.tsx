@@ -28,6 +28,7 @@ const estimateSchema = z.object({
   address: z.string().trim().max(255).optional(),
   preferredContact: z.string().trim().max(50).optional(),
   notes: z.string().trim().max(2000).optional(),
+  consent: z.boolean().refine((val) => val === true, { message: "You must consent to be contacted" }),
 });
 
 const Estimate = () => {
@@ -67,6 +68,7 @@ const Estimate = () => {
     address: "",
     preferredContact: "",
     notes: "",
+    consent: false,
   });
 
   const [showQuoteDialog, setShowQuoteDialog] = useState(false);
@@ -215,6 +217,7 @@ const Estimate = () => {
         address: formData.address,
         preferredContact: formData.preferredContact,
         notes: formData.notes,
+        consent: formData.consent,
       });
 
       // Sanitize and build message with validated data
@@ -246,6 +249,7 @@ Add-ons:
         company: validatedData.address,
         message: sanitizedMessage,
         submission_type: "estimate",
+        consent_timestamp: new Date().toISOString(),
       });
 
       const timeoutPromise = new Promise((_, reject) =>
@@ -334,7 +338,7 @@ Add-ons:
               {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
               {currentStep === 3 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
               {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
-              {currentStep === 5 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes }} onChange={handleInputChange} />)}
+              {currentStep === 5 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
             </Card>
 
             {/* Navigation Buttons */}

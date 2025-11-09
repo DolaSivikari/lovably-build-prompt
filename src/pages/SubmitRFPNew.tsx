@@ -43,6 +43,7 @@ export default function SubmitRFPNew() {
       additional_requirements: "",
       plans_available: false,
       site_visit_required: false,
+      consent: false,
     },
   });
 
@@ -108,9 +109,10 @@ export default function SubmitRFPNew() {
         scope_of_work: data.scope_of_work,
         delivery_method: data.delivery_method,
         bonding_required: data.bonding_required,
-        prequalification_complete: data.prequalification_complete,
-        additional_requirements: data.additional_requirements || undefined,
-      };
+      prequalification_complete: data.prequalification_complete,
+      additional_requirements: data.additional_requirements || undefined,
+      consent_timestamp: new Date().toISOString(),
+    };
 
       const { data: submission, error: insertError } = await supabase
         .from("rfp_submissions")

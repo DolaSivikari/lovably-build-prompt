@@ -10,8 +10,9 @@ interface Step5Props {
     address: string;
     preferredContact: string;
     notes: string;
+    consent: boolean;
   };
-  onChange: (field: string, value: string) => void;
+  onChange: (field: string, value: string | boolean) => void;
 }
 
 const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
@@ -113,9 +114,23 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
         />
       </div>
 
+      <div className="flex items-start gap-3 pt-2">
+        <input
+          type="checkbox"
+          id="consent"
+          checked={data.consent}
+          onChange={(e) => onChange("consent", e.target.checked)}
+          required
+          className="mt-1"
+        />
+        <Label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer">
+          I consent to Ascent Group Construction contacting me regarding my project estimate. * <a href="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</a>
+        </Label>
+      </div>
+
       <div className="bg-muted/50 rounded-lg p-4 text-sm text-muted-foreground">
         <p>
-          By submitting this form, you consent to Ascent Group Construction contacting you regarding your project estimate. We respect your privacy and will never share your information with third parties.
+          We respect your privacy and will never share your information with third parties. Your information is only used to provide you with an accurate project estimate.
         </p>
       </div>
     </div>

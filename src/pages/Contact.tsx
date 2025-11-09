@@ -37,6 +37,8 @@ const contactSchema = z.object({
   phone: z.string().trim().max(20, "Phone must be less than 20 characters").regex(/^[0-9\s\-\(\)\+]*$/, "Phone contains invalid characters").optional().or(z.literal("")),
   company: z.string().trim().max(100, "Company name must be less than 100 characters").optional().or(z.literal("")),
   message: z.string().trim().min(10, "Message must be at least 10 characters").max(2000, "Message must be less than 2000 characters"),
+  consent: z.boolean().refine((val) => val === true, { message: "You must consent to be contacted" }),
+  newsletterConsent: z.boolean().optional(),
 });
 
 const Contact = () => {
@@ -45,7 +47,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
   const [formData, setFormData] = useState({
-    name: "", email: "", phone: "", company: "", message: "", honeypot: "",
+    name: "", email: "", phone: "", company: "", message: "", honeypot: "", consent: false, newsletterConsent: false,
   });
   const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
   const [useMultiStep, setUseMultiStep] = useState(false);
@@ -71,7 +73,16 @@ const Contact = () => {
       const { data, error } = await supabase.functions.invoke('submit-form', {
         body: {
           formType: 'contact',
-          data: { name: validatedData.name, email: validatedData.email, phone: validatedData.phone, company: validatedData.company, message: validatedData.message, submission_type: 'contact' },
+          data: { 
+            name: validatedData.name, 
+            email: validatedData.email, 
+            phone: validatedData.phone, 
+            company: validatedData.company, 
+            message: validatedData.message, 
+            submission_type: 'contact',
+            consent_timestamp: new Date().toISOString(),
+            newsletter_consent: validatedData.newsletterConsent || false
+          },
           honeypot: formData.honeypot
         }
       });
@@ -100,7 +111,7 @@ const Contact = () => {
       }
 
       toast({ title: "Message sent!", description: "We'll get back to you within 24 hours. Check your email for confirmation." });
-      setFormData({ name: "", email: "", phone: "", company: "", message: "", honeypot: "" });
+      setFormData({ name: "", email: "", phone: "", company: "", message: "", honeypot: "", consent: false, newsletterConsent: false });
       setLastSubmitTime(now);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -116,7 +127,9 @@ const Contact = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const target = e.target as HTMLInputElement;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    setFormData({ ...formData, [target.name]: value });
   };
 
   // Fallback values
@@ -249,6 +262,37 @@ const Contact = () => {
                     <div className="space-y-2"><Label htmlFor="company" className="text-base">Company</Label><Input id="company" name="company" value={formData.company} onChange={handleChange} placeholder="Your Company" className="h-14 text-base" /></div>
                   </div>
                   <div className="space-y-2"><Label htmlFor="message" className="text-base font-semibold">Project Details *</Label><Textarea id="message" name="message" value={formData.message} onChange={handleChange} required placeholder="Tell us about your project requirements, timeline, and budget..." className="min-h-[200px] text-base" /></div>
+                  
+                  <div className="space-y-3 pt-2">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        id="consent"
+                        name="consent"
+                        checked={formData.consent}
+                        onChange={handleChange}
+                        required
+                        className="mt-1"
+                      />
+                      <Label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer">
+                        I consent to Ascent Group Construction contacting me about my inquiry via email or phone. *
+                      </Label>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        id="newsletterConsent"
+                        name="newsletterConsent"
+                        checked={formData.newsletterConsent}
+                        onChange={handleChange}
+                        className="mt-1"
+                      />
+                      <Label htmlFor="newsletterConsent" className="text-sm leading-relaxed cursor-pointer">
+                        I'd also like to receive construction industry insights and project updates. <a href="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</a>
+                      </Label>
+                    </div>
+                  </div>
+                  
                   <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="honeypot" type="text" tabIndex={-1} autoComplete="off" value={formData.honeypot} onChange={handleChange} /></div>
                   <RippleEffect>
                     <Button type="submit" size="lg" className="w-full h-16 text-lg gap-3 hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl" disabled={isSubmitting}>

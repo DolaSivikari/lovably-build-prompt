@@ -89,6 +89,7 @@ export const scopeOfWorkSchema = z.object({
     .optional(),
   plans_available: z.boolean().default(false),
   site_visit_required: z.boolean().default(false),
+  consent: z.boolean().refine((val) => val === true, { message: "You must consent to be contacted" }),
 });
 
 // Combined schema for final submission

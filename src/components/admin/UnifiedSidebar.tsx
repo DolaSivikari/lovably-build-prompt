@@ -57,7 +57,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
   // Check if any route in a group is active to keep it open
   const isContentActive = ['/admin/projects', '/admin/services', '/admin/blog', '/admin/media', '/admin/testimonials', '/admin/stats', '/admin/awards', '/admin/leadership', '/admin/documents'].some(p => currentPath.startsWith(p));
   const isAppearanceActive = ['/admin/homepage-builder', '/admin/navigation-builder', '/admin/footer-settings', '/admin/about-page', '/admin/contact-page'].some(p => currentPath.startsWith(p));
-  const isInboxActive = ['/admin/contacts', '/admin/resumes', '/admin/prequalifications', '/admin/rfp'].some(p => currentPath.startsWith(p));
+  const isInboxActive = ['/admin/contacts', '/admin/resumes', '/admin/prequalifications', '/admin/rfp', '/admin/newsletter-subscribers', '/admin/partner-permissions'].some(p => currentPath.startsWith(p));
   const isBusinessActive = ['/admin/business'].some(p => currentPath.startsWith(p));
   const isToolsActive = ['/admin/seo-dashboard', '/admin/redirects', '/admin/structured-data', '/admin/performance-dashboard', '/admin/search-analytics', '/admin/settings-health'].some(p => currentPath.startsWith(p));
   const isSettingsActive = ['/admin/site-settings', '/admin/users', '/admin/security-settings', '/admin/editor-guide', '/admin/error-logs'].some(p => currentPath.startsWith(p));
@@ -209,6 +209,8 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
               <NavItem to="/admin/resumes" icon={FileCheck} label="Resumes" />
               <NavItem to="/admin/prequalifications" icon={Package} label="Prequal" />
               <NavItem to="/admin/rfp-submissions" icon={FileText} label="RFP Submissions" />
+              <NavItem to="/admin/newsletter-subscribers" icon={Mail} label="Newsletter" />
+              <NavItem to="/admin/partner-permissions" icon={Shield} label="Partner Logos" />
             </nav>
           </CollapsibleContent>
         </Collapsible>
