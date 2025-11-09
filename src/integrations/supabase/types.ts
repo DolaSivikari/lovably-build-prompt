@@ -654,6 +654,7 @@ export type Database = {
           map_embed_url: string | null
           office_address: string | null
           projects_email: string | null
+          rfp_email: string | null
           saturday_hours: string | null
           sunday_hours: string | null
           toll_free_phone: string | null
@@ -672,6 +673,7 @@ export type Database = {
           map_embed_url?: string | null
           office_address?: string | null
           projects_email?: string | null
+          rfp_email?: string | null
           saturday_hours?: string | null
           sunday_hours?: string | null
           toll_free_phone?: string | null
@@ -690,6 +692,7 @@ export type Database = {
           map_embed_url?: string | null
           office_address?: string | null
           projects_email?: string | null
+          rfp_email?: string | null
           saturday_hours?: string | null
           sunday_hours?: string | null
           toll_free_phone?: string | null
@@ -1244,6 +1247,60 @@ export type Database = {
           value_prop_1?: string | null
           value_prop_2?: string | null
           value_prop_3?: string | null
+        }
+        Relationships: []
+      }
+      industry_pulse_metrics: {
+        Row: {
+          change_direction: string | null
+          change_percentage: string | null
+          created_at: string
+          created_by: string | null
+          current_value: string
+          display_order: number
+          id: string
+          is_active: boolean
+          last_updated: string
+          metric_name: string
+          source: string
+          source_url: string | null
+          unit: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          change_direction?: string | null
+          change_percentage?: string | null
+          created_at?: string
+          created_by?: string | null
+          current_value: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          last_updated?: string
+          metric_name: string
+          source: string
+          source_url?: string | null
+          unit?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          change_direction?: string | null
+          change_percentage?: string | null
+          created_at?: string
+          created_by?: string | null
+          current_value?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          last_updated?: string
+          metric_name?: string
+          source?: string
+          source_url?: string | null
+          unit?: string | null
+          updated_at?: string
+          updated_by?: string | null
         }
         Relationships: []
       }

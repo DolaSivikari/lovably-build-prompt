@@ -2,9 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
 import CompanyIntroduction from "@/components/homepage/CompanyIntroduction";
-import MetricsDashboard from "@/components/homepage/MetricsDashboard";
-import CertificationBadges from "@/components/homepage/CertificationBadges";
-import GCTrustStrip from "@/components/homepage/GCTrustStrip";
+import MarketIntelligenceHub from "@/components/homepage/MarketIntelligenceHub";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import SEO from "@/components/SEO";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
@@ -126,12 +124,8 @@ const Index = () => {
         <EnhancedHero />
         <CompanyIntroduction />
         
-        {/* Single Metrics Section - Consolidated */}
-        <MetricsDashboard />
-        
-        {/* Trust & Certifications - Consolidated */}
-        <GCTrustStrip />
-        
+        {/* Market Intelligence Hub - Industry Pulse + Challenge/Response */}
+        <MarketIntelligenceHub />
         
         {/* Target Audiences */}
         <WhoWeServe />
