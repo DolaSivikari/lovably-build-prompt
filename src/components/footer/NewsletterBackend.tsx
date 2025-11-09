@@ -4,13 +4,18 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
+import { Link } from "react-router-dom";
 
 const emailSchema = z.object({
   email: z.string().trim().email("Invalid email address").max(255),
+  consent: z.boolean().refine((val) => val === true, {
+    message: "You must consent to receive newsletter emails",
+  }),
 });
 
 const NewsletterBackend = () => {
   const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
 
@@ -23,8 +28,8 @@ const NewsletterBackend = () => {
     setIsSubmitting(true);
 
     try {
-      // Validate email
-      const validatedData = emailSchema.parse({ email });
+      // Validate email and consent
+      const validatedData = emailSchema.parse({ email, consent });
 
       // Insert into newsletter_subscribers table
       const { error } = await supabase
@@ -33,6 +38,8 @@ const NewsletterBackend = () => {
           email: validatedData.email.toLowerCase(),
           source: "footer",
           subscribed_at: new Date().toISOString(),
+          consent_timestamp: new Date().toISOString(),
+          consent_method: "footer",
         });
 
       if (error) {
@@ -47,6 +54,7 @@ const NewsletterBackend = () => {
       }
 
       setEmail("");
+      setConsent(false);
     } catch (error) {
       console.error("Newsletter subscription error:", error);
       if (error instanceof z.ZodError) {
@@ -70,24 +78,44 @@ const NewsletterBackend = () => {
         <p className="text-primary-foreground/70 text-sm mb-4">
           Get the latest construction industry insights, project updates, and expert tips delivered to your inbox.
         </p>
-        <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className="footer-newsletter-input flex-1"
-            required
-            aria-label="Email address for newsletter"
-          />
-          <Button 
-            type="submit" 
-            variant="secondary"
-            disabled={isSubmitting}
-            className="whitespace-nowrap"
-          >
-            {isSubmitting ? "Subscribing..." : "Subscribe"}
-          </Button>
+        <form onSubmit={handleSubmit} className="space-y-3 max-w-md mx-auto">
+          <div className="flex gap-2">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="footer-newsletter-input flex-1"
+              required
+              aria-label="Email address for newsletter"
+            />
+            <Button 
+              type="submit" 
+              variant="secondary"
+              disabled={isSubmitting || !consent}
+              className="whitespace-nowrap"
+            >
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
+            </Button>
+          </div>
+          <div className="flex items-start gap-2 text-left">
+            <input
+              type="checkbox"
+              id="newsletter-consent"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              className="mt-1"
+              required
+              aria-required="true"
+            />
+            <label htmlFor="newsletter-consent" className="text-xs text-primary-foreground/70">
+              I consent to receive email communications from Ascent Group Construction about construction industry insights, project updates, and company news. I understand I can{" "}
+              <span className="underline">unsubscribe at any time</span>.{" "}
+              <Link to="/privacy" className="text-primary-foreground underline hover:text-primary-foreground/90">
+                Privacy Policy
+              </Link>
+            </label>
+          </div>
         </form>
       </div>
     </div>

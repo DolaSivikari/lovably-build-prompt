@@ -61,6 +61,11 @@ import Warranties from "./pages/resources/Warranties";
 import Financing from "./pages/resources/Financing";
 import SubmitRFPNew from "./pages/SubmitRFPNew";
 import Insights from "./pages/Insights";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Accessibility from "./pages/Accessibility";
+import Unsubscribe from "./pages/Unsubscribe";
+import CookieBanner from "./components/CookieBanner";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -266,6 +271,7 @@ const App = () => (
             <ScrollToTop />
             <RouteTracker>
               <FloatingContact />
+              <CookieBanner />
               {/* Skip to main content link for accessibility - Enhanced PCL style */}
               <a
                 href="#main-content"
@@ -316,6 +322,11 @@ const App = () => (
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
                   <Route path="/submit-rfp" element={<SubmitRFPNew />} />
+                  <Route path="/insights" element={<Insights />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/accessibility" element={<Accessibility />} />
+                  <Route path="/unsubscribe" element={<Unsubscribe />} />
                   <Route path="/property-managers" element={<PropertyManagers />} />
                   <Route path="/homeowners" element={<Navigate to="/markets/multi-family" replace />} />
                   <Route path="/commercial-clients" element={<CommercialClients />} />

@@ -715,11 +715,14 @@ export type Database = {
         Row: {
           admin_notes: string | null
           company: string | null
+          consent_ip: string | null
+          consent_timestamp: string | null
           created_at: string | null
           email: string
           id: string
           message: string
           name: string
+          newsletter_consent: boolean | null
           phone: string | null
           status: string | null
           submission_type: string | null
@@ -727,11 +730,14 @@ export type Database = {
         Insert: {
           admin_notes?: string | null
           company?: string | null
+          consent_ip?: string | null
+          consent_timestamp?: string | null
           created_at?: string | null
           email: string
           id?: string
           message: string
           name: string
+          newsletter_consent?: boolean | null
           phone?: string | null
           status?: string | null
           submission_type?: string | null
@@ -739,11 +745,14 @@ export type Database = {
         Update: {
           admin_notes?: string | null
           company?: string | null
+          consent_ip?: string | null
+          consent_timestamp?: string | null
           created_at?: string | null
           email?: string
           id?: string
           message?: string
           name?: string
+          newsletter_consent?: boolean | null
           phone?: string | null
           status?: string | null
           submission_type?: string | null
@@ -1646,30 +1655,45 @@ export type Database = {
       }
       newsletter_subscribers: {
         Row: {
+          consent_ip: string | null
+          consent_method: string | null
+          consent_timestamp: string | null
           created_at: string | null
           email: string
           id: string
           is_active: boolean | null
           source: string | null
           subscribed_at: string | null
+          unsubscribe_token: string | null
+          unsubscribed_at: string | null
           updated_at: string | null
         }
         Insert: {
+          consent_ip?: string | null
+          consent_method?: string | null
+          consent_timestamp?: string | null
           created_at?: string | null
           email: string
           id?: string
           is_active?: boolean | null
           source?: string | null
           subscribed_at?: string | null
+          unsubscribe_token?: string | null
+          unsubscribed_at?: string | null
           updated_at?: string | null
         }
         Update: {
+          consent_ip?: string | null
+          consent_method?: string | null
+          consent_timestamp?: string | null
           created_at?: string | null
           email?: string
           id?: string
           is_active?: boolean | null
           source?: string | null
           subscribed_at?: string | null
+          unsubscribe_token?: string | null
+          unsubscribed_at?: string | null
           updated_at?: string | null
         }
         Relationships: []
@@ -1746,6 +1770,54 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_permissions: {
+        Row: {
+          contact_email: string | null
+          created_at: string | null
+          created_by: string | null
+          id: string
+          logo_file_path: string | null
+          notes: string | null
+          partner_name: string
+          permission_date: string | null
+          permission_scope: string[] | null
+          permission_status: string | null
+          updated_at: string | null
+          updated_by: string | null
+          website_url: string | null
+        }
+        Insert: {
+          contact_email?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          logo_file_path?: string | null
+          notes?: string | null
+          partner_name: string
+          permission_date?: string | null
+          permission_scope?: string[] | null
+          permission_status?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          website_url?: string | null
+        }
+        Update: {
+          contact_email?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          logo_file_path?: string | null
+          notes?: string | null
+          partner_name?: string
+          permission_date?: string | null
+          permission_scope?: string[] | null
+          permission_status?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       performance_metrics: {
         Row: {
           id: string
@@ -1779,6 +1851,8 @@ export type Database = {
       prequalification_downloads: {
         Row: {
           company_name: string
+          consent_ip: string | null
+          consent_timestamp: string | null
           contact_name: string
           downloaded_at: string | null
           email: string
@@ -1791,6 +1865,8 @@ export type Database = {
         }
         Insert: {
           company_name: string
+          consent_ip?: string | null
+          consent_timestamp?: string | null
           contact_name: string
           downloaded_at?: string | null
           email: string
@@ -1803,6 +1879,8 @@ export type Database = {
         }
         Update: {
           company_name?: string
+          consent_ip?: string | null
+          consent_timestamp?: string | null
           contact_name?: string
           downloaded_at?: string | null
           email?: string
@@ -2142,6 +2220,8 @@ export type Database = {
         Row: {
           admin_notes: string | null
           applicant_name: string
+          consent_ip: string | null
+          consent_timestamp: string | null
           cover_message: string | null
           created_at: string | null
           email: string
@@ -2156,6 +2236,8 @@ export type Database = {
         Insert: {
           admin_notes?: string | null
           applicant_name: string
+          consent_ip?: string | null
+          consent_timestamp?: string | null
           cover_message?: string | null
           created_at?: string | null
           email: string
@@ -2170,6 +2252,8 @@ export type Database = {
         Update: {
           admin_notes?: string | null
           applicant_name?: string
+          consent_ip?: string | null
+          consent_timestamp?: string | null
           cover_message?: string | null
           created_at?: string | null
           email?: string
