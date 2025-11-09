@@ -2343,6 +2343,7 @@ export type Database = {
           category_color: string | null
           category_description: string | null
           category_icon: string | null
+          challenge_tags: string[] | null
           created_at: string | null
           created_by: string | null
           faq_items: Json | null
@@ -2381,6 +2382,7 @@ export type Database = {
           category_color?: string | null
           category_description?: string | null
           category_icon?: string | null
+          challenge_tags?: string[] | null
           created_at?: string | null
           created_by?: string | null
           faq_items?: Json | null
@@ -2419,6 +2421,7 @@ export type Database = {
           category_color?: string | null
           category_description?: string | null
           category_icon?: string | null
+          challenge_tags?: string[] | null
           created_at?: string | null
           created_by?: string | null
           faq_items?: Json | null

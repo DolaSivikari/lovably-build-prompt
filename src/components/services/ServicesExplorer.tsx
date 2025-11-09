@@ -3,10 +3,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ServiceCard } from "./ServiceCard";
-import { CategoryTabs } from "./CategoryTabs";
 import { SearchBar } from "./SearchBar";
 import { ServiceStats } from "./ServiceStats";
+import { ChallengeFilterBanner } from "./ChallengeFilterBanner";
+import { TieredServicesGrid } from "./TieredServicesGrid";
 
 interface Service {
   id: string;
@@ -18,23 +18,17 @@ interface Service {
   featured?: boolean;
   typical_timeline?: string | null;
   project_types?: string[] | null;
+  service_tier?: string | null;
+  challenge_tags?: string[] | null;
 }
-
-const categories = [
-  { label: "All Services", value: "all" },
-  { label: "Painting Services", value: "Painting Services" },
-  { label: "Exterior Cladding Systems", value: "Exterior Cladding Systems" },
-  { label: "Exterior Systems", value: "Exterior Systems" },
-  { label: "Specialty Services", value: "Specialty Services" },
-];
 
 export const ServicesExplorer = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
-  const [showCount, setShowCount] = useState(12);
+  const [activeChallenge, setActiveChallenge] = useState<string | null>(null);
+  const [showCount, setShowCount] = useState(50);
 
   useEffect(() => {
     loadServices();
@@ -43,7 +37,7 @@ export const ServicesExplorer = () => {
   const loadServices = async () => {
     const { data, error } = await supabase
       .from("services")
-      .select("id, name, slug, short_description, category, icon_name, featured, typical_timeline, project_types")
+      .select("id, name, slug, short_description, category, icon_name, featured, typical_timeline, project_types, service_tier, challenge_tags")
       .eq("publish_state", "published")
       .order("featured", { ascending: false })
       .order("name");
@@ -58,15 +52,15 @@ export const ServicesExplorer = () => {
     setLoading(false);
   };
 
-  // Filter services based on category, search, and filters
+  // Filter services based on challenge, search, and filters
   const filteredServices = useMemo(() => {
     let filtered = services;
 
-    // Category filter (exclude Construction Management)
-    if (activeCategory !== "all") {
-      filtered = filtered.filter((s) => s.category === activeCategory);
-    } else {
-      filtered = filtered.filter((s) => s.category !== "Construction Management");
+    // Challenge filter
+    if (activeChallenge) {
+      filtered = filtered.filter((s) =>
+        s.challenge_tags?.includes(activeChallenge)
+      );
     }
 
     // Search filter
@@ -88,7 +82,7 @@ export const ServicesExplorer = () => {
     }
 
     return filtered;
-  }, [services, activeCategory, searchQuery, activeFilters]);
+  }, [services, activeChallenge, searchQuery, activeFilters]);
 
   const visibleServices = filteredServices.slice(0, showCount);
 
@@ -104,7 +98,7 @@ export const ServicesExplorer = () => {
     setShowCount((prev) => prev + 12);
   };
 
-  const activeFilterCount = activeFilters.length + (searchQuery ? 1 : 0);
+  const activeFilterCount = activeFilters.length + (searchQuery ? 1 : 0) + (activeChallenge ? 1 : 0);
 
   return (
     <section className="py-20 md:py-24 bg-background">
@@ -122,11 +116,17 @@ export const ServicesExplorer = () => {
 
         {/* Stats Bar */}
         <div className="mb-12">
-          <ServiceStats serviceCount={services.filter(s => s.category !== "Construction Management").length} />
+          <ServiceStats serviceCount={services.length} />
         </div>
 
+        {/* Challenge Filter Banner */}
+        <ChallengeFilterBanner
+          activeChallenge={activeChallenge}
+          onChallengeClick={setActiveChallenge}
+        />
+
         {/* Search & Filter Controls */}
-        <div className="mb-8 pb-8 border-b border-border">
+        <div className="mb-12 pb-8 border-b border-border">
           <SearchBar
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
@@ -135,25 +135,14 @@ export const ServicesExplorer = () => {
           />
         </div>
 
-        {/* Category Tabs - Clean Design */}
-        <div className="mb-12">
-          <CategoryTabs
-            categories={categories}
-            activeCategory={activeCategory}
-            onCategoryChange={setActiveCategory}
-          />
-        </div>
-
         {/* Results Count */}
-        {!loading && (
+        {!loading && activeFilterCount > 0 && (
           <div className="mb-8">
             <p className="text-sm text-muted-foreground">
-              Showing {visibleServices.length} of {filteredServices.length} services
-              {activeFilterCount > 0 && (
-                <span className="ml-2 text-steel-blue font-semibold">
-                  ({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active)
-                </span>
-              )}
+              Showing {filteredServices.length} service{filteredServices.length !== 1 ? 's' : ''}
+              <span className="ml-2 text-primary font-semibold">
+                ({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active)
+              </span>
             </p>
           </div>
         )}
@@ -164,33 +153,12 @@ export const ServicesExplorer = () => {
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className="h-80 bg-muted rounded-lg"
+                className="h-80 bg-muted rounded-lg animate-pulse"
               />
             ))}
           </div>
-        ) : visibleServices.length > 0 ? (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {visibleServices.map((service) => (
-                <ServiceCard key={service.id} {...service} />
-              ))}
-            </div>
-
-            {/* Load More Button */}
-            {visibleServices.length < filteredServices.length && (
-              <div className="text-center mt-12 mb-12">
-                <Button
-                  onClick={handleLoadMore}
-                  variant="secondary"
-                  size="lg"
-                  className="min-w-[200px]"
-                >
-                  Load More Services
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </div>
-            )}
-          </>
+        ) : filteredServices.length > 0 ? (
+          <TieredServicesGrid services={filteredServices} />
         ) : (
           <div className="text-center py-16 mb-12">
             <p className="text-lg text-muted-foreground mb-6">
@@ -201,7 +169,7 @@ export const ServicesExplorer = () => {
               onClick={() => {
                 setSearchQuery("");
                 setActiveFilters([]);
-                setActiveCategory("all");
+                setActiveChallenge(null);
               }}
             >
               Clear All Filters
