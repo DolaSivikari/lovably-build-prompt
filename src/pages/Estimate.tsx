@@ -44,6 +44,10 @@ const Estimate = () => {
   const [formData, setFormData] = useState({
     // Step 0
     quoteType: "",
+    company: "",
+    role: "",
+    nteBudget: "",
+    scopeCategories: [] as string[],
     // Step 1
     service: "",
     sqft: "",
@@ -293,6 +297,10 @@ Add-ons:
             name: validatedData.name,
             email: validatedData.email,
             phone: validatedData.phone,
+            company: formData.company || null,
+            role: formData.role || null,
+            nte_budget: formData.nteBudget ? parseFloat(formData.nteBudget.replace(/[^0-9.]/g, '')) || null : null,
+            scope_categories: formData.scopeCategories.length > 0 ? formData.scopeCategories : null,
             additional_notes: sanitizedMessage,
             consent_given: validatedData.consent,
             consent_timestamp: new Date().toISOString(),
@@ -385,7 +393,7 @@ Add-ons:
 
             {/* Enhanced Step Content */}
             <Card className="p-6 md:p-8 mb-6 border-2 hover:border-primary/20 transition-all shadow-lg animate-fade-in-up">
-              {currentStep === 0 && (<EstimatorStep0 data={{ quoteType: formData.quoteType }} onChange={handleInputChange} />)}
+              {currentStep === 0 && (<EstimatorStep0 data={{ quoteType: formData.quoteType, company: formData.company, role: formData.role, nteBudget: formData.nteBudget, scopeCategories: formData.scopeCategories }} onChange={handleInputChange} />)}
               {currentStep === 1 && (<EstimatorStep1 data={{ service: formData.service, sqft: formData.sqft, stories: formData.stories }} onChange={handleInputChange} />)}
               {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
               {currentStep === 3 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
