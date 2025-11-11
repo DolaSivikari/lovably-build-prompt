@@ -12,6 +12,7 @@ interface MinimalDesktopFooterProps {
   logoUrl?: string;
   serviceAreaText?: string;
   linkedinUrl?: string;
+  foundedYear?: number;
 }
 
 export function MinimalDesktopFooter({
@@ -20,7 +21,8 @@ export function MinimalDesktopFooter({
   contactInfo,
   logoUrl,
   serviceAreaText,
-  linkedinUrl
+  linkedinUrl,
+  foundedYear = 2009
 }: MinimalDesktopFooterProps) {
   // Get top 6 services for display
   const topServices = services.slice(0, 6);
@@ -165,6 +167,22 @@ export function MinimalDesktopFooter({
               Emergency: 24/7
             </p>
           </div>
+        </div>
+      </div>
+      
+      {/* Simplified Legal Section */}
+      <div className="mt-12 pt-6 border-t border-border/50">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
+          <div className="text-center md:text-left">
+            <p>
+              © {new Date().getFullYear()} Ascent Group Construction • Ontario Licensed & Insured • WSIB Compliant
+            </p>
+          </div>
+          <nav className="flex gap-6">
+            <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
+            <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>
+            <Link to="/accessibility" className="hover:text-primary transition-colors">Accessibility</Link>
+          </nav>
         </div>
       </div>
     </div>

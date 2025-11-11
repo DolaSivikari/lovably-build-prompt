@@ -27,6 +27,7 @@ interface MinimalMobileFooterProps {
   logoUrl?: string;
   serviceAreaText?: string;
   linkedinUrl?: string;
+  foundedYear?: number;
 }
 
 export function MinimalMobileFooter({
@@ -40,7 +41,8 @@ export function MinimalMobileFooter({
   trustBarItems,
   logoUrl,
   serviceAreaText,
-  linkedinUrl
+  linkedinUrl,
+  foundedYear = 2009
 }: MinimalMobileFooterProps) {
   // Get top 6 services for display
   const topServices = services.slice(0, 6);
@@ -213,6 +215,19 @@ export function MinimalMobileFooter({
             })
           )}
         </div>
+      </div>
+      
+      {/* Simplified Legal Section */}
+      <div className="mt-8 pt-6 border-t border-border/50 text-center">
+        <p className="text-xs text-muted-foreground mb-3">
+          © {new Date().getFullYear()} Ascent Group Construction<br/>
+          Ontario Licensed & Insured • WSIB Compliant
+        </p>
+        <nav className="flex justify-center gap-6 text-xs">
+          <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
+          <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms</Link>
+          <Link to="/accessibility" className="text-muted-foreground hover:text-primary transition-colors">Accessibility</Link>
+        </nav>
       </div>
     </div>
   );

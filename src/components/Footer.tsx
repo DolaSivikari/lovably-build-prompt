@@ -141,6 +141,7 @@ const Footer = () => {
             logoUrl={ascentLogo}
             serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
             linkedinUrl={linkedinUrl}
+            foundedYear={siteSettings?.founded_year || 2009}
           />
 
           {/* Desktop: Minimal Footer */}
@@ -151,26 +152,8 @@ const Footer = () => {
             logoUrl={ascentLogo}
             serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
             linkedinUrl={linkedinUrl}
+            foundedYear={siteSettings?.founded_year || 2009}
           />
-
-
-          {/* Legal */}
-          <div className="mt-12 pt-6 border-t border-border">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-              <div className="text-center md:text-left">
-                <p className="font-medium text-foreground mb-1">
-                  Ascent Group Construction Inc. — Ontario Building Contractor Licence #XXXXX • WSIB & COI available
-                </p>
-                <p>&copy; {new Date().getFullYear()} Ascent Group Construction. All rights reserved.</p>
-                <p className="text-xs mt-1">Partner logos and trademarks are property of their respective owners and used with permission.</p>
-              </div>
-              <nav className="flex gap-6">
-                <Link to="/privacy" className="hover:text-primary link-hover">Privacy</Link>
-                <Link to="/terms" className="hover:text-primary link-hover">Terms</Link>
-                <Link to="/accessibility" className="hover:text-primary link-hover">Accessibility</Link>
-              </nav>
-            </div>
-          </div>
         </div>
       </footer>
     </>
