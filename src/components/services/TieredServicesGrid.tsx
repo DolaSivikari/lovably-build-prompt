@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { ServiceCardTier1 } from "./ServiceCardTier1";
-import { ServiceCardTier3 } from "./ServiceCardTier3";
-import { ServiceCategoryCard } from "./ServiceCategoryCard";
-import { ServiceDetailsModal } from "./ServiceDetailsModal";
-import { SERVICE_CATEGORIES, getServicesInCategory, type ServiceCategory } from "./categoryMapping";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import * as LucideIcons from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface Service {
   id: string;
@@ -24,103 +23,57 @@ interface TieredServicesGridProps {
 }
 
 export const TieredServicesGrid = ({ services }: TieredServicesGridProps) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<ServiceCategory | null>(null);
-  const [modalServices, setModalServices] = useState<Service[]>([]);
-
-  // Separate services by tier
-  const tier1Services = services.filter(s => s.service_tier === 'primary_delivery' || s.service_tier === 'PRIME_SPECIALTY');
-  const tier2Services = services.filter(s => s.service_tier === 'self_perform' || s.service_tier === 'TRADE_PACKAGE');
-  const tier3Services = services.filter(s => s.service_tier === 'specialized');
-
-  const handleOpenModal = (category: ServiceCategory) => {
-    const categoryServices = getServicesInCategory(category.id, tier2Services);
-    setSelectedCategory(category);
-    setModalServices(categoryServices);
-    setModalOpen(true);
-  };
-
   return (
-    <div className="space-y-16">
-      {/* Tier 1: Core Project Delivery */}
-      {tier1Services.length > 0 && (
-        <section>
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-foreground mb-3">
-              How We Deliver Projects
-            </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive project delivery methods backed by 15+ years of proven execution
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {tier1Services.map((service) => (
-              <ServiceCardTier1 key={service.id} {...service} />
-            ))}
-          </div>
-        </section>
-      )}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {services.map((service) => {
+        const IconComponent = service.icon_name
+          ? (LucideIcons[service.icon_name as keyof typeof LucideIcons] as any)
+          : null;
 
-      {/* Tier 2: Self-Performed Capabilities - Consolidated Categories */}
-      {tier2Services.length > 0 && (
-        <section>
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-foreground mb-3">
-              What Sets Us Apart
-            </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Self-performed capabilities ensuring quality, coordination, and schedule control
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {SERVICE_CATEGORIES.map((category) => {
-              const categoryServices = getServicesInCategory(category.id, tier2Services);
-              const uniqueChallengeTags = Array.from(
-                new Set(
-                  categoryServices.flatMap(s => s.challenge_tags || [])
-                )
-              );
-              
-              return (
-                <ServiceCategoryCard
-                  key={category.id}
-                  category={category}
-                  serviceCount={categoryServices.length}
-                  challengeTags={uniqueChallengeTags}
-                  onClick={() => handleOpenModal(category)}
-                />
-              );
-            })}
-          </div>
-        </section>
-      )}
+        return (
+          <Card key={service.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <CardContent className="p-6">
+              {/* Icon */}
+              {IconComponent && (
+                <div className="mb-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <IconComponent className="w-6 h-6 text-primary" />
+                  </div>
+                </div>
+              )}
 
-      {/* Tier 3: Specialized Services */}
-      {tier3Services.length > 0 && (
-        <section>
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-foreground mb-3">
-              Additional Capabilities
-            </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Specialized services to complete your project requirements
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {tier3Services.map((service) => (
-              <ServiceCardTier3 key={service.id} {...service} />
-            ))}
-          </div>
-        </section>
-      )}
+              {/* Service Name */}
+              <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                {service.name}
+              </h3>
 
-      {/* Service Details Modal */}
-      <ServiceDetailsModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        category={selectedCategory}
-        services={modalServices}
-      />
+              {/* Description */}
+              {service.short_description && (
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                  {service.short_description}
+                </p>
+              )}
+
+              {/* Timeline Badge */}
+              {service.typical_timeline && (
+                <div className="mb-4">
+                  <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                    {service.typical_timeline}
+                  </span>
+                </div>
+              )}
+
+              {/* CTA */}
+              <Button asChild variant="ghost" size="sm" className="p-0 h-auto">
+                <Link to={`/services/${service.slug}`} className="inline-flex items-center gap-1 text-sm">
+                  Learn more
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        );
+      })}
     </div>
   );
 };
