@@ -114,12 +114,12 @@ const InsightsFeed = ({
 
   if (loading) {
     return (
-      <section className="py-20 md:py-24 bg-background">
-        <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-          <div className="space-y-8">
-            <Skeleton className="h-12 w-64 mx-auto" />
-            <Skeleton className="h-6 w-96 mx-auto" />
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <section className="py-12 md:py-16 bg-background">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+          <div className="space-y-6">
+            <Skeleton className="h-10 w-64 mx-auto" />
+            <Skeleton className="h-5 w-96 mx-auto" />
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {[...Array(6)].map((_, i) => (
                 <Skeleton key={i} className="h-96 w-full" />
               ))}
@@ -131,27 +131,27 @@ const InsightsFeed = ({
   }
 
   return (
-    <section className="py-20 md:py-24 bg-background">
-      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+    <section className="py-12 md:py-16 bg-background">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             Industry Insights
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
             Expert perspectives on construction trends, innovations, and best practices
           </p>
-          <div className="h-1 w-16 bg-primary mx-auto mt-6"></div>
+          <div className="h-1 w-16 bg-primary mx-auto mt-4"></div>
         </div>
 
         {/* Sector Filter Tabs */}
         {showFilters && (
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
             {sectorTabs.map((sector) => (
               <button
                 key={sector}
                 onClick={() => setActiveSector(sector === "All" ? null : sector)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-5 py-1.5 rounded-full text-sm font-medium transition-all ${
                   (sector === "All" && !activeSector) || activeSector === sector
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
@@ -166,7 +166,7 @@ const InsightsFeed = ({
         {/* Featured Insight */}
         {featuredInsight && (
           <Link to={`/blog/${featuredInsight.slug}`}>
-            <Card className="mb-12 overflow-hidden hover:shadow-xl transition-shadow group">
+            <Card className="mb-8 overflow-hidden hover:shadow-xl transition-shadow group animate-fade-in">
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden">
                   <img
@@ -175,14 +175,14 @@ const InsightsFeed = ({
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                   />
                   {featuredInsight.is_pinned && (
-                    <Badge className="absolute top-4 right-4 gap-1 bg-primary/90 backdrop-blur-sm">
+                    <Badge className="absolute top-3 right-3 gap-1 bg-primary/90 backdrop-blur-sm text-xs">
                       <Pin className="h-3 w-3" />
                       Featured
                     </Badge>
                   )}
                 </div>
-                <CardContent className="flex flex-col justify-center p-8 md:p-12">
-                  <div className="flex flex-wrap gap-2 mb-4">
+                <CardContent className="flex flex-col justify-center p-6 md:p-8">
+                  <div className="flex flex-wrap gap-2 mb-3">
                     <Badge variant="outline" className={getSectorColor(featuredInsight.sector)}>
                       {featuredInsight.sector}
                     </Badge>
@@ -190,10 +190,10 @@ const InsightsFeed = ({
                       <Badge variant="outline">{featuredInsight.category}</Badge>
                     )}
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                     {featuredInsight.title}
                   </h3>
-                  <p className="text-muted-foreground mb-6 line-clamp-3">
+                  <p className="text-muted-foreground mb-4 line-clamp-3 text-sm">
                     {featuredInsight.summary}
                   </p>
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">
@@ -213,10 +213,10 @@ const InsightsFeed = ({
 
         {/* Regular Insights Grid */}
         {regularInsights.length > 0 ? (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 animate-fade-in">
             {regularInsights.map((insight) => (
               <Link key={insight.id} to={`/blog/${insight.slug}`}>
-                <Card className="overflow-hidden h-full hover:shadow-xl transition-all group">
+                <Card className="overflow-hidden h-full hover:shadow-xl transition-all group hover-scale">
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <img
                       src={insight.featured_image || "/placeholder.svg"}
@@ -230,8 +230,8 @@ const InsightsFeed = ({
                       </Badge>
                     )}
                   </div>
-                  <CardContent className="p-6">
-                    <div className="flex flex-wrap gap-2 mb-3">
+                  <CardContent className="p-4">
+                    <div className="flex flex-wrap gap-1.5 mb-2">
                       <Badge variant="outline" className={getSectorColor(insight.sector)}>
                         {insight.sector}
                       </Badge>
@@ -241,10 +241,10 @@ const InsightsFeed = ({
                         </Badge>
                       )}
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                    <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
                       {insight.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">
+                    <p className="text-muted-foreground mb-3 line-clamp-2 text-sm">
                       {insight.summary}
                     </p>
                     <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -260,7 +260,7 @@ const InsightsFeed = ({
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
+          <div className="text-center py-8">
             <p className="text-muted-foreground text-lg">
               No insights found for the selected filters.
             </p>
@@ -279,7 +279,7 @@ const InsightsFeed = ({
         )}
 
         {/* View All CTA */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-8">
           <Link to="/insights">
             <Button size="lg" className="group">
               View All Insights
