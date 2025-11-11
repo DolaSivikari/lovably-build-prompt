@@ -93,6 +93,16 @@ const Estimate = () => {
     setFormData(prev => ({ ...prev, source: JSON.stringify(utmSource) }));
   }, []);
 
+  // Pre-select quote type from URL parameter
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const typeParam = params.get('type');
+    
+    if (typeParam && ['specialty_prime', 'trade_package', 'emergency', 'general'].includes(typeParam)) {
+      setFormData(prev => ({ ...prev, quoteType: typeParam }));
+    }
+  }, []);
+
   const [showQuoteDialog, setShowQuoteDialog] = useState(false);
   const [selectedServiceInfo, setSelectedServiceInfo] = useState<{
     name: string;
