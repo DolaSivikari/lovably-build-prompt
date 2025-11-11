@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { MobileNavSheet } from "./navigation/MobileNavSheet";
-import { DynamicServicesMegaMenu } from "./navigation/DynamicServicesMegaMenu";
+
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
 
@@ -173,7 +173,8 @@ const Navigation = () => {
                   activeMegaMenu === "services" && "rotate-180"
                 )} />
               </Link>
-              <DynamicServicesMegaMenu
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.services}
                 isOpen={activeMegaMenu === "services"}
                 onClose={closeMegaMenu}
               />
