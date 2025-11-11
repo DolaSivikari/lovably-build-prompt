@@ -19,6 +19,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import ParallaxShapes from "@/components/homepage/ParallaxShapes";
 import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
+import { Shield, Award, FileCheck, Building2 } from "lucide-react";
 
 const Index = () => {
   // AEO/GEO Structured Data
@@ -154,7 +155,65 @@ const Index = () => {
       <MobileStickyCTA />
       <main id="main-content" role="main">
         <EnhancedHero />
+        
+        {/* Value Pillars */}
         <ValuePillars />
+        
+        {/* Trust & Compliance Band */}
+        <section className="py-8 bg-muted/30 border-y border-border">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-wrap justify-center gap-6 md:gap-12 items-center">
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold">WSIB Active</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold">CGL $5M</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FileCheck className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold">Bonding Available</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold">COR-Eligible</span>
+              </div>
+            </div>
+            <p className="text-center text-sm text-muted-foreground mt-4">
+              Approved/Pending Applicator: Tremco, Sika, Soprema, Sto/Dryvit
+            </p>
+          </div>
+        </section>
+
+        {/* Project Profile Band */}
+        <section className="py-8 bg-background">
+          <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+            <h2 className="text-2xl font-bold mb-4 text-center">Typical Project Profile</h2>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+              <div>
+                <div className="text-3xl font-bold text-primary">$25k–$150k</div>
+                <div className="text-sm text-muted-foreground">Project Range</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-primary">48–72h</div>
+                <div className="text-sm text-muted-foreground">Site Walks</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-primary">48h</div>
+                <div className="text-sm text-muted-foreground">Submittals</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-primary">Ontario & GTA</div>
+                <div className="text-sm text-muted-foreground">Service Area</div>
+              </div>
+            </div>
+            <p className="text-center text-muted-foreground mt-4">
+              Serving condos, commercial properties, and parking structures
+            </p>
+          </div>
+        </section>
+        
         <CompanyIntroduction />
         
         {/* Market Intelligence Hub - Industry Pulse + Challenge/Response */}
