@@ -60,9 +60,10 @@ export const inferServiceFromReview = (reviewText: string): { name: string; type
  * @returns Standardized rating object
  */
 export const getConsistentAggregateRating = () => {
+  // Returns zeros until real reviews are collected
   return {
-    ratingValue: "4.9",
-    reviewCount: "127",
+    ratingValue: "0",
+    reviewCount: "0",
     bestRating: "5",
     worstRating: "1"
   };

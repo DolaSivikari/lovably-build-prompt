@@ -212,16 +212,26 @@ const Terms = () => {
             <section>
               <h2 className="text-2xl font-semibold mb-4">9. Testimonials and Reviews</h2>
               <p className="mb-4">
-                Testimonials and reviews displayed on this Website represent the genuine experiences of actual clients. All testimonials:
+                We are currently collecting verified client testimonials for display on this Website. When testimonials are displayed, they will:
               </p>
               <ul className="list-disc ml-6 space-y-2">
-                <li>Are authentic and obtained with proper consent</li>
-                <li>Reflect the client's experience at the time of the project</li>
-                <li>Have not been fabricated or materially altered</li>
-                <li>Include disclosure of any material connection or incentive (if applicable)</li>
+                <li>Represent genuine experiences of actual clients</li>
+                <li>Be obtained with proper written consent and documentation</li>
+                <li>Reflect the client's authentic experience at the time of the project</li>
+                <li>Not be fabricated, purchased, or materially altered</li>
+                <li>Include disclosure of any material connection, compensation, or incentive provided</li>
+                <li>Comply with FTC Guidelines and Canadian advertising standards</li>
+              </ul>
+              <p className="mt-4">
+                We maintain documentation to verify the authenticity of all testimonials, including:
+              </p>
+              <ul className="list-disc ml-6 space-y-2 mt-2">
+                <li>Client consent forms with signatures and dates</li>
+                <li>Project documentation proving the business relationship</li>
+                <li>Contact information for verification purposes (kept confidential)</li>
               </ul>
               <p className="mt-4 text-sm text-muted-foreground">
-                Individual results may vary. Past performance is not necessarily indicative of future results. Your experience may differ based on project scope, timeline, budget, and other factors.
+                <strong>Important Notice:</strong> Individual results may vary. Past performance is not necessarily indicative of future results. Your experience may differ based on project scope, timeline, budget, site conditions, and other factors specific to your project.
               </p>
             </section>
 

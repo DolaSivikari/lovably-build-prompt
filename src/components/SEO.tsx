@@ -130,15 +130,7 @@ const SEO = ({
       "WSIB Certified Contractor",
       "Licensed General Contractor Ontario"
     ],
-    ...(includeRating && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        reviewCount: "127",
-        bestRating: "5",
-        worstRating: "1"
-      }
-    }),
+    // Aggregate rating removed until verified reviews are collected
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Construction & Building Services",

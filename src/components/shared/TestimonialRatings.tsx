@@ -17,32 +17,8 @@ interface TestimonialRatingsProps {
   className?: string;
 }
 
-const defaultTestimonials: Testimonial[] = [
-  {
-    name: "Michael Chen",
-    company: "Brookfield Properties",
-    role: "Senior Project Manager",
-    rating: 5,
-    text: "Outstanding workmanship and professionalism. Ascent Group completed our 50-unit restoration project ahead of schedule and under budget. Their attention to detail and safety record is unmatched.",
-    date: "3 months ago"
-  },
-  {
-    name: "Sarah Johnson",
-    company: "Oxford Properties",
-    role: "Director of Operations",
-    rating: 5,
-    text: "We've worked with Ascent on multiple commercial projects. Their team's expertise in building envelope systems is exceptional. Highly recommend for any large-scale construction work.",
-    date: "6 months ago"
-  },
-  {
-    name: "David Thompson",
-    company: "RioCan REIT",
-    role: "Property Manager",
-    rating: 5,
-    text: "Reliability is key in our industry, and Ascent delivers every time. From initial consultation to project completion, their communication and execution are flawless.",
-    date: "2 months ago"
-  }
-];
+// Removed fake testimonials for legal compliance - only show verified testimonials from database
+const defaultTestimonials: Testimonial[] = [];
 
 export const TestimonialRatings = ({
   testimonials = defaultTestimonials,

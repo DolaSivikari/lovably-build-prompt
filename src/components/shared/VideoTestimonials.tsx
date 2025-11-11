@@ -18,32 +18,8 @@ interface VideoTestimonialsProps {
   className?: string;
 }
 
-const defaultTestimonials: VideoTestimonial[] = [
-  {
-    name: "John Smith",
-    company: "Brookfield Properties",
-    role: "VP of Construction",
-    thumbnail: "/placeholder.svg",
-    videoUrl: "/videos/testimonial-1.mp4",
-    quote: "Outstanding quality and professionalism throughout the entire project."
-  },
-  {
-    name: "Sarah Chen",
-    company: "Oxford Properties",
-    role: "Senior PM",
-    thumbnail: "/placeholder.svg",
-    videoUrl: "/videos/testimonial-2.mp4",
-    quote: "Their attention to detail and commitment to safety is unmatched in the industry."
-  },
-  {
-    name: "Michael Rodriguez",
-    company: "RioCan REIT",
-    role: "Director",
-    thumbnail: "/placeholder.svg",
-    videoUrl: "/videos/testimonial-3.mp4",
-    quote: "We've completed multiple projects with Ascent - always on time and on budget."
-  }
-];
+// Removed fake testimonials for legal compliance - only show verified testimonials
+const defaultTestimonials: VideoTestimonial[] = [];
 
 export const VideoTestimonials = ({
   testimonials = defaultTestimonials,

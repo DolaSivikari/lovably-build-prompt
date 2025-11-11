@@ -421,16 +421,7 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Client Success Stories</h2>
-              <p className="text-muted-foreground">See what our partners say about working with us</p>
-            </div>
-            <TestimonialRatings />
-          </div>
-        </section>
+        {/* Testimonials Section - Removed pending verified testimonial collection */}
 
         {/* Why Choose Us Section - Dark Background */}
         <section className="py-16 md:py-20 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
