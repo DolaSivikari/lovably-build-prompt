@@ -1,0 +1,180 @@
+import { Link } from "react-router-dom";
+import { Building2, Wrench, Phone, Mail } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Card } from "@/components/ui/card";
+import { LucideIcon } from "lucide-react";
+
+interface MinimalMobileFooterProps {
+  companyLinks: Array<{ label: string; href: string }>;
+  services: Array<{ name: string; slug: string; service_tier?: string }>;
+  marketLinks: Array<{ label: string; href: string }>;
+  projectLinks: Array<{ label: string; href: string }>;
+  contactInfo: {
+    phone?: string;
+    email?: string;
+  };
+  certifications: Array<{
+    icon: LucideIcon;
+    title: string;
+    subtitle: string;
+  }>;
+  displayTrustItems: boolean;
+  trustBarItems: Array<{
+    label: string;
+    value: string;
+  }>;
+}
+
+export function MinimalMobileFooter({
+  companyLinks,
+  services,
+  marketLinks,
+  projectLinks,
+  contactInfo,
+  certifications,
+  displayTrustItems,
+  trustBarItems
+}: MinimalMobileFooterProps) {
+  // Get top 6 services for display
+  const topServices = services.slice(0, 6);
+  
+  // Combine all navigation links for the Navigation accordion
+  const allNavLinks = [
+    ...companyLinks.slice(0, 5),
+    ...marketLinks,
+    ...projectLinks
+  ];
+
+  return (
+    <div className="md:hidden space-y-4">
+      
+      {/* Accordion with 2 sections */}
+      <Accordion type="single" collapsible className="space-y-3">
+        
+        {/* Section 1: Navigation */}
+        <AccordionItem value="navigation" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
+          <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
+            <div className="flex items-center gap-3">
+              <Building2 className="h-4 w-4 text-primary" />
+              <span className="font-semibold text-foreground">Navigation</span>
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4 pt-2">
+            <nav className="space-y-1">
+              {allNavLinks.map((link, index) => (
+                <Link 
+                  key={index}
+                  to={link.href}
+                  className="block py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </AccordionContent>
+        </AccordionItem>
+        
+        {/* Section 2: Services */}
+        <AccordionItem value="services" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
+          <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
+            <div className="flex items-center gap-3">
+              <Wrench className="h-4 w-4 text-primary" />
+              <span className="font-semibold text-foreground">Services</span>
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4 pt-2">
+            <nav className="grid grid-cols-2 gap-2">
+              {topServices.map((service, index) => (
+                <Link 
+                  key={index}
+                  to={`/services/${service.slug}`}
+                  className="py-2 px-3 text-xs bg-muted/30 rounded-md text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
+                >
+                  {service.name}
+                </Link>
+              ))}
+            </nav>
+            <Link 
+              to="/services"
+              className="block mt-3 text-sm font-medium text-primary text-center hover:text-primary/80 transition-colors"
+            >
+              View All Services →
+            </Link>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+      {/* Get Started Card */}
+      <Card className="p-4 space-y-3">
+        <h3 className="text-sm font-bold text-foreground">Get Started</h3>
+        <Link 
+          to="/estimate"
+          className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-4 py-3 rounded-md text-center font-semibold"
+        >
+          Request a Proposal
+        </Link>
+        <Link 
+          to="/emergency-maintenance"
+          className="block w-full border border-border hover:bg-muted/50 transition-colors px-4 py-2 rounded-md text-center text-sm"
+        >
+          Emergency Services (48-72h)
+        </Link>
+        <div className="space-y-2 pt-3 border-t border-border/50">
+          <div className="text-xs font-semibold text-foreground uppercase tracking-wider mb-2">
+            Quick Contact
+          </div>
+          {contactInfo.phone && (
+            <a 
+              href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Phone className="h-4 w-4" />
+              {contactInfo.phone}
+            </a>
+          )}
+          {contactInfo.email && (
+            <a 
+              href={`mailto:${contactInfo.email}`}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Mail className="h-4 w-4" />
+              {contactInfo.email}
+            </a>
+          )}
+        </div>
+      </Card>
+
+      {/* Certifications Strip (horizontal scroll) */}
+      <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-primary/30 scrollbar-track-muted">
+        <div className="flex gap-4 pb-2">
+          {displayTrustItems ? (
+            trustBarItems.map((item, index) => (
+              <div key={index} className="flex items-center gap-2 min-w-[160px] p-3 bg-muted/30 rounded-lg border border-border/50">
+                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="h-4 w-4 rounded-full bg-primary/30" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-foreground">{item.label}</div>
+                  <div className="text-[10px] text-muted-foreground">{item.value}</div>
+                </div>
+              </div>
+            ))
+          ) : (
+            certifications.map((cert, index) => {
+              const Icon = cert.icon;
+              return (
+                <div key={index} className="flex items-center gap-2 min-w-[160px] p-3 bg-muted/30 rounded-lg border border-border/50">
+                  <Icon className="h-4 w-4 text-primary flex-shrink-0" />
+                  <div>
+                    <div className="text-xs font-semibold text-foreground">{cert.title}</div>
+                    <div className="text-[10px] text-muted-foreground">{cert.subtitle}</div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

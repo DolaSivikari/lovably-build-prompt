@@ -5,8 +5,9 @@ import ascentLogo from "@/assets/ascent-logo.png";
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
-import { MobileFooterMega } from "@/components/footer/MobileFooterMega";
-import { DesktopFooterMega } from "@/components/footer/DesktopFooterMega";
+import { TrustBadgeBar } from "@/components/footer/TrustBadgeBar";
+import { MinimalDesktopFooter } from "@/components/footer/MinimalDesktopFooter";
+import { MinimalMobileFooter } from "@/components/footer/MinimalMobileFooter";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
@@ -117,11 +118,18 @@ const Footer = () => {
       <SEO structuredData={citationSchema} />
       <footer className="w-full bg-background border-t border-border">
         
+        {/* Trust Badge Bar - Above Footer */}
+        <TrustBadgeBar
+          certifications={certifications}
+          displayTrustItems={displayTrustItems}
+          trustBarItems={trustBarItems}
+        />
+        
         {/* Footer Layout */}
         <div className="container mx-auto px-4 py-12 md:py-16">
           
-          {/* Mobile: Enhanced Mega Footer */}
-          <MobileFooterMega
+          {/* Mobile: Minimal Footer */}
+          <MinimalMobileFooter
             companyLinks={companyLinks}
             services={services}
             marketLinks={marketLinks}
@@ -129,18 +137,14 @@ const Footer = () => {
             certifications={certifications}
             displayTrustItems={displayTrustItems}
             trustBarItems={trustBarItems}
-            contactInfo={{ phone, email, address }}
+            contactInfo={{ phone, email }}
           />
 
-          {/* Desktop: Enhanced Mega Footer */}
-          <DesktopFooterMega
+          {/* Desktop: Minimal Footer */}
+          <MinimalDesktopFooter
             companyLinks={companyLinks}
             services={services}
-            marketLinks={marketLinks}
-            projectLinks={projectLinks}
-            certifications={certifications}
-            displayTrustItems={displayTrustItems}
-            trustBarItems={trustBarItems}
+            contactInfo={{ phone, email }}
           />
 
           {/* Desktop: Legacy Certifications Column (keep for compatibility) */}
