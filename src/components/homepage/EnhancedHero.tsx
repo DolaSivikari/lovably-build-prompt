@@ -200,12 +200,22 @@ const EnhancedHero = () => {
     if (!isPlaying || activeSlides.length === 0) return;
 
     autoplayIntervalRef.current = setInterval(() => {
-      setIsTransitioning(true);
+      const nextSlideIndex = (currentSlide + 1) % activeSlides.length;
+      const nextSlide = activeSlides[nextSlideIndex];
+      const nextRawUrl = typeof nextSlide === 'object' && 'video_url' in nextSlide
+        ? nextSlide.video_url || heroClipchampVideo
+        : (nextSlide as any).video;
       
-      setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
-        setIsTransitioning(false);
-      }, 500);
+      // Only transition if next video is preloaded
+      if (isPreloaded(nextRawUrl)) {
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setCurrentSlide(nextSlideIndex);
+          setIsTransitioning(false);
+        }, 500);
+      } else {
+        console.warn('Next video not ready, skipping transition');
+      }
     }, 7000);
 
     return () => {
@@ -213,9 +223,20 @@ const EnhancedHero = () => {
         clearInterval(autoplayIntervalRef.current);
       }
     };
-  }, [isPlaying, activeSlides.length]);
+  }, [isPlaying, activeSlides.length, currentSlide, isPreloaded]);
 
   const handleSlideChange = (index: number) => {
+    const targetSlide = activeSlides[index];
+    const targetRawUrl = typeof targetSlide === 'object' && 'video_url' in targetSlide
+      ? targetSlide.video_url || heroClipchampVideo
+      : (targetSlide as any).video;
+    
+    // Only allow change if video is preloaded
+    if (!isPreloaded(targetRawUrl)) {
+      console.warn('Target video not preloaded yet');
+      return;
+    }
+    
     setIsPlaying(false); // Pause autoplay when user interacts
     setIsTransitioning(true);
     setTimeout(() => {
@@ -227,6 +248,24 @@ const EnhancedHero = () => {
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
+
+  // Reset video loaded state when slide changes
+  useEffect(() => {
+    setIsVideoLoaded(false);
+    setShowPoster(true);
+    
+    // Wait for new video to be ready
+    const currentVideoRef = activeVideo === 'a' ? videoRefA.current : videoRefB.current;
+    if (currentVideoRef) {
+      const handleCanPlay = () => {
+        setIsVideoLoaded(true);
+        setTimeout(() => setShowPoster(false), 100);
+      };
+      
+      currentVideoRef.addEventListener('canplaythrough', handleCanPlay);
+      return () => currentVideoRef.removeEventListener('canplaythrough', handleCanPlay);
+    }
+  }, [currentSlide, activeVideo]);
 
   // Smooth video loop using crossfade technique
   useEffect(() => {
@@ -344,7 +383,8 @@ const EnhancedHero = () => {
   const description = isDbSlide ? slide.description : (slide as any).subheadline;
   const statNumber = isDbSlide ? slide.stat_number : (slide as any).stat;
   const statLabel = isDbSlide ? slide.stat_label : (slide as any).statLabel;
-  const videoUrl = isDbSlide ? (slide.video_url || heroClipchampVideo) : (slide as any).video;
+  const rawVideoUrl = isDbSlide ? (slide.video_url || heroClipchampVideo) : (slide as any).video;
+  const videoUrl = getVideoUrl(rawVideoUrl); // Use preloaded blob URL
   const posterUrl = isDbSlide ? (slide.poster_url || '/hero-poster-1.webp') : (slide as any).poster;
   
   const PrimaryIcon = isDbSlide 
@@ -497,24 +537,26 @@ const EnhancedHero = () => {
 
           {/* Slide Indicators */}
           <div className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
-            {activeSlides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setIsTransitioning(true);
-                  setTimeout(() => {
-                    setCurrentSlide(index);
-                    setIsTransitioning(false);
-                  }, 500);
-                }}
-                className={`h-1 rounded-full transition-all duration-300 ${
-                  index === currentSlide 
-                    ? 'w-12 bg-accent' 
-                    : 'w-8 bg-[hsl(var(--bg))]/30 hover:bg-[hsl(var(--bg))]/50'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+            {activeSlides.map((slideItem, index) => {
+              const slideRawUrl = typeof slideItem === 'object' && 'video_url' in slideItem
+                ? slideItem.video_url || heroClipchampVideo
+                : (slideItem as any).video;
+              const isReady = isPreloaded(slideRawUrl);
+              
+              return (
+                <button
+                  key={index}
+                  onClick={() => handleSlideChange(index)}
+                  disabled={!isReady}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    index === currentSlide 
+                      ? 'w-12 bg-accent' 
+                      : 'w-8 bg-[hsl(var(--bg))]/30 hover:bg-[hsl(var(--bg))]/50'
+                  } ${!isReady ? 'opacity-50 cursor-wait' : ''}`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
