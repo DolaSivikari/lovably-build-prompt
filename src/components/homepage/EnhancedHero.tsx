@@ -106,6 +106,12 @@ const EnhancedHero = () => {
   const [isLoadingSlides, setIsLoadingSlides] = useState(true);
   const mobileCardsRef = useRef<HTMLDivElement>(null);
   const [mobileCardAutoScroll, setMobileCardAutoScroll] = useState(true);
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
+  // Remove first render flag after component mounts
+  useEffect(() => {
+    setIsFirstRender(false);
+  }, []);
 
   // Fetch hero slides from database
   useEffect(() => {
@@ -431,11 +437,11 @@ const EnhancedHero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--ink))]/70 via-[hsl(var(--ink))]/60 to-[hsl(var(--ink))]/80" />
 
       {/* Content */}
-      <div 
-        className={`relative z-10 container mx-auto px-4 py-16 md:py-20 transition-opacity duration-1000 ${
-          isTransitioning ? 'opacity-0' : 'opacity-100'
-        }`}
-      >
+        <div 
+          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${
+            !isFirstRender ? 'transition-opacity duration-1000' : ''
+          } ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+        >
         <div className="max-w-5xl mx-auto">
           {/* Stat Callout */}
           <div 
