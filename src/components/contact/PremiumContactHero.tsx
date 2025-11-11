@@ -88,6 +88,9 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
               <a href={`mailto:${contactInfo.projectsEmail}`} className="block text-xs text-muted-foreground hover:text-primary transition-colors break-all">
                 <span className="font-medium">Projects:</span> {contactInfo.projectsEmail}
               </a>
+              <a href={`mailto:${contactInfo.careersEmail}`} className="block text-xs text-muted-foreground hover:text-primary transition-colors break-all">
+                <span className="font-medium">Careers:</span> {contactInfo.careersEmail}
+              </a>
             </CardContent>
           </Card>
 
