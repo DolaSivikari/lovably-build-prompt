@@ -31,22 +31,8 @@ export function MinimalDesktopFooter({
     <div className="hidden md:block">
       <div className="grid grid-cols-12 gap-8">
         
-        {/* Column 1: Company + Logo */}
+        {/* Column 1: Company */}
         <div className="col-span-3 space-y-4">
-          {/* Logo and Service Area */}
-          {logoUrl && (
-            <div className="mb-6">
-              <Link to="/" className="inline-block mb-3">
-                <img src={logoUrl} alt="Ascent Group Construction" className="h-14 w-auto" />
-              </Link>
-              {serviceAreaText && (
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {serviceAreaText}
-                </p>
-              )}
-            </div>
-          )}
-          
           <div className="flex items-center gap-2 mb-3">
             <Building2 className="h-5 w-5 text-primary" />
             <h3 className="text-sm font-bold text-foreground">Company</h3>
