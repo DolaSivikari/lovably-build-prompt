@@ -1,11 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SearchBar } from "./SearchBar";
-import { ServiceStats } from "./ServiceStats";
-import { ChallengeFilterBanner } from "./ChallengeFilterBanner";
 import { TieredServicesGrid } from "./TieredServicesGrid";
 
 interface Service {
@@ -104,45 +102,73 @@ export const ServicesExplorer = () => {
     <section className="py-12 md:py-16 bg-background">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         
-        {/* Section Header - Enterprise Style */}
-        <div className="max-w-3xl mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-            Envelope & Restoration Services
+        {/* Section Header - Clean & Modern */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            Our Services
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Specialized building envelope restoration, façade remediation, and parking structure rehabilitation delivered by licensed professionals with proven expertise across commercial, institutional, and multi-unit residential projects.
+          <p className="text-base text-muted-foreground">
+            Specialized solutions for building envelope restoration and rehabilitation
           </p>
         </div>
 
-        {/* Stats Bar */}
-        <div className="mb-8">
-          <ServiceStats serviceCount={services.length} />
+        {/* Search & Filter Controls - Simplified */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search services..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-12 pr-12 h-12 text-base"
+            />
+            {searchQuery && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-2 top-1/2 -translate-y-1/2"
+                onClick={() => setSearchQuery("")}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+          
+          {/* Quick Filters - Minimalist */}
+          <div className="flex items-center justify-center gap-2 mt-4">
+            {["residential", "commercial", "industrial"].map((filter) => (
+              <Button
+                key={filter}
+                variant={activeFilters.includes(filter) ? "default" : "outline"}
+                size="sm"
+                onClick={() => handleFilterToggle(filter)}
+                className="capitalize"
+              >
+                {filter}
+              </Button>
+            ))}
+            {(activeFilters.length > 0 || searchQuery || activeChallenge) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setSearchQuery("");
+                  setActiveFilters([]);
+                  setActiveChallenge(null);
+                }}
+              >
+                Clear
+              </Button>
+            )}
+          </div>
         </div>
 
-        {/* Challenge Filter Banner */}
-        <ChallengeFilterBanner
-          activeChallenge={activeChallenge}
-          onChallengeClick={setActiveChallenge}
-        />
-
-        {/* Search & Filter Controls */}
-        <div className="mb-8 pb-6 border-b border-border">
-          <SearchBar
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            activeFilters={activeFilters}
-            onFilterToggle={handleFilterToggle}
-          />
-        </div>
-
-        {/* Results Count */}
-        {!loading && activeFilterCount > 0 && (
-          <div className="mb-6">
+        {/* Results Info */}
+        {!loading && filteredServices.length > 0 && (
+          <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground">
-              Showing {filteredServices.length} service{filteredServices.length !== 1 ? 's' : ''}
-              <span className="ml-2 text-primary font-semibold">
-                ({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active)
-              </span>
+              {filteredServices.length} service{filteredServices.length !== 1 ? 's' : ''} available
             </p>
           </div>
         )}
@@ -177,19 +203,14 @@ export const ServicesExplorer = () => {
           </div>
         )}
 
-        {/* Bottom CTAs - Professional Design */}
-        <div className="pt-8 border-t border-border">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild size="lg" variant="primary" className="min-w-[220px]">
-              <Link to="/estimate" className="inline-flex items-center gap-2">
-                Request Proposal
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-            <Button asChild variant="secondary" size="lg" className="min-w-[220px]">
-              <Link to="/services">View All Services</Link>
-            </Button>
-          </div>
+        {/* Bottom CTA - Clean */}
+        <div className="text-center mt-12">
+          <Button asChild size="lg" variant="default">
+            <Link to="/estimate" className="inline-flex items-center gap-2">
+              Request Proposal
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
