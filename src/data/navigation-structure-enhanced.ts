@@ -26,36 +26,37 @@ export interface MegaMenuDataEnhanced {
 export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   services: [
     {
-      sectionTitle: "Specialty Programs",
+      sectionTitle: "Primary Services",
       sectionLink: "/services",
       categories: [
         {
-          title: "Prime Specialty Services",
-          description: "Complete envelope & restoration programs",
+          title: "General Contracting & Construction Management",
+          description: "Full project delivery from permits to turnkey",
           subItems: [
-            { name: "Façade Remediation Programs", link: "/services/facade-remediation", description: "EIFS/stucco repair, masonry restoration, architectural coatings", badge: "popular" },
-            { name: "Sealant Replacement Programs", link: "/services/sealant-replacement", description: "Control joints, window perimeters, penetrations", badge: "popular" },
-            { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Spall repair, joint systems, traffic coatings" },
-            { name: "Protective & Architectural Coatings", link: "/services/protective-coatings", description: "Interior/exterior protective systems" },
+            { name: "General Contracting", link: "/services/general-contracting", description: "Full project delivery from permits to turnkey", badge: "popular" },
+            { name: "Construction Management", link: "/services/construction-management", description: "Professional CM services for complex projects" },
+            { name: "Design-Build Services", link: "/services/design-build", description: "Integrated project delivery" },
           ],
         },
         {
           title: "Self-Perform Trades",
-          description: "Core envelope trades",
+          description: "Comprehensive building envelope and specialty trades",
           subItems: [
-            { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Complete envelope systems" },
-            { name: "Waterproofing Systems", link: "/services/waterproofing", description: "Building envelope protection" },
-            { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Tuckpointing & structural masonry" },
-            { name: "EIFS & Stucco", link: "/services/eifs-stucco", description: "Exterior insulation systems" },
+            { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Comprehensive envelope systems", badge: "popular" },
+            { name: "Exterior Envelope Systems", link: "/services/exterior-envelope", description: "Complete building envelope solutions" },
+            { name: "Exterior Cladding", link: "/services/exterior-cladding", description: "Metal cladding and masonry systems" },
+            { name: "Interior Buildouts", link: "/services/interior-buildouts", description: "Commercial interior construction" },
           ],
         },
         {
-          title: "Specialty Solutions",
-          description: "Client-specific programs",
+          title: "Specialty Services",
+          description: "Advanced construction solutions",
           subItems: [
-            { name: "For General Contractors", link: "/for-general-contractors", description: "Trade packages with 48h submittals" },
-            { name: "Emergency Maintenance", link: "/emergency-maintenance", description: "48-72h leak & seal response" },
-            { name: "Vendor Packet", link: "/vendor-packet", description: "Pre-qualification documents" },
+            { name: "Parking Garage Restoration", link: "/services/parking-rehabilitation", description: "Complete garage restoration" },
+            { name: "Waterproofing Systems", link: "/services/waterproofing", description: "Building envelope protection" },
+            { name: "Masonry & Structural", link: "/services/masonry-restoration", description: "Structural masonry and repair" },
+            { name: "EIFS & Stucco", link: "/services/eifs-stucco", description: "Exterior insulation systems" },
+            { name: "Metal Cladding", link: "/services/metal-cladding", description: "Metal panel systems" },
           ],
         },
       ],

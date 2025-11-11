@@ -207,7 +207,7 @@ export const ServicesExplorer = () => {
         <div className="text-center mt-12">
           <Button asChild size="lg" variant="default">
             <Link to="/estimate" className="inline-flex items-center gap-2">
-              Request Project Quote
+              Request Proposal
               <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>

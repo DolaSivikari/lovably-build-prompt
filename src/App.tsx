@@ -41,10 +41,6 @@ import MasonryRestoration from "./pages/services/MasonryRestoration";
 import MetalCladding from "./pages/services/MetalCladding";
 import Waterproofing from "./pages/services/Waterproofing";
 import ParkingRehabilitation from "./pages/services/ParkingRehabilitation";
-import FacadeRemediation from "./pages/services/FacadeRemediation";
-import SealantReplacement from "./pages/services/SealantReplacement";
-import ParkingGarageRestoration from "./pages/services/ParkingGarageRestoration";
-import ProtectiveCoatings from "./pages/services/ProtectiveCoatings";
 import Markets from "./pages/Markets";
 import MultiFamily from "./pages/markets/MultiFamily";
 import Commercial from "./pages/markets/Commercial";
@@ -318,10 +314,6 @@ const App = () => (
             <Route path="/services/metal-cladding" element={<MetalCladding />} />
             <Route path="/services/waterproofing" element={<Waterproofing />} />
             <Route path="/services/parking-rehabilitation" element={<ParkingRehabilitation />} />
-            <Route path="/services/facade-remediation" element={<FacadeRemediation />} />
-            <Route path="/services/sealant-replacement" element={<SealantReplacement />} />
-            <Route path="/services/parking-garage-restoration" element={<ParkingGarageRestoration />} />
-            <Route path="/services/protective-coatings" element={<ProtectiveCoatings />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/markets" element={<Markets />} />
             <Route path="/markets/multi-family" element={<MultiFamily />} />
