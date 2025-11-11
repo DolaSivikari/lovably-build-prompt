@@ -2663,6 +2663,69 @@ export type Database = {
         }
         Relationships: []
       }
+      specialty_pages: {
+        Row: {
+          content_blocks: Json
+          created_at: string | null
+          created_by: string | null
+          id: string
+          is_active: boolean | null
+          meta_description: string | null
+          meta_title: string | null
+          og_image_url: string | null
+          slug: string
+          subtitle: string | null
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          content_blocks?: Json
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          meta_description?: string | null
+          meta_title?: string | null
+          og_image_url?: string | null
+          slug: string
+          subtitle?: string | null
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          content_blocks?: Json
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          meta_description?: string | null
+          meta_title?: string | null
+          og_image_url?: string | null
+          slug?: string
+          subtitle?: string | null
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "specialty_pages_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "specialty_pages_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       stats: {
         Row: {
           created_at: string | null

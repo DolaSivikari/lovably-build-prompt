@@ -68,6 +68,7 @@ import Unsubscribe from "./pages/Unsubscribe";
 import CookieBanner from "./components/CookieBanner";
 import NewsletterSubscribers from "./pages/admin/NewsletterSubscribers";
 import PartnerPermissions from "./pages/admin/PartnerPermissions";
+import DynamicSpecialtyPage from "./pages/DynamicSpecialtyPage";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -324,6 +325,11 @@ const App = () => (
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
                   <Route path="/submit-rfp" element={<SubmitRFPNew />} />
+                  
+                  {/* Specialty Landing Pages - Dynamic routing */}
+                  <Route path="/for-general-contractors" element={<DynamicSpecialtyPage />} />
+                  <Route path="/emergency-maintenance" element={<DynamicSpecialtyPage />} />
+                  <Route path="/vendor-packet" element={<DynamicSpecialtyPage />} />
                   <Route path="/insights" element={<Insights />} />
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/terms" element={<Terms />} />
