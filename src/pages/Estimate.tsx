@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import Navigation from "@/components/Navigation";
@@ -10,6 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import EstimatorStep0 from "@/components/estimator/EstimatorStep0";
 import EstimatorStep1 from "@/components/estimator/EstimatorStep1";
 import EstimatorStep2Enhanced from "@/components/estimator/EstimatorStep2Enhanced";
 import { QuoteRequestDialog } from "@/components/estimator/QuoteRequestDialog";
@@ -19,6 +20,7 @@ import EstimatorStep4 from "@/components/estimator/EstimatorStep4";
 import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
 import { calculateEstimate, EstimateInput } from "@/utils/estimator";
 import PaintCalculator from "@/components/PaintCalculator";
+import { trackConversion } from "@/lib/analytics";
 
 // Validation schema for estimate form
 const estimateSchema = z.object({
@@ -34,12 +36,14 @@ const estimateSchema = z.object({
 const Estimate = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   const [formData, setFormData] = useState({
+    // Step 0
+    quoteType: "",
     // Step 1
     service: "",
     sqft: "",
@@ -69,7 +73,21 @@ const Estimate = () => {
     preferredContact: "",
     notes: "",
     consent: false,
+    // Tracking
+    source: "",
   });
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = {
+      utm_source: params.get('utm_source') || '',
+      utm_medium: params.get('utm_medium') || '',
+      utm_campaign: params.get('utm_campaign') || '',
+      utm_term: params.get('utm_term') || '',
+      utm_content: params.get('utm_content') || ''
+    };
+    setFormData(prev => ({ ...prev, source: JSON.stringify(utmSource) }));
+  }, []);
 
   const [showQuoteDialog, setShowQuoteDialog] = useState(false);
   const [selectedServiceInfo, setSelectedServiceInfo] = useState<{
@@ -150,6 +168,8 @@ const Estimate = () => {
 
   const canProceed = () => {
     switch (currentStep) {
+      case 0:
+        return formData.quoteType !== "";
       case 1:
         return (
           formData.service &&
@@ -178,6 +198,8 @@ const Estimate = () => {
       case 4:
         return true; // Review step
       case 5:
+        return true; // Add-ons
+      case 6:
         return formData.name && formData.email && formData.phone;
       default:
         return false;
@@ -186,13 +208,16 @@ const Estimate = () => {
 
   const handleNext = () => {
     if (canProceed() && currentStep < totalSteps) {
+      if (currentStep === 0) {
+        trackConversion('quote_form_started', { quote_type: formData.quoteType });
+      }
       setCurrentStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handleBack = () => {
-    if (currentStep > 1) {
+    if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -258,6 +283,32 @@ Add-ons:
 
       const { error } = await Promise.race([insertPromise, timeoutPromise]) as any;
       if (error) throw error;
+
+      // Also insert into quote_requests table
+      if (formData.quoteType) {
+        const { data: quoteData, error: quoteError } = await supabase
+          .from("quote_requests")
+          .insert({
+            quote_type: formData.quoteType,
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            additional_notes: sanitizedMessage,
+            consent_given: validatedData.consent,
+            consent_timestamp: new Date().toISOString(),
+            source: formData.source,
+          })
+          .select('lead_score, priority')
+          .single();
+
+        if (!quoteError && quoteData) {
+          trackConversion('quote_form_submitted', {
+            quote_type: formData.quoteType,
+            lead_score: quoteData.lead_score,
+            priority: quoteData.priority
+          });
+        }
+      }
 
       toast({
         title: "Estimate Request Submitted!",
@@ -334,11 +385,13 @@ Add-ons:
 
             {/* Enhanced Step Content */}
             <Card className="p-6 md:p-8 mb-6 border-2 hover:border-primary/20 transition-all shadow-lg animate-fade-in-up">
+              {currentStep === 0 && (<EstimatorStep0 data={{ quoteType: formData.quoteType }} onChange={handleInputChange} />)}
               {currentStep === 1 && (<EstimatorStep1 data={{ service: formData.service, sqft: formData.sqft, stories: formData.stories }} onChange={handleInputChange} />)}
               {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
               {currentStep === 3 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
               {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
-              {currentStep === 5 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
+              {currentStep === 5 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
+              {currentStep === 6 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
             </Card>
 
             {/* Navigation Buttons */}
@@ -347,7 +400,7 @@ Add-ons:
                 variant="outline"
                 size="lg"
                 onClick={handleBack}
-                disabled={currentStep === 1}
+                disabled={currentStep === 0}
                 className="min-w-[120px]"
               >
                 <ChevronLeft className="w-4 h-4 mr-2" />

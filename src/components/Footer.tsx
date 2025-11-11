@@ -230,6 +230,9 @@ const Footer = () => {
           <div className="mt-8 pt-6 border-t border-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
               <div className="text-center md:text-left">
+                <p className="font-medium text-foreground mb-1">
+                  Ascent Group Construction Inc. — Ontario Building Contractor Licence #XXXXX • WSIB & COI available
+                </p>
                 <p>&copy; {new Date().getFullYear()} Ascent Group Construction. All rights reserved.</p>
                 <p className="text-xs mt-1">Partner logos and trademarks are property of their respective owners and used with permission.</p>
               </div>

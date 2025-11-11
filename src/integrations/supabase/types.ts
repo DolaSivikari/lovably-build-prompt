@@ -2177,6 +2177,110 @@ export type Database = {
           },
         ]
       }
+      quote_requests: {
+        Row: {
+          access_hours: string | null
+          additional_notes: string | null
+          after_hours_required: boolean | null
+          assigned_to: string | null
+          city: string | null
+          company: string | null
+          consent_given: boolean | null
+          consent_ip: string | null
+          consent_timestamp: string | null
+          created_at: string | null
+          email: string
+          estimated_lf: Json | null
+          estimated_sf: Json | null
+          estimated_value: number | null
+          id: string
+          lead_score: number | null
+          name: string
+          nte_budget: number | null
+          phone: string | null
+          priority: string | null
+          project_address: string | null
+          quote_type: string
+          role: string | null
+          scope_categories: string[] | null
+          source: string | null
+          status: string | null
+          target_deadline: string | null
+          updated_at: string | null
+          uploaded_files: string[] | null
+        }
+        Insert: {
+          access_hours?: string | null
+          additional_notes?: string | null
+          after_hours_required?: boolean | null
+          assigned_to?: string | null
+          city?: string | null
+          company?: string | null
+          consent_given?: boolean | null
+          consent_ip?: string | null
+          consent_timestamp?: string | null
+          created_at?: string | null
+          email: string
+          estimated_lf?: Json | null
+          estimated_sf?: Json | null
+          estimated_value?: number | null
+          id?: string
+          lead_score?: number | null
+          name: string
+          nte_budget?: number | null
+          phone?: string | null
+          priority?: string | null
+          project_address?: string | null
+          quote_type: string
+          role?: string | null
+          scope_categories?: string[] | null
+          source?: string | null
+          status?: string | null
+          target_deadline?: string | null
+          updated_at?: string | null
+          uploaded_files?: string[] | null
+        }
+        Update: {
+          access_hours?: string | null
+          additional_notes?: string | null
+          after_hours_required?: boolean | null
+          assigned_to?: string | null
+          city?: string | null
+          company?: string | null
+          consent_given?: boolean | null
+          consent_ip?: string | null
+          consent_timestamp?: string | null
+          created_at?: string | null
+          email?: string
+          estimated_lf?: Json | null
+          estimated_sf?: Json | null
+          estimated_value?: number | null
+          id?: string
+          lead_score?: number | null
+          name?: string
+          nte_budget?: number | null
+          phone?: string | null
+          priority?: string | null
+          project_address?: string | null
+          quote_type?: string
+          role?: string | null
+          scope_categories?: string[] | null
+          source?: string | null
+          status?: string | null
+          target_deadline?: string | null
+          updated_at?: string | null
+          uploaded_files?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_requests_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       redirects: {
         Row: {
           created_at: string | null
@@ -2988,6 +3092,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_lead_score: {
+        Args: { req: Database["public"]["Tables"]["quote_requests"]["Row"] }
+        Returns: number
+      }
       can_edit_content: { Args: { _user_id: string }; Returns: boolean }
       check_and_update_rate_limit: {
         Args: {

@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -7,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Check, Mail } from 'lucide-react';
 import SEO from '@/components/SEO';
+import { trackConversion } from '@/lib/analytics';
 
 interface ContentBlock {
   type: 'intro' | 'features' | 'services_grid' | 'document_list' | 'cta';
@@ -134,6 +136,12 @@ const DynamicSpecialtyPage = () => {
     },
     enabled: !!slug,
   });
+
+  useEffect(() => {
+    if (page) {
+      trackConversion('specialty_page_view', { page: page.slug });
+    }
+  }, [page]);
 
   if (isLoading) {
     return (

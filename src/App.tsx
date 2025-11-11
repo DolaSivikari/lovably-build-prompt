@@ -187,6 +187,9 @@ const SearchAnalytics = lazy(() => import("./pages/admin/SearchAnalytics").catch
 const ErrorLogs = lazy(() => import("./pages/admin/ErrorLogs").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Error Logs</p></div>
 })));
+const QuoteRequests = lazy(() => import("./pages/admin/QuoteRequests").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Quote Requests</p></div>
+})));
 
 // WordPress-style Admin Pages
 const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
@@ -395,6 +398,7 @@ const App = () => (
                     <Route path="settings-health" element={<SettingsHealthCheck />} />
                     <Route path="search-analytics" element={<SearchAnalytics />} />
                     <Route path="error-logs" element={<ErrorLogs />} />
+                    <Route path="quote-requests" element={<QuoteRequests />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
                     <Route path="newsletter-subscribers" element={<Suspense fallback={<PageLoader />}><NewsletterSubscribers /></Suspense>} />
