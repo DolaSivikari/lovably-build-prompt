@@ -48,7 +48,7 @@ export default function CompanyIntroduction() {
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                 Our self-performed capabilities include stucco and EIFS systems, masonry restoration, 
                 sealant replacement, parking structure rehabilitation, waterproofing, and exterior envelope upgrades—delivering 
-                prime specialty services and trade package support for general contractors across the GTA.
+                prime specialty services and trade package support for developers and building owners across the GTA.
               </p>
             </div>
 

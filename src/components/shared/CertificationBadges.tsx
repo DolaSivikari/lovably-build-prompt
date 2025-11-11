@@ -46,7 +46,7 @@ const defaultCertifications: Certification[] = [
   {
     name: "Licensed Contractor",
     icon: Building2,
-    description: "Licensed general contractor in Ontario",
+    description: "Licensed building contractor in Ontario",
     verified: true
   },
   {

@@ -13,12 +13,12 @@ const WhoWeServe = () => {
             Client Solutions
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Delivering comprehensive construction services to developers, general contractors, and property stakeholders across Ontario.
+            Delivering specialized envelope restoration and façade remediation services to developers, building owners, and property managers across Ontario.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-          {/* Developers & General Contractors */}
+          {/* Developers & Building Owners */}
           <Card variant="elevated" className="relative overflow-hidden group hover-subtle">
             <div className="p-8 lg:p-10">
               {/* Icon with Steel Blue Accent */}
@@ -27,29 +27,29 @@ const WhoWeServe = () => {
               </div>
               
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
-                Developers & General Contractors
+                Developers & Building Owners
               </h3>
               <p className="text-base text-muted-foreground mb-8 leading-relaxed">
-                Reliable subcontracting and specialized trade coordination for complex commercial and multi-unit residential projects.
+                Prime specialty services and trade package support for multi-unit residential and commercial envelope projects.
               </p>
 
               {/* Benefits List */}
               <ul className="space-y-4 mb-10 pb-8 border-b border-border">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Multi-unit residential construction and repositioning</span>
+                  <span className="text-muted-foreground">Building envelope restoration & remediation</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Commercial development and tenant improvements</span>
+                  <span className="text-muted-foreground">Masonry, EIFS/stucco, & waterproofing systems</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Design-build project delivery</span>
+                  <span className="text-muted-foreground">Trade package support with unit rates & 48h submittals</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-steel-blue shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Self-perform exterior envelope and specialty trades</span>
+                  <span className="text-muted-foreground">Self-performed envelope trades & specialty coatings</span>
                 </li>
               </ul>
 

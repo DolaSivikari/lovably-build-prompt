@@ -39,7 +39,7 @@ const Institutional = () => {
     <div className="min-h-screen">
       <SEO
         title="Institutional Construction | Schools & Healthcare | Ascent Group Ontario"
-        description="General contractor for institutional construction: schools, hospitals, government buildings, and community centers across Ontario. Experienced with public sector procurement."
+        description="Envelope & restoration contractor for institutional buildings: schools, hospitals, government buildings, and community centers across Ontario. Experienced with public sector procurement."
       />
       <Navigation />
       

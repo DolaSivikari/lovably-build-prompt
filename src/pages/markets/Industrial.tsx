@@ -39,7 +39,7 @@ const Industrial = () => {
     <div className="min-h-screen">
       <SEO
         title="Industrial Construction | Warehouse & Manufacturing | Ascent Group GTA"
-        description="General contractor for industrial construction: warehouses, manufacturing facilities, distribution centers, and light industrial across the Greater Toronto Area."
+        description="Envelope & restoration contractor for industrial facilities: building envelope restoration, protective coatings, and waterproofing systems across the Greater Toronto Area."
       />
       <Navigation />
       

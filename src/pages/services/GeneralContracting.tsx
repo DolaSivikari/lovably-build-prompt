@@ -91,7 +91,7 @@ const GeneralContracting = () => {
       <SEO
         title="General Contracting Toronto | Commercial GC Services Ontario"
         description="Full-service general contracting with single-source accountability, fixed-price certainty, and 95% on-time delivery. Serving commercial, multi-family, and institutional clients across the GTA."
-        keywords="general contractor Toronto, commercial GC, construction management, Toronto general contracting, GTA contractor"
+        keywords="envelope contractor Toronto, building envelope restoration, façade remediation, parking structure rehabilitation, Toronto envelope contractor"
       />
       <Navigation />
       
@@ -126,7 +126,7 @@ const GeneralContracting = () => {
             <div className="text-center mb-12">
               <h2 className="text-foreground mb-4">What We Deliver</h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                As your general contractor, we provide comprehensive project management from preconstruction through final turnover.
+                As your envelope & restoration contractor, we provide comprehensive project management from preconstruction through final turnover.
               </p>
             </div>
 

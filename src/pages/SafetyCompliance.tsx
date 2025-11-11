@@ -37,7 +37,7 @@ const SafetyCompliance = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Safety & Compliance | COR Certified General Contractor Toronto"
+        title="Safety & Compliance | COR Certified Building Contractor Toronto"
         description="Ascent Group Construction maintains industry-leading safety standards with COR certification, WSIB clearance, and comprehensive safety programs across all Ontario projects."
       />
       <Navigation />

@@ -107,10 +107,10 @@ export const ServicesExplorer = () => {
         {/* Section Header - Enterprise Style */}
         <div className="max-w-3xl mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-            Construction Services & Capabilities
+            Envelope & Restoration Services
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Comprehensive construction solutions delivered by licensed professionals with proven expertise across commercial, institutional, and multi-unit residential projects.
+            Specialized building envelope restoration, façade remediation, and parking structure rehabilitation delivered by licensed professionals with proven expertise across commercial, institutional, and multi-unit residential projects.
           </p>
         </div>
 

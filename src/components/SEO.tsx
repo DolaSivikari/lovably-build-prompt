@@ -30,7 +30,7 @@ const SEO = ({
     "@id": `${siteUrl}/#organization`,
     name: "Ascent Group Construction",
     alternateName: "Ascent Group",
-    slogan: "Ontario's Trusted General Contractor Since 2009",
+    slogan: "Ontario's Envelope & Restoration Contractor Since 2009",
     description: description,
     url: siteUrl,
     telephone: "+1-647-123-4567",
@@ -128,7 +128,7 @@ const SEO = ({
     award: [
       "15+ Years Excellence in Construction Services",
       "WSIB Certified Contractor",
-      "Licensed General Contractor Ontario"
+      "Licensed Building Envelope Contractor Ontario"
     ],
     // Aggregate rating removed until verified reviews are collected
     hasOfferCatalog: {

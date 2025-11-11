@@ -39,7 +39,7 @@ const Commercial = () => {
     <div className="min-h-screen">
       <SEO
         title="Commercial Construction Toronto | Office Buildouts & Retail | Ascent Group"
-        description="General contractor for commercial construction projects: office tenant improvements, retail buildouts, and mixed-use developments across the GTA."
+        description="Envelope & restoration contractor for commercial building projects: building envelope remediation, façade restoration, and parking structure rehabilitation across the GTA."
       />
       <Navigation />
       

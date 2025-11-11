@@ -313,7 +313,7 @@ const About = () => {
                     <h3 className="text-xl font-bold mb-1">John Smith</h3>
                     <p className="text-primary font-semibold mb-3">President & CEO</p>
                     <div className="space-y-3 text-sm text-muted-foreground">
-                      <p>25+ years in construction management. Licensed General Contractor with expertise in commercial and multi-family projects.</p>
+                      <p>25+ years in construction management. Licensed Building Contractor with expertise in envelope restoration and multi-family projects.</p>
                       <div className="pt-3 border-t">
                         <p className="font-semibold text-foreground mb-2">Credentials:</p>
                         <ul className="list-disc list-inside space-y-1">

@@ -212,7 +212,7 @@ const Prequalification = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Pre-Qualification Package | General Contractor Toronto | Ascent Group"
+        title="Pre-Qualification Package | Envelope Contractor Toronto | Ascent Group"
         description="Download Ascent Group Construction's complete pre-qualification package including certifications, insurance, bonding capacity, and safety documentation for RFP submissions."
       />
       <Navigation />

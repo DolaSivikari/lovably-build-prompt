@@ -70,7 +70,7 @@ const CompanyOverviewHub = () => {
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             From design-build to construction management and building restoration, we deliver comprehensive solutions 
-            with the expertise, safety standards, and quality you expect from a trusted general contractor.
+            with the expertise, safety standards, and quality you expect from a trusted envelope & restoration contractor.
           </p>
         </div>
 

@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const HomepageContent = () => {
   const [content, setContent] = useState({
-    headline: "Ontario's Trusted General Contractor",
+    headline: "Ontario's Envelope & Restoration Contractor",
     subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
     hero_description: "With 15+ years of construction management expertise across Ontario, Ascent Group Construction specializes in design-build, general contracting, and construction management for commercial, institutional, and multi-family projects. We deliver quality results through transparent project management and proven construction methodologies.",
     cta_primary_text: "Submit RFP",

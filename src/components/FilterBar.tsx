@@ -177,7 +177,7 @@ const FilterBar = ({
                   <SelectItem value="Developer">Developer</SelectItem>
                   <SelectItem value="Property Manager">Property Manager</SelectItem>
                   <SelectItem value="Owner Direct">Owner Direct</SelectItem>
-                  <SelectItem value="General Contractor">General Contractor</SelectItem>
+                  <SelectItem value="Building Owner">Building Owner</SelectItem>
                   <SelectItem value="Government">Government</SelectItem>
                 </SelectContent>
               </Select>

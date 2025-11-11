@@ -712,6 +712,7 @@ const ProjectEditor = () => {
                       <SelectValue placeholder="Select role" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="Envelope & Restoration Contractor">Envelope & Restoration Contractor</SelectItem>
                       <SelectItem value="General Contractor">General Contractor</SelectItem>
                       <SelectItem value="Construction Manager">Construction Manager</SelectItem>
                       <SelectItem value="Design-Build">Design-Build</SelectItem>
@@ -750,6 +751,7 @@ const ProjectEditor = () => {
                       <SelectItem value="Developer">Developer</SelectItem>
                       <SelectItem value="Property Manager">Property Manager</SelectItem>
                       <SelectItem value="Owner Direct">Owner Direct</SelectItem>
+                      <SelectItem value="Building Owner">Building Owner</SelectItem>
                       <SelectItem value="General Contractor">General Contractor</SelectItem>
                       <SelectItem value="Government">Government</SelectItem>
                     </SelectContent>

@@ -29,7 +29,7 @@ const ClientValueProposition = () => {
 
             <ClientSegmentCard
               icon={Building2}
-              title="Developers & General Contractors"
+              title="Developers & Building Owners"
               services={[
                 "Design-Build & Construction Management",
                 "Multi-Family Residential Projects",

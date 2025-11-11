@@ -167,7 +167,7 @@ const HomepageSettings = () => {
                   id="headline"
                   value={settings.headline}
                   onChange={(e) => setSettings({ ...settings, headline: e.target.value })}
-                  placeholder="Ontario's Trusted General Contractor"
+                  placeholder="Ontario's Envelope & Restoration Contractor"
                 />
               </div>
 
