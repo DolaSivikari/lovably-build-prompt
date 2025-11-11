@@ -6,11 +6,11 @@ import ClientSegmentCard from "./ClientSegmentCard";
 const ClientValueProposition = () => {
 
   return (
-    <section className="py-20 md:py-24 bg-background">
-      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+    <section className="py-12 md:py-16 bg-background">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-12">
+        <div className="max-w-3xl mb-8">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
             Why Partner With Ascent Group
           </h2>
@@ -21,8 +21,8 @@ const ClientValueProposition = () => {
 
         {/* Who We Serve Section */}
         <div className="max-w-4xl mx-auto">
-          <div className="space-y-6">
-            <div className="mb-6">
+          <div className="space-y-4">
+            <div className="mb-4">
               <h3 className="text-2xl font-bold text-foreground mb-2">Who We Serve</h3>
               <p className="text-muted-foreground">Specialized solutions for your project needs</p>
             </div>

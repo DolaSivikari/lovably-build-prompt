@@ -119,9 +119,9 @@ const PrequalPackage = () => {
   };
 
   return (
-    <section id="prequalification" className="py-24 bg-gradient-to-br from-background via-background to-primary/5">
+    <section id="prequalification" className="py-12 md:py-16 bg-gradient-to-br from-background via-background to-primary/5">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             <FileText className="w-4 h-4" />
             <span>Contractor Prequalification</span>
@@ -135,10 +135,10 @@ const PrequalPackage = () => {
         </div>
 
         {/* Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 max-w-4xl mx-auto">
           {stats.map((stat, index) => (
             <Card key={index} className="border-primary/20 bg-card/50 backdrop-blur">
-              <CardContent className="p-6 text-center">
+              <CardContent className="p-4 text-center">
                 <p className="text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</p>
                 <p className="text-sm text-muted-foreground">{stat.label}</p>
               </CardContent>
@@ -150,9 +150,9 @@ const PrequalPackage = () => {
         <Card className="max-w-5xl mx-auto border-2 border-primary/20 shadow-2xl overflow-hidden">
           <div className="grid md:grid-cols-2 gap-0">
             {/* Left Side - Package Contents */}
-            <div className="p-8 md:p-10 bg-gradient-to-br from-primary/5 to-transparent">
-              <h3 className="text-2xl font-bold mb-6 text-foreground">Package Includes</h3>
-              <div className="space-y-4">
+            <div className="p-6 md:p-8 bg-gradient-to-br from-primary/5 to-transparent">
+              <h3 className="text-2xl font-bold mb-4 text-foreground">Package Includes</h3>
+              <div className="space-y-3">
                 {packageItems.map((item, index) => {
                   const Icon = item.icon;
                   return (
@@ -171,7 +171,7 @@ const PrequalPackage = () => {
             </div>
 
             {/* Right Side - CTA */}
-            <div className="p-8 md:p-10 flex flex-col justify-between bg-card">
+            <div className="p-6 md:p-8 flex flex-col justify-between bg-card">
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -183,7 +183,7 @@ const PrequalPackage = () => {
                   </div>
                 </div>
 
-                <div className="bg-muted/30 rounded-lg p-4 mb-6">
+                <div className="bg-muted/30 rounded-lg p-4 mb-4">
                   <div className="flex items-start gap-2 mb-2">
                     <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
@@ -195,7 +195,7 @@ const PrequalPackage = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 mb-4">
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle className="w-4 h-4 text-primary" />
                     <span className="text-muted-foreground">All certificates current & verified</span>
@@ -334,7 +334,7 @@ const PrequalPackage = () => {
         </Card>
 
         {/* Quick Links */}
-        <div className="mt-8 text-center">
+        <div className="mt-6 text-center">
           <p className="text-sm text-muted-foreground mb-3">Looking for something specific?</p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button variant="ghost" size="sm" asChild>

@@ -101,11 +101,11 @@ export const ServicesExplorer = () => {
   const activeFilterCount = activeFilters.length + (searchQuery ? 1 : 0) + (activeChallenge ? 1 : 0);
 
   return (
-    <section className="py-20 md:py-24 bg-background">
-      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+    <section className="py-12 md:py-16 bg-background">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         
         {/* Section Header - Enterprise Style */}
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-8">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
             Envelope & Restoration Services
           </h2>
@@ -115,7 +115,7 @@ export const ServicesExplorer = () => {
         </div>
 
         {/* Stats Bar */}
-        <div className="mb-12">
+        <div className="mb-8">
           <ServiceStats serviceCount={services.length} />
         </div>
 
@@ -126,7 +126,7 @@ export const ServicesExplorer = () => {
         />
 
         {/* Search & Filter Controls */}
-        <div className="mb-12 pb-8 border-b border-border">
+        <div className="mb-8 pb-6 border-b border-border">
           <SearchBar
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
@@ -137,7 +137,7 @@ export const ServicesExplorer = () => {
 
         {/* Results Count */}
         {!loading && activeFilterCount > 0 && (
-          <div className="mb-8">
+          <div className="mb-6">
             <p className="text-sm text-muted-foreground">
               Showing {filteredServices.length} service{filteredServices.length !== 1 ? 's' : ''}
               <span className="ml-2 text-primary font-semibold">
@@ -149,7 +149,7 @@ export const ServicesExplorer = () => {
 
         {/* Services Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
@@ -178,7 +178,7 @@ export const ServicesExplorer = () => {
         )}
 
         {/* Bottom CTAs - Professional Design */}
-        <div className="pt-12 border-t border-border">
+        <div className="pt-8 border-t border-border">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" variant="primary" className="min-w-[220px]">
               <Link to="/estimate" className="inline-flex items-center gap-2">

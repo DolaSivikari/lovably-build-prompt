@@ -4,11 +4,11 @@ import CompanyResponse from "./CompanyResponse";
 
 const MarketIntelligenceHub = () => {
   return (
-    <section className="py-20 md:py-24 bg-background">
-      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+    <section className="py-12 md:py-16 bg-background">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Market Intelligence
           </h2>
@@ -19,8 +19,8 @@ const MarketIntelligenceHub = () => {
         </div>
 
         {/* Industry Pulse Dashboard */}
-        <div className="mb-20">
-          <div className="text-center mb-10">
+        <div className="mb-12">
+          <div className="text-center mb-6">
             <h3 className="text-2xl font-bold text-foreground mb-3">
               Industry Pulse
             </h3>
@@ -32,7 +32,7 @@ const MarketIntelligenceHub = () => {
         </div>
 
         {/* Challenge + Response Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
           {/* Left: Market Challenge */}
           <MarketChallenge />
 

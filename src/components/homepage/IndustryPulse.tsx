@@ -82,11 +82,11 @@ const IndustryPulse = () => {
 
   return (
     <div ref={ref}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {metrics.map((metric, index) => (
           <div
             key={metric.id}
-            className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300"
+            className="bg-card border border-border rounded-lg p-4 hover:border-primary/50 transition-all duration-300"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
@@ -140,7 +140,7 @@ const IndustryPulse = () => {
       </div>
 
       {lastUpdated && (
-        <div className="text-center mt-6">
+        <div className="text-center mt-4">
           <p className="text-sm text-muted-foreground">
             Last updated: {lastUpdated}
           </p>

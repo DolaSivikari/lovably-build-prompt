@@ -16,11 +16,11 @@ export default function CompanyIntroduction() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <section className="py-20 md:py-24 bg-background">
-        <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+      <section className="py-12 md:py-16 bg-background">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           
           {/* Section Header - Enterprise Style */}
-          <div className="max-w-3xl mb-16">
+          <div className="max-w-3xl mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               Ontario's Envelope & Restoration Specialists
             </h2>
@@ -28,10 +28,10 @@ export default function CompanyIntroduction() {
           </div>
 
           {/* Two-Column Layout */}
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 mb-12">
             
             {/* Left Column - Main Content */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 <span className="text-foreground font-semibold">Ascent Group Construction</span> is a{" "}
                 <span className="text-foreground font-semibold">prime specialty contractor</span> delivering{" "}
@@ -53,7 +53,7 @@ export default function CompanyIntroduction() {
             </div>
 
             {/* Right Column - Key Highlights */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               
               {/* Highlight 1 */}
               <div className="flex gap-4">
@@ -107,7 +107,7 @@ export default function CompanyIntroduction() {
           </div>
 
           {/* Service Areas */}
-          <div className="max-w-3xl mb-12">
+          <div className="max-w-3xl mb-8">
             <p className="text-base text-muted-foreground leading-relaxed">
               Serving <span className="text-foreground font-semibold">Toronto, Mississauga, Brampton, Vaughan, Markham</span>, 
               and the <span className="text-foreground font-semibold">Greater Toronto Area</span> with comprehensive 

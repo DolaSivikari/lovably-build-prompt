@@ -74,11 +74,11 @@ const Testimonials = () => {
   return (
     <>
       <SEO structuredData={testimonialSchemas} />
-      <section ref={sectionRef} className="py-20 md:py-24 bg-muted/30">
-        <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+      <section ref={sectionRef} className="py-12 md:py-16 bg-muted/30">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           
           {/* Section Header */}
-          <div className="max-w-3xl mb-16 text-center mx-auto">
+          <div className="max-w-3xl mb-8 text-center mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               Client Testimonials
             </h2>
@@ -89,8 +89,8 @@ const Testimonials = () => {
 
           {/* Featured Client Stories - Carousel */}
           {testimonials.length > 0 && (
-            <div className="border-t border-border pt-16">
-              <div className="flex items-center justify-between mb-12">
+            <div className="border-t border-border pt-12">
+              <div className="flex items-center justify-between mb-8">
                 <h3 className="text-2xl md:text-3xl font-bold">
                   Featured Client Stories
                 </h3>
@@ -127,24 +127,24 @@ const Testimonials = () => {
                     return (
                       <div key={testimonial.author} className="w-full flex-shrink-0 px-2">
                         <Card className="relative border-border hover:[box-shadow:var(--shadow-card-elevated)] card-hover max-w-4xl mx-auto">
-                          <CardContent className="p-8">
+                          <CardContent className="p-6">
                             
                             {/* Quote Icon */}
-                            <div className="mb-6">
+                            <div className="mb-4">
                               <div className="w-12 h-12 rounded-lg bg-steel-blue/10 flex items-center justify-center">
                                 <Quote className="h-6 w-6 text-steel-blue" />
                               </div>
                             </div>
 
                             {/* Star Rating */}
-                            <div className="flex mb-6">
+                            <div className="flex mb-4">
                               {[...Array(fullStars)].map((_, i) => (
                                 <Star key={i} className="w-5 h-5 fill-steel-blue text-steel-blue" />
                               ))}
                             </div>
 
                             {/* Quote Text */}
-                            <p className="text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed">
+                            <p className="text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed">
                               "{testimonial.quote}"
                             </p>
 
@@ -174,7 +174,7 @@ const Testimonials = () => {
               </div>
 
               {/* Dots Indicators */}
-              <div className="flex justify-center gap-2 mt-8">
+              <div className="flex justify-center gap-2 mt-6">
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
