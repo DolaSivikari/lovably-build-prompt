@@ -221,13 +221,13 @@ const EnhancedHero = () => {
   const minSwipeDistance = 50;
 
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || activeSlides.length === 0) return;
 
     autoplayIntervalRef.current = setInterval(() => {
       setIsTransitioning(true);
       
       setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+        setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
         setIsTransitioning(false);
       }, 500);
     }, 7000);
@@ -237,7 +237,7 @@ const EnhancedHero = () => {
         clearInterval(autoplayIntervalRef.current);
       }
     };
-  }, [isPlaying]);
+  }, [isPlaying, activeSlides.length]);
 
   const handleSlideChange = (index: number) => {
     setIsPlaying(false); // Pause autoplay when user interacts
@@ -333,7 +333,7 @@ const EnhancedHero = () => {
       // Swipe left - go to next slide
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+        setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
         setIsTransitioning(false);
       }, 500);
     }
@@ -342,14 +342,24 @@ const EnhancedHero = () => {
       // Swipe right - go to previous slide
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+        setCurrentSlide((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
         setIsTransitioning(false);
       }, 500);
     }
   };
 
+  // Reset to slide 0 if currentSlide is out of bounds
+  useEffect(() => {
+    if (currentSlide >= activeSlides.length && activeSlides.length > 0) {
+      setCurrentSlide(0);
+    }
+  }, [currentSlide, activeSlides.length]);
+
   const slide = activeSlides[currentSlide];
   const prefersReducedMotion = useReducedMotion();
+
+  // Guard against undefined slide
+  if (!slide) return null;
 
   // Extract slide data (handle both DB and hardcoded formats)
   const isDbSlide = 'primary_cta_text' in slide;
