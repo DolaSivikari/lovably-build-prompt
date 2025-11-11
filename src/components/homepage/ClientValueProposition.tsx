@@ -15,7 +15,7 @@ const ClientValueProposition = () => {
             Why Partner With Ascent Group
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Ontario's trusted general contractor delivering commercial, institutional, and multi-family projects with proven expertise and unwavering commitment to excellence.
+            Ontario's trusted specialty contractor for building envelope restoration, façade remediation, and parking garage rehabilitation with proven expertise and unwavering commitment to excellence.
           </p>
         </div>
 

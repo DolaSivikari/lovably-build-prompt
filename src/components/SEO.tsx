@@ -11,9 +11,9 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Ascent Group Construction | Ontario's Trusted General Contractor - Commercial, Multi-Family & Institutional",
-  description = "Ontario's trusted general contractor for 15+ years. Specializing in design-build, construction management, exterior systems, interior build-outs, and specialty construction. Serving Toronto, Mississauga, Brampton, Vaughan, Markham. Licensed, insured, WSIB compliant. Submit your RFP today.",
-  keywords = "general contractor ontario, construction management toronto, design build GTA, commercial construction toronto, multi-family construction, institutional construction ontario, construction services GTA, building contractor mississauga, construction manager ontario, project management construction, LEED certified contractor, building restoration GTA, exterior systems contractor, construction company toronto",
+  title = "Ascent — Envelope & Restoration Contractor | Ontario & GTA",
+  description = "Prime specialty contractor for building envelope & restoration. Façade remediation, parking garage restoration & sealant programs. Self-performed trades. Ontario & GTA.",
+  keywords = "envelope contractor Ontario, facade remediation Toronto, parking garage restoration GTA, building envelope contractor, EIFS repair, sealant replacement, masonry restoration, waterproofing contractor, stucco repair, envelope restoration",
   ogImage = "/og-image.jpg",
   canonical,
   structuredData,

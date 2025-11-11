@@ -73,9 +73,9 @@ const About = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="About Us"
-        description="Learn about Ascent Group Construction - 15+ years of excellence in commercial construction and building envelope systems across the GTA. Meet our team and discover our values."
-        keywords="about Ascent Group, construction company Mississauga, general contractor team, company values, sustainability"
+        title="About Our Envelope & Restoration Team"
+        description="Learn about Ascent Group Construction - 15+ years of excellence in building envelope restoration and façade remediation across the GTA. Meet our team and discover our values."
+        keywords="about Ascent Group, envelope restoration company, specialty contractor team, building restoration Ontario, company values, sustainability"
       />
       <Navigation />
 

@@ -97,9 +97,9 @@ const Careers = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Careers | Join Our Construction Team"
-        description="Join Ascent Group Construction and build your career. Project managers, superintendents, estimators, and skilled trades positions across the GTA. Competitive pay and growth opportunities."
-        keywords="construction careers GTA, project manager jobs toronto, construction superintendent, estimator jobs ontario, general contractor careers, construction management jobs, construction jobs toronto"
+        title="Careers | Join Our Envelope Restoration Team"
+        description="Join Ascent Group Construction and build your career in building envelope restoration. Project managers, superintendents, estimators, and skilled trades positions across the GTA. Competitive pay and growth opportunities."
+        keywords="construction careers GTA, project manager jobs toronto, construction superintendent, estimator jobs ontario, envelope restoration careers, specialty contractor jobs, construction jobs toronto"
       />
       <Navigation />
 

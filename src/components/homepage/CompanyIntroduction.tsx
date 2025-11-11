@@ -6,7 +6,7 @@ import { organizationSchema } from "@/utils/structured-data";
 export default function CompanyIntroduction() {
   const schema = organizationSchema({
     name: "Ascent Group Construction",
-    description: "Full-service General Contractor in Toronto delivering commercial, multi-family residential, and institutional construction solutions across Ontario.",
+    description: "Prime specialty contractor for building envelope restoration, façade remediation, and parking garage rehabilitation across Ontario and the GTA.",
     url: typeof window !== "undefined" ? window.location.origin : "",
   });
 
@@ -22,7 +22,7 @@ export default function CompanyIntroduction() {
           {/* Section Header - Enterprise Style */}
           <div className="max-w-3xl mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              Ontario's Trusted General Contractor
+              Ontario's Envelope & Restoration Specialists
             </h2>
             <div className="h-1 w-16 bg-steel-blue mb-8"></div>
           </div>
@@ -34,21 +34,21 @@ export default function CompanyIntroduction() {
             <div className="space-y-6">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 <span className="text-foreground font-semibold">Ascent Group Construction</span> is a{" "}
-                <span className="text-foreground font-semibold">full-service General Contractor in Toronto</span> delivering{" "}
-                <span className="text-foreground font-semibold">commercial, multi-family residential, and institutional construction solutions</span>{" "}
-                across Ontario.
+                <span className="text-foreground font-semibold">prime specialty contractor</span> delivering{" "}
+                <span className="text-foreground font-semibold">building envelope restoration, façade remediation, and parking garage rehabilitation</span>{" "}
+                across Ontario and the GTA.
               </p>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                We manage projects from pre-construction planning through execution and closeout, 
-                specializing in building envelope systems, restoration, and specialty construction with a systematic 
+                We manage specialty projects from pre-construction planning through execution and closeout, 
+                specializing in building envelope systems, restoration, and waterproofing with a systematic 
                 approach that ensures quality, schedule adherence, and cost control.
               </p>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                Our integrated capabilities include general contracting, construction management, and design-build services, 
-                supported by self-perform expertise in painting, stucco and EIFS systems, masonry restoration, 
-                metal cladding, parking structure rehabilitation, waterproofing, and exterior envelope upgrades.
+                Our self-performed capabilities include stucco and EIFS systems, masonry restoration, 
+                sealant replacement, parking structure rehabilitation, waterproofing, and exterior envelope upgrades—delivering 
+                prime specialty services and trade package support for general contractors across the GTA.
               </p>
             </div>
 
@@ -65,8 +65,8 @@ export default function CompanyIntroduction() {
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Comprehensive Capabilities</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Full-service general contracting with self-perform specialty trades delivering 
-                    schedule certainty and quality control across every construction phase.
+                    Prime specialty contracting with self-perform trades delivering 
+                    schedule certainty and quality control across building envelope and restoration projects.
                   </p>
                 </div>
               </div>

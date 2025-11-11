@@ -90,9 +90,9 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/10">
       <SEO 
-        title="Blog & Case Studies - Expert Insights & Success Stories"
-        description="Expert insights on construction management, general contracting, building envelope systems, and real-world case studies showcasing successful projects from Ascent Group Construction."
-        keywords="construction blog, general contractor tips, building envelope guides, construction management, property management, construction case studies, project success stories"
+        title="Construction Insights | Envelope & Restoration Contractor"
+        description="Expert insights on building envelope restoration, façade remediation, parking garage restoration, and real-world case studies showcasing successful specialty projects from Ascent Group Construction."
+        keywords="envelope restoration blog, facade remediation tips, building envelope guides, parking garage restoration, waterproofing insights, construction case studies, specialty contractor projects"
       />
       <Navigation />
       
