@@ -29,8 +29,8 @@ export const TieredServicesGrid = ({ services }: TieredServicesGridProps) => {
   const [modalServices, setModalServices] = useState<Service[]>([]);
 
   // Separate services by tier
-  const tier1Services = services.filter(s => s.service_tier === 'primary_delivery');
-  const tier2Services = services.filter(s => s.service_tier === 'self_perform');
+  const tier1Services = services.filter(s => s.service_tier === 'primary_delivery' || s.service_tier === 'PRIME_SPECIALTY');
+  const tier2Services = services.filter(s => s.service_tier === 'self_perform' || s.service_tier === 'TRADE_PACKAGE');
   const tier3Services = services.filter(s => s.service_tier === 'specialized');
 
   const handleOpenModal = (category: ServiceCategory) => {

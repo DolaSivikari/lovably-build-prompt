@@ -18,6 +18,7 @@ import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/uti
 import ScrollProgress from "@/components/ScrollProgress";
 import ParallaxShapes from "@/components/homepage/ParallaxShapes";
 import InsightsFeed from "@/components/insights/InsightsFeed";
+import ValuePillars from "@/components/homepage/ValuePillars";
 
 const Index = () => {
   // AEO/GEO Structured Data
@@ -55,8 +56,39 @@ const Index = () => {
 
   const whatDoesAscentDo = createQASchema(
     "What services does Ascent Group Construction provide?",
-    "Ascent Group Construction provides comprehensive general contracting services across Ontario including commercial construction, multi-family projects, exterior systems (stucco, EIFS, masonry repair), metal cladding installation, parking garage restoration, waterproofing, and institutional construction. We serve Toronto, Mississauga, Brampton, Vaughan, and Markham with 15+ years of experience."
+    "Ascent Group Construction is a prime specialty contractor for building envelope and restoration across Ontario. We deliver façade remediation programs, parking garage restoration, sealant replacement programs, and protective coatings. With self-performed core trades including EIFS, masonry, and coatings, we serve developers, property managers, and building owners across Toronto and the GTA with 15+ years of experience."
   );
+
+  // Specialty Contractor Schema (replaces general contractor positioning)
+  const specialtyContractorSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Ascent Group Construction",
+    "description": "Prime specialty contractor for building envelope and restoration: façade remediation, parking garage restoration, and sealant programs across Ontario & the GTA.",
+    "url": "https://ascentgroupconstruction.com/",
+    "email": "mailto:hebun.isik.ca@gmail.com",
+    "areaServed": [
+      { "@type": "State", "name": "Ontario" },
+      { "@type": "City", "name": "Toronto" },
+      { "@type": "City", "name": "Mississauga" },
+      { "@type": "City", "name": "Brampton" },
+      { "@type": "City", "name": "Vaughan" },
+      { "@type": "City", "name": "Markham" }
+    ],
+    "priceRange": "$25000-$150000",
+    "serviceType": "Building Envelope & Restoration Contractor",
+    "knowsAbout": [
+      "façade remediation",
+      "EIFS repair",
+      "sealant replacement",
+      "masonry restoration",
+      "parking garage restoration",
+      "building envelope",
+      "protective coatings",
+      "stucco repair",
+      "waterproofing"
+    ]
+  };
 
   // Why Choose Us Structured Data
   const whyChooseUsSchema = {
@@ -112,16 +144,17 @@ const Index = () => {
       <ScrollProgress />
       <ParallaxShapes />
       <SEO
-        title="General Contractor Toronto | Commercial Construction & Building Envelope"
-        description="Full-service General Contractor in Toronto delivering commercial, multi-family residential, and institutional construction solutions. Specializing in construction management, design-build, and building envelope systems across Ontario."
-        keywords="general contractor Toronto, construction management, design-build services, commercial construction, multi-family residential, institutional construction, building envelope, GTA general contractor, Toronto construction company"
-        structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} 
+        title="Ascent — Envelope & Restoration Contractor | Prime for Façade, Garage & Sealant Programs | Ontario & GTA"
+        description="Prime specialty contractor for building envelope & restoration. Façade remediation, parking garage restoration & sealant programs. Self-performed trades. Ontario & GTA."
+        keywords="envelope contractor Ontario, facade remediation Toronto, parking garage restoration GTA, building envelope contractor, EIFS repair, sealant replacement, masonry restoration, specialty contractor"
+        structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} 
         includeRating={true} 
       />
       <Navigation />
       <MobileStickyCTA />
       <main id="main-content" role="main">
         <EnhancedHero />
+        <ValuePillars />
         <CompanyIntroduction />
         
         {/* Market Intelligence Hub - Industry Pulse + Challenge/Response */}

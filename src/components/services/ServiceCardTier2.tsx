@@ -11,6 +11,7 @@ interface ServiceCardTier2Props {
   short_description: string | null;
   icon_name: string | null;
   challenge_tags?: string[] | null;
+  service_tier?: string | null;
 }
 
 export const ServiceCardTier2 = ({
@@ -18,7 +19,10 @@ export const ServiceCardTier2 = ({
   slug,
   short_description,
   challenge_tags,
+  service_tier,
 }: ServiceCardTier2Props) => {
+  const showTradeBadge = service_tier === 'TRADE_PACKAGE';
+  
   return (
     <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       <CardHeader>
@@ -26,22 +30,29 @@ export const ServiceCardTier2 = ({
           <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
             <Wrench className="w-6 h-6 text-accent" />
           </div>
-          {challenge_tags && challenge_tags.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {challenge_tags.slice(0, 2).map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs px-2 py-1 rounded-full font-medium"
-                  style={{
-                    backgroundColor: `${getChallengeColor(tag)}15`,
-                    color: getChallengeColor(tag)
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+          <div className="flex flex-wrap gap-1 justify-end">
+            {showTradeBadge && (
+              <span className="text-xs px-2 py-1 rounded-full font-medium bg-muted text-muted-foreground">
+                Trade Package Available
+              </span>
+            )}
+            {challenge_tags && challenge_tags.length > 0 && (
+              <>
+                {challenge_tags.slice(0, 2).map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs px-2 py-1 rounded-full font-medium"
+                    style={{
+                      backgroundColor: `${getChallengeColor(tag)}15`,
+                      color: getChallengeColor(tag)
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </>
+            )}
+          </div>
         </div>
         <CardTitle className="text-lg">{name}</CardTitle>
       </CardHeader>

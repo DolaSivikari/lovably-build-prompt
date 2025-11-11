@@ -2824,6 +2824,60 @@ export type Database = {
           },
         ]
       }
+      value_pillars: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          description: string
+          display_order: number
+          icon_name: string | null
+          id: string
+          is_active: boolean | null
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          description: string
+          display_order: number
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          description?: string
+          display_order?: number
+          icon_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "value_pillars_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "value_pillars_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       why_choose_us_items: {
         Row: {
           created_at: string | null

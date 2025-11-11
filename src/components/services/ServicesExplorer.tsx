@@ -158,7 +158,7 @@ export const ServicesExplorer = () => {
             ))}
           </div>
         ) : filteredServices.length > 0 ? (
-          <TieredServicesGrid services={filteredServices} />
+          <TieredServicesGrid services={visibleServices} />
         ) : (
           <div className="text-center py-16 mb-12">
             <p className="text-lg text-muted-foreground mb-6">
