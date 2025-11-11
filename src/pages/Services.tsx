@@ -407,9 +407,6 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Client Logos Carousel */}
-        <ClientLogosCarousel />
-
         {/* Certifications Section */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
