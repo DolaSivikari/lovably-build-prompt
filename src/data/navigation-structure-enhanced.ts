@@ -26,12 +26,12 @@ export interface MegaMenuDataEnhanced {
 export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   services: [
     {
-      sectionTitle: "Primary Services",
+      sectionTitle: "Our Services",
       sectionLink: "/services",
       categories: [
         {
-          title: "General Contracting & Construction Management",
-          description: "Full project delivery from permits to turnkey",
+          title: "Project Delivery Methods",
+          description: "Full-service general contracting and construction management",
           subItems: [
             { name: "General Contracting", link: "/services/general-contracting", description: "Full project delivery from permits to turnkey", badge: "popular" },
             { name: "Construction Management", link: "/services/construction-management", description: "Professional CM services for complex projects" },
@@ -39,24 +39,36 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           ],
         },
         {
-          title: "Self-Perform Trades",
-          description: "Comprehensive building envelope and specialty trades",
+          title: "Specialty Programs",
+          description: "Complete envelope restoration and remediation programs",
           subItems: [
-            { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Comprehensive envelope systems", badge: "popular" },
-            { name: "Exterior Envelope Systems", link: "/services/exterior-envelope", description: "Complete building envelope solutions" },
-            { name: "Exterior Cladding", link: "/services/exterior-cladding", description: "Metal cladding and masonry systems" },
-            { name: "Interior Buildouts", link: "/services/interior-buildouts", description: "Commercial interior construction" },
+            { name: "Façade Remediation Programs", link: "/services/facade-remediation", description: "EIFS/stucco repair, masonry restoration", badge: "popular" },
+            { name: "Sealant Replacement Programs", link: "/services/sealant-replacement", description: "Control joints, window perimeters", badge: "popular" },
+            { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Spall repair, joint systems, traffic coatings", badge: "popular" },
+            { name: "Protective & Architectural Coatings", link: "/services/protective-coatings", description: "Interior/exterior protective systems" },
           ],
         },
         {
-          title: "Specialty Services",
-          description: "Advanced construction solutions",
+          title: "Building Envelope Trades",
+          description: "Core envelope and exterior systems",
           subItems: [
-            { name: "Parking Garage Restoration", link: "/services/parking-rehabilitation", description: "Complete garage restoration" },
-            { name: "Waterproofing Systems", link: "/services/waterproofing", description: "Building envelope protection" },
-            { name: "Masonry & Structural", link: "/services/masonry-restoration", description: "Structural masonry and repair" },
-            { name: "EIFS & Stucco", link: "/services/eifs-stucco", description: "Exterior insulation systems" },
-            { name: "Metal Cladding", link: "/services/metal-cladding", description: "Metal panel systems" },
+            { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Complete envelope systems" },
+            { name: "Waterproofing & Restoration", link: "/services/waterproofing", description: "Building envelope protection" },
+            { name: "Masonry", link: "/services/masonry-restoration", description: "Tuckpointing & structural masonry" },
+            { name: "Stucco & EIFS", link: "/services/eifs-stucco", description: "Exterior insulation systems" },
+            { name: "Exterior Cladding Systems", link: "/services/exterior-cladding", description: "Metal cladding and masonry systems" },
+            { name: "Metal Cladding & Panels", link: "/services/metal-cladding", description: "Metal panel systems" },
+          ],
+        },
+        {
+          title: "Interior & Finishing Trades",
+          description: "Commercial interiors and finishing work",
+          subItems: [
+            { name: "Interior Buildouts", link: "/services/interior-buildouts", description: "Commercial interior construction" },
+            { name: "Painting Services", link: "/services/painting", description: "Commercial painting solutions" },
+            { name: "Roofing Services", link: "/services/roofing", description: "Commercial roofing systems" },
+            { name: "Window & Door Installation", link: "/services/windows-doors", description: "Window and door systems" },
+            { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Interior tile and flooring" },
           ],
         },
       ],
