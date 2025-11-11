@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, Wrench, Sparkles, ChevronRight, Phone, Mail } from "lucide-react";
+import { Building2, Wrench, Sparkles, ChevronRight, Phone, Mail, MapPin, Linkedin } from "lucide-react";
 
 interface MinimalDesktopFooterProps {
   companyLinks: Array<{ label: string; href: string }>;
@@ -7,13 +7,20 @@ interface MinimalDesktopFooterProps {
   contactInfo: {
     phone?: string;
     email?: string;
+    address?: string;
   };
+  logoUrl?: string;
+  serviceAreaText?: string;
+  linkedinUrl?: string;
 }
 
 export function MinimalDesktopFooter({
   companyLinks,
   services,
-  contactInfo
+  contactInfo,
+  logoUrl,
+  serviceAreaText,
+  linkedinUrl
 }: MinimalDesktopFooterProps) {
   // Get top 6 services for display
   const topServices = services.slice(0, 6);
@@ -22,9 +29,23 @@ export function MinimalDesktopFooter({
     <div className="hidden md:block">
       <div className="grid grid-cols-12 gap-8">
         
-        {/* Column 1: Company */}
-        <div className="col-span-3 space-y-3">
-          <div className="flex items-center gap-2 mb-4">
+        {/* Column 1: Company + Logo */}
+        <div className="col-span-3 space-y-4">
+          {/* Logo and Service Area */}
+          {logoUrl && (
+            <div className="mb-6">
+              <Link to="/" className="inline-block mb-3">
+                <img src={logoUrl} alt="Ascent Group Construction" className="h-14 w-auto" />
+              </Link>
+              {serviceAreaText && (
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {serviceAreaText}
+                </p>
+              )}
+            </div>
+          )}
+          
+          <div className="flex items-center gap-2 mb-3">
             <Building2 className="h-5 w-5 text-primary" />
             <h3 className="text-sm font-bold text-foreground">Company</h3>
           </div>
@@ -103,6 +124,12 @@ export function MinimalDesktopFooter({
             <div className="text-xs font-semibold text-foreground uppercase tracking-wider mb-2">
               Quick Contact
             </div>
+            {contactInfo.address && (
+              <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                <span className="text-xs">{contactInfo.address}</span>
+              </div>
+            )}
             {contactInfo.phone && (
               <a 
                 href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}
@@ -121,7 +148,19 @@ export function MinimalDesktopFooter({
                 {contactInfo.email}
               </a>
             )}
-            <p className="text-xs text-muted-foreground mt-2">
+            {linkedinUrl && (
+              <a 
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-4 w-4" />
+                <span className="text-xs">Follow us</span>
+              </a>
+            )}
+            <p className="text-xs text-muted-foreground mt-2 pt-2 border-t border-border/30">
               Mon-Fri: 7am-6pm EST<br/>
               Emergency: 24/7
             </p>

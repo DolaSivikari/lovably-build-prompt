@@ -137,101 +137,25 @@ const Footer = () => {
             certifications={certifications}
             displayTrustItems={displayTrustItems}
             trustBarItems={trustBarItems}
-            contactInfo={{ phone, email }}
+            contactInfo={{ phone, email, address }}
+            logoUrl={ascentLogo}
+            serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
+            linkedinUrl={linkedinUrl}
           />
 
           {/* Desktop: Minimal Footer */}
           <MinimalDesktopFooter
             companyLinks={companyLinks}
             services={services}
-            contactInfo={{ phone, email }}
+            contactInfo={{ phone, email, address }}
+            logoUrl={ascentLogo}
+            serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
+            linkedinUrl={linkedinUrl}
           />
 
-          {/* Desktop: Legacy Certifications Column (keep for compatibility) */}
-          <div className="hidden">
-              <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">
-                {displayTrustItems ? 'Credentials' : 'Certifications'}
-              </h3>
-              {displayTrustItems ? (
-                <div className="space-y-3">
-                  {trustBarItems.map((item, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <Shield className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-sm font-semibold text-foreground">{item.label}</div>
-                        <div className="text-xs text-muted-foreground">{item.value}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {certifications.map((cert, index) => {
-                    const Icon = cert.icon;
-                    return (
-                      <div key={index} className="flex items-start gap-2">
-                        <Icon className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                        <div>
-                          <div className="text-sm font-semibold text-foreground">{cert.title}</div>
-                          <div className="text-xs text-muted-foreground">{cert.subtitle}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-          {/* Bottom Bar */}
-          <div className="pt-8 border-t border-border">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-              {/* Logo & Service Area */}
-              <div className="flex-1">
-                <Link to="/" className="inline-block mb-3">
-                  <img src={ascentLogo} alt="Ascent Group Construction" className="h-16 w-auto" />
-                </Link>
-                <p className="text-sm text-muted-foreground max-w-md">
-                  Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area
-                </p>
-              </div>
-
-              {/* Contact */}
-              <div className="flex flex-col items-start md:items-end gap-2 text-sm text-muted-foreground">
-                {address && (
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    <span>{address}</span>
-                  </div>
-                )}
-                {phone && (
-                  <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" />
-                    <a href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-primary link-hover">
-                      {phone}
-                    </a>
-                  </div>
-                )}
-                {email && (
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4" />
-                    <a href={`mailto:${email}`} className="hover:text-primary link-hover">
-                      {email}
-                    </a>
-                  </div>
-                )}
-                {linkedinUrl && (
-                  <div className="flex gap-3 mt-2">
-                    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary link-hover" aria-label="LinkedIn">
-                      <Linkedin className="h-5 w-5" />
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
 
           {/* Legal */}
-          <div className="mt-8 pt-6 border-t border-border">
+          <div className="mt-12 pt-6 border-t border-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
               <div className="text-center md:text-left">
                 <p className="font-medium text-foreground mb-1">

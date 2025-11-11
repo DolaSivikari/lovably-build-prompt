@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, Wrench, Phone, Mail } from "lucide-react";
+import { Building2, Wrench, Phone, Mail, MapPin, Linkedin } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { LucideIcon } from "lucide-react";
@@ -12,6 +12,7 @@ interface MinimalMobileFooterProps {
   contactInfo: {
     phone?: string;
     email?: string;
+    address?: string;
   };
   certifications: Array<{
     icon: LucideIcon;
@@ -23,6 +24,9 @@ interface MinimalMobileFooterProps {
     label: string;
     value: string;
   }>;
+  logoUrl?: string;
+  serviceAreaText?: string;
+  linkedinUrl?: string;
 }
 
 export function MinimalMobileFooter({
@@ -33,7 +37,10 @@ export function MinimalMobileFooter({
   contactInfo,
   certifications,
   displayTrustItems,
-  trustBarItems
+  trustBarItems,
+  logoUrl,
+  serviceAreaText,
+  linkedinUrl
 }: MinimalMobileFooterProps) {
   // Get top 6 services for display
   const topServices = services.slice(0, 6);
@@ -47,6 +54,20 @@ export function MinimalMobileFooter({
 
   return (
     <div className="md:hidden space-y-4">
+      
+      {/* Logo and Service Area */}
+      {logoUrl && (
+        <div className="text-center pb-4 border-b border-border/50">
+          <Link to="/" className="inline-block mb-3">
+            <img src={logoUrl} alt="Ascent Group Construction" className="h-14 w-auto mx-auto" />
+          </Link>
+          {serviceAreaText && (
+            <p className="text-xs text-muted-foreground">
+              {serviceAreaText}
+            </p>
+          )}
+        </div>
+      )}
       
       {/* Accordion with 2 sections */}
       <Accordion type="single" collapsible className="space-y-3">
@@ -123,6 +144,12 @@ export function MinimalMobileFooter({
           <div className="text-xs font-semibold text-foreground uppercase tracking-wider mb-2">
             Quick Contact
           </div>
+          {contactInfo.address && (
+            <div className="flex items-start gap-2 text-sm text-muted-foreground">
+              <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span className="text-xs">{contactInfo.address}</span>
+            </div>
+          )}
           {contactInfo.phone && (
             <a 
               href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}
@@ -139,6 +166,18 @@ export function MinimalMobileFooter({
             >
               <Mail className="h-4 w-4" />
               {contactInfo.email}
+            </a>
+          )}
+          {linkedinUrl && (
+            <a 
+              href={linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="h-4 w-4" />
+              <span className="text-xs">Follow us</span>
             </a>
           )}
         </div>
