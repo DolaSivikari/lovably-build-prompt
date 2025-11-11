@@ -106,57 +106,68 @@ export function MinimalDesktopFooter({
           >
             Emergency Services (48-72h)
           </Link>
-          
-          {/* Quick Contact - Single Line */}
-          <div className="pt-4 border-t border-border/50">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
-              {contactInfo.address && (
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
-                  <span>{contactInfo.address}</span>
-                </div>
-              )}
-              {contactInfo.phone && (
-                <a 
-                  href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}
-                  className="flex items-center gap-1.5 hover:text-primary transition-colors"
-                >
-                  <Phone className="h-3.5 w-3.5" />
-                  {contactInfo.phone}
-                </a>
-              )}
-              {contactInfo.email && (
-                <a 
-                  href={`mailto:${contactInfo.email}`}
-                  className="flex items-center gap-1.5 hover:text-primary transition-colors"
-                >
-                  <Mail className="h-3.5 w-3.5" />
-                  {contactInfo.email}
-                </a>
-              )}
-              {linkedinUrl && (
-                <a 
-                  href={linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-primary transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="h-3.5 w-3.5" />
-                  <span>LinkedIn</span>
-                </a>
-              )}
-              <span className="text-muted-foreground/70">•</span>
-              <span>Mon-Fri: 7am-6pm EST</span>
-              <span className="text-muted-foreground/70">•</span>
-              <span>Emergency: 24/7</span>
-            </div>
-          </div>
+        </div>
+      </div>
+      
+      {/* Contact Information Bar - Above Legal */}
+      <div className="mt-12 pt-6 border-t border-border/50">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
+          {contactInfo.address && (
+            <>
+              <div className="flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
+                <span>{contactInfo.address}</span>
+              </div>
+              <span>•</span>
+            </>
+          )}
+          {contactInfo.phone && (
+            <>
+              <a 
+                href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}
+                className="flex items-center gap-1.5 hover:text-primary transition-colors"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                {contactInfo.phone}
+              </a>
+              <span>•</span>
+            </>
+          )}
+          {contactInfo.email && (
+            <>
+              <a 
+                href={`mailto:${contactInfo.email}`}
+                className="flex items-center gap-1.5 hover:text-primary transition-colors"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                {contactInfo.email}
+              </a>
+              <span>•</span>
+            </>
+          )}
+          {linkedinUrl && (
+            <>
+              <a 
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 hover:text-primary transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-3.5 w-3.5" />
+                <span>LinkedIn</span>
+              </a>
+              <span>•</span>
+            </>
+          )}
+          <span>Mon-Fri: 7am-6pm EST</span>
+          <span>•</span>
+          <span>Emergency: 24/7</span>
         </div>
       </div>
       
       {/* Simplified Legal Section */}
-      <div className="mt-12 pt-6 border-t border-border/50">
+      <div className="mt-6 pt-6 border-t border-border/50">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
           <div className="text-center md:text-left">
             <p>

@@ -142,46 +142,6 @@ export function MinimalMobileFooter({
         >
           Emergency Services (48-72h)
         </Link>
-        <div className="pt-3 border-t border-border/50">
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
-            {contactInfo.address && (
-              <div className="flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
-                <span>{contactInfo.address}</span>
-              </div>
-            )}
-            {contactInfo.phone && (
-              <a 
-                href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}
-                className="flex items-center gap-1.5 hover:text-primary transition-colors"
-              >
-                <Phone className="h-3.5 w-3.5" />
-                {contactInfo.phone}
-              </a>
-            )}
-            {contactInfo.email && (
-              <a 
-                href={`mailto:${contactInfo.email}`}
-                className="flex items-center gap-1.5 hover:text-primary transition-colors"
-              >
-                <Mail className="h-3.5 w-3.5" />
-                {contactInfo.email}
-              </a>
-            )}
-            {linkedinUrl && (
-              <a 
-                href={linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-primary transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-3.5 w-3.5" />
-                <span>LinkedIn</span>
-              </a>
-            )}
-          </div>
-        </div>
       </Card>
 
       {/* Certifications Strip (horizontal scroll) */}
@@ -216,8 +176,65 @@ export function MinimalMobileFooter({
         </div>
       </div>
       
+      {/* Contact Information Bar - Above Legal */}
+      <div className="mt-8 pt-6 border-t border-border/50">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
+          {contactInfo.address && (
+            <>
+              <div className="flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
+                <span className="text-center">{contactInfo.address}</span>
+              </div>
+              <span>•</span>
+            </>
+          )}
+          {contactInfo.phone && (
+            <>
+              <a 
+                href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}
+                className="flex items-center gap-1.5 hover:text-primary transition-colors"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                {contactInfo.phone}
+              </a>
+              <span>•</span>
+            </>
+          )}
+          {contactInfo.email && (
+            <>
+              <a 
+                href={`mailto:${contactInfo.email}`}
+                className="flex items-center gap-1.5 hover:text-primary transition-colors"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                {contactInfo.email}
+              </a>
+              <span>•</span>
+            </>
+          )}
+          {linkedinUrl && (
+            <>
+              <a 
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 hover:text-primary transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-3.5 w-3.5" />
+                <span>LinkedIn</span>
+              </a>
+              <span>•</span>
+            </>
+          )}
+          <span>Mon-Fri: 7am-6pm EST</span>
+          <span>•</span>
+          <span>Emergency: 24/7</span>
+        </div>
+      </div>
+      
       {/* Simplified Legal Section */}
-      <div className="mt-8 pt-6 border-t border-border/50 text-center">
+      <div className="mt-6 pt-6 border-t border-border/50 text-center">
         <p className="text-xs text-muted-foreground mb-3">
           © {new Date().getFullYear()} Ascent Group Construction<br/>
           Ontario Licensed & Insured • WSIB Compliant
