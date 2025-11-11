@@ -47,6 +47,8 @@ const KNOWN_ROUTES = [
   "/resources/warranties",
   "/resources/financing",
   "/resources/contractor-portal",
+  "/emergency-maintenance",
+  "/vendor-packet",
   "/admin",
 ];
 

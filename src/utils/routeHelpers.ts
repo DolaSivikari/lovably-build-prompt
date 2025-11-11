@@ -105,6 +105,8 @@ export const VALID_PUBLIC_ROUTES = [
   '/resources/warranties',
   '/resources/financing',
   '/resources/contractor-portal',
+  '/emergency-maintenance',
+  '/vendor-packet',
 ] as const;
 
 /**
