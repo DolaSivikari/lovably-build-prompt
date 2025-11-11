@@ -55,11 +55,11 @@ export function MinimalMobileFooter({
   ];
 
   return (
-    <div className="md:hidden space-y-4">
+    <div className="md:hidden space-y-3">
       
       {/* Logo and Service Area */}
       {logoUrl && (
-        <div className="text-center pb-4 border-b border-border/50">
+        <div className="text-center pb-3 border-b border-border/50">
           <Link to="/" className="inline-block mb-3">
             <img src={logoUrl} alt="Ascent Group Construction" className="h-14 w-auto mx-auto" />
           </Link>
@@ -72,7 +72,7 @@ export function MinimalMobileFooter({
       )}
       
       {/* Accordion with 2 sections */}
-      <Accordion type="single" collapsible className="space-y-3">
+      <Accordion type="single" collapsible className="space-y-2">
         
         {/* Section 1: Navigation */}
         <AccordionItem value="navigation" className="bg-muted/30 rounded-lg border border-border/50 overflow-hidden">
@@ -128,7 +128,7 @@ export function MinimalMobileFooter({
       </Accordion>
 
       {/* Get Started Card */}
-      <Card className="p-4 space-y-3">
+      <Card className="p-3 space-y-2">
         <h3 className="text-sm font-bold text-foreground">Get Started</h3>
         <Link 
           to="/estimate"
@@ -177,7 +177,7 @@ export function MinimalMobileFooter({
       </div>
       
       {/* Contact Information Bar - Above Legal */}
-      <div className="mt-8 pt-6 border-t border-border/50">
+      <div className="mt-6 pt-4 border-t border-border/50">
         <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
           {contactInfo.address && (
             <>
@@ -234,7 +234,7 @@ export function MinimalMobileFooter({
       </div>
       
       {/* Simplified Legal Section */}
-      <div className="mt-6 pt-6 border-t border-border/50 text-center">
+      <div className="mt-4 pt-4 border-t border-border/50 text-center">
         <p className="text-xs text-muted-foreground mb-3">
           © {new Date().getFullYear()} Ascent Group Construction<br/>
           Ontario Licensed & Insured • WSIB Compliant

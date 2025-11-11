@@ -23,7 +23,7 @@ export function TrustBadgeBar({
   const items = displayTrustItems ? trustBarItems : certifications;
 
   return (
-    <section className="w-full bg-muted/30 border-y border-border/50 py-4">
+    <section className="w-full bg-muted/30 border-y border-border/50 py-3">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between gap-6 overflow-x-auto scrollbar-thin scrollbar-thumb-primary/30 scrollbar-track-muted">
           {displayTrustItems ? (

@@ -29,11 +29,11 @@ export function MinimalDesktopFooter({
 
   return (
     <div className="hidden md:block">
-      <div className="grid grid-cols-12 gap-8">
+      <div className="grid grid-cols-12 gap-6">
         
         {/* Column 1: Company */}
-        <div className="col-span-3 space-y-4">
-          <div className="flex items-center gap-2 mb-3">
+        <div className="col-span-3 space-y-3">
+          <div className="flex items-center gap-2 mb-2">
             <Building2 className="h-5 w-5 text-primary" />
             <h3 className="text-sm font-bold text-foreground">Company</h3>
           </div>
@@ -55,7 +55,7 @@ export function MinimalDesktopFooter({
 
         {/* Column 2: Top Services */}
         <div className="col-span-5 space-y-3">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-2">
             <Wrench className="h-5 w-5 text-primary" />
             <h3 className="text-sm font-bold text-foreground">Envelope & Restoration Services</h3>
           </div>
@@ -73,7 +73,7 @@ export function MinimalDesktopFooter({
               ))}
             </ul>
           </nav>
-          <div className="pt-4 border-t border-border/50">
+          <div className="pt-3 border-t border-border/50">
             <Link 
               to="/services"
               className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group"
@@ -85,8 +85,8 @@ export function MinimalDesktopFooter({
         </div>
 
         {/* Column 3: Get Started */}
-        <div className="col-span-4 space-y-4">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="col-span-4 space-y-3">
+          <div className="flex items-center gap-2 mb-2">
             <Sparkles className="h-5 w-5 text-primary" />
             <h3 className="text-sm font-bold text-foreground">Get Started</h3>
           </div>
@@ -110,7 +110,7 @@ export function MinimalDesktopFooter({
       </div>
       
       {/* Contact Information Bar - Above Legal */}
-      <div className="mt-12 pt-6 border-t border-border/50">
+      <div className="mt-8 pt-4 border-t border-border/50">
         <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
           {contactInfo.address && (
             <>
@@ -167,7 +167,7 @@ export function MinimalDesktopFooter({
       </div>
       
       {/* Simplified Legal Section */}
-      <div className="mt-6 pt-6 border-t border-border/50">
+      <div className="mt-4 pt-4 border-t border-border/50">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
           <div className="text-center md:text-left">
             <p>

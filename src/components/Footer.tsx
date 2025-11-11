@@ -126,7 +126,7 @@ const Footer = () => {
         />
         
         {/* Footer Layout */}
-        <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="container mx-auto px-4 py-8 md:py-10">
           
           {/* Mobile: Minimal Footer */}
           <MinimalMobileFooter
