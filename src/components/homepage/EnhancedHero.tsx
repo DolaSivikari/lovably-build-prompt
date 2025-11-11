@@ -521,7 +521,7 @@ const EnhancedHero = () => {
 
           {/* Slide Indicators */}
           <div className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
-            {heroSlides.map((_, index) => (
+            {activeSlides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => {
@@ -597,7 +597,7 @@ const EnhancedHero = () => {
         </div>
       ) : (
         <HeroTabNavigation 
-          slides={heroSlides} 
+          slides={activeSlides} 
           currentSlide={currentSlide} 
           onSlideChange={handleSlideChange} 
         />
