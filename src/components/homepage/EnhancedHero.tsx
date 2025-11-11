@@ -42,61 +42,31 @@ const heroSlides = [
     video: heroClipchampVideo,
     poster: "/hero-poster-1.webp",
     stat: "$2B+",
-    statLabel: "Total Project Value",
-    headline: "Ontario's Trusted General Contractor",
-    subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
-    primaryCTA: { label: "Submit RFP", icon: FileText, href: "/contact" },
-    secondaryCTA: { label: "View Portfolio", href: "/projects" }
+    statLabel: "Building Envelope Projects",
+    headline: "Ontario's Envelope & Restoration Contractor",
+    subheadline: "Specialized in building envelope restoration, façade remediation, and parking structure rehabilitation across the GTA",
+    primaryCTA: { label: "View Capabilities", icon: Building2, href: "/capabilities" },
+    secondaryCTA: { label: "Request Proposal", href: "/estimate" }
   },
   {
     video: heroClipchampVideo,
     poster: "/hero-poster-2.webp",
     stat: "500+",
-    statLabel: "Completed Projects",
-    headline: "Design-Build Excellence",
-    subheadline: "From concept through completion – comprehensive construction management across the GTA",
-    primaryCTA: { label: "Request Proposal", icon: Building2, href: "/contact" },
-    secondaryCTA: { label: "Our Services", href: "/services" }
+    statLabel: "Envelope Projects",
+    headline: "Prime Specialty Services",
+    subheadline: "Expert masonry restoration, waterproofing, EIFS/stucco, and parking garage rehabilitation with proven performance",
+    primaryCTA: { label: "Specialty Services", icon: Wrench, href: "/services" },
+    secondaryCTA: { label: "Project Portfolio", href: "/projects" }
   },
   {
     video: heroClipchampVideo,
     poster: "/hero-poster-3.webp",
-    stat: "98%",
-    statLabel: "Client Satisfaction",
-    headline: "Safety-First Construction",
-    subheadline: "Zero lost-time incidents across 500+ projects. COR-certified with industry-leading safety standards",
-    primaryCTA: { label: "View Safety Record", icon: Award, href: "/safety" },
-    secondaryCTA: { label: "Prequalification Package", href: "/prequalification" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-4.webp",
-    stat: "15+",
-    statLabel: "Years of Excellence",
-    headline: "Building Tomorrow's Infrastructure",
-    subheadline: "Leveraging cutting-edge construction technology and project management software for superior results",
-    primaryCTA: { label: "Our Technology", icon: Cpu, href: "/company/equipment-resources" },
-    secondaryCTA: { label: "Learn More", href: "/about" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-5.webp",
-    stat: "LEED",
-    statLabel: "Certified Projects",
-    headline: "Sustainable Construction Leaders",
-    subheadline: "Eco-friendly building practices reducing environmental impact while maximizing energy efficiency",
-    primaryCTA: { label: "Green Initiatives", icon: Leaf, href: "/sustainability" },
-    secondaryCTA: { label: "Case Studies", href: "/projects" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-6.webp",
-    stat: "150+",
-    statLabel: "Expert Professionals",
-    headline: "Powered by Industry Leaders",
-    subheadline: "Professional engineers, certified tradespeople, and project managers dedicated to your success",
-    primaryCTA: { label: "Meet Our Team", icon: Users, href: "/company/team" },
-    secondaryCTA: { label: "Careers", href: "/careers" }
+    stat: "48-72h",
+    statLabel: "Emergency Response",
+    headline: "Emergency Leak & Seal Program",
+    subheadline: "24/7 response for urgent building envelope failures. Not-to-exceed pricing and rapid deployment across Ontario",
+    primaryCTA: { label: "Emergency Services", icon: Droplets, href: "/emergency-maintenance" },
+    secondaryCTA: { label: "View Capabilities", href: "/capabilities" }
   }
 ];
 
