@@ -238,7 +238,8 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       author: 'Sarah Williams',
       project: 'Full Home Interior & Exterior',
       location: 'Oakville'
-    }
+    },
+    faqs: serviceFAQs['residential-painting'] || []
   },
 
   'condo-multi-unit': {
@@ -347,7 +348,8 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       author: 'David Thompson',
       project: 'Condo Building Renovation',
       location: 'North York'
-    }
+    },
+    faqs: serviceFAQs['condo-multi-unit'] || []
   },
 
   'general-contracting': {
@@ -456,7 +458,8 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       author: 'Jennifer Rodriguez',
       project: 'Commercial Office Renovation',
       location: 'Mississauga'
-    }
+    },
+    faqs: serviceFAQs['general-contracting'] || []
   },
 
   'exterior-siding': {
@@ -565,7 +568,8 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       author: 'Robert Anderson',
       project: 'Full Home Siding Replacement',
       location: 'Aurora'
-    }
+    },
+    faqs: serviceFAQs['exterior-siding'] || []
   },
 
   'stucco-eifs': {
