@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Home, Search, ArrowLeft } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const NotFound = () => {
   const location = useLocation();
@@ -55,7 +57,9 @@ const NotFound = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <>
+      <Navigation />
+      <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="text-center max-w-2xl mx-auto">
         {/* 404 Number */}
         <div className="mb-8">
@@ -131,6 +135,8 @@ const NotFound = () => {
         )}
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

@@ -1,5 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const Accessibility = () => {
   return (
@@ -10,6 +12,7 @@ const Accessibility = () => {
         <meta name="robots" content="index, follow" />
       </Helmet>
 
+      <Navigation />
       <div className="min-h-screen bg-background py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold text-foreground mb-4">Accessibility Statement</h1>
@@ -322,6 +325,7 @@ const Accessibility = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
