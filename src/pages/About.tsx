@@ -14,7 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle } from "lucide-react";
+import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle, CheckCircle } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
 import teamWork from "@/assets/team-work.jpg";
