@@ -1,35 +1,65 @@
-// Phase 2: Enriched Hero Slide Descriptions (80-100 words each)
-// SEO/AEO/GEO optimized with specific benefits and proof points
+// Phase 2: Concise Hero Slide Descriptions (15-30 words each)
+// SEO/AEO/GEO optimized with punchy, benefit-focused messaging
 
 export const enrichedHeroSlides = [
   {
     video: "/hero-clipchamp.mp4",
     poster: '/hero-poster-1.webp',
     stat: '$2B+',
-    statLabel: 'Building Envelope Projects',
-    headline: 'Ontario\'s Prime Envelope & Restoration Contractor',
-    subheadline: 'Specialized building envelope restoration contractor serving Toronto and the Greater Toronto Area. We deliver comprehensive façade remediation programs, parking garage rehabilitation, and structural waterproofing services with self-performed trades including EIFS application, masonry restoration, and protective coating systems. Serving developers, property managers, and building owners with 15+ years of proven expertise in multi-trade envelope restoration. Licensed, insured, and WSIB-certified with zero lost-time incidents across 500+ completed projects valued at $2B+. Structural engineering support, municipal permitting experience, and 25-year system warranties included with every comprehensive restoration program.',
+    statLabel: 'Projects Completed',
+    headline: "Ontario's Prime Envelope Restoration Contractor",
+    subheadline: '15+ years delivering complete building envelope solutions. Self-performed trades, zero subcontractor delays, single-point accountability. $2B+ in completed projects.',
     primaryCTA: { label: 'View Capabilities', href: '/capabilities' },
     secondaryCTA: { label: 'Request Proposal', href: '/estimate' }
   },
   {
     video: "/hero-clipchamp.mp4",
     poster: '/hero-poster-2.webp',
-    stat: '500+',
-    statLabel: 'Envelope Projects',
-    headline: 'Self-Performed Specialty Services',
-    subheadline: 'Prime specialty contractor eliminating subcontractor layers that cause delays and quality issues. Our in-house crews self-perform 85% of envelope restoration scope—from masonry restoration and structural waterproofing to EIFS/stucco systems and parking garage traffic coatings. This integrated approach delivers schedule certainty (95% on-time completion vs. 65% industry average), cost efficiency (no subcontractor markup), and single-point accountability. Comprehensive trade capabilities include rope access services, swing stage operations, structural concrete repairs, building envelope sealant programs, and emergency leak response. Serving high-rise condominiums, commercial office buildings, institutional facilities, and industrial properties across Ontario with proven performance on occupied buildings requiring zero-disruption execution.',
-    primaryCTA: { label: 'Specialty Services', href: '/services' },
-    secondaryCTA: { label: 'Project Portfolio', href: '/projects' }
+    stat: '85%',
+    statLabel: 'Self-Performed',
+    headline: '85% Self-Performed. Zero Subcontractor Delays.',
+    subheadline: 'Our crews deliver masonry restoration, structural waterproofing, EIFS systems, and parking garage rehabilitation—all in-house. Complete control, consistent quality.',
+    primaryCTA: { label: 'Our Services', href: '/services' },
+    secondaryCTA: { label: 'See Projects', href: '/projects' }
   },
   {
     video: "/hero-clipchamp.mp4",
     poster: '/hero-poster-3.webp',
-    stat: '48-72h',
+    stat: '2-4hrs',
     statLabel: 'Emergency Response',
-    headline: 'Emergency Leak & Seal Program',
-    subheadline: '24/7/365 rapid response for critical building envelope failures across Ontario. Our Emergency Leak & Seal Program provides immediate professional response to façade panel displacement, active roof leaks, window/curtain wall failures, parking garage spalling, and compromised waterproofing systems. Certified rope access teams deploy within 2-4 hours for high-rise emergency sealing without costly swing stage mobilization. Services include emergency tarping, temporary shoring, pedestrian protection, structural engineering assessment within 24-48 hours, expedited permit acquisition, and not-to-exceed pricing on time-and-materials emergency work. Permanent engineered repairs follow using identical quality standards as planned projects. Comprehensive documentation supports insurance claims. Zero safety incidents across 100+ emergency responses over 15 years.',
+    headline: '24/7 Emergency Leak Response',
+    subheadline: 'Critical façade failures demand immediate action. Our certified rope access teams deploy within 2-4 hours—no costly swing stage delays. Ontario-wide coverage.',
     primaryCTA: { label: 'Emergency Services', href: '/emergency-maintenance' },
-    secondaryCTA: { label: 'View Capabilities', href: '/capabilities' }
+    secondaryCTA: { label: 'Call Now', href: '/contact' }
+  },
+  {
+    video: "/hero-clipchamp.mp4",
+    poster: '/hero-poster-4.webp',
+    stat: '0',
+    statLabel: 'Safety Incidents',
+    headline: 'COR Certified. Zero Lost-Time Incidents.',
+    subheadline: "15 years of perfect safety performance across 500+ projects. WSIB compliant, fully insured, municipal permit experience across Ontario's strictest jurisdictions.",
+    primaryCTA: { label: 'Safety Standards', href: '/capabilities#safety' },
+    secondaryCTA: { label: 'View Portfolio', href: '/projects' }
+  },
+  {
+    video: "/hero-clipchamp.mp4",
+    poster: '/hero-poster-5.webp',
+    stat: '150+',
+    statLabel: 'Garage Projects',
+    headline: 'Parking Garage Rehabilitation Experts',
+    subheadline: 'Structural concrete repairs, traffic coating systems, waterproofing membranes. Minimal disruption, phased scheduling, occupied-building expertise for condos and commercial properties.',
+    primaryCTA: { label: 'Garage Services', href: '/services/parking-garage-restoration' },
+    secondaryCTA: { label: 'Case Studies', href: '/projects' }
+  },
+  {
+    video: "/hero-clipchamp.mp4",
+    poster: '/hero-poster-6.webp',
+    stat: '95%',
+    statLabel: 'On-Time Delivery',
+    headline: "Toronto's High-Rise Envelope Specialists",
+    subheadline: 'Serving commercial office towers, luxury condominiums, and institutional facilities. Rope access, swing stage operations, engineered solutions with 25-year warranties.',
+    primaryCTA: { label: 'Our Markets', href: '/markets' },
+    secondaryCTA: { label: 'Get Estimate', href: '/estimate' }
   }
 ];

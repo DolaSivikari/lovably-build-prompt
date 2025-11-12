@@ -426,7 +426,7 @@ const EnhancedHero = () => {
             {headline}
           </h1>
           <p 
-            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`text-sm sm:text-base md:text-lg lg:text-xl text-[hsl(var(--bg))]/90 mb-10 max-w-2xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
             {subheadline}
