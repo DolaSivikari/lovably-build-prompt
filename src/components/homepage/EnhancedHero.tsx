@@ -389,7 +389,7 @@ const EnhancedHero = () => {
               alt=""
               className="w-full h-full object-cover"
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </div>
         )}
