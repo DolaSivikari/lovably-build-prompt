@@ -64,6 +64,7 @@ const EnhancedHero = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [showPoster, setShowPoster] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -179,11 +180,18 @@ const EnhancedHero = () => {
     if (!isPlaying || activeSlides.length === 0) return;
 
     autoplayIntervalRef.current = setInterval(() => {
+      setIsFadingOut(true);
       setIsTransitioning(true);
+      
+      // Fade out (300ms) -> Change content (instant) -> Fade in (300ms)
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
+        setIsFadingOut(false);
+      }, 300);
+      
+      setTimeout(() => {
         setIsTransitioning(false);
-      }, 500);
+      }, 600);
     }, 7000);
 
     return () => {
@@ -194,12 +202,21 @@ const EnhancedHero = () => {
   }, [isPlaying, activeSlides.length, currentSlide]);
 
   const handleSlideChange = (index: number) => {
+    if (index === currentSlide) return; // Don't transition to the same slide
+    
     setIsPlaying(false); // Pause autoplay when user interacts
+    setIsFadingOut(true);
     setIsTransitioning(true);
+    
+    // Fade out (300ms) -> Change content (instant) -> Fade in (300ms)
     setTimeout(() => {
       setCurrentSlide(index);
+      setIsFadingOut(false);
+    }, 300);
+    
+    setTimeout(() => {
       setIsTransitioning(false);
-    }, 500);
+    }, 600);
   };
 
   const togglePlayPause = () => {
@@ -339,10 +356,11 @@ const EnhancedHero = () => {
       
       {/* Video Background with Parallax Effect */}
       <div 
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        className="absolute inset-0 w-full h-[120%] -top-[10%] transition-opacity duration-300 ease-in-out"
         style={{ 
           transform: `translateY(${parallaxOffset}px) translateX(${mouseParallaxX}px) translateY(${mouseParallaxY}px)`,
-          transition: 'transform 0.3s ease-out'
+          transition: 'transform 0.3s ease-out, opacity 0.3s ease-in-out',
+          opacity: isFadingOut ? 0.4 : 1
         }}
       >
         <video
@@ -396,8 +414,8 @@ const EnhancedHero = () => {
       {/* Content */}
         <div 
           className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${
-            !isFirstRender ? 'transition-opacity duration-1000' : ''
-          } ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+            !isFirstRender ? 'transition-opacity duration-300 ease-in-out' : ''
+          } ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}
         >
         <div className="max-w-5xl mx-auto">
           {/* Stat Callout */}
