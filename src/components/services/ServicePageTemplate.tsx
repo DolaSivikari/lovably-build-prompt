@@ -64,6 +64,20 @@ export interface ServicePageTemplateProps {
     seoDescription?: string;
     seoKeywords?: string[];
     peopleAlsoAsk?: Array<{ question: string; answer: string }>;
+    faqs?: Array<{ question: string; answer: string }>;
+    technicalSpecs?: {
+      materials?: string[];
+      standards?: string[];
+      qualityAssurance?: string[];
+    };
+    caseStudies?: Array<{
+      title: string;
+      subtitle: string;
+      challenge: string;
+      solution: string;
+      results: string[];
+      stats: Array<{ label: string; value: string }>;
+    }>;
   };
 }
 
@@ -394,6 +408,23 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <QuickFacts title={`${service.name} Quick Facts`} facts={quickFactsData} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Comprehensive FAQ Section */}
+      {service.faqs && service.faqs.length > 0 && (
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-lg text-muted-foreground text-center mb-12">
+                Comprehensive answers to help you make informed decisions
+              </p>
+              <PeopleAlsoAsk questions={service.faqs} />
             </div>
           </div>
         </section>
