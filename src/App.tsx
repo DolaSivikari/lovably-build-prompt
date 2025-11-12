@@ -73,6 +73,7 @@ import CookieBanner from "./components/CookieBanner";
 import NewsletterSubscribers from "./pages/admin/NewsletterSubscribers";
 import PartnerPermissions from "./pages/admin/PartnerPermissions";
 import DynamicSpecialtyPage from "./pages/DynamicSpecialtyPage";
+import WhySpecialtyContractor from "./pages/WhySpecialtyContractor";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -296,6 +297,7 @@ const App = () => (
                   <Route path="/" element={<Index />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/values" element={<Values />} />
+                  <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
                   <Route path="/safety" element={<SafetyCompliance />} />
                   <Route path="/company/safety-and-compliance" element={<Navigate to="/safety" replace />} />
                   <Route path="/prequalification" element={<Prequalification />} />
