@@ -1,7 +1,10 @@
 // Comprehensive FAQ sections for all services (10-15 questions each)
 // SEO/AEO/GEO optimized with detailed 400-500 word answers
 
+import { remainingServiceFAQs } from './service-faqs-remaining';
+
 export const serviceFAQs: Record<string, Array<{ question: string; answer: string }>> = {
+  ...remainingServiceFAQs,
   'commercial-painting': [
     {
       question: 'How much does commercial building envelope restoration cost in Toronto?',
