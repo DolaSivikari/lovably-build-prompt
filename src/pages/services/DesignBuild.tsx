@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
 import heroImage from "@/assets/heroes/hero-design-build.jpg";
 
 const DesignBuild = () => {
@@ -28,9 +29,32 @@ const DesignBuild = () => {
     { title: "Industrial Warehouse", location: "Brampton, ON", size: "120,000 sq ft", duration: "14 months", description: "Design-build ground-up industrial facility with specialized HVAC, high-bay storage, and office component." }
   ];
 
+  const serviceConfig = SERVICE_SCHEMAS["design-build"];
+  const siteUrl = window.location.origin;
+  
+  const serviceSchema = generateServiceSchema({
+    name: serviceConfig.name,
+    description: serviceConfig.description,
+    url: `${siteUrl}/services/design-build`,
+    provider: "Ascent Group Construction",
+    areaServed: serviceConfig.areaServed,
+    serviceType: serviceConfig.serviceType
+  });
+
+  const breadcrumbSchemaData = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+    { name: "Design-Build", url: `${siteUrl}/services/design-build` }
+  ]);
+
   return (
     <div className="min-h-screen">
-      <SEO title="Design-Build Services Ontario | Specialty Contractor Integrated Delivery" description="Specialty contractor offering design-build delivery with self-performed envelope and restoration work. Single-source accountability from concept to completion for Ontario commercial and multi-family projects." keywords="design-build, specialty contractor, integrated project delivery, Ontario design-build contractor, self-perform design-build" />
+      <SEO 
+        title="Design-Build Services Ontario | Specialty Contractor Integrated Delivery" 
+        description="Specialty contractor offering design-build delivery with self-performed envelope and restoration work. Single-source accountability from concept to completion for Ontario commercial and multi-family projects." 
+        keywords="design-build, specialty contractor, integrated project delivery, Ontario design-build contractor, self-perform design-build"
+        structuredData={[serviceSchema, breadcrumbSchemaData]}
+      />
       <Navigation />
       <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Design-Build" }]} />

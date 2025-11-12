@@ -6,22 +6,26 @@ import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/ui/Button';
 import { Card } from "@/components/ui/card";
 import { Shield, Droplets, Palette, Award, CheckCircle2, ArrowRight } from 'lucide-react';
-import { createServiceSchema } from '@/utils/schema-injector';
-import { breadcrumbSchema } from '@/utils/structured-data';
+import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-eifs-stucco.jpg';
 
 const EIFSStucco = () => {
-  const serviceSchema = createServiceSchema({
-    serviceType: 'EIFS & Stucco Systems',
-    areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
-    priceRange: '$$$',
-    subServices: ['EIFS Installation', 'Traditional Stucco', 'System Repairs']
+  const serviceConfig = SERVICE_SCHEMAS["eifs-stucco"];
+  const siteUrl = window.location.origin;
+  
+  const serviceSchema = generateServiceSchema({
+    name: serviceConfig.name,
+    description: serviceConfig.description,
+    url: `${siteUrl}/services/eifs-stucco`,
+    provider: "Ascent Group Construction",
+    areaServed: serviceConfig.areaServed,
+    serviceType: serviceConfig.serviceType
   });
 
-  const breadcrumbSchemaData = breadcrumbSchema([
-    { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
-    { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'EIFS & Stucco', url: 'https://ascentgroupconstruction.com/services/eifs-stucco' }
+  const breadcrumbSchemaData = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+    { name: "EIFS & Stucco", url: `${siteUrl}/services/eifs-stucco` }
   ]);
 
   const stats = [

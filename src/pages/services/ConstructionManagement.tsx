@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
 import heroImage from "@/assets/heroes/hero-construction-management.jpg";
 
 const ConstructionManagement = () => {
@@ -28,9 +29,32 @@ const ConstructionManagement = () => {
     { title: "Institutional Renovation", location: "Brampton, ON", size: "$6M budget", duration: "14 months", description: "CM/Advisor role for heritage building modernization with complex permitting and stakeholder coordination." }
   ];
 
+  const serviceConfig = SERVICE_SCHEMAS["construction-management"];
+  const siteUrl = window.location.origin;
+  
+  const serviceSchema = generateServiceSchema({
+    name: serviceConfig.name,
+    description: serviceConfig.description,
+    url: `${siteUrl}/services/construction-management`,
+    provider: "Ascent Group Construction",
+    areaServed: serviceConfig.areaServed,
+    serviceType: serviceConfig.serviceType
+  });
+
+  const breadcrumbSchemaData = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+    { name: "Construction Management", url: `${siteUrl}/services/construction-management` }
+  ]);
+
   return (
     <div className="min-h-screen">
-      <SEO title="Construction Management Ontario | Specialty Contractor CM Services" description="Specialty contractor offering construction management with self-perform capabilities for building envelope and restoration projects. Budget stewardship, risk mitigation, and schedule control across Ontario commercial and multi-family developments." keywords="construction management, specialty contractor CM, CM-at-Risk, Agency CM, Ontario construction manager, self-perform CM" />
+      <SEO 
+        title="Construction Management Ontario | Specialty Contractor CM Services" 
+        description="Specialty contractor offering construction management with self-perform capabilities for building envelope and restoration projects. Budget stewardship, risk mitigation, and schedule control across Ontario commercial and multi-family developments." 
+        keywords="construction management, specialty contractor CM, CM-at-Risk, Agency CM, Ontario construction manager, self-perform CM"
+        structuredData={[serviceSchema, breadcrumbSchemaData]}
+      />
       <Navigation />
       <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Construction Management" }]} />

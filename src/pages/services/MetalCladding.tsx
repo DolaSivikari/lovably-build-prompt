@@ -6,22 +6,26 @@ import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/ui/Button';
 import { Card } from "@/components/ui/card";
 import { Layers, Zap, Shield, Wrench, CheckCircle2, ArrowRight } from 'lucide-react';
-import { createServiceSchema } from '@/utils/schema-injector';
-import { breadcrumbSchema } from '@/utils/structured-data';
+import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-metal-cladding.jpg';
 
 const MetalCladding = () => {
-  const serviceSchema = createServiceSchema({
-    serviceType: 'Metal Cladding Systems',
-    areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
-    priceRange: '$$$',
-    subServices: ['Panel Systems', 'Composite Panels', 'Standing Seam', 'Rainscreen Systems']
+  const serviceConfig = SERVICE_SCHEMAS["metal-cladding"];
+  const siteUrl = window.location.origin;
+  
+  const serviceSchema = generateServiceSchema({
+    name: serviceConfig.name,
+    description: serviceConfig.description,
+    url: `${siteUrl}/services/metal-cladding`,
+    provider: "Ascent Group Construction",
+    areaServed: serviceConfig.areaServed,
+    serviceType: serviceConfig.serviceType
   });
 
-  const breadcrumbSchemaData = breadcrumbSchema([
-    { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
-    { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Metal Cladding', url: 'https://ascentgroupconstruction.com/services/metal-cladding' }
+  const breadcrumbSchemaData = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+    { name: "Metal Cladding", url: `${siteUrl}/services/metal-cladding` }
   ]);
 
   const stats = [

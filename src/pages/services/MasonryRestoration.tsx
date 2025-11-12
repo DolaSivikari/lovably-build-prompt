@@ -6,22 +6,26 @@ import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/ui/Button';
 import { Card } from "@/components/ui/card";
 import { Building2, Hammer, Shield, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
-import { createServiceSchema } from '@/utils/schema-injector';
-import { breadcrumbSchema } from '@/utils/structured-data';
+import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-masonry-restoration.jpg';
 
 const MasonryRestoration = () => {
-  const serviceSchema = createServiceSchema({
-    serviceType: 'Masonry Restoration & Repair',
-    areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
-    priceRange: '$$-$$$',
-    subServices: ['Brick Repair', 'Stone Restoration', 'Tuckpointing', 'Structural Repairs']
+  const serviceConfig = SERVICE_SCHEMAS["masonry-restoration"];
+  const siteUrl = window.location.origin;
+  
+  const serviceSchema = generateServiceSchema({
+    name: serviceConfig.name,
+    description: serviceConfig.description,
+    url: `${siteUrl}/services/masonry-restoration`,
+    provider: "Ascent Group Construction",
+    areaServed: serviceConfig.areaServed,
+    serviceType: serviceConfig.serviceType
   });
 
-  const breadcrumbSchemaData = breadcrumbSchema([
-    { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
-    { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Masonry Restoration', url: 'https://ascentgroupconstruction.com/services/masonry-restoration' }
+  const breadcrumbSchemaData = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+    { name: "Masonry Restoration", url: `${siteUrl}/services/masonry-restoration` }
   ]);
 
   const stats = [

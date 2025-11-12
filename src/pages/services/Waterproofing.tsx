@@ -6,22 +6,26 @@ import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/ui/Button';
 import { Card } from "@/components/ui/card";
 import { Droplets, Shield, Building, Layers, CheckCircle2, ArrowRight } from 'lucide-react';
-import { createServiceSchema } from '@/utils/schema-injector';
-import { breadcrumbSchema } from '@/utils/structured-data';
+import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-waterproofing.jpg';
 
 const Waterproofing = () => {
-  const serviceSchema = createServiceSchema({
-    serviceType: 'Waterproofing Systems',
-    areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
-    priceRange: '$$-$$$',
-    subServices: ['Below-Grade Waterproofing', 'Plaza Deck Systems', 'Membrane Systems', 'Leak Remediation']
+  const serviceConfig = SERVICE_SCHEMAS["waterproofing"];
+  const siteUrl = window.location.origin;
+  
+  const serviceSchema = generateServiceSchema({
+    name: serviceConfig.name,
+    description: serviceConfig.description,
+    url: `${siteUrl}/services/waterproofing`,
+    provider: "Ascent Group Construction",
+    areaServed: serviceConfig.areaServed,
+    serviceType: serviceConfig.serviceType
   });
 
-  const breadcrumbSchemaData = breadcrumbSchema([
-    { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
-    { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Waterproofing', url: 'https://ascentgroupconstruction.com/services/waterproofing' }
+  const breadcrumbSchemaData = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+    { name: "Waterproofing", url: `${siteUrl}/services/waterproofing` }
   ]);
 
   const stats = [

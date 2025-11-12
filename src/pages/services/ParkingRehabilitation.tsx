@@ -6,22 +6,26 @@ import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/ui/Button';
 import { Card } from "@/components/ui/card";
 import { Car, HardHat, Wrench, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
-import { createServiceSchema } from '@/utils/schema-injector';
-import { breadcrumbSchema } from '@/utils/structured-data';
+import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-parking-rehabilitation.jpg';
 
 const ParkingRehabilitation = () => {
-  const serviceSchema = createServiceSchema({
-    serviceType: 'Parking Structure Rehabilitation',
-    areaServed: ['Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham', 'Hamilton', 'Burlington'],
-    priceRange: '$$$',
-    subServices: ['Concrete Restoration', 'Traffic Coating', 'Structural Repairs', 'Expansion Joints']
+  const serviceConfig = SERVICE_SCHEMAS["parking-rehabilitation"];
+  const siteUrl = window.location.origin;
+  
+  const serviceSchema = generateServiceSchema({
+    name: serviceConfig.name,
+    description: serviceConfig.description,
+    url: `${siteUrl}/services/parking-rehabilitation`,
+    provider: "Ascent Group Construction",
+    areaServed: serviceConfig.areaServed,
+    serviceType: serviceConfig.serviceType
   });
 
-  const breadcrumbSchemaData = breadcrumbSchema([
-    { name: 'Home', url: 'https://ascentgroupconstruction.com/' },
-    { name: 'Services', url: 'https://ascentgroupconstruction.com/services' },
-    { name: 'Parking Rehabilitation', url: 'https://ascentgroupconstruction.com/services/parking-rehabilitation' }
+  const breadcrumbSchemaData = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+    { name: "Parking Rehabilitation", url: `${siteUrl}/services/parking-rehabilitation` }
   ]);
 
   const stats = [

@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
 import heroImage from "@/assets/hero-building-envelope.jpg";
 
 const BuildingEnvelope = () => {
@@ -97,12 +98,31 @@ const BuildingEnvelope = () => {
     }
   ];
 
+  const serviceConfig = SERVICE_SCHEMAS["building-envelope"];
+  const siteUrl = window.location.origin;
+  
+  const serviceSchema = generateServiceSchema({
+    name: serviceConfig.name,
+    description: serviceConfig.description,
+    url: `${siteUrl}/services/building-envelope`,
+    provider: "Ascent Group Construction",
+    areaServed: serviceConfig.areaServed,
+    serviceType: serviceConfig.serviceType
+  });
+
+  const breadcrumbSchemaData = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+    { name: "Building Envelope", url: `${siteUrl}/services/building-envelope` }
+  ]);
+
   return (
     <div className="min-h-screen">
       <SEO
         title="Building Envelope Services Toronto | Exterior Envelope Specialists"
         description="Expert building envelope solutions including EIFS, stucco, masonry restoration, metal cladding, and waterproofing. Energy-efficient, durable systems for commercial and multi-family buildings across Ontario."
         keywords="building envelope, exterior envelope, EIFS, stucco, masonry restoration, waterproofing, Toronto envelope contractor"
+        structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />
       
