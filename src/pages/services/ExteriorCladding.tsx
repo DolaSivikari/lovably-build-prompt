@@ -89,9 +89,9 @@ const ExteriorCladding = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Exterior Cladding & Siding Systems | Modern Facade Solutions"
-        description="Professional exterior cladding installation including siding systems, composite panels, and rainscreen applications for commercial and residential buildings."
-        keywords="exterior cladding, siding installation, composite panels, rainscreen systems, building envelope, facade systems"
+        title="Exterior Cladding Systems | Specialty Contractor Building Envelope Solutions"
+        description="Specialty contractor self-performing exterior cladding including siding systems, composite panels, and rainscreen applications. Complete envelope integration for Ontario commercial and multi-family building envelopes."
+        keywords="exterior cladding, specialty contractor, building envelope, siding installation, composite panels, rainscreen systems, self-perform cladding, facade systems"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />

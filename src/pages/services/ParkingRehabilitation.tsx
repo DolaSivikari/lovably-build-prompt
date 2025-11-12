@@ -79,9 +79,9 @@ const ParkingRehabilitation = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Parking Structure Rehabilitation | Concrete Restoration & Traffic Coating"
-        description="Comprehensive parking structure rehabilitation including concrete restoration, traffic membrane systems, structural repairs, and expansion joint replacement."
-        keywords="parking structure rehabilitation, concrete restoration, traffic coating, parking garage repair, structural strengthening"
+        title="Parking Structure Rehabilitation | Specialty Contractor with Structural Engineers"
+        description="Specialty contractor self-performing parking garage restoration including concrete restoration, traffic coating, and structural repairs. In-house structural engineers serving Ontario commercial and multi-family properties."
+        keywords="parking structure rehabilitation, specialty contractor, parking garage restoration, concrete restoration, traffic coating, parking garage repair, structural strengthening, self-perform"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />

@@ -30,7 +30,7 @@ const ConstructionManagement = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO title="Construction Management Toronto | CM Services Ontario" description="Expert construction management with budget stewardship, risk mitigation, and schedule control. CM-at-Risk and Agency CM delivery across commercial, multi-family, and institutional projects." keywords="construction management, CM-at-Risk, Agency CM, Toronto construction manager" />
+      <SEO title="Construction Management Ontario | Specialty Contractor CM Services" description="Specialty contractor offering construction management with self-perform capabilities for building envelope and restoration projects. Budget stewardship, risk mitigation, and schedule control across Ontario commercial and multi-family developments." keywords="construction management, specialty contractor CM, CM-at-Risk, Agency CM, Ontario construction manager, self-perform CM" />
       <Navigation />
       <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Construction Management" }]} />

@@ -79,9 +79,9 @@ const MetalCladding = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Metal Cladding & Panel Systems | Architectural Metal Installation"
-        description="Professional metal cladding installation including composite panels, rainscreen systems, standing seam, and custom architectural metal facades."
-        keywords="metal cladding, metal panels, composite panels, rainscreen systems, standing seam, architectural metal"
+        title="Metal Cladding Systems | Self-Performed by Specialty Contractor"
+        description="Specialty contractor self-performing metal cladding installation including composite panels, rainscreen systems, and architectural metal facades. Factory-certified installers with in-house fabrication serving Ontario commercial projects."
+        keywords="metal cladding, specialty contractor, self-perform metal, metal panels, composite panels, rainscreen systems, standing seam, architectural metal, building envelope"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />

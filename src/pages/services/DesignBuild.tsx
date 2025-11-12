@@ -30,7 +30,7 @@ const DesignBuild = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO title="Design-Build Services Toronto | Integrated Project Delivery" description="Single-source design-build delivery combining architecture, engineering, and construction. Faster schedules, cost certainty, and seamless coordination for commercial and multi-family projects." keywords="design-build, integrated project delivery, Toronto design-build contractor" />
+      <SEO title="Design-Build Services Ontario | Specialty Contractor Integrated Delivery" description="Specialty contractor offering design-build delivery with self-performed envelope and restoration work. Single-source accountability from concept to completion for Ontario commercial and multi-family projects." keywords="design-build, specialty contractor, integrated project delivery, Ontario design-build contractor, self-perform design-build" />
       <Navigation />
       <PageHero.Root backgroundImage={heroImage}>
         <PageHero.Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Design-Build" }]} />

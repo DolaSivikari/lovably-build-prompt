@@ -79,9 +79,9 @@ const Waterproofing = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Commercial Waterproofing Systems | Foundation & Plaza Deck Waterproofing"
-        description="Professional waterproofing services including below-grade systems, plaza decks, membrane installation, and leak remediation with comprehensive warranties."
-        keywords="waterproofing, below grade waterproofing, plaza deck, membrane systems, foundation waterproofing, leak repair"
+        title="Waterproofing Systems | Self-Performed by Specialty Contractor"
+        description="Specialty contractor self-performing waterproofing systems including below-grade, plaza decks, and membrane installation. Manufacturer-certified applicators with extended warranties for Ontario building envelope projects."
+        keywords="waterproofing, specialty contractor, self-perform waterproofing, below grade waterproofing, plaza deck, membrane systems, foundation waterproofing, leak repair"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />

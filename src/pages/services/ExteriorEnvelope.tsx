@@ -28,9 +28,9 @@ const ExteriorEnvelope = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Exterior Envelope Systems: Stucco, EIFS & Sealants | Ascent Group"
-        description="Expert exterior envelope protection including stucco application, EIFS installation, and professional sealant services. Waterproofing and weatherproofing across the GTA."
-        keywords="exterior envelope, building envelope, stucco, EIFS, sealants, caulking, waterproofing, weatherproofing, exterior insulation, building protection"
+        title="Exterior Envelope Systems | Specialty Contractor Self-Performing Stucco, EIFS & Sealants"
+        description="Specialty contractor self-performing complete building envelope protection including stucco, EIFS installation, and comprehensive sealant services. Waterproofing and weatherproofing expertise across Ontario commercial and multi-family projects."
+        keywords="exterior envelope, specialty contractor, building envelope contractor, stucco, EIFS, sealants, caulking, waterproofing, weatherproofing, self-perform envelope, building protection"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />

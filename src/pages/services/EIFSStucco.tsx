@@ -79,9 +79,9 @@ const EIFSStucco = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="EIFS & Stucco Installation & Repair | Energy-Efficient Exterior Systems"
-        description="Professional EIFS and stucco installation, repair, and restoration services. Expert application of energy-efficient exterior finish systems with comprehensive warranties."
-        keywords="EIFS installation, stucco systems, exterior insulation, stucco repair, EIFS restoration, energy efficient cladding"
+        title="EIFS & Stucco Installation & Repair | Self-Performed by Specialty Contractor"
+        description="Specialty contractor self-performing EIFS and stucco installation, repair, and restoration. Factory-trained applicators with manufacturer certifications serving Ontario's commercial and multi-family projects."
+        keywords="EIFS installation, stucco systems, specialty contractor, self-perform EIFS, exterior insulation, stucco repair, EIFS restoration, energy efficient cladding"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />

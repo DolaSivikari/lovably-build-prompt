@@ -79,9 +79,9 @@ const InteriorBuildouts = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Interior Buildouts & Tenant Improvements | Commercial Interior Construction"
-        description="Professional interior buildouts including tenant improvements, drywall installation, metal framing, and complete interior finishing for commercial spaces."
-        keywords="interior buildouts, tenant improvements, drywall installation, metal framing, interior finishing, commercial interiors"
+        title="Interior Buildouts & Tenant Improvements | Specialty Contractor"
+        description="Specialty contractor self-performing interior buildouts including tenant improvements, drywall installation, and complete finishing. In-house millwork and specialty finishing for Ontario commercial projects."
+        keywords="interior buildouts, tenant improvements, specialty contractor, self-perform interior, drywall installation, metal framing, interior finishing, commercial interiors"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />

@@ -79,9 +79,9 @@ const MasonryRestoration = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Masonry Restoration & Brick Repair | Heritage Building Conservation"
-        description="Professional masonry restoration services including brick repair, tuckpointing, stone conservation, and heritage building restoration with expert craftsmanship."
-        keywords="masonry restoration, brick repair, tuckpointing, stone restoration, heritage conservation, structural masonry"
+        title="Masonry Restoration & Repair | Specialty Contractor with Master Masons"
+        description="Specialty contractor self-performing masonry restoration including brick repair, tuckpointing, and heritage conservation. Master masons with in-house mortar lab serving Ontario commercial and institutional projects."
+        keywords="masonry restoration, brick repair, specialty contractor, tuckpointing, stone restoration, heritage conservation, structural masonry, self-perform masonry"
         structuredData={[serviceSchema, breadcrumbSchemaData]}
       />
       <Navigation />
