@@ -162,17 +162,23 @@ const EnhancedHero = () => {
 
   // Reset video loaded state when slide changes
   useEffect(() => {
-    setIsVideoLoaded(false);
-    setShowPoster(true);
-    
-    if (videoRef.current) {
-      const handleCanPlay = () => {
-        setIsVideoLoaded(true);
-        setTimeout(() => setShowPoster(false), 100);
-      };
+    // If video is already ready to play, don't show poster
+    if (videoRef.current && videoRef.current.readyState >= 3) {
+      setIsVideoLoaded(true);
+      setShowPoster(false);
+    } else {
+      setIsVideoLoaded(false);
+      setShowPoster(true);
       
-      videoRef.current.addEventListener('canplaythrough', handleCanPlay);
-      return () => videoRef.current?.removeEventListener('canplaythrough', handleCanPlay);
+      if (videoRef.current) {
+        const handleCanPlay = () => {
+          setIsVideoLoaded(true);
+          setTimeout(() => setShowPoster(false), 100);
+        };
+        
+        videoRef.current.addEventListener('canplaythrough', handleCanPlay);
+        return () => videoRef.current?.removeEventListener('canplaythrough', handleCanPlay);
+      }
     }
   }, [currentSlide]);
 
