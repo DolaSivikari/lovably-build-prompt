@@ -162,24 +162,33 @@ const EnhancedHero = () => {
 
   // Reset video loaded state when slide changes
   useEffect(() => {
-    // If video is already ready to play, don't show poster
-    if (videoRef.current && videoRef.current.readyState >= 3) {
+    const v = videoRef.current;
+    if (!v) return;
+
+    // If video is already ready to play, show it immediately
+    if (v.readyState >= 3) {
       setIsVideoLoaded(true);
       setShowPoster(false);
-    } else {
-      setIsVideoLoaded(false);
-      setShowPoster(true);
-      
-      if (videoRef.current) {
-        const handleCanPlay = () => {
-          setIsVideoLoaded(true);
-          setTimeout(() => setShowPoster(false), 100);
-        };
-        
-        videoRef.current.addEventListener('canplaythrough', handleCanPlay);
-        return () => videoRef.current?.removeEventListener('canplaythrough', handleCanPlay);
-      }
+      v.play().catch(() => {});
+      return;
     }
+
+    setIsVideoLoaded(false);
+    setShowPoster(true);
+
+    const markReady = () => {
+      setIsVideoLoaded(true);
+      setTimeout(() => setShowPoster(false), 100);
+      v.play().catch(() => {});
+    };
+
+    v.addEventListener('loadedmetadata', markReady);
+    v.addEventListener('loadeddata', markReady);
+
+    return () => {
+      v.removeEventListener('loadedmetadata', markReady);
+      v.removeEventListener('loadeddata', markReady);
+    };
   }, [currentSlide]);
 
   useEffect(() => {
@@ -296,8 +305,13 @@ const EnhancedHero = () => {
           muted
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
           onLoadedData={handleVideoReady}
+          onError={(e) => {
+            console.error('Hero video failed to load', { src: videoUrl, error: e });
+            setIsVideoLoaded(true);
+            setShowPoster(true);
+          }}
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
