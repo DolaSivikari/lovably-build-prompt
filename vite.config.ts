@@ -30,6 +30,8 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     sourcemap: mode === 'development', // Only in dev mode
+    minify: 'esbuild', // Explicit minification using esbuild (faster than terser)
+    cssMinify: true, // Explicitly enable CSS minification
     rollupOptions: {
       output: {
         manualChunks: {
@@ -51,8 +53,14 @@ export default defineConfig(({ mode }) => ({
           'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
           'vendor-editor': ['react-quill', 'quill'],
         },
+        // Additional optimizations for smaller bundles
+        compact: true,
+        generatedCode: {
+          constBindings: true,
+        },
       },
     },
     chunkSizeWarningLimit: 400, // Warn if chunks exceed 400KB (stricter budget)
+    reportCompressedSize: true, // Show compressed size in build output
   },
 }));

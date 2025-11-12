@@ -12,7 +12,7 @@ interface SEOProps {
 
 const SEO = ({
   title = "Ascent — Envelope & Restoration Contractor | Ontario & GTA",
-  description = "Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA.",
+  description = "Prime envelope & restoration contractor in Ontario. Façade remediation, garage restoration, EIFS, masonry repair. Serving the GTA since 2009.",
   keywords = "envelope contractor Ontario, facade remediation Toronto, parking garage restoration GTA, building envelope contractor, EIFS repair, sealant replacement, masonry restoration, waterproofing contractor, stucco repair, envelope restoration",
   ogImage = "/og-image.jpg",
   canonical,
