@@ -2,11 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info, Ruler, ClipboardCheck, Hammer, Droplets } from "lucide-react";
 import { Button } from "@/ui/Button";
-import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
 import GeometricShapes from "./GeometricShapes";
 import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { supabase } from "@/integrations/supabase/client";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 
@@ -42,7 +40,6 @@ const formatTitle = (title: string) => {
 const heroSlides = enrichedHeroSlides.map(slide => ({
   ...slide,
   primaryCTA: { ...slide.primaryCTA, icon: Building2 }, // Default icon
-  video: slide.video || heroClipchampVideo
 }));
 
 interface HeroSlide {
@@ -70,11 +67,8 @@ const EnhancedHero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const [videoOpacity, setVideoOpacity] = useState({ a: 1, b: 0 });
   const [isPlaying, setIsPlaying] = useState(true);
-  const videoRefA = useRef<HTMLVideoElement>(null);
-  const videoRefB = useRef<HTMLVideoElement>(null);
-  const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
+  const videoRef = useRef<HTMLVideoElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [landingMenuItems, setLandingMenuItems] = useState<any[]>([]);
   const mobileCardsRef = useRef<HTMLDivElement>(null);
@@ -124,14 +118,6 @@ const EnhancedHero = () => {
 
   // Use enriched hero slides only
   const activeSlides = heroSlides;
-  
-  // Video preloader for seamless slide transitions
-  const videoUrls = activeSlides.map(slide => slide.video);
-  const { getVideoUrl, isPreloaded } = useVideoPreloader({
-    videoUrls,
-    currentIndex: currentSlide,
-    prefetchCount: 2, // Prefetch 2 videos ahead
-  });
 
   // Handle smooth poster-to-video transition
   const handleVideoReady = () => {
@@ -147,20 +133,11 @@ const EnhancedHero = () => {
     if (!isPlaying || activeSlides.length === 0) return;
 
     autoplayIntervalRef.current = setInterval(() => {
-      const nextSlideIndex = (currentSlide + 1) % activeSlides.length;
-      const nextSlide = activeSlides[nextSlideIndex];
-      const nextRawUrl = nextSlide.video;
-      
-      // Only transition if next video is preloaded
-      if (isPreloaded(nextRawUrl)) {
-        setIsTransitioning(true);
-        setTimeout(() => {
-          setCurrentSlide(nextSlideIndex);
-          setIsTransitioning(false);
-        }, 500);
-      } else {
-        console.warn('Next video not ready, skipping transition');
-      }
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
+        setIsTransitioning(false);
+      }, 500);
     }, 7000);
 
     return () => {
@@ -168,18 +145,9 @@ const EnhancedHero = () => {
         clearInterval(autoplayIntervalRef.current);
       }
     };
-  }, [isPlaying, activeSlides.length, currentSlide, isPreloaded]);
+  }, [isPlaying, activeSlides.length, currentSlide]);
 
   const handleSlideChange = (index: number) => {
-    const targetSlide = activeSlides[index];
-    const targetRawUrl = targetSlide.video;
-    
-    // Only allow change if video is preloaded
-    if (!isPreloaded(targetRawUrl)) {
-      console.warn('Target video not preloaded yet');
-      return;
-    }
-    
     setIsPlaying(false); // Pause autoplay when user interacts
     setIsTransitioning(true);
     setTimeout(() => {
@@ -197,53 +165,16 @@ const EnhancedHero = () => {
     setIsVideoLoaded(false);
     setShowPoster(true);
     
-    // Wait for new video to be ready
-    const currentVideoRef = activeVideo === 'a' ? videoRefA.current : videoRefB.current;
-    if (currentVideoRef) {
+    if (videoRef.current) {
       const handleCanPlay = () => {
         setIsVideoLoaded(true);
         setTimeout(() => setShowPoster(false), 100);
       };
       
-      currentVideoRef.addEventListener('canplaythrough', handleCanPlay);
-      return () => currentVideoRef.removeEventListener('canplaythrough', handleCanPlay);
+      videoRef.current.addEventListener('canplaythrough', handleCanPlay);
+      return () => videoRef.current?.removeEventListener('canplaythrough', handleCanPlay);
     }
-  }, [currentSlide, activeVideo]);
-
-  // Smooth video loop using crossfade technique
-  useEffect(() => {
-    const currentVideoRef = activeVideo === 'a' ? videoRefA.current : videoRefB.current;
-    const nextVideoRef = activeVideo === 'a' ? videoRefB.current : videoRefA.current;
-
-    if (!currentVideoRef || !nextVideoRef) return;
-
-    const handleTimeUpdate = () => {
-      const duration = currentVideoRef.duration;
-      const currentTime = currentVideoRef.currentTime;
-      
-      // Start crossfade when 1 second remaining
-      if (duration - currentTime <= 1 && duration - currentTime > 0.5) {
-        // Prepare next video
-        nextVideoRef.currentTime = 0;
-        nextVideoRef.play();
-        
-        // Crossfade
-        if (activeVideo === 'a') {
-          setVideoOpacity({ a: 0, b: 1 });
-        } else {
-          setVideoOpacity({ a: 1, b: 0 });
-        }
-      }
-      
-      // Switch active video when crossfade complete
-      if (duration - currentTime <= 0.5 && duration - currentTime > 0) {
-        setActiveVideo(activeVideo === 'a' ? 'b' : 'a');
-      }
-    };
-
-    currentVideoRef.addEventListener('timeupdate', handleTimeUpdate);
-    return () => currentVideoRef.removeEventListener('timeupdate', handleTimeUpdate);
-  }, [activeVideo]);
+  }, [currentSlide]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -324,7 +255,7 @@ const EnhancedHero = () => {
   const subheadline = slide.subheadline;
   const statNumber = slide.stat;
   const statLabel = slide.statLabel;
-  const videoUrl = getVideoUrl(slide.video); // Use preloaded blob URL
+  const videoUrl = slide.video;
   const posterUrl = slide.poster;
   const PrimaryIcon = slide.primaryCTA.icon;
   const primaryCTA = slide.primaryCTA;
@@ -344,7 +275,7 @@ const EnhancedHero = () => {
       {/* Geometric Shapes */}
       <GeometricShapes currentSlide={currentSlide} />
       
-      {/* Video Background with Parallax Effect and Smooth Loop */}
+      {/* Video Background with Parallax Effect */}
       <div 
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
         style={{ 
@@ -352,28 +283,15 @@ const EnhancedHero = () => {
           transition: 'transform 0.3s ease-out'
         }}
       >
-        {/* Video A */}
         <video
-          ref={videoRefA}
+          ref={videoRef}
           autoPlay
+          loop
           muted
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover"
           onLoadedData={handleVideoReady}
-          style={{ opacity: videoOpacity.a }}
-        >
-          <source src={videoUrl} type="video/mp4" />
-        </video>
-        
-        {/* Video B - for seamless crossfade loop */}
-        <video
-          ref={videoRefB}
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-          style={{ opacity: videoOpacity.b }}
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
@@ -466,26 +384,18 @@ const EnhancedHero = () => {
 
           {/* Slide Indicators */}
           <div className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
-            {activeSlides.map((slideItem, index) => {
-              const slideRawUrl = typeof slideItem === 'object' && 'video_url' in slideItem
-                ? slideItem.video_url || heroClipchampVideo
-                : (slideItem as any).video;
-              const isReady = isPreloaded(slideRawUrl);
-              
-              return (
+            {activeSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => handleSlideChange(index)}
-                  disabled={!isReady}
-                  className={`h-1 rounded-full transition-all duration-300 ${
+                  aria-label={`Go to slide ${index + 1}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
                     index === currentSlide 
                       ? 'w-12 bg-accent' 
-                      : 'w-8 bg-[hsl(var(--bg))]/30 hover:bg-[hsl(var(--bg))]/50'
-                  } ${!isReady ? 'opacity-50 cursor-wait' : ''}`}
-                  aria-label={`Go to slide ${index + 1}`}
+                      : 'w-6 bg-white/50 hover:bg-white/70'
+                  }`}
                 />
-              );
-            })}
+            ))}
           </div>
         </div>
       </div>
