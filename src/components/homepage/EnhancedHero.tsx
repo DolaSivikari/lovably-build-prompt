@@ -441,7 +441,7 @@ const EnhancedHero = () => {
             className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
-            {description}
+            {subheadline}
           </p>
 
           {/* Dual CTAs */}
