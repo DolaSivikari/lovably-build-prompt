@@ -75,6 +75,7 @@ const EnhancedHero = () => {
   const mobileCardsRef = useRef<HTMLDivElement>(null);
   const [mobileCardAutoScroll, setMobileCardAutoScroll] = useState(true);
   const [isFirstRender, setIsFirstRender] = useState(true);
+  const [preloadedPosters, setPreloadedPosters] = useState<Set<string>>(new Set());
 
   // Remove first render flag after component mounts
   useEffect(() => {
@@ -130,6 +131,39 @@ const EnhancedHero = () => {
 
   // Helper to detect mobile device
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // Preload poster images for current and adjacent slides
+  useEffect(() => {
+    const postersToPreload: string[] = [];
+    
+    // Current slide poster (highest priority)
+    if (activeSlides[currentSlide]?.poster) {
+      postersToPreload.push(activeSlides[currentSlide].poster);
+    }
+    
+    // Next slide poster
+    const nextIndex = (currentSlide + 1) % activeSlides.length;
+    if (activeSlides[nextIndex]?.poster) {
+      postersToPreload.push(activeSlides[nextIndex].poster);
+    }
+    
+    // Previous slide poster
+    const prevIndex = (currentSlide - 1 + activeSlides.length) % activeSlides.length;
+    if (activeSlides[prevIndex]?.poster) {
+      postersToPreload.push(activeSlides[prevIndex].poster);
+    }
+
+    // Preload images
+    postersToPreload.forEach(posterUrl => {
+      if (!preloadedPosters.has(posterUrl)) {
+        const img = new Image();
+        img.src = posterUrl;
+        img.onload = () => {
+          setPreloadedPosters(prev => new Set(prev).add(posterUrl));
+        };
+      }
+    });
+  }, [currentSlide, activeSlides, preloadedPosters]);
 
   // Handle smooth poster-to-video transition
   const handleVideoReady = () => {
@@ -342,8 +376,8 @@ const EnhancedHero = () => {
               src={posterUrl}
               alt=""
               className="w-full h-full object-cover"
-              loading="eager"
-              fetchPriority="high"
+              loading={preloadedPosters.has(posterUrl) ? "eager" : "lazy"}
+              fetchPriority={preloadedPosters.has(posterUrl) ? "high" : "low"}
             />
           </div>
         )}
