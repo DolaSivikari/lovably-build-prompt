@@ -8,6 +8,7 @@ import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { supabase } from "@/integrations/supabase/client";
+import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 
 // Helper to map icon names to Lucide icons
 const getIconComponent = (iconName?: string) => {
@@ -37,38 +38,12 @@ const formatTitle = (title: string) => {
     .join(' ');
 };
 
-const heroSlides = [
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-1.webp",
-    stat: "$2B+",
-    statLabel: "Building Envelope Projects",
-    headline: "Ontario's Envelope & Restoration Contractor",
-    subheadline: "Specialized in building envelope restoration, façade remediation, and parking structure rehabilitation across the GTA",
-    primaryCTA: { label: "View Capabilities", icon: Building2, href: "/capabilities" },
-    secondaryCTA: { label: "Request Proposal", href: "/estimate" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-2.webp",
-    stat: "500+",
-    statLabel: "Envelope Projects",
-    headline: "Prime Specialty Services",
-    subheadline: "Expert masonry restoration, waterproofing, EIFS/stucco, and parking garage rehabilitation with proven performance",
-    primaryCTA: { label: "Specialty Services", icon: Wrench, href: "/services" },
-    secondaryCTA: { label: "Project Portfolio", href: "/projects" }
-  },
-  {
-    video: heroClipchampVideo,
-    poster: "/hero-poster-3.webp",
-    stat: "48-72h",
-    statLabel: "Emergency Response",
-    headline: "Emergency Leak & Seal Program",
-    subheadline: "24/7 response for urgent building envelope failures. Not-to-exceed pricing and rapid deployment across Ontario",
-    primaryCTA: { label: "Emergency Services", icon: Droplets, href: "/emergency-maintenance" },
-    secondaryCTA: { label: "View Capabilities", href: "/capabilities" }
-  }
-];
+// Use enriched hero slides with expanded SEO-optimized descriptions
+const heroSlides = enrichedHeroSlides.map(slide => ({
+  ...slide,
+  primaryCTA: { ...slide.primaryCTA, icon: Building2 }, // Default icon
+  video: slide.video || heroClipchampVideo
+}));
 
 interface HeroSlide {
   id: string;
