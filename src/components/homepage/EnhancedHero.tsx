@@ -77,8 +77,6 @@ const EnhancedHero = () => {
   const [activeVideo, setActiveVideo] = useState<'a' | 'b'>('a');
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [landingMenuItems, setLandingMenuItems] = useState<any[]>([]);
-  const [dbSlides, setDbSlides] = useState<HeroSlide[]>([]);
-  const [isLoadingSlides, setIsLoadingSlides] = useState(true);
   const mobileCardsRef = useRef<HTMLDivElement>(null);
   const [mobileCardAutoScroll, setMobileCardAutoScroll] = useState(true);
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -88,28 +86,6 @@ const EnhancedHero = () => {
     setIsFirstRender(false);
   }, []);
 
-  // Fetch hero slides from database
-  useEffect(() => {
-    const fetchHeroSlides = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('hero_slides')
-          .select('*')
-          .eq('is_active', true)
-          .order('display_order');
-        
-        if (error) throw error;
-        if (data && data.length > 0) {
-          setDbSlides(data);
-        }
-      } catch (error) {
-        console.error('Error fetching hero slides:', error);
-      } finally {
-        setIsLoadingSlides(false);
-      }
-    };
-    fetchHeroSlides();
-  }, []);
 
   // Fetch landing menu items
   useEffect(() => {
@@ -146,15 +122,11 @@ const EnhancedHero = () => {
     return () => clearInterval(scrollInterval);
   }, [mobileCardAutoScroll, landingMenuItems]);
 
-  // Use database slides if available, fallback to hardcoded
-  const activeSlides = dbSlides.length > 0 ? dbSlides : heroSlides;
+  // Use enriched hero slides only
+  const activeSlides = heroSlides;
   
   // Video preloader for seamless slide transitions
-  const videoUrls = activeSlides.map(slide => 
-    typeof slide === 'object' && 'video_url' in slide 
-      ? slide.video_url || heroClipchampVideo 
-      : (slide as any).video
-  );
+  const videoUrls = activeSlides.map(slide => slide.video);
   const { getVideoUrl, isPreloaded } = useVideoPreloader({
     videoUrls,
     currentIndex: currentSlide,
@@ -177,9 +149,7 @@ const EnhancedHero = () => {
     autoplayIntervalRef.current = setInterval(() => {
       const nextSlideIndex = (currentSlide + 1) % activeSlides.length;
       const nextSlide = activeSlides[nextSlideIndex];
-      const nextRawUrl = typeof nextSlide === 'object' && 'video_url' in nextSlide
-        ? nextSlide.video_url || heroClipchampVideo
-        : (nextSlide as any).video;
+      const nextRawUrl = nextSlide.video;
       
       // Only transition if next video is preloaded
       if (isPreloaded(nextRawUrl)) {
@@ -202,9 +172,7 @@ const EnhancedHero = () => {
 
   const handleSlideChange = (index: number) => {
     const targetSlide = activeSlides[index];
-    const targetRawUrl = typeof targetSlide === 'object' && 'video_url' in targetSlide
-      ? targetSlide.video_url || heroClipchampVideo
-      : (targetSlide as any).video;
+    const targetRawUrl = targetSlide.video;
     
     // Only allow change if video is preloaded
     if (!isPreloaded(targetRawUrl)) {
@@ -351,30 +319,16 @@ const EnhancedHero = () => {
   // Guard against undefined slide
   if (!slide) return null;
 
-  // Extract slide data (handle both DB and hardcoded formats)
-  const isDbSlide = 'primary_cta_text' in slide;
-  const headline = isDbSlide ? slide.headline : (slide as any).headline;
-  const subheadline = isDbSlide ? slide.subheadline : (slide as any).subheadline;
-  const description = isDbSlide ? slide.description : (slide as any).subheadline;
-  const statNumber = isDbSlide ? slide.stat_number : (slide as any).stat;
-  const statLabel = isDbSlide ? slide.stat_label : (slide as any).statLabel;
-  const rawVideoUrl = isDbSlide ? (slide.video_url || heroClipchampVideo) : (slide as any).video;
-  const videoUrl = getVideoUrl(rawVideoUrl); // Use preloaded blob URL
-  const posterUrl = isDbSlide ? (slide.poster_url || '/hero-poster-1.webp') : (slide as any).poster;
-  
-  const PrimaryIcon = isDbSlide 
-    ? getIconComponent(slide.primary_cta_icon) 
-    : (slide as any).primaryCTA.icon;
-  
-  const primaryCTA = {
-    label: isDbSlide ? slide.primary_cta_text : (slide as any).primaryCTA.label,
-    href: isDbSlide ? slide.primary_cta_url : (slide as any).primaryCTA.href,
-    icon: PrimaryIcon
-  };
-  const secondaryCTA = {
-    label: isDbSlide ? slide.secondary_cta_text : (slide as any).secondaryCTA?.label,
-    href: isDbSlide ? slide.secondary_cta_url : (slide as any).secondaryCTA?.href
-  };
+  // Extract slide data from enriched slides
+  const headline = slide.headline;
+  const subheadline = slide.subheadline;
+  const statNumber = slide.stat;
+  const statLabel = slide.statLabel;
+  const videoUrl = getVideoUrl(slide.video); // Use preloaded blob URL
+  const posterUrl = slide.poster;
+  const PrimaryIcon = slide.primaryCTA.icon;
+  const primaryCTA = slide.primaryCTA;
+  const secondaryCTA = slide.secondaryCTA;
 
   const parallaxOffset = prefersReducedMotion ? 0 : scrollY * 0.5;
   const mouseParallaxX = prefersReducedMotion ? 0 : mousePosition.x * 20;
@@ -487,7 +441,7 @@ const EnhancedHero = () => {
             className={`text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--bg))]/95 mb-10 max-w-3xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
           >
-            {description}
+            {subheadline}
           </p>
 
           {/* Dual CTAs */}

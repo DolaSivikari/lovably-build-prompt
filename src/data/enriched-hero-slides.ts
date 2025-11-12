@@ -1,9 +1,11 @@
 // Phase 2: Enriched Hero Slide Descriptions (80-100 words each)
 // SEO/AEO/GEO optimized with specific benefits and proof points
 
+import heroClipchampVideo from "@/assets/hero-clipchamp.mp4";
+
 export const enrichedHeroSlides = [
   {
-    video: '/hero-clipchamp.mp4',
+    video: heroClipchampVideo,
     poster: '/hero-poster-1.webp',
     stat: '$2B+',
     statLabel: 'Building Envelope Projects',
@@ -13,7 +15,7 @@ export const enrichedHeroSlides = [
     secondaryCTA: { label: 'Request Proposal', href: '/estimate' }
   },
   {
-    video: '/hero-clipchamp.mp4',
+    video: heroClipchampVideo,
     poster: '/hero-poster-2.webp',
     stat: '500+',
     statLabel: 'Envelope Projects',
@@ -23,7 +25,7 @@ export const enrichedHeroSlides = [
     secondaryCTA: { label: 'Project Portfolio', href: '/projects' }
   },
   {
-    video: '/hero-clipchamp.mp4',
+    video: heroClipchampVideo,
     poster: '/hero-poster-3.webp',
     stat: '48-72h',
     statLabel: 'Emergency Response',
