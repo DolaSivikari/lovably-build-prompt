@@ -1,6 +1,8 @@
 import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
@@ -55,13 +57,15 @@ const WhySpecialtyContractor = () => {
   };
 
   return (
-    <>
+    <div>
       <SEO
         title="Specialty Contractor vs General Contractor | Building Envelope & Restoration"
         description="Understand why building envelope & restoration projects require specialty contractors, not general contractors. Compare costs, quality, warranties, and project outcomes. Serving Ontario & GTA."
         keywords="specialty contractor, general contractor comparison, building envelope contractor, specialty vs general contractor, construction contractor differences, self-performed construction, Ontario specialty contractor, GTA building envelope, façade contractor vs general contractor"
         structuredData={[faqSchema, breadcrumbSchema]}
       />
+
+      <Navigation />
 
       <PageHero.Root backgroundImage="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80">
         <PageHero.Breadcrumb 
@@ -419,7 +423,9 @@ const WhySpecialtyContractor = () => {
           </div>
         </div>
       </Section>
-    </>
+
+      <Footer />
+    </div>
   );
 };
 
