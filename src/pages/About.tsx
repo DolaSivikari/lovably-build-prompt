@@ -417,9 +417,8 @@ const About = () => {
                 </Card>
               ))}
             </div>
-            
-            {/* Fallback to database team if enriched bios fail */}
-            {leadershipTeam.length > 0 && enrichedTeamBios.length === 0 && (
+          </div>
+        </section>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {leadershipTeam.map((member) => (
                   <Card key={member.id} className="overflow-hidden hover:shadow-lg transition-shadow">
