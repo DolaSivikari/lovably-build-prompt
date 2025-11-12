@@ -150,6 +150,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         {
           title: "Resources",
           subItems: [
+            { name: "Why Specialty Contractor?", link: "/why-specialty-contractor", description: "Specialty vs general contractor comparison", badge: "new" },
             { name: "Equipment & Resources", link: "/company/equipment-resources", description: "Our self-perform capabilities" },
             { name: "For Developers", link: "/company/developers", description: "Partnership opportunities" },
             { name: "Sustainability", link: "/sustainability", description: "Environmental commitment" },

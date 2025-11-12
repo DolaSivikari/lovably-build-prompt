@@ -14,7 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle, CheckCircle } from "lucide-react";
+import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle, CheckCircle, ArrowRight } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
 import teamWork from "@/assets/team-work.jpg";
@@ -238,6 +238,19 @@ const About = () => {
                     </div>
                   </CardContent>
                 </Card>
+                
+                {/* Link to Comparison Page */}
+                <div className="mt-8 text-center">
+                  <p className="text-muted-foreground mb-4">
+                    Want to dive deeper into the specialty contractor advantage?
+                  </p>
+                  <Button asChild size="lg" variant="secondary">
+                    <Link to="/why-specialty-contractor">
+                      Compare Specialty vs General Contractor
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
 
               {/* Client Testimonials */}

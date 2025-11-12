@@ -190,6 +190,23 @@ const ParkingRehabilitation = () => {
           </div>
         </div>
       </section>
+      
+      {/* Specialty Contractor Advantage */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">The Specialty Contractor Difference</h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              As a specialty contractor, we self-perform parking structure restoration with structural and waterproofing crews—not subcontractors. This means integrated solutions, faster response times, comprehensive warranties, and direct accountability from our team to yours.
+            </p>
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/why-specialty-contractor">
+                Why Choose a Specialty Contractor? <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">

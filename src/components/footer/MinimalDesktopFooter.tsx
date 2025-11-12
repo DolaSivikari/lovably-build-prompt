@@ -39,7 +39,15 @@ export function MinimalDesktopFooter({
           </div>
           <nav>
             <ul className="space-y-2">
-              {companyLinks.slice(0, 5).map((link, index) => (
+              <li>
+                <Link 
+                  to="/why-specialty-contractor"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Why Specialty Contractor?
+                </Link>
+              </li>
+              {companyLinks.slice(0, 4).map((link, index) => (
                 <li key={index}>
                   <Link 
                     to={link.href}

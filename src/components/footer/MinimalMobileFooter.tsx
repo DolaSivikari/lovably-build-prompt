@@ -49,6 +49,7 @@ export function MinimalMobileFooter({
   
   // Combine all navigation links for the Navigation accordion
   const allNavLinks = [
+    { label: "Why Specialty Contractor?", href: "/why-specialty-contractor" },
     ...companyLinks.slice(0, 5),
     ...marketLinks,
     ...projectLinks
