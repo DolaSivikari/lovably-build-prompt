@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
+import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemaGenerators";
 
 const GeneralContracting = () => {
   const whatWeDeliver = [
@@ -86,12 +87,28 @@ const GeneralContracting = () => {
     }
   ];
 
+  const serviceSchema = generateServiceSchema({
+    name: "General Contracting Services",
+    description: "Full-service general contracting with single-source accountability, fixed-price certainty, and 95% on-time delivery. Serving commercial, multi-family, and institutional clients across the GTA.",
+    url: `${window.location.origin}/services/general-contracting`,
+    provider: "Ascent Group Construction",
+    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham"],
+    serviceType: "GeneralContractor"
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: window.location.origin },
+    { name: "Services", url: `${window.location.origin}/services` },
+    { name: "General Contracting", url: `${window.location.origin}/services/general-contracting` }
+  ]);
+
   return (
     <div className="min-h-screen">
       <SEO
         title="General Contracting Toronto | Commercial GC Services Ontario"
         description="Full-service general contracting with single-source accountability, fixed-price certainty, and 95% on-time delivery. Serving commercial, multi-family, and institutional clients across the GTA."
-        keywords="envelope contractor Toronto, building envelope restoration, façade remediation, parking structure rehabilitation, Toronto envelope contractor"
+        keywords="general contracting Toronto, commercial contractor GTA, construction management Ontario, building contractor Toronto, multi-family contractor"
+        structuredData={[serviceSchema, breadcrumbSchema]}
       />
       <Navigation />
       
