@@ -22,6 +22,7 @@ import heroAboutImage from "@/assets/heroes/hero-about-company.jpg";
 import CompanyTimeline from "@/components/homepage/CompanyTimeline";
 import { TrustedPartners } from "@/components/partners/TrustedPartners";
 import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
+import { enrichedCompanyStory, whyChooseAscent, enrichedTeamBios } from "@/data/enriched-company-content";
 
 const iconMap: { [key: string]: any } = {
   award: Award,
@@ -116,33 +117,37 @@ const About = () => {
       
       <main>
 
-        {/* Company Story */}
+        {/* Company Story - Enriched SEO Content */}
         <section className="container mx-auto px-4 py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <div>
-              <h2 className="text-5xl font-bold mb-6">Our Story</h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  Founded in 2009, Ascent Group Construction began with a simple mission: deliver exceptional construction and project management services with uncompromising quality and integrity.
-                </p>
-                <p>
-                  What started as a small team of dedicated craftsmen has grown into one of the GTA's most trusted contractors. We've completed over 500 projects, built lasting relationships with hundreds of satisfied clients, and established a reputation for excellence that speaks for itself.
-                </p>
-                <p>
-                  Today, we continue to uphold the same values that guided us from day one—quality first, transparent communication, unwavering commitment to safety, and complete customer satisfaction.
-                </p>
+              <h2 className="text-5xl font-bold mb-6">{enrichedCompanyStory.title}</h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed text-base">
+                {enrichedCompanyStory.content.split('\n\n').map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+              
+              {/* Company Stats Grid */}
+              <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t">
+                {enrichedCompanyStory.stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground uppercase tracking-wide">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="relative">
               <img
                 src={teamWork}
-                alt="Ascen Group Construction team working on a project"
+                alt="Ascent Group Construction team working on building envelope project"
                 className="rounded-lg shadow-2xl w-full h-auto"
               />
               <div className="absolute -bottom-6 -left-6 bg-secondary text-primary p-6 rounded-lg shadow-xl max-w-xs">
                 <p className="font-bold text-lg mb-2">Our Promise</p>
                 <p className="text-sm">
-                  Every project completed on time, within budget, and exceeding expectations.
+                  Technical expertise, quality craftsmanship, and long-term client relationships over transactional execution.
                 </p>
               </div>
             </div>
@@ -151,6 +156,113 @@ const About = () => {
 
         {/* PHASE 1: Company Timeline */}
         <CompanyTimeline />
+
+        {/* Why Choose Ascent - Enriched SEO Content */}
+        <section className="py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-5xl font-bold mb-4">{whyChooseAscent.title}</h2>
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                  {whyChooseAscent.intro}
+                </p>
+              </div>
+
+              {/* Differentiators */}
+              <div className="space-y-12">
+                {whyChooseAscent.differentiators.map((diff, index) => (
+                  <Card key={index} className="overflow-hidden">
+                    <CardContent className="p-8">
+                      <div className="flex items-start gap-6">
+                        <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                          <span className="text-2xl font-bold text-primary">{index + 1}</span>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-2xl font-bold mb-4">{diff.title}</h3>
+                          <p className="text-muted-foreground mb-6 leading-relaxed">
+                            {diff.description}
+                          </p>
+                          
+                          {/* Proof Points */}
+                          <div className="bg-muted/50 rounded-lg p-6 mb-4">
+                            <p className="font-semibold text-foreground mb-3">Proof Points:</p>
+                            <ul className="space-y-2">
+                              {diff.proofPoints.map((point, i) => (
+                                <li key={i} className="flex items-start gap-2 text-sm">
+                                  <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                                  <span className="text-muted-foreground">{point}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          
+                          {/* Impact Statement */}
+                          <div className="bg-primary/5 border-l-4 border-primary pl-4 py-3">
+                            <p className="text-sm font-semibold text-foreground">
+                              <strong>Impact:</strong> {diff.impact}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Comparison Table */}
+              <div className="mt-16">
+                <h3 className="text-3xl font-bold text-center mb-8">
+                  {whyChooseAscent.comparisonTable.title}
+                </h3>
+                <Card>
+                  <CardContent className="p-0">
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead className="bg-muted">
+                          <tr>
+                            <th className="text-left p-4 font-bold">Factor</th>
+                            <th className="text-left p-4 font-bold text-primary">Ascent (Specialty)</th>
+                            <th className="text-left p-4 font-bold text-muted-foreground">Traditional GC</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {whyChooseAscent.comparisonTable.rows.map((row, index) => (
+                            <tr key={index} className="border-t">
+                              <td className="p-4 font-semibold">{row.factor}</td>
+                              <td className="p-4 text-primary">{row.specialty}</td>
+                              <td className="p-4 text-muted-foreground">{row.general}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Client Testimonials */}
+              <div className="mt-16">
+                <h3 className="text-3xl font-bold text-center mb-8">What Our Clients Say</h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {whyChooseAscent.clientTestimonials.map((testimonial, index) => (
+                    <Card key={index} className="bg-gradient-to-br from-primary/5 to-primary/10">
+                      <CardContent className="p-6">
+                        <p className="text-sm italic mb-4 text-foreground leading-relaxed">
+                          "{testimonial.quote}"
+                        </p>
+                        <div className="pt-4 border-t">
+                          <p className="font-bold text-foreground">{testimonial.author}</p>
+                          <p className="text-xs text-muted-foreground">{testimonial.project}</p>
+                          <p className="text-xs text-muted-foreground">{testimonial.location}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Values */}
         <section className="py-24 bg-muted/30">
@@ -252,16 +364,62 @@ const About = () => {
           </div>
         </section>
 
-        {/* Leadership Team */}
-        <section className="container mx-auto px-4 py-24">
+        {/* Leadership Team - Enriched Bios */}
+        <section className="container mx-auto px-4 py-24 bg-muted/30">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-5xl font-bold mb-4">Leadership Team</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Meet the experienced professionals leading our commitment to excellence
+                Experienced professionals combining technical expertise with proven project leadership
               </p>
             </div>
-            {leadershipTeam.length > 0 ? (
+            
+            {/* Use enriched bios with 300-400 word detailed backgrounds */}
+            <div className="grid md:grid-cols-1 gap-8">
+              {enrichedTeamBios.map((member, index) => (
+                <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="md:col-span-1 aspect-[3/4] bg-muted relative overflow-hidden">
+                      <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                        Professional Headshot
+                      </div>
+                    </div>
+                    <CardContent className="md:col-span-2 p-6 md:p-8">
+                      <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
+                      <p className="text-primary font-semibold mb-4 text-lg">{member.position}</p>
+                      <div className="prose prose-sm max-w-none mb-6">
+                        <p className="text-muted-foreground leading-relaxed">{member.bio}</p>
+                      </div>
+                      
+                      <div className="grid md:grid-cols-2 gap-4 pt-4 border-t">
+                        <div>
+                          <p className="font-semibold text-foreground mb-2">Credentials:</p>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                            {member.credentials.map((cred, idx) => (
+                              <li key={idx}>{cred}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-foreground mb-2">Notable Projects:</p>
+                          <ul className="space-y-1 text-sm text-muted-foreground">
+                            {member.notableProjects.map((project, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <CheckCircle className="w-3 h-3 text-primary flex-shrink-0 mt-1" />
+                                <span>{project}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </div>
+                </Card>
+              ))}
+            </div>
+            
+            {/* Fallback to database team if enriched bios fail */}
+            {leadershipTeam.length > 0 && enrichedTeamBios.length === 0 && (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {leadershipTeam.map((member) => (
                   <Card key={member.id} className="overflow-hidden hover:shadow-lg transition-shadow">
