@@ -177,8 +177,8 @@ const Services = () => {
     <div className="min-h-screen flex flex-col">
       <SEO 
         title="Services"
-        description="Professional general contracting, construction management, and building envelope services across the GTA. Expert craftsmanship for commercial and institutional projects."
-        keywords="general contracting services, construction management, building envelope, exterior systems, commercial construction, institutional construction"
+        description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA."
+        keywords="specialty contractor services, building envelope contractor, facade restoration, parking garage restoration, EIFS contractor, masonry repair, waterproofing contractor, commercial construction"
         canonical="https://ascentgroupconstruction.com/services"
       />
       <Navigation />
