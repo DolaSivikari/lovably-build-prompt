@@ -367,7 +367,6 @@ const App = () => (
                   {/* Heavy content pages - lazy loaded */}
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
-                  <Route path="/insights" element={<Insights />} />
                   {/* Redirect old case study routes to blog */}
                   <Route path="/case-studies" element={<Blog />} />
                   <Route path="/case-study/:slug" element={<BlogPost />} />
