@@ -19,6 +19,7 @@ import {
   Leaf
 } from 'lucide-react';
 import type { ServicePageTemplateProps } from '@/components/services/ServicePageTemplate';
+import { serviceFAQs } from './service-faqs-enriched';
 
 export const priorityServicesData: Record<string, ServicePageTemplateProps['service']> = {
   'commercial-painting': {
@@ -127,7 +128,8 @@ export const priorityServicesData: Record<string, ServicePageTemplateProps['serv
       author: 'Michael Chen',
       project: 'Office Tower Renovation',
       location: 'Downtown Toronto'
-    }
+    },
+    faqs: serviceFAQs['commercial-painting'] || []
   },
 
   'residential-painting': {
