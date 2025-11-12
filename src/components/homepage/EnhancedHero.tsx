@@ -5,6 +5,7 @@ import { Button } from "@/ui/Button";
 import GeometricShapes from "./GeometricShapes";
 import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { supabase } from "@/integrations/supabase/client";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 
@@ -118,6 +119,17 @@ const EnhancedHero = () => {
 
   // Use enriched hero slides only
   const activeSlides = heroSlides;
+
+  // Extract video URLs and set up preloading
+  const videoUrls = activeSlides.map(slide => slide.video);
+  const { getVideoUrl, isPreloaded } = useVideoPreloader({
+    videoUrls,
+    currentIndex: currentSlide,
+    prefetchCount: 2 // Preload current + 2 ahead + 1 behind
+  });
+
+  // Helper to detect mobile device
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   // Handle smooth poster-to-video transition
   const handleVideoReady = () => {
@@ -270,7 +282,8 @@ const EnhancedHero = () => {
   const subheadline = slide.subheadline;
   const statNumber = slide.stat;
   const statLabel = slide.statLabel;
-  const videoUrl = slide.video;
+  const videoUrl = getVideoUrl(slide.video); // Use preloaded URL
+  const videoUrlMobile = slide.video.replace('.mp4', '-mobile.mp4'); // Mobile version
   const posterUrl = slide.poster;
   const PrimaryIcon = slide.primaryCTA.icon;
   const primaryCTA = slide.primaryCTA;
@@ -313,6 +326,9 @@ const EnhancedHero = () => {
           }}
           className="absolute inset-0 w-full h-full object-cover"
         >
+          {/* Mobile-optimized source for faster loading on mobile devices */}
+          {isMobile && <source src={videoUrlMobile} type="video/mp4" />}
+          {/* Desktop/fallback source */}
           <source src={videoUrl} type="video/mp4" />
         </video>
 
