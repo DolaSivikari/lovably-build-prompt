@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
 
 const Privacy = () => {
   return (
@@ -280,6 +281,7 @@ const Privacy = () => {
           </div>
         </div>
       </div>
+      <BackToTop />
       <Footer />
     </>
   );
