@@ -1,3 +1,11 @@
+# ============================================================================
+# PHASE 1: CRITICAL SEO FIX - URL Canonicalization
+# Force HTTPS and non-www redirect (prevents duplicate content)
+# ============================================================================
+https://www.ascentgroupconstruction.com/*  https://ascentgroupconstruction.com/:splat  301!
+http://www.ascentgroupconstruction.com/*   https://ascentgroupconstruction.com/:splat  301!
+http://ascentgroupconstruction.com/*       https://ascentgroupconstruction.com/:splat  301!
+
 # 301 redirects for old service URLs to new database slugs
 /services/stucco          /services/exterior-envelope#stucco-eifs         301
 /services/stucco-eifs     /services/exterior-envelope#stucco-eifs         301

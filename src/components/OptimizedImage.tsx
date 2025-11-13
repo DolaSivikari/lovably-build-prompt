@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useImageLoad } from "@/hooks/useImageLoad";
 import { cn } from "@/lib/utils";
 import { addCacheBuster } from "@/utils/cacheBuster";
+import { generateSrcSet, generateSizes, type ResponsiveSizes } from "@/utils/image-optimizer";
 
 interface OptimizedImageProps {
   src: string;
@@ -11,11 +12,13 @@ interface OptimizedImageProps {
   width?: number;
   height?: number;
   priority?: boolean;
-  sizes?: string;
+  sizes?: string | ResponsiveSizes;
   className?: string;
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   fetchPriority?: "high" | "low" | "auto";
   loading?: "eager" | "lazy";
+  aspectRatio?: string; // e.g., '16/9', '4/3'
+  generateSrcSet?: boolean; // Auto-generate srcset for responsive images
 }
 
 const OptimizedImage = ({
@@ -31,6 +34,8 @@ const OptimizedImage = ({
   objectFit = "cover",
   fetchPriority = "auto",
   loading,
+  aspectRatio,
+  generateSrcSet: shouldGenerateSrcSet = false,
 }: OptimizedImageProps) => {
   // Add cache-busting for public assets (not Vite-hashed build assets)
   const bustedSrc = useMemo(() => {
@@ -71,13 +76,41 @@ const OptimizedImage = ({
   // For priority images, load immediately
   const shouldLoad = priority || isInView;
 
+  // PHASE 2: Generate srcset for responsive images
+  const srcSetValue = useMemo(() => {
+    if (shouldGenerateSrcSet && bustedSrc && !bustedSrc.includes('?w=')) {
+      return generateSrcSet(bustedSrc);
+    }
+    return undefined;
+  }, [bustedSrc, shouldGenerateSrcSet]);
+
+  // PHASE 2: Generate sizes attribute
+  const sizesValue = useMemo(() => {
+    if (typeof sizes === 'object') {
+      return generateSizes(sizes);
+    }
+    return sizes;
+  }, [sizes]);
+
+  // PHASE 2: Calculate aspect ratio styles
+  const containerStyle = useMemo(() => {
+    const baseStyle: React.CSSProperties = {
+      width: width ? `${width}px` : "100%",
+      height: height ? `${height}px` : "100%",
+    };
+
+    if (aspectRatio && !height) {
+      baseStyle.aspectRatio = aspectRatio;
+      baseStyle.height = 'auto';
+    }
+
+    return baseStyle;
+  }, [width, height, aspectRatio]);
+
   return (
     <div
       className={cn("relative overflow-hidden bg-muted/20", className)}
-      style={{
-        width: width ? `${width}px` : "100%",
-        height: height ? `${height}px` : "100%",
-      }}
+      style={containerStyle}
     >
       {/* Placeholder skeleton */}
       {!isLoaded && (
@@ -91,14 +124,14 @@ const OptimizedImage = ({
             <source
               type="image/avif"
               srcSet={bustedSrcAvif}
-              sizes={sizes}
+              sizes={sizesValue}
             />
           )}
           {bustedSrcWebp && (
             <source
               type="image/webp"
               srcSet={bustedSrcWebp}
-              sizes={sizes}
+              sizes={sizesValue}
             />
           )}
           <img
@@ -107,6 +140,8 @@ const OptimizedImage = ({
             alt={alt}
             width={width}
             height={height}
+            srcSet={srcSetValue}
+            sizes={sizesValue}
             loading={loading || (priority ? "eager" : "lazy")}
             decoding={priority ? "sync" : "async"}
             fetchPriority={fetchPriority}
@@ -129,7 +164,8 @@ const OptimizedImage = ({
           alt={alt}
           width={width}
           height={height}
-          sizes={sizes}
+          srcSet={srcSetValue}
+          sizes={sizesValue}
           loading={loading || (priority ? "eager" : "lazy")}
           decoding={priority ? "sync" : "async"}
           fetchPriority={fetchPriority}
