@@ -12,6 +12,7 @@ interface Service {
   short_description: string | null;
   category: string | null;
   icon_name: string | null;
+  publish_state?: string;
 }
 
 interface CategoryGroup {
@@ -30,9 +31,9 @@ export const FeaturedServicesGrid = () => {
   const loadFeaturedServices = async () => {
     const { data } = await supabase
       .from('services')
-      .select('id, name, slug, short_description, category, icon_name')
-      .eq('publish_state', 'published')
-      .eq('featured', true)
+      .select('id, name, slug, short_description, category, icon_name, publish_state')
+      .in('publish_state', ['published', 'archived'])
+      .order('publish_state', { ascending: false }) // published first, then archived
       .order('category', { ascending: true })
       .order('name', { ascending: true });
 
@@ -83,10 +84,10 @@ export const FeaturedServicesGrid = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            All Featured Services
+            All Services
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive specialty construction solutions organized by expertise area
+            Complete range of specialty construction solutions, including our legacy services
           </p>
         </motion.div>
 
@@ -129,10 +130,17 @@ export const FeaturedServicesGrid = () => {
                             <Icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                           </div>
 
-                          {/* Service Name */}
-                          <h4 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                            {service.name}
-                          </h4>
+                          {/* Service Name with Legacy Badge */}
+                          <div className="flex items-start justify-between gap-2 mb-3">
+                            <h4 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                              {service.name}
+                            </h4>
+                            {service.publish_state === 'archived' && (
+                              <span className="px-2 py-1 text-xs font-medium rounded-full bg-muted text-muted-foreground shrink-0">
+                                Legacy
+                              </span>
+                            )}
+                          </div>
 
                           {/* Description */}
                           {service.short_description && (
