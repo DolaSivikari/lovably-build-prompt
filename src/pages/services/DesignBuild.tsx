@@ -69,6 +69,42 @@ const DesignBuild = () => {
         <section className="py-20 bg-background"><div className="container mx-auto px-4"><div className="text-center mb-12"><h2 className="text-foreground mb-4">Our Design-Build Process</h2><p className="text-lg text-muted-foreground max-w-3xl mx-auto">Streamlined approach integrating design and construction for faster delivery and better outcomes.</p></div><div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">{howWeWork.map((phase, index) => (<Card key={index}><CardHeader><div className="flex items-center gap-3 mb-3"><div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">{index + 1}</div><CardTitle className="text-xl">{phase.phase}</CardTitle></div></CardHeader><CardContent><ul className="space-y-2">{phase.activities.map((activity, actIndex) => (<li key={actIndex} className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span className="text-sm text-muted-foreground">{activity}</span></li>))}</ul></CardContent></Card>))}</div></div></section>
         <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5"><div className="container mx-auto px-4"><div className="max-w-4xl mx-auto text-center"><h2 className="text-foreground mb-6">Design-Build + Self-Perform</h2><p className="text-lg text-muted-foreground mb-8 leading-relaxed">Our self-perform capabilities enhance design-build delivery with faster design decisions, accurate early pricing, seamless coordination, and quality integration.</p></div></div></section>
         <section className="py-20 bg-background"><div className="container mx-auto px-4"><div className="text-center mb-12"><h2 className="text-foreground mb-4">Design-Build Portfolio</h2><p className="text-lg text-muted-foreground max-w-3xl mx-auto">Recent design-build projects showcasing our integrated delivery capabilities.</p></div><div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">{caseStudies.map((project, index) => (<Card key={index} className="hover:shadow-lg transition-all hover:-translate-y-1"><CardHeader><CardTitle className="text-lg">{project.title}</CardTitle><div className="flex flex-wrap gap-2 mt-2"><span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">{project.location}</span><span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">{project.size}</span></div></CardHeader><CardContent><p className="text-sm text-muted-foreground mb-3">{project.description}</p><div className="flex items-center gap-2 text-xs text-muted-foreground"><Clock className="w-3 h-3" /><span>Delivered in {project.duration}</span></div></CardContent></Card>))}</div><div className="text-center mt-8"><Button asChild variant="outline" size="lg"><Link to="/projects">View All Design-Build Projects</Link></Button></div></div></section>
+        {/* City-Specific SEO Section */}
+        <ServiceCitySection
+          serviceName="Design-Build Services"
+          serviceSlug="design-build"
+          recentProjects={[
+            {
+              title: "Corporate Office Headquarters",
+              location: "Mississauga Business District",
+              description: "Design-build delivery of 85,000 sq ft corporate headquarters from concept to occupancy in 16 months, achieving LEED Silver certification and 8% under guaranteed maximum price."
+            },
+            {
+              title: "Mixed-Use Residential Development",
+              location: "Toronto King West",
+              description: "Fast-track design-build for 7-story mixed-use building with retail base and residential units above, delivering project 4 months ahead of traditional design-bid-build schedule."
+            },
+            {
+              title: "Industrial Manufacturing Facility",
+              location: "Vaughan Industrial Park",
+              description: "Design-build ground-up construction of 150,000 sq ft manufacturing facility with specialized process equipment integration, completed in 18 months with single-source accountability."
+            }
+          ]}
+          faqs={[
+            {
+              question: "How much does design-build cost in Toronto?",
+              answer: "Design-build costs in Toronto typically match or come in 5-15% below traditional design-bid-build due to value engineering, reduced change orders, and schedule efficiencies. We provide guaranteed maximum price (GMP) during design development, typically at 60-80% design completion, giving you cost certainty before full design investment."
+            },
+            {
+              question: "What's the advantage of design-build vs traditional bidding?",
+              answer: "Design-build delivers projects 30-40% faster through overlapping design and construction phases. It reduces change orders by 50-75% through early contractor input. Single-source accountability eliminates design-construction conflicts. GMP pricing provides cost certainty earlier than traditional bidding."
+            },
+            {
+              question: "When should I use design-build in the GTA?",
+              answer: "Design-build works best for: fast-track schedules, complex technical projects benefiting from contractor input, projects requiring cost certainty early, and situations where single-source accountability reduces owner risk. It's ideal for commercial, industrial, and multi-family projects in Ontario's competitive construction market."
+            }
+          ]}
+        />
         <section className="py-16 bg-primary text-primary-foreground"><div className="container mx-auto px-4 text-center"><h2 className="text-3xl font-bold mb-4">Ready for Integrated Design-Build Delivery?</h2><p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">Request a design-build proposal and discover the advantages of single-source project delivery.</p><div className="flex flex-wrap gap-4 justify-center"><Button asChild size="lg" variant="secondary"><Link to="/contact">Request Proposal<ArrowRight className="ml-2 w-4 h-4" /></Link></Button><Button asChild size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"><Link to="/about">Talk to Our Team</Link></Button></div></div></section>
       </main>
       <Footer />

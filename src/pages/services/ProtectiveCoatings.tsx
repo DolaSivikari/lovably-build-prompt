@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/heroes/hero-protective-coatings.jpg";
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const ProtectiveCoatings = () => {
   const whatWeDeliver = [
@@ -230,6 +231,43 @@ const ProtectiveCoatings = () => {
             </div>
           </div>
         </section>
+
+        {/* City-Specific SEO Section */}
+        <ServiceCitySection
+          serviceName="Protective Coatings & Painting"
+          serviceSlug="protective-coatings"
+          recentProjects={[
+            {
+              title: "Industrial Facility Coating Program",
+              location: "Vaughan Manufacturing Plant",
+              description: "Comprehensive protective coating system for 150,000 sq ft manufacturing facility including epoxy floor coatings, corrosion-resistant wall systems, and high-performance equipment coatings in chemical processing areas."
+            },
+            {
+              title: "Parking Garage Traffic Coatings",
+              location: "Downtown Toronto Parkade",
+              description: "Multi-level parking structure coating program with polyurethane traffic membrane systems, expansion joint sealing, and line striping for 800-space underground facility maintaining resident access throughout."
+            },
+            {
+              title: "Commercial Building Restoration Coatings",
+              location: "Mississauga Office Tower",
+              description: "High-rise building coating project including concrete sealer, elastomeric wall coatings, and specialty coatings for metal railings and architectural features protecting 18-story building envelope."
+            }
+          ]}
+          faqs={[
+            {
+              question: "How much do protective coatings cost in Toronto?",
+              answer: "Protective coating costs in Toronto vary by system: epoxy floor coatings $8-$18/sq ft, polyurethane traffic coatings $12-$25/sq ft, elastomeric wall coatings $6-$15/sq ft, intumescent fireproofing $15-$35/sq ft, industrial equipment coatings $25-$60/sq ft. Costs include surface preparation, priming, and specified coating systems."
+            },
+            {
+              question: "How long do protective coatings last in Ontario?",
+              answer: "Protective coating longevity in Ontario depends on system and exposure: epoxy floors 10-20 years, polyurethane traffic coatings 10-15 years, elastomeric wall coatings 8-15 years, industrial coatings 15-25 years. Proper surface preparation and application in controlled conditions are critical for achieving maximum service life in Ontario's climate."
+            },
+            {
+              question: "Can you apply protective coatings in occupied buildings?",
+              answer: "Yes, we specialize in occupied building coating projects throughout the GTA. We use low-odor and low-VOC coating systems where appropriate, coordinate work during off-hours, implement ventilation plans, and provide phased application schedules minimizing disruption to building operations while maintaining safety and quality standards."
+          }
+        ]}
+        />
 
         {/* CTA Band */}
         <section className="py-16 bg-primary text-primary-foreground">

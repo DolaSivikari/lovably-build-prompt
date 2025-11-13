@@ -10,6 +10,7 @@ import { buildingEnvelopeVariants } from '@/data/merged-services-data';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 import heroImage from '@/assets/hero-building-envelope.jpg';
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const ExteriorEnvelope = () => {
   const serviceSchema = createServiceSchema({

@@ -9,6 +9,7 @@ import { Ruler, Layers, PaintBucket, Building2, CheckCircle2, ArrowRight } from 
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 import heroImage from '@/assets/heroes/hero-tenant-improvements.jpg';
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const InteriorBuildouts = () => {
   const serviceSchema = createServiceSchema({
@@ -190,6 +191,43 @@ const InteriorBuildouts = () => {
           </div>
         </div>
       </section>
+
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="Interior Buildouts & Tenant Improvements"
+        serviceSlug="interior-buildouts"
+        recentProjects={[
+          {
+            title: "Corporate Office Fit-Out",
+            location: "Downtown Toronto Financial District",
+            description: "Complete interior buildout for 45,000 sq ft corporate headquarters including open office, meeting rooms, café, and data center with custom millwork and high-end finishes."
+          },
+          {
+            title: "Medical Clinic Build-Out",
+            location: "Mississauga Medical Centre",
+            description: "Specialized medical suite construction for 12,000 sq ft multi-specialty clinic with exam rooms, procedure rooms, imaging suite, and HVAC upgrades meeting healthcare regulations."
+          },
+          {
+            title: "Retail Store Interior Renovation",
+            location: "Yorkdale Shopping Centre",
+            description: "Fast-track retail buildout for flagship store including custom fixtures, specialized lighting, demising walls, and coordinated night work maintaining adjacent tenant operations."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much do tenant improvements cost in Toronto?",
+            answer: "Tenant improvement costs in Toronto typically range: basic office space $60-$90/sq ft, upgraded office finishes $90-$150/sq ft, retail buildouts $80-$180/sq ft, restaurant/food service $150-$300/sq ft, medical/dental clinics $120-$220/sq ft. Costs vary significantly based on finishes, mechanical systems, and specialty requirements."
+          },
+          {
+            question: "How long does a commercial interior buildout take in the GTA?",
+            answer: "Commercial interior buildouts in the GTA typically take: small offices (<5,000 sq ft) 6-10 weeks, medium offices (5,000-20,000 sq ft) 10-16 weeks, large offices (20,000+ sq ft) 16-24 weeks. Timeline includes permit approvals, construction, inspections, and punch list. Fast-track schedules available for urgent occupancy needs."
+          },
+          {
+            question: "Can you work nights and weekends for occupied buildings?",
+            answer: "Yes, we regularly perform after-hours and weekend work in occupied Toronto buildings. Our teams are experienced in coordinating with building management, security protocols, elevator reservations, and noise restrictions. We provide detailed logistics plans ensuring minimal disruption to existing tenants while meeting project schedules."
+          }
+        ]}
+      />
 
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">

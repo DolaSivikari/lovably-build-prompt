@@ -213,6 +213,43 @@ const EIFSStucco = () => {
         </div>
       </section>
 
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="EIFS & Stucco Services"
+        serviceSlug="eifs-stucco"
+        recentProjects={[
+          {
+            title: "High-Rise EIFS Installation",
+            location: "North York Condo Development",
+            description: "Complete EIFS system installation for 22-story residential tower with continuous insulation achieving R-20 thermal performance for new construction project."
+          },
+          {
+            title: "Heritage Stucco Restoration",
+            location: "Downtown Toronto Historic Building",
+            description: "Traditional three-coat stucco restoration for landmark building with color-matched finish and heritage committee approval maintaining architectural character."
+          },
+          {
+            title: "EIFS Repair & Replacement",
+            location: "Mississauga Commercial Office",
+            description: "Failed EIFS system removal and replacement with moisture remediation for 60,000 sq ft office building including substrate repair and upgraded drainage plane."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much does EIFS installation cost in Toronto?",
+            answer: "EIFS installation in Toronto typically ranges from $45-$85 per square foot depending on building height, substrate condition, and finish selections. Traditional stucco ranges $35-$65/sq ft. Costs include complete system from drainage plane through finish coat. We provide detailed estimates after site assessment."
+          },
+          {
+            question: "Is EIFS suitable for Ontario's climate?",
+            answer: "Yes, when properly installed, EIFS performs excellently in Ontario's climate. Modern EIFS systems include drainage planes, proper flashing, and moisture management details that prevent the issues seen in older installations. We follow manufacturer specifications and Ontario Building Code requirements for long-term durability."
+          },
+          {
+            question: "How long does EIFS last in the GTA?",
+            answer: "Properly installed and maintained EIFS systems in the GTA typically last 25-35 years or more. Service life depends on quality of installation, maintenance frequency, and exposure conditions. We recommend visual inspections every 5 years and minor repairs as needed to maximize system longevity."
+          }
+        ]}
+      />
+
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
