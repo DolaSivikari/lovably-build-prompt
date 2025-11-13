@@ -160,6 +160,11 @@ const HomepageCompanyOverview = lazy(() => import("./pages/admin/HomepageCompany
 const HomepageContent = lazy(() => import("./pages/admin/HomepageContent").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Content</p></div>
 })));
+
+import "./index.css";
+import "./styles/typography.css";
+import "./styles/textures.css";
+
 const NavigationBuilder = lazy(() => import("./pages/admin/NavigationBuilder").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Builder</p></div>
 })));

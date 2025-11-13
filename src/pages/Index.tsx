@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
 import CompanyIntroduction from "@/components/homepage/CompanyIntroduction";
-import MarketIntelligenceHub from "@/components/homepage/MarketIntelligenceHub";
+import ProvenTrackRecord from "@/components/homepage/ProvenTrackRecord";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import SEO from "@/components/SEO";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
@@ -158,7 +158,7 @@ const Index = () => {
         <CompanyIntroduction />
         
         {/* Market Intelligence Hub - Industry Pulse + Challenge/Response */}
-        <MarketIntelligenceHub />
+        <ProvenTrackRecord />
         
         {/* Unified Client Value Proposition */}
         <ClientValueProposition />
