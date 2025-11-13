@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { trackCTAClick } from "@/lib/analytics";
 
@@ -23,39 +24,53 @@ interface Particle {
   speed?: number;
 }
 
-interface Connection {
-  from: string;
-  to: string;
-}
-
-const nodes: Node[] = [
-  { id: "structural", name: "Structural Services", x: 20, y: 40, slug: "structural-steel" },
-  { id: "envelope", name: "Building Envelope", x: 50, y: 20, slug: "building-envelope" },
-  { id: "interior", name: "Interior Systems", x: 80, y: 40, slug: "interior-finishes" },
-  { id: "mechanical", name: "Mechanical", x: 35, y: 70, slug: "mechanical-systems" },
-  { id: "specialty", name: "Specialty Work", x: 65, y: 70, slug: "specialty-contracting" },
-];
-
-const connections: Connection[] = [
-  { from: "structural", to: "envelope" },
-  { from: "envelope", to: "interior" },
-  { from: "structural", to: "mechanical" },
-  { from: "interior", to: "specialty" },
-  { from: "mechanical", to: "specialty" },
+const defaultPositions = [
+  { x: 20, y: 40 },
+  { x: 50, y: 20 },
+  { x: 80, y: 40 },
+  { x: 35, y: 70 },
+  { x: 65, y: 70 },
 ];
 
 export const ParticleNetwork = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [hoveredNode, setHoveredNode] = useState<number | null>(null);
+  const [nodes, setNodes] = useState<Node[]>([]);
+  const [loading, setLoading] = useState(true);
   const particlesRef = useRef<Particle[]>([]);
   const burstParticlesRef = useRef<Particle[]>([]);
   const navigate = useNavigate();
   const isMobile = useIsMobile();
-  const particleCount = isMobile ? 4 : 6; // Reduce particles on mobile
+  const particleCount = isMobile ? 4 : 6;
 
-  // Initialize particles with orbital properties
   useEffect(() => {
-    // Create orbiting particles for each node
+    loadServices();
+  }, []);
+
+  const loadServices = async () => {
+    const { data } = await supabase
+      .from('services')
+      .select('id, name, slug')
+      .eq('publish_state', 'published')
+      .eq('featured', true)
+      .limit(5);
+
+    if (data && data.length > 0) {
+      const loadedNodes: Node[] = data.map((service, index) => ({
+        x: defaultPositions[index]?.x || 50,
+        y: defaultPositions[index]?.y || 50,
+        id: service.slug,
+        name: service.name,
+        slug: service.slug,
+      }));
+      setNodes(loadedNodes);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (nodes.length === 0) return;
+    
     const orbitingParticles: Particle[] = [];
     nodes.forEach((node, nodeIndex) => {
       for (let i = 0; i < particleCount; i++) {
@@ -65,26 +80,26 @@ export const ParticleNetwork = () => {
           vx: 0,
           vy: 0,
           targetNode: nodeIndex,
-          orbitAngle: (Math.PI * 2 * i) / 6,
+          orbitAngle: (Math.PI * 2 * i) / particleCount,
           orbitRadius: 30,
           speed: 0.02 + Math.random() * 0.01,
         });
       }
     });
     particlesRef.current = orbitingParticles;
-  }, []);
+  }, [nodes, particleCount]);
 
-  // Handle particle burst on hover
   useEffect(() => {
-    if (hoveredNode !== null) {
+    if (hoveredNode !== null && nodes.length > 0) {
       const node = nodes[hoveredNode];
       const canvas = canvasRef.current;
       if (!canvas) return;
 
       const burst: Particle[] = [];
+      const burstCount = isMobile ? 15 : 30;
       
-      for (let i = 0; i < 30; i++) {
-        const angle = (Math.PI * 2 * i) / 30;
+      for (let i = 0; i < burstCount; i++) {
+        const angle = (Math.PI * 2 * i) / burstCount;
         const speed = 2 + Math.random() * 3;
         burst.push({
           x: (node.x * canvas.width) / 100,
@@ -95,14 +110,15 @@ export const ParticleNetwork = () => {
       }
       burstParticlesRef.current = burst;
 
-      // Clear burst after animation
       setTimeout(() => {
         burstParticlesRef.current = [];
       }, 1000);
     }
-  }, [hoveredNode]);
+  }, [hoveredNode, nodes, isMobile]);
 
   useEffect(() => {
+    if (nodes.length === 0) return;
+    
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -120,79 +136,59 @@ export const ParticleNetwork = () => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw connections
-      connections.forEach((conn) => {
-        const fromNode = nodes.find((n) => n.id === conn.from)!;
-        const toNode = nodes.find((n) => n.id === conn.to)!;
-
-        const fromIndex = nodes.indexOf(fromNode);
-        const toIndex = nodes.indexOf(toNode);
-        const isHighlighted = hoveredNode === fromIndex || hoveredNode === toIndex;
-
-        ctx.beginPath();
-        ctx.moveTo((fromNode.x * canvas.width) / 100, (fromNode.y * canvas.height) / 100);
-        ctx.lineTo((toNode.x * canvas.width) / 100, (toNode.y * canvas.height) / 100);
-        ctx.strokeStyle = isHighlighted ? "rgba(147, 197, 253, 0.6)" : "rgba(147, 197, 253, 0.2)";
-        ctx.lineWidth = isHighlighted ? 3 : 1;
-        ctx.stroke();
-      });
-
-      // Update orbiting particles
-      particlesRef.current.forEach((particle) => {
-        if (particle.targetNode !== undefined && particle.orbitAngle !== undefined) {
-          const node = nodes[particle.targetNode];
+      ctx.strokeStyle = "rgba(147, 51, 234, 0.2)";
+      ctx.lineWidth = 2;
+      
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const from = nodes[i];
+          const to = nodes[j];
           
-          // Update orbit angle
-          particle.orbitAngle += particle.speed || 0.02;
-          
-          // Calculate position with physics
-          const radius = particle.orbitRadius || 30;
-          const targetX = (node.x * canvas.width) / 100 + Math.cos(particle.orbitAngle) * radius;
-          const targetY = (node.y * canvas.height) / 100 + Math.sin(particle.orbitAngle) * radius;
-          
-          // Smooth movement towards target (spring physics)
-          particle.x += (targetX - particle.x) * 0.1;
-          particle.y += (targetY - particle.y) * 0.1;
-        }
+          if (hoveredNode !== null && (hoveredNode === i || hoveredNode === j)) {
+            ctx.strokeStyle = "rgba(147, 51, 234, 0.6)";
+            ctx.lineWidth = 3;
+          } else {
+            ctx.strokeStyle = "rgba(147, 51, 234, 0.2)";
+            ctx.lineWidth = 2;
+          }
 
-        // Draw particle with glow
-        const gradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, 4
-        );
-        gradient.addColorStop(0, "rgba(147, 197, 253, 0.8)");
-        gradient.addColorStop(1, "rgba(147, 197, 253, 0)");
-        
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, 3, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // Update and draw burst particles
-      burstParticlesRef.current = burstParticlesRef.current.filter(particle => {
-        // Apply gravity and friction
-        particle.vy += 0.1;
-        particle.vx *= 0.98;
-        particle.vy *= 0.98;
-        
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        // Remove if out of bounds
-        const outOfBounds = 
-          particle.x < -50 || particle.x > canvas.width + 50 ||
-          particle.y < -50 || particle.y > canvas.height + 50;
-
-        if (!outOfBounds) {
-          // Draw with trail effect
-          ctx.fillStyle = "rgba(255, 165, 0, 0.6)";
           ctx.beginPath();
-          ctx.arc(particle.x, particle.y, 2, 0, Math.PI * 2);
+          ctx.moveTo((from.x * canvas.width) / 100, (from.y * canvas.height) / 100);
+          ctx.lineTo((to.x * canvas.width) / 100, (to.y * canvas.height) / 100);
+          ctx.stroke();
+        }
+      }
+
+      particlesRef.current.forEach((particle) => {
+        if (particle.targetNode !== undefined && nodes[particle.targetNode]) {
+          const targetNode = nodes[particle.targetNode];
+          const targetX = (targetNode.x * canvas.width) / 100;
+          const targetY = (targetNode.y * canvas.height) / 100;
+
+          if (particle.orbitAngle !== undefined && particle.orbitRadius !== undefined) {
+            particle.orbitAngle += particle.speed || 0.02;
+            particle.x = targetX + Math.cos(particle.orbitAngle) * particle.orbitRadius;
+            particle.y = targetY + Math.sin(particle.orbitAngle) * particle.orbitRadius;
+          }
+
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(147, 51, 234, 0.6)";
           ctx.fill();
         }
+      });
 
-        return !outOfBounds;
+      burstParticlesRef.current.forEach((particle) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vx *= 0.98;
+        particle.vy *= 0.98;
+        particle.vy += 0.1;
+
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(234, 179, 8, 0.8)";
+        ctx.fill();
       });
 
       requestAnimationFrame(animate);
@@ -203,23 +199,30 @@ export const ParticleNetwork = () => {
     return () => {
       window.removeEventListener("resize", resizeCanvas);
     };
-  }, [hoveredNode]);
+  }, [nodes, hoveredNode]);
 
   const handleNodeClick = (slug: string, name: string) => {
-    trackCTAClick(name, "particle_network_node");
+    trackCTAClick(name, "particle_network");
     navigate(`/services/${slug}`);
   };
 
+  if (loading || nodes.length === 0) {
+    return (
+      <div className="relative w-full h-[600px] bg-muted/20 rounded-xl animate-pulse flex items-center justify-center">
+        <p className="text-muted-foreground">Loading interactive network...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="relative w-full h-[600px] bg-background rounded-xl overflow-hidden border border-border">
+    <div className="relative w-full h-[600px] bg-gradient-to-br from-background via-primary/5 to-background rounded-xl overflow-hidden shadow-xl">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
+        aria-label="Interactive service network visualization"
         role="img"
-        aria-label="Interactive particle network visualization connecting our services"
       />
 
-      {/* Interactive nodes */}
       {nodes.map((node, index) => (
         <motion.div
           key={node.id}
@@ -232,50 +235,42 @@ export const ParticleNetwork = () => {
           onMouseEnter={() => setHoveredNode(index)}
           onMouseLeave={() => setHoveredNode(null)}
           onClick={() => handleNodeClick(node.slug, node.name)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              handleNodeClick(node.slug, node.name);
-            }
-          }}
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          role="button"
-          tabIndex={0}
-          aria-label={`${node.name} - Click to learn more`}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: index * 0.1, duration: 0.4 }}
         >
-          {/* Node circle */}
           <div
-            className={`w-16 h-16 rounded-full flex items-center justify-center transition-all ${
-              hoveredNode === index
-                ? "bg-primary shadow-lg shadow-primary/50 scale-110"
-                : "bg-primary/80"
+            className={`w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg transition-all duration-300 ${
+              hoveredNode === index ? "shadow-2xl shadow-primary/50 ring-4 ring-primary/30" : ""
             }`}
           >
-            <div className="w-3 h-3 rounded-full bg-white" />
+            <span className="text-2xl">🏗️</span>
           </div>
 
-          {/* Tooltip */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{
-              opacity: hoveredNode === index ? 1 : 0,
-              y: hoveredNode === index ? 0 : 10,
-            }}
-            className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-card/95 backdrop-blur-sm px-4 py-2 rounded-lg border border-border shadow-lg pointer-events-none"
+          <div
+            className={`absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-card border border-border rounded-lg px-4 py-2 shadow-xl whitespace-nowrap transition-all duration-200 ${
+              hoveredNode === index ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+            }`}
           >
             <p className="text-sm font-semibold text-foreground">{node.name}</p>
-          </motion.div>
+            <p className="text-xs text-muted-foreground">Click to explore</p>
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-border" />
+          </div>
         </motion.div>
       ))}
 
-      {/* Instructions */}
-      <div className="absolute bottom-4 left-4 bg-card/80 backdrop-blur-sm p-4 rounded-lg border border-border">
-        <p className="text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">Hover</span> on nodes to see connections •{" "}
-          <span className="font-semibold text-foreground">Click</span> to explore service
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center"
+      >
+        <p className="text-sm text-muted-foreground bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full">
+          🖱️ Hover over nodes • Click to explore services
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 };
