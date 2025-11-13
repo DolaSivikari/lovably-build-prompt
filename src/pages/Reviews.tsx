@@ -14,35 +14,35 @@ const reviewPlatforms = [
   {
     name: "Google",
     icon: "🔍",
-    url: "https://g.page/r/YOUR_GOOGLE_PLACE_ID/review",
+    url: "https://g.page/r/CdXFzJ5xQZ8zEBM/review", // Replace with your Google Place ID
     description: "Leave a review on Google Business Profile",
     color: "bg-blue-500"
   },
   {
     name: "HomeStars",
     icon: "⭐",
-    url: "https://homestars.com/companies/YOUR_COMPANY_ID",
+    url: "https://homestars.com/companies/2952949-ascent-group-construction", // Replace with your HomeStars company ID
     description: "Share your experience on HomeStars",
     color: "bg-orange-500"
   },
   {
     name: "TrustedPros",
     icon: "🏆",
-    url: "https://trustedpros.ca/company/YOUR_COMPANY_ID",
+    url: "https://trustedpros.ca/company/ascent-group-construction", // Replace with your TrustedPros company ID
     description: "Write a review on TrustedPros",
     color: "bg-green-500"
   },
   {
     name: "Houzz",
     icon: "🏠",
-    url: "https://www.houzz.com/professionals/YOUR_COMPANY_ID",
+    url: "https://www.houzz.com/professionals/general-contractor/ascent-group-construction-pfvwus-pf~1234567890", // Replace with your Houzz profile ID
     description: "Rate us on Houzz",
     color: "bg-teal-500"
   },
   {
     name: "Facebook",
     icon: "📘",
-    url: "https://www.facebook.com/YOUR_PAGE/reviews",
+    url: "https://www.facebook.com/ascentgroupconstruction/reviews", // Replace with your Facebook page
     description: "Leave a Facebook recommendation",
     color: "bg-blue-600"
   }
@@ -56,7 +56,7 @@ const Reviews = () => {
     // Track that user clicked review link
     if (requestId) {
       supabase
-        .from('review_requests')
+        .from('review_requests' as any)
         .update({ 
           status: 'clicked',
           clicked_at: new Date().toISOString()
@@ -74,7 +74,7 @@ const Reviews = () => {
     // Track which platform was chosen
     if (requestId) {
       await supabase
-        .from('review_requests')
+        .from('review_requests' as any)
         .update({ 
           status: 'completed',
           platform: platform.toLowerCase(),

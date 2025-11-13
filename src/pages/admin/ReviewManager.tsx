@@ -47,7 +47,7 @@ const ReviewManager = () => {
   const loadReviewRequests = async () => {
     setLoading(true);
     const { data, error } = await supabase
-      .from('review_requests')
+      .from('review_requests' as any)
       .select('*')
       .order('created_at', { ascending: false })
       .limit(50);
@@ -59,7 +59,7 @@ const ReviewManager = () => {
         variant: "destructive"
       });
     } else {
-      setRequests(data || []);
+      setRequests(data as any || []);
     }
     setLoading(false);
   };
