@@ -199,6 +199,9 @@ const QuoteRequests = lazy(() => import("./pages/admin/QuoteRequests").catch(() 
 const ReviewManager = lazy(() => import("./pages/admin/ReviewManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Review Manager</p></div>
 })));
+const ABTestManager = lazy(() => import("./pages/admin/ABTestManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load A/B Test Manager</p></div>
+})));
 
 // WordPress-style Admin Pages
 const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
@@ -248,12 +251,6 @@ const BlogPost = lazy(() => import("./pages/BlogPost").catch(() => ({
 })));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Project Detail</p></div>
-})));
-const SEODashboard = lazy(() => import("./pages/SEODashboard").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
-})));
-const AnimationShowcase = lazy(() => import("./pages/AnimationShowcase").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Animation Showcase</p></div>
 })));
 
 const queryClient = new QueryClient();
@@ -309,7 +306,6 @@ const App = () => (
                   <Route path="/how-we-work" element={<HowWeWork />} />
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/reviews" element={<Reviews />} />
-                  <Route path="/animation-showcase" element={<AnimationShowcase />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/general-contracting" element={<GeneralContracting />} />
             <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
@@ -377,7 +373,6 @@ const App = () => (
                   <Route path="/case-study/:slug" element={<BlogPost />} />
                   {/* Dedicated projects detail page */}
                   <Route path="/projects/:slug" element={<ProjectDetail />} />
-                  <Route path="/seo-dashboard" element={<SEODashboard />} />
                   
                   {/* Admin pages - unified layout */}
                   <Route path="/admin" element={<UnifiedAdminLayout />}>
@@ -414,6 +409,7 @@ const App = () => (
                     <Route path="error-logs" element={<ErrorLogs />} />
                     <Route path="quote-requests" element={<QuoteRequests />} />
                     <Route path="reviews" element={<ReviewManager />} />
+                    <Route path="ab-tests" element={<ABTestManager />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
                     <Route path="newsletter-subscribers" element={<Suspense fallback={<PageLoader />}><NewsletterSubscribers /></Suspense>} />
