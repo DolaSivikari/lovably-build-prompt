@@ -106,13 +106,7 @@ const SealantReplacement = () => {
         <PageHero.Subtitle>
           Comprehensive joint sealing eliminating water infiltration at windows, control joints, and building interfaces.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "10,000+", label: "Windows Sealed" },
-          { value: "0", label: "Leak Callbacks" },
-          { value: "15", label: "Years Experience" },
-          { value: "$20M+", label: "Projects Completed" }
-        ]} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Quote" 
           primaryHref="/contact"
           secondaryText="View Projects"
