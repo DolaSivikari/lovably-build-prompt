@@ -365,13 +365,13 @@ const Building3DScene = ({ buildingSections, onSectionSelect, qualityLevel }: Bu
             <SSAO
               samples={30}
               rings={4}
-              radius={0.1}
-              bias={0.01}
-              luminanceInfluence={0.5}
               distanceThreshold={0.6}
               distanceFalloff={0.2}
               rangeThreshold={0.5}
               rangeFalloff={0.1}
+              luminanceInfluence={0.7}
+              radius={12}
+              bias={0.025}
             />
           </EffectComposer>
         </Suspense>
