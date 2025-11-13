@@ -30,45 +30,47 @@ export const useABTest = (testName: string, defaultVariant: string = 'control'):
           localStorage.setItem('ab_test_user_id', userId);
         }
 
-        // Check if user already has an assignment for this test
-        const { data: existingAssignment } = await supabase
-          .from('ab_test_assignments')
-          .select('variant')
-          .eq('test_name', testName)
-          .eq('user_identifier', userId)
-          .single();
+      // Check if user already has an assignment for this test
+      const { data: existingAssignment } = await supabase
+        .from('ab_test_assignments' as any)
+        .select('variant')
+        .eq('test_name', testName)
+        .eq('user_identifier', userId)
+        .single();
 
-        if (existingAssignment) {
-          setVariant(existingAssignment.variant);
-          return;
-        }
+      if (existingAssignment && 'variant' in existingAssignment) {
+        setVariant(existingAssignment.variant as string);
+        return;
+      }
 
-        // Fetch test configuration
-        const { data: testConfig } = await supabase
-          .from('ab_tests')
-          .select('variants')
-          .eq('test_name', testName)
-          .eq('is_active', true)
-          .single();
+      // Fetch test configuration
+      const { data: testConfig } = await supabase
+        .from('ab_tests' as any)
+        .select('variants')
+        .eq('test_name', testName)
+        .eq('is_active', true)
+        .single();
 
-        if (!testConfig || !testConfig.variants) {
-          console.warn(`A/B test "${testName}" not found or inactive`);
-          setVariant(defaultVariant);
-          return;
-        }
+      if (!testConfig || !('variants' in testConfig) || !testConfig.variants) {
+        console.warn(`A/B test "${testName}" not found or inactive`);
+        setVariant(defaultVariant);
+        return;
+      }
 
-        const variants = testConfig.variants as unknown as ABTestVariant[];
-        
-        // Randomly assign variant (equal distribution)
-        const randomVariant = variants[Math.floor(Math.random() * variants.length)];
-        const assignedVariantValue = randomVariant.value;
+      const variants = Array.isArray(testConfig.variants) 
+        ? testConfig.variants as unknown as ABTestVariant[]
+        : [];
+      
+      // Randomly assign variant (equal distribution)
+      const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+      const assignedVariantValue = randomVariant.value;
 
-        // Save assignment
-        await supabase.from('ab_test_assignments').insert({
-          test_name: testName,
-          variant: randomVariant.name,
-          user_identifier: userId,
-        });
+      // Save assignment
+      await supabase.from('ab_test_assignments' as any).insert({
+        test_name: testName,
+        variant: randomVariant.name,
+        user_identifier: userId,
+      });
 
         setVariant(assignedVariantValue);
       } catch (error) {
@@ -97,11 +99,11 @@ export const trackABTestConversion = async (
     if (!userId) return;
 
     await supabase
-      .from('ab_test_assignments')
+      .from('ab_test_assignments' as any)
       .update({
         converted_at: new Date().toISOString(),
         conversion_value: conversionValue,
-      })
+      } as any)
       .eq('test_name', testName)
       .eq('user_identifier', userId)
       .is('converted_at', null); // Only update if not already converted
