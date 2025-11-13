@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import ascentLogo from "@/assets/ascent-logo.png";
-import { ChevronDown, Shield, Phone, ArrowRight } from "lucide-react";
+import { ChevronDown, Shield, Phone, ArrowRight, FileText } from "lucide-react";
+import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
@@ -29,6 +30,7 @@ const Navigation = () => {
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
   const location = useLocation();
+  const { settings } = useCompanySettings();
   
   // Check admin role
   const { isAdmin } = useAdminRoleCheck();
@@ -312,13 +314,29 @@ const Navigation = () => {
           </nav>
 
           {/* Right: Utility Items */}
-          <div className="flex items-center gap-4">
-            <Button asChild variant="primary" size="sm">
-              <Link to="/submit-rfp">
-                Submit RFP
-                <ArrowRight className="ml-2 w-4 h-4" />
+          <div className="flex items-center gap-3">
+            {/* Phone Number - Clickable on Mobile */}
+            {settings?.phone && (
+              <a
+                href={`tel:${settings.phone}`}
+                className={cn(
+                  "hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap",
+                  isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"
+                )}
+              >
+                <Phone className="w-4 h-4" />
+                {settings.phone}
+              </a>
+            )}
+            
+            {/* Primary CTA - Get Free Quote */}
+            <Button asChild variant="primary" size="sm" className="shadow-lg">
+              <Link to="/submit-rfp" className="gap-2">
+                <FileText className="w-4 h-4" />
+                Get Free Quote
               </Link>
             </Button>
+            
             <Link 
               to="/resources/contractor-portal" 
               className={cn(

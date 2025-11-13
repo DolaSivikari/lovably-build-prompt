@@ -369,7 +369,8 @@ const EnhancedHero = () => {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster={posterUrl}
           onLoadedData={handleVideoReady}
           onError={(e) => {
             console.error('Hero video failed to load', { src: videoUrl, error: e });
