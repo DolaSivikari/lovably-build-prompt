@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
@@ -21,10 +20,11 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
-import { PremiumServiceHero } from "@/components/services/PremiumServiceHero";
+import { PageHero } from "@/components/sections/PageHero";
 import { ClientLogosCarousel } from "@/components/shared/ClientLogosCarousel";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
+import heroImage from "@/assets/hero-building-envelope.jpg";
 
 // Icon map for dynamic service icons
 const iconMap: Record<string, any> = {
@@ -183,17 +183,28 @@ const Services = () => {
       />
       <Navigation />
 
-      {/* Breadcrumb */}
-      <div className="pt-24 pb-0 bg-background">
-        <div className="container mx-auto px-4">
-          <Breadcrumb items={[
-            { label: "Home", href: "/" },
-            { label: "Services" }
-          ]} />
-        </div>
-      </div>
-
-      <PremiumServiceHero />
+      <PageHero.Root backgroundImage={heroImage}>
+        <PageHero.Breadcrumb items={[
+          { label: "Home", href: "/" },
+          { label: "Services" }
+        ]} />
+        <PageHero.Title>Complete Construction Solutions</PageHero.Title>
+        <PageHero.Subtitle>
+          From concept to completion, we deliver excellence across Ontario's commercial, institutional, and multi-family markets
+        </PageHero.Subtitle>
+        <PageHero.Stats stats={[
+          { value: "500+", label: "Projects Completed" },
+          { value: "98%", label: "Client Satisfaction" },
+          { value: "25+", label: "Years Experience" },
+          { value: "8", label: "Service Categories" }
+        ]} />
+        <PageHero.CTAs 
+          primaryText="Request Proposal" 
+          primaryHref="/contact"
+          secondaryText="View Projects"
+          secondaryHref="/projects"
+        />
+      </PageHero.Root>
       
       <main className="flex-1">
 
