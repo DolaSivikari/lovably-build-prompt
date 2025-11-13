@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, Environment, ContactShadows } from "@react-three/drei";
 import { EffectComposer, Bloom, SSAO, ToneMapping } from "@react-three/postprocessing";
@@ -353,42 +353,41 @@ const Building3DScene = ({ buildingSections, onSectionSelect, qualityLevel }: Bu
 
       {/* Adaptive post-processing based on quality level */}
       {qualityLevel === 'high' && (
-        <EffectComposer multisampling={4}>
-          <Bloom
-            intensity={0.3}
-            luminanceThreshold={0.8}
-            luminanceSmoothing={0.9}
-            mipmapBlur
-            radius={0.5}
-          />
-          <SSAO
-            samples={15}
-            rings={4}
-            radius={0.1}
-            bias={0.01}
-            luminanceInfluence={0.5}
-          />
-          <ToneMapping
-            adaptive
-            resolution={256}
-            middleGrey={0.6}
-            maxLuminance={16.0}
-            averageLuminance={1.0}
-            adaptationRate={1.0}
-          />
-        </EffectComposer>
+        <Suspense fallback={null}>
+          <EffectComposer multisampling={4}>
+            <Bloom
+              intensity={0.3}
+              luminanceThreshold={0.8}
+              luminanceSmoothing={0.9}
+              mipmapBlur
+            />
+            <ToneMapping adaptive resolution={256} />
+            <SSAO
+              samples={30}
+              rings={4}
+              radius={0.1}
+              bias={0.01}
+              luminanceInfluence={0.5}
+              distanceThreshold={0.6}
+              distanceFalloff={0.2}
+              rangeThreshold={0.5}
+              rangeFalloff={0.1}
+            />
+          </EffectComposer>
+        </Suspense>
       )}
       
       {qualityLevel === 'medium' && (
-        <EffectComposer multisampling={2}>
-          <Bloom
-            intensity={0.2}
-            luminanceThreshold={0.9}
-            luminanceSmoothing={0.8}
-            radius={0.4}
-          />
-          <ToneMapping />
-        </EffectComposer>
+        <Suspense fallback={null}>
+          <EffectComposer multisampling={2}>
+            <Bloom
+              intensity={0.2}
+              luminanceThreshold={0.9}
+              luminanceSmoothing={0.8}
+            />
+            <ToneMapping adaptive resolution={256} />
+          </EffectComposer>
+        </Suspense>
       )}
     </>
   );
