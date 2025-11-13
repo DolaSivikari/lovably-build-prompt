@@ -12,7 +12,7 @@ import {
   Award, 
   ArrowRight,
   Calendar,
-  Users
+  HardHat
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { generateHowToSchema } from "@/utils/faq-schema";
@@ -99,7 +99,7 @@ const qualityStandards = [
     description: "2-10 year warranties on all workmanship and materials"
   },
   {
-    icon: Users,
+    icon: HardHat,
     title: "Expert Team",
     description: "15+ years experience, certified professionals, background-checked"
   }

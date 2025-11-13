@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, Users, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Building, HardHat, ArrowRight, CheckCircle2, Wrench, Hammer, Ruler } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { Card } from "@/components/ui/card";
 
@@ -23,7 +23,7 @@ const WhoWeServe = () => {
             <div className="p-8 lg:p-10">
               {/* Icon with Steel Blue Accent */}
               <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6">
-                <Building2 className="h-7 w-7 text-steel-blue" />
+                <Building className="h-7 w-7 text-steel-blue" />
               </div>
               
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
@@ -75,7 +75,7 @@ const WhoWeServe = () => {
             <div className="p-8 lg:p-10">
               {/* Icon with Steel Blue Accent */}
               <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6">
-                <Users className="h-7 w-7 text-steel-blue" />
+                <HardHat className="h-7 w-7 text-steel-blue" />
               </div>
               
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">

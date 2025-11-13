@@ -1,9 +1,9 @@
-// Icon mappings for all navigation links
+// Icon mappings for all navigation links - using construction-specific icons
 export const NAVIGATION_ICONS: Record<string, string> = {
   // Services
-  '/services/general-contracting': 'Building2',
+  '/services/general-contracting': 'Building',
   '/services/construction-management': 'ClipboardList',
-  '/services/design-build': 'Compass',
+  '/services/design-build': 'Ruler',
   '/services/building-envelope': 'Home',
   '/services/waterproofing': 'Droplets',
   '/services/masonry-restoration': 'Hammer',
@@ -16,7 +16,7 @@ export const NAVIGATION_ICONS: Record<string, string> = {
   // Markets
   '/markets/commercial': 'Briefcase',
   '/markets/industrial': 'Factory',
-  '/markets/institutional': 'School',
+  '/markets/institutional': 'Landmark',
   '/markets/healthcare': 'Heart',
   '/markets/education': 'GraduationCap',
   '/markets/multi-family': 'Building',
@@ -30,7 +30,7 @@ export const NAVIGATION_ICONS: Record<string, string> = {
   '/projects?category=institutional': 'Landmark',
   
   // Company
-  '/company/team': 'Users',
+  '/company/team': 'HardHat',
   '/company/certifications-insurance': 'Award',
   '/company/equipment-resources': 'Wrench',
   '/company/developers': 'Code',

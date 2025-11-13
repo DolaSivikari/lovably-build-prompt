@@ -10,11 +10,10 @@ import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
 import { 
   Heart, 
-  TrendingUp, 
-  Users, 
+  Award, 
+  HardHat, 
   GraduationCap,
-  ShieldCheck,
-  Award,
+  Shield,
   Calendar,
   MapPin,
   ArrowRight,
@@ -37,7 +36,7 @@ const Careers = () => {
       description: "Comprehensive health, dental, and vision coverage for you and your family"
     },
     {
-      icon: TrendingUp,
+      icon: Award,
       title: "Career Growth",
       description: "Clear advancement paths with ongoing training and certification opportunities"
     },
@@ -47,7 +46,7 @@ const Careers = () => {
       description: "Paid training, certifications, and attendance at industry conferences"
     },
     {
-      icon: ShieldCheck,
+      icon: Shield,
       title: "Safety First",
       description: "Industry-leading safety equipment, training, and protocols to protect our team"
     },
@@ -57,7 +56,7 @@ const Careers = () => {
       description: "Competitive PTO, flexible scheduling, and paid holidays"
     },
     {
-      icon: Award,
+      icon: HardHat,
       title: "Competitive Pay",
       description: "Industry-leading wages with performance bonuses and profit sharing"
     }
@@ -225,7 +224,7 @@ const Careers = () => {
                 
                 <Card className="bg-primary text-primary-foreground">
                   <CardContent className="p-8">
-                    <Users className="w-16 h-16 mb-6 text-secondary" />
+                    <HardHat className="w-16 h-16 mb-6 text-secondary" />
                     <h3 className="text-2xl font-bold mb-4">Join Our Team Today</h3>
                     <p className="mb-6 opacity-90">
                       Don't see the perfect position? We're always interested in connecting with 

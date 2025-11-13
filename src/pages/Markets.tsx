@@ -1,4 +1,4 @@
-import { Building2, Heart, GraduationCap, Factory, Coffee, ShoppingBag, Hotel, Building } from "lucide-react";
+import { Building, Heart, GraduationCap, Factory, Hotel, ShoppingBag, Landmark, Hammer, Ruler } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -21,7 +21,7 @@ const Markets = () => {
     {
       title: "Multi-Family",
       description: "Residential communities, condominiums, and apartment complexes requiring coordinated trades.",
-      icon: Building2,
+      icon: Building,
       link: "/markets/multi-family",
       stats: { projects: "180+", value: "$350M+" }
     },
@@ -49,7 +49,7 @@ const Markets = () => {
     {
       title: "Institutional",
       description: "Government buildings, civic centers, and public facilities meeting compliance standards.",
-      icon: Building,
+      icon: Landmark,
       link: "/markets/institutional",
       stats: { projects: "60+", value: "$150M+" }
     },
