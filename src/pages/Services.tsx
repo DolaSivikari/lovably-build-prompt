@@ -8,7 +8,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { FeaturedServicesGrid } from "@/components/services/FeaturedServicesGrid";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
-import { HeroIsometric3D } from "@/components/services/HeroIsometric3D";
 import { ServiceCard3D } from "@/components/services/ServiceCard3D";
 import { ParticleNetwork } from "@/components/services/ParticleNetwork";
 import { VideoHoverCard } from "@/components/services/VideoHoverCard";
@@ -89,9 +88,6 @@ const Services = () => {
 
       {/* Scroll-based background transitions */}
       <ScrollSceneTransition />
-
-      {/* 3D Isometric Hero */}
-      <HeroIsometric3D />
       
       <main className="flex-1 relative">
         {/* Particle Network Section */}
