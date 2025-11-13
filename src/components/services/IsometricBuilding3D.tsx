@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import * as THREE from "three";
 import { supabase } from "@/integrations/supabase/client";
 import { trackCTAClick } from "@/lib/analytics";
+import { useWebGLSupport } from "@/hooks/useWebGLSupport";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface BuildingSection {
   position: [number, number, number];
@@ -263,9 +265,10 @@ const Ground = () => {
 interface Building3DSceneProps {
   buildingSections: BuildingSection[];
   onSectionSelect: (slug: string, name: string) => void;
+  qualityLevel: 'high' | 'medium' | 'low';
 }
 
-const Building3DScene = ({ buildingSections, onSectionSelect }: Building3DSceneProps) => {
+const Building3DScene = ({ buildingSections, onSectionSelect, qualityLevel }: Building3DSceneProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
@@ -299,8 +302,8 @@ const Building3DScene = ({ buildingSections, onSectionSelect }: Building3DSceneP
         position={[10, 20, 5]}
         intensity={1.2}
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        shadow-mapSize-width={qualityLevel === 'high' ? 2048 : 1024}
+        shadow-mapSize-height={qualityLevel === 'high' ? 2048 : 1024}
         shadow-camera-far={50}
         shadow-camera-left={-20}
         shadow-camera-right={20}
@@ -348,22 +351,45 @@ const Building3DScene = ({ buildingSections, onSectionSelect }: Building3DSceneP
       <Worker position={[4, 0, -3]} />
       <Crane />
 
-      {/* Post-processing effects for video game quality */}
-      <EffectComposer>
-        <Bloom
-          intensity={0.3}
-          luminanceThreshold={0.8}
-          luminanceSmoothing={0.9}
-          mipmapBlur
-        />
-        <SSAO
-          samples={31}
-          radius={0.1}
-          intensity={30}
-          luminanceInfluence={0.5}
-        />
-        <ToneMapping />
-      </EffectComposer>
+      {/* Adaptive post-processing based on quality level */}
+      {qualityLevel === 'high' && (
+        <EffectComposer multisampling={4}>
+          <Bloom
+            intensity={0.3}
+            luminanceThreshold={0.8}
+            luminanceSmoothing={0.9}
+            mipmapBlur
+            radius={0.5}
+          />
+          <SSAO
+            samples={15}
+            rings={4}
+            radius={0.1}
+            bias={0.01}
+            luminanceInfluence={0.5}
+          />
+          <ToneMapping
+            adaptive
+            resolution={256}
+            middleGrey={0.6}
+            maxLuminance={16.0}
+            averageLuminance={1.0}
+            adaptationRate={1.0}
+          />
+        </EffectComposer>
+      )}
+      
+      {qualityLevel === 'medium' && (
+        <EffectComposer multisampling={2}>
+          <Bloom
+            intensity={0.2}
+            luminanceThreshold={0.9}
+            luminanceSmoothing={0.8}
+            radius={0.4}
+          />
+          <ToneMapping />
+        </EffectComposer>
+      )}
     </>
   );
 };
@@ -372,6 +398,14 @@ export const IsometricBuilding3D = () => {
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const [buildingSections, setBuildingSections] = useState<BuildingSection[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const hasWebGL = useWebGLSupport();
+  const isMobile = useIsMobile();
+  
+  // Determine quality level based on device capabilities
+  const qualityLevel: 'high' | 'medium' | 'low' = hasWebGL 
+    ? (isMobile ? 'medium' : 'high')
+    : 'low';
 
   useEffect(() => {
     loadBuildingSections();
@@ -458,10 +492,32 @@ export const IsometricBuilding3D = () => {
       </motion.div>
 
       <div className="w-full h-[600px] rounded-xl overflow-hidden bg-gradient-to-b from-sky-100 to-sky-50 dark:from-slate-900 dark:to-slate-800 shadow-2xl">
-        <Canvas shadows>
+        <Canvas
+          shadows
+          dpr={qualityLevel === 'high' ? [1, 2] : [1, 1.5]}
+          gl={{
+            antialias: qualityLevel !== 'low',
+            alpha: true,
+            powerPreference: qualityLevel === 'low' ? "low-power" : "high-performance",
+          }}
+          onCreated={({ gl }) => {
+            // Handle WebGL context loss
+            gl.domElement.addEventListener('webglcontextlost', (event) => {
+              event.preventDefault();
+              console.warn('WebGL context lost, attempting to restore...');
+              setError(true);
+            });
+            
+            gl.domElement.addEventListener('webglcontextrestored', () => {
+              console.log('WebGL context restored');
+              setError(false);
+            });
+          }}
+        >
           <Building3DScene
             buildingSections={buildingSections}
             onSectionSelect={handleSectionSelect}
+            qualityLevel={qualityLevel}
           />
         </Canvas>
       </div>
