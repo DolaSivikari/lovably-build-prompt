@@ -50,7 +50,7 @@ const AchievementShowcase = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="relative py-20 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden"
+      className="relative py-20 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden texture-blueprint"
     >
       {/* Decorative Background */}
       <div className="absolute inset-0 opacity-5">

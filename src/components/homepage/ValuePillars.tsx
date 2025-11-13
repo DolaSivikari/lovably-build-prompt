@@ -44,7 +44,7 @@ const ValuePillars = () => {
   if (!pillars || pillars.length === 0) return null;
 
   return (
-    <section className="py-12 md:py-16 bg-muted/30">
+    <section className="py-12 md:py-16 bg-muted/30 texture-blueprint">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pillars.map((pillar) => {

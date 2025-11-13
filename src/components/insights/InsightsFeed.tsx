@@ -131,7 +131,7 @@ const InsightsFeed = ({
   }
 
   return (
-    <section className="py-12 md:py-16 bg-background">
+    <section className="py-12 md:py-16 bg-background texture-blueprint">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-8">
