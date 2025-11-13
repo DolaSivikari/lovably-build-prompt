@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/heroes/hero-facade-remediation.jpg";
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const FacadeRemediation = () => {
   const whatWeDeliver = [
@@ -247,6 +248,43 @@ const FacadeRemediation = () => {
           </div>
         </div>
       </section>
+
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="Façade Remediation"
+        serviceSlug="facade-remediation"
+        recentProjects={[
+          {
+            title: "32-Story Financial District Tower",
+            location: "Downtown Toronto",
+            description: "Complete facade remediation including precast panel repair, window wall replacement, and balcony waterproofing with rope access and swing stage logistics for occupied office tower."
+          },
+          {
+            title: "Heritage Masonry Restoration",
+            location: "Old Toronto Historic District",
+            description: "Sympathetic masonry restoration with concealed structural reinforcement and heritage-compliant window upgrades for 6-story landmark building requiring municipal heritage approval."
+          },
+          {
+            title: "Emergency Cladding Failure Repair",
+            location: "Mississauga Mixed-Use Tower",
+            description: "Emergency facade stabilization followed by systematic EIFS and masonry cladding replacement for 22-story residential building with comprehensive engineering and tenant safety protocols."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much does facade remediation cost in Toronto?",
+            answer: "Facade remediation costs in Toronto typically range from $75-$200 per square foot of facade area depending on building height, access requirements, and repair complexity. Emergency stabilization projects may have expedited pricing. We provide detailed condition assessments and phased cost estimates."
+          },
+          {
+            question: "Do I need a building permit for facade work in Toronto?",
+            answer: "Yes, all structural facade work in Toronto requires a building permit and often requires shoring permits, pedestrian protection plans, and street occupancy permits. We coordinate all municipal approvals including City of Toronto building permits, TTC coordination, and heritage approvals where required."
+          },
+          {
+            question: "How long does facade remediation take for a high-rise in the GTA?",
+            answer: "High-rise facade remediation projects in the GTA typically take 12-36 months depending on building height and scope. Investigation and engineering takes 2-4 months, permit approvals 2-6 months, and construction 12-24 months. We provide detailed schedules accounting for Ontario weather windows and occupancy constraints."
+          }
+        ]}
+      />
 
       {/* CTA Band */}
         <section className="py-16 bg-primary text-primary-foreground">

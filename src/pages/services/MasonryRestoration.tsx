@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Building2, Hammer, Shield, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-masonry-restoration.jpg';
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const MasonryRestoration = () => {
   const serviceConfig = SERVICE_SCHEMAS["masonry-restoration"];

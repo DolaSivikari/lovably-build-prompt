@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/heroes/hero-parking-garage.jpg";
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const ParkingGarageRestoration = () => {
   const whatWeDeliver = [
@@ -247,6 +248,43 @@ const ParkingGarageRestoration = () => {
           </div>
         </div>
       </section>
+
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="Parking Garage Restoration"
+        serviceSlug="parking-garage-restoration"
+        recentProjects={[
+          {
+            title: "6-Level Underground Parkade Restoration",
+            location: "North York Condo Tower",
+            description: "Complete concrete spall repair and polyurethane traffic coating system for 500-space underground parking structure with phased work maintaining resident access."
+          },
+          {
+            title: "Commercial Office Parkade Rehabilitation",
+            location: "Downtown Toronto Financial District",
+            description: "Structural concrete repair, expansion joint replacement, and high-traffic epoxy coating system for 800-space, 3-level parking facility serving busy office complex."
+          },
+          {
+            title: "Multi-Family Parking Restoration",
+            location: "Mississauga Condominium",
+            description: "Concrete deterioration repair and traffic coating installation for 300-space, 4-level parkade with rapid-cure materials minimizing disruption to residents."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much does parking garage restoration cost in Toronto?",
+            answer: "Parking garage restoration costs in Toronto typically range from $15-$45 per square foot depending on deterioration severity, coating system selected, and access complexity. Concrete spall repair averages $200-$400 per repair location. We provide detailed assessments and phased cost estimates."
+          },
+          {
+            question: "How long does parkade restoration take?",
+            answer: "Most parking garage restoration projects in the GTA take 8-18 months depending on size and deterioration extent. We work in phases to maintain parking availability—typically 1-2 levels at a time. Rapid-cure coatings allow 24-48 hour cure times per section."
+          },
+          {
+            question: "Can residents continue parking during restoration?",
+            answer: "Yes, we specialize in phased parking garage work maintaining resident and tenant access. Our approach typically keeps 70-85% of spaces available throughout the project, with rotating closures as work progresses through different levels and zones."
+          }
+        ]}
+      />
 
       {/* CTA Band */}
         <section className="py-16 bg-primary text-primary-foreground">
