@@ -1,80 +1,19 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Paintbrush, 
-  Building2, 
-  Home, 
-  ArrowRight,
-  CheckCircle2,
-  Users,
-  Building,
-  Briefcase,
-  HardHat,
-  Wrench,
-  ChevronRight
-} from "lucide-react";
-import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
-import { PageHero } from "@/components/sections/PageHero";
 import { ClientLogosCarousel } from "@/components/shared/ClientLogosCarousel";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
-import heroImage from "@/assets/hero-building-envelope.jpg";
-
-// Icon map for dynamic service icons
-const iconMap: Record<string, any> = {
-  Paintbrush,
-  PaintBrush: Paintbrush,
-  Building2,
-  Building,
-  Home,
-  HardHat,
-  Wrench
-};
-
-// Category configuration with Lucide icons
-const categoryIcons: Record<string, any> = {
-  "Construction Services": Paintbrush,
-  "Exterior Systems": Building2,
-  "Construction Management": HardHat,
-  "Specialty Services": Wrench
-};
-
-// Category color map
-const categoryColorMap: Record<string, {
-  bg: string;
-  iconBg: string;
-  iconColor: string;
-  border: string;
-  hoverBg: string;
-}> = {
-  primary: {
-    bg: "bg-primary/10",
-    iconBg: "bg-primary/20",
-    iconColor: "text-primary",
-    border: "border-primary/30",
-    hoverBg: "hover:bg-primary/5"
-  },
-  terracotta: {
-    bg: "bg-terracotta/10",
-    iconBg: "bg-terracotta/20",
-    iconColor: "text-terracotta",
-    border: "border-terracotta/30",
-    hoverBg: "hover:bg-terracotta/5"
-  },
-  sage: {
-    bg: "bg-sage/10",
-    iconBg: "bg-sage/20",
-    iconColor: "text-sage",
-    border: "border-sage/30",
-    hoverBg: "hover:bg-sage/5"
-  }
-};
+import { HeroIsometric3D } from "@/components/services/HeroIsometric3D";
+import { ServiceCard3D } from "@/components/services/ServiceCard3D";
+import { ParticleNetwork } from "@/components/services/ParticleNetwork";
+import { VideoHoverCard } from "@/components/services/VideoHoverCard";
+import { ScrollSceneTransition } from "@/components/services/ScrollSceneTransition";
+import { CheckCircle2, Users, Building, Briefcase } from "lucide-react";
 
 interface Service {
   id: string;
@@ -83,24 +22,18 @@ interface Service {
   short_description: string | null;
   icon_name: string | null;
   category: string | null;
-  category_description: string | null;
-  category_icon: string | null;
-  category_color: string | null;
+  featured?: boolean;
 }
 
 interface ServiceCategory {
   name: string;
   slug: string;
   description: string;
-  icon: string;
-  color: string;
   services: Service[];
 }
 
 const Services = () => {
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-  const expandedSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadServices();
@@ -109,11 +42,11 @@ const Services = () => {
   const loadServices = async () => {
     const { data } = await supabase
       .from('services')
-      .select('id, name, slug, short_description, icon_name, category, category_description, category_icon, category_color')
+      .select('id, name, slug, short_description, icon_name, category, category_description, featured')
       .eq('publish_state', 'published')
       .order('featured', { ascending: false })
       .order('category', { ascending: true })
-      .order('name', { ascending: true });
+      .order('name', { ascending: true});
 
     if (data) {
       // Group services by category
@@ -124,54 +57,16 @@ const Services = () => {
             name: cat,
             slug: cat.toLowerCase().replace(/\s+/g, '-'),
             description: service.category_description || '',
-            icon: service.category_icon || 'Building',
-            color: service.category_color || 'primary',
             services: []
           };
         }
         acc[cat].services.push(service);
         return acc;
       }, {} as Record<string, ServiceCategory>);
-      
+
       setCategories(Object.values(grouped));
     }
   };
-
-  const handleCategoryClick = (categorySlug: string) => {
-    if (expandedCategory === categorySlug) {
-      setExpandedCategory(null);
-    } else {
-      setExpandedCategory(categorySlug);
-      // Smooth scroll to expanded section after state update
-      setTimeout(() => {
-        expandedSectionRef.current?.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
-        });
-      }, 100);
-    }
-  };
-
-  const audiences = [
-    {
-      title: "Property Owners",
-      description: "Multi-family and residential property solutions",
-      icon: Building2,
-      link: "/markets/multi-family"
-    },
-    {
-      title: "Property Managers",
-      description: "Reliable service for multi-unit properties",
-      icon: Building,
-      link: "/property-managers"
-    },
-    {
-      title: "Commercial Clients",
-      description: "Professional solutions for businesses",
-      icon: Briefcase,
-      link: "/commercial-clients"
-    }
-  ];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -183,356 +78,197 @@ const Services = () => {
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
-          { label: "Home", href: "/" },
-          { label: "Services" }
-        ]} />
-        <PageHero.Title>Complete Construction Solutions</PageHero.Title>
-        <PageHero.Subtitle>
-          From concept to completion, we deliver excellence across Ontario's commercial, institutional, and multi-family markets
-        </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "500+", label: "Projects Completed" },
-          { value: "98%", label: "Client Satisfaction" },
-          { value: "25+", label: "Years Experience" },
-          { value: "8", label: "Service Categories" }
-        ]} />
-        <PageHero.CTAs 
-          primaryText="Request Proposal" 
-          primaryHref="/contact"
-          secondaryText="View Projects"
-          secondaryHref="/projects"
-        />
-      </PageHero.Root>
+      {/* Scroll-based background transitions */}
+      <ScrollSceneTransition />
+
+      {/* 3D Isometric Hero */}
+      <HeroIsometric3D />
       
-      <main className="flex-1">
-
-        {/* Categories Grid Section */}
-        <section className="py-16 md:py-20 bg-background">
+      <main className="flex-1 relative">
+        {/* Particle Network Section */}
+        <section className="py-20 bg-background relative">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              {/* Section Header */}
-              <div className="text-center mb-12 md:mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Our Service Categories
-                </h2>
-                <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Comprehensive solutions for every construction need
-                </p>
-              </div>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                Interconnected Services
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                See how our services work together to deliver complete construction solutions
+              </p>
+            </div>
+            <ParticleNetwork />
+          </div>
+        </section>
 
-              {/* Premium Service Pillar Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {categories.map((category, index) => {
-                  const CategoryIcon = categoryIcons[category.name] || Building2;
-                  const categoryColors = categoryColorMap[category.color] || categoryColorMap.primary;
-                  const isExpanded = expandedCategory === category.slug;
-                  
-                  return (
-                    <button
-                      key={category.slug}
-                      onClick={() => handleCategoryClick(category.slug)}
-                      className={cn(
-                        "group relative bg-card rounded-2xl p-6 md:p-8 cursor-pointer overflow-hidden",
-                        "hover:-translate-y-3 border-2 transition-all duration-500",
-                        isExpanded 
-                          ? "ring-4 ring-primary/50 shadow-[0_20px_60px_-15px_rgba(var(--primary),0.3)] border-primary/50" 
-                          : "border-border hover:border-primary/30 hover:shadow-[0_20px_60px_-15px_rgba(var(--primary),0.2)]",
-                        "text-left w-full animate-fade-in"
-                      )}
-                      style={{
-                        animationDelay: `${index * 100}ms`
-                      }}
-                    >
-                      {/* Gradient glow effect on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      {/* Icon with magnetic effect */}
-                      <div className={cn(
-                        "relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500",
-                        "bg-gradient-to-br shadow-lg",
-                        categoryColors.iconBg,
-                        "group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-xl"
-                      )}>
-                        <CategoryIcon className={cn("w-8 h-8 md:w-10 md:h-10", categoryColors.iconColor)} />
-                      </div>
-                      
-                      {/* Category Name */}
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                        {category.name}
-                      </h3>
-                      
-                      {/* Description */}
-                      <p className="text-sm md:text-base text-muted-foreground mb-6 line-clamp-2">
-                        {category.description}
-                      </p>
-                      
-                      {/* Service Count with animated badge */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center text-primary font-semibold text-sm md:text-base">
-                          <span className="px-3 py-1 bg-primary/10 rounded-full">
-                            {category.services.length} Services
-                          </span>
-                        </div>
-                        <ChevronRight className={cn(
-                          "w-6 h-6 text-primary transition-transform duration-300",
-                          isExpanded ? "rotate-90" : "group-hover:translate-x-1"
-                        )} />
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+        {/* 3D Service Cards Section */}
+        <section className="py-20 bg-gradient-to-b from-muted/20 to-background relative">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                Featured Services
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Explore our specialized construction services with interactive 3D cards
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {categories.slice(0, 6).flatMap(category => category.services.slice(0, 1)).map((service) => (
+                <ServiceCard3D
+                  key={service.id}
+                  {...service}
+                />
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Expanded Category Services Section */}
-        {expandedCategory && (
-          <section 
-            ref={expandedSectionRef}
-            className="py-12 md:py-16 bg-muted/30 animate-fade-in scroll-mt-20"
-          >
-            <div className="container mx-auto px-4">
-              <div className="max-w-6xl mx-auto">
-                {categories
-                  .filter(cat => cat.slug === expandedCategory)
-                  .map((category) => {
-                    const categoryColors = categoryColorMap[category.color] || categoryColorMap.primary;
-                    
-                    return (
-                      <div key={category.slug}>
-                        {/* Expanded Section Header */}
-                        <div className="mb-8 md:mb-12">
-                          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                            {category.name}
-                          </h3>
-                          <p className="text-base md:text-lg text-muted-foreground">
-                            {category.description}
-                          </p>
-                        </div>
-
-                        {/* Services Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                          {category.services.map((service, index) => {
-                            const ServiceIcon = (service.icon_name && iconMap[service.icon_name]) || Building;
-                            
-                            return (
-                              <Link
-                                key={service.id}
-                                to={`/services/${service.slug}`}
-                                className="group block animate-fade-in"
-                                style={{
-                                  animationDelay: `${index * 50}ms`
-                                }}
-                              >
-                                <Card className={cn(
-                                  "h-full border-2 card-hover",
-                                  "hover:[box-shadow:var(--shadow-card-elevated)] hover:border-primary/30"
-                                )}>
-                                  <CardContent className="p-6">
-                                    <div className="flex items-start justify-between">
-                                      {/* Service Info */}
-                                      <div className="flex-1">
-                                        {/* Service Icon */}
-                                        <div className={cn(
-                                          "w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-4",
-                                          categoryColors.bg
-                                        )}>
-                                          <ServiceIcon className={cn("w-6 h-6", categoryColors.iconColor)} />
-                                        </div>
-                                        
-                                        {/* Service Name */}
-                                        <h4 className="text-lg md:text-xl font-bold mb-2 text-foreground group-hover:text-primary link-hover">
-                                          {service.name}
-                                        </h4>
-                                        
-                                        {/* Service Description */}
-                                        <p className="text-sm md:text-base text-muted-foreground mb-4 line-clamp-2">
-                                          {service.short_description}
-                                        </p>
-                                      </div>
-
-                                      {/* Arrow Icon */}
-                                      <ArrowRight className="w-6 h-6 text-primary hover-translate-arrow flex-shrink-0 ml-4" />
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
+        {/* Video Hover Cards Section */}
+        <section className="py-20 bg-background relative">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                Services in Action
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Hover to see our services come to life
+              </p>
             </div>
-          </section>
-        )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {categories.slice(0, 3).flatMap(category => category.services.slice(0, 1)).map((service) => (
+                <VideoHoverCard
+                  key={service.id}
+                  {...service}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Who We Serve Section */}
-        <section className="py-16 md:py-20 bg-background">
+        <section className="py-20 bg-gradient-to-b from-muted/10 to-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12 md:mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Who We Serve
-                </h2>
-                <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Tailored solutions for every type of client
-                </p>
-              </div>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Who We Serve</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Specialized construction services for diverse client needs
+              </p>
+            </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                {audiences.map((audience, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {[
+                { 
+                  icon: Building, 
+                  title: "Commercial Clients", 
+                  description: "Retail, office, and industrial buildings",
+                  link: "/commercial-clients"
+                },
+                { 
+                  icon: Users, 
+                  title: "Multi-Family Residential", 
+                  description: "Condos, apartments, and housing complexes",
+                  link: "/multi-family-residential"
+                },
+                { 
+                  icon: CheckCircle2, 
+                  title: "Institutional", 
+                  description: "Schools, hospitals, and public facilities",
+                  link: "/institutional-clients"
+                },
+                { 
+                  icon: Briefcase, 
+                  title: "General Contractors", 
+                  description: "Professional trade partnerships",
+                  link: "/commercial-clients"
+                }
+              ].map((item, index) => {
+                const Icon = item.icon;
+                return (
                   <Link 
-                    key={audience.title} 
-                    to={audience.link}
-                    className="group"
+                    key={index}
+                    to={item.link}
+                    className="group p-6 rounded-xl border border-border bg-card hover:shadow-lg transition-all"
                   >
-                    <Card className={cn(
-                      "p-6 md:p-8 h-full card-hover border-2",
-                      "hover:[box-shadow:var(--shadow-card-elevated)] hover:border-primary/30 hover:-translate-y-2",
-                      "text-center animate-fade-in"
-                    )}
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 hover-scale-icon">
-                        <audience.icon className="w-8 h-8 text-primary" />
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <Icon className="w-8 h-8 text-primary" />
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground group-hover:text-primary link-hover">
-                        {audience.title}
+                      <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                        {item.title}
                       </h3>
-                      <p className="text-sm md:text-base text-muted-foreground mb-4">
-                        {audience.description}
+                      <p className="text-sm text-muted-foreground">
+                        {item.description}
                       </p>
-                      <div className="flex items-center justify-center gap-2 text-primary font-semibold text-sm md:text-base group-hover:gap-3 card-hover">
-                        Learn more <ArrowRight className="w-4 h-4 hover-translate-arrow" />
-                      </div>
-                    </Card>
+                    </div>
                   </Link>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
         </section>
-        
-        {/* Specialty Contractor Information Section */}
-        <section className="py-16 bg-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Why Work with a Specialty Contractor?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Unlike general contractors who coordinate multiple subcontractors, we self-perform 85% of our work with trained in-house crews. This means better quality control, single-source accountability, and 25-30% more value per dollar spent.
+
+        {/* Specialty Contractor Information */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-3xl mx-auto">
+              <h3 className="text-2xl font-bold mb-4">Why Work with a Specialty Contractor?</h3>
+              <p className="text-muted-foreground">
+                Specialty contractors like Ascent Group bring focused expertise, specialized equipment, and proven methodologies to complex construction challenges. We self-perform our work, ensuring quality control and accountability on every project.
               </p>
-              <Button asChild size="lg" variant="secondary">
-                <Link to="/why-specialty-contractor">
-                  Compare Specialty vs General Contractor
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
             </div>
           </div>
         </section>
 
         {/* Certifications Section */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Licensed, Insured & Certified</h2>
-              <p className="text-muted-foreground">Industry-leading credentials and safety standards</p>
-            </div>
-            <CertificationBadges size="lg" />
+            <CertificationBadges />
           </div>
         </section>
 
-        {/* Testimonials Section - Removed pending verified testimonial collection */}
-
-        {/* Why Choose Us Section - Dark Background */}
-        <section className="py-16 md:py-20 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
+        {/* Why Choose Us */}
+        <section className="py-20 bg-gradient-to-b from-muted/10 to-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12 md:mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Why Choose Ascent Group Construction
-                </h2>
-                <p className="text-base md:text-lg text-primary-foreground/90 max-w-2xl mx-auto">
-                  Professional craftsmanship backed by comprehensive warranties and insurance
-                </p>
-              </div>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Why Choose Ascent Group</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Ontario's trusted specialty construction partner
+              </p>
+            </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                {[
-                  {
-                    icon: Users,
-                    title: "Experienced Team",
-                    description: "15+ years of expertise with certified professionals"
-                  },
-                  {
-                    icon: CheckCircle2,
-                    title: "Quality Materials",
-                    description: "Premium brands like Benjamin Moore and Sherwin-Williams"
-                  },
-                  {
-                    icon: Briefcase,
-                    title: "Licensed & Insured",
-                    description: "Full licensing, WSIB coverage, and liability insurance"
-                  }
-                ].map((item, index) => (
-                  <div 
-                    key={item.title} 
-                    className={cn(
-                      "text-center p-6 md:p-8 rounded-2xl transition-all duration-300",
-                      "bg-primary-foreground/10 backdrop-blur-sm",
-                      "hover:bg-primary-foreground/20 hover:-translate-y-2",
-                      "animate-fade-in"
-                    )}
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <div className="w-16 h-16 bg-primary-foreground/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <item.icon className="w-8 h-8 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold mb-3 text-primary-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-primary-foreground/80">
-                      {item.description}
-                    </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {[
+                { title: "Self-Performed Work", description: "Direct control of quality and timeline" },
+                { title: "Licensed & Insured", description: "Full compliance and protection" },
+                { title: "Proven Track Record", description: "500+ successful projects" },
+                { title: "Expert Craftsmen", description: "Skilled trades with deep expertise" }
+              ].map((item, index) => (
+                <div key={index} className="text-center p-6">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="w-6 h-6 text-primary" />
                   </div>
-                ))}
-              </div>
+                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-16 md:py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 md:mb-6">
+        <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
                 Ready to Start Your Project?
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-10">
-                Let's discuss how we can bring your construction vision to life
+              <p className="text-xl text-muted-foreground mb-8">
+                Let's discuss how our specialized services can bring your construction vision to life
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button 
-                  size="lg"
-                  asChild
-                  className="w-full sm:w-auto min-w-[220px] text-base md:text-lg"
-                >
-                  <Link to="/contact">Request Free Consultation</Link>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="text-lg px-8">
+                  <Link to="/contact">Request a Consultation</Link>
                 </Button>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  asChild
-                  className="w-full sm:w-auto min-w-[220px] text-base md:text-lg border-2"
-                >
+                <Button asChild variant="outline" size="lg" className="text-lg px-8">
                   <Link to="/projects">View Our Projects</Link>
                 </Button>
               </div>
@@ -540,8 +276,21 @@ const Services = () => {
           </div>
         </section>
 
+        {/* Testimonials */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <TestimonialRatings />
+          </div>
+        </section>
+
+        {/* Client Logos */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <ClientLogosCarousel />
+          </div>
+        </section>
       </main>
-      
+
       <Footer />
     </div>
   );
