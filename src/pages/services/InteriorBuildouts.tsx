@@ -97,8 +97,7 @@ const InteriorBuildouts = () => {
         <PageHero.Subtitle>
           Complete interior construction from tenant improvements to precision finishing
         </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Proposal"
           primaryHref="/contact"
           secondaryText="View Projects"

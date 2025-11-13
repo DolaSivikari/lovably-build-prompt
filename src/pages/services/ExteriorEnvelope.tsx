@@ -46,13 +46,7 @@ const ExteriorEnvelope = () => {
         <PageHero.Subtitle>
           Complete building protection through expert stucco, EIFS, and sealant solutions.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "500+", label: "Buildings Protected" },
-          { value: "98%", label: "Warranty Coverage" },
-          { value: "15+", label: "Years Experience" },
-          { value: "$2B+", label: "Protected Value" }
-        ]} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Proposal" 
           primaryHref="/contact"
           secondaryText="View Projects"

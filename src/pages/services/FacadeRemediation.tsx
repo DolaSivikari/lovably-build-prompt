@@ -106,13 +106,7 @@ const FacadeRemediation = () => {
         <PageHero.Subtitle>
           Engineered facade restoration with structural certification and safety-first execution.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "500+", label: "Buildings Restored" },
-          { value: "25", label: "Years Experience" },
-          { value: "$50M+", label: "Projects Completed" },
-          { value: "0", label: "Structural Failures" }
-        ]} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Assessment" 
           primaryHref="/contact"
           secondaryText="View Projects"

@@ -106,13 +106,7 @@ const ProtectiveCoatings = () => {
         <PageHero.Subtitle>
           High-performance coating systems protecting and beautifying commercial, industrial, and institutional surfaces.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "1,000+", label: "Projects Completed" },
-          { value: "Industrial", label: "Grade Quality" },
-          { value: "25", label: "Years Experience" },
-          { value: "$30M+", label: "Coatings Applied" }
-        ]} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Quote" 
           primaryHref="/contact"
           secondaryText="View Projects"

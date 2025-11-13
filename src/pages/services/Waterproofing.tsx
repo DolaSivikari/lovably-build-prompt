@@ -101,8 +101,7 @@ const Waterproofing = () => {
         <PageHero.Subtitle>
           Comprehensive waterproofing solutions protecting your investment from foundation to roof
         </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Assessment"
           primaryHref="/contact"
           secondaryText="View Projects"

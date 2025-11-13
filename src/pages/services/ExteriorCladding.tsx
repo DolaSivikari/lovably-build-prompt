@@ -107,8 +107,7 @@ const ExteriorCladding = () => {
         <PageHero.Subtitle>
           Complete cladding solutions enhancing aesthetics and protecting building envelopes
         </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Proposal"
           primaryHref="/contact"
           secondaryText="View Projects"

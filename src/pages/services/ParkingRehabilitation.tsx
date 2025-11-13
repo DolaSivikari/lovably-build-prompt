@@ -101,8 +101,7 @@ const ParkingRehabilitation = () => {
         <PageHero.Subtitle>
           Comprehensive restoration extending the life of parking structures while maintaining operations
         </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Assessment"
           primaryHref="/contact"
           secondaryText="View Projects"

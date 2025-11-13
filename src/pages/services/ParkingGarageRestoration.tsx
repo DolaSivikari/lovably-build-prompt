@@ -106,13 +106,7 @@ const ParkingGarageRestoration = () => {
         <PageHero.Subtitle>
           Comprehensive parkade rehabilitation with structural concrete repair, traffic coatings, and waterproofing systems.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "150+", label: "Garages Restored" },
-          { value: "5M+", label: "Sq Ft Coated" },
-          { value: "20", label: "Years Experience" },
-          { value: "100%", label: "Safety Record" }
-        ]} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Assessment" 
           primaryHref="/contact"
           secondaryText="View Projects"

@@ -101,8 +101,7 @@ const MasonryRestoration = () => {
         <PageHero.Subtitle>
           Expert restoration of historic and modern masonry with uncompromising craftsmanship
         </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Assessment"
           primaryHref="/contact"
           secondaryText="View Projects"

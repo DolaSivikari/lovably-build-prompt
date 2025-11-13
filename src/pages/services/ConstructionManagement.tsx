@@ -61,7 +61,6 @@ const ConstructionManagement = () => {
         <PageHero.Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Construction Management" }]} />
         <PageHero.Title>Construction Management</PageHero.Title>
         <PageHero.Subtitle>Cost clarity, schedule certainty, and risk management throughout your project.</PageHero.Subtitle>
-        <PageHero.Stats stats={[{ value: "98%", label: "Budget Accuracy" }, { value: "ZERO", label: "Cost Overruns" }, { value: "200+", label: "CM Projects" }, { value: "$1.5B+", label: "Managed Value" }]} />
         <PageHero.CTAs primaryText="Request CM Proposal" primaryHref="/contact" secondaryText="View CM Projects" secondaryHref="/projects" />
       </PageHero.Root>
       <main>

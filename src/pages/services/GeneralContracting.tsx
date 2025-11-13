@@ -123,13 +123,7 @@ const GeneralContracting = () => {
         <PageHero.Subtitle>
           Turnkey delivery with quality, safety, and schedule certainty.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "95%", label: "On-Time Delivery" },
-          { value: "0", label: "Lost-Time Incidents" },
-          { value: "500+", label: "Projects Completed" },
-          { value: "$2B+", label: "Total Value" }
-        ]} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Proposal" 
           primaryHref="/contact"
           secondaryText="View Projects"

@@ -101,8 +101,7 @@ const MetalCladding = () => {
         <PageHero.Subtitle>
           Modern architectural metal facades combining aesthetics, performance, and longevity
         </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Proposal"
           primaryHref="/contact"
           secondaryText="View Projects"

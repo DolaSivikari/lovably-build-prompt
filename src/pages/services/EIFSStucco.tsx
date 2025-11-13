@@ -101,8 +101,7 @@ const EIFSStucco = () => {
         <PageHero.Subtitle>
           Energy-efficient exterior finishes with superior aesthetics and lasting performance
         </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Proposal"
           primaryHref="/contact"
           secondaryText="View Projects"

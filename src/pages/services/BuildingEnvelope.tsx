@@ -137,13 +137,7 @@ const BuildingEnvelope = () => {
         <PageHero.Subtitle>
           Durable, energy-efficient building performance through expert envelope systems.
         </PageHero.Subtitle>
-        <PageHero.Stats stats={[
-          { value: "25+", label: "Years Experience" },
-          { value: "100%", label: "Warranty Coverage" },
-          { value: "300+", label: "Envelope Projects" },
-          { value: "ZERO", label: "Warranty Claims" }
-        ]} />
-        <PageHero.CTAs 
+        <PageHero.CTAs
           primaryText="Request Assessment" 
           primaryHref="/contact"
           secondaryText="View Envelope Projects"

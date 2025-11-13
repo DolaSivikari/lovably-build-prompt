@@ -61,7 +61,6 @@ const DesignBuild = () => {
         <PageHero.Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Design-Build" }]} />
         <PageHero.Title>Design-Build</PageHero.Title>
         <PageHero.Subtitle>Single-source accountability from concept to completion.</PageHero.Subtitle>
-        <PageHero.Stats stats={[{ value: "35%", label: "Faster Delivery" }, { value: "100%", label: "Cost Certainty" }, { value: "150+", label: "DB Projects" }, { value: "$800M+", label: "DB Value" }]} />
         <PageHero.CTAs primaryText="Request DB Proposal" primaryHref="/contact" secondaryText="View DB Projects" secondaryHref="/projects" />
       </PageHero.Root>
       <main>
