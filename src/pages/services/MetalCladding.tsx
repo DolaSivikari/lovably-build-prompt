@@ -213,6 +213,43 @@ const MetalCladding = () => {
         </div>
       </section>
 
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="Metal Cladding & Panels"
+        serviceSlug="metal-cladding"
+        recentProjects={[
+          {
+            title: "Corporate Office Metal Panel System",
+            location: "Mississauga Business Park",
+            description: "Architectural metal panel rainscreen installation for 75,000 sq ft office building with integrated continuous insulation achieving LEED Gold energy performance targets."
+          },
+          {
+            title: "Industrial Facility Metal Siding",
+            location: "Vaughan Industrial Complex",
+            description: "Standing seam metal roof and wall system installation for 120,000 sq ft manufacturing facility with concealed fasteners and 40-year finish warranty."
+          },
+          {
+            title: "Retail Plaza Metal Cladding",
+            location: "Scarborough Shopping Centre",
+            description: "ACM panel system installation for retail facade renovation with custom colors and integrated signage mounting achieving modern aesthetic on existing structure."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much does metal cladding cost in Toronto?",
+            answer: "Metal cladding costs in Toronto typically range from $55-$120 per square foot installed depending on panel type, finish selection, and complexity. Standing seam systems average $65-$95/sq ft, ACM panels $60-$100/sq ft, and corrugated metal $35-$60/sq ft. Costs include complete system installation with weather barriers and insulation."
+          },
+          {
+            question: "What metal cladding systems work best in Ontario winters?",
+            answer: "For Ontario's climate, we recommend systems with thermal breaks, concealed fasteners, and factory-applied finishes. Standing seam metal, insulated metal panels, and ACM systems with proper ventilation perform excellently in freeze-thaw cycles. Proper installation of air barriers and moisture management is critical for long-term performance."
+          },
+          {
+            question: "How long do metal panel finishes last in the GTA?",
+            answer: "High-quality metal panel finishes in the GTA typically carry 30-40 year warranties. Kynar 500/PVDF finishes offer superior fade and chalk resistance. Service life depends on coating quality, color selection (lighter colors last longer), exposure, and maintenance. We recommend periodic washing to maximize finish longevity."
+          }
+        ]}
+      />
+
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">

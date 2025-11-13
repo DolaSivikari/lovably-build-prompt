@@ -213,6 +213,43 @@ const MasonryRestoration = () => {
         </div>
       </section>
 
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="Masonry Restoration"
+        serviceSlug="masonry-restoration"
+        recentProjects={[
+          {
+            title: "Heritage Building Masonry Restoration",
+            location: "Old Toronto Historic District",
+            description: "Complete brick and stone restoration for 6-story heritage building including tuckpointing, brick replacement, and limestone repair with heritage committee oversight and period-appropriate materials."
+          },
+          {
+            title: "Commercial Tower Masonry Repair",
+            location: "Downtown Toronto Financial District",
+            description: "Structural masonry repair for 18-story office tower including spalled brick replacement, shelf angle repairs, and comprehensive tuckpointing program over occupied building."
+          },
+          {
+            title: "Church Restoration Project",
+            location: "Etobicoke Historic Church",
+            description: "Sympathetic masonry restoration including stone cleaning, mortar repointing with lime-based mortars, and structural repairs maintaining architectural integrity of 120-year-old structure."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much does masonry restoration cost in Toronto?",
+            answer: "Masonry restoration in Toronto typically ranges from $80-$150 per square foot of facade area depending on building height, extent of deterioration, and heritage requirements. Tuckpointing averages $15-$35 per square foot. Stone repair ranges $100-$250/sq ft. We provide detailed condition assessments and cost estimates."
+          },
+          {
+            question: "When should I repoint my brick building in Ontario?",
+            answer: "Repointing is typically needed every 25-50 years in Ontario depending on mortar type, exposure, and maintenance. Signs you need repointing include: crumbling mortar, gaps between bricks, interior moisture, and loose bricks. We recommend condition assessments every 10 years for commercial buildings."
+          },
+          {
+            question: "Can you match historic masonry colors and textures?",
+            answer: "Yes, we specialize in heritage masonry restoration throughout the GTA. We conduct mortar analysis to match original compositions, source period-appropriate bricks, and work with heritage consultants to ensure restorations meet municipal heritage guidelines while maintaining structural integrity."
+          }
+        ]}
+      />
+
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">

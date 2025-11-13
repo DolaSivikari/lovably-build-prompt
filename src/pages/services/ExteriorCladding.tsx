@@ -9,6 +9,7 @@ import { Home, Layers, Palette, Shield, CheckCircle2, ArrowRight } from 'lucide-
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 import heroImage from '@/assets/hero-exterior-cladding.jpg';
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const ExteriorCladding = () => {
   const serviceSchema = createServiceSchema({
@@ -217,6 +218,43 @@ const ExteriorCladding = () => {
           </div>
         </div>
       </section>
+
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="Exterior Cladding Systems"
+        serviceSlug="exterior-cladding"
+        recentProjects={[
+          {
+            title: "Commercial Office Recladding",
+            location: "Mississauga Corporate Campus",
+            description: "Complete facade renovation with new ACM panel system replacing failed EIFS for 6-story office building achieving modern aesthetic and improved thermal performance."
+          },
+          {
+            title: "Industrial Facility Cladding",
+            location: "Vaughan Distribution Centre",
+            description: "Insulated metal panel installation for 200,000 sq ft warehouse and office facility with 40-year finish warranty and R-25 continuous insulation meeting energy code requirements."
+          },
+          {
+            title: "Retail Plaza Facade Upgrade",
+            location: "Scarborough Shopping District",
+            description: "Mixed cladding system combining aluminum composite panels, architectural concrete, and glazed storefront for retail center facade renovation modernizing 1980s building appearance."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much does exterior cladding cost in Toronto?",
+            answer: "Exterior cladding costs in Toronto vary by system: fiber cement siding $35-$60/sq ft installed, vinyl siding $25-$45/sq ft, wood siding $40-$85/sq ft, aluminum composite panels $60-$100/sq ft, brick veneer $65-$120/sq ft. Costs include complete installation with weather barriers, insulation, and trim details."
+          },
+          {
+            question: "What cladding systems last longest in Ontario?",
+            answer: "For Ontario's climate, brick and stone masonry last 75-100+ years, fiber cement 30-50 years, quality vinyl 25-40 years, ACM panels 30-40 years, and wood siding 20-40 years depending on maintenance. Proper installation with drainage planes and moisture management is critical for longevity in freeze-thaw cycles."
+          },
+          {
+            question: "Can you replace cladding on an occupied building?",
+            answer: "Yes, we specialize in occupied building cladding replacement throughout the GTA. Our approach includes phased work maintaining building operations, interior protection systems, tenant communication protocols, and after-hours scheduling for sensitive areas minimizing disruption to occupants and businesses."
+          }
+        ]}
+      />
 
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">

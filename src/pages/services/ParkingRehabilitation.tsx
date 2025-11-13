@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Car, HardHat, Wrench, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-parking-rehabilitation.jpg';
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const ParkingRehabilitation = () => {
   const serviceConfig = SERVICE_SCHEMAS["parking-rehabilitation"];
@@ -211,6 +212,43 @@ const ParkingRehabilitation = () => {
           </div>
         </div>
       </section>
+
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="Parking Structure Rehabilitation"
+        serviceSlug="parking-rehabilitation"
+        recentProjects={[
+          {
+            title: "Underground Parkade Restoration",
+            location: "North York Residential Tower",
+            description: "Comprehensive parking garage rehabilitation for 6-level, 500-space underground structure including concrete repair, traffic coatings, waterproofing, and lighting upgrades extending service life 25+ years."
+          },
+          {
+            title: "Multi-Level Parking Rehabilitation",
+            location: "Mississauga Commercial Complex",
+            description: "Phased parking structure restoration maintaining 75% space availability throughout 14-month project including structural repairs, joint replacement, and protective coating systems."
+          },
+          {
+            title: "Above-Grade Parkade Renewal",
+            location: "Toronto Entertainment District",
+            description: "Complete rehabilitation of 4-level above-grade parking structure serving mixed-use development including concrete restoration, expansion joints, traffic membranes, and drainage improvements."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much does parking garage rehabilitation cost in Toronto?",
+            answer: "Parking garage rehabilitation in Toronto typically costs $18-$55 per square foot depending on deterioration extent and scope. Comprehensive restoration including concrete repair, waterproofing, and coatings averages $30-$45/sq ft. Basic coating renewal without structural work ranges $12-$25/sq ft. We provide detailed condition assessments and phased cost estimates."
+          },
+          {
+            question: "How long do parking structure repairs last in Ontario?",
+            answer: "Properly executed parking garage rehabilitation in Ontario's climate typically extends structure life 20-30 years. Traffic coating systems last 10-15 years, concrete repairs 25-40 years, expansion joints 12-20 years. Regular maintenance inspections every 3-5 years and minor repairs maximize investment longevity."
+          },
+          {
+            question: "Can you rehabilitate parking garages while keeping them open?",
+            answer: "Yes, we specialize in phased parking rehabilitation maintaining operations throughout construction. Our approach typically keeps 65-80% of spaces available, with rotating closures as work progresses by level and zone. We provide temporary traffic management, signage, and tenant communication ensuring minimal disruption to building operations."
+          }
+        ]}
+      />
 
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">

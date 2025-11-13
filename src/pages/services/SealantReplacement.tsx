@@ -232,6 +232,43 @@ const SealantReplacement = () => {
           </div>
         </section>
 
+        {/* City-Specific SEO Section */}
+        <ServiceCitySection
+          serviceName="Sealant Replacement & Joint Sealing"
+          serviceSlug="sealant-replacement"
+          recentProjects={[
+            {
+              title: "High-Rise Window Perimeter Sealing",
+              location: "Toronto Condominium Tower",
+              description: "Complete window perimeter sealant replacement for 28-story residential tower using silicone sealants with 20-year service life and comprehensive leak testing program."
+            },
+            {
+              title: "Curtain Wall Joint Sealing",
+              location: "Mississauga Corporate Office",
+              description: "Structural silicone glazing system maintenance and perimeter joint sealing for 12-story curtain wall building with rope access logistics minimizing tenant disruption."
+            },
+            {
+              title: "Expansion Joint Replacement",
+              location: "North York Commercial Complex",
+              description: "Building expansion joint system replacement including traffic-rated and pedestrian-rated joints for mixed-use development with coordinated phasing maintaining building operations."
+            }
+          ]}
+          faqs={[
+            {
+              question: "How often should building sealants be replaced in Toronto?",
+              answer: "Building sealants in Toronto typically need replacement every 10-20 years depending on exposure, sealant type, and UV exposure. Window perimeter joints: 12-18 years. Expansion joints: 10-15 years. Vertical facade joints: 15-20 years. Regular inspections every 5 years help identify failing joints before leaks occur."
+            },
+            {
+              question: "How much does sealant replacement cost in the GTA?",
+              answer: "Sealant replacement costs in the GTA vary by location and access: window perimeters $15-$35 per linear foot, vertical facade joints $18-$40/LF, expansion joints $45-$120/LF. High-rise projects requiring swing stages or rope access have additional mobilization costs. We provide detailed estimates after joint survey and assessment."
+            },
+            {
+              question: "Can you replace sealants in winter in Ontario?",
+              answer: "Some sealants can be installed in winter with proper precautions. Low-modulus silicones can be installed down to -10°C, though optimal conditions are 5-30°C. We use heated enclosures, substrate warming, and cold-weather sealant formulations for winter work. Spring-fall (April-November) offers ideal conditions for most sealant work."
+            }
+          ]}
+        />
+
         {/* CTA Band */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
