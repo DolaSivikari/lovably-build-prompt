@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Droplets, Shield, Building, Layers, CheckCircle2, ArrowRight } from 'lucide-react';
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-waterproofing.jpg';
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const Waterproofing = () => {
   const serviceConfig = SERVICE_SCHEMAS["waterproofing"];
@@ -211,6 +212,43 @@ const Waterproofing = () => {
           </div>
         </div>
       </section>
+
+      {/* City-Specific SEO Section */}
+      <ServiceCitySection
+        serviceName="Waterproofing Services"
+        serviceSlug="waterproofing"
+        recentProjects={[
+          {
+            title: "Plaza Deck Waterproofing System",
+            location: "Yorkville Residential Tower, Toronto",
+            description: "Trafficked and landscaped plaza deck waterproofing with protection boards, drainage layers, and 20-year warranty for luxury condo amenity space."
+          },
+          {
+            title: "Below-Grade Waterproofing Remediation",
+            location: "Scarborough Commercial Complex",
+            description: "Foundation waterproofing repair with drainage board installation and sump pump system upgrade for 85,000 sq ft office building experiencing basement moisture."
+          },
+          {
+            title: "Balcony Waterproofing Replacement",
+            location: "Mississauga Condominium",
+            description: "Complete balcony membrane replacement for 18-story residential tower with integrated drainage and railing flashing details preventing water infiltration."
+          }
+        ]}
+        faqs={[
+          {
+            question: "How much does waterproofing cost in Toronto?",
+            answer: "Waterproofing costs in Toronto vary by system type: below-grade foundation waterproofing ranges $25-$60/sq ft, plaza deck systems $40-$85/sq ft, and balcony waterproofing $30-$65/sq ft. Leak investigation and repair typically costs $3,000-$8,000 per location. We provide detailed estimates after system assessment."
+          },
+          {
+            question: "What's the best waterproofing system for Ontario climate?",
+            answer: "For Ontario's freeze-thaw cycles, we recommend proven systems: rubberized asphalt membranes for below-grade, hot fluid-applied for plaza decks, and polyurethane or PVC for balconies. System selection depends on substrate, drainage, and exposure conditions—we provide engineering recommendations for each project."
+          },
+          {
+            question: "How long do waterproofing warranties last?",
+            answer: "Our waterproofing installations in the GTA come with manufacturer material warranties (10-20 years) and our installation workmanship warranty (2-10 years depending on system). Extended warranties are available through manufacturer-certified application programs. All warranties include leak repair coverage."
+          }
+        ]}
+      />
 
       {/* CTA Band */}
       <section className="py-16 bg-primary text-primary-foreground">

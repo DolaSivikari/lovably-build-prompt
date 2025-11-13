@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
 import heroImage from "@/assets/hero-building-envelope.jpg";
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const BuildingEnvelope = () => {
   const whatWeDeliver = [
@@ -358,6 +359,43 @@ const BuildingEnvelope = () => {
             </div>
           </div>
         </section>
+
+        {/* City-Specific SEO Section */}
+        <ServiceCitySection
+          serviceName="Building Envelope Services"
+          serviceSlug="building-envelope"
+          recentProjects={[
+            {
+              title: "25-Story Residential Tower Envelope Restoration",
+              location: "Downtown Toronto",
+              description: "Complete EIFS replacement, window upgrades, and balcony waterproofing for high-rise condo tower with occupied building logistics."
+            },
+            {
+              title: "Commercial Office LEED Retrofit",
+              location: "Mississauga City Centre",
+              description: "Metal panel rainscreen system with continuous insulation achieving LEED Silver thermal performance targets for 60,000 sq ft office building."
+            },
+            {
+              title: "Heritage Masonry Restoration",
+              location: "Old City Hall District, Toronto",
+              description: "Sympathetic masonry restoration with modern air barrier integration and concealed structural reinforcement for 85,000 sq ft institutional building."
+            }
+          ]}
+          faqs={[
+            {
+              question: "How much does building envelope restoration cost in Toronto?",
+              answer: "Building envelope restoration costs in Toronto typically range from $40-$120 per square foot depending on system type, building height, and access requirements. EIFS replacement averages $65-$90/sq ft, while masonry restoration ranges from $80-$150/sq ft. We provide detailed cost breakdowns during preconstruction."
+            },
+            {
+              question: "Can you upgrade the building envelope on an occupied building?",
+              answer: "Yes, we specialize in occupied building envelope projects throughout the GTA. Our phased approach maintains tenant access while installing swing stages, protection systems, and noise mitigation measures. Most projects are completed with minimal disruption to building operations."
+            },
+            {
+              question: "What's the typical timeline for envelope restoration in Ontario?",
+              answer: "Building envelope projects in Ontario typically take 12-24 months depending on building size and scope. Weather windows affect scheduling—exterior work is optimal April-November. We provide detailed phasing plans that account for Ontario's climate conditions."
+            }
+          ]}
+        />
 
         {/* CTA Band */}
         <section className="py-16 bg-primary text-primary-foreground">

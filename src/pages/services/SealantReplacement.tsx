@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/heroes/hero-sealant-replacement.jpg";
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const SealantReplacement = () => {
   const whatWeDeliver = [

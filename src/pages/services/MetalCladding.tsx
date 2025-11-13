@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Layers, Zap, Shield, Wrench, CheckCircle2, ArrowRight } from 'lucide-react';
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-metal-cladding.jpg';
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const MetalCladding = () => {
   const serviceConfig = SERVICE_SCHEMAS["metal-cladding"];

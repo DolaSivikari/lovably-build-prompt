@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Shield, Droplets, Palette, Award, CheckCircle2, ArrowRight } from 'lucide-react';
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-eifs-stucco.jpg';
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const EIFSStucco = () => {
   const serviceConfig = SERVICE_SCHEMAS["eifs-stucco"];

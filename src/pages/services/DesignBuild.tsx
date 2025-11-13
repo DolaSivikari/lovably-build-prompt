@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
 import heroImage from "@/assets/heroes/hero-design-build.jpg";
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const DesignBuild = () => {
   const whatWeDeliver = [

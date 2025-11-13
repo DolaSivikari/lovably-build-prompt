@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemaGenerators";
+import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
 const GeneralContracting = () => {
   const whatWeDeliver = [
@@ -318,6 +319,43 @@ const GeneralContracting = () => {
             </div>
           </div>
         </section>
+
+        {/* City-Specific SEO Section */}
+        <ServiceCitySection
+          serviceName="General Contracting"
+          serviceSlug="general-contracting"
+          recentProjects={[
+            {
+              title: "15-Story Condo Facade Restoration",
+              location: "Liberty Village, Toronto",
+              description: "Complete exterior envelope restoration including balcony waterproofing, EIFS repair, and window replacement for 120-unit residential tower."
+            },
+            {
+              title: "Commercial Plaza Ground-Up Construction",
+              location: "Mississauga City Centre",
+              description: "New 45,000 sq ft mixed-use development with retail main floor and office space above, completed 2 weeks ahead of schedule."
+            },
+            {
+              title: "Institutional Addition & Renovation",
+              location: "Downtown Brampton",
+              description: "22,000 sq ft addition to educational facility with specialized HVAC systems and full accessibility compliance."
+            }
+          ]}
+          faqs={[
+            {
+              question: "How much does general contracting cost in Toronto?",
+              answer: "General contracting costs in Toronto typically range from $250-$450 per square foot for commercial construction and $200-$350 for multi-family projects, depending on complexity, finishes, and project type. We provide detailed cost breakdowns and value engineering options during preconstruction."
+            },
+            {
+              question: "What's the best time of year for construction projects in the GTA?",
+              answer: "While construction can occur year-round in Ontario, spring (April-May) and fall (September-October) offer optimal conditions for exterior work. Winter construction is possible with proper planning, though it may require additional protective measures and scheduling adjustments."
+            },
+            {
+              question: "Do you handle permits and approvals in Toronto?",
+              answer: "Yes, we manage all permit coordination and municipal approvals as part of our general contracting services. This includes building permits, site plan approvals, and ongoing inspection coordination with the City of Toronto and other GTA municipalities."
+            }
+          ]}
+        />
 
         {/* CTA Band */}
         <section className="py-16 bg-primary text-primary-foreground">
