@@ -170,7 +170,16 @@ export interface EstimateResult {
 }
 
 export function calculateEstimate(input: EstimateInput): EstimateResult {
-  const service = estimatorModel.services[input.service];
+  const service = (estimatorModel.services as any)[input.service];
+  
+  // Defensive error handling - service not found in estimator model
+  if (!service || !service.base_per_sqft) {
+    console.error(`[Estimator Error] Service not found in model: ${input.service}`);
+    throw new Error(
+      `This service requires a custom quote. Please contact us directly for accurate pricing.`
+    );
+  }
+  
   const modifiers = estimatorModel.modifiers;
   const rules = estimatorModel.estimation_rules;
   const addOns = estimatorModel.add_ons;

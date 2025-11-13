@@ -70,10 +70,18 @@ const Contact = () => {
 
     try {
       const validatedData = contactSchema.parse(formData);
+      
+      // Track form submission attempt in GA4
+      trackFormSubmit('contact_form', {
+        has_phone: !!validatedData.phone,
+        has_company: !!validatedData.company,
+        newsletter_opt_in: validatedData.newsletterConsent
+      });
+      
       const { data, error } = await supabase.functions.invoke('submit-form', {
         body: {
           formType: 'contact',
-          data: { 
+          data: {
             name: validatedData.name, 
             email: validatedData.email, 
             phone: validatedData.phone, 
@@ -95,8 +103,7 @@ const Contact = () => {
         throw error;
       }
 
-      trackConversion('contact_form_submit', { form_type: 'contact', submission_type: formData.company ? 'business' : 'individual' });
-      trackFormSubmit('contact_form', { has_company: !!formData.company, has_phone: !!formData.phone });
+      // Tracking already done above
 
       try {
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Email notification timeout')), 10000));
