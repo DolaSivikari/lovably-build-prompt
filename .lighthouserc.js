@@ -42,10 +42,17 @@ module.exports = {
         'errors-in-console': 'error',
         'no-vulnerable-libraries': 'error',
         'uses-http2': 'warn',
-        'uses-optimized-images': 'warn',
-        'modern-image-formats': 'warn',
+        'uses-optimized-images': 'error', // PHASE 4: Stricter (was warn)
+        'modern-image-formats': 'error', // PHASE 4: Stricter (was warn)
         'uses-text-compression': 'error',
-        'uses-responsive-images': 'warn',
+        'uses-responsive-images': 'error', // PHASE 4: Stricter (was warn)
+        'legacy-javascript': 'warn',
+        
+        // PHASE 4: Additional image optimization checks
+        'offscreen-images': 'warn',
+        'efficient-animated-content': 'warn',
+        'duplicated-javascript': 'warn',
+        'unused-javascript': 'warn',
       },
     },
     upload: {

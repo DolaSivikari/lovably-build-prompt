@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
-import { Upload, X, Loader2 } from 'lucide-react';
+import { Upload, X, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/ui/Button';
 import { uploadImage } from '@/utils/imageResolver';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { validateAspectRatio, calculateAspectRatio } from '@/utils/image-optimizer';
 
 interface ImageUploadFieldProps {
   value?: string;
@@ -10,6 +12,8 @@ interface ImageUploadFieldProps {
   bucket?: string;
   label?: string;
   accept?: string;
+  targetAspectRatio?: string; // e.g., '16/9', '4/3'
+  useProcessingFunction?: boolean; // Use edge function for processing
 }
 
 export const ImageUploadField = ({
@@ -17,10 +21,13 @@ export const ImageUploadField = ({
   onChange,
   bucket = 'project-images',
   label = 'Upload Image',
-  accept = 'image/*'
+  accept = 'image/*',
+  targetAspectRatio,
+  useProcessingFunction = false,
 }: ImageUploadFieldProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(value || null);
+  const [aspectRatioWarning, setAspectRatioWarning] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,8 +41,33 @@ export const ImageUploadField = ({
     }
 
     setIsUploading(true);
+    setAspectRatioWarning(null);
 
     try {
+      // PHASE 2: Validate aspect ratio if specified
+      if (targetAspectRatio) {
+        const img = new Image();
+        const objectUrl = URL.createObjectURL(file);
+        
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = objectUrl;
+        });
+
+        const isValid = validateAspectRatio(img.width, img.height, targetAspectRatio);
+        const actualRatio = calculateAspectRatio(img.width, img.height);
+        
+        if (!isValid) {
+          setAspectRatioWarning(
+            `Image aspect ratio is ${actualRatio} but ${targetAspectRatio} is recommended. ` +
+            `Image may appear distorted or cropped.`
+          );
+        }
+
+        URL.revokeObjectURL(objectUrl);
+      }
+
       // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -43,16 +75,40 @@ export const ImageUploadField = ({
       };
       reader.readAsDataURL(file);
 
-      // Upload to Supabase
-      const { url, error } = await uploadImage(file, bucket);
+      // PHASE 2: Use processing edge function or direct upload
+      let url: string;
+      let error: string | undefined;
+
+      if (useProcessingFunction) {
+        // Use edge function for metadata stripping and optimization
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('bucket', bucket);
+        formData.append('stripMetadata', 'true');
+
+        const { data, error: functionError } = await supabase.functions.invoke('process-image', {
+          body: formData,
+        });
+
+        if (functionError) {
+          error = functionError.message;
+        } else {
+          url = data.url;
+        }
+      } else {
+        // Direct upload (legacy method)
+        const result = await uploadImage(file, bucket);
+        url = result.url;
+        error = result.error;
+      }
 
       if (error) {
         toast.error(`Upload failed: ${error}`);
         return;
       }
 
-      onChange(url);
-      toast.success('Image uploaded successfully');
+      onChange(url!);
+      toast.success('Image uploaded successfully' + (useProcessingFunction ? ' (optimized)' : ''));
     } catch (error) {
       console.error('Upload error:', error);
       toast.error('Failed to upload image');
@@ -72,6 +128,14 @@ export const ImageUploadField = ({
   return (
     <div className="space-y-2">
       <label className="text-sm font-medium">{label}</label>
+      
+      {/* PHASE 2: Aspect ratio warning */}
+      {aspectRatioWarning && (
+        <div className="flex items-start gap-2 p-3 bg-warning/10 border border-warning/20 rounded-lg">
+          <AlertCircle className="w-4 h-4 text-warning flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-warning">{aspectRatioWarning}</p>
+        </div>
+      )}
       
       {preview ? (
         <div className="relative group">

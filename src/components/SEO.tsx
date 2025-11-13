@@ -11,17 +11,21 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Ascent — Envelope & Restoration Contractor | Ontario & GTA",
-  description = "Prime envelope & restoration contractor in Ontario. Façade remediation, garage restoration, EIFS, masonry repair. Serving the GTA since 2009.",
-  keywords = "envelope contractor Ontario, facade remediation Toronto, parking garage restoration GTA, building envelope contractor, EIFS repair, sealant replacement, masonry restoration, waterproofing contractor, stucco repair, envelope restoration",
+  title,
+  description = "Prime envelope & restoration contractor in Ontario. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair. Serving the GTA since 2009.",
+  keywords,
   ogImage = "/og-image.jpg",
   canonical,
   structuredData,
   includeRating = false,
 }: SEOProps) => {
-  const fullTitle = title.includes("Ascen") ? title : `${title} | Ascen Group Construction`;
-  const siteUrl = window.location.origin;
-  const currentUrl = canonical || window.location.href;
+  const fullTitle = title ? `${title} | Ascent Group Construction` : 'Ascent Group Construction - Ontario Building Envelope & Restoration Specialists';
+  const siteUrl = 'https://ascentgroupconstruction.com';
+  
+  // PHASE 1 FIX: Ensure single canonical URL (non-www, HTTPS)
+  // Remove any www prefix and force HTTPS
+  const cleanPath = window.location.pathname;
+  const currentUrl = canonical || `${siteUrl}${cleanPath}`;
 
   // Enhanced organization schema with comprehensive service catalog + AEO/GEO optimization
   const defaultSchema = {
@@ -214,14 +218,16 @@ const SEO = ({
       <meta property="og:image" content={`${siteUrl}${ogImage}`} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:type" content="website" />
+      <meta property="og:image:alt" content={`${fullTitle} - Visual Preview`} />
 
-      {/* Twitter */}
+      {/* Twitter Card - Enhanced */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+      <meta name="twitter:image:alt" content={`${fullTitle} - Visual Preview`} />
 
-      {/* Canonical */}
+      {/* PHASE 1 FIX: Single Canonical URL - Prevents duplicate content penalty */}
       <link rel="canonical" href={currentUrl} />
 
       {/* Structured Data */}
