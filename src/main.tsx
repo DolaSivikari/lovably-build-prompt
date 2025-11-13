@@ -7,8 +7,6 @@ import "./styles/animations.css";
 import "./styles/mobile-nav.css";
 import "./styles/textures.css";
 import "./index.css";
-import "./styles/typography.css";
-import "./styles/textures.css";
 import { reportWebVitals } from "./lib/webVitals";
 import { initErrorLogging } from "./utils/errorLogger";
 
