@@ -13,6 +13,8 @@ import { ServiceCard3D } from "@/components/services/ServiceCard3D";
 import { ParticleNetwork } from "@/components/services/ParticleNetwork";
 import { VideoHoverCard } from "@/components/services/VideoHoverCard";
 import { ScrollSceneTransition } from "@/components/services/ScrollSceneTransition";
+import { InteractiveQuiz } from "@/components/services/InteractiveQuiz";
+import { QuizToggleButton } from "@/components/services/QuizToggleButton";
 import { CheckCircle2, Users, Building, Briefcase } from "lucide-react";
 
 interface Service {
@@ -34,6 +36,7 @@ interface ServiceCategory {
 
 const Services = () => {
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
 
   useEffect(() => {
     loadServices();
@@ -77,6 +80,12 @@ const Services = () => {
         canonical="https://ascentgroupconstruction.com/services"
       />
       <Navigation />
+
+      {/* Interactive Quiz */}
+      <InteractiveQuiz isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
+      
+      {/* Quiz Toggle Button */}
+      <QuizToggleButton isQuizActive={isQuizOpen} onToggle={() => setIsQuizOpen(true)} />
 
       {/* Scroll-based background transitions */}
       <ScrollSceneTransition />
