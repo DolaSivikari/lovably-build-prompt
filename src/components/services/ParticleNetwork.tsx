@@ -24,13 +24,23 @@ interface Particle {
   speed?: number;
 }
 
-const defaultPositions = [
-  { x: 20, y: 40 },
-  { x: 50, y: 20 },
-  { x: 80, y: 40 },
-  { x: 35, y: 70 },
-  { x: 65, y: 70 },
-];
+// Generate positions dynamically in a circular pattern
+const generateNodePositions = (count: number) => {
+  const positions = [];
+  const centerX = 50;
+  const centerY = 50;
+  const radiusX = 35; // Horizontal radius
+  const radiusY = 30; // Vertical radius
+  
+  for (let i = 0; i < count; i++) {
+    const angle = (i / count) * Math.PI * 2 - Math.PI / 2; // Start from top
+    const x = centerX + radiusX * Math.cos(angle);
+    const y = centerY + radiusY * Math.sin(angle);
+    positions.push({ x, y });
+  }
+  
+  return positions;
+};
 
 export const ParticleNetwork = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -41,7 +51,7 @@ export const ParticleNetwork = () => {
   const burstParticlesRef = useRef<Particle[]>([]);
   const navigate = useNavigate();
   const isMobile = useIsMobile();
-  const particleCount = isMobile ? 4 : 6;
+  const particleCount = isMobile ? 3 : 4;
 
   useEffect(() => {
     loadServices();
@@ -52,13 +62,13 @@ export const ParticleNetwork = () => {
       .from('services')
       .select('id, name, slug')
       .eq('publish_state', 'published')
-      .eq('featured', true)
-      .limit(5);
+      .order('name', { ascending: true });
 
     if (data && data.length > 0) {
+      const positions = generateNodePositions(data.length);
       const loadedNodes: Node[] = data.map((service, index) => ({
-        x: defaultPositions[index]?.x || 50,
-        y: defaultPositions[index]?.y || 50,
+        x: positions[index].x,
+        y: positions[index].y,
         id: service.slug,
         name: service.name,
         slug: service.slug,
