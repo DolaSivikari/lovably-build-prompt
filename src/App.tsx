@@ -199,9 +199,6 @@ const QuoteRequests = lazy(() => import("./pages/admin/QuoteRequests").catch(() 
 const ReviewManager = lazy(() => import("./pages/admin/ReviewManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Review Manager</p></div>
 })));
-const ABTestManager = lazy(() => import("./pages/admin/ABTestManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load A/B Test Manager</p></div>
-})));
 
 // WordPress-style Admin Pages
 const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
@@ -409,7 +406,6 @@ const App = () => (
                     <Route path="error-logs" element={<ErrorLogs />} />
                     <Route path="quote-requests" element={<QuoteRequests />} />
                     <Route path="reviews" element={<ReviewManager />} />
-                    <Route path="ab-tests" element={<ABTestManager />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
                     <Route path="newsletter-subscribers" element={<Suspense fallback={<PageLoader />}><NewsletterSubscribers /></Suspense>} />
