@@ -1,7 +1,7 @@
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, Environment, ContactShadows } from "@react-three/drei";
-import { EffectComposer, Bloom, SSAO, ToneMapping } from "@react-three/postprocessing";
+
 import { motion } from "framer-motion";
 import * as THREE from "three";
 import { supabase } from "@/integrations/supabase/client";
@@ -298,19 +298,7 @@ const Building3DScene = ({ buildingSections, onSectionSelect, qualityLevel }: Bu
         intensity={0.6}
         position={[0, 50, 0]}
       />
-      <directionalLight
-        position={[10, 20, 5]}
-        intensity={1.2}
-        castShadow
-        shadow-mapSize-width={qualityLevel === 'high' ? 2048 : 1024}
-        shadow-mapSize-height={qualityLevel === 'high' ? 2048 : 1024}
-        shadow-camera-far={50}
-        shadow-camera-left={-20}
-        shadow-camera-right={20}
-        shadow-camera-top={20}
-        shadow-camera-bottom={-20}
-        shadow-bias={-0.0001}
-      />
+      <directionalLight position={[10, 20, 5]} intensity={1.2} castShadow />
       <directionalLight
         position={[-10, 15, -5]}
         intensity={0.5}
@@ -351,44 +339,6 @@ const Building3DScene = ({ buildingSections, onSectionSelect, qualityLevel }: Bu
       <Worker position={[4, 0, -3]} />
       <Crane />
 
-      {/* Adaptive post-processing based on quality level */}
-      {qualityLevel === 'high' && (
-        <Suspense fallback={null}>
-          <EffectComposer multisampling={4}>
-            <Bloom
-              intensity={0.3}
-              luminanceThreshold={0.8}
-              luminanceSmoothing={0.9}
-              mipmapBlur
-            />
-            <ToneMapping adaptive resolution={256} />
-            <SSAO
-              samples={30}
-              rings={4}
-              distanceThreshold={0.6}
-              distanceFalloff={0.2}
-              rangeThreshold={0.5}
-              rangeFalloff={0.1}
-              luminanceInfluence={0.7}
-              radius={12}
-              bias={0.025}
-            />
-          </EffectComposer>
-        </Suspense>
-      )}
-      
-      {qualityLevel === 'medium' && (
-        <Suspense fallback={null}>
-          <EffectComposer multisampling={2}>
-            <Bloom
-              intensity={0.2}
-              luminanceThreshold={0.9}
-              luminanceSmoothing={0.8}
-            />
-            <ToneMapping adaptive resolution={256} />
-          </EffectComposer>
-        </Suspense>
-      )}
     </>
   );
 };
