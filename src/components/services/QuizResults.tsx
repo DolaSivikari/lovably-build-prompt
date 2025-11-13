@@ -39,11 +39,12 @@ export const QuizResults = ({ recommendedServices, answers, onRestart }: QuizRes
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("quiz_submissions").insert({
+      // Type assertion until Supabase types are regenerated
+      const { error } = await supabase.from("quiz_submissions" as any).insert({
         answers,
         recommended_services: recommendedServices.map(s => s.name),
         user_email: email,
-      });
+      } as any);
 
       if (error) throw error;
 

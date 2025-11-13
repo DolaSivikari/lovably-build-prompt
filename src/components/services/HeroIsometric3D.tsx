@@ -1,314 +1,128 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Building2, Layers, Hammer, Shield, Zap, Wrench, Sparkles, Package } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { IsometricBuilding3D } from "./IsometricBuilding3D";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { Building2, Hammer, Wrench, PaintBucket } from "lucide-react";
 
-interface BuildingSection {
-  id: string;
-  name: string;
-  icon: any;
-  color: string;
-  position: string;
-  description: string;
-  slug: string;
-}
-
-const buildingSections: BuildingSection[] = [
+const buildingSections = [
   {
     id: "foundation",
-    name: "Foundation & Structure",
+    name: "Foundation & Excavation",
     icon: Building2,
-    color: "hsl(var(--primary))",
-    position: "bottom-8 left-1/4",
-    description: "Solid foundations for lasting buildings",
-    slug: "structural-concrete"
+    color: "from-amber-500 to-orange-600",
+    position: "bottom-8 left-8",
+    description: "Structural integrity from the ground up",
+    slug: "foundation-excavation",
+  },
+  {
+    id: "structural",
+    name: "Structural Steel & Concrete",
+    icon: Hammer,
+    color: "from-slate-500 to-slate-700",
+    position: "bottom-32 left-16",
+    description: "Building the core framework",
+    slug: "structural-steel",
   },
   {
     id: "envelope",
     name: "Building Envelope",
-    icon: Shield,
-    color: "hsl(var(--accent))",
-    position: "top-1/3 right-1/4",
-    description: "Weather-tight exterior solutions",
-    slug: "building-envelope"
+    icon: Wrench,
+    color: "from-blue-500 to-blue-700",
+    position: "bottom-48 right-16",
+    description: "Weather protection and insulation",
+    slug: "building-envelope",
   },
   {
-    id: "interior",
-    name: "Interior Systems",
-    icon: Layers,
-    color: "hsl(var(--secondary))",
-    position: "top-1/2 left-1/3",
-    description: "Complete interior finishes",
-    slug: "interior-systems"
+    id: "finishes",
+    name: "Interior Finishes",
+    icon: PaintBucket,
+    color: "from-purple-500 to-purple-700",
+    position: "top-32 right-8",
+    description: "Drywall, flooring, and millwork",
+    slug: "interior-finishes",
   },
-  {
-    id: "mechanical",
-    name: "Mechanical Systems",
-    icon: Zap,
-    color: "hsl(var(--chart-1))",
-    position: "bottom-1/3 right-1/3",
-    description: "Advanced HVAC & plumbing",
-    slug: "mechanical-piping"
-  },
-  {
-    id: "specialty",
-    name: "Specialty Work",
-    icon: Sparkles,
-    color: "hsl(var(--chart-2))",
-    position: "top-1/4 left-1/2",
-    description: "Expert specialty trades",
-    slug: "specialty-contracting"
-  },
-  {
-    id: "renovation",
-    name: "Renovation",
-    icon: Hammer,
-    color: "hsl(var(--chart-3))",
-    position: "bottom-1/2 right-1/2",
-    description: "Transform existing spaces",
-    slug: "renovation-restoration"
-  }
 ];
 
 export const HeroIsometric3D = () => {
-  const [selectedSection, setSelectedSection] = useState<string | null>(null);
-  const [rotation, setRotation] = useState({ x: -20, y: 25 });
-  const [isDragging, setIsDragging] = useState(false);
-
-  const handleMouseDown = () => setIsDragging(true);
-  const handleMouseUp = () => setIsDragging(false);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    
-    setRotation(prev => ({
-      x: Math.max(-45, Math.min(0, prev.x + e.movementY * 0.5)),
-      y: prev.y + e.movementX * 0.5
-    }));
-  };
+  const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-background via-background/95 to-muted/20 overflow-hidden">
-      {/* Animated background particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/20 rounded-full"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-            }}
-            animate={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-            }}
-            transition={{
-              duration: Math.random() * 20 + 10,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          />
-        ))}
-      </div>
+    <section className="relative min-h-[800px] py-20 overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/30 to-background -z-10" />
 
-      <div className="container mx-auto px-4 pt-32 pb-20 relative z-10">
+      <div className="container mx-auto px-4">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Explore Our Services
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
-            Click and drag to rotate • Select sections to learn more
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Click on any building section to discover our specialized construction services
           </p>
         </motion.div>
 
-        {/* 3D Isometric Building */}
-        <div
-          className="relative mx-auto max-w-4xl h-[600px] flex items-center justify-center cursor-grab active:cursor-grabbing"
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onMouseMove={handleMouseMove}
-        >
+        {/* 3D Building or Fallback */}
+        {!prefersReducedMotion ? (
           <motion.div
-            className="relative w-full h-full"
-            style={{
-              perspective: "1200px",
-              transformStyle: "preserve-3d",
-            }}
-            animate={{
-              rotateX: rotation.x,
-              rotateY: rotation.y,
-            }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Main Building Structure */}
-            <div
-              className="absolute inset-0 m-auto w-64 h-80"
-              style={{
-                transformStyle: "preserve-3d",
-                transform: "translateZ(0)",
-              }}
-            >
-              {/* Building Base */}
-              <motion.div
-                className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/30"
-                style={{
-                  transform: "rotateX(90deg) translateZ(-16px)",
-                  transformStyle: "preserve-3d",
-                }}
-                whileHover={{ borderColor: "hsl(var(--primary))" }}
-              />
-
-              {/* Building Front */}
-              <motion.div
-                className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-br from-muted/40 to-muted/20 border-2 border-border backdrop-blur-sm"
-                style={{
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                {/* Windows */}
-                <div className="grid grid-cols-3 gap-4 p-6">
-                  {[...Array(9)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="aspect-square bg-accent/20 border border-accent/40 rounded"
-                    />
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Building Right Side */}
-              <motion.div
-                className="absolute bottom-0 right-0 w-32 h-full bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-border backdrop-blur-sm"
-                style={{
-                  transform: "rotateY(90deg) translateZ(128px)",
-                  transformOrigin: "left",
-                  transformStyle: "preserve-3d",
-                }}
-              />
-
-              {/* Building Top */}
-              <motion.div
-                className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-accent/20 to-accent/10 border-2 border-accent/30"
-                style={{
-                  transform: "rotateX(90deg) translateZ(320px)",
-                  transformStyle: "preserve-3d",
-                }}
-              />
-
-              {/* Interactive Service Sections */}
-              {buildingSections.map((section, index) => {
-                const Icon = section.icon;
-                const isSelected = selectedSection === section.id;
-
-                return (
-                  <motion.button
-                    key={section.id}
-                    className={cn(
-                      "absolute w-16 h-16 rounded-xl backdrop-blur-md border-2 transition-all",
-                      "flex items-center justify-center group",
-                      isSelected
-                        ? "border-white shadow-2xl scale-110 z-20"
-                        : "border-white/30 hover:border-white/60 hover:scale-105"
-                    )}
-                    style={{
-                      backgroundColor: isSelected
-                        ? section.color
-                        : `${section.color}40`,
-                      transform: `translateZ(${index * 20 + 50}px)`,
-                    }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 + 0.5 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedSection(isSelected ? null : section.id);
-                    }}
-                    whileHover={{ scale: 1.15 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Icon className="w-8 h-8 text-white drop-shadow-lg" />
-                    
-                    {/* Glow effect */}
-                    {isSelected && (
-                      <motion.div
-                        className="absolute inset-0 rounded-xl"
-                        style={{
-                          backgroundColor: section.color,
-                          filter: "blur(20px)",
-                          opacity: 0.6,
-                        }}
-                        animate={{
-                          scale: [1, 1.2, 1],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                        }}
-                      />
-                    )}
-                  </motion.button>
-                );
-              })}
-            </div>
+            <IsometricBuilding3D />
           </motion.div>
-        </div>
+        ) : (
+          // Simplified fallback for reduced motion
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {buildingSections.map((section) => {
+              const Icon = section.icon;
+              return (
+                <a
+                  key={section.id}
+                  href={`/services/${section.slug}`}
+                  className="group p-6 rounded-xl border border-border bg-card hover:border-primary transition-all"
+                >
+                  <div className={`inline-flex p-3 rounded-lg bg-gradient-to-br ${section.color} mb-4`}>
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
+                    {section.name}
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {section.description}
+                  </p>
+                </a>
+              );
+            })}
+          </div>
+        )}
 
-        {/* Service Details Panel */}
-        <AnimatePresence>
-          {selectedSection && (
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              className="mt-12 max-w-2xl mx-auto"
-            >
-              {buildingSections
-                .filter((s) => s.id === selectedSection)
-                .map((section) => {
-                  const Icon = section.icon;
-                  return (
-                    <div
-                      key={section.id}
-                      className="p-8 rounded-2xl backdrop-blur-md border-2 bg-card/50"
-                      style={{ borderColor: section.color }}
-                    >
-                      <div className="flex items-center gap-4 mb-4">
-                        <div
-                          className="w-16 h-16 rounded-xl flex items-center justify-center"
-                          style={{ backgroundColor: section.color }}
-                        >
-                          <Icon className="w-8 h-8 text-white" />
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-foreground">
-                            {section.name}
-                          </h3>
-                          <p className="text-muted-foreground">
-                            {section.description}
-                          </p>
-                        </div>
-                      </div>
-                      <a
-                        href={`/services/${section.slug}`}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white transition-all hover:scale-105"
-                        style={{ backgroundColor: section.color }}
-                      >
-                        Learn More
-                      </a>
-                    </div>
-                  );
-                })}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Features below */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12"
+        >
+          <div className="text-center p-6">
+            <div className="text-3xl font-bold text-primary mb-2">15+</div>
+            <p className="text-muted-foreground">Years Experience</p>
+          </div>
+          <div className="text-center p-6">
+            <div className="text-3xl font-bold text-primary mb-2">500+</div>
+            <p className="text-muted-foreground">Projects Completed</p>
+          </div>
+          <div className="text-center p-6">
+            <div className="text-3xl font-bold text-primary mb-2">98%</div>
+            <p className="text-muted-foreground">Client Satisfaction</p>
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };

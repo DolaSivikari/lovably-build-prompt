@@ -1,16 +1,17 @@
-import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Play, ArrowRight } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Play, Volume2, VolumeX } from "lucide-react";
 import { use3DTilt } from "@/hooks/use3DTilt";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 interface VideoHoverCardProps {
   id: string;
   name: string;
   slug: string;
-  short_description: string | null;
-  videoUrl?: string; // Optional video URL
-  thumbnailUrl?: string; // Fallback thumbnail
+  short_description: string;
+  videoUrl?: string;
+  thumbnailUrl?: string;
 }
 
 export const VideoHoverCard = ({
@@ -22,160 +23,205 @@ export const VideoHoverCard = ({
 }: VideoHoverCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useIntersectionObserver(cardRef, { threshold: 0.2 });
+  
   const { tiltStyle, handleMouseMove, handleMouseLeave } = use3DTilt({
-    maxTilt: 8,
-    scale: 1.05,
+    maxTilt: 10,
+    perspective: 1000,
+    scale: 1.02,
   });
+
+  // Preload video when card enters viewport
+  useEffect(() => {
+    if (isInView && videoUrl && videoRef.current) {
+      videoRef.current.load();
+    }
+  }, [isInView, videoUrl]);
+
+  // Handle video playback
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isHovered && isVideoLoaded) {
+        videoRef.current.play().catch(console.error);
+      } else {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+    }
+  }, [isHovered, isVideoLoaded]);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    if (videoRef.current && videoUrl) {
-      videoRef.current.play().catch(() => {
-        // Video play failed, likely due to autoplay policy
-      });
-    }
   };
 
-  const handleLeave = () => {
+  const handleMouseLeaveCard = () => {
     setIsHovered(false);
+    setIsMuted(true);
     handleMouseLeave();
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   };
 
-  // Placeholder video/image if not provided
-  const hasVideo = !!videoUrl;
-  const displayThumbnail = thumbnailUrl || "https://images.unsplash.com/photo-1541888946425-d81bb19240f5";
+  const toggleMute = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsMuted(!isMuted);
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+    }
+  };
 
   return (
-    <Link to={`/services/${slug}`}>
+    <Link to={`/services/${slug}`} className="block">
       <motion.div
-        className="relative h-[400px] group cursor-pointer overflow-hidden rounded-2xl border-2 border-border"
+        ref={cardRef}
+        className="relative h-[450px] rounded-2xl overflow-hidden border-2 border-border bg-card group"
         style={{
           ...tiltStyle,
           transformStyle: "preserve-3d",
         }}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleLeave}
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        onMouseLeave={handleMouseLeaveCard}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
       >
-        {/* Video/Image Background */}
-        <div className="absolute inset-0">
-          {hasVideo ? (
+        {/* Video or Image */}
+        <div className="relative h-64 overflow-hidden rounded-t-xl">
+          {videoUrl && isInView ? (
             <>
               <video
                 ref={videoRef}
-                className="absolute inset-0 w-full h-full object-cover"
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                  isHovered && isVideoLoaded ? "opacity-100" : "opacity-0"
+                }`}
                 loop
-                muted
+                muted={isMuted}
                 playsInline
-                poster={displayThumbnail}
+                preload="metadata"
                 onLoadedData={() => setIsVideoLoaded(true)}
-                style={{
-                  opacity: isHovered && isVideoLoaded ? 1 : 0,
-                  transition: "opacity 0.5s",
-                }}
               >
                 <source src={videoUrl} type="video/mp4" />
               </video>
-              <img
-                src={displayThumbnail}
-                alt={name}
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{
-                  opacity: isHovered && isVideoLoaded ? 0 : 1,
-                  transition: "opacity 0.5s",
-                }}
-              />
+              
+              {/* Thumbnail (shown before video loads or when not hovered) */}
+              {thumbnailUrl && (
+                <img
+                  src={thumbnailUrl}
+                  alt={name}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                    isHovered && isVideoLoaded ? "opacity-0" : "opacity-100"
+                  }`}
+                  loading="lazy"
+                />
+              )}
+
+              {/* Mute/Unmute button */}
+              {isHovered && isVideoLoaded && (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  onClick={toggleMute}
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center hover:bg-black/80 transition-colors z-10"
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-5 h-5 text-white" />
+                  ) : (
+                    <Volume2 className="w-5 h-5 text-white" />
+                  )}
+                </motion.button>
+              )}
             </>
           ) : (
             <img
-              src={displayThumbnail}
+              src={thumbnailUrl || "https://images.unsplash.com/photo-1541888946425-d81bb19240f5"}
               alt={name}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-cover"
+              loading="lazy"
             />
           )}
 
-          {/* Overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          {/* Play indicator */}
+          {videoUrl && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{
+                opacity: isHovered && isVideoLoaded ? 0 : 1,
+                scale: isHovered && isVideoLoaded ? 0.8 : 1,
+              }}
+              className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none"
+            >
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center backdrop-blur-sm">
+                <Play className="w-8 h-8 text-white ml-1" fill="white" />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Loading indicator */}
+          {videoUrl && isInView && !isVideoLoaded && isHovered && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+              <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
         </div>
 
-        {/* Play Icon (when video is available and not playing) */}
-        {hasVideo && !isHovered && (
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-primary/90 backdrop-blur-sm flex items-center justify-center"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <Play className="w-8 h-8 text-white ml-1" />
-          </motion.div>
-        )}
-
         {/* Content */}
-        <div
-          className="absolute bottom-0 left-0 right-0 p-6"
-          style={{
-            transform: "translateZ(20px)",
-            transformStyle: "preserve-3d",
-          }}
-        >
-          <motion.h3
-            className="text-2xl font-bold text-white mb-2 drop-shadow-lg"
-            animate={{
-              y: isHovered ? -10 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {name}
-          </motion.h3>
-
-          <motion.p
-            className="text-sm text-white/90 mb-4 line-clamp-2 drop-shadow"
-            animate={{
-              opacity: isHovered ? 1 : 0.8,
-              y: isHovered ? -5 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {short_description}
-          </motion.p>
-
+        <div className="relative p-6 bg-card">
+          {/* Glow effect */}
           <motion.div
-            className="flex items-center gap-2 text-white font-semibold"
-            animate={{
-              x: isHovered ? 5 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <span>Watch More</span>
-            <ArrowRight className="w-5 h-5" />
-          </motion.div>
+            className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{ transform: "translateZ(20px)" }}
+          />
+
+          {/* Text content */}
+          <div className="relative" style={{ transform: "translateZ(40px)" }}>
+            <motion.h3
+              className="text-2xl font-bold mb-3 text-foreground"
+              animate={{
+                y: isHovered ? -5 : 0,
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              {name}
+            </motion.h3>
+
+            <motion.p
+              className="text-muted-foreground mb-4 line-clamp-3"
+              animate={{
+                opacity: isHovered ? 1 : 0.8,
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              {short_description}
+            </motion.p>
+
+            {/* Watch more indicator */}
+            <motion.div
+              className="flex items-center gap-2 text-primary font-semibold"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{
+                opacity: isHovered ? 1 : 0,
+                x: isHovered ? 0 : -10,
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <span>Watch More</span>
+              <Play className="w-4 h-4" fill="currentColor" />
+            </motion.div>
+          </div>
         </div>
 
         {/* Shine effect */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-          initial={{ x: "-100%" }}
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full"
           animate={{
-            x: isHovered ? "100%" : "-100%",
+            translateX: isHovered ? "200%" : "-100%",
           }}
           transition={{ duration: 0.8 }}
-        />
-
-        {/* Glow effect */}
-        <div
-          className="absolute -inset-1 bg-gradient-to-br from-primary/30 via-accent/30 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10"
-          style={{
-            transform: "translateZ(-10px)",
-          }}
+          style={{ transform: "translateZ(60px)" }}
         />
       </motion.div>
     </Link>
