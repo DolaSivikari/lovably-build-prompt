@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { QuizQuestion } from "./QuizQuestion";
 import { QuizResults } from "./QuizResults";
 import { supabase } from "@/integrations/supabase/client";
-import { trackConversion } from "@/lib/analytics";
+import { trackConversion, trackQuizStart, trackQuizComplete } from "@/lib/analytics";
 
 interface Service {
   id: string;
@@ -100,9 +100,9 @@ export const InteractiveQuiz = ({ isOpen, onClose }: InteractiveQuizProps) => {
       }
     };
 
-    if (isOpen) {
+    if (isOpen && allServices.length === 0) {
       loadServices();
-      trackConversion("quiz_started");
+      trackQuizStart();
     }
   }, [isOpen]);
 
@@ -162,9 +162,10 @@ export const InteractiveQuiz = ({ isOpen, onClose }: InteractiveQuizProps) => {
       recommended = [...recommended, ...allServices].slice(0, 3);
     }
 
+    // Show results
     setRecommendedServices(recommended);
     setShowResults(true);
-    trackConversion("quiz_completed", { answers: finalAnswers });
+    trackQuizComplete(recommended.map(s => s.name));
   };
 
   const handleRestart = () => {

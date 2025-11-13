@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Play, Volume2, VolumeX } from "lucide-react";
 import { use3DTilt } from "@/hooks/use3DTilt";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { trackCTAClick } from "@/lib/analytics";
 
 interface VideoHoverCardProps {
   id: string;
@@ -24,8 +26,10 @@ export const VideoHoverCard = ({
   const [isHovered, setIsHovered] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [hasVideoError, setHasVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   const isInView = useIntersectionObserver(cardRef, { threshold: 0.2 });
   
   const { tiltStyle, handleMouseMove, handleMouseLeave } = use3DTilt({
@@ -54,7 +58,24 @@ export const VideoHoverCard = ({
   }, [isHovered, isVideoLoaded]);
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
+    if (!isMobile) {
+      setIsHovered(true);
+      if (videoRef.current && isInView) {
+        videoRef.current.play().catch(console.error);
+      }
+    }
+  };
+
+  const handleTap = () => {
+    if (isMobile && videoRef.current && isInView) {
+      if (videoRef.current.paused) {
+        videoRef.current.play().catch(console.error);
+        setIsHovered(true);
+      } else {
+        videoRef.current.pause();
+        setIsHovered(false);
+      }
+    }
   };
 
   const handleMouseLeaveCard = () => {
@@ -72,8 +93,22 @@ export const VideoHoverCard = ({
     }
   };
 
+  const handleVideoError = () => {
+    setHasVideoError(true);
+    console.error("Video failed to load:", videoUrl);
+  };
+
+  const handleClick = () => {
+    trackCTAClick(name, "video_hover_card");
+  };
+
   return (
-    <Link to={`/services/${slug}`} className="block">
+    <Link
+      to={`/services/${slug}`}
+      onClick={handleClick}
+      className="block group"
+      aria-label={`View ${name} service details`}
+    >
       <motion.div
         ref={cardRef}
         className="relative h-[450px] rounded-2xl overflow-hidden border-2 border-border bg-card group"
@@ -84,6 +119,7 @@ export const VideoHoverCard = ({
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeaveCard}
+        onClick={isMobile ? handleTap : undefined}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -91,7 +127,7 @@ export const VideoHoverCard = ({
       >
         {/* Video or Image */}
         <div className="relative h-64 overflow-hidden rounded-t-xl">
-          {videoUrl && isInView ? (
+          {videoUrl && isInView && !hasVideoError ? (
             <>
               <video
                 ref={videoRef}
@@ -103,6 +139,8 @@ export const VideoHoverCard = ({
                 playsInline
                 preload="metadata"
                 onLoadedData={() => setIsVideoLoaded(true)}
+                onError={handleVideoError}
+                aria-label={`Video preview for ${name}`}
               >
                 <source src={videoUrl} type="video/mp4" />
               </video>
