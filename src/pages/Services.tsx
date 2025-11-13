@@ -126,28 +126,6 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Video Hover Cards Section */}
-        <section className="py-20 bg-background relative">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                Services in Action
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Hover to see our services come to life
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {categories.slice(0, 3).flatMap(category => category.services.slice(0, 1)).map((service) => (
-                <VideoHoverCard
-                  key={service.id}
-                  {...service}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Who We Serve Section */}
         <section className="py-20 bg-gradient-to-b from-muted/10 to-background">
           <div className="container mx-auto px-4">
