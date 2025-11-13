@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, Environment, ContactShadows } from "@react-three/drei";
+import { EffectComposer, Bloom, SSAO, ToneMapping } from "@react-three/postprocessing";
 import { motion } from "framer-motion";
 import * as THREE from "three";
 import { supabase } from "@/integrations/supabase/client";
@@ -34,7 +35,7 @@ const BuildingBox = ({
   onClick,
 }: BuildingBoxProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const windowsRef = useRef<THREE.Group>(null);
+  const glassGroupRef = useRef<THREE.Group>(null);
 
   useFrame(() => {
     if (meshRef.current) {
@@ -46,35 +47,74 @@ const BuildingBox = ({
     }
   });
 
-  // Create windows for the building
+  // Enhanced window creation with proper glass material
   const windows = [];
-  const windowSize = 0.3;
-  const windowSpacing = 0.5;
+  const windowSize = 0.4;
+  const windowSpacing = 0.6;
   const rows = Math.floor(size[1] / windowSpacing);
   const cols = Math.floor(size[0] / windowSpacing);
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
+      const windowColor = new THREE.Color(color);
+      const glassColor = windowColor.clone().lerp(new THREE.Color("#87CEEB"), 0.7);
+      
       windows.push(
         <mesh
           key={`window-${i}-${j}`}
           position={[
             -size[0] / 2 + j * windowSpacing + windowSpacing / 2,
             -size[1] / 2 + i * windowSpacing + windowSpacing / 2,
-            size[2] / 2 + 0.05,
+            size[2] / 2 + 0.02,
           ]}
+          castShadow
         >
           <planeGeometry args={[windowSize, windowSize]} />
-          <meshStandardMaterial
-            color="#87CEEB"
-            metalness={0.9}
-            roughness={0.1}
-            emissive="#87CEEB"
-            emissiveIntensity={isHovered ? 0.3 : 0.1}
+          <meshPhysicalMaterial
+            color={glassColor}
+            metalness={0.1}
+            roughness={0.05}
+            transmission={0.95}
+            thickness={0.5}
+            envMapIntensity={2}
+            clearcoat={1}
+            clearcoatRoughness={0.1}
+            emissive={glassColor}
+            emissiveIntensity={isHovered ? 0.4 : 0.2}
           />
         </mesh>
       );
     }
+  }
+
+  // Glass facade panels for modern look
+  const glassPanels = [];
+  const panelCount = 3;
+  for (let i = 0; i < panelCount; i++) {
+    glassPanels.push(
+      <mesh
+        key={`glass-panel-${i}`}
+        position={[
+          -size[0] / 4 + (i * size[0]) / (panelCount + 1),
+          0,
+          size[2] / 2 + 0.01,
+        ]}
+        castShadow
+      >
+        <planeGeometry args={[size[0] / (panelCount + 1), size[1] * 0.9]} />
+        <meshPhysicalMaterial
+          color={new THREE.Color(color).lerp(new THREE.Color("#ffffff"), 0.5)}
+          metalness={0.2}
+          roughness={0.1}
+          transmission={0.8}
+          thickness={0.3}
+          envMapIntensity={1.5}
+          clearcoat={0.5}
+          transparent
+          opacity={0.4}
+        />
+      </mesh>
+    );
   }
 
   return (
@@ -84,37 +124,64 @@ const BuildingBox = ({
       onPointerOut={onUnhover}
       onClick={onClick}
     >
-      {/* Main building structure with PBR materials */}
+      {/* Main building structure - concrete material */}
       <mesh ref={meshRef} castShadow receiveShadow>
         <boxGeometry args={size} />
         <meshStandardMaterial
           color={color}
-          metalness={0.2}
-          roughness={0.7}
+          metalness={0.15}
+          roughness={0.85}
+          envMapIntensity={0.5}
           emissive={color}
-          emissiveIntensity={isHovered || isSelected ? 0.3 : 0.05}
+          emissiveIntensity={isHovered || isSelected ? 0.2 : 0.02}
         />
-        {/* Edges for definition */}
-        <lineSegments>
-          <edgesGeometry args={[new THREE.BoxGeometry(...size)]} />
-          <lineBasicMaterial color="#ffffff" transparent opacity={0.4} linewidth={2} />
-        </lineSegments>
       </mesh>
 
-      {/* Windows */}
-      <group ref={windowsRef}>{windows}</group>
+      {/* Structural edges */}
+      <lineSegments>
+        <edgesGeometry args={[new THREE.BoxGeometry(...size)]} />
+        <lineBasicMaterial color="#cccccc" transparent opacity={0.3} />
+      </lineSegments>
 
-      {/* Balcony/detail elements */}
-      {size[1] > 1.5 && (
-        <mesh position={[0, -size[1] / 3, size[2] / 2 + 0.1]} castShadow>
-          <boxGeometry args={[size[0] * 0.8, 0.1, 0.3]} />
-          <meshStandardMaterial
-            color="#555555"
-            metalness={0.5}
-            roughness={0.5}
-          />
-        </mesh>
+      {/* Glass windows */}
+      <group ref={glassGroupRef}>{windows}</group>
+
+      {/* Glass facade panels */}
+      <group>{glassPanels}</group>
+
+      {/* Metal balconies */}
+      {size[1] > 2 && (
+        <>
+          <mesh position={[0, -size[1] / 3, size[2] / 2 + 0.15]} castShadow>
+            <boxGeometry args={[size[0] * 0.85, 0.08, 0.35]} />
+            <meshStandardMaterial
+              color="#444444"
+              metalness={0.9}
+              roughness={0.2}
+              envMapIntensity={1.5}
+            />
+          </mesh>
+          <mesh position={[0, size[1] / 3, size[2] / 2 + 0.15]} castShadow>
+            <boxGeometry args={[size[0] * 0.85, 0.08, 0.35]} />
+            <meshStandardMaterial
+              color="#444444"
+              metalness={0.9}
+              roughness={0.2}
+              envMapIntensity={1.5}
+            />
+          </mesh>
+        </>
       )}
+
+      {/* Rooftop details */}
+      <mesh position={[0, size[1] / 2 + 0.1, 0]} castShadow>
+        <boxGeometry args={[size[0] * 0.3, 0.2, size[2] * 0.3]} />
+        <meshStandardMaterial
+          color="#555555"
+          metalness={0.7}
+          roughness={0.3}
+        />
+      </mesh>
     </group>
   );
 };
@@ -184,9 +251,10 @@ const Ground = () => {
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
       <planeGeometry args={[30, 30]} />
       <meshStandardMaterial
-        color="#2d5016"
+        color="#2a2a2a"
         roughness={0.9}
         metalness={0.1}
+        envMapIntensity={0.3}
       />
     </mesh>
   );
@@ -219,22 +287,33 @@ const Building3DScene = ({ buildingSections, onSectionSelect }: Building3DSceneP
         autoRotateSpeed={0.5}
       />
 
-      {/* Enhanced Lighting */}
+      {/* Enhanced Lighting Setup */}
       <ambientLight intensity={0.4} />
+      <hemisphereLight
+        color="#ffffff"
+        groundColor="#444444"
+        intensity={0.6}
+        position={[0, 50, 0]}
+      />
       <directionalLight
-        position={[10, 10, 5]}
-        intensity={1}
+        position={[10, 20, 5]}
+        intensity={1.2}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-camera-far={50}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
+        shadow-camera-left={-20}
+        shadow-camera-right={20}
+        shadow-camera-top={20}
+        shadow-camera-bottom={-20}
+        shadow-bias={-0.0001}
       />
-      <directionalLight position={[-5, 5, -5]} intensity={0.3} />
-      <hemisphereLight args={["#87CEEB", "#2d5016", 0.3]} />
+      <directionalLight
+        position={[-10, 15, -5]}
+        intensity={0.5}
+        color="#4A90E2"
+      />
+      <pointLight position={[0, 10, 0]} intensity={0.3} color="#FFD700" />
 
       {/* HDRI Environment */}
       <Environment preset="city" />
@@ -242,11 +321,11 @@ const Building3DScene = ({ buildingSections, onSectionSelect }: Building3DSceneP
       {/* Ground */}
       <Ground />
       
-      {/* Contact Shadows */}
+      {/* Contact Shadows for realism */}
       <ContactShadows
         position={[0, -0.49, 0]}
-        opacity={0.4}
-        scale={20}
+        opacity={0.6}
+        scale={30}
         blur={2}
         far={10}
       />
@@ -268,6 +347,23 @@ const Building3DScene = ({ buildingSections, onSectionSelect }: Building3DSceneP
       <Worker position={[-4, 0, 0]} />
       <Worker position={[4, 0, -3]} />
       <Crane />
+
+      {/* Post-processing effects for video game quality */}
+      <EffectComposer>
+        <Bloom
+          intensity={0.3}
+          luminanceThreshold={0.8}
+          luminanceSmoothing={0.9}
+          mipmapBlur
+        />
+        <SSAO
+          samples={31}
+          radius={0.1}
+          intensity={30}
+          luminanceInfluence={0.5}
+        />
+        <ToneMapping />
+      </EffectComposer>
     </>
   );
 };
@@ -291,30 +387,30 @@ export const IsometricBuilding3D = () => {
 
     if (data) {
       const positions: [number, number, number][] = [
-        [0, 0, 0],
-        [0, 1.5, 0],
-        [0, 3.5, 0],
-        [-1.5, 5, 0],
-        [1.5, 5, 0],
-        [0, 6.5, 0],
+        [0, 2.5, 0],
+        [-3, 1.5, -2],
+        [3, 1.8, -2],
+        [-3, 1.2, 2],
+        [3, 1.5, 2],
+        [0, 0.8, 4],
       ];
 
       const colors = [
-        "#8B4513",
-        "#696969",
-        "#CD853F",
-        "#4682B4",
-        "#DDA0DD",
-        "#2F4F4F",
+        "#4A90E2",
+        "#50C878",
+        "#FF6B6B",
+        "#FFD93D",
+        "#A78BFA",
+        "#F59E0B",
       ];
 
       const sizes: [number, number, number][] = [
-        [4, 0.5, 4],
-        [3.5, 2, 3.5],
-        [3.8, 1.5, 3.8],
-        [1.5, 1.5, 3.8],
-        [1.5, 1.5, 3.8],
-        [4, 0.3, 4],
+        [2.5, 5, 2.5],
+        [2, 3, 2],
+        [2.2, 3.5, 2.2],
+        [1.8, 2.5, 1.8],
+        [2, 3, 2],
+        [1.5, 1.8, 1.5],
       ];
 
       const sections: BuildingSection[] = data.map((service, index) => ({
