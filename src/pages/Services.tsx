@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { FeaturedServicesGrid } from "@/components/services/FeaturedServicesGrid";
-import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 import { ServiceCard3D } from "@/components/services/ServiceCard3D";
 import { ParticleNetwork } from "@/components/services/ParticleNetwork";
 import { VideoHoverCard } from "@/components/services/VideoHoverCard";
@@ -278,13 +277,6 @@ const Services = () => {
                 </Button>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <TestimonialRatings />
           </div>
         </section>
 
