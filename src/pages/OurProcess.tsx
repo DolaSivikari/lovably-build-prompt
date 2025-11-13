@@ -105,6 +105,124 @@ const qualityStandards = [
   }
 ];
 
+const contractTypes = [
+  {
+    name: "Stipulated Price (Lump Sum)",
+    description: "Fixed price for the entire project scope. Best for well-defined projects with complete specifications.",
+    pros: ["Predictable budget", "Client assumes less risk", "Clear scope from start"],
+    cons: ["Change orders can be costly", "Less flexibility", "Requires detailed upfront planning"],
+    bestFor: "Standard painting, stucco repair, defined restoration work"
+  },
+  {
+    name: "Cost-Plus",
+    description: "Client pays actual costs plus a fixed fee or percentage. Provides transparency on all expenses.",
+    pros: ["Flexible scope", "Real-time cost visibility", "Easier to accommodate changes"],
+    cons: ["Less budget certainty", "Requires trust and oversight", "Final cost may vary"],
+    bestFor: "Complex renovations, phased projects, design-build"
+  },
+  {
+    name: "Unit Price",
+    description: "Pricing based on measured units (e.g., $/sqft, $/linear foot). Common for repetitive work.",
+    pros: ["Easy to scale", "Fair pricing", "Clear cost per unit"],
+    cons: ["Quantity variations affect total", "Requires accurate measurement", "May not capture all complexity"],
+    bestFor: "Sealant replacement, window installation, floor coatings"
+  },
+  {
+    name: "Construction Management (CM)",
+    description: "We manage all trades and subcontractors on your behalf for a fee (typically 3-8% of construction value).",
+    pros: ["Expert oversight", "Single point of contact", "Schedule & quality control"],
+    cons: ["Additional fee layer", "Client still holds contracts", "Requires active involvement"],
+    bestFor: "Large commercial projects, multi-trade coordination, owner-led developments"
+  },
+  {
+    name: "Design-Build",
+    description: "Single contract for both design and construction. Ascent Group handles everything from concept to completion.",
+    pros: ["Streamlined process", "Single accountability", "Faster project delivery"],
+    cons: ["Less competitive bidding", "Client has less design control", "Harder to compare pricing"],
+    bestFor: "Turnkey solutions, facade upgrades, building envelope restoration"
+  }
+];
+
+const qualityControlSafety = {
+  preConstruction: [
+    "Site safety audit & hazard identification",
+    "WSIB compliance verification for all workers",
+    "Material testing & quality certification review",
+    "Mock-ups for client approval (when applicable)",
+    "Traffic & access management plan"
+  ],
+  duringConstruction: [
+    "Daily toolbox talks on safety protocols",
+    "Weekly quality inspections by project manager",
+    "Third-party testing for critical work (waterproofing, coatings)",
+    "Photo documentation of all work stages",
+    "Real-time issue resolution & change order tracking"
+  ],
+  postConstruction: [
+    "Final walkthrough with punch list",
+    "Quality assurance inspection",
+    "Warranty documentation & care instructions",
+    "As-built drawings (when applicable)",
+    "Post-project review & feedback collection"
+  ]
+};
+
+const communicationReporting = [
+  {
+    title: "Dedicated Project Manager",
+    description: "Single point of contact from start to finish. Direct phone & email access.",
+    icon: "👤"
+  },
+  {
+    title: "Weekly Progress Reports",
+    description: "Detailed updates every Friday covering completed work, upcoming tasks, and any issues.",
+    icon: "📊"
+  },
+  {
+    title: "Photo Documentation",
+    description: "Daily photos uploaded to shared cloud folder. Before/during/after documentation.",
+    icon: "📸"
+  },
+  {
+    title: "Client Portal Access",
+    description: "Online dashboard to view schedules, invoices, change orders, and project documents.",
+    icon: "💻"
+  },
+  {
+    title: "Emergency Contact",
+    description: "24/7 emergency line for urgent issues (water infiltration, safety concerns).",
+    icon: "🚨"
+  }
+];
+
+const warrantyCloseout = {
+  warranties: [
+    {
+      tier: "Standard Workmanship Warranty",
+      coverage: "2 years on all labor and installation",
+      includes: "Defects in workmanship, improper installation, material application errors"
+    },
+    {
+      tier: "Premium Materials Warranty",
+      coverage: "5-10 years (manufacturer-backed)",
+      includes: "Paint failure, coating delamination, sealant degradation (varies by product)"
+    },
+    {
+      tier: "Structural Warranty (when applicable)",
+      coverage: "10 years on structural envelope work",
+      includes: "Water infiltration due to flashing/waterproofing failure, structural defects"
+    }
+  ],
+  closeoutProcess: [
+    "1. Substantial Completion Walkthrough (client sign-off on 95%+ completion)",
+    "2. Punch List Creation (list of minor items to address)",
+    "3. Punch List Completion (typically 5-10 business days)",
+    "4. Final Inspection & Sign-Off",
+    "5. Warranty Documents & Care Instructions Delivered",
+    "6. Final Payment & Project Close (lien releases provided)"
+  ]
+};
+
 const faqs = [
   {
     question: "How long does a typical painting project take in the GTA?",

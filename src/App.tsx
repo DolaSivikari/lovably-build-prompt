@@ -28,6 +28,7 @@ import Capabilities from "./pages/Capabilities";
 import Values from "./pages/Values";
 import HowWeWork from "./pages/HowWeWork";
 import Careers from "./pages/Careers";
+import Reviews from "./pages/Reviews";
 import ServiceDetail from "./pages/ServiceDetail";
 import ExteriorCladding from "./pages/services/ExteriorCladding";
 import InteriorBuildouts from "./pages/services/InteriorBuildouts";
@@ -304,6 +305,7 @@ const App = () => (
                   <Route path="/capabilities" element={<Capabilities />} />
                   <Route path="/how-we-work" element={<HowWeWork />} />
                   <Route path="/careers" element={<Careers />} />
+                  <Route path="/reviews" element={<Reviews />} />
                   <Route path="/animation-showcase" element={<AnimationShowcase />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/general-contracting" element={<GeneralContracting />} />
