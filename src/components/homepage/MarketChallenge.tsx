@@ -1,10 +1,10 @@
 import { useRef } from "react";
-import { Home, Building2, Users, Wrench } from "lucide-react";
+import { Building, Building2, Users, Hammer } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const challenges = [
   {
-    icon: Home,
+    icon: Building,
     value: "1.8M",
     label: "Homes Needed by 2030",
     description: "CMHC projection for Ontario housing demand",
@@ -28,7 +28,7 @@ const challenges = [
     sourceUrl: "https://www.buildforce.ca"
   },
   {
-    icon: Wrench,
+    icon: Hammer,
     value: "30%",
     label: "Buildings Need Major Repairs",
     description: "Commercial buildings requiring envelope work",

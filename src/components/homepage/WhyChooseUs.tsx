@@ -31,11 +31,11 @@ const WhyChooseUs = () => {
         
         {/* Section Header - Enterprise Style */}
         <div className="max-w-3xl mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-            Why Partner With Ascent Group
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight font-playfair">
+            Why Property Owners Choose Us
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            With over 15 years of proven expertise serving Ontario, we deliver exceptional construction results through licensed professionals, comprehensive capabilities, and unwavering commitment to quality.
+            With over 15 years of proven expertise serving Ontario, we deliver exceptional construction results through licensed professionals, complete services, and unwavering commitment to quality.
           </p>
         </div>
 

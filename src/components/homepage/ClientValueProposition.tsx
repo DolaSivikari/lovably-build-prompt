@@ -11,8 +11,8 @@ const ClientValueProposition = () => {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-            Why Partner With Ascent Group
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight font-playfair">
+            Why Property Owners Choose Us
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
             Ontario's trusted specialty contractor for building envelope restoration, façade remediation, and parking garage rehabilitation with proven expertise and unwavering commitment to excellence.
@@ -35,7 +35,7 @@ const ClientValueProposition = () => {
                 "Multi-Family Residential Projects",
                 "Building Envelope Systems",
               ]}
-              ctaText="View Capabilities"
+              ctaText="See Our Work"
               ctaUrl="/capabilities"
             />
 

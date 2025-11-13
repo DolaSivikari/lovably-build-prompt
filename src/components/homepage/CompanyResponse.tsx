@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import { CheckCircle, Clock, TrendingUp, Award } from "lucide-react";
+import { Building, Calendar, DollarSign, Award } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Link } from "react-router-dom";
 
 const responses = [
   {
-    icon: CheckCircle,
+    icon: Building,
     value: "500+",
     label: "Buildings Delivered",
     description: "Adding to Ontario's infrastructure capacity",
@@ -13,15 +13,15 @@ const responses = [
     linkUrl: "/portfolio"
   },
   {
-    icon: Clock,
+    icon: Calendar,
     value: "98%",
-    label: "On-Time Completion",
+    label: "Finished On Schedule",
     description: "Efficiency that reduces costs and waste",
     linkText: "Our Process",
     linkUrl: "/about"
   },
   {
-    icon: TrendingUp,
+    icon: DollarSign,
     value: "$30M+",
     label: "Annual Projects",
     description: "Driving economic growth in construction",
@@ -31,7 +31,7 @@ const responses = [
   {
     icon: Award,
     value: "15+",
-    label: "Years Navigating Markets",
+    label: "Years in Business",
     description: "Deep expertise through market cycles",
     linkText: "About Us",
     linkUrl: "/about"

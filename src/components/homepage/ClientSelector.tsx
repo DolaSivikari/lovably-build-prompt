@@ -12,7 +12,7 @@ const clientTypes = [
     headline: "Multi-Family Solutions",
     description: "Multi-family and residential property solutions",
     benefits: ["Quality Construction", "Professional Service", "Reliable Delivery"],
-    cta: "Explore Solutions",
+    cta: "View Services",
     link: "/markets/multi-family",
     color: "from-blue-500/10 to-blue-600/5",
   },

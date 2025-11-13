@@ -22,8 +22,26 @@
 ## Typography
 
 ### Font Families
-- **Display/Headings**: 'Playfair Display' - Elegant serif for major headings
-- **Body/UI**: 'Inter' - Clean, modern sans-serif for body text and interface elements
+- **Display/Headings (H1, H2)**: 'Playfair Display' - Traditional serif that conveys stability, craftsmanship, and heritage. Used for major section headings to differentiate from tech startups.
+- **Subheadings (H3, H4)**: 'Inter' - Clean, professional sans-serif for subsection headings and navigation
+- **Body/UI**: 'Inter' - Modern sans-serif for body text, buttons, and interface elements
+
+### Implementation
+```css
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+}
+
+h3, h4 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+body, p, li, button {
+  font-family: 'Inter', sans-serif;
+}
+```
 
 ### Typography Scale
 - **Hero/Landing**: `text-4xl` to `text-6xl` (2.25rem - 3.75rem)

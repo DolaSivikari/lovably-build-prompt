@@ -57,7 +57,7 @@ const WhoWeServe = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild variant="primary" size="lg" className="group">
                   <Link to="/capabilities" className="inline-flex items-center gap-2">
-                    View Capabilities
+                    See Our Work
                     <ArrowRight className="h-4 w-4 hover-translate-arrow" />
                   </Link>
                 </Button>

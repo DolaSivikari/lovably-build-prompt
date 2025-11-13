@@ -446,7 +446,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Ready to Get Started?
+              Ready to Start Your Project?
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground">
               Contact us today for a free consultation and project quote

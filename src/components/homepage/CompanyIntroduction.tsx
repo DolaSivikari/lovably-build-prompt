@@ -21,10 +21,10 @@ export default function CompanyIntroduction() {
           
           {/* Section Header - Enterprise Style */}
           <div className="max-w-3xl mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight font-playfair">
               Ontario's Envelope & Restoration Specialists
             </h2>
-            <div className="h-1 w-16 bg-steel-blue mb-8"></div>
+            <div className="h-1 w-16 bg-construction-orange mb-8"></div>
           </div>
 
           {/* Two-Column Layout */}
@@ -57,27 +57,27 @@ export default function CompanyIntroduction() {
               
               {/* Highlight 1 */}
               <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg bg-steel-blue/10 flex items-center justify-center">
-                    <Building2 className="w-6 h-6 text-steel-blue" />
-                  </div>
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-construction-orange/10 flex items-center justify-center border border-construction-orange/20">
+                  <Building2 className="w-6 h-6 text-construction-orange" />
                 </div>
+              </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">Comprehensive Capabilities</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Prime specialty contracting with self-perform trades delivering 
-                    schedule certainty and quality control across building envelope and restoration projects.
-                  </p>
+                <h3 className="text-lg font-bold text-foreground mb-2">Complete Services</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Prime specialty contractor with self-perform trades delivering 
+                  schedule certainty and quality control across building envelope and restoration projects.
+                </p>
                 </div>
               </div>
 
               {/* Highlight 2 */}
               <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg bg-steel-blue/10 flex items-center justify-center">
-                    <Users className="w-6 h-6 text-steel-blue" />
-                  </div>
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-steel-blue/10 flex items-center justify-center border border-steel-blue/20">
+                  <Users className="w-6 h-6 text-steel-blue" />
                 </div>
+              </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Proven Track Record</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
@@ -89,11 +89,11 @@ export default function CompanyIntroduction() {
 
               {/* Highlight 3 */}
               <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg bg-steel-blue/10 flex items-center justify-center">
-                    <Award className="w-6 h-6 text-steel-blue" />
-                  </div>
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-construction-orange/10 flex items-center justify-center border border-construction-orange/20">
+                  <Award className="w-6 h-6 text-construction-orange" />
                 </div>
+              </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Licensed & Certified</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
@@ -125,7 +125,7 @@ export default function CompanyIntroduction() {
             </Button>
             <Button asChild size="lg" variant="secondary">
               <Link to="/capabilities">
-                View Capabilities
+                See Our Work
               </Link>
             </Button>
           </div>
