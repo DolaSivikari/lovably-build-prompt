@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { ClientLogosCarousel } from "@/components/shared/ClientLogosCarousel";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
+import { FeaturedServicesGrid } from "@/components/services/FeaturedServicesGrid";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 import { HeroIsometric3D } from "@/components/services/HeroIsometric3D";
 import { ServiceCard3D } from "@/components/services/ServiceCard3D";
@@ -292,12 +292,8 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Client Logos */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <ClientLogosCarousel />
-          </div>
-        </section>
+        {/* All Featured Services - Organized by Category */}
+        <FeaturedServicesGrid />
       </main>
 
       <Footer />
