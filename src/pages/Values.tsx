@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
-import { Award, MessageCircle, Shield, Heart, Users, Target } from "lucide-react";
+import { Award, MessageCircle, Shield, Heart, Users, Target, HardHat, Hammer, Ruler } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 
 const iconMap: { [key: string]: any } = {

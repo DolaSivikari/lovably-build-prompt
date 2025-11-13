@@ -14,7 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Award, MessageCircle, Shield, Heart, Leaf, HelpCircle, CheckCircle, ArrowRight } from "lucide-react";
+import { Award, MessageCircle, Shield, Heart, Building, ClipboardCheck, CheckCircle, ArrowRight } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
 import teamWork from "@/assets/team-work.jpg";
@@ -313,7 +313,7 @@ const About = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 mb-4">
-                <Leaf className="w-8 h-8 text-sustainability" />
+                <Building className="w-8 h-8 text-sustainability" />
                 <h2 className="text-5xl font-bold">Sustainability Commitment</h2>
               </div>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -560,7 +560,7 @@ const About = () => {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 mb-4">
-                <HelpCircle className="w-8 h-8 text-primary" />
+                <ClipboardCheck className="w-8 h-8 text-primary" />
                 <h2 className="text-5xl font-bold">Frequently Asked Questions</h2>
               </div>
               <p className="text-lg text-muted-foreground">

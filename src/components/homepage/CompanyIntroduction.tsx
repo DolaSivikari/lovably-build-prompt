@@ -1,5 +1,5 @@
 import { Button } from "@/ui/Button";
-import { ArrowRight, Building2, Users, Award } from "lucide-react";
+import { ArrowRight, Building, HardHat, Award, Ruler } from "lucide-react";
 import { Link } from "react-router-dom";
 import { organizationSchema } from "@/utils/structured-data";
 
@@ -59,7 +59,7 @@ export default function CompanyIntroduction() {
               <div className="flex gap-4">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 rounded-lg bg-construction-orange/10 flex items-center justify-center border border-construction-orange/20">
-                  <Building2 className="w-6 h-6 text-construction-orange" />
+                  <Building className="w-6 h-6 text-construction-orange" />
                 </div>
               </div>
                 <div>
@@ -75,7 +75,7 @@ export default function CompanyIntroduction() {
               <div className="flex gap-4">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 rounded-lg bg-steel-blue/10 flex items-center justify-center border border-steel-blue/20">
-                  <Users className="w-6 h-6 text-steel-blue" />
+                  <HardHat className="w-6 h-6 text-steel-blue" />
                 </div>
               </div>
                 <div>
