@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { trackCTAClick } from "@/lib/analytics";
 
 interface Node {
   id: string;
@@ -46,13 +49,16 @@ export const ParticleNetwork = () => {
   const [hoveredNode, setHoveredNode] = useState<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
   const burstParticlesRef = useRef<Particle[]>([]);
+  const navigate = useNavigate();
+  const isMobile = useIsMobile();
+  const particleCount = isMobile ? 4 : 6; // Reduce particles on mobile
 
   // Initialize particles with orbital properties
   useEffect(() => {
     // Create orbiting particles for each node
     const orbitingParticles: Particle[] = [];
     nodes.forEach((node, nodeIndex) => {
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < particleCount; i++) {
         orbitingParticles.push({
           x: node.x,
           y: node.y,
@@ -199,13 +205,19 @@ export const ParticleNetwork = () => {
     };
   }, [hoveredNode]);
 
-  const handleNodeClick = (slug: string) => {
-    window.location.href = `/services/${slug}`;
+  const handleNodeClick = (slug: string, name: string) => {
+    trackCTAClick(name, "particle_network_node");
+    navigate(`/services/${slug}`);
   };
 
   return (
     <div className="relative w-full h-[600px] bg-background rounded-xl overflow-hidden border border-border">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+        role="img"
+        aria-label="Interactive particle network visualization connecting our services"
+      />
 
       {/* Interactive nodes */}
       {nodes.map((node, index) => (
@@ -219,9 +231,18 @@ export const ParticleNetwork = () => {
           }}
           onMouseEnter={() => setHoveredNode(index)}
           onMouseLeave={() => setHoveredNode(null)}
-          onClick={() => handleNodeClick(node.slug)}
+          onClick={() => handleNodeClick(node.slug, node.name)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleNodeClick(node.slug, node.name);
+            }
+          }}
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.95 }}
+          role="button"
+          tabIndex={0}
+          aria-label={`${node.name} - Click to learn more`}
         >
           {/* Node circle */}
           <div

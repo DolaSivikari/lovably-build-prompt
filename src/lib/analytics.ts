@@ -81,6 +81,47 @@ export const trackScrollDepth = (depth: number) => {
   });
 };
 
+// Video interaction tracking
+export const trackVideoPlay = (videoName: string, location: string) => {
+  pushToDataLayer({
+    event: 'video_play',
+    video_name: videoName,
+    video_location: location,
+  });
+};
+
+export const trackVideoComplete = (videoName: string, location: string) => {
+  pushToDataLayer({
+    event: 'video_complete',
+    video_name: videoName,
+    video_location: location,
+  });
+};
+
+// Interactive element tracking
+export const trackInteraction = (elementType: string, elementName: string, action: string) => {
+  pushToDataLayer({
+    event: 'user_interaction',
+    element_type: elementType,
+    element_name: elementName,
+    interaction_action: action,
+  });
+};
+
+// Quiz tracking
+export const trackQuizStart = () => {
+  pushToDataLayer({
+    event: 'quiz_start',
+  });
+};
+
+export const trackQuizComplete = (results: string[]) => {
+  pushToDataLayer({
+    event: 'quiz_complete',
+    quiz_results: results,
+  });
+};
+
 // TypeScript declaration for window.dataLayer
 declare global {
   interface Window {

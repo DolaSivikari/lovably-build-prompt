@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import { IsometricBuilding3D } from "./IsometricBuilding3D";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { useWebGLSupport } from "@/hooks/useWebGLSupport";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { BuildingSkeleton } from "./BuildingSkeleton";
 import { Building2, Hammer, Wrench, PaintBucket } from "lucide-react";
+import { trackCTAClick } from "@/lib/analytics";
 
 const buildingSections = [
   {
@@ -45,6 +50,9 @@ const buildingSections = [
 
 export const HeroIsometric3D = () => {
   const prefersReducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const hasWebGL = useWebGLSupport();
+  const shouldShow3D = !prefersReducedMotion && !isMobile && hasWebGL;
 
   return (
     <section className="relative min-h-[800px] py-20 overflow-hidden">
@@ -68,14 +76,18 @@ export const HeroIsometric3D = () => {
         </motion.div>
 
         {/* 3D Building or Fallback */}
-        {!prefersReducedMotion ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <IsometricBuilding3D />
-          </motion.div>
+        {shouldShow3D ? (
+          <ErrorBoundary>
+            <Suspense fallback={<BuildingSkeleton />}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <IsometricBuilding3D />
+              </motion.div>
+            </Suspense>
+          </ErrorBoundary>
         ) : (
           // Simplified fallback for reduced motion
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -85,7 +97,10 @@ export const HeroIsometric3D = () => {
                 <a
                   key={section.id}
                   href={`/services/${section.slug}`}
+                  onClick={() => trackCTAClick(section.name, "hero_building_fallback")}
                   className="group p-6 rounded-xl border border-border bg-card hover:border-primary transition-all"
+                  role="button"
+                  aria-label={`Learn more about ${section.name}`}
                 >
                   <div className={`inline-flex p-3 rounded-lg bg-gradient-to-br ${section.color} mb-4`}>
                     <Icon className="w-6 h-6 text-white" />
