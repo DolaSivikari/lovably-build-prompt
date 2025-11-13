@@ -28,8 +28,7 @@ import {
   Wrench,
   AlertTriangle,
   ArrowRightLeft,
-  Database,
-  FlaskConical
+  Database
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
@@ -211,7 +210,6 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
               <NavItem to="/admin/prequalifications" icon={Package} label="Prequal" />
               <NavItem to="/admin/rfp-submissions" icon={FileText} label="RFP Submissions" />
               <NavItem to="/admin/reviews" icon={Award} label="Reviews" />
-              <NavItem to="/admin/ab-tests" icon={FlaskConical} label="A/B Tests" />
               <NavItem to="/admin/newsletter-subscribers" icon={Mail} label="Newsletter" />
               <NavItem to="/admin/partner-permissions" icon={Shield} label="Partner Logos" />
             </nav>

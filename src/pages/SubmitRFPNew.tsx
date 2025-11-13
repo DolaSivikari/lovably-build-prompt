@@ -15,6 +15,8 @@ import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validatio
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
 import { RFPStep3Timeline } from "@/components/rfp/RFPStep3Timeline";
+import { trackConversion } from "@/lib/analytics";
+import { trackABTestConversion } from "@/hooks/useABTest";
 import { RFPStep4Scope } from "@/components/rfp/RFPStep4Scope";
 
 export default function SubmitRFPNew() {
@@ -136,6 +138,16 @@ export default function SubmitRFPNew() {
             submission_id: submission.id,
           },
         });
+
+        // Phase 2: Send review request after successful RFP submission
+        await supabase.functions.invoke("send-review-request", {
+          body: {
+            email: data.email,
+            clientName: data.contact_name,
+            projectId: submission.id,
+            templateName: 'default-review-request',
+          },
+        });
       } catch (emailError) {
         console.error("Email notification failed:", emailError);
         // Don't fail submission if email fails
@@ -145,6 +157,9 @@ export default function SubmitRFPNew() {
         description: "We'll review your request and contact you within 2 business days.",
       });
 
+      // Phase 3: Track A/B test conversion
+      await trackABTestConversion('homepage-hero-2024', 5);
+      
       navigate("/");
     } catch (error: any) {
       console.error("Submission error:", error);

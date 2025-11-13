@@ -8,6 +8,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit, trackConversion } from "@/lib/analytics";
+import { trackABTestConversion } from "@/hooks/useABTest";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
@@ -113,9 +114,21 @@ const Contact = () => {
           }),
           timeoutPromise
         ]);
+
+        // Phase 2: Send review request
+        await supabase.functions.invoke("send-review-request", {
+          body: {
+            email: validatedData.email,
+            clientName: validatedData.name,
+            templateName: 'default-review-request',
+          },
+        });
       } catch (emailError) {
         console.error('Email notification failed:', emailError);
       }
+
+      // Phase 3: Track A/B test conversion
+      await trackABTestConversion('homepage-hero-2024', 1);
 
       toast({ title: "Message sent!", description: "We'll get back to you within 24 hours. Check your email for confirmation." });
       setFormData({ name: "", email: "", phone: "", company: "", message: "", honeypot: "", consent: false, newsletterConsent: false });

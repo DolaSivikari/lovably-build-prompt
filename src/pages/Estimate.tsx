@@ -21,6 +21,7 @@ import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
 import { calculateEstimate, EstimateInput } from "@/utils/estimator";
 import PaintCalculator from "@/components/PaintCalculator";
 import { trackConversion } from "@/lib/analytics";
+import { trackABTestConversion } from "@/hooks/useABTest";
 
 // Validation schema for estimate form
 const estimateSchema = z.object({
@@ -332,6 +333,22 @@ Add-ons:
         title: "Estimate Request Submitted!",
         description: "We'll contact you within 24 hours to schedule a site visit.",
       });
+
+      // Phase 2: Send review request
+      try {
+        await supabase.functions.invoke("send-review-request", {
+          body: {
+            email: validatedData.email,
+            clientName: validatedData.name,
+            templateName: 'default-review-request',
+          },
+        });
+      } catch (reviewError) {
+        console.error("Review request failed:", reviewError);
+      }
+
+      // Phase 3: Track A/B test conversion
+      await trackABTestConversion('homepage-hero-2024', 3);
 
       // Redirect to thank you or home page
       setTimeout(() => navigate("/"), 2000);
