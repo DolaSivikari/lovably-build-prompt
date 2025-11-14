@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 import { ChevronRight, ArrowRight } from "lucide-react";
-import { useParallax } from "@/hooks/useParallax";
+
 import { ProgressiveImage } from "@/components/ui/ProgressiveImage";
 
 interface PageHeroRootProps {
@@ -38,8 +38,6 @@ interface CTAsProps {
 }
 
 const PageHeroRoot = ({ children, backgroundImage, className }: PageHeroRootProps) => {
-  const parallaxOffset = useParallax({ speed: 0.5 });
-  
   return (
     <section className={cn("relative min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden pt-24", className)}>
       {backgroundImage && (
@@ -49,7 +47,7 @@ const PageHeroRoot = ({ children, backgroundImage, className }: PageHeroRootProp
               src={backgroundImage}
               alt=""
               className="w-full h-full object-cover"
-              style={{ transform: `translateY(${parallaxOffset}px)` }}
+              style={{ backgroundAttachment: 'fixed' }}
             />
           </div>
           <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/70 to-black/60" />

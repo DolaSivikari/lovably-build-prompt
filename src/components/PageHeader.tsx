@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { cn } from "@/lib/utils";
-import { useParallax } from "@/hooks/useParallax";
+
 import { ProgressiveImage } from "@/components/ui/ProgressiveImage";
 
 interface Breadcrumb {
@@ -55,9 +55,6 @@ const PageHeader = ({
   // Determine if we're using dark overlay mode (with background image)
   const isDarkMode = !!backgroundImage;
   
-  // Parallax effect for background image
-  const parallaxOffset = useParallax({ speed: 0.5, enableInViewport: true });
-  
   return (
     <section className={cn(
       "relative pt-24 pb-16 flex items-center overflow-hidden",
@@ -73,7 +70,7 @@ const PageHeader = ({
               src={backgroundImage}
               alt=""
               className="w-full h-full object-cover"
-              style={{ transform: `translateY(${parallaxOffset}px)` }}
+              style={{ backgroundAttachment: 'fixed' }}
             />
           </div>
           <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/70 to-black/60" />

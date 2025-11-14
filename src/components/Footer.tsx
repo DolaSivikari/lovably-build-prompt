@@ -116,7 +116,7 @@ const Footer = () => {
   return (
     <>
       <SEO structuredData={citationSchema} />
-      <footer className="w-full bg-background border-t border-border texture-concrete">
+      <footer className="w-full bg-background border-t border-border">
         
         {/* Trust Badge Bar - Above Footer */}
         <TrustBadgeBar

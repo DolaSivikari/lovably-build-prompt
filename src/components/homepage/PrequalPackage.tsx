@@ -119,7 +119,7 @@ const PrequalPackage = () => {
   };
 
   return (
-    <section id="prequalification" className="py-12 md:py-16 bg-gradient-to-br from-background via-background to-primary/5 texture-concrete">
+    <section id="prequalification" className="py-12 md:py-16 bg-gradient-to-br from-background via-background to-primary/5">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
