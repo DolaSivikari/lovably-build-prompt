@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
 import heroServiceAreasImage from "@/assets/heroes/hero-service-areas.jpg";
+import { Link } from "react-router-dom";
 
 const ServiceAreas = () => {
   const regions = [
@@ -198,13 +199,13 @@ const ServiceAreas = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
-                <a href="/contact">
+                <Link to="/contact">
                   <Phone className="mr-2 h-5 w-5" />
                   Contact Us
-                </a>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a href="/contact">Request Proposal</a>
+                <Link to="/contact">Request Proposal</Link>
               </Button>
             </div>
           </section>

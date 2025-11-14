@@ -15,6 +15,8 @@ interface OptimizedImageProps {
   sizes?: string | ResponsiveSizes;
   className?: string;
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
+  fetchpriority?: "high" | "low" | "auto";
+  /** @deprecated use lowercase fetchpriority to avoid React warnings */
   fetchPriority?: "high" | "low" | "auto";
   loading?: "eager" | "lazy";
   aspectRatio?: string; // e.g., '16/9', '4/3'
@@ -32,11 +34,13 @@ const OptimizedImage = ({
   sizes = "100vw",
   className,
   objectFit = "cover",
-  fetchPriority = "auto",
+  fetchpriority,
+  fetchPriority: fetchPriorityProp = "auto",
   loading,
   aspectRatio,
   generateSrcSet: shouldGenerateSrcSet = false,
 }: OptimizedImageProps) => {
+  const effectiveFetchPriority = fetchpriority ?? fetchPriorityProp;
   // Add cache-busting for public assets (not Vite-hashed build assets)
   const bustedSrc = useMemo(() => {
     if (src.startsWith('/') && !src.includes('/assets/')) {
@@ -144,7 +148,7 @@ const OptimizedImage = ({
             sizes={sizesValue}
             loading={loading || (priority ? "eager" : "lazy")}
             decoding={priority ? "sync" : "async"}
-            fetchPriority={fetchPriority}
+            fetchpriority={effectiveFetchPriority}
             onError={handleError}
             className={cn(
               isLoaded ? "opacity-100" : "opacity-0",
@@ -168,7 +172,7 @@ const OptimizedImage = ({
           sizes={sizesValue}
           loading={loading || (priority ? "eager" : "lazy")}
           decoding={priority ? "sync" : "async"}
-          fetchPriority={fetchPriority}
+          fetchpriority={effectiveFetchPriority}
           onError={handleError}
           className={cn(
             isLoaded ? "opacity-100" : "opacity-0",

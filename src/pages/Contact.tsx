@@ -27,6 +27,7 @@ import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 import { RippleEffect } from "@/components/shared/RippleEffect";
 import { TrustedPartners } from "@/components/partners/TrustedPartners";
 import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
+import { Link } from "react-router-dom";
 
 // Input validation schema
 const contactSchema = z.object({
@@ -305,7 +306,7 @@ const Contact = () => {
                         className="mt-1"
                       />
                       <Label htmlFor="newsletterConsent" className="text-sm leading-relaxed cursor-pointer">
-                        I'd also like to receive construction industry insights and project updates. <a href="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</a>
+                        I'd also like to receive construction industry insights and project updates. <Link to="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</Link>
                       </Label>
                     </div>
                   </div>

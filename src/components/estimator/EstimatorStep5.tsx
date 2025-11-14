@@ -1,6 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Link } from "react-router-dom";
 
 interface Step5Props {
   data: {
@@ -124,7 +125,7 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
           className="mt-1"
         />
         <Label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer">
-          I consent to Ascent Group Construction contacting me regarding my project estimate. * <a href="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</a>
+          I consent to Ascent Group Construction contacting me regarding my project estimate. * <Link to="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</Link>
         </Label>
       </div>
 

@@ -52,20 +52,40 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
                   caches.keys().then((names) => {
                     Promise.all(names.map(name => caches.delete(name)))
                       .then(() => {
-                        // Send skip waiting message
-                        newWorker.postMessage({ type: 'SKIP_WAITING' });
-                        
-                        // Reload page after cache clear
-                        setTimeout(() => {
-                          console.log('[Service Worker] Reloading for update...');
-                          window.location.reload();
-                        }, 100);
+                          // Ask current controller to clear caches
+                          if (navigator.serviceWorker.controller) {
+                            navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' });
+                          }
+                          // Send skip waiting message
+                          newWorker.postMessage({ type: 'SKIP_WAITING' });
+                          
+                          // Reload page after cache clear
+                          setTimeout(() => {
+                            console.log('[Service Worker] Reloading for update...');
+                            window.location.reload();
+                          }, 100);
                       });
                   });
                 }
               }
             });
-          }
+}
+
+// Listen for controller changes to ensure new SW takes control
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    console.log('[Service Worker] Controller changed, reloading...');
+    window.location.reload();
+  });
+}
+
+// Keyboard shortcut: Ctrl/Cmd + Shift + U to force clear caches
+window.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'u') {
+    console.log('[Cache Buster] Shortcut triggered - clearing caches');
+    clearAllCaches();
+  }
+});
         });
       })
       .catch((error) => {
