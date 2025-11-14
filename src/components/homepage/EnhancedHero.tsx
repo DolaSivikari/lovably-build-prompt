@@ -52,13 +52,7 @@ const EnhancedHero = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [isFirstRender, setIsFirstRender] = useState(true);
   const [preloadedPosters, setPreloadedPosters] = useState<Set<string>>(new Set());
-
-  // Remove first render flag after component mounts
-  useEffect(() => {
-    setIsFirstRender(false);
-  }, []);
 
   // Use enriched hero slides only
   const activeSlides = heroSlides;
@@ -322,9 +316,7 @@ const EnhancedHero = () => {
 
       {/* Content */}
         <div 
-          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${
-            !isFirstRender ? 'transition-opacity duration-300 ease-in-out' : ''
-          } ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}
+          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 transition-opacity duration-300 ease-in-out ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}
         >
         <div className="max-w-5xl mx-auto">
           {/* Floating Stat Mini-Cards with Glassmorphism */}

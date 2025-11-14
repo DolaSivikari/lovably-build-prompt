@@ -32,12 +32,21 @@ export const PageTransition = ({
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
   const [transitionStage, setTransitionStage] = useState<"entering" | "exiting">("entering");
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
+  // Mark initial render complete
+  useEffect(() => {
+    setIsInitialRender(false);
+  }, []);
 
   useEffect(() => {
+    // Skip transition on initial render
+    if (isInitialRender) return;
+    
     if (location.pathname !== displayLocation.pathname) {
       setTransitionStage("exiting");
     }
-  }, [location, displayLocation]);
+  }, [location, displayLocation, isInitialRender]);
 
   const transitionClasses = {
     fade: {
@@ -58,7 +67,7 @@ export const PageTransition = ({
     <div
       className={cn(
         "w-full",
-        transitionClasses[type][transitionStage],
+        !isInitialRender && transitionClasses[type][transitionStage],
         className
       )}
       onAnimationEnd={() => {
@@ -69,6 +78,7 @@ export const PageTransition = ({
       }}
       style={{
         animationDuration: `${duration}ms`,
+        willChange: isInitialRender ? 'auto' : 'opacity',
       }}
     >
       {children}
