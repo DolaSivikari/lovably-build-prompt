@@ -34,6 +34,10 @@ export default defineConfig(({ mode }) => ({
     cssMinify: true, // Explicitly enable CSS minification
     rollupOptions: {
       output: {
+        // Add timestamp to filenames for cache busting
+        entryFileNames: `assets/[name]-[hash]-${Date.now()}.js`,
+        chunkFileNames: `assets/[name]-[hash]-${Date.now()}.js`,
+        assetFileNames: `assets/[name]-[hash]-${Date.now()}.[ext]`,
         manualChunks: {
           // Split vendor chunks for better caching
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],

@@ -3,8 +3,9 @@
  * Implements network-first caching strategy for optimal freshness
  */
 
-const CACHE_NAME = 'ascent-v2';
-const RUNTIME_CACHE = 'ascent-runtime';
+const CACHE_VERSION = Date.now().toString();
+const CACHE_NAME = `ascent-v${CACHE_VERSION}`;
+const RUNTIME_CACHE = `ascent-runtime-v${CACHE_VERSION}`;
 
 // Assets to precache (minimal - HTML is handled separately)
 const PRECACHE_URLS = [
@@ -75,10 +76,37 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-first for static assets (images, fonts, etc.)
-  if (request.destination === 'image' || 
-      request.destination === 'font' ||
-      request.destination === 'style') {
+  // Network-first for CSS/JS to ensure fresh content
+  if (request.destination === 'style' || request.destination === 'script') {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const clonedResponse = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, clonedResponse);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          return caches.match(request).then((cached) => {
+            if (cached) {
+              console.log('[Service Worker] Serving stale CSS/JS from cache:', request.url);
+              return cached;
+            }
+            return new Response('Resource unavailable', {
+              status: 503,
+              statusText: 'Service Unavailable',
+            });
+          });
+        })
+    );
+    return;
+  }
+
+  // Cache-first for images and fonts only
+  if (request.destination === 'image' || request.destination === 'font') {
     event.respondWith(
       caches.match(request).then((cached) => {
         if (cached) {
