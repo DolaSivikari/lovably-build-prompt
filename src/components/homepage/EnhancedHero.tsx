@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info, Ruler, ClipboardCheck, Hammer, Droplets } from "lucide-react";
+import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info, Ruler, ClipboardCheck, Hammer, Droplets, TrendingUp, CheckCircle2 } from "lucide-react";
 import { Button } from "@/ui/Button";
 
 import HeroTabNavigation from "./HeroTabNavigation";
 import HeroNavigationCards from "./HeroNavigationCards";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
+import { useCountUp } from "@/hooks/useCountUp";
 import { supabase } from "@/integrations/supabase/client";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 
@@ -385,54 +386,110 @@ const EnhancedHero = () => {
           } ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}
         >
         <div className="max-w-5xl mx-auto">
-          {/* Stat Callout */}
-          <div 
-            className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 ${!prefersReducedMotion && 'animate-fade-in'}`}
-            style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
-          >
-            <div className="flex flex-col items-center">
-              <span className="text-2xl sm:text-3xl font-bold text-[hsl(var(--bg))]">{statNumber}</span>
-              <span className="text-xs text-[hsl(var(--bg))]/90 font-semibold whitespace-nowrap">{statLabel}</span>
+          {/* Floating Stat Mini-Cards with Glassmorphism */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-8">
+            {/* Main Stat Card */}
+            <div 
+              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-accent/20 hover:scale-105 transition-all duration-300 ${!prefersReducedMotion && 'animate-fade-in'}`}
+              style={{ animationDelay: prefersReducedMotion ? "0s" : "0.1s" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative flex items-center gap-3">
+                <TrendingUp className="h-6 w-6 text-accent" />
+                <div>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">
+                    {statNumber}
+                  </div>
+                  <div className="text-xs text-white/80 font-medium whitespace-nowrap">{statLabel}</div>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-1.5 sm:gap-2 bg-[hsl(var(--brand-accent))] px-2 sm:px-3 py-1 rounded-full">
-              <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-[hsl(var(--bg))]" />
-              <span className="text-xs sm:text-sm font-semibold text-[hsl(var(--bg))]">COR Certified</span>
+
+            {/* COR Certified Badge */}
+            <div 
+              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${!prefersReducedMotion && 'animate-fade-in'}`}
+              style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative flex items-center gap-2">
+                <div className="p-2 rounded-lg bg-green-500/20">
+                  <Shield className="h-5 w-5 text-green-400" />
+                </div>
+                <span className="text-sm font-bold text-white">COR Certified</span>
+              </div>
+            </div>
+
+            {/* Zero Incidents Badge */}
+            <div 
+              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${!prefersReducedMotion && 'animate-fade-in'}`}
+              style={{ animationDelay: prefersReducedMotion ? "0s" : "0.3s" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative flex items-center gap-2">
+                <div className="p-2 rounded-lg bg-blue-500/20">
+                  <CheckCircle2 className="h-5 w-5 text-blue-400" />
+                </div>
+                <span className="text-sm font-bold text-white whitespace-nowrap">Zero Incidents</span>
+              </div>
             </div>
           </div>
 
-          {/* Main Headline */}
+          {/* Main Headline with Gradient Text */}
           <h1 
-            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--bg))] mb-6 leading-tight ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] ${!prefersReducedMotion && 'animate-fade-in'}`}
             style={{ 
-              animationDelay: prefersReducedMotion ? "0s" : '0.2s',
-              textShadow: '0 2px 20px rgba(0,0,0,0.3)'
+              animationDelay: prefersReducedMotion ? "0s" : '0.4s',
+              textShadow: '0 4px 30px rgba(0,0,0,0.5)'
             }}
           >
-            {headline}
+            <span className="bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
+              {headline.split(' ').map((word, i) => {
+                // Apply gradient to numbers and key words
+                const isNumber = /\d/.test(word) || word.includes('$') || word.includes('%');
+                const isKeyWord = ['Zero', 'Prime', 'Emergency', 'Certified'].includes(word);
+                
+                if (isNumber || isKeyWord) {
+                  return (
+                    <span 
+                      key={i} 
+                      className="bg-gradient-to-r from-accent via-accent/90 to-accent/70 bg-clip-text text-transparent font-black"
+                    >
+                      {word}{' '}
+                    </span>
+                  );
+                }
+                return word + ' ';
+              })}
+            </span>
           </h1>
           <p 
-            className={`text-sm sm:text-base md:text-lg lg:text-xl text-[hsl(var(--bg))]/90 mb-10 max-w-2xl leading-relaxed ${!prefersReducedMotion && 'animate-slide-up'}`}
-            style={{ animationDelay: prefersReducedMotion ? "0s" : "0.6s" }}
+            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-10 max-w-3xl leading-relaxed font-medium ${!prefersReducedMotion && 'animate-fade-in'}`}
+            style={{ 
+              animationDelay: prefersReducedMotion ? "0s" : "0.6s",
+              textShadow: '0 2px 15px rgba(0,0,0,0.4)'
+            }}
           >
             {subheadline}
           </p>
 
-          {/* Dual CTAs */}
+          {/* Enhanced CTAs with Staggered Animation */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 mb-12 ${!prefersReducedMotion && 'animate-slide-up'}`}
+            className={`flex flex-col sm:flex-row gap-4 mb-12 ${!prefersReducedMotion && 'animate-fade-in'}`}
             style={{ animationDelay: prefersReducedMotion ? "0s" : "0.8s" }}
           >
-            <Button asChild size="lg" variant="primary" className="group shadow-accent">
+            <Button asChild size="lg" variant="primary" className="group relative overflow-hidden shadow-2xl shadow-accent/50 hover:shadow-accent/70 transition-all duration-300">
               <Link to={primaryCTA.href} className="gap-2">
-                <primaryCTA.icon className="h-5 w-5" />
-                {primaryCTA.label}
-                <ArrowRight className="h-4 w-4 hover-translate-arrow" />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <primaryCTA.icon className="h-5 w-5 relative z-10" />
+                <span className="relative z-10">{primaryCTA.label}</span>
+                <ArrowRight className="h-4 w-4 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
               </Link>
             </Button>
             
-            <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm">
+            <Button asChild size="lg" variant="outline" className="group relative overflow-hidden bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-xl shadow-xl transition-all duration-300">
               <Link to={secondaryCTA.href}>
-                {secondaryCTA.label}
+                <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10">{secondaryCTA.label}</span>
               </Link>
             </Button>
           </div>
