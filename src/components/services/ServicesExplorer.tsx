@@ -108,7 +108,7 @@ export const ServicesExplorer = () => {
             Our Services
           </h2>
           <p className="text-base text-muted-foreground">
-            Specialized solutions for building envelope restoration and rehabilitation
+            Design-build partnerships for new construction. Maintenance programs for occupied buildings. Lifecycle strategies that protect ROI. Whether you're building, managing, or owning—we deliver envelope solutions engineered for long-term performance.
           </p>
         </div>
 
