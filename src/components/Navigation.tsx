@@ -28,6 +28,7 @@ const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { settings } = useCompanySettings();
   
@@ -37,6 +38,18 @@ const Navigation = () => {
   // Use custom hook for hover timeout management with automatic cleanup
   const megaMenuHover = useHoverTimeout();
   const adminHover = useHoverTimeout();
+
+  // Check if we're on homepage to apply transparent nav
+  const isHomePage = location.pathname === '/';
+
+  // Track scroll position for nav background
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Sync mobile menu state with body data attribute
   useEffect(() => {
@@ -87,7 +100,12 @@ const Navigation = () => {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-navigation border-b bg-background/95 backdrop-blur-xl shadow-lg border-border/50 transition-all duration-300"
+        className={cn(
+          "fixed top-0 left-0 right-0 z-navigation transition-all duration-500",
+          isHomePage && !isScrolled
+            ? "bg-transparent border-transparent shadow-none"
+            : "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50"
+        )}
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
         <div className="hidden md:flex items-center justify-between w-full h-20">
@@ -99,10 +117,16 @@ const Navigation = () => {
               className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon group-hover:[box-shadow:var(--shadow-glow)]"
             />
             <div className="flex flex-col items-start leading-tight">
-              <span className="text-base md:text-lg lg:text-xl font-bold relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:transition-transform icon-rotate text-foreground">
+              <span className={cn(
+                "text-base md:text-lg lg:text-xl font-bold relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:transition-transform icon-rotate transition-colors duration-500",
+                isHomePage && !isScrolled ? "text-white" : "text-foreground"
+              )}>
                 Ascent Group
               </span>
-              <span className="text-xs md:text-sm font-bold uppercase tracking-widest link-underline text-primary">
+              <span className={cn(
+                "text-xs md:text-sm font-bold uppercase tracking-widest link-underline transition-colors duration-500",
+                isHomePage && !isScrolled ? "text-accent" : "text-primary"
+              )}>
                 CONSTRUCTION
               </span>
             </div>
@@ -115,8 +139,8 @@ const Navigation = () => {
               aria-current={isActive("/") ? "page" : undefined}
               className={cn(
                 "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
-                "link-underline after:transition-transform",
-                isActive("/") ? "text-primary after:scale-x-100" : "text-foreground",
+                "link-underline after:transition-transform transition-colors duration-500",
+                isActive("/") ? "text-primary after:scale-x-100" : (isHomePage && !isScrolled ? "text-white" : "text-foreground"),
                 !isActive("/") && "hover:text-primary"
               )}
             >
@@ -132,17 +156,17 @@ const Navigation = () => {
               <Link
                 to="/services"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "services" && "text-primary scale-105",
-                  activeMegaMenu !== "services" && "text-foreground"
+                  activeMegaMenu !== "services" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "services"}
                 aria-controls="services-mega-menu"
               >
                 Services
                 <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
+                  "w-4 h-4 icon-rotate transition-transform duration-300",
                   activeMegaMenu === "services" && "rotate-180"
                 )} />
               </Link>
@@ -162,17 +186,17 @@ const Navigation = () => {
               <Link
                 to="/markets"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "markets" && "text-primary scale-105",
-                  activeMegaMenu !== "markets" && "text-foreground"
+                  activeMegaMenu !== "markets" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "markets"}
                 aria-controls="markets-mega-menu"
               >
                 Markets
                 <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
+                  "w-4 h-4 icon-rotate transition-transform duration-300",
                   activeMegaMenu === "markets" && "rotate-180"
                 )} />
               </Link>
@@ -192,17 +216,17 @@ const Navigation = () => {
               <Link
                 to="/projects"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "projects" && "text-primary scale-105",
-                  activeMegaMenu !== "projects" && "text-foreground"
+                  activeMegaMenu !== "projects" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "projects"}
                 aria-controls="projects-mega-menu"
               >
                 Projects
                 <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
+                  "w-4 h-4 icon-rotate transition-transform duration-300",
                   activeMegaMenu === "projects" && "rotate-180"
                 )} />
               </Link>
@@ -221,17 +245,17 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "company" && "text-primary scale-105",
-                  activeMegaMenu !== "company" && "text-foreground"
+                  activeMegaMenu !== "company" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "company"}
                 aria-controls="company-mega-menu"
               >
                 Company
                 <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
+                  "w-4 h-4 icon-rotate transition-transform duration-300",
                   activeMegaMenu === "company" && "rotate-180"
                 )} />
               </button>
@@ -250,17 +274,17 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "resources" && "text-primary scale-105",
-                  activeMegaMenu !== "resources" && "text-foreground"
+                  activeMegaMenu !== "resources" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "resources"}
                 aria-controls="resources-mega-menu"
               >
                 Resources
                 <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate",
+                  "w-4 h-4 icon-rotate transition-transform duration-300",
                   activeMegaMenu === "resources" && "rotate-180"
                 )} />
               </button>
@@ -274,9 +298,9 @@ const Navigation = () => {
             <Link
               to="/contact"
               className={cn(
-                "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
+                "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 transition-colors duration-500",
                 "link-underline after:transition-transform",
-                isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground",
+                isActive("/contact") ? "text-primary after:scale-x-100" : (isHomePage && !isScrolled ? "text-white" : "text-foreground"),
                 !isActive("/contact") && "hover:text-primary"
               )}
             >
@@ -290,7 +314,10 @@ const Navigation = () => {
             {settings?.phone && (
               <a
                 href={`tel:${settings.phone}`}
-                className="hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap text-foreground"
+                className={cn(
+                  "hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap transition-colors duration-500",
+                  isHomePage && !isScrolled ? "text-white" : "text-foreground"
+                )}
               >
                 <Phone className="w-4 h-4" />
                 {settings.phone}
@@ -307,7 +334,10 @@ const Navigation = () => {
             
             <Link 
               to="/resources/contractor-portal" 
-              className="text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline text-foreground"
+              className={cn(
+                "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline transition-colors duration-500",
+                isHomePage && !isScrolled ? "text-white" : "text-foreground"
+              )}
             >
               Client Portal
             </Link>
@@ -319,10 +349,10 @@ const Navigation = () => {
                   onMouseEnter={openAdminDropdown}
                   onMouseLeave={scheduleCloseAdminDropdown}
                   className={cn(
-                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
+                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                     "link-underline",
                     adminDropdownOpen && "text-primary scale-105",
-                    !adminDropdownOpen && "text-foreground"
+                    !adminDropdownOpen && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
                   )}
                   aria-expanded={adminDropdownOpen}
                 >
