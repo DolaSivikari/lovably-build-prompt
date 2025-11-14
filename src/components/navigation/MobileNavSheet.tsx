@@ -377,9 +377,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 }}
               >
                 {/* Services Section with Show More/Less */}
-                <AccordionItem value="services" className="border-none">
+                <AccordionItem value="services" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
                   <AccordionTrigger 
-                    className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(24,95%,53%)]/30 touch-manipulation group ripple relative overflow-hidden"
+                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
                     onMouseDown={addRipple}
                     aria-label="Services menu"
                   >
@@ -421,7 +421,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Services")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground hover:text-primary hover:bg-primary/5 active:scale-[0.98] rounded-[var(--radius-xs)] transition-all duration-200 touch-manipulation ripple relative overflow-hidden stagger-item"
+                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
                                         style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
@@ -455,9 +455,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 </AccordionItem>
 
                 {/* Markets Section */}
-                <AccordionItem value="markets" className="border-none">
+                <AccordionItem value="markets" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
                   <AccordionTrigger 
-                    className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(217,91%,60%)]/30 touch-manipulation group ripple relative overflow-hidden"
+                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
                     onMouseDown={addRipple}
                     aria-label="Markets menu"
                   >
@@ -494,7 +494,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Markets")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground hover:text-secondary hover:bg-secondary/5 active:scale-[0.98] rounded-[var(--radius-xs)] transition-all duration-200 touch-manipulation ripple relative overflow-hidden stagger-item"
+                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
                                         style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
@@ -524,9 +524,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 </AccordionItem>
 
                 {/* Projects Section */}
-                <AccordionItem value="projects" className="border-none">
+                <AccordionItem value="projects" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
                   <AccordionTrigger 
-                    className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(173,58%,39%)]/30 touch-manipulation group ripple relative overflow-hidden"
+                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
                     onMouseDown={addRipple}
                     aria-label="Projects menu"
                   >
@@ -558,7 +558,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Projects")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground hover:text-accent hover:bg-accent/5 active:scale-[0.98] rounded-[var(--radius-xs)] transition-all duration-200 touch-manipulation ripple relative overflow-hidden stagger-item"
+                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
                                         style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
@@ -588,9 +588,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 </AccordionItem>
 
                 {/* Company Section */}
-                <AccordionItem value="company" className="border-none">
+                <AccordionItem value="company" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
                   <AccordionTrigger 
-                    className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(221,83%,53%)]/30 touch-manipulation group ripple relative overflow-hidden"
+                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
                     onMouseDown={addRipple}
                     aria-label="Company menu"
                   >
@@ -626,7 +626,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Company")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground hover:text-primary hover:bg-primary/5 active:scale-[0.98] rounded-[var(--radius-xs)] transition-all duration-200 touch-manipulation ripple relative overflow-hidden stagger-item"
+                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
                                         style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
@@ -661,9 +661,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 </AccordionItem>
 
                 {/* Resources Section */}
-                <AccordionItem value="resources" className="border-none">
+                <AccordionItem value="resources" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
                   <AccordionTrigger 
-                    className="px-4 py-4 min-h-[68px] hover:no-underline rounded-[var(--radius-md)] font-semibold transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-background/80 to-background/50 backdrop-blur-sm border border-border/50 hover:border-[hsl(262,83%,58%)]/30 touch-manipulation group ripple relative overflow-hidden"
+                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
                     onMouseDown={addRipple}
                     aria-label="Resources menu"
                   >
@@ -699,7 +699,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Resources")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground hover:text-secondary hover:bg-secondary/5 active:scale-[0.98] rounded-[var(--radius-xs)] transition-all duration-200 touch-manipulation ripple relative overflow-hidden stagger-item"
+                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
                                         style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
