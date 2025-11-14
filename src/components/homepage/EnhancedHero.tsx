@@ -457,7 +457,7 @@ const EnhancedHero = () => {
 
       {/* Hero Navigation Cards - Unified Design */}
       {landingMenuItems.length > 0 ? (
-        <div className="absolute bottom-6 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
+        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
           <HeroNavigationCards 
             items={landingMenuItems.map((item, index) => ({
               id: item.id,

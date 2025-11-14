@@ -59,16 +59,16 @@ function CardContent({ item, index, isMobile, className }: CardContentProps) {
     <Link
       to={item.url}
       className={cn(
-        "group relative flex flex-col gap-3",
-        "bg-background/95 backdrop-blur-md",
+        "group relative flex flex-col gap-2",
+        "bg-background/90 backdrop-blur-md",
         "border-2 border-white/20 rounded-xl",
         "hover:border-primary/50 hover:bg-background/98",
         "transition-all duration-300",
         "hover:shadow-lg hover:-translate-y-1",
         // Mobile sizing
-        isMobile && "min-w-[280px] snap-start p-4",
+        isMobile && "min-w-[240px] snap-start p-3",
         // Desktop sizing
-        !isMobile && "p-6",
+        !isMobile && "p-4",
         className
       )}
       style={{
@@ -83,23 +83,23 @@ function CardContent({ item, index, isMobile, className }: CardContentProps) {
       )}
 
       {/* Icon & Number */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         {Icon && (
-          <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-            <Icon className="w-5 h-5 text-primary" />
+          <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+            <Icon className="w-4 h-4 text-primary" />
           </div>
         )}
-        <span className="text-3xl font-bold text-primary/30 group-hover:text-primary/50 transition-colors">
+        <span className="text-2xl font-bold text-primary/30 group-hover:text-primary/50 transition-colors">
           {String(index + 1).padStart(2, '0')}
         </span>
       </div>
 
       {/* Content */}
-      <div className="flex-1 space-y-2">
-        <h3 className="font-bold text-base text-foreground group-hover:text-primary transition-colors line-clamp-2">
+      <div className="flex-1 space-y-1">
+        <h3 className="font-bold text-sm text-foreground group-hover:text-primary transition-colors line-clamp-2">
           {item.title}
         </h3>
-        <p className="text-sm text-muted-foreground line-clamp-3">
+        <p className="text-xs text-muted-foreground line-clamp-2">
           {item.description}
         </p>
       </div>
