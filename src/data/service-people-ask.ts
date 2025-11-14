@@ -17,24 +17,6 @@ export const servicePeopleAlsoAsk: Record<string, Array<{ question: string; answ
       answer: "For Ontario's climate, we recommend high-quality acrylic latex paints with moisture resistance and UV protection. Brands like Benjamin Moore Aura or Sherwin-Williams Duration are ideal for GTA commercial properties. These paints withstand temperature fluctuations, resist fading, and provide long-lasting protection."
     }
   ],
-  "residential-painting": [
-    {
-      question: "How much does it cost to paint a house in the GTA?",
-      answer: "Commercial construction project costs in the GTA vary based on scope, size, and complexity. Typical ranges: Tenant improvements ($50-150/sq ft), building envelope work ($30-80/sq ft), exterior systems ($25-60/sq ft). Factors include site conditions, material specifications, and project timeline. Final cost depends on project requirements, accessibility, and coordination needs."
-    },
-    {
-      question: "What's the best time of year to paint a house exterior in Ontario?",
-      answer: "The ideal time for exterior painting in Ontario is late spring through early fall (May through September). During these months, temperatures are consistently above 10°C (50°F), humidity is moderate, and rainfall is less frequent. This ensures proper paint adhesion and curing for long-lasting results."
-    },
-    {
-      question: "How long does interior house painting take?",
-      answer: "A typical 2,000 sq ft home takes 3-5 days for interior painting, including prep work, two coats of paint, and cleanup. Larger homes or those requiring extensive repairs may take 5-7 days. We work efficiently to minimize disruption to your daily routine."
-    },
-    {
-      question: "Do I need to move furniture before painting?",
-      answer: "We handle all furniture moving as part of our service. We'll carefully relocate furniture to the center of rooms and cover everything with protective drop cloths. For valuable or delicate items, we recommend securing them in advance. Our team takes every precaution to protect your belongings."
-    }
-  ],
   "stucco-installation": [
     {
       question: "How much does stucco installation cost in Ontario?",

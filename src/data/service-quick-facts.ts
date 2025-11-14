@@ -6,13 +6,6 @@ export const serviceQuickFacts: Record<string, Array<{ label: string; value: str
     { label: "Paint Lifespan", value: "7-10 years exterior, 10-15 years interior" },
     { label: "Service Area", value: "Toronto, Mississauga, Brampton, Vaughan, Markham" }
   ],
-  "residential-painting": [
-    { label: "Average Cost", value: "$2,500 - $8,000 CAD for typical homes" },
-    { label: "Typical Timeline", value: "3-7 business days depending on size" },
-    { label: "Best Season", value: "Year-round for interior, May-October for exterior" },
-    { label: "Paint Lifespan", value: "8-12 years with quality products" },
-    { label: "Warranty", value: "2-5 year workmanship warranty included" }
-  ],
   "stucco-installation": [
     { label: "Average Cost", value: "$25,000 - $500,000 CAD for full installation" },
     { label: "Typical Timeline", value: "10-21 days depending on scope" },
@@ -26,13 +19,6 @@ export const serviceQuickFacts: Record<string, Array<{ label: string; value: str
     { label: "Best Season", value: "May-October (mortar requires 5°C+ to cure)" },
     { label: "Repair Lifespan", value: "20-30 years for quality tuckpointing" },
     { label: "Inspection Frequency", value: "Every 5 years recommended in GTA" }
-  ],
-  "parking-garage-restoration": [
-    { label: "Average Cost", value: "$50,000 - $2M+ depending on scope" },
-    { label: "Typical Timeline", value: "2-6 months for full restoration" },
-    { label: "Inspection Frequency", value: "Annual inspections recommended" },
-    { label: "Traffic Coating Life", value: "3-7 years depending on usage" },
-    { label: "Concrete Repair", value: "Includes spalling, delamination, rebar protection" }
   ],
   "metal-cladding": [
     { label: "Average Cost", value: "$15-30 per square foot installed" },
