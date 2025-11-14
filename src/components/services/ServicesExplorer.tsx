@@ -108,7 +108,7 @@ export const ServicesExplorer = () => {
             Our Services
           </h2>
           <p className="text-base text-muted-foreground">
-            Design-build partnerships for new construction. Maintenance programs for occupied buildings. Lifecycle strategies that protect ROI. Whether you're building, managing, or owning—we deliver envelope solutions engineered for long-term performance.
+            Complete building envelope and restoration solutions. From cladding systems and masonry restoration to interior construction and sustainable building—our specialty contractor services deliver self-performed quality across commercial, multi-family, and institutional projects.
           </p>
         </div>
 
