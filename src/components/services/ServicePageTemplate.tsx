@@ -12,6 +12,7 @@ import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
+import SmartCTA from '@/components/SmartCTA';
 
 interface ServiceBenefit {
   icon: React.ComponentType<{ className?: string }>;
@@ -441,6 +442,8 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
           </div>
         </div>
       </section>
+
+      <SmartCTA />
     </div>
   );
 };
