@@ -99,18 +99,10 @@ const Navigation = () => {
               className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon group-hover:[box-shadow:var(--shadow-glow)]"
             />
             <div className="flex flex-col items-start leading-tight">
-              <span className={cn(
-                "text-base md:text-lg lg:text-xl font-bold relative",
-                "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left",
-                "after:transition-transform icon-rotate",
-                isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"
-              )}>
+              <span className="text-base md:text-lg lg:text-xl font-bold relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:transition-transform icon-rotate text-foreground">
                 Ascent Group
               </span>
-              <span className={cn(
-                "text-xs md:text-sm font-bold uppercase tracking-widest link-underline",
-                isAtTop ? "text-primary [text-shadow:var(--shadow-text)]" : "text-primary"
-              )}>
+              <span className="text-xs md:text-sm font-bold uppercase tracking-widest link-underline text-primary">
                 CONSTRUCTION
               </span>
             </div>
@@ -298,9 +290,7 @@ const Navigation = () => {
             {settings?.phone && (
               <a
                 href={`tel:${settings.phone}`}
-                className={cn(
-text-foreground
-                )}
+                className="hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap text-foreground"
               >
                 <Phone className="w-4 h-4" />
                 {settings.phone}
@@ -317,9 +307,7 @@ text-foreground
             
             <Link 
               to="/resources/contractor-portal" 
-              className={cn(
-text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline text-foreground
-              )}
+              className="text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline text-foreground"
             >
               Client Portal
             </Link>
