@@ -261,12 +261,9 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
       </section>
 
       {/* Benefits Section */}
-      <section 
-        ref={benefitsRef as React.RefObject<HTMLElement>}
-        className="bg-muted/30 py-12 md:py-16"
-      >
+      <section className="bg-muted/30 py-12 md:py-16 animate-fade-in scroll-reveal">
         <div className="container mx-auto px-4">
-          <div className={`text-center mb-12 transition-all duration-700 ${benefitsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Why Choose Our {service.name} Services
             </h2>

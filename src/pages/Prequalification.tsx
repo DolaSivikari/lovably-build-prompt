@@ -218,8 +218,13 @@ const Prequalification = () => {
       <Navigation />
       
       <PageHeader
-        title="Pre-Qualification Package"
-        description="Everything you need to evaluate Ascent Group as your construction partner"
+        title="Contractor Pre-Qualification Portal"
+        description="Comprehensive contractor pre-qualification package with instant document access"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Pre-Qualification" }
+        ]}
+        variant="standard"
       />
 
       <main className="py-16">
