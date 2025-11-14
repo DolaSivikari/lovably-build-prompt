@@ -298,7 +298,7 @@ const EnhancedHero = () => {
               alt=""
               className="w-full h-full object-cover"
               loading={preloadedPosters.has(posterUrl) ? "eager" : "lazy"}
-              fetchpriority={preloadedPosters.has(posterUrl) ? "high" : "low"}
+              fetchPriority={preloadedPosters.has(posterUrl) ? "high" : "low"}
             />
           </div>
         )}
