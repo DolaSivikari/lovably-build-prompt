@@ -52,7 +52,7 @@ const SettingsHealthCheck = () => {
 
   const componentsToCheck = [
     'FloatingContact.tsx',
-    'MobileStickyCTA.tsx',
+    'SmartCTA.tsx',
     'GoogleReviews.tsx',
     'Footer.tsx',
     'Contact.tsx',
@@ -277,7 +277,7 @@ const SettingsHealthCheck = () => {
     // Check 5: Component integration status
     const integratedComponents = [
       'FloatingContact',
-      'MobileStickyCTA', 
+      'SmartCTA', 
       'GoogleReviews',
       'DirectAnswer',
       'InteractiveCTA',

@@ -6,7 +6,7 @@ import ProvenTrackRecord from "@/components/homepage/ProvenTrackRecord";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import SEO from "@/components/SEO";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
-import MobileStickyCTA from "@/components/MobileStickyCTA";
+import SmartCTA from "@/components/SmartCTA";
 import ClientValueProposition from "@/components/homepage/ClientValueProposition";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
@@ -147,7 +147,7 @@ const Index = () => {
         includeRating={true} 
       />
       <Navigation />
-      <MobileStickyCTA />
+      <SmartCTA />
       <main id="main-content" role="main">
         <EnhancedHero />
         <ValuePillars />

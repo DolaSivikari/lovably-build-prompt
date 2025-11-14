@@ -6,8 +6,7 @@ import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { TrustBadgeBar } from "@/components/footer/TrustBadgeBar";
-import { MinimalDesktopFooter } from "@/components/footer/MinimalDesktopFooter";
-import { MinimalMobileFooter } from "@/components/footer/MinimalMobileFooter";
+import { UnifiedFooter } from "./footer/UnifiedFooter";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
@@ -125,11 +124,9 @@ const Footer = () => {
           trustBarItems={trustBarItems}
         />
         
-        {/* Footer Layout */}
+        {/* Footer Layout - Unified Design */}
         <div className="container mx-auto px-4 py-8 md:py-10">
-          
-          {/* Mobile: Minimal Footer */}
-          <MinimalMobileFooter
+          <UnifiedFooter
             companyLinks={companyLinks}
             services={services}
             marketLinks={marketLinks}
@@ -137,17 +134,6 @@ const Footer = () => {
             certifications={certifications}
             displayTrustItems={displayTrustItems}
             trustBarItems={trustBarItems}
-            contactInfo={{ phone, email, address }}
-            logoUrl={ascentLogo}
-            serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
-            linkedinUrl={linkedinUrl}
-            foundedYear={siteSettings?.founded_year || 2009}
-          />
-
-          {/* Desktop: Minimal Footer */}
-          <MinimalDesktopFooter
-            companyLinks={companyLinks}
-            services={services}
             contactInfo={{ phone, email, address }}
             logoUrl={ascentLogo}
             serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
