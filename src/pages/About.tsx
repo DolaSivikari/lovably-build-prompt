@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -7,782 +5,449 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Award, MessageCircle, Shield, Heart, Building, ClipboardCheck, CheckCircle, ArrowRight } from "lucide-react";
-import { useSettingsData } from "@/hooks/useSettingsData";
-import { supabase } from "@/integrations/supabase/client";
-import teamWork from "@/assets/team-work.jpg";
+import { 
+  Building2, 
+  Shield, 
+  Target, 
+  CheckCircle, 
+  MapPin, 
+  TrendingUp,
+  Phone,
+  Mail,
+  FileText,
+  Award,
+  HardHat,
+  Home,
+  Factory
+} from "lucide-react";
+import { Link } from "react-router-dom";
 import heroAboutImage from "@/assets/heroes/hero-about-company.jpg";
-import CompanyTimeline from "@/components/homepage/CompanyTimeline";
-import { TrustedPartners } from "@/components/partners/TrustedPartners";
-import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
-import { enrichedCompanyStory, whyChooseAscent, enrichedTeamBios } from "@/data/enriched-company-content";
-
-const iconMap: { [key: string]: any } = {
-  award: Award,
-  "message-circle": MessageCircle,
-  shield: Shield,
-  heart: Heart,
-};
 
 const About = () => {
-  const navigate = useNavigate();
-  const { data: aboutSettings, loading } = useSettingsData('about_page_settings');
-  const [leadershipTeam, setLeadershipTeam] = useState<any[]>([]);
+  const services = [
+    "Façade Remediation & Cladding Repairs",
+    "Sealant (Caulking) Replacement Programs",
+    "Concrete & Parking Garage Repairs",
+    "EIFS & Stucco Systems",
+    "Masonry Restoration",
+    "Waterproofing Systems",
+    "Protective & Architectural Coatings"
+  ];
 
-  useEffect(() => {
-    fetchLeadershipTeam();
-  }, []);
-
-  const fetchLeadershipTeam = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('leadership_team')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order', { ascending: true });
-      
-      if (error) throw error;
-      setLeadershipTeam(data || []);
-    } catch (error) {
-      console.error('Error fetching leadership team:', error);
+  const values = [
+    {
+      icon: Shield,
+      title: "Integrity & Transparency",
+      description: "Straight scopes, clear pricing, and proactive communication."
+    },
+    {
+      icon: HardHat,
+      title: "Safety First",
+      description: "Planning, training, and controls that protect occupants, crews, and property."
+    },
+    {
+      icon: Award,
+      title: "Craftsmanship & Compliance",
+      description: "Manufacturer-aligned methods and detail-driven execution."
+    },
+    {
+      icon: Target,
+      title: "Accountability",
+      description: "We own outcomes and close projects with thorough documentation."
     }
-  };
+  ];
 
-  // All data comes from database - no fallbacks to JSON
-  const yearsInBusiness = aboutSettings?.years_in_business || 15;
-  const totalProjects = aboutSettings?.total_projects || 500;
-  const satisfactionRate = aboutSettings?.satisfaction_rate || 98;
+  const processSteps = [
+    {
+      number: "01",
+      title: "Site Walk & Assessment",
+      description: "We meet on site to understand the issue, constraints, and access. For urgent matters, we aim to attend within 48–72 hours (subject to safety and access)."
+    },
+    {
+      number: "02",
+      title: "Scope & Proposal",
+      description: "You receive a clear, itemized scope—drawings/photos as needed, alternates where helpful, and unit rates for repetitive work. We prioritize fast, complete submittals so you can move forward confidently."
+    },
+    {
+      number: "03",
+      title: "Mobilize & Execute",
+      description: "We coordinate permits, access, logistics, and occupant notices. A dedicated lead oversees daily safety, quality, and schedule."
+    },
+    {
+      number: "04",
+      title: "Quality Assurance & Reporting",
+      description: "Field checks, photo logs, and (when requested) ITPs/inspection records ensure work follows specifications and manufacturer guidance."
+    },
+    {
+      number: "05",
+      title: "Closeout & Warranty",
+      description: "Final walkthrough, punch completion, turnover package (photos, product data, care guidance), and applicable warranty."
+    }
+  ];
 
-  const values = (aboutSettings?.values as any[]) || [];
-  const sustainabilityData = {
-    commitment: aboutSettings?.sustainability_commitment || '',
-    initiatives: (aboutSettings?.sustainability_initiatives as any[]) || []
-  };
-  const safetyData = {
-    commitment: aboutSettings?.safety_commitment || '',
-    stats: (aboutSettings?.safety_stats as any[]) || [],
-    programs: (aboutSettings?.safety_programs as any[]) || []
-  };
+  const clientTypes = [
+    {
+      icon: Building2,
+      title: "Property Managers & Building Owners/Developers",
+      description: "Condos, multi-residential, commercial, and institutional properties seeking dependable prime execution for envelope and restoration scopes.",
+      priority: "Primary"
+    },
+    {
+      icon: FileText,
+      title: "Envelope/Building Consultants",
+      description: "A responsive specialty partner who follows details and documents work thoroughly.",
+      priority: "Primary"
+    },
+    {
+      icon: Factory,
+      title: "General Contractors",
+      description: "Unit-rate and tender support for envelope trade packages (EIFS/stucco, sealants, coatings, masonry, garage rehab, waterproofing).",
+      priority: "Secondary"
+    },
+    {
+      icon: Home,
+      title: "Homeowners",
+      description: "Emergency and maintenance requests only.",
+      priority: "Limited"
+    }
+  ];
 
   return (
     <div className="min-h-screen">
       <SEO 
-        title="About Our Envelope & Restoration Team"
-        description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA."
-        keywords="about Ascent Group, envelope restoration company, specialty contractor team, building restoration Ontario, company values, sustainability"
+        title="About Us - Ontario's Building Envelope & Restoration Specialist"
+        description="Ascent Group Construction delivers accountable, prime-scope execution for building envelope and exterior restoration projects. Learn about our approach, values, and vision."
+        keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor"
       />
       <Navigation />
 
-      {loading ? (
-        <>
-          <div className="h-[400px] bg-muted animate-pulse" />
-          <div className="container mx-auto px-4 py-24">
-            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-              <div className="space-y-4">
-                <Skeleton className="h-12 w-3/4" />
-                <Skeleton className="h-24 w-full" />
-                <Skeleton className="h-24 w-full" />
-              </div>
-              <Skeleton className="h-96 w-full rounded-lg" />
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <PageHeader
-            eyebrow="About Us"
-            title="Building Excellence Since 2009"
-            description="We're not just another construction company. We're your partners in creating lasting value through quality craftsmanship and innovative solutions."
-            backgroundImage={heroAboutImage}
-            breadcrumbs={[
-              { label: "Home", href: "/" },
-              { label: "About Us" }
-            ]}
-            variant="with-stats"
-            stats={[
-              { value: `${yearsInBusiness}+`, label: "Years" },
-              { value: `${totalProjects}+`, label: "Projects" },
-              { value: `${satisfactionRate}%`, label: "Satisfaction" }
-            ]}
-          />
-        </>
-      )}
-      
-      <main>
+      <PageHeader
+        eyebrow="About Us"
+        title="Ontario's Building Envelope & Restoration Specialist"
+        description="Delivering accountable, prime-scope execution for owners, property managers, and consulting engineers."
+        backgroundImage={heroAboutImage}
+      />
 
-        {/* Company Story - Enriched SEO Content */}
-        <section className="container mx-auto px-4 py-24">
-          <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-            <div>
-              <h2 className="text-5xl font-bold mb-6">{enrichedCompanyStory.title}</h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed text-base">
-                {enrichedCompanyStory.content.split('\n\n').map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
-              
-              {/* Company Stats Grid */}
-              <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t">
-                {enrichedCompanyStory.stats.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative">
-              <img
-                src={teamWork}
-                alt="Ascent Group Construction team working on building envelope project"
-                className="rounded-lg shadow-2xl w-full h-auto"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-secondary text-primary p-6 rounded-lg shadow-xl max-w-xs">
-                <p className="font-bold text-lg mb-2">Our Promise</p>
-                <p className="text-sm">
-                  Technical expertise, quality craftsmanship, and long-term client relationships over transactional execution.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "About Us" }
+        ]}
+      />
 
-        {/* PHASE 1: Company Timeline */}
-        <CompanyTimeline />
-
-        {/* Why Choose Ascent - Enriched SEO Content */}
-        <section className="py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-5xl font-bold mb-4">{whyChooseAscent.title}</h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  {whyChooseAscent.intro}
-                </p>
-              </div>
-
-              {/* Differentiators */}
-              <div className="space-y-12">
-                {whyChooseAscent.differentiators.map((diff, index) => (
-                  <Card key={index} className="overflow-hidden">
-                    <CardContent className="p-8">
-                      <div className="flex items-start gap-6">
-                        <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                          <span className="text-2xl font-bold text-primary">{index + 1}</span>
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-2xl font-bold mb-4">{diff.title}</h3>
-                          <p className="text-muted-foreground mb-6 leading-relaxed">
-                            {diff.description}
-                          </p>
-                          
-                          {/* Proof Points */}
-                          <div className="bg-muted/50 rounded-lg p-6 mb-4">
-                            <p className="font-semibold text-foreground mb-3">Proof Points:</p>
-                            <ul className="space-y-2">
-                              {diff.proofPoints.map((point, i) => (
-                                <li key={i} className="flex items-start gap-2 text-sm">
-                                  <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                                  <span className="text-muted-foreground">{point}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          
-                          {/* Impact Statement */}
-                          <div className="bg-primary/5 border-l-4 border-primary pl-4 py-3">
-                            <p className="text-sm font-semibold text-foreground">
-                              <strong>Impact:</strong> {diff.impact}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Comparison Table */}
-              <div className="mt-16">
-                <h3 className="text-3xl font-bold text-center mb-8">
-                  {whyChooseAscent.comparisonTable.title}
-                </h3>
-                <Card>
-                  <CardContent className="p-0">
-                    <div className="overflow-x-auto">
-                      <table className="w-full">
-                        <thead className="bg-muted">
-                          <tr>
-                            <th className="text-left p-4 font-bold">Factor</th>
-                            <th className="text-left p-4 font-bold text-primary">Ascent (Specialty)</th>
-                            <th className="text-left p-4 font-bold text-muted-foreground">Traditional GC</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {whyChooseAscent.comparisonTable.rows.map((row, index) => (
-                            <tr key={index} className="border-t">
-                              <td className="p-4 font-semibold">{row.factor}</td>
-                              <td className="p-4 text-primary">{row.specialty}</td>
-                              <td className="p-4 text-muted-foreground">{row.general}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                {/* Link to Comparison Page */}
-                <div className="mt-8 text-center">
-                  <p className="text-muted-foreground mb-4">
-                    Want to dive deeper into the specialty contractor advantage?
-                  </p>
-                  <Button asChild size="lg" variant="secondary">
-                    <Link to="/why-specialty-contractor">
-                      Compare Specialty vs General Contractor
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-
-              {/* Client Testimonials */}
-              <div className="mt-16">
-                <h3 className="text-3xl font-bold text-center mb-8">What Our Clients Say</h3>
-                <div className="grid md:grid-cols-3 gap-6">
-                  {whyChooseAscent.clientTestimonials.map((testimonial, index) => (
-                    <Card key={index} className="bg-gradient-to-br from-primary/5 to-primary/10">
-                      <CardContent className="p-6">
-                        <p className="text-sm italic mb-4 text-foreground leading-relaxed">
-                          "{testimonial.quote}"
-                        </p>
-                        <div className="pt-4 border-t">
-                          <p className="font-bold text-foreground">{testimonial.author}</p>
-                          <p className="text-xs text-muted-foreground">{testimonial.project}</p>
-                          <p className="text-xs text-muted-foreground">{testimonial.location}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Values */}
-        <section id="values" className="py-24 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-5xl font-bold mb-4">Our Core Values</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                The principles that guide every decision and every project
+      {/* Main Introduction */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="prose prose-lg max-w-none">
+              <p className="text-xl text-foreground/90 leading-relaxed mb-6">
+                At Ascent Group Construction, we take full responsibility for the success of our specialty scopes. 
+                As a lead/prime contractor for building envelope and exterior restoration projects, we coordinate 
+                the required trades, manage safety and quality, and keep stakeholders informed from site walk to closeout.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                Today, we focus on the work we do best—façade remediation, sealant replacement, concrete & parking 
+                garage repair, EIFS/stucco, masonry restoration, waterproofing, and protective coatings—while building 
+                toward our long-term goal of becoming a general contractor within the next 3–5 years.
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              {values.map((value, index) => {
-                const IconComponent = iconMap[value.icon];
+
+            {/* Founder Quote */}
+            <Card className="mt-12 border-l-4 border-primary bg-muted/30">
+              <CardContent className="p-8">
+                <blockquote className="text-xl italic text-foreground/90 mb-4">
+                  "I started Ascent to raise the bar on reliability and accountability. Every scope we lead is 
+                  treated like it's our own building—planned carefully, executed safely, and finished right."
+                </blockquote>
+                <p className="text-sm font-semibold text-primary">— Hebun Isik, Founder</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Who We Serve */}
+      <section className="py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">Who We Serve</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Trusted partners across Ontario's construction ecosystem
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {clientTypes.map((client, index) => {
+                const IconComponent = client.icon;
                 return (
-                  <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                  <Card key={index} className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-8">
-                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <IconComponent className="w-8 h-8 text-primary" />
+                      <div className="flex items-start gap-4 mb-4">
+                        <div className="p-3 bg-primary/10 rounded-lg">
+                          <IconComponent className="w-6 h-6 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-xl font-semibold">{client.title}</h3>
+                            <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
+                              client.priority === 'Primary' ? 'bg-primary/20 text-primary' :
+                              client.priority === 'Secondary' ? 'bg-secondary/20 text-secondary-foreground' :
+                              'bg-muted text-muted-foreground'
+                            }`}>
+                              {client.priority}
+                            </span>
+                          </div>
+                          <p className="text-muted-foreground">{client.description}</p>
+                        </div>
                       </div>
-                      <h3 className="text-xl font-bold mb-3">{value.title}</h3>
-                      <p className="text-muted-foreground text-sm">
-                        {value.description}
-                      </p>
                     </CardContent>
                   </Card>
                 );
               })}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-
-        {/* Sustainability */}
-        <section className="bg-muted py-24">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <Building className="w-8 h-8 text-sustainability" />
-                <h2 className="text-5xl font-bold">Sustainability Commitment</h2>
-              </div>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                {sustainabilityData.commitment}
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {sustainabilityData.initiatives.map((initiative, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <h3 className="text-lg font-bold mb-2">{initiative.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      {initiative.description}
-                    </p>
-                    <div className="pt-3 border-t">
-                      <p className="text-xs font-semibold text-primary">
-                        Impact: {initiative.impact}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Safety */}
-        <section className="container mx-auto px-4 py-24">
+      {/* What We Self-Perform */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <Shield className="w-8 h-8 text-primary" />
-                <h2 className="text-5xl font-bold">Safety First, Always</h2>
-              </div>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">What We Self-Perform</h2>
               <p className="text-lg text-muted-foreground">
-                {safetyData.commitment}
+                Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              {safetyData.stats.map((stat, index) => (
-                <Card key={index} className="text-center p-6 bg-primary text-primary-foreground">
-                  <div className="text-3xl font-bold mb-2">{stat.value}</div>
-                  <p className="text-sm opacity-90">{stat.label}</p>
-                </Card>
-              ))}
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              {safetyData.programs.map((program, index) => (
-                <Card key={index}>
-                  <CardContent className="p-4">
-                    <h3 className="font-bold mb-2">{program.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {program.description}
-                    </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              {services.map((service, index) => (
+                <Card key={index} className="hover:border-primary/50 transition-colors">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                      <span className="text-lg font-medium">{service}</span>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
-          </div>
-        </section>
 
-        {/* Leadership Team - Enriched Bios */}
-        <section id="team" className="container mx-auto px-4 py-24 bg-muted/30">
+            <p className="text-center text-muted-foreground mt-8 max-w-2xl mx-auto">
+              Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC so owners 
+              and consultants have complete confidence in what was performed and why.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Values */}
+      <section className="py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-5xl font-bold mb-4">Leadership Team</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Experienced professionals combining technical expertise with proven project leadership
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">Our Values</h2>
+              <p className="text-lg text-muted-foreground">
+                The principles that guide every project we undertake
               </p>
             </div>
-            
-            {/* Use enriched bios with 300-400 word detailed backgrounds */}
-            <div className="grid md:grid-cols-1 gap-8">
-              {enrichedTeamBios.map((member, index) => (
-                <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div className="md:col-span-1 aspect-[3/4] bg-muted relative overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                        Professional Headshot
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {values.map((value, index) => {
+                const IconComponent = value.icon;
+                return (
+                  <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                    <CardContent className="p-8">
+                      <div className="inline-flex p-4 bg-primary/10 rounded-full mb-6">
+                        <IconComponent className="w-8 h-8 text-primary" />
                       </div>
-                    </div>
-                    <CardContent className="md:col-span-2 p-6 md:p-8">
-                      <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
-                      <p className="text-primary font-semibold mb-4 text-lg">{member.position}</p>
-                      <div className="prose prose-sm max-w-none mb-6">
-                        <p className="text-muted-foreground leading-relaxed">{member.bio}</p>
-                      </div>
-                      
-                      <div className="grid md:grid-cols-2 gap-4 pt-4 border-t">
-                        <div>
-                          <p className="font-semibold text-foreground mb-2">Credentials:</p>
-                          <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                            {member.credentials.map((cred, idx) => (
-                              <li key={idx}>{cred}</li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-foreground mb-2">Notable Projects:</p>
-                          <ul className="space-y-1 text-sm text-muted-foreground">
-                            {member.notableProjects.map((project, idx) => (
-                              <li key={idx} className="flex items-start gap-2">
-                                <CheckCircle className="w-3 h-3 text-primary flex-shrink-0 mt-1" />
-                                <span>{project}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
+                      <h3 className="text-xl font-semibold mb-3">{value.title}</h3>
+                      <p className="text-muted-foreground">{value.description}</p>
                     </CardContent>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Trusted Partners */}
-        <TrustedPartners variant="grouped" background="default" showDescription={true} />
+      {/* Our 5-Step Approach */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">Our 5-Step Approach</h2>
+              <p className="text-lg text-muted-foreground">
+                A proven process for reliable project delivery
+              </p>
+            </div>
 
-        {/* Partner Case Studies */}
-        <PartnerCaseStudies background="muted" />
-
-        {/* Company Credentials */}
-        <section className="py-24 bg-muted">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-5xl font-bold mb-4">Company Credentials</h2>
-                <p className="text-lg text-muted-foreground">
-                  Our qualifications demonstrate our commitment to excellence and professionalism
-                </p>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Bonding Capacity */}
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Shield className="w-6 h-6 text-primary" />
+            <div className="space-y-8">
+              {processSteps.map((step, index) => (
+                <Card key={index} className="hover:border-primary/50 transition-colors">
+                  <CardContent className="p-8">
+                    <div className="flex gap-6">
+                      <div className="flex-shrink-0">
+                        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-2xl font-bold text-primary">{step.number}</span>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-xl font-bold mb-2">Bonding Capacity</h3>
-                        <p className="text-2xl font-bold text-primary mb-2">$5,000,000</p>
-                        <p className="text-sm text-muted-foreground">
-                          Fully bonded with approved surety for projects of all sizes
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-semibold mb-3">{step.title}</h3>
+                        <p className="text-muted-foreground text-lg leading-relaxed">
+                          {step.description}
                         </p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-
-                {/* Insurance Coverage */}
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Shield className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold mb-2">Insurance Coverage</h3>
-                        <ul className="space-y-1 text-sm text-muted-foreground">
-                          <li>• General Liability: $5,000,000</li>
-                          <li>• WSIB Clearance Certificate</li>
-                          <li>• Comprehensive Auto Insurance</li>
-                          <li>• Tools & Equipment Coverage</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Certifications */}
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Award className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold mb-2">Certifications</h3>
-                        <ul className="space-y-1 text-sm text-muted-foreground">
-                          <li>• COR™ Certified (Certificate of Recognition)</li>
-                          <li>• LEED Accredited Professional</li>
-                          <li>• WSIB Certified Safety Training</li>
-                          <li>• Gold Seal Certification</li>
-                          <li>• ISO 9001:2015 Quality Management</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Industry Affiliations */}
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Award className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold mb-2">Industry Affiliations</h3>
-                        <ul className="space-y-1 text-sm text-muted-foreground">
-                          <li>• Ontario General Contractors Association (OGCA)</li>
-                          <li>• Canadian Construction Association (CCA)</li>
-                          <li>• Better Business Bureau (A+ Rating)</li>
-                          <li>• Greater Toronto Contractors Association</li>
-                          <li>• Building Industry & Land Development</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* CTA */}
-              <div className="mt-12 text-center">
-                <Card className="bg-primary text-primary-foreground">
-                  <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold mb-3">View Our Full Credentials Package</h3>
-                    <p className="mb-6 opacity-90">
-                      Download our complete prequalification package including insurance certificates, 
-                      bonding letters, safety records, and project references
-                    </p>
-                    <Button 
-                      size="lg" 
-                      variant="secondary"
-                      onClick={() => navigate("/prequalification")}
-                    >
-                      Download Credentials Package
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
+              ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* FAQ Section */}
-        <section className="container mx-auto px-4 py-24 bg-muted/30">
+      {/* Safety, Insurance & Compliance */}
+      <section className="py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <ClipboardCheck className="w-8 h-8 text-primary" />
-                <h2 className="text-5xl font-bold">Frequently Asked Questions</h2>
-              </div>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">Safety, Insurance & Compliance</h2>
               <p className="text-lg text-muted-foreground">
-                Find answers to the most common questions about our services, pricing, and process
+                Your protection is our priority
               </p>
             </div>
 
-            {/* General Questions */}
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-primary">General</h3>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className="text-left font-semibold">
-                    How long have you been in business?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Ascent Group Construction has been serving the GTA since 2009, with over 15 years of experience delivering quality commercial construction and building envelope services.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-2">
-                  <AccordionTrigger className="text-left font-semibold">
-                    Are you licensed and insured?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Yes, we are fully licensed and carry $5 million in liability insurance coverage. We also maintain WSIB coverage for all our employees. We provide certificates of insurance upon request for your peace of mind.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-3">
-                  <AccordionTrigger className="text-left font-semibold">
-                    Do you offer warranties?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Yes, all our work comes with comprehensive warranties. We offer a 2-year warranty on workmanship and material warranties ranging from 5-15 years depending on the products used. All warranty details are clearly outlined in your contract.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-4">
-                  <AccordionTrigger className="text-left font-semibold">
-                    What areas do you serve?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    We proudly serve the Greater Toronto Area (GTA) including Toronto, Mississauga, Brampton, Oakville, Burlington, Hamilton, Vaughan, Richmond Hill, and surrounding communities. Contact us to confirm service availability in your specific area.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span>WSIB compliance and safety training (e.g., Working at Heights/WHMIS)</span>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span>Commercial General Liability (CGL) coverage; certificates available on request</span>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span>Bonding/Pre-qualification support available on request (project-dependent)</span>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span>Job-specific Safety Plans, toolbox talks, and secure site practices</span>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Pricing & Estimates */}
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-primary">Pricing & Estimates</h3>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-5">
-                  <AccordionTrigger className="text-left font-semibold">
-                    How do you calculate estimates?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Our estimates are based on several factors including project size (square footage), surface condition, preparation required, type of materials selected, and project complexity. We provide detailed line-item breakdowns so you know exactly what you are paying for. For accurate pricing, we conduct an on-site assessment.
-                  </AccordionContent>
-                </AccordionItem>
+      {/* Where We Work */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <MapPin className="w-16 h-16 text-primary mx-auto mb-6" />
+            <h2 className="text-4xl font-bold mb-6">Where We Work</h2>
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              We serve <strong>Ontario & the Greater Toronto Area</strong>, with emphasis on the GTA and 
+              Golden Horseshoe: Toronto, Mississauga, Brampton, Vaughan/Markham, Oakville/Burlington, 
+              and Hamilton. We consider broader Ontario for the right project.
+            </p>
+          </div>
+        </div>
+      </section>
 
-                <AccordionItem value="item-6">
-                  <AccordionTrigger className="text-left font-semibold">
-                    Do you offer free estimates?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Yes, we provide free, no-obligation estimates for all residential and commercial projects. We will visit your property, assess the work required, discuss your preferences, and provide a detailed written quote typically within 24-48 hours.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-7">
-                  <AccordionTrigger className="text-left font-semibold">
-                    What payment methods do you accept?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    We accept various payment methods including cash, checks, credit cards (Visa, Mastercard, American Express), and e-transfers. Payment schedules are typically structured as: deposit upon contract signing, progress payments at project milestones, and final payment upon completion and your satisfaction.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-8">
-                  <AccordionTrigger className="text-left font-semibold">
-                    Can I get financing?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Yes, we offer flexible financing options through our lending partners for qualified customers. This includes low-interest payment plans and deferred payment options. Contact us to discuss financing solutions that fit your budget.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-
-            {/* Project Process */}
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-primary">Project Process</h3>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-9">
-                  <AccordionTrigger className="text-left font-semibold">
-                    How long will my project take?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Project timelines vary based on scope and size. Small commercial projects typically take 2-4 weeks. Full building envelope projects range from 4-12 weeks. Exterior systems projects take 6-16 weeks depending on weather. Stucco and EIFS projects can range from 4-12 weeks. We provide detailed schedules in your project proposal.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-10">
-                  <AccordionTrigger className="text-left font-semibold">
-                    Will you protect my furniture and belongings?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Absolutely. We take extensive precautions to protect your property. This includes covering furniture and equipment with protective sheeting, protecting floors with drop cloths and protective paper, masking fixtures and hardware, and sealing off work areas to minimize dust. We treat your property with the same care we would our own.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-11">
-                  <AccordionTrigger className="text-left font-semibold">
-                    Can I stay in my home during the work?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Yes, most clients remain in their homes during interior projects. We work room by room to minimize disruption, use low-VOC paints to reduce odors, maintain clean work areas, and can adjust our schedule to work around your routines. For exterior projects, you can stay home with minimal impact on your daily activities.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-12">
-                  <AccordionTrigger className="text-left font-semibold">
-                    What if weather delays my exterior project?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    We monitor weather forecasts closely and schedule exterior work during optimal conditions. If unexpected weather occurs, we will pause work to ensure quality and reschedule at the earliest opportunity. Weather delays do not affect your project cost, and we maintain open communication throughout any schedule adjustments.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-
-            {/* Materials & Quality */}
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-primary">Materials & Quality</h3>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-13">
-                  <AccordionTrigger className="text-left font-semibold">
-                    What paint brands do you use?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    We use premium paint brands including Benjamin Moore, Sherwin-Williams, and Behr. These professional-grade products provide superior coverage, durability, and color retention. We select products based on project requirements and client preferences, always using top-tier formulations for lasting results.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-14">
-                  <AccordionTrigger className="text-left font-semibold">
-                    Do you offer eco-friendly options?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Yes, we offer a full range of eco-friendly options including zero-VOC and low-VOC paints, water-based coatings, and environmentally responsible disposal methods. These products are safe for families, pets, and the environment while still delivering exceptional performance and durability.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-15">
-                  <AccordionTrigger className="text-left font-semibold">
-                    How do you ensure quality?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Quality is our top priority. We ensure excellence through meticulous surface preparation, skilled application techniques by experienced professionals, multi-coat systems for durability, quality control inspections at each project stage, and a final walkthrough with you before project completion. Our 98% client satisfaction rate reflects our commitment to quality.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-16">
-                  <AccordionTrigger className="text-left font-semibold">
-                    Can you match my existing color?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    Yes, we use advanced color matching technology to perfectly match any existing color from a sample. We can also provide digital mockups of new color schemes to help you visualize options before making a final decision. Our color consultation service ensures you get exactly the look you want.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-
-            {/* CTA within FAQ */}
-            <Card className="bg-muted/50 p-8 text-center mt-12">
-              <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
-              <p className="text-muted-foreground mb-6">
-                We are here to help! Contact us and our friendly team will be happy to answer any additional questions you may have.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact">
-                  <Button size="lg" className="bg-primary hover:bg-primary/90">
-                    Contact Us
-                  </Button>
-                </Link>
-                <Link to="/estimate">
-                  <Button size="lg" variant="outline">
-                    Request Proposal
-                  </Button>
-                </Link>
-              </div>
+      {/* Our Vision */}
+      <section className="py-24 bg-primary/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2 border-primary/20">
+              <CardContent className="p-12 text-center">
+                <TrendingUp className="w-16 h-16 text-primary mx-auto mb-6" />
+                <h2 className="text-4xl font-bold mb-6">Our Vision</h2>
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  We're building a reputation as Ontario's trusted lead contractor for envelope & restoration 
+                  scopes—and using that foundation to expand responsibly into a full GC service offering over 
+                  the next 3–5 years. Every successful scope, relationship, and referral gets us closer—without 
+                  compromising the service standards that define Ascent.
+                </p>
+              </CardContent>
             </Card>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA */}
-        <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-16">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-4">
-              Ready to Work with Us?
-            </h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Experience the Ascen Group difference—quality craftsmanship, transparent communication, and complete satisfaction.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/estimate">
-                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-primary font-bold px-8">
-                  Request Proposal
-                </Button>
-              </Link>
-              <Link to="/projects">
-                <Button size="lg" variant="outline" className="border-2 border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))]/10">
-                  View Our Work
-                </Button>
-              </Link>
+      {/* Ready to Work Together */}
+      <section className="py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Ready to Work Together?</h2>
+              <p className="text-lg text-muted-foreground">
+                Let's discuss your project and how we can help
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 text-center">
+                  <div className="inline-flex p-4 bg-primary/10 rounded-full mb-4">
+                    <Phone className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Book a Site Walk</h3>
+                  <p className="text-muted-foreground mb-6">48–72h target for urgent matters</p>
+                  <Button asChild className="w-full">
+                    <Link to="/contact">Schedule Visit</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 text-center">
+                  <div className="inline-flex p-4 bg-primary/10 rounded-full mb-4">
+                    <FileText className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Request a Quote</h3>
+                  <p className="text-muted-foreground mb-6">Detailed project estimates</p>
+                  <Button asChild variant="secondary" className="w-full">
+                    <Link to="/estimate">Get Quote</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 text-center">
+                  <div className="inline-flex p-4 bg-primary/10 rounded-full mb-4">
+                    <Mail className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">For GCs</h3>
+                  <p className="text-muted-foreground mb-6">Trade packages & pre-qual docs</p>
+                  <Button asChild variant="outline" className="w-full">
+                    <Link to="/contact">Partner With Us</Link>
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
-        </section>
-      </main>
-      
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
