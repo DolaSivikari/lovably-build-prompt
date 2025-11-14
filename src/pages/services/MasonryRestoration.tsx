@@ -40,45 +40,47 @@ const MasonryRestoration = () => {
     {
       icon: Building2,
       title: 'Brick & Stone Restoration',
-      description: 'Historic preservation and modern masonry repairs using authentic materials and traditional techniques.'
+      description: 'Historic preservation and modern masonry repairs using authentic materials, traditional techniques, and engineering-backed solutions for structural integrity.'
     },
     {
       icon: Hammer,
       title: 'Tuckpointing & Repointing',
-      description: 'Expert mortar replacement matching original composition, color, and profile for seamless integration.'
+      description: 'Expert mortar replacement matching original composition, color profile, and joint styling. Custom mortar formulation from our in-house lab ensuring seamless integration.'
     },
     {
       icon: Shield,
       title: 'Structural Masonry Repairs',
-      description: 'Engineering-backed solutions for cracked walls, failed lintels, and deteriorated structural masonry.'
+      description: 'Engineering-backed solutions for cracked walls, failed lintels, parapet reconstruction, and deteriorated structural masonry. Full P.Eng. stamped designs when required.'
     },
     {
       icon: Clock,
       title: 'Heritage Building Conservation',
-      description: 'Specialized restoration services meeting heritage standards and municipal preservation requirements.'
+      description: 'Specialized restoration services meeting municipal heritage standards, conservation guidelines, and Ontario Heritage Act requirements with proper documentation.'
     }
   ];
 
   const process = [
     {
-      phase: 'Assessment & Testing',
-      description: 'Detailed condition assessment, mortar analysis, and structural engineering review to determine repair scope.'
+      phase: 'Assessment & Engineering',
+      description: 'Comprehensive condition assessment, mortar analysis, structural evaluation, and engineering review determining repair scope and methodology.'
     },
     {
-      phase: 'Material Matching',
-      description: 'Custom mortar formulation and brick/stone sourcing to match existing materials in composition and appearance.'
+      phase: 'Material Matching & Approval',
+      description: 'Custom mortar formulation in our lab, historic brick/stone sourcing, material testing, and heritage approval coordination when required.'
     },
     {
       phase: 'Restoration Execution',
-      description: 'Skilled craftsmen execute repairs using traditional methods with modern engineering support and quality control.'
+      description: 'Skilled master masons execute repairs using traditional methods supported by modern engineering, quality control, and warranty documentation.'
     }
   ];
 
   const advantages = [
-    'Master masons with heritage restoration certifications',
-    'In-house mortar lab for precise material matching',
-    'Engineering support for structural repairs',
-    'Experience with municipal heritage approvals'
+    'Master masons with heritage restoration certifications and 35+ years experience',
+    'In-house mortar lab for precise material matching and testing',
+    'P.Eng. structural engineering support for complex repairs',
+    'Experience with municipal heritage approvals and conservation guidelines',
+    'Complete material testing and quality control protocols',
+    'Comprehensive warranty documentation and maintenance plans'
   ];
 
   return (
