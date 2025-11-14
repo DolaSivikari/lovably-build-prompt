@@ -83,16 +83,6 @@ export interface ServicePageTemplateProps {
 
 export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
-  const [showMobileCTA, setShowMobileCTA] = useState(false);
-
-  // Mobile CTA visibility on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowMobileCTA(window.scrollY > 500);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Structured data for SEO
   const serviceSchema = createServiceSchema({
@@ -451,38 +441,6 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
           </div>
         </div>
       </section>
-
-      {/* Mobile Sticky CTA */}
-      <div 
-        className={`fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-2xl transition-transform duration-300 md:hidden ${
-          showMobileCTA ? 'translate-y-0' : 'translate-y-full'
-        }`}
-      >
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex gap-2">
-            <Button 
-              size="lg" 
-              className="flex-1 min-h-[48px] text-base font-semibold"
-              asChild
-            >
-              <Link to="/contact">
-                Request Proposal
-              </Link>
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="flex-1 min-h-[48px] text-base font-semibold"
-              asChild
-            >
-              <a href="tel:+16471234567">
-                <Phone className="w-5 h-5 mr-2" />
-                Call
-              </a>
-            </Button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

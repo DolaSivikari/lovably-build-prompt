@@ -4,6 +4,7 @@ import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play,
 import { Button } from "@/ui/Button";
 
 import HeroTabNavigation from "./HeroTabNavigation";
+import HeroNavigationCards from "./HeroNavigationCards";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { supabase } from "@/integrations/supabase/client";
@@ -454,57 +455,20 @@ const EnhancedHero = () => {
         </div>
       </div>
 
-      {/* Hero Tab Navigation - Use landing menu if available */}
+      {/* Hero Navigation Cards - Unified Design */}
       {landingMenuItems.length > 0 ? (
         <div className="absolute bottom-6 md:bottom-24 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
-          
-          {/* Mobile: Horizontal scrollable premium cards with auto-scroll */}
-          <div 
-            ref={mobileCardsRef}
-            className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4 scroll-smooth"
-            onTouchStart={() => setMobileCardAutoScroll(false)}
-            onMouseDown={() => setMobileCardAutoScroll(false)}
-          >
-            <div className="flex gap-3 pb-4">
-              {landingMenuItems.map((item) => {
-                const Icon = getIconForTitle(item.title);
-                return (
-                  <Link
-                    key={item.id}
-                    to={item.link}
-                    className="flex-shrink-0 w-48 bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20 hover:bg-white/15 transition-all active:scale-95"
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="p-1.5 rounded-md bg-accent/20">
-                        <Icon className="h-4 w-4 text-accent" />
-                      </div>
-                      <span className="text-xs font-bold text-white/60">{item.number || '—'}</span>
-                    </div>
-                    <div className="text-sm font-bold text-white mb-1 leading-tight">
-                      {formatTitle(item.title)}
-                    </div>
-                    <div className="text-xs text-white/70 line-clamp-2 leading-relaxed">
-                      {item.subtext}
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-          
-          {/* Desktop: Enhanced button layout */}
-          <div className="hidden md:flex gap-4 justify-center flex-wrap">
-            {landingMenuItems.map((item) => (
-              <Link 
-                key={item.id}
-                to={item.link} 
-                className="relative px-6 py-3 text-base font-semibold transition-all duration-300 text-white/90 hover:text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100 after:scale-x-0"
-              >
-                {item.title}
-              </Link>
-            ))}
-          </div>
+          <HeroNavigationCards 
+            items={landingMenuItems.map((item, index) => ({
+              id: item.id,
+              title: formatTitle(item.title),
+              description: item.subtext || '',
+              icon: getIconForTitle(item.title),
+              url: item.link,
+              badge: item.badge,
+              display_order: index
+            }))}
+          />
         </div>
       ) : (
         <HeroTabNavigation 

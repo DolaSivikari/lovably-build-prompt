@@ -58,7 +58,7 @@ const CompanyTimeline = () => {
           {/* Timeline */}
           <div className="relative">
             {/* Vertical Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/20 -translate-x-1/2" />
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-primary/20 left-1/2 -translate-x-1/2" />
 
             {milestones.map((milestone, index) => (
               <div
@@ -71,14 +71,14 @@ const CompanyTimeline = () => {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className={`flex items-start gap-8 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
                 }`}>
                   {/* Content */}
                   <div className={`flex-1 ${
-                    index % 2 === 0 ? 'md:text-right' : 'md:text-left'
+                    index % 2 === 0 ? 'text-right' : 'text-left'
                   }`}>
                     <div className={`inline-block ${
-                      index % 2 === 0 ? 'md:mr-0' : 'md:ml-0'
+                      index % 2 === 0 ? 'mr-0' : 'ml-0'
                     }`}>
                       <div className="bg-card border-2 border-primary/20 rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
                         <div className="text-3xl font-bold text-primary mb-2">
