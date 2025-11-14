@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
-import FloatingContact from "./components/FloatingContact";
 import ScrollToTop from "./components/ScrollToTop";
 import { trackPageView } from "@/lib/analytics";
 
@@ -281,7 +280,6 @@ const App = () => (
         <BrowserRouter>
             <ScrollToTop />
             <RouteTracker>
-              <FloatingContact />
               <CookieBanner />
               {/* Skip to main content link for accessibility - Enhanced PCL style */}
               <a
