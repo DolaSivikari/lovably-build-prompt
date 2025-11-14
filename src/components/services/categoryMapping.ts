@@ -13,20 +13,13 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     id: "building-envelope",
     name: "Building Envelope Systems",
-    description: "Comprehensive exterior envelope solutions from cladding to waterproofing",
+    description: "Comprehensive exterior envelope solutions",
     icon: Building2,
     color: "primary",
     serviceNames: [
       "Building Envelope Solutions",
-      "Exterior Envelope Systems",
-      "Exterior Cladding Systems",
-      "Exterior Siding & Cladding",
-      "Metal Cladding & Panels",
-      "Stucco & EIFS",
-      "Roofing Services",
-      "Waterproofing & Restoration",
-      "Masonry",
-      "Window & Door Installation"
+      "Cladding Systems",
+      "Masonry"
     ]
   },
   {
@@ -37,34 +30,18 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     color: "terracotta",
     serviceNames: [
       "Interior Buildouts & Finishing",
-      "Suite Buildouts",
-      "Drywall & Interior Finishing",
       "Tile & Flooring",
-      "Painting Services",
-      "Commercial Painting",
-      "Residential Painting",
-      "Condo & Multi-Unit Painting"
-    ]
-  },
-  {
-    id: "planning-technology",
-    name: "Planning & Technology",
-    description: "Advanced preconstruction planning and BIM coordination",
-    icon: Cpu,
-    color: "sage",
-    serviceNames: [
-      "Preconstruction & Advisory",
-      "Virtual Design & BIM"
+      "Painting Services"
     ]
   },
   {
     id: "specialized-services",
     name: "Specialized Services",
-    description: "Expert solutions for parking structures and sustainable building",
+    description: "Expert specialty solutions",
     icon: Sparkles,
     color: "primary",
     serviceNames: [
-      "Parking Structure Rehabilitation",
+      "Protective & Architectural Coatings",
       "Sustainable Building"
     ]
   }

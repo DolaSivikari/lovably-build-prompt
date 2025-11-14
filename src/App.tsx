@@ -27,22 +27,14 @@ import Capabilities from "./pages/Capabilities";
 import Careers from "./pages/Careers";
 import Reviews from "./pages/Reviews";
 import ServiceDetail from "./pages/ServiceDetail";
-import ExteriorCladding from "./pages/services/ExteriorCladding";
 import InteriorBuildouts from "./pages/services/InteriorBuildouts";
-import ExteriorEnvelope from "./pages/services/ExteriorEnvelope";
-import GeneralContracting from "./pages/services/GeneralContracting";
 import BuildingEnvelope from "./pages/services/BuildingEnvelope";
-import ConstructionManagement from "./pages/services/ConstructionManagement";
-import DesignBuild from "./pages/services/DesignBuild";
-import EIFSStucco from "./pages/services/EIFSStucco";
 import MasonryRestoration from "./pages/services/MasonryRestoration";
-import MetalCladding from "./pages/services/MetalCladding";
-import Waterproofing from "./pages/services/Waterproofing";
-import ParkingRehabilitation from "./pages/services/ParkingRehabilitation";
-import FacadeRemediation from "./pages/services/FacadeRemediation";
-import SealantReplacement from "./pages/services/SealantReplacement";
-import ParkingGarageRestoration from "./pages/services/ParkingGarageRestoration";
 import ProtectiveCoatings from "./pages/services/ProtectiveCoatings";
+import CladdingSystems from "./pages/services/CladdingSystems";
+import TileFlooring from "./pages/services/TileFlooring";
+import PaintingServices from "./pages/services/PaintingServices";
+import SustainableBuilding from "./pages/services/SustainableBuilding";
 import Markets from "./pages/Markets";
 import MultiFamily from "./pages/markets/MultiFamily";
 import Commercial from "./pages/markets/Commercial";
@@ -297,24 +289,19 @@ const App = () => (
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/reviews" element={<Reviews />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/services/general-contracting" element={<GeneralContracting />} />
-            <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
-            <Route path="/services/construction-management" element={<ConstructionManagement />} />
-            <Route path="/services/design-build" element={<DesignBuild />} />
-            <Route path="/services/painting" element={<Navigate to="/services/exterior-envelope" replace />} />
-            <Route path="/services/exterior-cladding" element={<ExteriorCladding />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
-            <Route path="/services/exterior-envelope" element={<ExteriorEnvelope />} />
-          <Route path="/services/eifs-stucco" element={<EIFSStucco />} />
-          <Route path="/services/stucco-eifs" element={<Navigate to="/services/eifs-stucco" replace />} />
-          <Route path="/services/masonry-restoration" element={<MasonryRestoration />} />
-            <Route path="/services/metal-cladding" element={<MetalCladding />} />
-            <Route path="/services/waterproofing" element={<Waterproofing />} />
-            <Route path="/services/parking-rehabilitation" element={<ParkingRehabilitation />} />
-            <Route path="/services/facade-remediation" element={<FacadeRemediation />} />
-            <Route path="/services/sealant-replacement" element={<SealantReplacement />} />
-            <Route path="/services/parking-garage-restoration" element={<ParkingGarageRestoration />} />
+            <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
+            <Route path="/services/masonry-restoration" element={<MasonryRestoration />} />
             <Route path="/services/protective-coatings" element={<ProtectiveCoatings />} />
+            <Route path="/services/cladding-systems" element={<CladdingSystems />} />
+            <Route path="/services/tile-flooring" element={<TileFlooring />} />
+            <Route path="/services/painting-services" element={<PaintingServices />} />
+            <Route path="/services/sustainable-construction" element={<SustainableBuilding />} />
+            {/* Redirects for archived services */}
+            <Route path="/services/exterior-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
+            <Route path="/services/metal-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
+            <Route path="/services/eifs-stucco" element={<Navigate to="/services/cladding-systems" replace />} />
+            <Route path="/services/exterior-envelope" element={<Navigate to="/services/building-envelope" replace />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/markets" element={<Markets />} />
             <Route path="/markets/multi-family" element={<MultiFamily />} />
