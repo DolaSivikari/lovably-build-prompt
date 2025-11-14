@@ -4,7 +4,7 @@ import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Phone, Mail, MapPin, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
@@ -168,38 +168,29 @@ const InteractiveCTA = () => {
             </div>
 
             {/* Animated Story Cards */}
-            <AnimatePresence mode="wait">
-              {(() => {
-                const CurrentIcon = stories[currentStory].icon;
-                return (
-                  <motion.div
-                    key={currentStory}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.5 }}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="bg-secondary/20 rounded-full p-3 flex-shrink-0">
-                        {CurrentIcon && <CurrentIcon className="h-8 w-8 text-secondary" />}
-                      </div>
-                      <div>
-                        <div className="text-5xl font-bold mb-2 text-secondary">
-                          {stories[currentStory].stat}
-                        </div>
-                        <div className="text-xl font-semibold mb-1">
-                          {stories[currentStory].label}
-                        </div>
-                        <p className="text-[hsl(var(--bg))]/80 text-sm">
-                          {stories[currentStory].detail}
-                        </p>
-                      </div>
+            {(() => {
+              const CurrentIcon = stories[currentStory].icon;
+              return (
+                <div key={currentStory} className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 animate-fade-in">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-secondary/20 rounded-full p-3 flex-shrink-0">
+                      {CurrentIcon && <CurrentIcon className="h-8 w-8 text-secondary" />}
                     </div>
-                  </motion.div>
-                );
-              })()}
-            </AnimatePresence>
+                    <div>
+                      <div className="text-5xl font-bold mb-2 text-secondary">
+                        {stories[currentStory].stat}
+                      </div>
+                      <div className="text-xl font-semibold mb-1">
+                        {stories[currentStory].label}
+                      </div>
+                      <p className="text-[hsl(var(--bg))]/80 text-sm">
+                        {stories[currentStory].detail}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Story Navigation Dots */}
             <div className="flex gap-2">

@@ -8,11 +8,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { FeaturedServicesGrid } from "@/components/services/FeaturedServicesGrid";
 import { ServiceCard3D } from "@/components/services/ServiceCard3D";
-import { ParticleNetwork } from "@/components/services/ParticleNetwork";
-import { VideoHoverCard } from "@/components/services/VideoHoverCard";
-import { ScrollSceneTransition } from "@/components/services/ScrollSceneTransition";
-import { InteractiveQuiz } from "@/components/services/InteractiveQuiz";
-import { QuizToggleButton } from "@/components/services/QuizToggleButton";
 import { CheckCircle2, Users, Building, Briefcase } from "lucide-react";
 
 interface Service {
@@ -79,30 +74,7 @@ const Services = () => {
       />
       <Navigation />
 
-      {/* Interactive Quiz */}
-      <InteractiveQuiz isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
-      
-      {/* Quiz Toggle Button */}
-      <QuizToggleButton isQuizActive={isQuizOpen} onToggle={() => setIsQuizOpen(true)} />
-
-      {/* Scroll-based background transitions */}
-      <ScrollSceneTransition />
-      
       <main className="flex-1 relative">
-        {/* Particle Network Section */}
-        <section className="py-20 bg-background relative">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                Interconnected Services
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                See how our services work together to deliver complete construction solutions
-              </p>
-            </div>
-            <ParticleNetwork />
-          </div>
-        </section>
 
         {/* 3D Service Cards Section */}
         <section className="py-20 bg-gradient-to-b from-muted/20 to-background relative">

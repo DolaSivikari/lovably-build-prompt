@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
-import { useScrollDirection } from "@/hooks/useScrollDirection";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,9 +37,6 @@ const Navigation = () => {
   // Use custom hook for hover timeout management with automatic cleanup
   const megaMenuHover = useHoverTimeout();
   const adminHover = useHoverTimeout();
-  
-  // Track scroll direction for auto-hide navigation
-  const { scrollDirection, isAtTop } = useScrollDirection();
 
   // Sync mobile menu state with body data attribute
   useEffect(() => {
@@ -76,13 +73,6 @@ const Navigation = () => {
     megaMenuHover.clearPendingTimeout();
   }, [megaMenuHover]);
 
-  // Close mega menus when scrolling down
-  useEffect(() => {
-    if (scrollDirection === "down" && !isAtTop) {
-      closeMegaMenu();
-      setAdminDropdownOpen(false);
-    }
-  }, [scrollDirection, isAtTop, closeMegaMenu]);
 
   // Admin dropdown hover handlers
   const openAdminDropdown = useCallback(() => {
@@ -97,16 +87,7 @@ const Navigation = () => {
   return (
     <>
       <nav
-        className={cn(
-          "fixed top-0 left-0 right-0 z-navigation border-b",
-          "transition-[transform,background-color,backdrop-filter,box-shadow,border-color] var(--transition-slow)",
-          isAtTop 
-            ? "bg-transparent backdrop-blur-none border-transparent" 
-            : "bg-background/95 backdrop-blur-xl shadow-lg border-border/50",
-          scrollDirection === "down" && !isAtTop
-            ? "-translate-y-full"
-            : "translate-y-0"
-        )}
+        className="fixed top-0 left-0 right-0 z-navigation border-b bg-background/95 backdrop-blur-xl shadow-lg border-border/50 transition-all duration-300"
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
         <div className="hidden md:flex items-center justify-between w-full h-20">
@@ -143,7 +124,7 @@ const Navigation = () => {
               className={cn(
                 "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
                 "link-underline after:transition-transform",
-                isActive("/") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"),
+                isActive("/") ? "text-primary after:scale-x-100" : "text-foreground",
                 !isActive("/") && "hover:text-primary"
               )}
             >
@@ -162,7 +143,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
                   "link-underline",
                   activeMegaMenu === "services" && "text-primary scale-105",
-                  activeMegaMenu !== "services" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
+                  activeMegaMenu !== "services" && "text-foreground"
                 )}
                 aria-expanded={activeMegaMenu === "services"}
                 aria-controls="services-mega-menu"
@@ -192,7 +173,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
                   "link-underline",
                   activeMegaMenu === "markets" && "text-primary scale-105",
-                  activeMegaMenu !== "markets" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
+                  activeMegaMenu !== "markets" && "text-foreground"
                 )}
                 aria-expanded={activeMegaMenu === "markets"}
                 aria-controls="markets-mega-menu"
@@ -222,7 +203,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
                   "link-underline",
                   activeMegaMenu === "projects" && "text-primary scale-105",
-                  activeMegaMenu !== "projects" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
+                  activeMegaMenu !== "projects" && "text-foreground"
                 )}
                 aria-expanded={activeMegaMenu === "projects"}
                 aria-controls="projects-mega-menu"
@@ -251,7 +232,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
                   "link-underline",
                   activeMegaMenu === "company" && "text-primary scale-105",
-                  activeMegaMenu !== "company" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
+                  activeMegaMenu !== "company" && "text-foreground"
                 )}
                 aria-expanded={activeMegaMenu === "company"}
                 aria-controls="company-mega-menu"
@@ -280,7 +261,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
                   "link-underline",
                   activeMegaMenu === "resources" && "text-primary scale-105",
-                  activeMegaMenu !== "resources" && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
+                  activeMegaMenu !== "resources" && "text-foreground"
                 )}
                 aria-expanded={activeMegaMenu === "resources"}
                 aria-controls="resources-mega-menu"
@@ -303,7 +284,7 @@ const Navigation = () => {
               className={cn(
                 "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
                 "link-underline after:transition-transform",
-                isActive("/contact") ? "text-primary after:scale-x-100" : (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"),
+                isActive("/contact") ? "text-primary after:scale-x-100" : "text-foreground",
                 !isActive("/contact") && "hover:text-primary"
               )}
             >
@@ -318,8 +299,7 @@ const Navigation = () => {
               <a
                 href={`tel:${settings.phone}`}
                 className={cn(
-                  "hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap",
-                  isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"
+text-foreground
                 )}
               >
                 <Phone className="w-4 h-4" />
@@ -338,9 +318,7 @@ const Navigation = () => {
             <Link 
               to="/resources/contractor-portal" 
               className={cn(
-                "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap",
-                "link-underline",
-                isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground"
+text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline text-foreground
               )}
             >
               Client Portal
@@ -356,7 +334,7 @@ const Navigation = () => {
                     "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1",
                     "link-underline",
                     adminDropdownOpen && "text-primary scale-105",
-                    !adminDropdownOpen && (isAtTop ? "text-white [text-shadow:var(--shadow-text)]" : "text-foreground")
+                    !adminDropdownOpen && "text-foreground"
                   )}
                   aria-expanded={adminDropdownOpen}
                 >

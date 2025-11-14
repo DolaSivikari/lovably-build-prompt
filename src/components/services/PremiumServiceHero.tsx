@@ -1,29 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Award, Shield, Clock } from "lucide-react";
-import { useParallax } from "@/hooks/useParallax";
-import { useCountUp } from "@/hooks/useCountUp";
 
 export const PremiumServiceHero = () => {
-  const offset = useParallax({ speed: 0.3 });
-  const projectCount = useCountUp(500, 2000);
-  const satisfactionRate = useCountUp(98, 2000);
-  const yearsExperience = useCountUp(25, 2000);
 
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-      {/* Animated geometric shapes background */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary/70">
-        <div 
-          className="absolute top-10 left-10 w-64 h-64 bg-primary-foreground/5 rounded-full blur-3xl animate-pulse"
-          style={{ transform: `translateY(${offset * 0.5}px)` }}
-        />
-        <div 
-          className="absolute bottom-20 right-20 w-96 h-96 bg-primary-foreground/5 rounded-full blur-3xl animate-pulse delay-1000"
-          style={{ transform: `translateY(${-offset * 0.3}px)` }}
-        />
-        <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-primary-foreground/3 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      </div>
+      {/* Gradient background */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary/70" />
       
       {/* Subtle dark overlay for depth */}
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/10 via-transparent to-black/20" />
@@ -54,18 +38,18 @@ export const PremiumServiceHero = () => {
             From concept to completion, we deliver excellence across Ontario
           </p>
 
-          {/* Rotating stats carousel */}
+          {/* Stats display */}
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">{projectCount}+</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">500+</div>
               <div className="text-sm md:text-base text-primary-foreground/80">Projects Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">{satisfactionRate}%</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">98%</div>
               <div className="text-sm md:text-base text-primary-foreground/80">Client Satisfaction</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">{yearsExperience}+</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">25+</div>
               <div className="text-sm md:text-base text-primary-foreground/80">Years Experience</div>
             </div>
           </div>

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info, Ruler, ClipboardCheck, Hammer, Droplets } from "lucide-react";
 import { Button } from "@/ui/Button";
-import GeometricShapes from "./GeometricShapes";
+
 import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
@@ -65,8 +65,6 @@ const EnhancedHero = () => {
   const [showPoster, setShowPoster] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -254,31 +252,6 @@ const EnhancedHero = () => {
     };
   }, [currentSlide]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setScrollY(scrollPosition);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      
-      // Calculate normalized position (-1 to 1)
-      const x = (clientX / innerWidth - 0.5) * 2;
-      const y = (clientY / innerHeight - 0.5) * 2;
-      
-      setMousePosition({ x, y });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
@@ -334,15 +307,11 @@ const EnhancedHero = () => {
   const statNumber = slide.stat;
   const statLabel = slide.statLabel;
   const videoUrl = getVideoUrl(slide.video); // Use preloaded URL
-  const videoUrlMobile = slide.video.replace('.mp4', '-mobile.mp4'); // Mobile version
+  const videoUrlMobile = slide.video.replace('.mp4', '-mobile.mp4');
   const posterUrl = slide.poster;
   const PrimaryIcon = slide.primaryCTA.icon;
   const primaryCTA = slide.primaryCTA;
   const secondaryCTA = slide.secondaryCTA;
-
-  const parallaxOffset = prefersReducedMotion ? 0 : scrollY * 0.5;
-  const mouseParallaxX = prefersReducedMotion ? 0 : mousePosition.x * 20;
-  const mouseParallaxY = prefersReducedMotion ? 0 : mousePosition.y * 20;
 
   return (
     <section 
@@ -351,15 +320,11 @@ const EnhancedHero = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Geometric Shapes */}
-      <GeometricShapes currentSlide={currentSlide} />
       
-      {/* Video Background with Parallax Effect */}
+      {/* Video Background */}
       <div 
-        className="absolute inset-0 w-full h-[120%] -top-[10%] transition-opacity duration-300 ease-in-out"
+        className="absolute inset-0 w-full h-full transition-opacity duration-300 ease-in-out"
         style={{ 
-          transform: `translateY(${parallaxOffset}px) translateX(${mouseParallaxX}px) translateY(${mouseParallaxY}px)`,
-          transition: 'transform 0.3s ease-out, opacity 0.3s ease-in-out',
           opacity: isFadingOut ? 0.4 : 1
         }}
       >

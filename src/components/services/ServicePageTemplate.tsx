@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';
@@ -84,16 +84,6 @@ export interface ServicePageTemplateProps {
 export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [showMobileCTA, setShowMobileCTA] = useState(false);
-  
-  // Refs for intersection observer
-  const heroRef = useRef<HTMLElement>(null);
-  const benefitsRef = useRef<HTMLElement>(null);
-  const processRef = useRef<HTMLElement>(null);
-  
-  // Intersection observer for scroll animations
-  const heroInView = useIntersectionObserver(heroRef, { threshold: 0.1 });
-  const benefitsInView = useIntersectionObserver(benefitsRef, { threshold: 0.1 });
-  const processInView = useIntersectionObserver(processRef, { threshold: 0.1 });
 
   // Mobile CTA visibility on scroll
   useEffect(() => {
@@ -148,8 +138,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
 
       {/* Hero Section */}
       <section 
-        ref={heroRef as React.RefObject<HTMLElement>}
-        className="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden"
+        className="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden scroll-reveal"
       >
         <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/80 z-10" />
         {service.heroImage && (
@@ -160,7 +149,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
           />
         )}
         <div className="relative z-20 container mx-auto px-4 text-primary-foreground">
-          <div className={`max-w-3xl transition-all duration-700 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="max-w-3xl animate-fade-in">
             <div className="inline-block px-4 py-2 bg-background/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4">
               {service.category}
             </div>
@@ -292,12 +281,8 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               return (
                 <Card
                   key={index}
-                  className={`group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 ${
-                    benefitsInView 
-                      ? 'opacity-100 translate-y-0' 
-                      : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ transitionDelay: benefitsInView ? `${index * 100}ms` : '0ms' }}
+                  className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 animate-fade-in"
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <CardContent className="p-6 md:p-8">
                     <IconComponent className="w-12 h-12 md:w-14 md:h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
