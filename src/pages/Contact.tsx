@@ -24,12 +24,9 @@ import { BudgetSlider } from "@/components/forms/BudgetSlider";
 import { TimelineSelector } from "@/components/forms/TimelineSelector";
 import { ProjectTypeSelector } from "@/components/forms/ProjectTypeSelector";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
-import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
 import { RippleEffect } from "@/components/shared/RippleEffect";
 import { TrustedPartners } from "@/components/partners/TrustedPartners";
 import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
-import heroMasonry from "@/assets/hero-masonry-restoration.jpg";
-import projectCommercial from "@/assets/project-commercial.jpg";
 
 // Input validation schema
 const contactSchema = z.object({
@@ -324,24 +321,6 @@ const Contact = () => {
                 )}
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Showcase */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Our Work Speaks for Itself</h2>
-            <p className="text-lg text-muted-foreground">See the transformations we deliver</p>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <BeforeAfterSlider
-              beforeImage={heroMasonry}
-              afterImage={projectCommercial}
-              beforeLabel="Before Restoration"
-              afterLabel="After Restoration"
-            />
           </div>
         </div>
       </section>
