@@ -1,5 +1,5 @@
 body {
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: Barlow, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   color: hsl(var(--ink));
 }
 
@@ -8,7 +8,7 @@ h1 {
   font-size: 48px;
   line-height: 56px;
   letter-spacing: -0.015em;
-  font-family: Inter, sans-serif;
+  font-family: Barlow, sans-serif;
 }
 
 h2 {
@@ -16,21 +16,21 @@ h2 {
   font-size: 36px;
   line-height: 44px;
   letter-spacing: -0.015em;
-  font-family: Inter, sans-serif;
+  font-family: Barlow, sans-serif;
 }
 
 h3 {
   font-weight: 700;
   font-size: 28px;
   line-height: 36px;
-  font-family: Inter, sans-serif;
+  font-family: Barlow, sans-serif;
 }
 
 h4 {
   font-weight: 600;
   font-size: 22px;
   line-height: 30px;
-  font-family: Inter, sans-serif;
+  font-family: Barlow, sans-serif;
 }
 
 p,
@@ -38,5 +38,5 @@ li {
   font-weight: 400;
   font-size: 16px;
   line-height: 28px;
-  font-family: Inter, sans-serif;
+  font-family: Barlow, sans-serif;
 }

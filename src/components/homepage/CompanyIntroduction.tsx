@@ -21,7 +21,7 @@ export default function CompanyIntroduction() {
           
           {/* Section Header - Enterprise Style */}
           <div className="max-w-3xl mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight font-playfair">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               Ontario's Envelope & Restoration Specialists
             </h2>
             <div className="h-1 w-16 bg-construction-orange mb-8"></div>

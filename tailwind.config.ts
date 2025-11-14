@@ -14,9 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
-        playfair: ['Playfair Display', 'serif'],
+        sans: ['Barlow', 'system-ui', '-apple-system', 'sans-serif'],
+        barlow: ['Barlow', 'sans-serif'],
       },
       colors: {
         // Construction theme colors

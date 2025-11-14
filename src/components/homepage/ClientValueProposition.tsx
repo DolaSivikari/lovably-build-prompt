@@ -11,7 +11,7 @@ const ClientValueProposition = () => {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight font-playfair">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
             Why Property Owners Choose Us
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
