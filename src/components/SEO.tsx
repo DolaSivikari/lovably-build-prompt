@@ -12,7 +12,7 @@ interface SEOProps {
 
 const SEO = ({
   title,
-  description = "Prime envelope & restoration contractor in Ontario. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair. Serving the GTA since 2009.",
+  description = "Protect your building asset value with Ontario's envelope & restoration specialists. We prevent water damage, extend service life 25+ years, and eliminate emergency repair costs for property managers, condo boards, and asset owners across the GTA. 500+ buildings protected since 2009.",
   keywords,
   ogImage = "/og-image.jpg",
   canonical,
