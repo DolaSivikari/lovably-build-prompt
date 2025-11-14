@@ -25,8 +25,6 @@ import Sustainability from "./pages/Sustainability";
 import SafetyCompliance from "./pages/SafetyCompliance";
 import Prequalification from "./pages/Prequalification";
 import Capabilities from "./pages/Capabilities";
-import Values from "./pages/Values";
-import HowWeWork from "./pages/HowWeWork";
 import Careers from "./pages/Careers";
 import Reviews from "./pages/Reviews";
 import ServiceDetail from "./pages/ServiceDetail";
@@ -60,7 +58,6 @@ import CertificationsInsurance from "./pages/company/CertificationsInsurance";
 import ContractorPortal from "./pages/resources/ContractorPortal";
 import ServiceAreas from "./pages/resources/ServiceAreas";
 import EquipmentResources from "./pages/company/EquipmentResources";
-import Team from "./pages/company/Team";
 import Developers from "./pages/company/Developers";
 import Warranties from "./pages/resources/Warranties";
 import Financing from "./pages/resources/Financing";
@@ -299,13 +296,9 @@ const App = () => (
                   {/* Public pages - eagerly loaded */}
                   <Route path="/" element={<Index />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/values" element={<Values />} />
                   <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
-                  <Route path="/safety" element={<SafetyCompliance />} />
-                  <Route path="/company/safety-and-compliance" element={<Navigate to="/safety" replace />} />
                   <Route path="/prequalification" element={<Prequalification />} />
                   <Route path="/capabilities" element={<Capabilities />} />
-                  <Route path="/how-we-work" element={<HowWeWork />} />
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/reviews" element={<Reviews />} />
             <Route path="/services" element={<Services />} />
@@ -360,8 +353,14 @@ const App = () => (
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
                   <Route path="/company/equipment-resources" element={<EquipmentResources />} />
-                  <Route path="/company/team" element={<Team />} />
                   <Route path="/company/developers" element={<Developers />} />
+                  
+                  {/* Redirects for deleted/consolidated pages */}
+                  <Route path="/safety" element={<Navigate to="/safety-compliance" replace />} />
+                  <Route path="/company/safety-and-compliance" element={<Navigate to="/safety-compliance" replace />} />
+                  <Route path="/values" element={<Navigate to="/about#values" replace />} />
+                  <Route path="/how-we-work" element={<Navigate to="/our-process" replace />} />
+                  <Route path="/company/team" element={<Navigate to="/about#team" replace />} />
                   <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
                   <Route path="/resources/service-areas" element={<ServiceAreas />} />
                   <Route path="/resources/warranties" element={<Warranties />} />

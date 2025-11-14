@@ -133,9 +133,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           title: "Our Company",
           subItems: [
             { name: "About Us", link: "/about", description: "Our story and values" },
-            { name: "Leadership Team", link: "/company/team", description: "Meet our experienced team", badge: "new" },
+            { name: "Leadership Team", link: "/about#team", description: "Meet our experienced team" },
             { name: "Our Process", link: "/our-process", description: "How we deliver projects" },
-            { name: "Values", link: "/values", description: "What drives us" },
           ],
         },
         {
@@ -143,7 +142,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           subItems: [
             { name: "Pre-Qualification Package", link: "/prequalification", description: "Download contractor qualifications", badge: "important" },
             { name: "Capabilities Overview", link: "/capabilities", description: "Project delivery methods", badge: "new" },
-            { name: "Safety & Compliance", link: "/safety", description: "Safety programs and statistics" },
+            { name: "Safety & Compliance", link: "/safety-compliance", description: "Safety programs and statistics" },
             { name: "Certifications & Insurance", link: "/company/certifications-insurance", description: "Licenses and coverage" },
           ],
         },

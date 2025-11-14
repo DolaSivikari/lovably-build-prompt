@@ -42,8 +42,12 @@ const SafetyCompliance = () => {
       <Navigation />
       
       <PageHeader
-        title="Safety First, Every Project, Every Time"
+        title="Safety & Compliance"
         description="Industry-leading safety standards and comprehensive compliance programs"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Safety & Compliance" }
+        ]}
       />
 
       <main className="py-16">

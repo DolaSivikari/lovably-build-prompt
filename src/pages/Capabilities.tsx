@@ -66,8 +66,12 @@ const Capabilities = () => {
       <Navigation />
       
       <PageHeader
-        title="Our Capabilities"
+        title="Project Delivery Capabilities"
         description="Comprehensive project delivery methods and self-perform trade expertise"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Capabilities" }
+        ]}
       />
 
       <main className="py-16">
@@ -103,30 +107,18 @@ const Capabilities = () => {
             </div>
           </section>
 
-          {/* Market Sectors */}
+          {/* Market Sectors - Link to Markets Page */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Markets We Serve</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {marketSectors.map((sector, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <CardTitle>{sector.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <ul className="space-y-2">
-                      {sector.services.map((service, i) => (
-                        <li key={i} className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
-                          {service}
-                        </li>
-                      ))}
-                    </ul>
-                    <Button asChild variant="outline" className="w-full">
-                      <Link to={sector.link}>Learn More</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="text-center">
+              <h2 className="text-3xl font-bold mb-4">Market Sectors We Serve</h2>
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                We deliver specialized construction solutions across commercial, multi-family, institutional, and industrial sectors.
+              </p>
+              <Link to="/markets">
+                <Button size="lg" className="gap-2">
+                  View All Markets <TrendingUp className="h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </section>
 

@@ -278,7 +278,7 @@ const About = () => {
         </section>
 
         {/* Values */}
-        <section className="py-24 bg-muted/30">
+        <section id="values" className="py-24 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-5xl font-bold mb-4">Our Core Values</h2>
@@ -378,7 +378,7 @@ const About = () => {
         </section>
 
         {/* Leadership Team - Enriched Bios */}
-        <section className="container mx-auto px-4 py-24 bg-muted/30">
+        <section id="team" className="container mx-auto px-4 py-24 bg-muted/30">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-5xl font-bold mb-4">Leadership Team</h2>
