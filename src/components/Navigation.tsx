@@ -5,7 +5,6 @@ import ascentLogo from "@/assets/ascent-logo.png";
 import { ChevronDown, Shield, Phone, ArrowRight, FileText } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { supabase } from "@/integrations/supabase/client";
-import ScrollProgress from "./ScrollProgress";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { MobileNavSheet } from "./navigation/MobileNavSheet";
 
@@ -97,8 +96,7 @@ const Navigation = () => {
 
   return (
     <>
-      <ScrollProgress />
-      <nav 
+      <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-navigation border-b",
           "transition-[transform,background-color,backdrop-filter,box-shadow,border-color] var(--transition-slow)",

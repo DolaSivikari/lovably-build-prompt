@@ -11,11 +11,9 @@ import ClientValueProposition from "@/components/homepage/ClientValueProposition
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
 import SkipLink from "@/components/SkipLink";
-import AchievementShowcase from "@/components/homepage/AchievementShowcase";
 import ContentHub from "@/components/homepage/ContentHub";
 import Testimonials from "@/components/Testimonials";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
-import ScrollProgress from "@/components/ScrollProgress";
 import ParallaxShapes from "@/components/homepage/ParallaxShapes";
 import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
@@ -141,7 +139,6 @@ const Index = () => {
   return (
     <div className="min-h-screen relative">
       <SkipLink />
-      <ScrollProgress />
       <ParallaxShapes />
       <SEO
         title="Ascent — Envelope & Restoration Contractor | Prime for Façade, Garage & Sealant Programs | Ontario & GTA"
