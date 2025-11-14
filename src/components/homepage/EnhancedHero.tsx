@@ -512,9 +512,9 @@ const EnhancedHero = () => {
         </div>
       </div>
 
-      {/* Hero Navigation Cards - Unified Design */}
+      {/* Hero Navigation Cards - Compact Glassmorphism Design */}
       {landingMenuItems.length > 0 ? (
-        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
+        <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
           <HeroNavigationCards 
             items={landingMenuItems.map((item, index) => ({
               id: item.id,
