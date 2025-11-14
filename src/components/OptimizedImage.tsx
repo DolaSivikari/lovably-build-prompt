@@ -148,7 +148,7 @@ const OptimizedImage = ({
             sizes={sizesValue}
             loading={loading || (priority ? "eager" : "lazy")}
             decoding={priority ? "sync" : "async"}
-            fetchpriority={effectiveFetchPriority}
+            fetchPriority={effectiveFetchPriority}
             onError={handleError}
             className={cn(
               isLoaded ? "opacity-100" : "opacity-0",
@@ -172,7 +172,7 @@ const OptimizedImage = ({
           sizes={sizesValue}
           loading={loading || (priority ? "eager" : "lazy")}
           decoding={priority ? "sync" : "async"}
-          fetchpriority={effectiveFetchPriority}
+          fetchPriority={effectiveFetchPriority}
           onError={handleError}
           className={cn(
             isLoaded ? "opacity-100" : "opacity-0",
