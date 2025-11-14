@@ -36,23 +36,23 @@ export default function CompanyIntroduction() {
                 <span className="text-foreground font-semibold">Ascent Group Construction</span> protects{" "}
                 <span className="text-foreground font-semibold">$100M+ building assets</span> across Ontario from{" "}
                 <span className="text-foreground font-semibold">water infiltration, structural degradation, and premature failure</span>. 
-                We're the envelope & restoration partner property managers, condo boards, and asset owners trust when building problems 
-                threaten tenant safety, property value, or capital reserves—delivering diagnostics, long-term solutions, and 25-year 
-                performance so you can plan with confidence, not react to emergencies.
+                We're the envelope & restoration partner developers, general contractors, property managers, and asset owners trust when 
+                building performance is non-negotiable—delivering diagnostics, long-term solutions, and 25-year warranties whether you're 
+                constructing new, managing existing, or protecting your investment.
               </p>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                Unlike general contractors treating envelope work as an add-on, we're building envelope specialists—this is all we do. 
-                From reserve fund studies and condition assessments through phased restoration programs and emergency response, we deliver 
-                the engineering-backed solutions and occupied-building expertise that protect your investment while keeping tenants safe 
-                and operations running.
+                Unlike firms treating envelope work as an add-on, we're building envelope specialists—this is all we do. From new 
+                construction design-build and developer partnerships through reserve fund studies, condition assessments, phased 
+                restoration programs, and emergency response, we deliver the engineering-backed solutions and occupied-building 
+                expertise that keep projects on schedule, tenants safe, and operations running.
               </p>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                 We self-perform 85% of our work—masonry restoration, structural waterproofing, EIFS systems, parking garage rehabilitation, 
                 and façade repairs—eliminating subcontractor delays, finger-pointing, and schedule uncertainty. One team, one contract, 
-                one point of accountability for the life of your project. That's why property managers come back to us for every building 
-                in their portfolio.
+                one point of accountability for the life of your project. Whether you're building it, managing it, or owning it—we protect 
+                the envelope.
               </p>
             </div>
 

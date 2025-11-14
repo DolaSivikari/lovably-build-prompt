@@ -12,12 +12,13 @@ const ClientValueProposition = () => {
         {/* Section Header */}
         <div className="max-w-3xl mb-8">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-            Why Property Owners Choose Us
+            Why Clients Choose Us
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Ontario property managers, condo boards, and asset owners choose us because building envelope failures don't wait—and neither do we. 
-            When water infiltration threatens your asset, structural issues risk tenant safety, or aging systems demand capital planning, we deliver 
-            the diagnostics, solutions, and long-term performance that protect your investment and give your board confidence.
+            Developers, general contractors, property managers, and asset owners choose us because building envelope performance is non-negotiable—and 
+            accountability is everything. Whether you're constructing new buildings, managing existing assets, or protecting long-term value, we deliver 
+            the diagnostics, engineering-backed solutions, and 25-year performance that keep projects on schedule, prevent costly failures, and eliminate 
+            finger-pointing. One team. One contract. One point of accountability.
           </p>
         </div>
 

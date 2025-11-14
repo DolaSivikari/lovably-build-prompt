@@ -8,7 +8,7 @@ export const enrichedHeroSlides = [
     stat: '500+',
     statLabel: 'Buildings Protected',
     headline: "Protect Your Building. Prevent Costly Failures.",
-    subheadline: "Ontario's envelope & restoration specialists serving property managers, condo boards, and asset owners. We diagnose building envelope failures, implement long-term solutions, and protect your asset value—so you avoid emergency repairs, special assessments, and tenant disruption. 15+ years, 500+ buildings, zero shortcuts.",
+    subheadline: "Ontario's envelope & restoration specialists serving developers, general contractors, property managers, and asset owners. We diagnose building envelope failures, implement long-term solutions, and protect your asset value—whether you're building it, managing it, or owning it. 15+ years, 500+ buildings, one point of accountability.",
     primaryCTA: { label: 'View Capabilities', href: '/capabilities' },
     secondaryCTA: { label: 'Request Proposal', href: '/estimate' }
   },
