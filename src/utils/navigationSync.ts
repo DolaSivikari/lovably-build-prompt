@@ -12,21 +12,20 @@ export interface NavigationSyncResult {
  * Keep this in sync with navigation-structure-enhanced.ts
  */
 export const EXPECTED_SERVICE_SLUGS = [
-  // Primary Delivery
-  'general-contracting',
-  'construction-management',
-  'design-build',
-  
-  // Self-Perform Trades
+  // Building Envelope Systems
   'building-envelope',
-  'exterior-envelope',
-  'exterior-cladding',
-  'interior-buildouts',
-  'parking-rehabilitation',
-  'waterproofing',
+  'cladding-systems',
   'masonry-restoration',
-  'eifs-stucco',
-  'metal-cladding',
+  'protective-coatings',
+  'waterproofing',
+  
+  // Interior Construction
+  'interior-buildouts',
+  
+  // Specialty Services
+  'painting-services',
+  'tile-flooring',
+  'sustainable-construction',
 ];
 
 /**

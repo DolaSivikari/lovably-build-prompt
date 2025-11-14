@@ -8,7 +8,7 @@ export const enrichedHeroSlides = [
     stat: '500+',
     statLabel: 'Buildings Protected',
     headline: "Specialty Contractor. Building Envelope Excellence.",
-    subheadline: "Ontario's building envelope and restoration specialists serving developers, general contractors, property managers, and asset owners. From complete cladding systems to sustainable building solutions—we deliver self-performed envelope work with 15+ years of proven expertise across 500+ buildings. Design-build partnerships for new construction. Maintenance programs for occupied buildings.",
+    subheadline: "Ontario's building envelope and restoration specialists serving developers, property managers, and asset owners. From complete cladding systems to sustainable building solutions—we deliver self-performed envelope work with 15+ years of proven expertise across 500+ buildings. Specialty contractor partnerships for new construction. Maintenance programs for occupied buildings.",
     primaryCTA: { label: 'View Capabilities', href: '/capabilities' },
     secondaryCTA: { label: 'Request Proposal', href: '/estimate' }
   },

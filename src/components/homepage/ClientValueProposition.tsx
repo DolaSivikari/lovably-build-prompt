@@ -34,7 +34,7 @@ const ClientValueProposition = () => {
               icon={Building2}
               title="Developers & Building Owners"
               services={[
-                "Design-Build & Construction Management",
+                "Building Envelope & Restoration",
                 "Multi-Family Residential Projects",
                 "Building Envelope Systems",
               ]}

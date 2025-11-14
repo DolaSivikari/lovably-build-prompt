@@ -118,14 +118,14 @@ const SEO = ({
     currenciesAccepted: "CAD",
     foundingDate: "2009",
     knowsAbout: [
-      "General Contracting",
-      "Design-Build Services",
-      "Construction Management",
+      "Specialty Contracting",
+      "Building Envelope Systems",
+      "Masonry Restoration",
       "Commercial Construction",
       "Multi-Family Construction",
       "Institutional Construction",
-      "Building Envelope Systems",
       "Exterior Systems",
+      "Interior Construction",
       "Construction Project Management",
       "Sustainable Construction"
     ],

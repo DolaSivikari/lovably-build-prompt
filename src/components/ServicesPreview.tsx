@@ -28,28 +28,28 @@ interface CategoryConfig {
 }
 
 const categoryConfig: Record<string, CategoryConfig> = {
-  "Construction Management": {
-    name: "General Contracting",
-    slug: "general-contracting",
-    icon: "Building2",
+  "Building Envelope": {
+    name: "Building Envelope Systems",
+    slug: "building-envelope",
+    icon: "Shield",
     color: "primary",
-    description: "Complete project management from concept to completion",
+    description: "Complete building envelope and weatherproofing solutions",
     image: "/src/assets/project-commercial.jpg"
   },
-  "Exterior Systems": {
-    name: "Exterior Cladding & Systems",
-    slug: "exterior-cladding",
-    icon: "Shield",
+  "Cladding Systems": {
+    name: "Cladding Systems",
+    slug: "cladding-systems",
+    icon: "Layers",
     color: "terracotta",
     description: "Complete exterior cladding, siding, and metal panel solutions",
     image: "/src/assets/project-industrial.jpg"
   },
-  "Building Envelope": {
-    name: "Exterior Envelope Systems",
-    slug: "exterior-envelope",
-    icon: "Layers",
+  "Masonry Restoration": {
+    name: "Masonry Restoration",
+    slug: "masonry-restoration",
+    icon: "Hammer",
     color: "sage",
-    description: "Stucco, EIFS, sealants, and comprehensive weatherproofing",
+    description: "Historic masonry restoration and repair services",
     image: "/src/assets/case-heritage-building.jpg"
   },
   "Specialty Services": {

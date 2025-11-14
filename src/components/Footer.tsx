@@ -87,7 +87,7 @@ const Footer = () => {
     email: "info@ascentgroupconstruction.com",
     areaServed: { "@type": "State", name: "Ontario" },
     address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
-    serviceType: ["General Contracting", "Construction Management", "Design-Build Services"],
+    serviceType: ["Building Envelope", "Masonry Restoration", "Interior Construction", "Specialty Contracting"],
     priceRange: "$$-$$$",
   };
 

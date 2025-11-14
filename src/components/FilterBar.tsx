@@ -158,9 +158,8 @@ const FilterBar = ({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="All">All Methods</SelectItem>
-                  <SelectItem value="General Contracting">General Contracting</SelectItem>
+                  <SelectItem value="Specialty Contracting">Specialty Contracting</SelectItem>
                   <SelectItem value="Construction Management">Construction Management</SelectItem>
-                  <SelectItem value="Design-Build">Design-Build</SelectItem>
                   <SelectItem value="CM at Risk">CM at Risk</SelectItem>
                 </SelectContent>
               </Select>

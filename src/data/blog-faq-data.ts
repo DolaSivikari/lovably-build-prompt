@@ -10,16 +10,16 @@ export const blogFAQs: Record<string, Array<{ question: string; answer: string }
       answer: "A typical 10,000 sq ft commercial tenant improvement takes 8-12 weeks to complete, depending on complexity and permitting. Larger ground-up construction projects may take 12-24 months. We provide detailed project schedules and manage timelines to minimize disruption to your business operations across the GTA."
     },
     {
-      question: "What construction methods are best for commercial buildings in Ontario's climate?",
+      question: "What construction services are best for commercial buildings in Ontario's climate?",
       answer: "For Ontario's climate with harsh winters and humid summers, we recommend robust building envelope systems with proper insulation, air barriers, and moisture management. Weather-resistant exterior systems like metal cladding, modern EIFS, and engineered stone are ideal for GTA commercial properties. These materials withstand temperature fluctuations and provide excellent energy efficiency."
     },
     {
-      question: "Do you offer design-build services in Mississauga?",
-      answer: "Yes! Ascent Group Construction provides comprehensive design-build services for commercial clients in Mississauga, Toronto, and throughout the GTA. This streamlined approach combines architectural design and construction under one contract, saving time and reducing coordination issues while ensuring your project stays on budget and on schedule."
+      question: "Do you offer specialty contracting services in Mississauga?",
+      answer: "Yes! Ascent Group Construction provides comprehensive specialty contracting services for commercial clients in Mississauga, Toronto, and throughout the GTA. We specialize in building envelope systems, restoration work, and self-performed trades that ensure quality control, on-time delivery, and single-point accountability for your project."
     },
     {
-      question: "Is your general contracting service bonded and insured in Ontario?",
-      answer: "Absolutely. Ascent Group Construction is fully licensed, bonded, and insured for general contracting projects throughout Ontario. We carry comprehensive liability insurance and WSIB coverage, providing complete protection for property owners in Toronto, Mississauga, Brampton, Vaughan, and Markham."
+      question: "Is your contracting service bonded and insured in Ontario?",
+      answer: "Absolutely. Ascent Group Construction is fully licensed, bonded, and insured for specialty contracting projects throughout Ontario. We carry comprehensive liability insurance and WSIB coverage, providing complete protection for property owners in Toronto, Mississauga, Brampton, Vaughan, and Markham."
     }
   ],
   "exterior-painting-cold-weather": [

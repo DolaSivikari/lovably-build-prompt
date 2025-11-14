@@ -43,7 +43,7 @@ export default function CompanyIntroduction() {
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                 Unlike firms treating envelope work as an add-on, we're building envelope specialists—this is all we do. From new 
-                construction design-build and developer partnerships through reserve fund studies, condition assessments, phased 
+                construction and developer partnerships through reserve fund studies, condition assessments, phased 
                 restoration programs, and emergency response, we deliver the engineering-backed solutions and occupied-building 
                 expertise that keep projects on schedule, tenants safe, and operations running.
               </p>

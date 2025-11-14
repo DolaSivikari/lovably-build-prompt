@@ -8,12 +8,15 @@ interface EnhancedPopularServicesProps {
 }
 
 const serviceGradients: Record<string, string> = {
-  "general-contracting": "bg-gradient-to-br from-[hsl(24,95%,53%)] to-[hsl(20,91%,48%)]",
+  "building-envelope": "bg-gradient-to-br from-[hsl(24,95%,53%)] to-[hsl(20,91%,48%)]",
+  "cladding-systems": "bg-gradient-to-br from-[hsl(336,84%,60%)] to-[hsl(346,87%,50%)]",
   "waterproofing": "bg-gradient-to-br from-[hsl(217,91%,60%)] to-[hsl(221,83%,53%)]",
   "masonry-restoration": "bg-gradient-to-br from-[hsl(39,100%,50%)] to-[hsl(33,100%,50%)]",
-  "parking-rehabilitation": "bg-gradient-to-br from-[hsl(158,64%,52%)] to-[hsl(173,58%,39%)]",
-  "building-envelope": "bg-gradient-to-br from-[hsl(262,83%,58%)] to-[hsl(251,91%,60%)]",
-  "exterior-cladding": "bg-gradient-to-br from-[hsl(336,84%,60%)] to-[hsl(346,87%,50%)]",
+  "protective-coatings": "bg-gradient-to-br from-[hsl(158,64%,52%)] to-[hsl(173,58%,39%)]",
+  "interior-buildouts": "bg-gradient-to-br from-[hsl(262,83%,58%)] to-[hsl(251,91%,60%)]",
+  "painting-services": "bg-gradient-to-br from-[hsl(280,70%,65%)] to-[hsl(290,75%,60%)]",
+  "tile-flooring": "bg-gradient-to-br from-[hsl(45,90%,60%)] to-[hsl(35,85%,55%)]",
+  "sustainable-construction": "bg-gradient-to-br from-[hsl(140,70%,50%)] to-[hsl(150,65%,45%)]",
 };
 
 export function EnhancedPopularServices({ onLinkClick }: EnhancedPopularServicesProps) {
