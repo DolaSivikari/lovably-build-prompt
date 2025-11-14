@@ -1,17 +1,15 @@
 // Icon mappings for all navigation links - using construction-specific icons
 export const NAVIGATION_ICONS: Record<string, string> = {
   // Services
-  '/services/general-contracting': 'Building',
-  '/services/construction-management': 'ClipboardList',
-  '/services/design-build': 'Ruler',
   '/services/building-envelope': 'Home',
-  '/services/waterproofing': 'Droplets',
+  '/services/cladding-systems': 'Square',
   '/services/masonry-restoration': 'Hammer',
-  '/services/exterior-cladding': 'Square',
-  '/services/metal-cladding': 'Box',
-  '/services/eifs-stucco': 'Layers',
-  '/services/parking-rehabilitation': 'ParkingCircle',
+  '/services/protective-coatings': 'Shield',
+  '/services/waterproofing': 'Droplets',
   '/services/interior-buildouts': 'DoorOpen',
+  '/services/painting-services': 'Paintbrush',
+  '/services/tile-flooring': 'Layers',
+  '/services/sustainable-construction': 'Leaf',
   
   // Markets
   '/markets/commercial': 'Briefcase',

@@ -16,7 +16,7 @@ const milestones = [
   {
     year: "2015",
     title: "Commercial Expansion",
-    description: "Expanded services to include design-build, construction management, and specialized building envelope systems across Ontario"
+    description: "Expanded services to include specialized building envelope systems, restoration, and self-performed specialty trades across Ontario"
   },
   {
     year: "2018",

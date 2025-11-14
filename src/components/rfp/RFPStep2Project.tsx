@@ -63,7 +63,6 @@ export const RFPStep2Project = ({ form }: RFPStep2ProjectProps) => {
                   <SelectItem value="Institutional">Institutional</SelectItem>
                   <SelectItem value="Industrial">Industrial</SelectItem>
                   <SelectItem value="Renovation/Retrofit">Renovation/Retrofit</SelectItem>
-                  <SelectItem value="Design-Build">Design-Build</SelectItem>
                   <SelectItem value="Other">Other</SelectItem>
                 </SelectContent>
               </Select>

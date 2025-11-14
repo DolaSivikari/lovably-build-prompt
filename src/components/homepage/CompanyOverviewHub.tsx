@@ -69,7 +69,7 @@ const CompanyOverviewHub = () => {
             Your Complete Construction Partner Across Ontario
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            From design-build to construction management and building restoration, we deliver comprehensive solutions 
+            From building envelope systems to specialty restoration, we deliver comprehensive solutions 
             with the expertise, safety standards, and quality you expect from a trusted envelope & restoration contractor.
           </p>
         </div>

@@ -297,11 +297,31 @@ const App = () => (
             <Route path="/services/tile-flooring" element={<TileFlooring />} />
             <Route path="/services/painting-services" element={<PaintingServices />} />
             <Route path="/services/sustainable-construction" element={<SustainableBuilding />} />
-            {/* Redirects for archived services */}
+            {/* Redirects for consolidated services */}
+            <Route path="/services/exterior-envelope" element={<Navigate to="/services/building-envelope" replace />} />
             <Route path="/services/exterior-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
             <Route path="/services/metal-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
             <Route path="/services/eifs-stucco" element={<Navigate to="/services/cladding-systems" replace />} />
-            <Route path="/services/exterior-envelope" element={<Navigate to="/services/building-envelope" replace />} />
+            <Route path="/services/exterior-siding" element={<Navigate to="/services/cladding-systems" replace />} />
+            <Route path="/services/drywall-finishing" element={<Navigate to="/services/interior-buildouts" replace />} />
+            <Route path="/services/suite-buildouts" element={<Navigate to="/services/interior-buildouts" replace />} />
+            <Route path="/services/painting" element={<Navigate to="/services/painting-services" replace />} />
+            <Route path="/services/condo-multi-unit" element={<Navigate to="/services/painting-services" replace />} />
+            <Route path="/services/residential-painting" element={<Navigate to="/services/painting-services" replace />} />
+            
+            {/* Redirects for removed services */}
+            <Route path="/services/general-contracting" element={<Navigate to="/services" replace />} />
+            <Route path="/services/construction-management" element={<Navigate to="/services" replace />} />
+            <Route path="/services/design-build" element={<Navigate to="/services" replace />} />
+            <Route path="/services/facade-remediation" element={<Navigate to="/services/building-envelope" replace />} />
+            <Route path="/services/parking-garage-restoration" element={<Navigate to="/services/masonry-restoration" replace />} />
+            <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/masonry-restoration" replace />} />
+            <Route path="/services/sealant-replacement" element={<Navigate to="/services/building-envelope" replace />} />
+            <Route path="/services/roofing" element={<Navigate to="/services/building-envelope" replace />} />
+            <Route path="/services/windows-doors" element={<Navigate to="/services/building-envelope" replace />} />
+            <Route path="/services/preconstruction-services" element={<Navigate to="/services" replace />} />
+            <Route path="/services/virtual-design-construction" element={<Navigate to="/services" replace />} />
+            
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/markets" element={<Markets />} />
             <Route path="/markets/multi-family" element={<MultiFamily />} />

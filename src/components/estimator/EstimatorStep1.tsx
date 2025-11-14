@@ -58,13 +58,6 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
               <SelectItem value="windows_doors">Window & Door Installation</SelectItem>
             </SelectGroup>
             
-            <SelectGroup>
-              <SelectLabel>Construction Management (Quote Required)</SelectLabel>
-              <SelectItem value="general_contracting">General Contracting</SelectItem>
-              <SelectItem value="design_build">Design-Build Solutions</SelectItem>
-              <SelectItem value="construction_management">Construction Management</SelectItem>
-              <SelectItem value="preconstruction">Preconstruction & Advisory</SelectItem>
-            </SelectGroup>
             
             <SelectGroup>
               <SelectLabel>Specialty Services (Quote Required)</SelectLabel>
