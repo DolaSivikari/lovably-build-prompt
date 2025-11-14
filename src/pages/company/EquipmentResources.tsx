@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import heroEquipmentImage from "@/assets/heroes/hero-equipment.jpg";
+import { Link } from "react-router-dom";
 
 const EquipmentResources = () => {
   const capacityStats = [
@@ -285,9 +286,9 @@ const EquipmentResources = () => {
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
               Contact us to discuss your project equipment needs and how our resources can support your timeline.
             </p>
-            <Button size="lg" asChild>
-              <a href="/contact">Contact Our Team</a>
-            </Button>
+              <Button size="lg" asChild>
+                <Link to="/contact">Contact Our Team</Link>
+              </Button>
           </section>
         </main>
 

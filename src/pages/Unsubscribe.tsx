@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Unsubscribe = () => {
   const [searchParams] = useSearchParams();
@@ -153,7 +154,7 @@ const Unsubscribe = () => {
 
           <div className="text-center text-sm text-muted-foreground">
             <p>
-              Questions? Contact our <a href="/privacy" className="text-primary hover:underline">Privacy Team</a>
+              Questions? Contact our <Link to="/privacy" className="text-primary hover:underline">Privacy Team</Link>
             </p>
           </div>
         </div>

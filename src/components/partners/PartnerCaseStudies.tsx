@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import nobleExteriors from "@/assets/partners/noble-exteriors.webp";
 import miralCladding from "@/assets/partners/miral-cladding.png";
 import eagleContracting from "@/assets/partners/eagle-contracting.png";
+import { Link } from "react-router-dom";
 
 interface CaseStudy {
   partner: string;
@@ -203,16 +204,16 @@ export function PartnerCaseStudies({ background = "default" }: PartnerCaseStudie
                   deliver exceptional value. Ready to bring your project to life?
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
-                  <a href="/contact">
+                  <Link to="/contact">
                     <Badge variant="default" className="px-6 py-3 text-base cursor-pointer hover:bg-primary/90">
                       Start Your Project
                     </Badge>
-                  </a>
-                  <a href="/projects">
+                  </Link>
+                  <Link to="/projects">
                     <Badge variant="outline" className="px-6 py-3 text-base cursor-pointer hover:bg-muted">
                       View All Projects
                     </Badge>
-                  </a>
+                  </Link>
                 </div>
               </CardContent>
             </Card>

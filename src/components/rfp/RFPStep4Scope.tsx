@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileText, Clipboard, Eye, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import { RFPSubmission } from "@/schemas/rfp-validation";
 
 interface RFPStep4ScopeProps {
@@ -133,7 +134,7 @@ export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
                 I consent to Ascent Group Construction contacting me about this RFP *
               </Label>
               <p className="text-sm text-muted-foreground mt-1">
-                We'll use your information only to prepare and deliver your proposal. <a href="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</a>
+                We'll use your information only to prepare and deliver your proposal. <Link to="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</Link>
               </p>
             </div>
           </div>
