@@ -56,20 +56,6 @@ export const caseStudyFAQs: Record<string, Array<{ question: string; answer: str
       answer: "Yes. Our clients typically see 15-25% increases in property value and improved tenant retention after exterior renovations. Fresh appearance attracts more customers to retail tenants, justifying the investment for properties across the GTA."
     }
   ],
-  "parking-garage-restoration": [
-    {
-      question: "Why are parking garage repairs so expensive?",
-      answer: "Parking garage restoration requires specialized concrete repair, waterproofing systems, structural engineering, and traffic coating systems. Toronto's de-icing salt accelerates deterioration, requiring comprehensive solutions. Proactive maintenance is far more cost-effective than emergency structural repairs."
-    },
-    {
-      question: "How do you keep parking garages operational during restoration?",
-      answer: "We work in phases, typically closing one level or section at a time while maintaining access to remaining areas. For smaller garages, we may work overnight or on weekends. Coordination with property managers ensures minimal impact to Toronto and Mississauga tenants."
-    },
-    {
-      question: "How often should parking garages be restored in the GTA?",
-      answer: "GTA parking garages benefit from minor repairs every 3-5 years and comprehensive restoration every 10-15 years. Annual inspections identify small problems before they become expensive structural issues. We provide maintenance plans for properties throughout Toronto and Mississauga."
-    }
-  ],
   "school-interior-painting": [
     {
       question: "What makes school painting different from other commercial projects?",
