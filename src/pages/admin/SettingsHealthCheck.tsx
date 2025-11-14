@@ -141,26 +141,6 @@ const SettingsHealthCheck = () => {
       });
     }
 
-    // Check landing menu links
-    const { data: landingMenu } = await supabase
-      .from('landing_menu_items')
-      .select('title, link')
-      .eq('is_active', true);
-
-    if (landingMenu) {
-      landingMenu.forEach(item => {
-        const validation = validateAdminUrl(item.link);
-        if (!validation.valid) {
-          results.push({
-            component: 'Landing Menu',
-            status: 'warning',
-            message: `Broken link: "${item.title}"`,
-            details: validation.error
-          });
-        }
-      });
-    }
-
     // Check homepage CTA links
     const { data: homepageSettings } = await supabase
       .from('homepage_settings')

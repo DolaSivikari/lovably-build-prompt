@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      ab_test_assignments: {
+        Row: {
+          assigned_at: string | null
+          conversion_value: number | null
+          converted_at: string | null
+          id: string
+          test_name: string
+          user_identifier: string
+          variant: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          conversion_value?: number | null
+          converted_at?: string | null
+          id?: string
+          test_name: string
+          user_identifier: string
+          variant: string
+        }
+        Update: {
+          assigned_at?: string | null
+          conversion_value?: number | null
+          converted_at?: string | null
+          id?: string
+          test_name?: string
+          user_identifier?: string
+          variant?: string
+        }
+        Relationships: []
+      }
+      ab_tests: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          test_name: string
+          updated_at: string | null
+          variants: Json
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          test_name: string
+          updated_at?: string | null
+          variants?: Json
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          test_name?: string
+          updated_at?: string | null
+          variants?: Json
+        }
+        Relationships: []
+      }
       about_page_settings: {
         Row: {
           created_at: string | null
@@ -929,6 +989,42 @@ export type Database = {
         }
         Relationships: []
       }
+      email_templates: {
+        Row: {
+          body_html: string
+          body_text: string
+          category: string
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          subject: string
+          updated_at: string | null
+        }
+        Insert: {
+          body_html: string
+          body_text: string
+          category?: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          subject: string
+          updated_at?: string | null
+        }
+        Update: {
+          body_html?: string
+          body_text?: string
+          category?: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          subject?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       error_logs: {
         Row: {
           context: Json | null
@@ -1492,48 +1588,6 @@ export type Database = {
           },
         ]
       }
-      landing_menu_items: {
-        Row: {
-          created_at: string | null
-          created_by: string | null
-          display_order: number
-          id: string
-          is_active: boolean | null
-          link: string
-          number: string
-          subtext: string
-          title: string
-          updated_at: string | null
-          updated_by: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          created_by?: string | null
-          display_order: number
-          id?: string
-          is_active?: boolean | null
-          link: string
-          number: string
-          subtext: string
-          title: string
-          updated_at?: string | null
-          updated_by?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          created_by?: string | null
-          display_order?: number
-          id?: string
-          is_active?: boolean | null
-          link?: string
-          number?: string
-          subtext?: string
-          title?: string
-          updated_at?: string | null
-          updated_by?: string | null
-        }
-        Relationships: []
-      }
       leadership_team: {
         Row: {
           bio: string | null
@@ -2004,6 +2058,7 @@ export type Database = {
           budget_range: string | null
           canonical_url: string | null
           category: string | null
+          challenge: string | null
           client_name: string | null
           client_type: string | null
           completion_date: string | null
@@ -2031,6 +2086,7 @@ export type Database = {
           project_status: string | null
           project_value: string | null
           publish_state: Database["public"]["Enums"]["publish_state"] | null
+          results: string | null
           safety_incidents: number | null
           scheduled_publish_at: string | null
           scope_of_work: string | null
@@ -2038,6 +2094,7 @@ export type Database = {
           seo_keywords: string[] | null
           seo_title: string | null
           slug: string
+          solution: string | null
           square_footage: string | null
           start_date: string | null
           subtitle: string | null
@@ -2058,6 +2115,7 @@ export type Database = {
           budget_range?: string | null
           canonical_url?: string | null
           category?: string | null
+          challenge?: string | null
           client_name?: string | null
           client_type?: string | null
           completion_date?: string | null
@@ -2085,6 +2143,7 @@ export type Database = {
           project_status?: string | null
           project_value?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          results?: string | null
           safety_incidents?: number | null
           scheduled_publish_at?: string | null
           scope_of_work?: string | null
@@ -2092,6 +2151,7 @@ export type Database = {
           seo_keywords?: string[] | null
           seo_title?: string | null
           slug: string
+          solution?: string | null
           square_footage?: string | null
           start_date?: string | null
           subtitle?: string | null
@@ -2112,6 +2172,7 @@ export type Database = {
           budget_range?: string | null
           canonical_url?: string | null
           category?: string | null
+          challenge?: string | null
           client_name?: string | null
           client_type?: string | null
           completion_date?: string | null
@@ -2139,6 +2200,7 @@ export type Database = {
           project_status?: string | null
           project_value?: string | null
           publish_state?: Database["public"]["Enums"]["publish_state"] | null
+          results?: string | null
           safety_incidents?: number | null
           scheduled_publish_at?: string | null
           scope_of_work?: string | null
@@ -2146,6 +2208,7 @@ export type Database = {
           seo_keywords?: string[] | null
           seo_title?: string | null
           slug?: string
+          solution?: string | null
           square_footage?: string | null
           start_date?: string | null
           subtitle?: string | null
@@ -2176,6 +2239,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      quiz_submissions: {
+        Row: {
+          answers: Json
+          created_at: string | null
+          id: string
+          recommended_services: string[] | null
+          user_email: string | null
+        }
+        Insert: {
+          answers: Json
+          created_at?: string | null
+          id?: string
+          recommended_services?: string[] | null
+          user_email?: string | null
+        }
+        Update: {
+          answers?: Json
+          created_at?: string | null
+          id?: string
+          recommended_services?: string[] | null
+          user_email?: string | null
+        }
+        Relationships: []
       }
       quote_requests: {
         Row: {
@@ -2370,6 +2457,56 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      review_requests: {
+        Row: {
+          clicked_at: string | null
+          client_name: string | null
+          completed_at: string | null
+          created_at: string | null
+          email: string
+          id: string
+          platform: string | null
+          project_id: string | null
+          sent_at: string | null
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          clicked_at?: string | null
+          client_name?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          platform?: string | null
+          project_id?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          clicked_at?: string | null
+          client_name?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          platform?: string | null
+          project_id?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_requests_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       rfp_submissions: {
         Row: {
@@ -2567,10 +2704,12 @@ export type Database = {
           service_tier: string | null
           short_description: string | null
           slug: string
+          thumbnail_url: string | null
           typical_applications: Json | null
           typical_timeline: string | null
           updated_at: string | null
           updated_by: string | null
+          video_url: string | null
           what_we_provide: Json | null
         }
         Insert: {
@@ -2606,10 +2745,12 @@ export type Database = {
           service_tier?: string | null
           short_description?: string | null
           slug: string
+          thumbnail_url?: string | null
           typical_applications?: Json | null
           typical_timeline?: string | null
           updated_at?: string | null
           updated_by?: string | null
+          video_url?: string | null
           what_we_provide?: Json | null
         }
         Update: {
@@ -2645,10 +2786,12 @@ export type Database = {
           service_tier?: string | null
           short_description?: string | null
           slug?: string
+          thumbnail_url?: string | null
           typical_applications?: Json | null
           typical_timeline?: string | null
           updated_at?: string | null
           updated_by?: string | null
+          video_url?: string | null
           what_we_provide?: Json | null
         }
         Relationships: [
