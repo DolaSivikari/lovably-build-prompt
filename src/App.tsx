@@ -173,9 +173,6 @@ const RedirectsManager = lazy(() => import("./pages/admin/RedirectsManager").cat
 const StructuredDataManager = lazy(() => import("./pages/admin/StructuredDataManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Structured Data Manager</p></div>
 })));
-const LandingMenuEditor = lazy(() => import("./pages/admin/LandingMenuEditor").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Landing Menu Editor</p></div>
-})));
 const AboutPageSettings = lazy(() => import("./pages/admin/AboutPageSettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load About Page Settings</p></div>
 })));
@@ -397,7 +394,6 @@ const App = () => (
                     <Route path="security-settings" element={<SecuritySettings />} />
                     <Route path="performance-dashboard" element={<PerformanceDashboard />} />
                     <Route path="site-settings" element={<SiteSettings />} />
-                    <Route path="landing-menu" element={<LandingMenuEditor />} />
                     <Route path="about-page" element={<AboutPageSettings />} />
                     <Route path="testimonials" element={<TestimonialsManager />} />
                     <Route path="stats" element={<StatsManager />} />

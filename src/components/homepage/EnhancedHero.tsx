@@ -4,7 +4,6 @@ import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play,
 import { Button } from "@/ui/Button";
 
 import HeroTabNavigation from "./HeroTabNavigation";
-import HeroNavigationCards from "./HeroNavigationCards";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -20,24 +19,6 @@ const getIconComponent = (iconName?: string) => {
   return iconMap[iconName || 'Building2'] || Building2;
 };
 
-// Helper to get icon for menu items
-const getIconForTitle = (title: string) => {
-  const titleLower = title.toLowerCase();
-  if (titleLower.includes('service')) return Wrench;
-  if (titleLower.includes('serve') || titleLower.includes('market')) return Target;
-  if (titleLower.includes('about') || titleLower.includes('company')) return Info;
-  if (titleLower.includes('project')) return Briefcase;
-  if (titleLower.includes('contact')) return Mail;
-  return Building2;
-};
-
-// Helper to format title for better readability
-const formatTitle = (title: string) => {
-  return title
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
-};
 
 // Use enriched hero slides with expanded SEO-optimized descriptions
 const heroSlides = enrichedHeroSlides.map(slide => ({
@@ -72,9 +53,6 @@ const EnhancedHero = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [landingMenuItems, setLandingMenuItems] = useState<any[]>([]);
-  const mobileCardsRef = useRef<HTMLDivElement>(null);
-  const [mobileCardAutoScroll, setMobileCardAutoScroll] = useState(true);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [preloadedPosters, setPreloadedPosters] = useState<Set<string>>(new Set());
 
@@ -82,42 +60,6 @@ const EnhancedHero = () => {
   useEffect(() => {
     setIsFirstRender(false);
   }, []);
-
-
-  // Fetch landing menu items
-  useEffect(() => {
-    const fetchLandingMenu = async () => {
-      const { data } = await supabase
-        .from('landing_menu_items')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order');
-      if (data) setLandingMenuItems(data);
-    };
-    fetchLandingMenu();
-  }, []);
-
-  // Auto-scroll mobile cards
-  useEffect(() => {
-    if (!mobileCardAutoScroll || !mobileCardsRef.current || landingMenuItems.length === 0) return;
-    
-    const container = mobileCardsRef.current;
-    let currentIndex = 0;
-    
-    const scrollInterval = setInterval(() => {
-      if (container) {
-        const cardWidth = 200; // 192px (w-48) + 12px gap
-        currentIndex = (currentIndex + 1) % landingMenuItems.length;
-        
-        container.scrollTo({
-          left: currentIndex * cardWidth,
-          behavior: 'smooth'
-        });
-      }
-    }, 3000); // Auto-scroll every 3 seconds
-    
-    return () => clearInterval(scrollInterval);
-  }, [mobileCardAutoScroll, landingMenuItems]);
 
   // Use enriched hero slides only
   const activeSlides = heroSlides;
@@ -512,28 +454,11 @@ const EnhancedHero = () => {
         </div>
       </div>
 
-      {/* Hero Navigation Cards - Compact Glassmorphism Design */}
-      {landingMenuItems.length > 0 ? (
-        <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 z-20 w-full max-w-7xl px-4">
-          <HeroNavigationCards 
-            items={landingMenuItems.map((item, index) => ({
-              id: item.id,
-              title: formatTitle(item.title),
-              description: item.subtext || '',
-              icon: getIconForTitle(item.title),
-              url: item.link,
-              badge: item.badge,
-              display_order: index
-            }))}
-          />
-        </div>
-      ) : (
-        <HeroTabNavigation 
-          slides={activeSlides} 
-          currentSlide={currentSlide} 
-          onSlideChange={handleSlideChange} 
-        />
-      )}
+      <HeroTabNavigation 
+        slides={activeSlides} 
+        currentSlide={currentSlide} 
+        onSlideChange={handleSlideChange} 
+      />
 
       {/* Play/Pause Control */}
       <button
