@@ -14,51 +14,54 @@ const ProtectiveCoatings = () => {
     {
       icon: Shield,
       title: "Industrial-Grade Protection",
-      description: "High-performance epoxy, polyurethane, and elastomeric coatings engineered for extreme environments and chemical exposure."
+      description: "High-performance epoxy, polyurethane, and elastomeric coatings engineered for extreme environments, chemical exposure, and heavy traffic areas."
     },
     {
       icon: Sparkles,
       title: "Anti-Graffiti Systems",
-      description: "Sacrificial and permanent anti-graffiti coatings for vulnerable surfaces with rapid cleanup and reapplication protocols."
+      description: "Sacrificial and permanent anti-graffiti coatings with rapid cleanup protocols. Protecting transit stations, public buildings, and vulnerable exterior surfaces."
     },
     {
       icon: Building,
       title: "Heritage Restoration Finishes",
-      description: "Breathable mineral-based coatings and lime washes preserving historic masonry while meeting conservation guidelines."
+      description: "Breathable mineral-based coatings, lime washes, and traditional finishes preserving historic masonry while meeting modern conservation guidelines."
     },
     {
       icon: Paintbrush,
       title: "Architectural Coatings",
-      description: "Decorative elastomeric, textured, and specialty finishes combining aesthetic enhancement with weather protection."
+      description: "Decorative elastomeric, textured, and specialty finishes combining aesthetic enhancement with superior weather protection and UV resistance."
     }
   ];
 
   const howWeWork = [
     {
-      phase: "Surface Analysis",
+      phase: "Surface Analysis & Specification",
       activities: [
         "Substrate type identification and contamination testing",
-        "Moisture content measurement and pH level analysis",
+        "Moisture content measurement, pH analysis, and salt testing",
         "Coating compatibility assessment and adhesion testing",
-        "System specification and application method selection"
+        "System specification matching performance to environmental conditions",
+        "Cost-benefit analysis for coating longevity and maintenance"
       ]
     },
     {
-      phase: "Preparation",
+      phase: "Preparation & Priming",
       activities: [
-        "Power washing and chemical cleaning of surfaces",
+        "Power washing, chemical cleaning, and surface profiling",
         "Graffiti removal and surface defect repair",
-        "Primer application for optimal coating adhesion",
-        "Masking and protection of adjacent surfaces"
+        "Moisture mitigation and substrate sealing",
+        "Primer application optimized for coating adhesion",
+        "Environmental controls for temperature and humidity"
       ]
     },
     {
-      phase: "Application",
+      phase: "Application & Quality Control",
       activities: [
-        "Controlled-environment coating application by certified crews",
+        "Controlled coating application by certified technicians",
         "Multiple coat buildup achieving specified mil thickness",
-        "Quality control testing and visual inspections",
-        "Cure verification and warranty documentation"
+        "Real-time thickness monitoring and visual inspections",
+        "Cure verification and performance testing",
+        "Complete warranty documentation and maintenance guidelines"
       ]
     }
   ];
