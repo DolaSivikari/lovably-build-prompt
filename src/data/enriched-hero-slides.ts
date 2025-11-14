@@ -7,8 +7,8 @@ export const enrichedHeroSlides = [
     poster: '/hero-poster-1.webp',
     stat: '500+',
     statLabel: 'Buildings Protected',
-    headline: "Protect Your Building. Prevent Costly Failures.",
-    subheadline: "Ontario's envelope & restoration specialists serving developers, general contractors, property managers, and asset owners. We diagnose building envelope failures, implement long-term solutions, and protect your asset value—whether you're building it, managing it, or owning it. 15+ years, 500+ buildings, one point of accountability.",
+    headline: "Specialty Contractor. Building Envelope Excellence.",
+    subheadline: "Ontario's building envelope and restoration specialists serving developers, general contractors, property managers, and asset owners. From complete cladding systems to sustainable building solutions—we deliver self-performed envelope work with 15+ years of proven expertise across 500+ buildings. Design-build partnerships for new construction. Maintenance programs for occupied buildings.",
     primaryCTA: { label: 'View Capabilities', href: '/capabilities' },
     secondaryCTA: { label: 'Request Proposal', href: '/estimate' }
   },
@@ -17,39 +17,39 @@ export const enrichedHeroSlides = [
     poster: '/hero-poster-2.webp',
     stat: '85%',
     statLabel: 'Self-Performed',
-    headline: 'Eliminate Finger-Pointing. One Team, One Contract.',
-    subheadline: "Property managers trust us because we self-perform 85% of envelope work—masonry restoration, structural waterproofing, EIFS, parking garage repairs. No subcontractor delays, no schedule uncertainty, no passing blame. When your board asks \"who's accountable?\" the answer is simple: us.",
-    primaryCTA: { label: 'Our Services', href: '/services' },
+    headline: 'Complete Cladding Systems. One Point of Accountability.',
+    subheadline: "From metal panels and EIFS to rainscreen assemblies—we self-perform 85% of cladding work with specialized envelope crews. No subcontractor delays, no passing blame. Whether it's ACM panels, standing seam metal, or traditional stucco, our manufacturer-certified teams deliver warranty-compliant installation on time. Metal cladding, EIFS, fiber cement, and specialty systems under one roof.",
+    primaryCTA: { label: 'Cladding Systems', href: '/services/cladding-systems' },
     secondaryCTA: { label: 'See Projects', href: '/projects' }
   },
   {
     video: "/hero-clipchamp.mp4",
     poster: '/hero-poster-3.webp',
-    stat: '2-4hrs',
-    statLabel: 'Emergency Response',
-    headline: 'Stop Water Damage Before Tenants Complain.',
-    subheadline: "Critical envelope failures don't wait for business hours. Condo boards and property managers call us when façade leaks threaten tenant safety or interior damage—our rope access teams deploy within 2-4 hours across Ontario. No swing stage delays, no escalating damage, no board panic. Emergency containment when it matters most.",
-    primaryCTA: { label: 'Emergency Services', href: '/emergency-maintenance' },
-    secondaryCTA: { label: 'Call Now', href: '/contact' }
+    stat: '2M+',
+    statLabel: 'SF Completed',
+    headline: 'Interior Construction. Professional Finishes.',
+    subheadline: "Complete interior construction services for commercial, multi-family, and residential projects. From tenant buildouts to painting and tile installation—our certified crews deliver quality finishes with proper substrate preparation. 2M+ square feet of interior work completed with full warranty documentation. Painting services, tile & flooring, and interior finishing packages.",
+    primaryCTA: { label: 'Interior Services', href: '/services/interior-buildouts' },
+    secondaryCTA: { label: 'Request Quote', href: '/estimate' }
   },
   {
     video: "/hero-clipchamp.mp4",
     poster: '/hero-poster-4.webp',
-    stat: '0',
-    statLabel: 'Safety Incidents',
-    headline: 'Protect Your Residents. Protect Your Liability.',
-    subheadline: "Condo boards and property managers face enormous risk during envelope work—tenant safety, pedestrian exposure, liability claims. We've maintained zero lost-time incidents across 500+ occupied-building projects in 15 years. COR certified, WSIB compliant, fully insured, with permit experience in Ontario's strictest jurisdictions. Your residents stay safe. Your liability stays low.",
-    primaryCTA: { label: 'Safety Standards', href: '/capabilities#safety' },
+    stat: '50+',
+    statLabel: 'LEED Projects',
+    headline: 'Sustainable Building. LEED-Ready Solutions.',
+    subheadline: "Green building expertise from LEED consulting to energy-efficient envelope systems. Our LEED Accredited Professionals support projects from certification planning through construction—optimizing thermal performance, material selection, and waste diversion. 50+ LEED projects with proven track record of Gold certifications. Sustainable construction without compromising performance or budget.",
+    primaryCTA: { label: 'Sustainable Solutions', href: '/services/sustainable-construction' },
     secondaryCTA: { label: 'View Portfolio', href: '/projects' }
   },
   {
     video: "/hero-clipchamp.mp4",
     poster: '/hero-poster-5.webp',
-    stat: '150+',
-    statLabel: 'Garage Projects',
-    headline: 'Avoid Special Assessments. Extend Garage Life.',
-    subheadline: "Condo boards dread the garage conversation—deteriorating concrete, water infiltration, falling chunks, and six-figure emergency repairs. We've restored 150+ parking structures with phased programs that stop structural decay, eliminate falling debris, and preserve your reserve fund. Minimal tenant disruption, occupied-building expertise, engineered solutions that last 25+ years.",
-    primaryCTA: { label: 'Garage Services', href: '/services/parking-garage-restoration' },
+    stat: '100+',
+    statLabel: 'Masonry Projects',
+    headline: 'Masonry Restoration. Heritage Preservation.',
+    subheadline: "Master masons with 35+ years experience delivering historic preservation and modern masonry repairs. From heritage tuckpointing to structural masonry rehabilitation—our in-house mortar lab ensures precise material matching. Engineering support for complex repairs, municipal heritage approval experience, and comprehensive warranty documentation. 100+ masonry restoration projects completed.",
+    primaryCTA: { label: 'Masonry Services', href: '/services/masonry-restoration' },
     secondaryCTA: { label: 'Case Studies', href: '/projects' }
   },
   {
@@ -57,9 +57,9 @@ export const enrichedHeroSlides = [
     poster: '/hero-poster-6.webp',
     stat: '95%',
     statLabel: 'On-Time Delivery',
-    headline: 'High-Rise Envelope Failures. Done Right, On Schedule.',
-    subheadline: 'Toronto property managers and asset owners know envelope work on occupied towers is high-stakes—tenant disruption, schedule overruns, budget blowouts. We specialize in high-rise condo and commercial envelope restoration with 95% on-time delivery. Rope access efficiency, swing stage capability, engineered solutions with 25-year warranties. Your building stays operational. Your timeline holds.',
-    primaryCTA: { label: 'Our Markets', href: '/markets' },
+    headline: 'Building Envelope Systems. Engineered Performance.',
+    subheadline: 'Complete building envelope solutions integrating waterproofing, thermal performance, and air sealing. From design consultation to warranty-backed installation—our envelope specialists deliver high-performance assemblies with 95% on-time delivery. Comprehensive envelope services including rainscreen systems, structural waterproofing, and protective coatings. Toronto and GTA commercial, institutional, and multi-family expertise.',
+    primaryCTA: { label: 'Envelope Solutions', href: '/services/building-envelope' },
     secondaryCTA: { label: 'Get Estimate', href: '/estimate' }
   }
 ];

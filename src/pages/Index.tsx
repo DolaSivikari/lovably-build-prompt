@@ -53,15 +53,14 @@ const Index = () => {
 
   const whatDoesAscentDo = createQASchema(
     "What services does Ascent Group Construction provide?",
-    "Ascent Group Construction is a prime specialty contractor for building envelope and restoration across Ontario. We deliver façade remediation programs, parking garage restoration, sealant replacement programs, and protective coatings. With self-performed core trades including EIFS, masonry, and coatings, we serve developers, property managers, and building owners across Toronto and the GTA with 15+ years of experience."
+    "Ascent Group Construction is a specialty contractor for building envelope and restoration across Ontario. We deliver complete cladding systems (metal panels, EIFS, stucco), building envelope solutions, masonry restoration, protective coatings, interior construction, painting services, tile & flooring, and sustainable building solutions including LEED consulting. With self-performed core trades and 15+ years of experience, we serve developers, property managers, and building owners across Toronto and the GTA."
   );
 
-  // Specialty Contractor Schema (replaces general contractor positioning)
   const specialtyContractorSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Ascent Group Construction",
-    "description": "Prime specialty contractor for building envelope and restoration: façade remediation, parking garage restoration, and sealant programs across Ontario & the GTA.",
+    "description": "Specialty contractor for building envelope and restoration: complete cladding systems, building envelope solutions, masonry restoration, interior construction, and sustainable building across Ontario & the GTA.",
     "url": "https://ascentgroupconstruction.com/",
     "email": "mailto:hebun.isik.ca@gmail.com",
     "areaServed": [
@@ -75,16 +74,25 @@ const Index = () => {
     "priceRange": "$25000-$150000",
     "serviceType": "Building Envelope & Restoration Contractor",
     "knowsAbout": [
-      "façade remediation",
-      "EIFS repair",
-      "sealant replacement",
+      "building envelope systems",
+      "cladding systems",
+      "metal panels",
+      "EIFS and stucco",
       "masonry restoration",
-      "parking garage restoration",
-      "building envelope",
       "protective coatings",
-      "stucco repair",
-      "waterproofing"
-    ]
+      "interior construction",
+      "painting services",
+      "tile and flooring",
+      "sustainable building",
+      "LEED consulting",
+      "commercial construction",
+      "multi-family construction"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "150"
+    }
   };
 
   // Why Choose Us Structured Data
@@ -140,9 +148,9 @@ const Index = () => {
       <SkipLink />
       
       <SEO
-        title="Ascent — Envelope & Restoration Contractor | Prime for Façade, Garage & Sealant Programs | Ontario & GTA"
-        description="Prime envelope & restoration contractor in Ontario. Façade remediation, garage restoration, EIFS, masonry repair. Serving the GTA since 2009."
-        keywords="envelope contractor Ontario, facade remediation Toronto, parking garage restoration GTA, building envelope contractor, EIFS repair, sealant replacement, masonry restoration, specialty contractor"
+        title="Specialty Contractor Ontario | Building Envelope, Cladding Systems & Interior Construction"
+        description="Specialty contractor for building envelope, complete cladding systems, masonry restoration, interior construction, and sustainable building. Self-performed quality with 15+ years expertise serving Toronto, GTA, and Ontario."
+        keywords="specialty contractor Ontario, building envelope contractor, cladding systems, metal panels, EIFS contractor, masonry restoration, interior construction, sustainable building, LEED consulting, Toronto contractor"
         structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} 
         includeRating={true} 
       />
