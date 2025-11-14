@@ -33,22 +33,26 @@ export default function CompanyIntroduction() {
             {/* Left Column - Main Content */}
             <div className="space-y-4">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                <span className="text-foreground font-semibold">Ascent Group Construction</span> is a{" "}
-                <span className="text-foreground font-semibold">prime specialty contractor</span> delivering{" "}
-                <span className="text-foreground font-semibold">building envelope restoration, façade remediation, and parking garage rehabilitation</span>{" "}
-                across Ontario and the GTA.
+                <span className="text-foreground font-semibold">Ascent Group Construction</span> protects{" "}
+                <span className="text-foreground font-semibold">$100M+ building assets</span> across Ontario from{" "}
+                <span className="text-foreground font-semibold">water infiltration, structural degradation, and premature failure</span>. 
+                We're the envelope & restoration partner property managers, condo boards, and asset owners trust when building problems 
+                threaten tenant safety, property value, or capital reserves—delivering diagnostics, long-term solutions, and 25-year 
+                performance so you can plan with confidence, not react to emergencies.
               </p>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                We manage specialty projects from pre-construction planning through execution and closeout, 
-                specializing in building envelope systems, restoration, and waterproofing with a systematic 
-                approach that ensures quality, schedule adherence, and cost control.
+                Unlike general contractors treating envelope work as an add-on, we're building envelope specialists—this is all we do. 
+                From reserve fund studies and condition assessments through phased restoration programs and emergency response, we deliver 
+                the engineering-backed solutions and occupied-building expertise that protect your investment while keeping tenants safe 
+                and operations running.
               </p>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                Our self-performed capabilities include stucco and EIFS systems, masonry restoration, 
-                sealant replacement, parking structure rehabilitation, waterproofing, and exterior envelope upgrades—delivering 
-                prime specialty services and trade package support for developers and building owners across the GTA.
+                We self-perform 85% of our work—masonry restoration, structural waterproofing, EIFS systems, parking garage rehabilitation, 
+                and façade repairs—eliminating subcontractor delays, finger-pointing, and schedule uncertainty. One team, one contract, 
+                one point of accountability for the life of your project. That's why property managers come back to us for every building 
+                in their portfolio.
               </p>
             </div>
 

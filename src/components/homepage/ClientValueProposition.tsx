@@ -15,7 +15,9 @@ const ClientValueProposition = () => {
             Why Property Owners Choose Us
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Ontario's trusted specialty contractor for building envelope restoration, façade remediation, and parking garage rehabilitation with proven expertise and unwavering commitment to excellence.
+            Ontario property managers, condo boards, and asset owners choose us because building envelope failures don't wait—and neither do we. 
+            When water infiltration threatens your asset, structural issues risk tenant safety, or aging systems demand capital planning, we deliver 
+            the diagnostics, solutions, and long-term performance that protect your investment and give your board confidence.
           </p>
         </div>
 

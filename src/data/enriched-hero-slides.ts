@@ -5,10 +5,10 @@ export const enrichedHeroSlides = [
   {
     video: "/hero-clipchamp.mp4",
     poster: '/hero-poster-1.webp',
-    stat: '$2B+',
-    statLabel: 'Projects Completed',
-    headline: "Ontario's Prime Envelope Restoration Contractor",
-    subheadline: '15+ years delivering complete building envelope solutions. Self-performed trades, zero subcontractor delays, single-point accountability. $2B+ in completed projects.',
+    stat: '500+',
+    statLabel: 'Buildings Protected',
+    headline: "Protect Your Building. Prevent Costly Failures.",
+    subheadline: "Ontario's envelope & restoration specialists serving property managers, condo boards, and asset owners. We diagnose building envelope failures, implement long-term solutions, and protect your asset value—so you avoid emergency repairs, special assessments, and tenant disruption. 15+ years, 500+ buildings, zero shortcuts.",
     primaryCTA: { label: 'View Capabilities', href: '/capabilities' },
     secondaryCTA: { label: 'Request Proposal', href: '/estimate' }
   },
