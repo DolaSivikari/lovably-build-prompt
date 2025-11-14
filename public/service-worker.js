@@ -10,6 +10,12 @@ const RUNTIME_CACHE = `ascent-runtime-v${CACHE_VERSION}`;
 // Assets to precache (minimal - HTML is handled separately)
 const PRECACHE_URLS = [
   '/manifest.json',
+  '/hero-poster-1.webp',
+  '/hero-poster-2.webp',
+  '/hero-poster-3.webp',
+  '/hero-poster-4.webp',
+  '/hero-poster-5.webp',
+  '/hero-poster-6.webp',
 ];
 
 // Install event - precache essential assets
