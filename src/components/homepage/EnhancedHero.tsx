@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Building2, Award, Shield, Cpu, Leaf, Users, Play, Pause, Wrench, Target, Briefcase, Mail, Info, Ruler, ClipboardCheck, Hammer, Droplets, TrendingUp, CheckCircle2 } from "lucide-react";
 import { Button } from "@/ui/Button";
 
-import HeroTabNavigation from "./HeroTabNavigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -453,12 +452,6 @@ const EnhancedHero = () => {
           </div>
         </div>
       </div>
-
-      <HeroTabNavigation 
-        slides={activeSlides} 
-        currentSlide={currentSlide} 
-        onSlideChange={handleSlideChange} 
-      />
 
       {/* Play/Pause Control */}
       <button
