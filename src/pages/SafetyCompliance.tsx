@@ -5,7 +5,6 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
-import MetricCounter from "@/components/MetricCounter";
 
 const SafetyCompliance = () => {
   const safetyMetrics = [
@@ -56,11 +55,12 @@ const SafetyCompliance = () => {
               {safetyMetrics.map((metric, index) => (
                 <Card key={index}>
                   <CardContent className="pt-6 text-center">
-                    <MetricCounter
-                      value={metric.value}
-                      suffix={metric.suffix}
-                      label={metric.label}
-                    />
+                    <div className="text-center">
+                      <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+                        {metric.value}{metric.suffix}
+                      </div>
+                      <div className="text-sm text-muted-foreground">{metric.label}</div>
+                    </div>
                     <p className="text-sm text-muted-foreground mt-2">{metric.description}</p>
                   </CardContent>
                 </Card>

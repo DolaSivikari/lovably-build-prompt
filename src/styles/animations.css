@@ -156,41 +156,10 @@
   transition: var(--transition-opacity);
 }
 
-/* Parallax Scroll Effects */
-@keyframes parallax-float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes parallax-slow {
-  from { transform: translateY(0); }
-  to { transform: translateY(var(--parallax-distance, -100px)); }
-}
-
-.parallax-float {
-  animation: parallax-float 6s ease-in-out infinite;
-}
-
+/* Simplified parallax for better performance */
 .parallax-section {
   position: relative;
   overflow: hidden;
-}
-
-.parallax-layer {
-  transition: transform 0.1s ease-out;
-  will-change: transform;
-}
-
-.parallax-layer-slow {
-  transform: translateY(calc(var(--scroll-position, 0) * -0.3));
-}
-
-.parallax-layer-medium {
-  transform: translateY(calc(var(--scroll-position, 0) * -0.5));
-}
-
-.parallax-layer-fast {
-  transform: translateY(calc(var(--scroll-position, 0) * -0.8));
 }
 
 /* Advanced Stagger Animations */
@@ -385,29 +354,7 @@
   animation: text-slide-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Rotating spotlight effect */
-@keyframes spotlight-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.spotlight-effect::before {
-  content: '';
-  position: absolute;
-  inset: -50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    hsl(var(--brand-primary) / 0.3) 90deg,
-    transparent 180deg
-  );
-  animation: spotlight-rotate 8s linear infinite;
-  pointer-events: none;
-}
+/* Removed heavy spotlight effect for performance */
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
