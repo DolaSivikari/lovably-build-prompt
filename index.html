@@ -3,21 +3,88 @@
   <head>
     <!-- Critical inline CSS for hero section -->
     <style>
-      .landing-hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-      .landing-hero__background{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-      .landing-hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(28,47,67,0.9) 100%);z-index:1}
-      .landing-hero__content{position:relative;z-index:2;width:100%;padding:2rem}
-      body{margin:0;font-family:'Barlow',system-ui,-apple-system,sans-serif}
+      /* Critical inline CSS - Prevents FOUC and flash */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       
-      /* Anti-flash protection inline for immediate effect */
+      body {
+        margin: 0;
+        font-family: 'Barlow', system-ui, -apple-system, sans-serif;
+        background: #1a1f2c;
+        color: #ffffff;
+      }
+      
+      /* Hero section immediate styles */
+      .landing-hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #1a1f2c;
+      }
+      
+      .landing-hero__background {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+      
+      .landing-hero__overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 0%, rgba(28,47,67,0.9) 100%);
+        z-index: 1;
+      }
+      
+      .landing-hero__content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 2rem;
+      }
+      
+      /* Anti-flash protection - blocks ALL transitions during initial load */
+      .page-loading,
       .page-loading * {
         transition: none !important;
         animation: none !important;
+        animation-delay: 0s !important;
       }
       
-      /* Show solid background during load to mask transitions */
+      /* Disable specific animations during load */
+      .page-loading .animate-fade-in,
+      .page-loading .animate-spin,
+      .page-loading [class*="animate-"] {
+        animation: none !important;
+      }
+      
+      /* Disable backdrop effects during load */
+      .page-loading .backdrop-blur-xl {
+        backdrop-filter: none !important;
+      }
+      
+      /* Solid background during load to mask any shifts */
       .page-loading #root {
         background: #1a1f2c !important;
+      }
+      
+      /* Ensure all elements are visible (prevent opacity: 0 states) */
+      header, nav, section, footer, div, h1, h2, h3, h4, p, a, ul, li, img, video {
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+      
+      /* Prevent layout shifts */
+      img, video {
+        max-width: 100%;
+        height: auto;
       }
     </style>
     
