@@ -24,12 +24,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
+  const location = useLocation();
+  
+  // Check if we're on homepage to apply transparent nav
+  const isHomePage = location.pathname === '/';
+  
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(isHomePage); // Start with solid bg on homepage
   const { settings } = useCompanySettings();
   
   // Check admin role
@@ -38,9 +42,6 @@ const Navigation = () => {
   // Use custom hook for hover timeout management with automatic cleanup
   const megaMenuHover = useHoverTimeout();
   const adminHover = useHoverTimeout();
-
-  // Check if we're on homepage to apply transparent nav
-  const isHomePage = location.pathname === '/';
 
   // Track scroll position for nav background
   useEffect(() => {
