@@ -3,7 +3,7 @@
  * Ensures fresh HTML + cached assets never mix versions
  */
 
-const CACHE_VERSION = '1.0.1';
+const CACHE_VERSION = '1.0.2';
 const PRECACHE_NAME = `app-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `app-runtime-${CACHE_VERSION}`;
 const API_CACHE = `app-api-${CACHE_VERSION}`;
@@ -64,6 +64,43 @@ self.addEventListener('fetch', event => {
   // Skip non-GET requests
   if (request.method !== 'GET') {
     return;
+  }
+
+  // Filter out browser extensions and unsupported protocols
+  if (
+    url.protocol === 'chrome-extension:' ||
+    url.protocol === 'moz-extension:' ||
+    url.protocol === 'safari-extension:' ||
+    url.protocol === 'edge-extension:' ||
+    url.protocol === 'about:' ||
+    url.protocol === 'data:' ||
+    url.protocol === 'blob:'
+  ) {
+    return; // Don't cache these at all
+  }
+
+  // Only cache same-origin requests or specific allowed CDNs
+  const allowedOrigins = [
+    self.location.origin,
+    'https://fonts.googleapis.com',
+    'https://fonts.gstatic.com'
+  ];
+
+  const isSameOrigin = url.origin === self.location.origin;
+  const isAllowedCDN = allowedOrigins.some(allowed => url.origin === allowed);
+
+  if (!isSameOrigin && !isAllowedCDN) {
+    return; // Don't cache third-party resources
+  }
+
+  // Skip analytics and tracking scripts
+  if (
+    url.hostname.includes('googletagmanager') ||
+    url.hostname.includes('google-analytics') ||
+    url.pathname.includes('/gtag/') ||
+    url.pathname.includes('/analytics/')
+  ) {
+    return; // Don't cache analytics
   }
 
   // HTML pages: ALWAYS network-first to prevent stale markup
