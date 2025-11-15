@@ -21,15 +21,19 @@ import ValuePillars from "@/components/homepage/ValuePillars";
 const Index = () => {
   // Add loading class to html element and remove after 500ms
   useEffect(() => {
+    // Add both loading classes immediately on mount
     document.documentElement.classList.add('loading');
+    document.documentElement.classList.add('page-loading');
     
     const timer = setTimeout(() => {
       document.documentElement.classList.remove('loading');
+      document.documentElement.classList.remove('page-loading');
     }, 500);
     
     return () => {
-      document.documentElement.classList.remove('loading');
       clearTimeout(timer);
+      document.documentElement.classList.remove('loading');
+      document.documentElement.classList.remove('page-loading');
     };
   }, []);
 

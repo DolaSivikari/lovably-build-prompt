@@ -40,15 +40,35 @@
         font-family: 'Barlow', system-ui, -apple-system, sans-serif;
       }
       
-      /* ONLY disable transitions during page load - NO visibility overrides */
-      .page-loading * {
-        transition: none !important;
-        animation: none !important;
+      /* Hide static fallback content immediately - React will show real content */
+      .static-content {
+        display: none !important;
+        visibility: hidden !important;
       }
       
-      /* Show solid background during load to mask transitions */
+      /* Show only when JavaScript is disabled */
+      noscript .static-content {
+        display: block !important;
+        visibility: visible !important;
+      }
+      
+      /* CRITICAL: Disable ALL transitions during initial load */
+      .page-loading *,
+      .page-loading *::before,
+      .page-loading *::after {
+        transition: none !important;
+        animation: none !important;
+        animation-delay: 0s !important;
+      }
+      
+      .page-loading .backdrop-blur-xl {
+        backdrop-filter: none !important;
+      }
+      
+      /* Prevent content jumping */
       .page-loading #root {
         background: #1a1f2c !important;
+        min-height: 100vh;
       }
     </style>
     
@@ -90,9 +110,8 @@
     
     <!-- Load Barlow font with optimized strategy - display=block prevents font swap flash -->
     <link rel="preload" href="https://fonts.gstatic.com/s/barlow/v13/7cHpv4kjgoGqM7E_DMs5.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=block">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=block" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=block" rel="stylesheet"></noscript>
+    <link rel="preload" href="https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E3q-0s51os.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=block">
     
     <title>Ascent Group Construction — Ontario&amp;#39;s prime specialty contractor for building envelope &amp;amp; restoration.</title>
     <meta name="description" content="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA.">

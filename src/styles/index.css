@@ -1,12 +1,22 @@
-/* ===== GLOBAL ANTI-FLASH FIX ===== */
-html.loading * {
+/* ===== GLOBAL ANTI-FLASH SYSTEM ===== */
+html.loading *,
+html.loading *::before,
+html.loading *::after {
   transition: none !important;
   animation: none !important;
+  animation-delay: 0s !important;
 }
+
 html.loading .backdrop-blur-xl {
   backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
-/* ===== END GLOBAL ANTI-FLASH FIX ===== */
+
+/* Prevent layout shift during load */
+html.loading body {
+  overflow-x: hidden;
+}
+/* ===== END ANTI-FLASH SYSTEM ===== */
 
 @import "./tokens.css";
 @import "./typography.css";

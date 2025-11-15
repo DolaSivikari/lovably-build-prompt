@@ -75,7 +75,7 @@ const EnhancedHero = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimationsEnabled(true);
-    }, 500);
+    }, 800);
     return () => clearTimeout(timer);
   }, []);
 
