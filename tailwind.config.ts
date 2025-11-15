@@ -62,7 +62,6 @@ export default {
         "brand-primary": "hsl(var(--brand-primary))",
         "brand-accent": "hsl(var(--brand-accent))",
         ink: "hsl(var(--ink))",
-        muted: "hsl(var(--muted))",
         line: "hsl(var(--line))",
         "bg-soft": "hsl(var(--bg-soft))",
         primary: {
