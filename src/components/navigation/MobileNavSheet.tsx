@@ -168,7 +168,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
 
         <div className="px-6 py-4">
           {/* Enhanced Search Bar with Gradient Border */}
-          <div className="mb-4 animate-fade-in search-input-focus" style={{ animationDelay: "0.1s" }}>
+          <div className="mb-4 search-input-focus">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-primary pointer-events-none" aria-hidden="true" />
               <Input
@@ -249,7 +249,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             <>
               {/* Recently Viewed Section */}
               {recentlyViewed.length > 0 && (
-                <div className="mb-6 animate-fade-in" style={{ animationDelay: `${delays[0]}ms` }}>
+                <div className="mb-6">
                   <div className="flex items-center gap-2 mb-3 px-2">
                     <Clock className="h-4 w-4 text-primary" aria-hidden="true" />
                     <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
@@ -262,7 +262,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
 
               {/* Recommendations Section */}
               {recommendations.length > 0 && (
-                <div className="mb-6 animate-fade-in" style={{ animationDelay: `${delays[1]}ms` }}>
+                <div className="mb-6">
                   <div className="flex items-center gap-2 mb-3 px-2">
                     <TrendingUp className="h-4 w-4 text-secondary" aria-hidden="true" />
                     <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
@@ -281,7 +281,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                           onClick={() => handleLinkClick(item.name, item.category)}
                           onMouseDown={addRipple}
                           className="group flex items-center gap-3 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm bg-background/50 backdrop-blur-sm border border-border/50 hover:border-secondary/30 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 touch-manipulation ripple relative overflow-hidden stagger-item"
-                          style={{ animationDelay: `${index * 50}ms` }}
                         >
                           <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
                             <IconComponent className="h-4 w-4 text-secondary" aria-hidden="true" />
@@ -304,12 +303,12 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               )}
 
               {/* Enhanced Popular Services Section */}
-              <div style={{ animationDelay: `${delays[2]}ms` }}>
+              <div>
                 <EnhancedPopularServices onLinkClick={() => handleLinkClick()} />
               </div>
 
               {/* Quick Access Section */}
-              <div className="mb-6 animate-fade-in" style={{ animationDelay: `${delays[3]}ms` }}>
+              <div className="mb-6">
                 <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3 px-2">
                   Quick Access
                 </h4>
@@ -368,8 +367,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               {/* Enhanced Accordion Sections */}
               <Accordion 
                 type="multiple" 
-                className="space-y-4 animate-fade-in" 
-                style={{ animationDelay: `${delays[4]}ms` }}
+                className="space-y-4" 
                 onValueChange={(value) => {
                   haptics.medium();
                   const actionText = value.length > 0 ? "expanded" : "collapsed";
@@ -422,7 +420,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         onClick={() => handleLinkClick(item.name, "Services")}
                                         onMouseDown={addRipple}
                                         className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
-                                        style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
                                         <IconComponent className="h-4 w-4 flex-shrink-0 text-primary/60" aria-hidden="true" />
@@ -495,7 +492,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         onClick={() => handleLinkClick(item.name, "Markets")}
                                         onMouseDown={addRipple}
                                         className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
-                                        style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
                                         <IconComponent className="h-4 w-4 flex-shrink-0 text-secondary/60" aria-hidden="true" />
@@ -559,7 +555,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         onClick={() => handleLinkClick(item.name, "Projects")}
                                         onMouseDown={addRipple}
                                         className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
-                                        style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
                                         <IconComponent className="h-4 w-4 flex-shrink-0 text-accent/60" aria-hidden="true" />
@@ -627,7 +622,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         onClick={() => handleLinkClick(item.name, "Company")}
                                         onMouseDown={addRipple}
                                         className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
-                                        style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
                                         <IconComponent className="h-4 w-4 flex-shrink-0 text-primary/60" aria-hidden="true" />
@@ -700,7 +694,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         onClick={() => handleLinkClick(item.name, "Resources")}
                                         onMouseDown={addRipple}
                                         className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
-                                        style={{ animationDelay: `${itemIndex * 30}ms` }}
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
                                         <IconComponent className="h-4 w-4 flex-shrink-0 text-secondary/60" aria-hidden="true" />

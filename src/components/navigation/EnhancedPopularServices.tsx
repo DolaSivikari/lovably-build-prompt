@@ -30,7 +30,7 @@ export function EnhancedPopularServices({ onLinkClick }: EnhancedPopularServices
   };
 
   return (
-    <div className="mb-6 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+    <div className="mb-6">
       <div className="flex items-center justify-between mb-4">
         <h4 className="text-base font-bold flex items-center gap-2">
           <TrendingUp className="h-5 w-5 text-primary" />
