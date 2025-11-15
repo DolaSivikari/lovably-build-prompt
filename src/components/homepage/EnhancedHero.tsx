@@ -303,11 +303,14 @@ const EnhancedHero = () => {
       <div 
         className="absolute inset-0 w-full h-full transition-opacity duration-300 ease-in-out"
         style={{ 
-          opacity: isFadingOut ? 0.4 : 1
+          opacity: isFadingOut ? 0.4 : 1,
+          aspectRatio: '16/9'
         }}
       >
         <video
           ref={videoRef}
+          width={1920}
+          height={1080}
           autoPlay
           loop
           muted
@@ -332,6 +335,8 @@ const EnhancedHero = () => {
         <img
           src={posterUrl}
           alt=""
+          width={1920}
+          height={1080}
           loading="eager"
           fetchPriority="high"
           className="hidden"
@@ -347,6 +352,8 @@ const EnhancedHero = () => {
             <img
               src={posterUrl}
               alt=""
+              width={1920}
+              height={1080}
               className="w-full h-full object-cover"
               loading={preloadedPosters.has(posterUrl) ? "eager" : "lazy"}
               fetchPriority={preloadedPosters.has(posterUrl) ? "high" : "low"}

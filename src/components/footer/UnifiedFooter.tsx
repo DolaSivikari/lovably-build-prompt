@@ -56,7 +56,7 @@ export function UnifiedFooter({
         {logoUrl && (
           <div className="text-center pb-3 border-b border-border/50">
             <Link to="/" className="inline-block mb-3">
-              <img src={logoUrl} alt="Ascent Group Construction" className="h-14 w-auto mx-auto" />
+              <img src={logoUrl} alt="Ascent Group Construction" width={112} height={56} className="h-14 w-auto mx-auto" />
             </Link>
             {serviceAreaText && (
               <p className="text-xs text-muted-foreground">

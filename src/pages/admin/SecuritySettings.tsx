@@ -244,7 +244,7 @@ export default function SecuritySettings() {
             ) : (
               <div className="space-y-4">
                 <div className="flex flex-col items-center space-y-4">
-                  <img src={qrCode} alt="MFA QR Code" className="w-64 h-64 border rounded-lg" />
+                  <img src={qrCode} alt="MFA QR Code" width={256} height={256} className="w-64 h-64 border rounded-lg" />
                   <div className="w-full max-w-md space-y-2">
                     <Label>Or enter this secret key manually:</Label>
                     <div className="flex gap-2">
