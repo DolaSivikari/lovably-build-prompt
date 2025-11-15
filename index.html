@@ -3,21 +3,7 @@
   <head>
     <!-- Critical inline CSS for hero section -->
     <style>
-      /* Critical inline CSS - Prevents FOUC and flash */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      body {
-        margin: 0;
-        font-family: 'Barlow', system-ui, -apple-system, sans-serif;
-        background: #1a1f2c;
-        color: #ffffff;
-      }
-      
-      /* Hero section immediate styles */
+      /* Minimal critical CSS - Only hero essentials */
       .landing-hero {
         position: relative;
         min-height: 100vh;
@@ -25,7 +11,6 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        background: #1a1f2c;
       }
       
       .landing-hero__background {
@@ -50,41 +35,20 @@
         padding: 2rem;
       }
       
-      /* Anti-flash protection - blocks ALL transitions during initial load */
-      .page-loading,
+      body {
+        margin: 0;
+        font-family: 'Barlow', system-ui, -apple-system, sans-serif;
+      }
+      
+      /* ONLY disable transitions during page load - NO visibility overrides */
       .page-loading * {
         transition: none !important;
         animation: none !important;
-        animation-delay: 0s !important;
       }
       
-      /* Disable specific animations during load */
-      .page-loading .animate-fade-in,
-      .page-loading .animate-spin,
-      .page-loading [class*="animate-"] {
-        animation: none !important;
-      }
-      
-      /* Disable backdrop effects during load */
-      .page-loading .backdrop-blur-xl {
-        backdrop-filter: none !important;
-      }
-      
-      /* Solid background during load to mask any shifts */
+      /* Show solid background during load to mask transitions */
       .page-loading #root {
         background: #1a1f2c !important;
-      }
-      
-      /* Ensure all elements are visible (prevent opacity: 0 states) */
-      header, nav, section, footer, div, h1, h2, h3, h4, p, a, ul, li, img, video {
-        opacity: 1 !important;
-        visibility: visible !important;
-      }
-      
-      /* Prevent layout shifts */
-      img, video {
-        max-width: 100%;
-        height: auto;
       }
     </style>
     
