@@ -1,3 +1,13 @@
+/* ===== GLOBAL ANTI-FLASH FIX ===== */
+html.loading * {
+  transition: none !important;
+  animation: none !important;
+}
+html.loading .backdrop-blur-xl {
+  backdrop-filter: none !important;
+}
+/* ===== END GLOBAL ANTI-FLASH FIX ===== */
+
 @import "./tokens.css";
 @import "./typography.css";
 @import "./mobile-nav.css";

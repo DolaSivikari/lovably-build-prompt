@@ -19,16 +19,17 @@ import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
 
 const Index = () => {
-  // Remove loading class when hero is ready or after timeout
+  // Add loading class to html element and remove after 500ms
   useEffect(() => {
-    const onReady = () => document.documentElement.classList.remove('page-loading');
+    document.documentElement.classList.add('loading');
     
-    window.addEventListener('hero-ready', onReady);
-    const fallback = setTimeout(onReady, 1000);
+    const timer = setTimeout(() => {
+      document.documentElement.classList.remove('loading');
+    }, 500);
     
     return () => {
-      window.removeEventListener('hero-ready', onReady);
-      clearTimeout(fallback);
+      document.documentElement.classList.remove('loading');
+      clearTimeout(timer);
     };
   }, []);
 
