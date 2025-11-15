@@ -44,7 +44,6 @@ interface HeroSlide {
 const EnhancedHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [showPoster, setShowPoster] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -54,7 +53,6 @@ const EnhancedHero = () => {
   const [animationsEnabled, setAnimationsEnabled] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [preloadedPosters, setPreloadedPosters] = useState<Set<string>>(new Set());
   const heroReadyRef = useRef(false);
 
   // Use enriched hero slides only
@@ -97,51 +95,17 @@ const EnhancedHero = () => {
 
   // Preload poster images for current and adjacent slides
   useEffect(() => {
-    const postersToPreload: string[] = [];
-    
-    // Current slide poster (highest priority)
-    if (activeSlides[currentSlide]?.poster) {
-      postersToPreload.push(activeSlides[currentSlide].poster);
+    // Mark hero as ready on mount
+    if (!heroReadyRef.current) {
+      heroReadyRef.current = true;
+      setIsPageLoaded(true);
+      window.dispatchEvent(new CustomEvent('hero-ready'));
     }
-    
-    // Next slide poster
-    const nextIndex = (currentSlide + 1) % activeSlides.length;
-    if (activeSlides[nextIndex]?.poster) {
-      postersToPreload.push(activeSlides[nextIndex].poster);
-    }
-    
-    // Previous slide poster
-    const prevIndex = (currentSlide - 1 + activeSlides.length) % activeSlides.length;
-    if (activeSlides[prevIndex]?.poster) {
-      postersToPreload.push(activeSlides[prevIndex].poster);
-    }
+  }, []);
 
-    // Preload images
-    postersToPreload.forEach(posterUrl => {
-      if (!preloadedPosters.has(posterUrl)) {
-        const img = new Image();
-        img.src = posterUrl;
-        img.onload = () => {
-          setPreloadedPosters(prev => new Set(prev).add(posterUrl));
-          
-          // If this is the current poster and hero isn't ready yet, mark it ready
-          if (posterUrl === activeSlides[currentSlide]?.poster && !heroReadyRef.current) {
-            heroReadyRef.current = true;
-            setIsPageLoaded(true);
-            window.dispatchEvent(new CustomEvent('hero-ready'));
-          }
-        };
-      }
-    });
-  }, [currentSlide, activeSlides, preloadedPosters]);
-
-  // Handle smooth poster-to-video transition
   const handleVideoReady = () => {
     setIsVideoLoaded(true);
-    // Smoother fade out with longer delay for seamless transition
-    setTimeout(() => setShowPoster(false), 400);
-    
-    // Mark hero as ready when video loads
+    // Mark hero as ready when first video loads
     if (!heroReadyRef.current) {
       heroReadyRef.current = true;
       setIsPageLoaded(true);
@@ -207,17 +171,14 @@ const EnhancedHero = () => {
     // If video is already ready to play, show it immediately
     if (v.readyState >= 3) {
       setIsVideoLoaded(true);
-      setShowPoster(false);
       v.play().catch(() => {});
       return;
     }
 
     setIsVideoLoaded(false);
-    setShowPoster(true);
 
     const markReady = () => {
       setIsVideoLoaded(true);
-      setTimeout(() => setShowPoster(false), 100);
       v.play().catch(() => {});
     };
 
@@ -322,7 +283,6 @@ const EnhancedHero = () => {
           onError={(e) => {
             console.error('Hero video failed to load', { src: videoUrl, error: e });
             setIsVideoLoaded(true);
-            setShowPoster(true);
           }}
           className="absolute inset-0 w-full h-full object-cover"
         >
@@ -331,43 +291,6 @@ const EnhancedHero = () => {
           {/* Desktop/fallback source */}
           <source src={videoUrl} type="video/mp4" />
         </video>
-
-        {/* Hidden image to force eager poster loading */}
-        <img
-          src={posterUrl}
-          alt=""
-          width={1920}
-          height={1080}
-          loading="eager"
-          fetchPriority="high"
-          className="hidden"
-          aria-hidden="true"
-        />
-
-        {/* Poster Overlay - Fades out smoothly when video is ready */}
-        {showPoster && (
-          <div 
-            className={`absolute inset-0 z-[1] transition-opacity duration-500 ease-out`}
-            style={{ opacity: isVideoLoaded ? 0 : 1 }}
-          >
-            <img
-              src={posterUrl}
-              alt=""
-              width={1920}
-              height={1080}
-              className="w-full h-full object-cover"
-              loading={preloadedPosters.has(posterUrl) ? "eager" : "lazy"}
-              fetchPriority={preloadedPosters.has(posterUrl) ? "high" : "low"}
-            />
-          </div>
-        )}
-
-        {/* Loading Indicator */}
-        {!isVideoLoaded && isPageLoaded && (
-          <div className="absolute inset-0 z-[2] flex items-center justify-center">
-            <div className="w-16 h-16 border-4 border-accent/20 border-t-accent rounded-full animate-spin" />
-          </div>
-        )}
       </div>
 
       {/* Gradient Overlay */}
