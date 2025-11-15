@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
@@ -18,6 +19,19 @@ import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
 
 const Index = () => {
+  // Prevent flash by disabling transitions until React hydrates
+  useEffect(() => {
+    // Use requestAnimationFrame to ensure DOM is fully ready
+    requestAnimationFrame(() => {
+      // Remove loading class after 50ms to allow React to settle
+      const timer = setTimeout(() => {
+        document.documentElement.classList.remove('page-loading');
+      }, 50);
+
+      return () => clearTimeout(timer);
+    });
+  }, []);
+
   // AEO/GEO Structured Data
   const howToChooseContractor = createHowToSchema({
     name: "How to Choose a Reliable Construction Contractor in Ontario",

@@ -6,3 +6,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ===== ANTI-FLASH FIX ===== */
+/* Prevent ALL transitions and animations during initial page load */
+.page-loading,
+.page-loading * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Re-enable transitions after hydration (when page-loading class is removed) */
+html:not(.page-loading) * {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Ensure critical content is always visible */
+html, body {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#root {
+  min-height: 100vh;
+  isolation: isolate;
+}
+/* ===== END ANTI-FLASH FIX ===== */
