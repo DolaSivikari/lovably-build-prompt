@@ -18,10 +18,24 @@ import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/uti
 import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
 import SplashScreen from "@/components/SplashScreen";
+import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
+import { ExitIntentPopup } from "@/components/engagement/ExitIntentPopup";
+import { ClientLogosCarousel } from "@/components/engagement/ClientLogosCarousel";
+import { InteractiveProjectMap } from "@/components/advanced/InteractiveProjectMap";
+import { VideoTestimonials } from "@/components/advanced/VideoTestimonials";
+import { LiveChat } from "@/components/advanced/LiveChat";
+import { personalization } from "@/utils/personalization";
+import { initializeTests } from "@/utils/ab-testing";
 
 const Index = () => {
   const [showSplash, setShowSplash] = useState(true);
   const [splashComplete, setSplashComplete] = useState(false);
+
+  // Initialize personalization and A/B testing
+  useEffect(() => {
+    personalization.initialize();
+    initializeTests();
+  }, []);
   // Add loading class to html element and remove after 500ms
   useEffect(() => {
     // Add both loading classes immediately on mount
@@ -186,9 +200,10 @@ const Index = () => {
         includeRating={true} 
         />
         <Navigation />
-      <SmartCTA />
+        <SmartCTA />
       <main id="main-content" role="main">
         <EnhancedHero />
+        <TrustBadgeBar />
         <ValuePillars />
         <CompanyIntroduction />
         
@@ -205,10 +220,15 @@ const Index = () => {
         
         {/* Social Proof */}
         <Testimonials />
+        <ClientLogosCarousel />
+        <VideoTestimonials />
+        <InteractiveProjectMap />
         <PrequalPackage />
         <InsightsFeed limit={9} showFilters={true} showPinnedFirst={true} />
       </main>
         <Footer />
+        <ExitIntentPopup />
+        <LiveChat />
       </div>
     </>
   );

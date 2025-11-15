@@ -2,6 +2,7 @@ import { Button } from "@/ui/Button";
 import { ArrowRight, Building, HardHat, Award, Ruler } from "lucide-react";
 import { Link } from "react-router-dom";
 import { organizationSchema } from "@/utils/structured-data";
+import { QuickFactsSidebar } from "./QuickFactsSidebar";
 
 export default function CompanyIntroduction() {
   const schema = organizationSchema({
@@ -27,11 +28,11 @@ export default function CompanyIntroduction() {
             <div className="h-1 w-16 bg-construction-orange mb-8"></div>
           </div>
 
-          {/* Two-Column Layout */}
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 mb-12">
+          {/* Three-Column Layout with Quick Facts Sidebar */}
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 mb-12">
             
             {/* Left Column - Main Content */}
-            <div className="space-y-4">
+            <div className="lg:col-span-7 space-y-4">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 <span className="text-foreground font-semibold">Ascent Group Construction</span> protects{" "}
                 <span className="text-foreground font-semibold">$100M+ building assets</span> across Ontario from{" "}
@@ -56,8 +57,14 @@ export default function CompanyIntroduction() {
               </p>
             </div>
 
-            {/* Right Column - Key Highlights */}
-            <div className="space-y-6">
+            {/* Right Column - Quick Facts Sidebar */}
+            <div className="lg:col-span-5">
+              <QuickFactsSidebar />
+            </div>
+
+            {/* Bottom Section - Key Highlights (Full Width) */}
+            <div className="lg:col-span-12 mt-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               
               {/* Highlight 1 */}
               <div className="flex gap-4">
@@ -107,6 +114,7 @@ export default function CompanyIntroduction() {
                 </div>
               </div>
 
+              </div>
             </div>
           </div>
 
