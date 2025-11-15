@@ -26,8 +26,20 @@ import {
 const Navigation = () => {
   const location = useLocation();
   
-  // Check if we're on homepage to apply transparent nav
-  const isHomePage = location.pathname === '/';
+  // Pages with hero backgrounds that should have transparent navigation
+  const heroPages = [
+    '/',
+    '/services/painting-services',
+    '/services/building-envelope',
+    '/services/waterproofing',
+    '/services/masonry-restoration',
+    '/services/interior-buildouts',
+    '/services/tile-flooring',
+    '/services/cladding-systems',
+    '/services/protective-coatings',
+    '/services/sustainable-building'
+  ];
+  const isHeroPage = heroPages.includes(location.pathname);
   
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -108,7 +120,7 @@ const Navigation = () => {
       <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-navigation transition-all duration-500",
-          isHomePage && !isScrolled
+          isHeroPage && !isScrolled
             ? "bg-transparent border-transparent shadow-none"
             : "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50"
         )}
@@ -125,13 +137,13 @@ const Navigation = () => {
             <div className="flex flex-col items-start leading-tight">
               <span className={cn(
                 "text-base md:text-lg lg:text-xl font-bold relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:transition-transform icon-rotate transition-colors duration-500",
-                isHomePage && !isScrolled ? "text-white" : "text-foreground"
+                isHeroPage && !isScrolled ? "text-white" : "text-foreground"
               )}>
                 Ascent Group
               </span>
               <span className={cn(
                 "text-xs md:text-sm font-bold uppercase tracking-widest link-underline transition-colors duration-500",
-                isHomePage && !isScrolled ? "text-accent" : "text-primary"
+                isHeroPage && !isScrolled ? "text-accent" : "text-primary"
               )}>
                 CONSTRUCTION
               </span>
@@ -146,7 +158,7 @@ const Navigation = () => {
               className={cn(
                 "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
                 "link-underline after:transition-transform transition-colors duration-500",
-                isActive("/") ? "text-primary after:scale-x-100" : (isHomePage && !isScrolled ? "text-white" : "text-foreground"),
+                isActive("/") ? "text-primary after:scale-x-100" : (isHeroPage && !isScrolled ? "text-white" : "text-foreground"),
                 !isActive("/") && "hover:text-primary"
               )}
             >
@@ -165,7 +177,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "services" && "text-primary scale-105",
-                  activeMegaMenu !== "services" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
+                  activeMegaMenu !== "services" && (isHeroPage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "services"}
                 aria-controls="services-mega-menu"
@@ -195,7 +207,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "markets" && "text-primary scale-105",
-                  activeMegaMenu !== "markets" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
+                  activeMegaMenu !== "markets" && (isHeroPage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "markets"}
                 aria-controls="markets-mega-menu"
@@ -225,7 +237,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "projects" && "text-primary scale-105",
-                  activeMegaMenu !== "projects" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
+                  activeMegaMenu !== "projects" && (isHeroPage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "projects"}
                 aria-controls="projects-mega-menu"
@@ -254,7 +266,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "company" && "text-primary scale-105",
-                  activeMegaMenu !== "company" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
+                  activeMegaMenu !== "company" && (isHeroPage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "company"}
                 aria-controls="company-mega-menu"
@@ -283,7 +295,7 @@ const Navigation = () => {
                   "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                   "link-underline",
                   activeMegaMenu === "resources" && "text-primary scale-105",
-                  activeMegaMenu !== "resources" && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
+                  activeMegaMenu !== "resources" && (isHeroPage && !isScrolled ? "text-white" : "text-foreground")
                 )}
                 aria-expanded={activeMegaMenu === "resources"}
                 aria-controls="resources-mega-menu"
@@ -306,7 +318,7 @@ const Navigation = () => {
               className={cn(
                 "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 transition-colors duration-500",
                 "link-underline after:transition-transform",
-                isActive("/contact") ? "text-primary after:scale-x-100" : (isHomePage && !isScrolled ? "text-white" : "text-foreground"),
+                isActive("/contact") ? "text-primary after:scale-x-100" : (isHeroPage && !isScrolled ? "text-white" : "text-foreground"),
                 !isActive("/contact") && "hover:text-primary"
               )}
             >
@@ -322,7 +334,7 @@ const Navigation = () => {
                 href={`tel:${settings.phone}`}
                 className={cn(
                   "hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap transition-colors duration-500",
-                  isHomePage && !isScrolled ? "text-white" : "text-foreground"
+                  isHeroPage && !isScrolled ? "text-white" : "text-foreground"
                 )}
               >
                 <Phone className="w-4 h-4" />
@@ -342,7 +354,7 @@ const Navigation = () => {
               to="/resources/contractor-portal" 
               className={cn(
                 "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline transition-colors duration-500",
-                isHomePage && !isScrolled ? "text-white" : "text-foreground"
+                isHeroPage && !isScrolled ? "text-white" : "text-foreground"
               )}
             >
               Client Portal
@@ -358,7 +370,7 @@ const Navigation = () => {
                     "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
                     "link-underline",
                     adminDropdownOpen && "text-primary scale-105",
-                    !adminDropdownOpen && (isHomePage && !isScrolled ? "text-white" : "text-foreground")
+                    !adminDropdownOpen && (isHeroPage && !isScrolled ? "text-white" : "text-foreground")
                   )}
                   aria-expanded={adminDropdownOpen}
                 >
