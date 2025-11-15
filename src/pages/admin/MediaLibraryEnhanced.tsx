@@ -111,7 +111,7 @@ const MediaLibraryEnhanced = () => {
           {assets.map((asset) => (
             <Card key={asset.id} className="p-3 cursor-pointer hover:border-primary" onClick={() => handleEditAsset(asset)}>
               <div className="aspect-square bg-muted rounded mb-2 overflow-hidden">
-                {asset.file_url && <img src={asset.file_url} alt={asset.alt_text || asset.title} className="w-full h-full object-cover" />}
+                {asset.file_url && <img src={asset.file_url} alt={asset.alt_text || asset.title} width={400} height={400} className="w-full h-full object-cover" />}
               </div>
               <p className="text-sm font-medium truncate">{asset.title}</p>
               <div className="flex gap-2 text-xs text-muted-foreground mt-1">
@@ -133,7 +133,7 @@ const MediaLibraryEnhanced = () => {
               <div>
                 <Label>Focal Point (Click to set)</Label>
                 <div className="relative aspect-video bg-muted rounded overflow-hidden cursor-crosshair mt-2" onClick={handleImageClick}>
-                  <img src={editingAsset.file_url} alt={editingAsset.title} className="w-full h-full object-cover" />
+                  <img src={editingAsset.file_url} alt={editingAsset.title} width={400} height={400} className="w-full h-full object-cover" />
                   <div
                     className="absolute w-4 h-4 bg-primary rounded-full border-2 border-white shadow-lg transform -translate-x-1/2 -translate-y-1/2"
                     style={{ left: `${focalPoint.x * 100}%`, top: `${focalPoint.y * 100}%` }}
