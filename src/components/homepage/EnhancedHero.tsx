@@ -54,6 +54,7 @@ const EnhancedHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [preloadedPosters, setPreloadedPosters] = useState<Set<string>>(new Set());
+  const heroReadyRef = useRef(false);
 
   // Use enriched hero slides only
   const activeSlides = heroSlides;
@@ -69,12 +70,20 @@ const EnhancedHero = () => {
   // Helper to detect mobile device
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-  // Enable animations after page load to prevent flash
+  // Enable animations after hero is ready (poster or video loaded)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsPageLoaded(true);
-    }, 100);
-    return () => clearTimeout(timer);
+    const markHeroReady = () => {
+      if (!heroReadyRef.current) {
+        heroReadyRef.current = true;
+        setIsPageLoaded(true);
+        window.dispatchEvent(new CustomEvent('hero-ready'));
+      }
+    };
+
+    // Fallback timer in case assets are slow
+    const fallback = setTimeout(markHeroReady, 800);
+    
+    return () => clearTimeout(fallback);
   }, []);
 
   // Preload poster images for current and adjacent slides
@@ -105,6 +114,13 @@ const EnhancedHero = () => {
         img.src = posterUrl;
         img.onload = () => {
           setPreloadedPosters(prev => new Set(prev).add(posterUrl));
+          
+          // If this is the current poster and hero isn't ready yet, mark it ready
+          if (posterUrl === activeSlides[currentSlide]?.poster && !heroReadyRef.current) {
+            heroReadyRef.current = true;
+            setIsPageLoaded(true);
+            window.dispatchEvent(new CustomEvent('hero-ready'));
+          }
         };
       }
     });
@@ -115,6 +131,13 @@ const EnhancedHero = () => {
     setIsVideoLoaded(true);
     // Fade out poster after video is ready
     setTimeout(() => setShowPoster(false), 100);
+    
+    // Mark hero as ready when video loads
+    if (!heroReadyRef.current) {
+      heroReadyRef.current = true;
+      setIsPageLoaded(true);
+      window.dispatchEvent(new CustomEvent('hero-ready'));
+    }
   };
 
   // Minimum swipe distance (in px) to trigger slide change
@@ -335,7 +358,8 @@ const EnhancedHero = () => {
 
       {/* Content */}
         <div 
-          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 transition-opacity duration-300 ease-in-out ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}
+          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${isPageLoaded ? 'transition-transform duration-300' : ''}`}
+          style={{ transform: isFadingOut ? 'translateY(4px)' : 'translateY(0)' }}
         >
         <div className="max-w-5xl mx-auto">
           {/* Floating Stat Mini-Cards with Glassmorphism */}
