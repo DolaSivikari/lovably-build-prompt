@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/ui/Button";
-import ascentLogo from "@/assets/ascent-logo.png";
+import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.png";
+import ascentLogoHorizontalLight from "@/assets/ascent-logo-horizontal-light.png";
 import { ChevronDown, Shield, Phone, ArrowRight, FileText } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { supabase } from "@/integrations/supabase/client";
@@ -138,26 +139,12 @@ const Navigation = () => {
         <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
         <div className="hidden md:flex items-center justify-between w-full h-20">
           {/* Left: Logo + Company Name */}
-          <Link to="/" className="flex items-center gap-3 group" aria-label="Ascent Group Construction - Home">
-              <img 
-              src={ascentLogo} 
+          <Link to="/" className="flex items-center group" aria-label="Ascent Group Construction - Home">
+            <img 
+              src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark} 
               alt="Ascent Group Construction Logo" 
-              className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon group-hover:[box-shadow:var(--shadow-glow)]"
+              className="h-12 md:h-14 lg:h-16 w-auto hover-scale-icon transition-all duration-500"
             />
-            <div className="flex flex-col items-start leading-tight">
-              <span className={cn(
-                "text-base md:text-lg lg:text-xl font-bold relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:transition-transform icon-rotate transition-colors duration-500",
-                isHeroPage && isAtTop ? "text-white" : "text-foreground"
-              )}>
-                Ascent Group
-              </span>
-              <span className={cn(
-                "text-xs md:text-sm font-bold uppercase tracking-widest link-underline transition-colors duration-500",
-                isHeroPage && isAtTop ? "text-accent" : "text-primary"
-              )}>
-                CONSTRUCTION
-              </span>
-            </div>
           </Link>
 
           {/* Center: Main Navigation */}
@@ -705,18 +692,12 @@ const Navigation = () => {
 
         {/* Mobile Layout */}
         <div className="flex md:hidden items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-2 group relative z-navigation" aria-label="Ascent Group Construction - Home">
+          <Link to="/" className="flex items-center group relative z-navigation" aria-label="Ascent Group Construction - Home">
             <img 
-              src={ascentLogo} 
+              src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark} 
               alt="Ascent Group Construction Logo" 
               className="h-12 w-auto transition-transform group-hover:scale-105"
             />
-            <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold text-foreground relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 group-hover:after:scale-x-100 group-hover:after:origin-bottom-left">
-                Ascent Group
-              </span>
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider">Construction</span>
-            </div>
           </Link>
 
           {/* Mobile Menu Button - Optimized Touch Target & Animation */}
