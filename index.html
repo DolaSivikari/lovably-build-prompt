@@ -3,6 +3,26 @@
   <head>
     <!-- Critical inline CSS for hero section -->
     <style>
+      /* CRITICAL: Hide static fallback - MUST BE FIRST RULE */
+      .static-content {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        pointer-events: none !important;
+        z-index: -9999 !important;
+      }
+      
+      /* Show only when JavaScript is disabled */
+      noscript .static-content {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        pointer-events: auto !important;
+        z-index: auto !important;
+      }
+      
       /* Minimal critical CSS - Only hero essentials */
       .landing-hero {
         position: relative;
@@ -40,17 +60,6 @@
         font-family: 'Barlow', system-ui, -apple-system, sans-serif;
       }
       
-      /* Hide static fallback content immediately - React will show real content */
-      .static-content {
-        display: none !important;
-        visibility: hidden !important;
-      }
-      
-      /* Show only when JavaScript is disabled */
-      noscript .static-content {
-        display: block !important;
-        visibility: visible !important;
-      }
       
       /* CRITICAL: Disable ALL transitions during initial load */
       .page-loading *,
