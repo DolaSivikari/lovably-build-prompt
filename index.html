@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="page-loading">
   <head>
     <!-- Critical inline CSS for hero section -->
     <style>
@@ -8,6 +8,12 @@
       .landing-hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(28,47,67,0.9) 100%);z-index:1}
       .landing-hero__content{position:relative;z-index:2;width:100%;padding:2rem}
       body{margin:0;font-family:'Barlow',system-ui,-apple-system,sans-serif}
+      
+      /* Anti-flash protection inline for immediate effect */
+      .page-loading * {
+        transition: none !important;
+        animation: none !important;
+      }
     </style>
     
     <!-- Deferred Google Analytics (GA4) - Loads 3000ms after page load for better performance -->

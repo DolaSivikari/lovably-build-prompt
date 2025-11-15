@@ -271,7 +271,7 @@ const EnhancedHero = () => {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           poster={posterUrl}
           onLoadedData={handleVideoReady}
           onError={(e) => {
@@ -286,6 +286,16 @@ const EnhancedHero = () => {
           {/* Desktop/fallback source */}
           <source src={videoUrl} type="video/mp4" />
         </video>
+
+        {/* Hidden image to force eager poster loading */}
+        <img
+          src={posterUrl}
+          alt=""
+          loading="eager"
+          fetchPriority="high"
+          className="hidden"
+          aria-hidden="true"
+        />
 
         {/* Poster Overlay - Fades out when video is ready */}
         {showPoster && (
