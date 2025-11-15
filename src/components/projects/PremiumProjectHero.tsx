@@ -17,18 +17,27 @@ interface Props {
 
 export const PremiumProjectHero = ({ featuredProjects }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const projectCount = useCountUp(500, 2000);
   const totalValue = useCountUp(2, 2000);
   const satisfaction = useCountUp(98, 2000);
 
+  // Start autoplay after initial page load is stable (15 seconds)
   useEffect(() => {
-    if (featuredProjects.length > 0) {
+    const timer = setTimeout(() => {
+      setIsPlaying(true);
+    }, 15000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (featuredProjects.length > 0 && isPlaying) {
       const interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % featuredProjects.length);
       }, 5000);
       return () => clearInterval(interval);
     }
-  }, [featuredProjects.length]);
+  }, [featuredProjects.length, isPlaying]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % featuredProjects.length);
