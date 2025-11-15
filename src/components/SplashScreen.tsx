@@ -19,12 +19,10 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
       onComplete();
       return;
     }
-
-    // Set seen timestamp
-    localStorage.setItem("ascent-splash-seen", now.toString());
   }, [onComplete, prefersReducedMotion]);
 
   const handleVideoEnd = () => {
+    localStorage.setItem("ascent-splash-seen", Date.now().toString());
     setIsFadingOut(true);
     setTimeout(() => {
       setIsVisible(false);
@@ -33,6 +31,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   };
 
   const handleSkip = () => {
+    localStorage.setItem("ascent-splash-seen", Date.now().toString());
     setIsFadingOut(true);
     setTimeout(() => {
       setIsVisible(false);

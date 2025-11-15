@@ -123,13 +123,14 @@ const About = () => {
       <Navigation />
 
       <div className="relative">
-        <VideoBackground
-          videoUrl={logoIntroVideo}
-          posterUrl={heroAboutImage}
-          overlay={true}
-          overlayOpacity={0.4}
-          showControls={false}
-        >
+      <VideoBackground
+        videoUrl={logoIntroVideo}
+        posterUrl={heroAboutImage}
+        overlay={true}
+        overlayOpacity={0.4}
+        showControls={false}
+        className="min-h-[500px] md:min-h-[600px] lg:min-h-[70vh]"
+      >
           <div className="container mx-auto px-4 py-32 text-center">
             <p className="text-sm uppercase tracking-wider text-white/80 mb-4">About Us</p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
