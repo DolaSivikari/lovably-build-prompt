@@ -33,7 +33,7 @@ const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(isHomePage); // Start with solid bg on homepage
+  const [isScrolled, setIsScrolled] = useState(true); // Start with solid bg during initial load
   const { settings } = useCompanySettings();
   
   // Check admin role
