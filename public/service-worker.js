@@ -3,7 +3,7 @@
  * Ensures fresh HTML + cached assets never mix versions
  */
 
-const CACHE_VERSION = '1.0.0';
+const CACHE_VERSION = '1.0.1';
 const PRECACHE_NAME = `app-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `app-runtime-${CACHE_VERSION}`;
 const API_CACHE = `app-api-${CACHE_VERSION}`;
@@ -16,6 +16,14 @@ self.addEventListener('install', event => {
   const precacheUrls = [
     '/',
     '/index.html',
+    '/hero-poster-1.webp',
+    '/hero-poster-2.webp',
+    '/hero-poster-3.webp',
+    '/hero-poster-4.webp',
+    '/hero-poster-5.webp',
+    '/hero-poster-6.webp',
+    '/hero-poster-7.webp',
+    '/hero-poster-8.webp',
   ];
   
   event.waitUntil(
@@ -65,8 +73,10 @@ self.addEventListener('fetch', event => {
         .then(response => {
           // Only cache successful HTML
           if (response.status === 200) {
-            const cloned = response.clone();
-            caches.open(RUNTIME_CACHE).then(cache => cache.put(request, cloned));
+            const responseToCache = response.clone();
+            caches.open(RUNTIME_CACHE)
+              .then(cache => cache.put(request, responseToCache))
+              .catch(err => console.warn('[SW] Cache failed:', err));
           }
           return response;
         })
@@ -90,7 +100,10 @@ self.addEventListener('fetch', event => {
       ])
         .then(response => {
           if (response.ok) {
-            caches.open(API_CACHE).then(cache => cache.put(request, response.clone()));
+            const responseToCache = response.clone();
+            caches.open(API_CACHE)
+              .then(cache => cache.put(request, responseToCache))
+              .catch(err => console.warn('[SW] API cache failed:', err));
           }
           return response;
         })
@@ -109,7 +122,10 @@ self.addEventListener('fetch', event => {
         .then(cached => {
           const fetchPromise = fetch(request).then(response => {
             if (response.ok) {
-              caches.open(RUNTIME_CACHE).then(cache => cache.put(request, response.clone()));
+              const responseToCache = response.clone();
+              caches.open(RUNTIME_CACHE)
+                .then(cache => cache.put(request, responseToCache))
+                .catch(err => console.warn('[SW] Script cache failed:', err));
             }
             return response;
           }).catch(() => cached);
@@ -129,7 +145,10 @@ self.addEventListener('fetch', event => {
           
           return fetch(request).then(response => {
             if (response.ok) {
-              caches.open(RUNTIME_CACHE).then(cache => cache.put(request, response.clone()));
+              const responseToCache = response.clone();
+              caches.open(RUNTIME_CACHE)
+                .then(cache => cache.put(request, responseToCache))
+                .catch(err => console.warn('[SW] Image cache failed:', err));
             }
             return response;
           });
@@ -144,7 +163,10 @@ self.addEventListener('fetch', event => {
     fetch(request)
       .then(response => {
         if (response.ok) {
-          caches.open(RUNTIME_CACHE).then(cache => cache.put(request, response.clone()));
+          const responseToCache = response.clone();
+          caches.open(RUNTIME_CACHE)
+            .then(cache => cache.put(request, responseToCache))
+            .catch(err => console.warn('[SW] Default cache failed:', err));
         }
         return response;
       })
