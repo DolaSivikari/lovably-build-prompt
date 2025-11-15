@@ -28,7 +28,7 @@ const Index = () => {
     const timer = setTimeout(() => {
       document.documentElement.classList.remove('loading');
       document.documentElement.classList.remove('page-loading');
-    }, 500);
+    }, 300);
     
     return () => {
       clearTimeout(timer);
