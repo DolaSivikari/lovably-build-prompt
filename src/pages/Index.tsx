@@ -19,17 +19,17 @@ import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
 
 const Index = () => {
-  // Prevent flash by disabling transitions until React hydrates
+  // Remove loading class when hero is ready or after timeout
   useEffect(() => {
-    // Use requestAnimationFrame to ensure DOM is fully ready
-    requestAnimationFrame(() => {
-      // Remove loading class after 50ms to allow React to settle
-      const timer = setTimeout(() => {
-        document.documentElement.classList.remove('page-loading');
-      }, 50);
-
-      return () => clearTimeout(timer);
-    });
+    const onReady = () => document.documentElement.classList.remove('page-loading');
+    
+    window.addEventListener('hero-ready', onReady);
+    const fallback = setTimeout(onReady, 1000);
+    
+    return () => {
+      window.removeEventListener('hero-ready', onReady);
+      clearTimeout(fallback);
+    };
   }, []);
 
   // AEO/GEO Structured Data

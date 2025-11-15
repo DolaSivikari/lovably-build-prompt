@@ -28,13 +28,6 @@
   backdrop-filter: none !important;
 }
 
-/* Re-enable transitions after hydration (when page-loading class is removed) */
-html:not(.page-loading) * {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 /* Ensure critical content is always visible */
 html, body {
   visibility: visible !important;
