@@ -52,7 +52,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         muted
         playsInline
         onEnded={handleVideoEnd}
-        className="max-w-full max-h-full w-auto h-auto"
+        className="w-screen h-screen object-cover"
       >
         <source src={logoIntroVideo} type="video/mp4" />
       </video>
