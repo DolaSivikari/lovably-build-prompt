@@ -33,8 +33,13 @@ const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(true); // Start with solid bg during initial load
+  const [isScrolled, setIsScrolled] = useState(false);
   const { settings } = useCompanySettings();
+  
+  // Initialize scroll state immediately on mount
+  useEffect(() => {
+    setIsScrolled(window.scrollY > 50);
+  }, []);
   
   // Check admin role
   const { isAdmin } = useAdminRoleCheck();
