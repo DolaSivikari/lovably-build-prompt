@@ -14,6 +14,11 @@
         transition: none !important;
         animation: none !important;
       }
+      
+      /* Show solid background during load to mask transitions */
+      .page-loading #root {
+        background: #1a1f2c !important;
+      }
     </style>
     
     <!-- Deferred Google Analytics (GA4) - Loads 3000ms after page load for better performance -->

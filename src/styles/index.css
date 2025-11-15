@@ -15,6 +15,19 @@
   animation: none !important;
 }
 
+/* Disable specific animations during load */
+.page-loading .animate-fade-in,
+.page-loading .animate-spin,
+.page-loading [class*="animate-"] {
+  animation: none !important;
+  animation-delay: 0s !important;
+}
+
+/* Disable backdrop effects during load */
+.page-loading .backdrop-blur-xl {
+  backdrop-filter: none !important;
+}
+
 /* Re-enable transitions after hydration (when page-loading class is removed) */
 html:not(.page-loading) * {
   transition-property: all;

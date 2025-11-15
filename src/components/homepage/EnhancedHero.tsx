@@ -50,6 +50,7 @@ const EnhancedHero = () => {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [preloadedPosters, setPreloadedPosters] = useState<Set<string>>(new Set());
@@ -67,6 +68,14 @@ const EnhancedHero = () => {
 
   // Helper to detect mobile device
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // Enable animations after page load to prevent flash
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsPageLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Preload poster images for current and adjacent slides
   useEffect(() => {
@@ -300,7 +309,7 @@ const EnhancedHero = () => {
         {/* Poster Overlay - Fades out when video is ready */}
         {showPoster && (
           <div 
-            className="absolute inset-0 z-[1] transition-opacity duration-700 ease-out"
+            className={`absolute inset-0 z-[1] ${isPageLoaded ? 'transition-opacity duration-700' : ''} ease-out`}
             style={{ opacity: isVideoLoaded ? 0 : 1 }}
           >
             <img
@@ -314,7 +323,7 @@ const EnhancedHero = () => {
         )}
 
         {/* Loading Indicator */}
-        {!isVideoLoaded && (
+        {!isVideoLoaded && isPageLoaded && (
           <div className="absolute inset-0 z-[2] flex items-center justify-center">
             <div className="w-16 h-16 border-4 border-accent/20 border-t-accent rounded-full animate-spin" />
           </div>
@@ -333,8 +342,8 @@ const EnhancedHero = () => {
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-8">
             {/* Main Stat Card */}
             <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-accent/20 hover:scale-105 transition-all duration-300 ${!prefersReducedMotion && 'animate-fade-in'}`}
-              style={{ animationDelay: prefersReducedMotion ? "0s" : "0.1s" }}
+              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-accent/20 hover:scale-105 transition-all duration-300 ${isPageLoaded && !prefersReducedMotion && 'animate-fade-in'}`}
+              style={{ animationDelay: (isPageLoaded && !prefersReducedMotion) ? "0.1s" : "0s" }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-3">
@@ -350,8 +359,8 @@ const EnhancedHero = () => {
 
             {/* COR Certified Badge */}
             <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${!prefersReducedMotion && 'animate-fade-in'}`}
-              style={{ animationDelay: prefersReducedMotion ? "0s" : "0.2s" }}
+              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${isPageLoaded && !prefersReducedMotion && 'animate-fade-in'}`}
+              style={{ animationDelay: (isPageLoaded && !prefersReducedMotion) ? "0.2s" : "0s" }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-2">
@@ -364,8 +373,8 @@ const EnhancedHero = () => {
 
             {/* Zero Incidents Badge */}
             <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${!prefersReducedMotion && 'animate-fade-in'}`}
-              style={{ animationDelay: prefersReducedMotion ? "0s" : "0.3s" }}
+              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${isPageLoaded && !prefersReducedMotion && 'animate-fade-in'}`}
+              style={{ animationDelay: (isPageLoaded && !prefersReducedMotion) ? "0.3s" : "0s" }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-2">
@@ -379,9 +388,9 @@ const EnhancedHero = () => {
 
           {/* Main Headline with Gradient Text */}
           <h1 
-            className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] ${!prefersReducedMotion && 'animate-fade-in'}`}
+            className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] ${isPageLoaded && !prefersReducedMotion && 'animate-fade-in'}`}
             style={{ 
-              animationDelay: prefersReducedMotion ? "0s" : '0.4s',
+              animationDelay: (isPageLoaded && !prefersReducedMotion) ? '0.4s' : "0s",
               textShadow: '0 4px 30px rgba(0,0,0,0.5)'
             }}
           >
@@ -406,9 +415,9 @@ const EnhancedHero = () => {
             </span>
           </h1>
           <p 
-            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-10 max-w-3xl leading-relaxed font-medium ${!prefersReducedMotion && 'animate-fade-in'}`}
+            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-10 max-w-3xl leading-relaxed font-medium ${isPageLoaded && !prefersReducedMotion && 'animate-fade-in'}`}
             style={{ 
-              animationDelay: prefersReducedMotion ? "0s" : "0.6s",
+              animationDelay: (isPageLoaded && !prefersReducedMotion) ? "0.6s" : "0s",
               textShadow: '0 2px 15px rgba(0,0,0,0.4)'
             }}
           >
@@ -417,8 +426,8 @@ const EnhancedHero = () => {
 
           {/* Enhanced CTAs with Staggered Animation */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 mb-12 ${!prefersReducedMotion && 'animate-fade-in'}`}
-            style={{ animationDelay: prefersReducedMotion ? "0s" : "0.8s" }}
+            className={`flex flex-col sm:flex-row gap-4 mb-12 ${isPageLoaded && !prefersReducedMotion && 'animate-fade-in'}`}
+            style={{ animationDelay: (isPageLoaded && !prefersReducedMotion) ? "0.8s" : "0s" }}
           >
             <Button asChild size="lg" variant="primary" className="group relative overflow-hidden shadow-2xl shadow-accent/50 hover:shadow-accent/70 transition-all duration-300">
               <Link to={primaryCTA.href} className="gap-2">
@@ -438,7 +447,7 @@ const EnhancedHero = () => {
           </div>
 
           {/* Slide Indicators */}
-          <div className={`flex gap-2 justify-center md:justify-start ${!prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: prefersReducedMotion ? "0s" : "1s" }}>
+          <div className={`flex gap-2 justify-center md:justify-start ${isPageLoaded && !prefersReducedMotion && 'animate-fade-in'}`} style={{ animationDelay: (isPageLoaded && !prefersReducedMotion) ? "1s" : "0s" }}>
             {activeSlides.map((_, index) => (
                 <button
                   key={index}
