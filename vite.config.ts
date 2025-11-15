@@ -9,8 +9,6 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    middlewareMode: true,
-    // Add middleware to serve SW with no-cache headers in dev
     hmr: {
       protocol: 'ws',
       host: 'localhost',
