@@ -138,8 +138,8 @@ const EnhancedHero = () => {
   // Handle smooth poster-to-video transition
   const handleVideoReady = () => {
     setIsVideoLoaded(true);
-    // Fade out poster after video is ready
-    setTimeout(() => setShowPoster(false), 100);
+    // Smoother fade out with longer delay for seamless transition
+    setTimeout(() => setShowPoster(false), 400);
     
     // Mark hero as ready when video loads
     if (!heroReadyRef.current) {
@@ -315,9 +315,10 @@ const EnhancedHero = () => {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           poster={posterUrl}
           onLoadedData={handleVideoReady}
+          onCanPlay={handleVideoReady}
           onError={(e) => {
             console.error('Hero video failed to load', { src: videoUrl, error: e });
             setIsVideoLoaded(true);
@@ -343,10 +344,10 @@ const EnhancedHero = () => {
           aria-hidden="true"
         />
 
-        {/* Poster Overlay - Fades out when video is ready */}
+        {/* Poster Overlay - Fades out smoothly when video is ready */}
         {showPoster && (
           <div 
-            className={`absolute inset-0 z-[1] ${isPageLoaded ? 'transition-opacity duration-700' : ''} ease-out`}
+            className={`absolute inset-0 z-[1] transition-opacity duration-500 ease-out`}
             style={{ opacity: isVideoLoaded ? 0 : 1 }}
           >
             <img
