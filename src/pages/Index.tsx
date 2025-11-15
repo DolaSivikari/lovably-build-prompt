@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
@@ -17,8 +17,11 @@ import Testimonials from "@/components/Testimonials";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
+import SplashScreen from "@/components/SplashScreen";
 
 const Index = () => {
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashComplete, setSplashComplete] = useState(false);
   // Add loading class to html element and remove after 500ms
   useEffect(() => {
     // Add both loading classes immediately on mount
@@ -163,17 +166,26 @@ const Index = () => {
   const siteSearchSchema = createSiteSearchSchema("https://ascentgroupconstruction.com");
 
   return (
-    <div className="min-h-screen relative">
-      <SkipLink />
-      
-      <SEO
+    <>
+      {showSplash && (
+        <SplashScreen
+          onComplete={() => {
+            setShowSplash(false);
+            setSplashComplete(true);
+          }}
+        />
+      )}
+      <div className="min-h-screen relative">
+        <SkipLink />
+        
+        <SEO
         title="Specialty Contractor Ontario | Building Envelope, Cladding Systems & Interior Construction"
         description="Specialty contractor for building envelope, complete cladding systems, masonry restoration, interior construction, and sustainable building. Self-performed quality with 15+ years expertise serving Toronto, GTA, and Ontario."
         keywords="specialty contractor Ontario, building envelope contractor, cladding systems, metal panels, EIFS contractor, masonry restoration, interior construction, sustainable building, LEED consulting, Toronto contractor"
         structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} 
         includeRating={true} 
-      />
-      <Navigation />
+        />
+        <Navigation />
       <SmartCTA />
       <main id="main-content" role="main">
         <EnhancedHero />
@@ -196,8 +208,9 @@ const Index = () => {
         <PrequalPackage />
         <InsightsFeed limit={9} showFilters={true} showPinnedFirst={true} />
       </main>
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

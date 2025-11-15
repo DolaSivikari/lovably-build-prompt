@@ -1,7 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
@@ -21,6 +20,8 @@ import {
   Factory
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { VideoBackground } from "@/components/shared/VideoBackground";
+import logoIntroVideo from "@/assets/ascent-logo-intro.mp4";
 import heroAboutImage from "@/assets/heroes/hero-about-company.jpg";
 
 const About = () => {
@@ -121,12 +122,25 @@ const About = () => {
       />
       <Navigation />
 
-      <PageHeader
-        eyebrow="About Us"
-        title="Ontario's Building Envelope & Restoration Specialist"
-        description="Delivering accountable, prime-scope execution for owners, property managers, and consulting engineers."
-        backgroundImage={heroAboutImage}
-      />
+      <div className="relative">
+        <VideoBackground
+          videoUrl={logoIntroVideo}
+          posterUrl={heroAboutImage}
+          overlay={true}
+          overlayOpacity={0.4}
+          showControls={false}
+        >
+          <div className="container mx-auto px-4 py-32 text-center">
+            <p className="text-sm uppercase tracking-wider text-white/80 mb-4">About Us</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Ontario's Building Envelope & Restoration Specialist
+            </h1>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto">
+              Delivering accountable, prime-scope execution for owners, property managers, and consulting engineers.
+            </p>
+          </div>
+        </VideoBackground>
+      </div>
 
       <Breadcrumb
         items={[
