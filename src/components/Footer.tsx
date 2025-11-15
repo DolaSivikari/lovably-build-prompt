@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
-import ascentLogo from "@/assets/ascent-logo.png";
+import ascentLogoVerticalDark from "@/assets/ascent-logo-vertical-dark.png";
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
@@ -135,7 +135,7 @@ const Footer = () => {
             displayTrustItems={displayTrustItems}
             trustBarItems={trustBarItems}
             contactInfo={{ phone, email, address }}
-            logoUrl={ascentLogo}
+            logoUrl={ascentLogoVerticalDark}
             serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
             linkedinUrl={linkedinUrl}
             foundedYear={siteSettings?.founded_year || 2009}
