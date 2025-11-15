@@ -1324,6 +1324,7 @@ body:has(.business-sidebar.mobile-open) {
 /* Sortable column headers */
 .admin-dark-theme th.sortable {
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   position: relative;
   padding-right: 2rem;
