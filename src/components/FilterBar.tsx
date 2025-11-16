@@ -159,8 +159,8 @@ const FilterBar = ({
                 <SelectContent>
                   <SelectItem value="All">All Methods</SelectItem>
                   <SelectItem value="Specialty Contracting">Specialty Contracting</SelectItem>
-                  <SelectItem value="Construction Management">Construction Management</SelectItem>
-                  <SelectItem value="CM at Risk">CM at Risk</SelectItem>
+                  <SelectItem value="Design-Assist">Design-Assist</SelectItem>
+                  <SelectItem value="Multi-Trade Integration">Multi-Trade Integration</SelectItem>
                 </SelectContent>
               </Select>
             )}

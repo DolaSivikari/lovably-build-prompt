@@ -77,9 +77,9 @@ export const RFPStep3Timeline = ({ form }: RFPStep3TimelineProps) => {
               <SelectValue placeholder="Select delivery method" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Construction Management">Construction Management</SelectItem>
               <SelectItem value="Specialty Contracting">Specialty Contracting</SelectItem>
               <SelectItem value="Design-Assist">Design-Assist</SelectItem>
+              <SelectItem value="Multi-Trade Integration">Multi-Trade Integration</SelectItem>
               <SelectItem value="To Be Determined">To Be Determined</SelectItem>
             </SelectContent>
           </Select>

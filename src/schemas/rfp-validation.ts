@@ -37,7 +37,7 @@ export const projectDetailsSchema = z.object({
     "Institutional",
     "Industrial",
     "Renovation/Retrofit",
-    "Design-Build",
+    "Building Envelope Restoration",
     "Other"
   ], { required_error: "Please select a project type" }),
   project_location: z.string()
@@ -67,10 +67,9 @@ export const timelineRequirementsSchema = z.object({
     .optional()
     .or(z.literal("")),
   delivery_method: z.enum([
-    "Design-Build",
-    "Construction Management",
-    "General Contracting",
+    "Specialty Contracting",
     "Design-Assist",
+    "Multi-Trade Integration",
     "To Be Determined"
   ], { required_error: "Please select a delivery method" }),
   bonding_required: z.boolean().default(false),

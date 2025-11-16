@@ -11,40 +11,42 @@ export interface PopularService {
   trendPercentage?: number;
 }
 
-// Default curated GC services
+// Default curated specialty services
 const DEFAULT_SERVICES: PopularService[] = [
   {
-    name: "General Contracting",
-    link: "/services/general-contracting",
+    name: "Building Envelope Solutions",
+    link: "/services/building-envelope",
+    icon: Shield,
+  },
+  {
+    name: "Masonry Restoration",
+    link: "/services/masonry",
     icon: Building2,
   },
   {
-    name: "Construction Management",
-    link: "/services/construction-management",
-    icon: HardHat,
-  },
-  {
-    name: "Design-Build",
-    link: "/services/design-build",
-    icon: Ruler,
-  },
-  {
-    name: "Building Envelope",
-    link: "/services/building-envelope",
+    name: "Protective Coatings",
+    link: "/services/protective-coatings",
     icon: Shield,
+  },
+  {
+    name: "Interior Buildouts",
+    link: "/services/interior-buildouts",
+    icon: Ruler,
   },
 ];
 
 // Map service names to icons
 const SERVICE_ICON_MAP: Record<string, LucideIcon> = {
-  "general contracting": Building2,
-  "construction management": HardHat,
-  "design-build": Ruler,
+  "building envelope solutions": Shield,
   "building envelope": Shield,
-  "waterproofing": Shield,
   "masonry restoration": Building2,
-  "parking rehabilitation": HardHat,
+  "masonry": Building2,
+  "protective coatings": Shield,
+  "waterproofing": Shield,
   "interior buildouts": Ruler,
+  "painting services": HardHat,
+  "tile & flooring": Ruler,
+  "cladding systems": Building2,
 };
 
 const getIconForService = (serviceName: string): LucideIcon => {
