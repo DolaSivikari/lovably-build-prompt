@@ -116,14 +116,6 @@ const Footer = () => {
     <>
       <SEO structuredData={citationSchema} />
       <footer className="w-full bg-background border-t border-border">
-        
-        {/* Trust Badge Bar - Above Footer */}
-        <TrustBadgeBar
-          certifications={certifications}
-          displayTrustItems={displayTrustItems}
-          trustBarItems={trustBarItems}
-        />
-        
         {/* Footer Layout - Unified Design */}
         <div className="container mx-auto px-4 py-8 md:py-10">
           <UnifiedFooter
