@@ -2,7 +2,6 @@ import { Button } from "@/ui/Button";
 import { ArrowRight, Building, HardHat, Award, Ruler } from "lucide-react";
 import { Link } from "react-router-dom";
 import { organizationSchema } from "@/utils/structured-data";
-import { QuickFactsSidebar } from "./QuickFactsSidebar";
 
 export default function CompanyIntroduction() {
   const schema = organizationSchema({
@@ -31,8 +30,8 @@ export default function CompanyIntroduction() {
           {/* Three-Column Layout with Quick Facts Sidebar */}
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 mb-12">
             
-            {/* Left Column - Main Content */}
-            <div className="lg:col-span-7 space-y-4">
+            {/* Main Content */}
+            <div className="lg:col-span-12 space-y-4">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 <span className="text-foreground font-semibold">Lead/specialty contractor</span> for façade remediation, waterproofing, sealant replacement, EIFS/stucco, masonry restoration, concrete & parking‑garage repair—serving the GTA and Golden Horseshoe.
               </p>
@@ -48,11 +47,6 @@ export default function CompanyIntroduction() {
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                 We <span className="text-foreground font-semibold">self‑perform key trades</span>—sealants/caulking, EIFS & stucco, masonry repairs and tuckpointing, waterproofing & protective coatings, concrete and <span className="text-foreground font-semibold">parking‑garage rehabilitation</span>—coordinating trusted partners only when needed. <span className="text-foreground font-semibold">One accountable team</span> for your envelope scope, whether you're managing an existing asset, planning a phased restoration, or delivering a new build.
               </p>
-            </div>
-
-            {/* Right Column - Quick Facts Sidebar */}
-            <div className="lg:col-span-5">
-              <QuickFactsSidebar />
             </div>
 
             {/* Bottom Section - Key Highlights (Full Width) */}
