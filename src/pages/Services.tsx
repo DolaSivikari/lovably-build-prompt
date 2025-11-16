@@ -13,6 +13,7 @@ import { CheckCircle2, Users, Building, Briefcase } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import heroServicesImage from "@/assets/heroes/hero-general-contracting.jpg";
 
 interface Service {
   id: string;
@@ -81,6 +82,7 @@ const Services = () => {
       <PageHeader
         title="Our Services"
         description="Ontario's specialty contractor for building envelope & restoration. Self-performed work across commercial, multi-family, and institutional projects."
+        backgroundImage={heroServicesImage}
         cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

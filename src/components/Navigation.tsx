@@ -33,6 +33,7 @@ const Navigation = () => {
   const heroPages = [
     '/',
     // Service pages
+    '/services',
     '/services/painting-services',
     '/services/building-envelope',
     '/services/waterproofing',
