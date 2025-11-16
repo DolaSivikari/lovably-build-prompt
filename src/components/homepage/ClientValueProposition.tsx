@@ -63,32 +63,34 @@ const ClientValueProposition = () => {
         </div>
 
         {/* Who We Serve Section */}
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-4">
-            <div className="mb-4">
-              <h3 className="text-2xl font-bold text-foreground mb-2">Who We Serve</h3>
-              <p className="text-muted-foreground">Specialized solutions for your project needs</p>
-            </div>
+        <div className="max-w-4xl mx-auto mt-16 pt-12 border-t border-border/50">
+          <div className="mb-8 text-center">
+            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Who We Serve</h3>
+            <p className="text-lg text-muted-foreground">Specialized envelope & restoration solutions for Toronto (GTA) projects</p>
+          </div>
 
+          <div className="grid md:grid-cols-2 gap-6">
             <ClientSegmentCard
               icon={Building2}
               title="Developers & Building Owners"
               services={[
-                "Building Envelope & Restoration",
-                "Multi-Family Residential Projects",
-                "Building Envelope Systems",
+                "New‑build envelope systems (EIFS, cladding, waterproofing)",
+                "Multi‑family & commercial façade installation",
+                "Warranty‑backed envelope delivery",
+                "Unit pricing for GC trade packages",
               ]}
-              ctaText="See Our Work"
-              ctaUrl="/capabilities"
+              ctaText="View Services"
+              ctaUrl="/services"
             />
 
             <ClientSegmentCard
               icon={Home}
-              title="Property Owners & Managers"
+              title="Property Managers & Asset Owners"
               services={[
-                "Building Restoration & Retrofits",
-                "Capital Planning & Renovations",
-                "Emergency Repairs & Maintenance",
+                "Façade restoration & parking‑garage repair",
+                "Emergency water intrusion response (48–72h)",
+                "Capital planning & phased rehabilitation",
+                "Occupied‑building expertise",
               ]}
               ctaText="Request Site Assessment"
               ctaUrl="/contact"
