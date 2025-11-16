@@ -21,6 +21,7 @@ import { ExitIntentPopup } from "@/components/engagement/ExitIntentPopup";
 import { LiveChat } from "@/components/advanced/LiveChat";
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const Index = () => {
   const [showSplash, setShowSplash] = useState(true);

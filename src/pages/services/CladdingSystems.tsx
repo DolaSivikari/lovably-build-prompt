@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { PageHero } from '@/components/sections/PageHero';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/ui/Button';
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Building2, Shield, Layers, Wind, CheckCircle2, ArrowRight } from 'lucide-react';

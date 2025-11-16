@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { CheckCircle2, Shield, Clock, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroHealthcare from "@/assets/heroes/hero-healthcare.jpg";

@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { supabase } from "@/integrations/supabase/client";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { FeaturedServicesGrid } from "@/components/services/FeaturedServicesGrid";
 import { ServiceCard3D } from "@/components/services/ServiceCard3D";
 import { CheckCircle2, Users, Building, Briefcase } from "lucide-react";
+import { Section } from "@/components/sections/Section";
+import { CTA_TEXT } from "@/design-system/constants";
 
 interface Service {
   id: string;
