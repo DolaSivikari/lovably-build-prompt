@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import {
   Accordion,
   AccordionContent,
@@ -306,7 +307,7 @@ const FAQ = () => {
         <div className="container mx-auto px-4">
           
           {/* Search Section */}
-          <div className="max-w-4xl mx-auto mb-12">
+          <div className="max-w-7xl mx-auto mb-12">
             <div className="relative mb-8">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
@@ -341,7 +342,8 @@ const FAQ = () => {
 
             {/* Category Overview */}
             {!searchQuery && (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+              <ScrollReveal direction="up">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
                 {faqCategories.map((cat, idx) => (
                   <Card key={idx} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => document.getElementById(`category-${idx}`)?.scrollIntoView({ behavior: 'smooth' })}>
                     <CardContent className="p-6 text-center">
@@ -352,11 +354,12 @@ const FAQ = () => {
                   </Card>
                 ))}
               </div>
+              </ScrollReveal>
             )}
           </div>
 
           {/* FAQ Categories */}
-          <div className="max-w-5xl mx-auto space-y-8">
+          <div className="max-w-7xl mx-auto space-y-8">
             {filteredFAQs.map((category, idx) => (
               <div key={idx} id={`category-${idx}`} className="scroll-mt-8">
                 <div className="flex items-center gap-3 mb-6">
@@ -406,7 +409,7 @@ const FAQ = () => {
           </div>
 
           {/* Contact CTA */}
-          <div className="mt-16 max-w-4xl mx-auto">
+          <div className="mt-16 max-w-7xl mx-auto">
             <Card className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground border-0">
               <CardContent className="p-12 text-center">
                 <Sparkles className="w-12 h-12 mx-auto mb-4 text-secondary" />

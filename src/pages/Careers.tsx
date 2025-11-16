@@ -8,6 +8,7 @@ import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { 
   Heart, 
   Award, 
@@ -124,7 +125,8 @@ const Careers = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <ScrollReveal direction="up">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {benefits.map((benefit, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
@@ -135,8 +137,9 @@ const Careers = () => {
                     <p className="text-muted-foreground">{benefit.description}</p>
                   </CardContent>
                 </Card>
-              ))}
+                ))}
             </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -150,7 +153,7 @@ const Careers = () => {
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="max-w-7xl mx-auto space-y-6">
               {openPositions.map((position, index) => (
                 <Card key={index} className="hover:shadow-lg transition-all hover:border-primary/30">
                   <CardContent className="p-6">
@@ -200,7 +203,7 @@ const Careers = () => {
         {/* Culture Section */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-7xl mx-auto">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <h2 className="text-4xl font-bold mb-6">Our Culture</h2>

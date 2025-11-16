@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { specialtyContractorComparison } from "@/data/specialty-contractor-comparison";
 import { 
   Building2, 
@@ -81,7 +82,7 @@ const WhySpecialtyContractor = () => {
 
       {/* Introduction Section */}
       <Section>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-center mb-8">{introduction.title}</h2>
           <div className="space-y-6 text-lg leading-relaxed">
             {introduction.content.map((paragraph, index) => (
@@ -93,7 +94,7 @@ const WhySpecialtyContractor = () => {
 
       {/* Comparison Table Section */}
       <Section>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="mb-4">{comparisonTable.title}</h2>
             <p className="text-xl text-muted-foreground">{comparisonTable.subtitle}</p>
@@ -160,13 +161,14 @@ const WhySpecialtyContractor = () => {
 
       {/* Scenarios Section */}
       <Section>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="mb-4">When You Need a Specialty Contractor</h2>
             <p className="text-xl text-muted-foreground">Project types that require specialized building envelope expertise</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ScrollReveal direction="up">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {scenarios.map((scenario, index) => {
               const IconComponent = iconMap[scenario.icon as keyof typeof iconMap];
               return (
@@ -190,12 +192,13 @@ const WhySpecialtyContractor = () => {
               );
             })}
           </div>
+          </ScrollReveal>
         </div>
       </Section>
 
       {/* Cost Breakdown Section */}
       <Section>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="mb-4">{costBreakdown.title}</h2>
             <p className="text-xl text-muted-foreground">{costBreakdown.subtitle}</p>
@@ -291,7 +294,7 @@ const WhySpecialtyContractor = () => {
 
       {/* Project Outcomes Section */}
       <Section>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="mb-4">Real Project Outcomes</h2>
             <p className="text-xl text-muted-foreground">Side-by-side comparison of actual projects</p>
@@ -360,7 +363,7 @@ const WhySpecialtyContractor = () => {
 
       {/* FAQ Section */}
       <Section>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-center mb-12">Frequently Asked Questions</h2>
           <div className="space-y-6">
             {faqs.map((faq, index) => (
@@ -375,7 +378,7 @@ const WhySpecialtyContractor = () => {
 
       {/* Testimonials Section */}
       <Section>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-center mb-12">What Our Clients Say</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
@@ -394,7 +397,7 @@ const WhySpecialtyContractor = () => {
 
       {/* Final CTA Section */}
       <Section>
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-7xl mx-auto text-center">
           <h2 className="mb-4">{finalCTA.title}</h2>
           <p className="text-xl text-muted-foreground mb-8">{finalCTA.description}</p>
           <div className="flex flex-wrap gap-4 justify-center">
