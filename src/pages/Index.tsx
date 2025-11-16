@@ -214,7 +214,6 @@ const Index = () => {
         
         {/* Social Proof */}
         <PrequalPackage />
-        <InsightsFeed limit={9} showFilters={true} showPinnedFirst={true} />
       </main>
         <Footer />
         <ExitIntentPopup />
