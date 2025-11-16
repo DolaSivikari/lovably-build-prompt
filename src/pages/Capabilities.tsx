@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { CTA_TEXT } from "@/design-system/constants";
