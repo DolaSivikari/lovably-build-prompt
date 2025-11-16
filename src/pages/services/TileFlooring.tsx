@@ -3,11 +3,13 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { PageHero } from '@/components/sections/PageHero';
-import { Button } from '@/components/ui/button';
-import { Card } from "@/components/ui/card";
+import { Button } from '@/ui/Button';
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { Ruler, Shield, Clock, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import heroImage from '@/assets/heroes/hero-tile-flooring.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const TileFlooring = () => {
   const stats = [
@@ -82,30 +84,28 @@ const TileFlooring = () => {
           Professional flooring solutions for commercial and multi-family projects
         </PageHero.Subtitle>
         <PageHero.Stats stats={stats} />
-        <PageHero.CTAs primaryText="Request Quote" primaryHref="/estimate" />
+        <PageHero.CTAs primaryText={CTA_TEXT.project} primaryHref="/estimate" />
       </PageHero.Root>
 
       <main className="flex-1">
         {/* What We Deliver Section */}
-        <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">What We Deliver</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Comprehensive tile and flooring installations backed by proper substrate preparation and warranty compliance
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {deliverables.map((item, index) => (
-                <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
-                  <item.icon className="h-12 w-12 mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </Card>
-              ))}
-            </div>
+        <Section size="major">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">What We Deliver</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Professional flooring installation services for commercial, institutional, and multi-family projects
+            </p>
           </div>
-        </section>
+          <div className="grid md:grid-cols-2 gap-8">
+            {deliverables.map((item, index) => (
+              <UnifiedCard key={index} variant="elevated">
+                <item.icon className="w-12 h-12 text-primary mb-4" />
+                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
+              </UnifiedCard>
+            ))}
+          </div>
+        </Section>
 
         {/* How We Work Section */}
         <section className="py-20">

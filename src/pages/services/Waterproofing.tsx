@@ -4,11 +4,13 @@ import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { PageHero } from '@/components/sections/PageHero';
 import { Button } from '@/ui/Button';
-import { Card } from "@/components/ui/card";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { Droplets, Shield, Building, Layers, CheckCircle2, ArrowRight } from 'lucide-react';
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-waterproofing.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const Waterproofing = () => {
   const serviceConfig = SERVICE_SCHEMAS["waterproofing"];
@@ -122,11 +124,11 @@ const Waterproofing = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {deliverables.map((item, index) => (
-              <Card key={index} className="p-8 hover:shadow-lg transition-shadow">
+              <UnifiedCard key={index} variant="elevated" className="p-8">
                 <item.icon className="w-12 h-12 text-primary mb-4" />
                 <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
-              </Card>
+              </UnifiedCard>
             ))}
           </div>
         </div>
@@ -183,13 +185,13 @@ const Waterproofing = () => {
               { title: 'Civic Plaza Deck', detail: 'Complete plaza waterproofing and landscaping, Mississauga' },
               { title: 'Hospital Parking Structure', detail: 'Traffic deck waterproofing system, Brampton' }
             ].map((project, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+              <UnifiedCard key={index} variant="elevated">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 <p className="text-muted-foreground mb-4">{project.detail}</p>
                 <Button variant="link" className="p-0 h-auto" asChild>
                   <Link to="/projects">View Project <ArrowRight className="w-4 h-4 ml-2" /></Link>
                 </Button>
-              </Card>
+              </UnifiedCard>
             ))}
           </div>
         </div>

@@ -3,11 +3,13 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { PageHero } from '@/components/sections/PageHero';
-import { Button } from '@/components/ui/button';
-import { Card } from "@/components/ui/card";
+import { Button } from '@/ui/Button';
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { Paintbrush, Building2, Home, Shield, CheckCircle2, Clock, ArrowRight } from 'lucide-react';
 import heroImage from '@/assets/heroes/hero-painting.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const PaintingServices = () => {
   const stats = [
@@ -113,7 +115,7 @@ const PaintingServices = () => {
           Professional painting for commercial, multi-family, and residential projects
         </PageHero.Subtitle>
         <PageHero.Stats stats={stats} />
-        <PageHero.CTAs primaryText="Request Quote" primaryHref="/estimate" />
+        <PageHero.CTAs primaryText={CTA_TEXT.project} primaryHref="/estimate" />
       </PageHero.Root>
 
       <main className="flex-1">
@@ -128,11 +130,11 @@ const PaintingServices = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {deliverables.map((item, index) => (
-                <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+                <UnifiedCard key={index} variant="elevated">
                   <item.icon className="h-12 w-12 mb-4 text-primary" />
                   <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>
-                </Card>
+                </UnifiedCard>
               ))}
             </div>
           </div>
@@ -149,7 +151,7 @@ const PaintingServices = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {projectTypes.map((project, index) => (
-                <Card key={index} className="p-6">
+                <UnifiedCard key={index} variant="base">
                   <h3 className="text-2xl font-bold mb-4">{project.type}</h3>
                   <ul className="space-y-3">
                     {project.features.map((feature, fIndex) => (
@@ -159,7 +161,7 @@ const PaintingServices = () => {
                       </li>
                     ))}
                   </ul>
-                </Card>
+                </UnifiedCard>
               ))}
             </div>
           </div>

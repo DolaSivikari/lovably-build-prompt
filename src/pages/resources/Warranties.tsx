@@ -1,8 +1,9 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
 import SEO from "@/components/SEO";
-import heroWarrantiesImage from "@/assets/heroes/hero-warranties.jpg";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { Section } from "@/components/sections/Section";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const Warranties = () => {
   return (
@@ -15,20 +16,23 @@ const Warranties = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-          <PageHeader
+          <UnifiedPageHero
             title="Warranties & Guarantees"
             description="Protecting your investment with comprehensive coverage"
-            backgroundImage={heroWarrantiesImage}
+            primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
+            breadcrumbs={[
+              { label: "Home", href: "/" },
+              { label: "Resources", href: "/resources" },
+              { label: "Warranties" }
+            ]}
           />
-          <section className="py-16">
-            <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto text-center">
-                <p className="text-lg text-muted-foreground mb-8">
-                  We stand behind every project with industry-leading warranties. Contact us to learn more about our comprehensive guarantee programs.
-                </p>
-              </div>
+          <Section size="major" maxWidth="narrow">
+            <div className="text-center">
+              <p className="text-lg text-muted-foreground mb-8">
+                We stand behind every project with industry-leading warranties. Contact us to learn more about our comprehensive guarantee programs.
+              </p>
             </div>
-          </section>
+          </Section>
         </main>
         <Footer />
       </div>
