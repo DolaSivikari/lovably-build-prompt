@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/ui/Button";
-import { Card } from "@/components/ui/card";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -419,7 +419,7 @@ Add-ons:
             </div>
 
             {/* Enhanced Step Content */}
-            <Card className="p-6 md:p-8 mb-6 border-2 hover:border-primary/20 transition-all shadow-lg animate-fade-in-up">
+            <UnifiedCard variant="elevated" className="mb-6 animate-fade-in-up">
               {currentStep === 0 && (<EstimatorStep0 data={{ quoteType: formData.quoteType, company: formData.company, role: formData.role, nteBudget: formData.nteBudget, scopeCategories: formData.scopeCategories }} onChange={handleInputChange} />)}
               {currentStep === 1 && (<EstimatorStep1 data={{ service: formData.service, sqft: formData.sqft, stories: formData.stories }} onChange={handleInputChange} />)}
               {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
@@ -427,7 +427,7 @@ Add-ons:
               {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
               {currentStep === 5 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
               {currentStep === 6 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
-            </Card>
+            </UnifiedCard>
 
             {/* Navigation Buttons */}
             <div className="flex justify-between gap-4">

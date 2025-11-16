@@ -22,6 +22,7 @@ import {
   Factory
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const About = () => {
   const services = [
@@ -195,26 +196,28 @@ const About = () => {
           {clientTypes.map((client, index) => {
             const IconComponent = client.icon;
             return (
-              <UnifiedCard key={index} variant="interactive">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 bg-primary/10 rounded-lg">
-                    <IconComponent className="w-6 h-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl md:text-2xl font-semibold">{client.title}</h3>
-                      <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                        client.priority === 'Primary' ? 'bg-primary/20 text-primary' :
-                        client.priority === 'Secondary' ? 'bg-secondary/20 text-secondary-foreground' :
-                        'bg-muted text-muted-foreground'
-                      }`}>
-                        {client.priority}
-                      </span>
+              <ScrollReveal key={index} direction="up" delay={index * 100}>
+                <UnifiedCard variant="interactive" className="hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <IconComponent className="w-6 h-6 text-primary" />
                     </div>
-                    <p className="text-muted-foreground">{client.description}</p>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-xl md:text-2xl font-semibold">{client.title}</h3>
+                        <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
+                          client.priority === 'Primary' ? 'bg-primary/20 text-primary' :
+                          client.priority === 'Secondary' ? 'bg-secondary/20 text-secondary-foreground' :
+                          'bg-muted text-muted-foreground'
+                        }`}>
+                          {client.priority}
+                        </span>
+                      </div>
+                      <p className="text-muted-foreground">{client.description}</p>
+                    </div>
                   </div>
-                </div>
-              </UnifiedCard>
+                </UnifiedCard>
+              </ScrollReveal>
             );
           })}
         </div>

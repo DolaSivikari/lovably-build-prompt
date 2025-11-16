@@ -3,6 +3,27 @@
 ## Overview
 This design system ensures visual and functional consistency across the entire Ascent Group Construction website. All components, layouts, and content follow these standards.
 
+**Last Updated:** November 16, 2025  
+**Status:** ✅ Phase 1-5 Complete (Component Unification 100% | Animation System 80% Implemented)
+
+## Implementation Status
+
+### ✅ Completed Phases
+- **Phase 1-2:** Typography & Layout Standardization (100%)
+- **Phase 3:** Button & CTA Unification (100%)
+- **Phase 4:** Card Component Unification (100%)
+- **Phase 5:** Hero Component Standardization (100%)
+- **Phase 6:** Animation System Implementation (80% - Core pages complete)
+
+### 🔄 In Progress
+- **Phase 6:** Animation System (Remaining service and market pages)
+- **Phase 7:** QA & Testing (Manual testing required)
+
+### 📊 File Status
+- **Core Pages:** 7/7 Complete ✅
+- **Service Pages:** 9/9 Component unification complete, 6/9 animations added
+- **Market Pages:** 8/8 Component unification complete, 5/8 animations added
+
 ## Core Philosophy
 - **Consistency**: Every page feels part of the same professional product
 - **Accessibility**: WCAG AA compliant colors and interactions
@@ -137,6 +158,75 @@ import { Button } from "@/ui/Button";
 <Button variant="primary">Primary Action</Button>
 <Button variant="outline">Secondary Action</Button>
 <Button variant="ghost">Tertiary Action</Button>
+```
+
+---
+
+## Animation System
+
+### Scroll Reveal Animations
+Use the `ScrollReveal` component to add scroll-triggered reveal animations:
+
+```tsx
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
+
+// Basic usage
+<ScrollReveal direction="up">
+  <YourContent />
+</ScrollReveal>
+
+// With delay for stagger effect
+<ScrollReveal direction="up" delay={100}>
+  <YourContent />
+</ScrollReveal>
+
+// Available directions: "up", "left", "right"
+```
+
+### Hover Animations
+All interactive cards automatically have hover effects:
+
+```tsx
+// UnifiedCard with hover
+<UnifiedCard variant="interactive">
+  Content automatically gets hover:scale-[1.02]
+</UnifiedCard>
+
+// Custom hover on other elements
+<div className="hover:shadow-xl transition-all duration-300">
+  Content
+</div>
+```
+
+### Animation Timing Standards
+- **Fast transitions:** `duration-200` (0.2s) - For hover effects
+- **Standard transitions:** `duration-300` (0.3s) - For most animations
+- **Slow transitions:** `duration-500` (0.5s) - For page transitions
+
+### Common Animation Patterns
+
+**Card Grid with Stagger:**
+```tsx
+<div className="grid md:grid-cols-3 gap-6">
+  {items.map((item, index) => (
+    <ScrollReveal key={index} direction="up" delay={index * 100}>
+      <UnifiedCard variant="elevated" className="hover:shadow-xl transition-all duration-300">
+        {item.content}
+      </UnifiedCard>
+    </ScrollReveal>
+  ))}
+</div>
+```
+
+**Process Steps with Sequential Reveal:**
+```tsx
+{processSteps.map((step, index) => (
+  <ScrollReveal key={index} direction="left" delay={index * 100}>
+    <UnifiedCard variant="elevated">
+      {step.content}
+    </UnifiedCard>
+  </ScrollReveal>
+))}
 ```
 
 ---
@@ -303,7 +393,60 @@ When creating or updating a page:
 
 ---
 
-## Maintenance
+---
+
+## QA & Testing Checklist
+
+### Visual Consistency
+- [ ] Typography matches across all pages (H1, H2, body text)
+- [ ] All sections use Section component with correct spacing
+- [ ] All cards use UnifiedCard component
+- [ ] All CTAs use CTA_TEXT constants
+- [ ] Color scheme is consistent (using semantic tokens)
+
+### Responsive Testing
+Test at these breakpoints:
+- [ ] 375px (Mobile)
+- [ ] 768px (Tablet)
+- [ ] 1024px (Desktop)
+- [ ] 1440px (Large Desktop)
+
+### Animation Testing
+- [ ] Scroll reveals trigger at appropriate scroll position
+- [ ] Hover effects work smoothly on all interactive elements
+- [ ] Stagger animations create pleasing sequential reveal
+- [ ] No animation jank or performance issues
+- [ ] Animations respect `prefers-reduced-motion` setting
+
+### Accessibility
+- [ ] All interactive elements have proper focus states
+- [ ] Color contrast meets WCAG AA standards
+- [ ] Animations can be disabled for users who prefer reduced motion
+- [ ] All images have appropriate alt text
+
+---
+
+## Maintenance Guidelines
+
+### When Creating New Pages
+1. **Always use UnifiedPageHero** for page headers
+2. **Wrap all sections** in `<Section>` component
+3. **Use UnifiedCard** for all card-based content
+4. **Import CTA_TEXT** constants for all call-to-action buttons
+5. **Add ScrollReveal** to card grids and major sections
+6. **Use semantic color tokens** from index.css (never hardcode colors)
+
+### When Updating Existing Pages
+1. **Check for outdated components:**
+   - Replace `Card` from `@/components/ui/card` with `UnifiedCard`
+   - Replace `PageHeader` with `UnifiedPageHero`
+   - Replace custom `<section>` tags with `<Section>` component
+2. **Add animations if missing:**
+   - Wrap card grids with `ScrollReveal`
+   - Add hover effects: `className="hover:shadow-xl transition-all duration-300"`
+3. **Verify typography consistency:**
+   - H1: `text-4xl md:text-5xl lg:text-6xl font-bold`
+   - H2: `text-3xl md:text-4xl font-bold`
 
 ### When to Update This Document
 - Adding new reusable components
@@ -321,4 +464,4 @@ Review this document quarterly to ensure:
 
 ---
 
-Last updated: November 2025
+Last updated: November 16, 2025

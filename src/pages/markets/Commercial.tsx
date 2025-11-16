@@ -8,6 +8,7 @@ import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const Commercial = () => {
   const challenges = [
@@ -91,13 +92,15 @@ const Commercial = () => {
               {solutions.map((solution, index) => {
                 const Icon = solution.icon;
                 return (
-                  <UnifiedCard key={index} variant="elevated">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
-                    <p className="text-muted-foreground">{solution.description}</p>
-                  </UnifiedCard>
+                  <ScrollReveal key={index} direction="up" delay={index * 100}>
+                    <UnifiedCard variant="elevated" className="hover:shadow-xl transition-all duration-300">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
+                      <p className="text-muted-foreground">{solution.description}</p>
+                    </UnifiedCard>
+                  </ScrollReveal>
                 );
               })}
             </div>

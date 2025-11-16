@@ -11,6 +11,7 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
 import heroImage from "@/assets/hero-building-envelope.jpg";
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const BuildingEnvelope = () => {
   const whatWeDeliver = [
@@ -156,13 +157,15 @@ const BuildingEnvelope = () => {
               {whatWeDeliver.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <UnifiedCard key={index} variant="elevated" className="p-6">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-bold mb-3">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
-                  </UnifiedCard>
+                  <ScrollReveal key={index} direction="up" delay={index * 100}>
+                    <UnifiedCard variant="elevated" className="p-6 hover:shadow-xl transition-all duration-300">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                        <Icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-bold mb-3">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.description}</p>
+                    </UnifiedCard>
+                  </ScrollReveal>
                 );
               })}
             </div>
@@ -180,16 +183,18 @@ const BuildingEnvelope = () => {
                 </p>
               </div>
 
-              <UnifiedCard variant="base" className="p-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  {systemsWeInstall.map((system, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{system}</span>
-                    </div>
-                  ))}
-                </div>
-              </UnifiedCard>
+              <ScrollReveal direction="up">
+                <UnifiedCard variant="base" className="p-6 hover:shadow-xl transition-all duration-300">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {systemsWeInstall.map((system, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground">{system}</span>
+                      </div>
+                    ))}
+                  </div>
+                </UnifiedCard>
+              </ScrollReveal>
             </div>
           </div>
         </section>
