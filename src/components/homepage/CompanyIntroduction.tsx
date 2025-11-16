@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { organizationSchema } from "@/utils/structured-data";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import { SectionBadge } from "@/components/ui/SectionBadge";
+import { Section } from "@/components/sections/Section";
 
 export default function CompanyIntroduction() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal({ threshold: 0.2 });
@@ -22,15 +24,18 @@ export default function CompanyIntroduction() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <section className="py-16 md:py-24 bg-gradient-to-b from-background via-construction-orange/5 to-background relative overflow-hidden">
+      <Section 
+        size="major" 
+        className="bg-gradient-to-b from-background via-construction-orange/5 to-background relative overflow-hidden"
+      >
         {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div className="absolute inset-0 bg-[linear-gradient(30deg,transparent_24%,rgba(251,113,29,0.1)_25%,rgba(251,113,29,0.1)_26%,transparent_27%,transparent_74%,rgba(251,113,29,0.1)_75%,rgba(251,113,29,0.1)_76%,transparent_77%,transparent)] bg-[length:55px_96px]" />
         </div>
         
-        <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
+        <div className="relative z-10">
           
-          {/* Section Header - Enterprise Style */}
+          {/* Section Header */}
           <div 
             ref={headerRef}
             className={cn(
@@ -38,11 +43,18 @@ export default function CompanyIntroduction() {
               headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+            <SectionBadge 
+              icon={Building} 
+              text="About Ascent Group" 
+              className={cn(
+                "transition-all duration-700",
+                headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              )}
+            />
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
               Building Envelope & Restoration Specialists in Toronto (GTA)
             </h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-construction-orange to-construction-orange/50 mb-6 rounded-full"></div>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
               Lead contractor for envelope and exterior restoration—planning, self-performing, and delivering accountable results across the GTA and Golden Horseshoe.
             </p>
           </div>
@@ -51,24 +63,25 @@ export default function CompanyIntroduction() {
           <div 
             ref={contentRef}
             className={cn(
-              "mb-16 transition-all duration-700 delay-200",
+              "mb-16 transition-all duration-700",
               contentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
+            style={{ transitionDelay: '100ms' }}
           >
             <div className="grid lg:grid-cols-2 gap-8 mb-12">
               {/* Left column */}
               <div className="space-y-6">
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                   <span className="text-foreground font-semibold">Ascent Group Construction</span> protects buildings from water intrusion, façade deterioration, and structural wear. We act as the <span className="text-foreground font-semibold">lead contractor</span> for envelope and exterior restoration scopes—planning access and safety, self‑performing the core trades, and communicating clearly from <span className="text-foreground font-semibold">site walk to closeout</span>.
                 </p>
-                <p className="text-base text-muted-foreground leading-relaxed">
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                   <span className="text-foreground font-semibold">Envelope is our focus—this is all we do.</span> From assessment and scope development to submittals, sequencing, and turnover, we follow consultant/EOR details and manufacturer requirements.
                 </p>
               </div>
               
               {/* Right column */}
               <div className="space-y-6">
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                   We <span className="text-foreground font-semibold">self‑perform key trades</span>—sealants/caulking, EIFS & stucco, masonry repairs and tuckpointing, waterproofing & protective coatings, concrete and <span className="text-foreground font-semibold">parking‑garage rehabilitation</span>—coordinating trusted partners only when needed.
                 </p>
                 <p className="text-base text-muted-foreground leading-relaxed">
@@ -183,7 +196,7 @@ export default function CompanyIntroduction() {
           </div>
 
         </div>
-      </section>
+      </Section>
     </>
   );
 }
