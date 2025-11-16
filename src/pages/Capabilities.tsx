@@ -1,4 +1,4 @@
-import { Building2, Users, Hammer, TrendingUp } from "lucide-react";
+import { Building2, Users, Layers, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,22 +13,22 @@ import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 const Capabilities = () => {
   const deliveryMethods = [
     {
-      title: "General Contracting",
-      description: "Single-source accountability with fixed-price certainty",
+      title: "Specialty Contracting",
+      description: "Self-performed building envelope and interior systems",
       icon: Building2,
-      details: ["Lump sum contracts", "Stipulated price delivery", "Complete project management", "95% on-time completion rate"],
+      details: ["85% in-house execution", "Direct quality control", "No subcontractor markup", "Single-point accountability"],
     },
     {
-      title: "Construction Management",
-      description: "Professional CM services for complex projects",
+      title: "Design-Assist",
+      description: "Early contractor involvement during design",
       icon: Users,
-      details: ["CM-at-Risk", "Agency CM", "Cost control & schedule management", "Multi-trade coordination"],
+      details: ["Constructability review", "Value engineering", "Technical expertise", "Optimal project outcomes"],
     },
     {
-      title: "Design-Build",
-      description: "Integrated project delivery from concept to completion",
-      icon: Hammer,
-      details: ["Single-source responsibility", "Value engineering", "Faster timelines", "Reduced change orders"],
+      title: "Multi-Trade Integration",
+      description: "Coordinated execution of multiple specialty trades",
+      icon: Layers,
+      details: ["Masonry + EIFS + waterproofing", "Unified scheduling", "Seamless coordination", "Reduced project complexity"],
     },
   ];
 
@@ -65,7 +65,7 @@ const Capabilities = () => {
       
       <PageHeader
         title="Project Delivery Capabilities"
-        description="Comprehensive project delivery methods and self-perform trade expertise across Ontario. From general contracting to design-build, we deliver exceptional results."
+        description="Specialty contracting excellence: Building envelope restoration and interior systems delivered through self-performed trades and integrated multi-trade execution across Ontario."
         backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
