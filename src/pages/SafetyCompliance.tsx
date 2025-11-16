@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
+import heroImage from "@/assets/heroes/hero-certifications.jpg";
 
 const SafetyCompliance = () => {
   const safetyMetrics = [
@@ -44,6 +45,7 @@ const SafetyCompliance = () => {
       <PageHeader
         title="Safety & Compliance"
         description="Industry-leading safety standards and comprehensive compliance programs"
+        backgroundImage={heroImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Safety & Compliance" }

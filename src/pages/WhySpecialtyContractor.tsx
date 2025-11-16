@@ -24,6 +24,7 @@ import {
   TrendingUp
 } from "lucide-react";
 import { generateFAQSchema } from "@/utils/faq-schema";
+import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 
 const iconMap = {
   Building2,
@@ -72,6 +73,7 @@ const WhySpecialtyContractor = () => {
       <PageHeader
         title={hero.title}
         description={hero.subtitle}
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.contact, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

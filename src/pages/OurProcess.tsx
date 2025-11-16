@@ -24,6 +24,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import AnimatedProcessTimeline from "@/components/timeline/AnimatedProcessTimeline";
+import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 
 const processSteps = [
   {
@@ -280,6 +281,7 @@ const OurProcess = () => {
         eyebrow="Our Process"
         title="4 Steps to Exceptional Results"
         description="Our proven process ensures quality, transparency, and complete satisfaction from initial consultation to final warranty"
+        backgroundImage={heroImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "How We Work" }

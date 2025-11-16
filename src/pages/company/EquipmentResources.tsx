@@ -77,6 +77,11 @@ const EquipmentResources = () => {
           title="Equipment & Resources"
           description="Industrial-Grade Tools for Projects of Any Scale"
           backgroundImage={heroEquipmentImage}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Company" },
+            { label: "Equipment & Resources" }
+          ]}
         />
 
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">

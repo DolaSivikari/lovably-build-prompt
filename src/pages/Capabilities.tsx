@@ -8,6 +8,7 @@ import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 
 const Capabilities = () => {
   const deliveryMethods = [
@@ -70,6 +71,7 @@ const Capabilities = () => {
       <PageHeader
         title="Project Delivery Capabilities"
         description="Comprehensive project delivery methods and self-perform trade expertise across Ontario. From general contracting to design-build, we deliver exceptional results."
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import heroImage from "@/assets/heroes/hero-about-company.jpg";
 
 const About = () => {
   const services = [
@@ -125,6 +126,7 @@ const About = () => {
       <PageHeader
         title="Building Envelope & Restoration Specialists"
         description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.contact, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

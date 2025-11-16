@@ -9,6 +9,7 @@ import { trackOutboundLink } from "@/lib/analytics";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import heroImage from "@/assets/heroes/hero-about-company.jpg";
 
 const reviewPlatforms = [
   {
@@ -96,6 +97,7 @@ const Reviews = () => {
         <PageHeader
           title="Share Your Experience"
           description="We'd love to hear about your project! Your review helps other property owners make confident decisions."
+          backgroundImage={heroImage}
         />
 
         <section className="py-16">

@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import heroImage from "@/assets/heroes/hero-certifications.jpg";
 
 interface Document {
   id: string;
@@ -220,6 +221,7 @@ const Prequalification = () => {
       <PageHeader
         title="Contractor Pre-Qualification Portal"
         description="Comprehensive contractor pre-qualification package with instant document access"
+        backgroundImage={heroImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Pre-Qualification" }

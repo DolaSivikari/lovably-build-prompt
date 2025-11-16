@@ -9,6 +9,7 @@ import NewsletterSection from "@/components/blog/NewsletterSection";
 import { Button } from "@/ui/Button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
+import heroImage from "@/assets/heroes/hero-about-company.jpg";
 
 interface BlogPost {
   id: string;
@@ -104,6 +105,7 @@ const Blog = () => {
         <PageHeader
           title="Blog & Case Studies"
           description="Expert insights, success stories, and real-world projects from industry professionals"
+          backgroundImage={heroImage}
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Blog & Case Studies" }

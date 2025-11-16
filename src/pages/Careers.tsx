@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import heroImage from "@/assets/heroes/hero-team.jpg";
 import { 
-  Heart, 
+  Heart,
   Award, 
   HardHat, 
   GraduationCap,
@@ -106,6 +107,7 @@ const Careers = () => {
       <PageHeader
         title="Join Our Team"
         description="Build your career with a company that values quality, safety, and professional growth across the Greater Toronto Area."
+        backgroundImage={heroImage}
         cta={{ label: "View Open Positions", href: "#open-positions" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

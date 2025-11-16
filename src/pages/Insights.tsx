@@ -3,6 +3,8 @@ import Footer from "@/components/Footer";
 import InsightsFeed from "@/components/insights/InsightsFeed";
 import SEO from "@/components/SEO";
 import SkipLink from "@/components/SkipLink";
+import PageHeader from "@/components/PageHeader";
+import heroImage from "@/assets/heroes/hero-about-company.jpg";
 
 const Insights = () => {
   return (
@@ -17,16 +19,17 @@ const Insights = () => {
       <Navigation />
       
       <main id="main-content">
-        {/* Hero Section */}
-        <section className="py-20 md:py-24 bg-background border-b">
-          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-              Industry Insights
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Stay informed with expert analysis, project updates, and construction industry trends from our team of professionals.
-            </p>
-          </div>
+        {/* Hero Section with PageHeader */}
+        <section>
+          <PageHeader
+            title="Industry Insights"
+            description="Stay informed with expert analysis, project updates, and construction industry trends from our team of professionals."
+            backgroundImage={heroImage}
+            breadcrumbs={[
+              { label: 'Home', href: '/' },
+              { label: 'Insights' }
+            ]}
+          />
         </section>
 
         {/* Insights Feed */}
