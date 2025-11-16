@@ -3,11 +3,12 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
 import heroServiceAreasImage from "@/assets/heroes/hero-service-areas.jpg";
 import { Link } from "react-router-dom";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const ServiceAreas = () => {
   const regions = [
@@ -205,7 +206,7 @@ const ServiceAreas = () => {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link to="/contact">Request Proposal</Link>
+                <Link to="/contact">{CTA_TEXT.project}</Link>
               </Button>
             </div>
           </section>

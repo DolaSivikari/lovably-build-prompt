@@ -13,6 +13,7 @@ import { Phone, CheckCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { sanitizeAndValidate } from "@/utils/sanitize";
 import QuickFacts from "@/components/seo/QuickFacts";
+import { CTA_TEXT } from "@/design-system/constants";
 import PeopleAlsoAsk from "@/components/seo/PeopleAlsoAsk";
 import ServiceAreaSection from "@/components/seo/ServiceAreaSection";
 import DirectAnswer from "@/components/seo/DirectAnswer";
@@ -387,7 +388,7 @@ const ServiceDetail = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="secondary" asChild>
                   <Link to="/estimate">
-                    Request Proposal
+                    {CTA_TEXT.project}
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))] hover:text-[hsl(var(--brand-primary))]" asChild>

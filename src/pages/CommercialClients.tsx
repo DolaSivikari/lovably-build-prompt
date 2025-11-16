@@ -7,6 +7,7 @@ import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const CommercialClients = () => {
   const benefits = [
@@ -162,7 +163,7 @@ const CommercialClients = () => {
         <CTASection
           title="Ready to Elevate Your Facility?"
           description="Get a comprehensive commercial quote with flexible scheduling options"
-          primaryCTA={{ label: "Get Commercial Quote", href: "/estimate" }}
+          primaryCTA={{ label: CTA_TEXT.primary, href: "/estimate" }}
           secondaryCTA={{ label: "Schedule Consultation", href: "/contact" }}
         />
       </main>

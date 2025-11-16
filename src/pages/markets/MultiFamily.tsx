@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import heroMultiFamily from "@/assets/heroes/hero-multi-family.jpg";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const MultiFamily = () => {
   const challenges = [
@@ -169,7 +170,7 @@ const MultiFamily = () => {
               <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="gap-2">
                   <Link to="/submit-rfp">
-                    Request Proposal
+                    {CTA_TEXT.project}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>

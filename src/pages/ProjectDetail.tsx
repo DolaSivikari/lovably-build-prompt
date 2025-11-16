@@ -13,6 +13,7 @@ import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProcessTimelineStep from "@/components/ProcessTimelineStep";
 import { ProjectSidebar } from "@/components/ProjectSidebar";
 import { InteractiveLightbox } from "@/components/InteractiveLightbox";
+import { CTA_TEXT } from "@/design-system/constants";
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
 import { ArrowRight, ChevronRight } from "lucide-react";
@@ -569,7 +570,7 @@ export default function ProjectDetail() {
                   onClick={() => navigate("/estimate")}
                   className="group"
                 >
-                  Request Free Estimate
+                  {CTA_TEXT.primary}
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 <Button 
