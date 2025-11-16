@@ -49,11 +49,11 @@ const Commercial = () => {
         title="Commercial Construction"
         description="Expert delivery of office buildings, tenant improvements, and retail spaces"
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Markets", path: "/markets" },
-          { name: "Commercial" }
+          { label: "Home", href: "/" },
+          { label: "Markets", href: "/markets" },
+          { label: "Commercial" }
         ]}
-        cta={{ text: CTA_TEXT.project, href: "/estimate" }}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       <main className="py-16">

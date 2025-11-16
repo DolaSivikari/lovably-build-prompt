@@ -76,11 +76,11 @@ const Retail = () => {
           title="Building Better Shopping Experiences"
           description="Expert retail construction and renovation services with fast-track delivery and minimal business disruption"
           breadcrumbs={[
-            { name: "Home", path: "/" },
-            { name: "Markets", path: "/markets/commercial" },
-            { name: "Retail" }
+            { label: "Home", href: "/" },
+            { label: "Markets", href: "/markets/commercial" },
+            { label: "Retail" }
           ]}
-          cta={{ text: CTA_TEXT.primary, href: "/estimate" }}
+          cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
         />
 
           <Section size="major">

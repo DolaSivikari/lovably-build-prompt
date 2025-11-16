@@ -71,10 +71,10 @@ const Capabilities = () => {
         title="Project Delivery Capabilities"
         description="Comprehensive project delivery methods and self-perform trade expertise across Ontario. From general contracting to design-build, we deliver exceptional results."
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Capabilities" }
+          { label: "Home", href: "/" },
+          { label: "Capabilities" }
         ]}
-        cta={{ text: CTA_TEXT.primary, href: "/contact" }}
+        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
       />
 
       <main className="py-16">

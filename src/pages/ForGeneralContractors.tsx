@@ -97,10 +97,10 @@ const ForGeneralContractors = () => {
         title="Trade Partner for Envelope & Interior Work"
         description="Reliable, self-performed specialty trades for GCs executing commercial, multi-family, and institutional projects"
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "For General Contractors" }
+          { label: "Home", href: "/" },
+          { label: "For General Contractors" }
         ]}
-        cta={{ text: CTA_TEXT.gc, href: "#contact" }}
+        cta={{ label: CTA_TEXT.gc, href: "#contact" }}
       />
       
       <main className="min-h-screen bg-background">

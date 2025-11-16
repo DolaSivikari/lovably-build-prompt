@@ -75,11 +75,11 @@ const Hospitality = () => {
             title="Crafting Memorable Guest Experiences"
             description="Expert construction and renovation services for hotels, resorts, and restaurants with guest-focused scheduling and premium execution"
             breadcrumbs={[
-              { name: "Home", path: "/" },
-              { name: "Markets", path: "/markets/commercial" },
-              { name: "Hospitality" }
+              { label: "Home", href: "/" },
+              { label: "Markets", href: "/markets/commercial" },
+              { label: "Hospitality" }
             ]}
-            cta={{ text: CTA_TEXT.primary, href: "/contact" }}
+            cta={{ label: CTA_TEXT.primary, href: "/contact" }}
           />
 
           {/* Value Propositions */}

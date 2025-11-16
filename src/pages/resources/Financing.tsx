@@ -20,11 +20,11 @@ const Financing = () => {
             title="Financing Options"
             description="Flexible payment solutions for your construction project"
             breadcrumbs={[
-              { name: "Home", path: "/" },
-              { name: "Resources", path: "/resources" },
-              { name: "Financing" }
+              { label: "Home", href: "/" },
+              { label: "Resources", href: "/resources" },
+              { label: "Financing" }
             ]}
-            cta={{ text: CTA_TEXT.contact, href: "/contact" }}
+            cta={{ label: CTA_TEXT.contact, href: "/contact" }}
           />
           <Section size="major" maxWidth="narrow">
             <div className="text-center">

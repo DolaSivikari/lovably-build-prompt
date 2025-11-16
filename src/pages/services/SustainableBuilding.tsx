@@ -94,15 +94,15 @@ const SustainableBuilding = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
-        title="Sustainable Building Solutions"
-        description="LEED certification, energy-efficient envelope systems, and green building expertise"
-        primaryCTA={{ text: "Request Consultation", href: "/estimate" }}
+      <PageHeader
+        title="Sustainable Building & LEED Certification"
+        description="Green construction services with comprehensive LEED support and energy-efficient systems"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
-          { label: 'Sustainable Building', href: '/services/sustainable-construction' }
+          { label: 'Sustainable Building' }
         ]}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       <main className="flex-1">

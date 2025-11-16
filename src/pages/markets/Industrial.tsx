@@ -49,11 +49,11 @@ const Industrial = () => {
         title="Industrial Construction"
         description="Specialized expertise in warehouses, manufacturing facilities, and industrial buildings"
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Markets", path: "/markets/commercial" },
-          { name: "Industrial" }
+          { label: "Home", href: "/" },
+          { label: "Markets", href: "/markets/commercial" },
+          { label: "Industrial" }
         ]}
-        cta={{ text: CTA_TEXT.primary, href: "/contact" }}
+        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
       />
 
       <main>

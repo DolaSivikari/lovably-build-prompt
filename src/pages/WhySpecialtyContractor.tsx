@@ -73,10 +73,10 @@ const WhySpecialtyContractor = () => {
         title={hero.title}
         description={hero.subtitle}
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Why Specialty Contractor" }
+          { label: "Home", href: "/" },
+          { label: "Why Specialty Contractor" }
         ]}
-        cta={{ text: CTA_TEXT.contact, href: "/contact" }}
+        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
       />
 
       {/* Introduction Section */}

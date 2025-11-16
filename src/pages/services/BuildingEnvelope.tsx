@@ -130,16 +130,15 @@ const BuildingEnvelope = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
-        title="Building Envelope"
-        description="Durable, energy-efficient building performance through expert envelope systems"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-        secondaryCTA={{ text: "View Envelope Projects", href: "/projects?type=envelope" }}
+      <PageHeader
+        title="Building Envelope Systems"
+        description="Complete exterior envelope solutions protecting your building investment"
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Services", href: "/services" },
-          { label: "Building Envelope" }
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Building Envelope' }
         ]}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       <main>

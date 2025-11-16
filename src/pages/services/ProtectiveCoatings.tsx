@@ -102,16 +102,15 @@ const ProtectiveCoatings = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
-        title="Protective & Architectural Coatings"
-        description="High-performance coating systems protecting and beautifying commercial, industrial, and institutional surfaces"
-        primaryCTA={{ text: CTA_TEXT.project, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+      <PageHeader
+        title="Protective Coatings"
+        description="Industrial-grade and architectural coating systems for extreme environments"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
-          { label: "Protective & Architectural Coatings" }
+          { label: "Protective Coatings" }
         ]}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       <main>

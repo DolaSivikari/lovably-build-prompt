@@ -49,11 +49,11 @@ const Institutional = () => {
         title="Institutional Construction"
         description="Trusted partner for schools, healthcare facilities, and government buildings"
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Markets", path: "/markets/commercial" },
-          { name: "Institutional" }
+          { label: "Home", href: "/" },
+          { label: "Markets", href: "/markets/commercial" },
+          { label: "Institutional" }
         ]}
-        cta={{ text: CTA_TEXT.primary, href: "/contact" }}
+        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
       />
 
       <main>

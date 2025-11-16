@@ -94,16 +94,15 @@ const Waterproofing = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Waterproofing Systems"
-        description="Comprehensive waterproofing solutions protecting your investment from foundation to roof"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/estimate" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        description="Comprehensive waterproofing solutions protecting your building from moisture damage"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Waterproofing' }
         ]}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       {/* What We Deliver */}

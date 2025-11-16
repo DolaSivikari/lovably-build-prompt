@@ -49,11 +49,11 @@ const MultiFamily = () => {
         title="Multi-Family Residential Construction"
         description="Specialized expertise in condos, apartments, and multi-unit residential buildings"
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Markets", path: "/markets/commercial" },
-          { name: "Multi-Family" }
+          { label: "Home", href: "/" },
+          { label: "Markets", href: "/markets/commercial" },
+          { label: "Multi-Family" }
         ]}
-        cta={{ text: CTA_TEXT.primary, href: "/contact" }}
+        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
       />
 
       <main>

@@ -90,16 +90,15 @@ const InteriorBuildouts = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Interior Buildouts & Finishing"
-        description="Complete interior construction from tenant improvements to precision finishing"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        description="Professional interior construction from base building to turnkey occupancy"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Interior Buildouts' }
         ]}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       {/* What We Deliver */}

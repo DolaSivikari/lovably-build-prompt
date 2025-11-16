@@ -76,11 +76,11 @@ const Education = () => {
           title="Transforming Learning Environments"
           description="Expert construction and renovation services for K-12 schools, colleges, and universities with strategic scheduling and student-first safety"
           breadcrumbs={[
-            { name: "Home", path: "/" },
-            { name: "Markets", path: "/markets/commercial" },
-            { name: "Education" }
+            { label: "Home", href: "/" },
+            { label: "Markets", href: "/markets/commercial" },
+            { label: "Education" }
           ]}
-          cta={{ text: CTA_TEXT.primary, href: "/estimate" }}
+          cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
         />
 
           <Section size="major">

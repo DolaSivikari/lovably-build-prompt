@@ -105,15 +105,15 @@ const PaintingServices = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Painting Services"
         description="Professional painting for commercial, multi-family, and residential projects"
-        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
-          { label: 'Painting Services', href: '/services/painting-services' }
+          { label: 'Painting' }
         ]}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       <main className="flex-1">

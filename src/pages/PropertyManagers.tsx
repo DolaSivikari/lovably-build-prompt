@@ -74,10 +74,10 @@ const PropertyManagers = () => {
         title="Your Trusted Property Maintenance Partner"
         description="Maximize property value and tenant satisfaction with our specialized multi-unit construction and restoration services. We understand the unique challenges of property management."
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Property Managers" }
+          { label: "Home", href: "/" },
+          { label: "Property Managers" }
         ]}
-        cta={{ text: CTA_TEXT.project, href: "/estimate" }}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
       
       <main>

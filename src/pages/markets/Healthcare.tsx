@@ -75,11 +75,11 @@ const Healthcare = () => {
             title="Building Healing Environments"
             description="Expert construction services for hospitals, clinics, and care facilities with uncompromising infection control and zero-disruption protocols"
             breadcrumbs={[
-              { name: "Home", path: "/" },
-              { name: "Markets", path: "/markets/commercial" },
-              { name: "Healthcare" }
+              { label: "Home", href: "/" },
+              { label: "Markets", href: "/markets/commercial" },
+              { label: "Healthcare" }
             ]}
-            cta={{ text: CTA_TEXT.primary, href: "/contact" }}
+            cta={{ label: CTA_TEXT.primary, href: "/contact" }}
           />
 
           {/* Value Propositions */}

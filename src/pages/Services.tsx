@@ -82,10 +82,10 @@ const Services = () => {
         title="Our Services"
         description="Ontario's specialty contractor for building envelope & restoration. Self-performed work across commercial, multi-family, and institutional projects."
         breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Services" }
+          { label: "Home", href: "/" },
+          { label: "Services" }
         ]}
-        cta={{ text: CTA_TEXT.primary, href: "/estimate" }}
+        cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
       />
 
       <main className="flex-1 relative">

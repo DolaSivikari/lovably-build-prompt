@@ -20,11 +20,11 @@ const Warranties = () => {
             title="Warranties & Guarantees"
             description="Protecting your investment with comprehensive coverage"
             breadcrumbs={[
-              { name: "Home", path: "/" },
-              { name: "Resources", path: "/resources" },
-              { name: "Warranties" }
+              { label: "Home", href: "/" },
+              { label: "Resources", href: "/resources" },
+              { label: "Warranties" }
             ]}
-            cta={{ text: CTA_TEXT.contact, href: "/contact" }}
+            cta={{ label: CTA_TEXT.contact, href: "/contact" }}
           />
           <Section size="major" maxWidth="narrow">
             <div className="text-center">
