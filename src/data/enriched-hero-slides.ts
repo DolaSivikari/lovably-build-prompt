@@ -1,6 +1,6 @@
 // Import video and poster assets
-import buildingVideo from "@/assets/videos/building-facade.mp4";
-import buildingPoster from "@/assets/videos/building-facade-poster.jpg";
+import buildingVideo from "@/assets/hero-clipchamp.mp4";
+import buildingPoster from "@/assets/hero-building-envelope.jpg";
 
 export const enrichedHeroSlides = [
   {
