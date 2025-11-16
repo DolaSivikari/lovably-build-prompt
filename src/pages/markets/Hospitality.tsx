@@ -1,12 +1,13 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
-import { Card, CardContent } from "@/components/ui/card";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { Section } from "@/components/sections/Section";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
 import { CheckCircle2, Bed, Clock, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroHospitality from "@/assets/heroes/hero-hospitality.jpg";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const Hospitality = () => {
   const valuePropositions = [
@@ -69,40 +70,33 @@ const Hospitality = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-          <PageHeader
-            eyebrow="Hospitality Market"
+          <UnifiedPageHero
             title="Crafting Memorable Guest Experiences"
             description="Expert construction and renovation services for hotels, resorts, and restaurants with guest-focused scheduling and premium execution"
+            primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
+            secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
             breadcrumbs={[
               { label: "Home", href: "/" },
               { label: "Markets", href: "/markets/commercial" },
               { label: "Hospitality" }
             ]}
-            variant="standard"
-            backgroundImage={heroHospitality}
           />
 
           {/* Value Propositions */}
-          <section className="py-16 bg-background">
-            <div className="container mx-auto px-4">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-4xl font-bold text-center mb-12">Why Hospitality Brands Choose Ascent</h2>
-                <div className="grid md:grid-cols-3 gap-8">
-                  {valuePropositions.map((prop, index) => (
-                    <Card key={index} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-8 text-center">
-                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <prop.icon className="w-8 h-8 text-primary" />
-                        </div>
-                        <h3 className="text-xl font-bold mb-3">{prop.title}</h3>
-                        <p className="text-muted-foreground">{prop.description}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+          <Section size="major">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Why Hospitality Brands Choose Ascent</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {valuePropositions.map((prop, index) => (
+                <UnifiedCard key={index} variant="elevated" className="text-center">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                    <prop.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">{prop.title}</h3>
+                  <p className="text-muted-foreground">{prop.description}</p>
+                </UnifiedCard>
+              ))}
             </div>
-          </section>
+          </Section>
 
           {/* Hospitality Projects Gallery */}
           <section className="py-16 bg-muted/30">

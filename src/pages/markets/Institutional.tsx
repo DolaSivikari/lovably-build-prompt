@@ -1,12 +1,12 @@
-import { School, Shield, Users, CheckCircle2, ArrowRight } from "lucide-react";
+import { School, Shield, Users, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { Section } from "@/components/sections/Section";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
-import heroInstitutional from "@/assets/heroes/hero-institutional.jpg";
 import { CTA_TEXT } from "@/design-system/constants";
 
 const Institutional = () => {
@@ -44,14 +44,19 @@ const Institutional = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <UnifiedPageHero
         title="Institutional Construction"
         description="Trusted partner for schools, healthcare facilities, and government buildings"
-        backgroundImage={heroInstitutional}
+        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Markets", href: "/markets/commercial" },
+          { label: "Institutional" }
+        ]}
       />
 
-      <main className="py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <main>
           {/* Sector Overview */}
           <section className="mb-16">
             <div className="prose prose-lg max-w-none">
@@ -160,33 +165,14 @@ const Institutional = () => {
           </section>
 
           {/* CTA */}
-          <section>
-            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Ready to Discuss Your Institutional Project?</CardTitle>
-                <CardDescription>Let's review your facility's needs and compliance requirements</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="gap-2">
-                  <Link to="/contact">
-                    {CTA_TEXT.project}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline">
-                  <Link to="/projects?client_type=Institutional">
-                    View Institutional Projects
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </section>
-        </div>
-      </main>
-
-      <Footer />
-    </div>
-  );
-};
+          {/* Already handled above in Services section - removed duplicate */}
+        </main>
+        
+        <Footer />
+      </div>
+    );
+  };
+  
+  export default Institutional;
 
 export default Institutional;

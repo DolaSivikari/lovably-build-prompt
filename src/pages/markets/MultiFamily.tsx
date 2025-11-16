@@ -1,12 +1,12 @@
-import { Building2, Users, TrendingUp, CheckCircle2, ArrowRight } from "lucide-react";
+import { Building2, Users, TrendingUp, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { Section } from "@/components/sections/Section";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
-import heroMultiFamily from "@/assets/heroes/hero-multi-family.jpg";
 import { CTA_TEXT } from "@/design-system/constants";
 
 const MultiFamily = () => {
@@ -44,14 +44,19 @@ const MultiFamily = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <UnifiedPageHero
         title="Multi-Family Residential Construction"
         description="Specialized expertise in condos, apartments, and multi-unit residential buildings"
-        backgroundImage={heroMultiFamily}
+        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Markets", href: "/markets/commercial" },
+          { label: "Multi-Family" }
+        ]}
       />
 
-      <main className="py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <main>
           {/* Sector Overview */}
           <section className="mb-16">
             <div className="prose prose-lg max-w-none">
@@ -161,33 +166,14 @@ const MultiFamily = () => {
           </section>
 
           {/* CTA */}
-          <section>
-            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Ready to Discuss Your Multi-Family Project?</CardTitle>
-                <CardDescription>Schedule a building assessment and receive a detailed proposal</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="gap-2">
-                  <Link to="/submit-rfp">
-                    {CTA_TEXT.project}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline">
-                  <Link to="/projects?client_type=Multi-Family">
-                    View Multi-Family Projects
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </section>
-        </div>
-      </main>
-
-      <Footer />
-    </div>
-  );
-};
+          {/* Already handled above in Services section - removed duplicate */}
+        </main>
+        
+        <Footer />
+      </div>
+    );
+  };
+  
+  export default MultiFamily;
 
 export default MultiFamily;
