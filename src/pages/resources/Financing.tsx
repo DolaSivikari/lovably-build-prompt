@@ -1,8 +1,9 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
 import SEO from "@/components/SEO";
-import heroFinancingImage from "@/assets/heroes/hero-financing.jpg";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { Section } from "@/components/sections/Section";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const Financing = () => {
   return (
@@ -15,20 +16,23 @@ const Financing = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-          <PageHeader
+          <UnifiedPageHero
             title="Financing Options"
             description="Flexible payment solutions for your construction project"
-            backgroundImage={heroFinancingImage}
+            primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
+            breadcrumbs={[
+              { label: "Home", href: "/" },
+              { label: "Resources", href: "/resources" },
+              { label: "Financing" }
+            ]}
           />
-          <section className="py-16">
-            <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto text-center">
-                <p className="text-lg text-muted-foreground mb-8">
-                  We offer flexible financing options to make your project more affordable. Contact us to discuss payment plans tailored to your needs.
-                </p>
-              </div>
+          <Section size="major" maxWidth="narrow">
+            <div className="text-center">
+              <p className="text-lg text-muted-foreground mb-8">
+                We offer flexible financing options to make your project more affordable. Contact us to discuss payment plans tailored to your needs.
+              </p>
             </div>
-          </section>
+          </Section>
         </main>
         <Footer />
       </div>
