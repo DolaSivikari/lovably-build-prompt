@@ -91,37 +91,22 @@ const ForGeneralContractors = () => {
         keywords="general contractor partner, trade subcontractor, envelope trades, GTA subcontractor, unit pricing, tender packages"
       />
       <Navigation />
-      <div className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="relative py-20 md:py-28 bg-background">
-          <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-            <Breadcrumb 
-              items={[
-                { label: "Home", href: "/" },
-                { label: "For General Contractors" }
-              ]} 
-            />
-            <div className="max-w-4xl mx-auto text-center mt-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-                Trade Partner for Envelope & Interior Work
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-                Your reliable subcontractor for building envelope and interior trade packages across Ontario
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild>
-                  <a href="#contact">Request Unit Pricing</a>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <a href="#trade-packages">View Trade Packages</a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+      
+      <UnifiedPageHero
+        title="Trade Partner for Envelope & Interior Work"
+        description="Reliable, self-performed specialty trades for GCs executing commercial, multi-family, and institutional projects"
+        primaryCTA={{ text: CTA_TEXT.gc, href: "#contact" }}
+        secondaryCTA={{ text: "View Trade Packages", href: "#trade-packages" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "For General Contractors" }
+        ]}
+      />
+      
+      <main className="min-h-screen bg-background">
 
         {/* Trade Packages Section */}
-        <Section id="trade-packages" size="major">
+        <Section size="major" className="scroll-mt-20" data-section="trade-packages">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Trade Packages We Execute
@@ -199,16 +184,14 @@ const ForGeneralContractors = () => {
         </Section>
 
         {/* Building Credentials Section */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-            <div className="max-w-3xl mx-auto">
-              <Card className="p-8 border-l-4 border-l-construction-orange">
-                <h2 className="text-2xl font-bold text-foreground mb-4">
-                  Building Our Credentials
-                </h2>
-                <p className="text-muted-foreground mb-6">
-                  Ascent Group was established in 2025 by construction professionals with 15+ years of industry experience. We're actively building our prequalification documentation and working toward full compliance:
-                </p>
+        <Section size="major" maxWidth="narrow" className="bg-muted/30">
+          <UnifiedCard variant="elevated" className="border-l-4 border-l-primary">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              Building Our Credentials
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              Ascent Group was established in 2025 by construction professionals with 15+ years of industry experience. We're actively building our prequalification documentation and working toward full compliance:
+            </p>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-5 h-5 text-green-500" />
@@ -235,69 +218,67 @@ const ForGeneralContractors = () => {
                     <span className="text-foreground">Site Safety Plans & Procedures</span>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground italic">
-                  We understand that prequalification requirements vary by GC and project size. We're transparent about where we are in our credentialing process and committed to meeting your specific requirements.
-                </p>
-              </Card>
-            </div>
-          </div>
-        </section>
+            <p className="text-sm text-muted-foreground italic">
+              We understand that prequalification requirements vary by GC and project size. We're transparent about where we are in our credentialing process and committed to meeting your specific requirements.
+            </p>
+          </UnifiedCard>
+        </Section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-16 bg-background">
-          <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Get Started
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Add us to your bidders list or request unit pricing on active tenders
+        <Section size="major" maxWidth="narrow" className="scroll-mt-20" data-section="contact">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Get Started
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground mb-8">
+              Add us to your bidders list or request unit pricing on active tenders
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <UnifiedCard variant="interactive" className="text-center">
+              <Download className="w-8 h-8 text-primary mx-auto mb-4" />
+              <h3 className="text-xl md:text-2xl font-semibold mb-2">Download Company Info</h3>
+              <p className="text-muted-foreground mb-4 text-sm">
+                Company profile, services list, and current credentials status
               </p>
+              <Button asChild className="w-full">
+                <Link to="/contact">Request Info Package</Link>
+              </Button>
+            </UnifiedCard>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <Card className="p-6 text-center">
-                  <Download className="w-8 h-8 text-construction-orange mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-foreground mb-2">Download Company Info</h3>
-                  <p className="text-muted-foreground mb-4 text-sm">
-                    Company profile, services list, and current credentials status
-                  </p>
-                  <Button asChild className="w-full">
-                    <Link to="/contact">Request Info Package</Link>
-                  </Button>
-                </Card>
+            <UnifiedCard variant="interactive" className="text-center">
+              <FileText className="w-8 h-8 text-primary mx-auto mb-4" />
+              <h3 className="text-xl md:text-2xl font-semibold mb-2">Request Unit Pricing</h3>
+              <p className="text-muted-foreground mb-4 text-sm">
+                Send us your tender package for competitive pricing
+              </p>
+              <Button asChild className="w-full">
+                <Link to="/contact">Submit Tender Request</Link>
+              </Button>
+            </UnifiedCard>
+          </div>
 
-                <Card className="p-6 text-center">
-                  <FileText className="w-8 h-8 text-construction-orange mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-foreground mb-2">Request Unit Pricing</h3>
-                  <p className="text-muted-foreground mb-4 text-sm">
-                    Send us your tender package for competitive pricing
-                  </p>
-                  <Button asChild className="w-full">
-                    <Link to="/contact">Submit Tender Request</Link>
-                  </Button>
-                </Card>
+          <div className="p-6 bg-muted/50 rounded-lg">
+            <p className="text-sm font-semibold mb-2">Contact for Tendering:</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                <a href="mailto:estimating@ascentgroupconstruction.com" className="hover:text-primary transition-colors">
+                  estimating@ascentgroupconstruction.com
+                </a>
               </div>
-
-              <div className="p-6 bg-muted/50 rounded-lg">
-                <p className="text-sm font-semibold text-foreground mb-2">Contact for Tendering:</p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4" />
-                    <a href="mailto:estimating@ascentgroupconstruction.com" className="hover:text-construction-orange transition-colors">
-                      estimating@ascentgroupconstruction.com
-                    </a>
-                  </div>
-                  <div className="hidden sm:block text-muted-foreground/50">|</div>
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4" />
-                    <span>Response Time: 48-72 hours</span>
-                  </div>
-                </div>
+              <div className="hidden sm:block text-muted-foreground/50">|</div>
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                <a href="tel:+14165555555" className="hover:text-primary transition-colors">
+                  (416) 555-5555
+                </a>
               </div>
             </div>
           </div>
-        </section>
-      </div>
+        </Section>
+      </main>
       <Footer />
     </>
   );
