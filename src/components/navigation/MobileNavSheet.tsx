@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Phone, Search, Users, Building, Wrench, Star, X, Home, Mail, FileText, Briefcase, Sparkles, ChevronRight, Clock, TrendingUp, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
+import { Phone, Search, Users, Building, Wrench, Star, X, Home, Mail, FileText, Briefcase, Sparkles, ChevronRight, Clock, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -28,7 +28,7 @@ import { SearchSuggestions } from "./SearchSuggestions";
 import { RecentlyViewed } from "./RecentlyViewed";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
 import { useNavigationHistory } from "@/hooks/useNavigationHistory";
-import { useRecommendations } from "@/hooks/useRecommendations";
+
 import { useSwipeGesture } from "@/hooks/useSwipeGesture";
 import { useScrollIndicator } from "@/hooks/useScrollIndicator";
 import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
@@ -48,7 +48,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const { searchQuery, setSearchQuery, filteredResults, isSearching, activeCategory, setActiveCategory } = useNavigationSearch();
   const { addRecentSearch } = useRecentSearches();
   const { trackNavigation, getRecentlyViewed } = useNavigationHistory();
-  const { recommendations } = useRecommendations();
+  
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
   const [showMoreServices, setShowMoreServices] = useState(false);
@@ -257,48 +257,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     </h4>
                   </div>
                   <RecentlyViewed items={recentlyViewed} onLinkClick={() => handleLinkClick()} />
-                </div>
-              )}
-
-              {/* Recommendations Section */}
-              {recommendations.length > 0 && (
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-3 px-2">
-                    <TrendingUp className="h-4 w-4 text-secondary" aria-hidden="true" />
-                    <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
-                      Recommended For You
-                    </h4>
-                  </div>
-                  <div className="space-y-1">
-                    {recommendations.map((item, index) => {
-                      const IconComponent = getIcon(NAVIGATION_ICONS[item.link] || "ChevronRight");
-                      const description = NAVIGATION_DESCRIPTIONS[item.link];
-                      
-                      return (
-                        <Link
-                          key={item.link}
-                          to={item.link}
-                          onClick={() => handleLinkClick(item.name, item.category)}
-                          onMouseDown={addRipple}
-                          className="group flex items-center gap-3 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm bg-background/50 backdrop-blur-sm border border-border/50 hover:border-secondary/30 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 touch-manipulation ripple relative overflow-hidden stagger-item"
-                        >
-                          <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
-                            <IconComponent className="h-4 w-4 text-secondary" aria-hidden="true" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="font-medium text-foreground">{item.name}</div>
-                            {description && (
-                              <div className="text-xs text-muted-foreground">{description}</div>
-                            )}
-                          </div>
-                          <Badge variant="secondary" className="text-xs">
-                            {item.category}
-                          </Badge>
-                          <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-                        </Link>
-                      );
-                    })}
-                  </div>
                 </div>
               )}
 
