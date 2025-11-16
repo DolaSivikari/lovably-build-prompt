@@ -4,17 +4,17 @@ import { cn } from "@/lib/utils";
 
 const quickFacts = [
   {
-    icon: Building2,
-    value: 500,
-    suffix: "+",
-    label: "Projects Completed",
-    color: "text-construction-orange",
-  },
-  {
     icon: Clock,
     value: 15,
     suffix: "+",
     label: "Years Experience",
+    color: "text-construction-orange",
+  },
+  {
+    icon: Building2,
+    value: 10,
+    suffix: "+",
+    label: "Projects Completed",
     color: "text-blue-500",
   },
   {
@@ -25,24 +25,24 @@ const quickFacts = [
     color: "text-green-500",
   },
   {
-    icon: Shield,
-    value: 100,
-    suffix: "%",
-    label: "COR Certified",
+    icon: Users,
+    value: 10,
+    suffix: "",
+    label: "Crew Members",
     color: "text-purple-500",
   },
   {
-    icon: Users,
-    value: 98,
+    icon: Shield,
+    value: 95,
     suffix: "%",
-    label: "Client Satisfaction",
+    label: "On-Time Delivery",
     color: "text-yellow-500",
   },
   {
     icon: Award,
-    value: 25,
-    suffix: " yr",
-    label: "Warranty Available",
+    value: 98,
+    suffix: "%",
+    label: "Client Satisfaction",
     color: "text-red-500",
   },
 ];
@@ -89,20 +89,23 @@ export const QuickFactsSidebar = () => {
           })}
         </div>
 
-        {/* Trust Seals */}
+        {/* Building Credentials */}
         <div className="mt-6 p-4 rounded-lg bg-gradient-to-br from-construction-orange/5 to-construction-orange/10 border border-construction-orange/20">
           <div className="text-xs font-semibold text-construction-orange mb-2">
-            VERIFIED CREDENTIALS
+            BUILDING OUR CREDENTIALS
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="px-2 py-1 text-xs rounded-md bg-background/80 border border-border">
-              BBB Accredited
+              Licensed Business
             </span>
             <span className="px-2 py-1 text-xs rounded-md bg-background/80 border border-border">
-              WSIB Compliant
+              10-Person Crew
             </span>
             <span className="px-2 py-1 text-xs rounded-md bg-background/80 border border-border">
-              $5M Liability
+              24/7 Emergency
+            </span>
+            <span className="px-2 py-1 text-xs rounded-md bg-background/80 border border-border">
+              WSIB In Progress
             </span>
           </div>
         </div>

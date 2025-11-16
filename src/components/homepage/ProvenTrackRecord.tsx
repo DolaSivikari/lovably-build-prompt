@@ -32,10 +32,24 @@ const ProvenTrackRecord = () => {
           {/* Static Overview Cards - Construction Context */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <div className="bg-card border-l-4 border-l-construction-orange rounded-r-lg p-6 shadow-md">
-              <Building className="text-construction-orange mb-3 h-6 w-6" />
-              <div className="text-4xl font-bold text-foreground mb-2">500+</div>
+              <Award className="text-construction-orange mb-3 h-6 w-6" />
+              <div className="text-4xl font-bold text-foreground mb-2">15+</div>
+              <div className="text-base font-semibold text-foreground/90 mb-1">Years Experience</div>
+              <div className="text-sm text-muted-foreground">Founder's Background</div>
+            </div>
+
+            <div className="bg-card border-l-4 border-l-steel-blue rounded-r-lg p-6 shadow-md">
+              <Building className="text-steel-blue mb-3 h-6 w-6" />
+              <div className="text-4xl font-bold text-foreground mb-2">10+</div>
               <div className="text-base font-semibold text-foreground/90 mb-1">Projects Completed</div>
-              <div className="text-sm text-muted-foreground">Since 2009</div>
+              <div className="text-sm text-muted-foreground">Since Launch</div>
+            </div>
+
+            <div className="bg-card border-l-4 border-l-construction-orange rounded-r-lg p-6 shadow-md">
+              <HardHat className="text-construction-orange mb-3 h-6 w-6" />
+              <div className="text-4xl font-bold text-foreground mb-2">85%</div>
+              <div className="text-base font-semibold text-foreground/90 mb-1">Self-Performed</div>
+              <div className="text-sm text-muted-foreground">10-Person Crew</div>
             </div>
 
             <div className="bg-card border-l-4 border-l-steel-blue rounded-r-lg p-6 shadow-md">
@@ -43,20 +57,6 @@ const ProvenTrackRecord = () => {
               <div className="text-4xl font-bold text-foreground mb-2">GTA</div>
               <div className="text-base font-semibold text-foreground/90 mb-1">Service Area</div>
               <div className="text-sm text-muted-foreground">Across Ontario</div>
-            </div>
-
-            <div className="bg-card border-l-4 border-l-construction-orange rounded-r-lg p-6 shadow-md">
-              <HardHat className="text-construction-orange mb-3 h-6 w-6" />
-              <div className="text-4xl font-bold text-foreground mb-2">85%</div>
-              <div className="text-base font-semibold text-foreground/90 mb-1">In-House Trades</div>
-              <div className="text-sm text-muted-foreground">Self-Performed</div>
-            </div>
-
-            <div className="bg-card border-l-4 border-l-steel-blue rounded-r-lg p-6 shadow-md">
-              <Award className="text-steel-blue mb-3 h-6 w-6" />
-              <div className="text-4xl font-bold text-foreground mb-2">15+</div>
-              <div className="text-base font-semibold text-foreground/90 mb-1">Years Experience</div>
-              <div className="text-sm text-muted-foreground">Established 2009</div>
             </div>
           </div>
         </div>

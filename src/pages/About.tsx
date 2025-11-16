@@ -174,20 +174,32 @@ const About = () => {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold mb-4 text-foreground">The Ascent Story</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  I founded Ascent Group Construction because I saw too many contractors making promises they couldn't 
-                  keep—overpromising on scope, underdelivering on quality, and leaving property managers and building 
-                  owners frustrated. I knew there was a better way: be honest about what you can do, deliver exactly 
-                  what you promise, and build your reputation one project at a time.
+                  I founded Ascent Group Construction in 2025 after spending 15+ years working in Ontario's construction industry. 
+                  I started by studying Construction Engineering Technology, then worked my way through the field—first as a Site 
+                  Coordinator with Madison Group and Aspenridge Homes on highrise residential projects, then as a trade subcontractor 
+                  handling envelope and interior work on various commercial and multi-family properties.
+                </p>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  Through those years, I learned what property managers and general contractors actually need from trade partners: 
+                  fast turnaround on quotes, reliable execution, clear communication, and professional documentation. I also saw too 
+                  many contractors overpromising and underdelivering—damaging relationships and leaving clients frustrated.
+                </p>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  That's why I started Ascent Group: to provide specialty trade services with professional accountability. We're not 
+                  trying to be the biggest contractor in Ontario—we're building our reputation by delivering exactly what we promise, 
+                  one project at a time. We have a 10-person self-performed crew, we execute 85% of our work in-house, and we're 
+                  actively working toward full WSIB clearance, COR certification, and bonding capacity.
                 </p>
                 <blockquote className="text-xl italic text-foreground/90 mb-4 border-l-2 border-primary/50 pl-6">
-                  "We're not trying to be the biggest contractor in Ontario—we're trying to be the most reliable. 
-                  Every scope we lead is treated like it's our own building: planned carefully, executed safely, 
-                  and finished right."
+                  "We're building Ascent Group the right way—professional systems, quality execution, and honest positioning. 
+                  Every project we complete moves us closer to becoming a full general contractor, but we're not there yet. 
+                  Right now, we're focused on being the most reliable envelope and interior trade specialist in the GTA."
                 </blockquote>
                 <div className="flex items-center gap-4 mt-6">
                   <div>
                     <p className="font-semibold text-primary text-lg">Hebun Isik</p>
-                    <p className="text-sm text-muted-foreground">Founder & Principal</p>
+                    <p className="text-sm text-muted-foreground">Founder & Principal, Ascent Group Construction</p>
+                    <p className="text-xs text-muted-foreground mt-1">Construction Engineering Technician | 15+ Years Industry Experience</p>
                   </div>
                 </div>
               </CardContent>

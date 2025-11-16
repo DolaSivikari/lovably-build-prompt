@@ -19,11 +19,11 @@ export const ServiceStats = ({ serviceCount }: ServiceStatsProps) => {
     {
       icon: CheckCircle,
       label: "Projects Completed",
-      value: "500+",
+      value: "10+",
     },
     {
       icon: Clock,
-      label: "Support",
+      label: "Emergency Response",
       value: "24/7",
     },
   ];
