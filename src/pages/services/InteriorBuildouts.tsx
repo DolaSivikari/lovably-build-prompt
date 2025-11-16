@@ -12,6 +12,7 @@ import { breadcrumbSchema } from '@/utils/structured-data';
 import heroImage from '@/assets/heroes/hero-tenant-improvements.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const InteriorBuildouts = () => {
   const serviceSchema = createServiceSchema({

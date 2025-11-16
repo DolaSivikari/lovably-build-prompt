@@ -9,6 +9,7 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { CheckCircle2, Users, Calendar, Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroEducation from "@/assets/heroes/hero-education.jpg";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const Education = () => {
   const valuePropositions = [

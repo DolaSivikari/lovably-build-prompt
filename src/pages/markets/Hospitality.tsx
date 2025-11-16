@@ -8,6 +8,7 @@ import { Button } from "@/ui/Button";
 import { CheckCircle2, Bed, Clock, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const Hospitality = () => {
   const valuePropositions = [
