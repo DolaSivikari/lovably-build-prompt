@@ -22,6 +22,7 @@ html.loading body {
 @import "./typography.css";
 @import "./mobile-nav.css";
 @import "./interactions.css";
+@import "./simple-dropdown.css";
 
 @tailwind base;
 @tailwind components;
