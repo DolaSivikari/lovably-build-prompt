@@ -32,11 +32,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizes = {
-      sm: "px-3 py-2 text-sm rounded-[var(--radius-xs)] min-h-[40px]",
-      md: "px-4 py-2.5 text-sm rounded-[var(--radius-sm)] min-h-[44px]",
-      default: "px-4 py-2.5 text-sm rounded-[var(--radius-sm)] min-h-[44px]",
-      lg: "px-5 py-3 text-base rounded-[var(--radius-md)] min-h-[48px]",
-      icon: "h-9 w-9 rounded-[var(--radius-sm)]"
+      sm: "px-4 py-2 text-sm rounded-[var(--radius-xs)] min-h-[44px] md:min-h-[40px] md:px-3",
+      md: "px-6 py-3 text-base rounded-[var(--radius-sm)] min-h-[48px] md:min-h-[44px] md:px-4 md:py-2.5 md:text-sm",
+      default: "px-6 py-3 text-base rounded-[var(--radius-sm)] min-h-[48px] md:min-h-[44px] md:px-4 md:py-2.5 md:text-sm",
+      lg: "px-8 py-4 text-lg rounded-[var(--radius-md)] min-h-[52px] md:px-5 md:py-3 md:text-base",
+      icon: "h-12 w-12 rounded-[var(--radius-sm)] md:h-9 md:w-9"
     };
 
     return (
