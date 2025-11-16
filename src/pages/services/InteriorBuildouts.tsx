@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { PageHero } from '@/components/sections/PageHero';
+import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
 import { Button } from '@/ui/Button';
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
@@ -89,23 +89,17 @@ const InteriorBuildouts = () => {
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
+      <UnifiedPageHero
+        title="Interior Buildouts & Finishing"
+        description="Complete interior construction from tenant improvements to precision finishing"
+        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Interior Buildouts' }
-        ]} />
-        <PageHero.Title>Interior Buildouts & Finishing</PageHero.Title>
-        <PageHero.Subtitle>
-          Complete interior construction from tenant improvements to precision finishing
-        </PageHero.Subtitle>
-        <PageHero.CTAs
-          primaryText="Request Proposal"
-          primaryHref="/contact"
-          secondaryText="View Projects"
-          secondaryHref="/projects"
-        />
-      </PageHero.Root>
+        ]}
+      />
 
       {/* What We Deliver */}
       <section className="py-20 bg-background">
