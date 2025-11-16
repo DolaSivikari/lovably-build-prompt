@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { PageHero } from '@/components/sections/PageHero';
+import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { Button } from '@/ui/Button';
-import { Card } from "@/components/ui/card";
 import { Building2, Hammer, Shield, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
+import { CTA_TEXT } from "@/design-system/constants";
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-masonry-restoration.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
@@ -93,23 +95,17 @@ const MasonryRestoration = () => {
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
+      <UnifiedPageHero
+        title="Masonry Restoration & Repair"
+        description="Expert restoration of historic and modern masonry with uncompromising craftsmanship"
+        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Masonry Restoration' }
-        ]} />
-        <PageHero.Title>Masonry Restoration & Repair</PageHero.Title>
-        <PageHero.Subtitle>
-          Expert restoration of historic and modern masonry with uncompromising craftsmanship
-        </PageHero.Subtitle>
-        <PageHero.CTAs
-          primaryText="Request Assessment"
-          primaryHref="/contact"
-          secondaryText="View Projects"
-          secondaryHref="/projects"
-        />
-      </PageHero.Root>
+        ]}
+      />
 
       {/* What We Deliver */}
       <section className="py-20 bg-background">
@@ -124,11 +120,11 @@ const MasonryRestoration = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {deliverables.map((item, index) => (
-              <Card key={index} className="p-8 hover:shadow-lg transition-shadow">
+              <UnifiedCard key={index} variant="elevated" className="p-8">
                 <item.icon className="w-12 h-12 text-primary mb-4" />
                 <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
-              </Card>
+              </UnifiedCard>
             ))}
           </div>
         </div>
@@ -185,13 +181,13 @@ const MasonryRestoration = () => {
               { title: 'Cathedral Masonry Repair', detail: 'Stone conservation and structural stabilization' },
               { title: 'Century Building Tuckpointing', detail: '40,000 SF heritage-compliant repointing' }
             ].map((project, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+              <UnifiedCard key={index} variant="interactive" className="p-6">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 <p className="text-muted-foreground mb-4">{project.detail}</p>
                 <Button variant="link" className="p-0 h-auto" asChild>
                   <Link to="/projects">View Project <ArrowRight className="w-4 h-4 ml-2" /></Link>
                 </Button>
-              </Card>
+              </UnifiedCard>
             ))}
           </div>
         </div>
