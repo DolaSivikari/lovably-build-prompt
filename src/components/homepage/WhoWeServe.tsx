@@ -109,7 +109,7 @@ const WhoWeServe = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild variant="primary" size="lg" className="group">
                   <Link to="/contact" className="inline-flex items-center gap-2">
-                    Request Proposal
+                    <Link to="/contact">Request Site Assessment</Link>
                     <ArrowRight className="h-4 w-4 hover-translate-arrow" />
                   </Link>
                 </Button>

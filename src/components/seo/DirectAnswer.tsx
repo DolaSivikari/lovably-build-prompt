@@ -75,7 +75,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
             <div className="space-y-3 pt-2">
               <Button size="lg" className="w-full group" asChild>
                 <Link to="/estimate">
-                  Request Proposal
+                  Request Site Assessment
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>

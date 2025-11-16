@@ -50,7 +50,7 @@ const ClientValueProposition = () => {
                 "Capital Planning & Renovations",
                 "Emergency Repairs & Maintenance",
               ]}
-              ctaText="Request Proposal"
+              ctaText="Request Site Assessment"
               ctaUrl="/contact"
             />
           </div>

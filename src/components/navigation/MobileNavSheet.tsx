@@ -344,13 +344,13 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     <span>Contact</span>
                   </Link>
                   <Link
-                    to="/submit-rfp"
-                    onClick={() => handleLinkClick("Submit RFP", "Navigation")}
+                    to="/contact"
+                    onClick={() => handleLinkClick("Request Quote", "Navigation")}
                     onMouseDown={addRipple}
                     className="flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation bg-background/50 backdrop-blur-sm border border-border/50 hover:border-accent/30 ripple relative overflow-hidden"
                   >
                     <FileText className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
-                    <span>Submit RFP</span>
+                    <span>Request Quote</span>
                   </Link>
                   <Link
                     to="/resources/contractor-portal"
@@ -738,9 +738,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             className="w-full gap-3 min-h-[56px] text-base font-bold active:scale-[0.98] transition-all duration-300 bg-gradient-to-r from-primary to-primary-dark hover:shadow-2xl hover:-translate-y-0.5 text-white touch-manipulation relative overflow-hidden group ripple"
             onMouseDown={addRipple}
           >
-            <Link to="/estimate" onClick={() => handleLinkClick("Request Proposal", "CTA")} aria-label="Request a proposal for your project">
+            <Link to="/contact" onClick={() => handleLinkClick("Request Site Assessment", "CTA")} aria-label="Request a site assessment for your project">
               <Phone className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" aria-hidden="true" />
-              <span>Request Proposal</span>
+              <span>Request Site Assessment</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
             </Link>
           </Button>
