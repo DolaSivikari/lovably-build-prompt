@@ -105,6 +105,7 @@ const ProtectiveCoatings = () => {
       <PageHeader
         title="Protective & Architectural Coatings"
         description="High-performance coating systems protecting and beautifying commercial, industrial, and institutional surfaces"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.project, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

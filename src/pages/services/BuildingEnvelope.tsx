@@ -133,6 +133,7 @@ const BuildingEnvelope = () => {
       <PageHeader
         title="Building Envelope"
         description="Durable, energy-efficient building performance through expert envelope systems"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

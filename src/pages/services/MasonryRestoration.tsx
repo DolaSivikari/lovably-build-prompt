@@ -99,6 +99,7 @@ const MasonryRestoration = () => {
       <PageHeader
         title="Masonry Restoration & Repair"
         description="Expert restoration of historic and modern masonry with uncompromising craftsmanship"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },

@@ -77,6 +77,7 @@ const TileFlooring = () => {
       <PageHeader
         title="Tile & Flooring Installation"
         description="Professional flooring solutions for commercial and multi-family projects"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },
