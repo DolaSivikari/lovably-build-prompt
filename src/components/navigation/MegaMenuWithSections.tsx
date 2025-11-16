@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { Section } from "@/data/navigation-structure-enhanced";
-import { MegaMenuSection } from "./MegaMenuSection";
+import { GridMegaMenuSection } from "./GridMegaMenuSection";
 import { cn } from "@/lib/utils";
 
 interface MegaMenuWithSectionsProps {
@@ -14,19 +14,7 @@ export const MegaMenuWithSections = ({
   isOpen,
   onClose,
 }: MegaMenuWithSectionsProps) => {
-  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
   const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      // Expand first category of first section by default
-      if (sections.length > 0 && sections[0].categories.length > 0) {
-        setExpandedCategories([sections[0].categories[0].title]);
-      }
-    } else {
-      setExpandedCategories([]);
-    }
-  }, [isOpen, sections]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,17 +40,6 @@ export const MegaMenuWithSections = ({
     };
   }, [isOpen, onClose]);
 
-  const handleToggleCategory = (categoryTitle: string) => {
-    setExpandedCategories((prev) => {
-      if (prev.includes(categoryTitle)) {
-        return prev.filter((title) => title !== categoryTitle);
-      } else {
-        // Allow multiple expanded categories
-        return [...prev, categoryTitle];
-      }
-    });
-  };
-
   if (!sections || sections.length === 0) return null;
 
   return (
@@ -71,13 +48,11 @@ export const MegaMenuWithSections = ({
       className={cn("mega-menu-sections", isOpen && "mega-menu-sections--open")}
       aria-hidden={!isOpen}
     >
-      <div className="mega-menu-sections-wrapper">
+      <div className="mega-menu-sections-wrapper p-8 max-w-7xl mx-auto">
         {sections.map((section, index) => (
-          <MegaMenuSection
+          <GridMegaMenuSection
             key={index}
             section={section}
-            expandedCategories={expandedCategories}
-            onToggleCategory={handleToggleCategory}
             onLinkClick={onClose}
           />
         ))}
