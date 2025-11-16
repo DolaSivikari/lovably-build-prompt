@@ -400,7 +400,7 @@ const OurProcess = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="gap-2">
                 <Link to="/estimate">
-                  Request Proposal
+                  {CTA_TEXT.project}
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
