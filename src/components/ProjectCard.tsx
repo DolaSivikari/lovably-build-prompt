@@ -5,6 +5,7 @@ import { Button } from "@/ui/Button";
 import { MapPin, Calendar, Ruler, Eye, CheckCircle2, DollarSign, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 interface ProjectCardProps {
   title: string;
@@ -54,20 +55,22 @@ const ProjectCard = ({
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetails(slug)}
     >
-      {/* Image Container - PCL style */}
+      {/* Image Container - PCL style with entrance animation */}
       <div className="relative aspect-[4/3] overflow-hidden">
-        <img
-          src={resolveAssetPath(image) || "/placeholder.svg"}
-          alt={title}
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.src = "/placeholder.svg";
-          }}
-          className={cn(
-            "w-full h-full object-cover object-center transition-transform duration-700",
-            isHovered && "scale-[1.15]"
-          )}
-        />
+        <ScrollReveal direction="up" threshold={0.2}>
+          <img
+            src={resolveAssetPath(image) || "/placeholder.svg"}
+            alt={title}
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = "/placeholder.svg";
+            }}
+            className={cn(
+              "w-full h-full object-cover object-center transition-transform duration-700 animate-fade-in",
+              isHovered && "scale-[1.15]"
+            )}
+          />
+        </ScrollReveal>
         
         {/* Clean overlay on hover */}
         <div className={cn(
