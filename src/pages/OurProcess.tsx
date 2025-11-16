@@ -4,6 +4,7 @@ import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { CTA_TEXT } from "@/design-system/constants";
 import { 
   ClipboardCheck, 
   Ruler, 

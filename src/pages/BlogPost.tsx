@@ -9,6 +9,7 @@ import ContentPageHeader from "@/components/ContentPageHeader";
 import ShareMenu from "@/components/blog/ShareMenu";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { CTA_TEXT } from "@/design-system/constants";
 import OptimizedImage from "@/components/OptimizedImage";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/utils/structured-data";
 import { blogFAQs } from "@/data/blog-faq-data";

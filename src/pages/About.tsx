@@ -4,6 +4,7 @@ import SEO from "@/components/SEO";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
+import { CTA_TEXT } from "@/design-system/constants";
 import { 
   Building2, 
   Shield, 
