@@ -1,37 +1,37 @@
-import { Shield, Award, FileCheck, BadgeCheck, Building2, Clock } from "lucide-react";
+import { Shield, Award, Users, Clock, Building2, Phone } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 const trustBadges = [
   {
     icon: Shield,
-    label: "COR Certified",
-    detail: "Safety Excellence",
+    label: "Licensed Business",
+    detail: "Registered & Insured",
   },
   {
-    icon: FileCheck,
-    label: "$5M Liability",
-    detail: "Fully Insured",
+    icon: Users,
+    label: "10-Person Crew",
+    detail: "Self-Performed",
   },
   {
-    icon: BadgeCheck,
-    label: "WSIB Compliant",
-    detail: "Worker Protection",
-  },
-  {
-    icon: Award,
-    label: "Licensed & Bonded",
-    detail: "Ontario HCRA",
+    icon: Phone,
+    label: "24/7 Emergency",
+    detail: "Rapid Response",
   },
   {
     icon: Building2,
-    label: "500+ Projects",
-    detail: "Proven Track Record",
+    label: "10+ Projects",
+    detail: "Completed",
   },
   {
     icon: Clock,
     label: "15+ Years",
-    detail: "Industry Experience",
+    detail: "Experience",
+  },
+  {
+    icon: Award,
+    label: "98% Satisfaction",
+    detail: "Client Rated",
   },
 ];
 
