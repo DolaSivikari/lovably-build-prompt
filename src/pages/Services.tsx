@@ -12,6 +12,7 @@ import { ServiceCard3D } from "@/components/services/ServiceCard3D";
 import { CheckCircle2, Users, Building, Briefcase } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 interface Service {
   id: string;
@@ -149,23 +150,24 @@ const Services = () => {
               ].map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Link 
-                    key={index}
-                    to={item.link}
-                    className="group p-6 rounded-xl border border-border bg-card hover:shadow-lg transition-all"
-                  >
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                        <Icon className="w-8 h-8 text-primary" />
+                  <ScrollReveal key={index} direction="up" delay={index * 100}>
+                    <Link 
+                      to={item.link}
+                      className="group p-6 rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="flex flex-col items-center text-center">
+                        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                          <Icon className="w-8 h-8 text-primary" />
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {item.description}
+                        </p>
                       </div>
-                      <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {item.description}
-                      </p>
-                    </div>
-                  </Link>
+                    </Link>
+                  </ScrollReveal>
                 );
               })}
             </div>

@@ -8,6 +8,7 @@ import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const ForGeneralContractors = () => {
   const tradePackages = [
@@ -170,15 +171,17 @@ const ForGeneralContractors = () => {
 
           <div className="max-w-4xl mx-auto space-y-6">
             {processSteps.map((step, index) => (
-              <UnifiedCard key={index} variant="elevated" className="flex gap-6 items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl">
-                  {step.number}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
-                </div>
-              </UnifiedCard>
+              <ScrollReveal key={index} direction="left" delay={index * 100}>
+                <UnifiedCard variant="elevated" className="flex gap-6 items-start hover:shadow-xl transition-all duration-300">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl">
+                    {step.number}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-semibold mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground">{step.description}</p>
+                  </div>
+                </UnifiedCard>
+              </ScrollReveal>
             ))}
           </div>
         </Section>
