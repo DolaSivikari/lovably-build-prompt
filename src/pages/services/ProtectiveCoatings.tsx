@@ -4,7 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/sections/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from '@/ui/Button';
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/heroes/hero-protective-coatings.jpg";
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";

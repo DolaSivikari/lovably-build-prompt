@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { CTA_TEXT } from "@/design-system/constants";
 import { 

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/ui/Button';
 import { Link } from 'react-router-dom';
 import { Check, Mail } from 'lucide-react';
 import SEO from '@/components/SEO';

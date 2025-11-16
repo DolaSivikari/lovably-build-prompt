@@ -4,7 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import heroMarketsImage from "@/assets/heroes/hero-markets-overview.jpg";

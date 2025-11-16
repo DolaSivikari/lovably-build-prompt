@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { AlertCircle, CheckCircle2, RefreshCw, AlertTriangle, Wrench } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { useSettingsData } from "@/hooks/useSettingsData";

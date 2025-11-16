@@ -6,7 +6,7 @@ import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import BlogCard from "@/components/blog/BlogCard";
 import NewsletterSection from "@/components/blog/NewsletterSection";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 
