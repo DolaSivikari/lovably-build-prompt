@@ -3,13 +3,13 @@ import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumb from "@/components/Breadcrumb";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit, trackConversion } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
@@ -17,7 +17,6 @@ import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
-import { PremiumContactHero } from "@/components/contact/PremiumContactHero";
 import { MultiStepForm } from "@/components/forms/MultiStepForm";
 import { FileUploadZone } from "@/components/forms/FileUploadZone";
 import { BudgetSlider } from "@/components/forms/BudgetSlider";
@@ -168,19 +167,15 @@ const Contact = () => {
       <SEO title="Contact Us - Request Proposal | Ascent Group" description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA." canonical="https://ascentgroupconstruction.com/contact" />
       <Navigation />
 
-      <PremiumContactHero 
-        contactInfo={{
-          officeAddress,
-          mainPhone,
-          tollFreePhone,
-          generalEmail,
-          projectsEmail,
-          careersEmail,
-          weekdayHours,
-          saturdayHours,
-          sundayHours
-        }}
-        loading={loading}
+      <UnifiedPageHero
+        title="Contact Us"
+        description="Get expert building envelope and restoration services across Ontario. Our specialized crews are ready to discuss your project."
+        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Contact" }
+        ]}
       />
 
       {/* Premium Contact Form Section */}
@@ -202,7 +197,7 @@ const Contact = () => {
               </Button>
             </div>
 
-            <Card className="border-2 hover:border-primary/20 transition-all shadow-2xl overflow-hidden">
+            <UnifiedCard variant="elevated" className="border-2 hover:border-primary/20 transition-all shadow-2xl overflow-hidden">
               <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 border-b">
                 <h2 className="text-3xl font-bold mb-2">Request a Consultation</h2>
                 <p className="text-muted-foreground text-lg">
@@ -211,7 +206,7 @@ const Contact = () => {
                     : "Fill out the form below and our team will get back to you within 2 hours during business hours"}
                 </p>
               </div>
-              <CardContent className="p-8">
+              <div className="p-8">
                 {useMultiStep ? (
                   <MultiStepForm
                     steps={[
@@ -319,10 +314,10 @@ const Contact = () => {
                     </Button>
                   </RippleEffect>
                   <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-xl p-6 text-center"><p className="text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.</p></div>
-                </form>
+                  </form>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </UnifiedCard>
           </div>
         </div>
       </section>
