@@ -44,9 +44,12 @@ const Navigation = () => {
     '/services/sustainable-building',
     // Company pages
     '/about',
+    '/careers',
+    '/capabilities',
     '/company/certifications-insurance',
     '/company/developers',
     '/company/equipment-resources',
+    '/company/safety-and-compliance',
     // Market pages
     '/markets',
     '/markets/commercial',
@@ -60,7 +63,21 @@ const Navigation = () => {
     '/resources/contractor-portal',
     '/resources/financing',
     '/resources/service-areas',
-    '/resources/warranties'
+    '/resources/warranties',
+    // Contact & General pages
+    '/contact',
+    '/why-specialty-contractor',
+    '/prequalification',
+    '/reviews',
+    '/submit-rfp',
+    '/for-general-contractors',
+    '/property-managers',
+    '/commercial-clients',
+    '/our-process',
+    '/sustainability',
+    '/faq',
+    '/insights',
+    '/blog'
   ];
   const isHeroPage = heroPages.includes(location.pathname);
   
