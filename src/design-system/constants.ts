@@ -7,11 +7,11 @@
 export const LAYOUT = {
   maxWidth: 'max-w-7xl',
   sectionSpacing: {
-    major: 'py-24 md:py-32 lg:py-40',
-    subsection: 'py-16 md:py-24',
-    tight: 'py-12 md:py-16',
+    major: 'py-16 md:py-20 lg:py-24',
+    subsection: 'py-12 md:py-16',
+    tight: 'py-8 md:py-12',
   },
-  containerPadding: 'px-6 sm:px-8 lg:px-12',
+  containerPadding: 'px-4 sm:px-6 lg:px-8',
 } as const;
 
 // Unified CTA Text
