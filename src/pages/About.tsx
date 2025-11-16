@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { 
@@ -122,11 +122,10 @@ const About = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Building Envelope & Restoration Specialists"
         description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
-        primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About Us" }

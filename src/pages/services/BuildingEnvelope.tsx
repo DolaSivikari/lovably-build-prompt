@@ -2,7 +2,7 @@ import { Shield, Droplets, Wind, ThermometerSun, CheckCircle2, ArrowRight, Clock
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from '@/ui/Button';
@@ -130,11 +130,10 @@ const BuildingEnvelope = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Building Envelope"
         description="Durable, energy-efficient building performance through expert envelope systems"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-        secondaryCTA={{ text: "View Envelope Projects", href: "/projects?type=envelope" }}
+        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
