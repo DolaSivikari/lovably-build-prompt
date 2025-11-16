@@ -18,8 +18,6 @@ import ValuePillars from "@/components/homepage/ValuePillars";
 import SplashScreen from "@/components/SplashScreen";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
 import { ExitIntentPopup } from "@/components/engagement/ExitIntentPopup";
-import { InteractiveProjectMap } from "@/components/advanced/InteractiveProjectMap";
-import { VideoTestimonials } from "@/components/advanced/VideoTestimonials";
 import { LiveChat } from "@/components/advanced/LiveChat";
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
@@ -215,8 +213,6 @@ const Index = () => {
         </div>
         
         {/* Social Proof */}
-        <VideoTestimonials />
-        <InteractiveProjectMap />
         <PrequalPackage />
         <InsightsFeed limit={9} showFilters={true} showPinnedFirst={true} />
       </main>
