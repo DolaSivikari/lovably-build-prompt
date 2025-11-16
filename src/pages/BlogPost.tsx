@@ -267,7 +267,7 @@ const BlogPost = () => {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Link to="/estimate">
                   <Button size="lg">
-                    Request Proposal
+                    {CTA_TEXT.project}
                   </Button>
                 </Link>
                 <Link to="/contact">

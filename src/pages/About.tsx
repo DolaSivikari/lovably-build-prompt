@@ -483,7 +483,7 @@ const About = () => {
                   <h3 className="text-xl font-semibold mb-3">Request a Quote</h3>
                   <p className="text-muted-foreground mb-6">Detailed project estimates</p>
                   <Button asChild variant="secondary" className="w-full">
-                    <Link to="/estimate">Get Quote</Link>
+                    <Link to="/estimate">{CTA_TEXT.project}</Link>
                   </Button>
                 </CardContent>
               </Card>

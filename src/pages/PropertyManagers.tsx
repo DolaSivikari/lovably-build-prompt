@@ -1,12 +1,13 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
-import CTASection from "@/components/sections/CTASection";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
+import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CheckCircle, CreditCard } from "lucide-react";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const PropertyManagers = () => {
   const benefits = [
@@ -189,7 +190,7 @@ const PropertyManagers = () => {
         <CTASection
           title="Let's Discuss Your Property Needs"
           description="Volume pricing available for multi-unit properties and ongoing maintenance contracts"
-          primaryCTA={{ label: "Request Volume Quote", href: "/estimate" }}
+          primaryCTA={{ label: CTA_TEXT.gc, href: "/estimate" }}
           secondaryCTA={{ label: "View Our Portfolio", href: "/projects", variant: "secondary" }}
         />
       </main>

@@ -2,11 +2,12 @@ import { Building2, Clock, DollarSign, CheckCircle2, ArrowRight } from "lucide-r
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
+import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
-import heroCommercial from "@/assets/heroes/hero-commercial.jpg";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const Commercial = () => {
   const challenges = [
@@ -43,10 +44,16 @@ const Commercial = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <UnifiedPageHero
         title="Commercial Construction"
         description="Expert delivery of office buildings, tenant improvements, and retail spaces"
-        backgroundImage={heroCommercial}
+        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects?client_type=Commercial" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Markets", href: "/markets" },
+          { label: "Commercial" }
+        ]}
       />
 
       <main className="py-16">
