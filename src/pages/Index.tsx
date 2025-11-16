@@ -16,7 +16,7 @@ import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
 import SplashScreen from "@/components/SplashScreen";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
-import { ExitIntentPopup } from "@/components/engagement/ExitIntentPopup";
+
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
 import { CTA_TEXT } from "@/design-system/constants";
@@ -237,7 +237,6 @@ const Index = () => {
       </main>
         <Footer />
         <ScrollToTop />
-        <ExitIntentPopup />
       </div>
     </>
   );
