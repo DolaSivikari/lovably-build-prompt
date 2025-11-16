@@ -22,6 +22,8 @@ import { initializeTests } from "@/utils/ab-testing";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { ParallaxSection } from "@/components/animations/ParallaxSection";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 
 const Index = () => {
@@ -201,13 +203,15 @@ const Index = () => {
         />
         <Navigation />
       <main id="main-content" role="main">
-        <EnhancedHero />
+        <ParallaxSection speed="slow">
+          <EnhancedHero />
+        </ParallaxSection>
         
         <ScrollReveal direction="up" delay={0}>
           <TrustBadgeBar />
         </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={100}>
+        <ScrollReveal direction="left" delay={100}>
           <ValuePillars />
         </ScrollReveal>
 
@@ -215,17 +219,19 @@ const Index = () => {
           <CompanyIntroduction />
         </ScrollReveal>
         
-        <ScrollReveal direction="up" delay={100}>
+        <ScrollReveal direction="right" delay={100}>
           <ClientValueProposition />
         </ScrollReveal>
         
-        <ScrollReveal direction="up" delay={0}>
-          <div className="py-24">
-            <ServicesExplorer />
-          </div>
-        </ScrollReveal>
+        <ParallaxSection speed="medium">
+          <ScrollReveal direction="up" delay={0}>
+            <div className="py-24">
+              <ServicesExplorer />
+            </div>
+          </ScrollReveal>
+        </ParallaxSection>
         
-        <ScrollReveal direction="up" delay={100}>
+        <ScrollReveal direction="left" delay={100}>
           <PrequalPackage />
         </ScrollReveal>
       </main>

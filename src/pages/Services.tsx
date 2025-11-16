@@ -15,6 +15,10 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroServicesImage from "@/assets/heroes/hero-general-contracting.jpg";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
+import { ParallaxSection } from "@/components/animations/ParallaxSection";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
+import { ArrowRight } from "lucide-react";
+import { PremiumServiceHero } from "@/components/services/PremiumServiceHero";
 
 interface Service {
   id: string;
@@ -83,16 +87,18 @@ const Services = () => {
       />
       <Navigation />
       
-      <PageHeader
-        title="Our Services"
-        description="Ontario's specialty contractor for building envelope & restoration. Self-performed work across commercial, multi-family, and institutional projects."
-        backgroundImage={heroServicesImage}
-        cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Services" }
-        ]}
-      />
+      <ParallaxSection speed="slow">
+        <PageHeader
+          title="Our Services"
+          description="Ontario's specialty contractor for building envelope & restoration. Self-performed work across commercial, multi-family, and institutional projects."
+          backgroundImage={heroServicesImage}
+          cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Services" }
+          ]}
+        />
+      </ParallaxSection>
 
       <main className="flex-1 relative">
 
@@ -108,15 +114,19 @@ const Services = () => {
               </p>
             </div>
           </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.slice(0, 6).flatMap(category => category.services.slice(0, 1)).map((service, index) => (
-              <ScrollReveal key={service.id} direction="up" delay={index * 100}>
-                <ServiceCard3D
-                  {...service}
-                />
-              </ScrollReveal>
-            ))}
-          </div>
+          <StaggerContainer type="fade">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {categories.slice(0, 6).flatMap(category => category.services.slice(0, 1)).map((service, index) => (
+                <ScrollReveal 
+                  key={service.id} 
+                  direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
+                  delay={index * 100}
+                >
+                  <ServiceCard3D {...service} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </StaggerContainer>
         </Section>
 
         {/* Who We Serve Section */}

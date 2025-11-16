@@ -25,6 +25,9 @@ import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroImage from "@/assets/heroes/hero-about-company.jpg";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
+import { ParallaxSection } from "@/components/animations/ParallaxSection";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 
 const About = () => {
   // Analytics tracking
@@ -127,20 +130,22 @@ const About = () => {
       />
       <Navigation />
       
-      <PageHeader
-        title="Building Envelope & Restoration Specialists"
-        description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
-        backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "About Us" }
-        ]}
-      />
+      <ParallaxSection speed="slow">
+        <PageHeader
+          title="Building Envelope & Restoration Specialists"
+          description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
+          backgroundImage={heroImage}
+          cta={{ label: CTA_TEXT.contact, href: "/contact" }}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "About Us" }
+          ]}
+        />
+      </ParallaxSection>
 
       {/* Main Introduction */}
       <Section size="major" maxWidth="narrow">
-        <ScrollReveal direction="up" delay={0}>
+        <ScrollReveal direction="left" delay={100}>
           <div className="prose prose-lg max-w-none">
             <p className="text-lg md:text-xl leading-relaxed mb-6">
               Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
@@ -157,39 +162,41 @@ const About = () => {
           </div>
         </ScrollReveal>
 
-        {/* Founder Story */}
-        <ScrollReveal direction="up" delay={100}>
-          <UnifiedCard variant="elevated" className="mt-12 border-l-4 border-primary">
-          <h3 className="text-2xl md:text-3xl font-semibold mb-4">The Ascent Story</h3>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-            I founded Ascent Group Construction in 2025 after spending 15+ years working in Ontario's construction industry. 
-            I started by studying Construction Engineering Technology, then worked my way through the field—first as a Site 
-            Coordinator with Madison Group and Aspenridge Homes on highrise residential projects, then as a trade subcontractor 
-            handling envelope and interior work on various commercial and multi-family properties.
-          </p>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-            Through those years, I learned what property managers and general contractors actually need from trade partners: 
-            fast turnaround on quotes, reliable execution, clear communication, and professional documentation. I also saw too 
-            many contractors overpromising and underdelivering—damaging relationships and leaving clients frustrated.
-          </p>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-            That's why I started Ascent Group—to build a specialty contractor that delivers on promises. We're currently 
-            actively working toward full WSIB clearance, COR certification, and bonding capacity.
-          </p>
-          <blockquote className="text-xl italic mb-4 border-l-2 border-primary/50 pl-6">
-            "We're building Ascent Group the right way—professional systems, quality execution, and honest positioning. 
-            Every project we complete moves us closer to becoming a full general contractor, but we're not there yet. 
-            Right now, we're focused on being the most reliable envelope and interior trade specialist in the GTA."
-          </blockquote>
-          <div className="flex items-center gap-4 mt-6">
-            <div>
-              <p className="font-semibold text-primary text-lg">Hebun Isik</p>
-              <p className="text-sm text-muted-foreground">Founder & Principal, Ascent Group Construction</p>
-              <p className="text-xs text-muted-foreground mt-1">Construction Engineering Technician | 15+ Years Industry Experience</p>
+        {/* Founder Story with parallax */}
+        <ParallaxSection speed="medium">
+          <ScrollReveal direction="right" delay={150}>
+            <UnifiedCard variant="elevated" className="mt-12 border-l-4 border-primary">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4">The Ascent Story</h3>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+              I founded Ascent Group Construction in 2025 after spending 15+ years working in Ontario's construction industry. 
+              I started by studying Construction Engineering Technology, then worked my way through the field—first as a Site 
+              Coordinator with Madison Group and Aspenridge Homes on highrise residential projects, then as a trade subcontractor 
+              handling envelope and interior work on various commercial and multi-family properties.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+              Through those years, I learned what property managers and general contractors actually need from trade partners: 
+              fast turnaround on quotes, reliable execution, clear communication, and professional documentation. I also saw too 
+              many contractors overpromising and underdelivering—damaging relationships and leaving clients frustrated.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+              That's why I started Ascent Group—to build a specialty contractor that delivers on promises. We're currently 
+              actively working toward full WSIB clearance, COR certification, and bonding capacity.
+            </p>
+            <blockquote className="text-xl italic mb-4 border-l-2 border-primary/50 pl-6">
+              "We're building Ascent Group the right way—professional systems, quality execution, and honest positioning. 
+              Every project we complete moves us closer to becoming a full general contractor, but we're not there yet. 
+              Right now, we're focused on being the most reliable envelope and interior trade specialist in the GTA."
+            </blockquote>
+            <div className="flex items-center gap-4 mt-6">
+              <div>
+                <p className="font-semibold text-primary text-lg">Hebun Isik</p>
+                <p className="text-sm text-muted-foreground">Founder & Principal, Ascent Group Construction</p>
+                <p className="text-xs text-muted-foreground mt-1">Construction Engineering Technician | 15+ Years Industry Experience</p>
+              </div>
             </div>
-          </div>
-        </UnifiedCard>
-        </ScrollReveal>
+          </UnifiedCard>
+          </ScrollReveal>
+        </ParallaxSection>
       </Section>
 
       {/* Who We Serve */}

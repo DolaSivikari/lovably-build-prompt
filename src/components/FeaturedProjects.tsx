@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "@/ui/Button";
-import { Link } from "react-router-dom";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ArrowRight, MapPin, Calendar, Building2 } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 interface Project {
   id: string;
@@ -107,26 +109,38 @@ const FeaturedProjects = () => {
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Showcasing our commitment to quality, innovation, and excellence in every project we undertake
-          </p>
-        </div>
+        <ScrollReveal direction="up">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Showcasing our commitment to quality, innovation, and excellence in every project we undertake
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        <StaggerContainer type="fade">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+            {projects.map((project, index) => (
+              <ScrollReveal 
+                key={project.id} 
+                direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
+                delay={index * 100}
+              >
+                <ProjectCard project={project} />
+              </ScrollReveal>
+            ))}
+          </div>
+        </StaggerContainer>
 
-        <div className="text-center">
-          <Button size="lg" variant="outline" asChild>
-            <Link to="/projects">
-              View All Projects <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
+        <ScrollReveal direction="up" delay={300}>
+          <div className="text-center">
+            <Button size="lg" variant="outline" asChild>
+              <Link to="/projects">
+                View All Projects <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
