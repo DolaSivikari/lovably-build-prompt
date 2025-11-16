@@ -18,7 +18,6 @@ import ValuePillars from "@/components/homepage/ValuePillars";
 import SplashScreen from "@/components/SplashScreen";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
 import { ExitIntentPopup } from "@/components/engagement/ExitIntentPopup";
-import { LiveChat } from "@/components/advanced/LiveChat";
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
 import { CTA_TEXT } from "@/design-system/constants";
@@ -217,7 +216,6 @@ const Index = () => {
       </main>
         <Footer />
         <ExitIntentPopup />
-        <LiveChat />
       </div>
     </>
   );
