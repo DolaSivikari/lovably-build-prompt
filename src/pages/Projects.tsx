@@ -18,6 +18,8 @@ import { FilterDrawer } from "@/components/projects/FilterDrawer";
 import { FilterChips } from "@/components/projects/FilterChips";
 import { ProjectQuickView } from "@/components/projects/ProjectQuickView";
 import { VideoTestimonials } from "@/components/shared/VideoTestimonials";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 
 
 const categories = [
@@ -40,6 +42,10 @@ const Projects = () => {
   const [allProjects, setAllProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [quickViewProject, setQuickViewProject] = useState<any>(null);
+  
+  // Analytics tracking
+  usePageAnalytics('projects');
+  
   // Advanced filters
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("All");
   const [selectedClientType, setSelectedClientType] = useState("All");
@@ -349,6 +355,7 @@ const Projects = () => {
         onOpenChange={(open) => !open && setQuickViewProject(null)}
       />
 
+      <ScrollToTop />
       <Footer />
     </div>
   );

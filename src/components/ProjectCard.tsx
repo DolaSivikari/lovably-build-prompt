@@ -59,6 +59,7 @@ const ProjectCard = ({
         <img
           src={resolveAssetPath(image) || "/placeholder.svg"}
           alt={title}
+          loading="lazy"
           onError={(e) => {
             e.currentTarget.src = "/placeholder.svg";
           }}

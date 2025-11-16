@@ -24,8 +24,12 @@ import {
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroImage from "@/assets/heroes/hero-about-company.jpg";
+import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 
 const About = () => {
+  // Analytics tracking
+  usePageAnalytics('about');
+
   const services = [
     "Façade Remediation & Cladding Repairs",
     "Sealant (Caulking) Replacement Programs",
@@ -136,23 +140,26 @@ const About = () => {
 
       {/* Main Introduction */}
       <Section size="major" maxWidth="narrow">
-        <div className="prose prose-lg max-w-none">
-          <p className="text-lg md:text-xl leading-relaxed mb-6">
-            Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
-            work across Ontario's Greater Toronto Area. We're in the early stages of building our company—establishing 
-            systems, earning trust, and delivering quality work that speaks for itself.
-          </p>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
-            Right now, we specialize in façade remediation, sealant replacement, concrete & parking garage repair, 
-            EIFS/stucco, masonry restoration, waterproofing, and protective coatings. Our goal is clear: become the 
-            most reliable specialty contractor in our market, then expand into full general contracting capabilities 
-            over the next 3–5 years. Every project we complete, every relationship we build, and every lesson we 
-            learn moves us toward that vision.
-          </p>
-        </div>
+        <ScrollReveal direction="up" delay={0}>
+          <div className="prose prose-lg max-w-none">
+            <p className="text-lg md:text-xl leading-relaxed mb-6">
+              Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
+              work across Ontario's Greater Toronto Area. We're in the early stages of building our company—establishing 
+              systems, earning trust, and delivering quality work that speaks for itself.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
+              Right now, we specialize in façade remediation, sealant replacement, concrete & parking garage repair, 
+              EIFS/stucco, masonry restoration, waterproofing, and protective coatings. Our goal is clear: become the 
+              most reliable specialty contractor in our market, then expand into full general contracting capabilities 
+              over the next 3–5 years. Every project we complete, every relationship we build, and every lesson we 
+              learn moves us toward that vision.
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Founder Story */}
-        <UnifiedCard variant="elevated" className="mt-12 border-l-4 border-primary">
+        <ScrollReveal direction="up" delay={100}>
+          <UnifiedCard variant="elevated" className="mt-12 border-l-4 border-primary">
           <h3 className="text-2xl md:text-3xl font-semibold mb-4">The Ascent Story</h3>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
             I founded Ascent Group Construction in 2025 after spending 15+ years working in Ontario's construction industry. 
@@ -182,6 +189,7 @@ const About = () => {
             </div>
           </div>
         </UnifiedCard>
+        </ScrollReveal>
       </Section>
 
       {/* Who We Serve */}

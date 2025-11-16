@@ -22,10 +22,14 @@ import { initializeTests } from "@/utils/ab-testing";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 
 const Index = () => {
   const [showSplash, setShowSplash] = useState(true);
   const [splashComplete, setSplashComplete] = useState(false);
+
+  // Analytics tracking
+  usePageAnalytics('homepage');
 
   // Initialize personalization and A/B testing
   useEffect(() => {

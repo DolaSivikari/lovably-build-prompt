@@ -14,6 +14,7 @@ import { Section } from "@/components/sections/Section";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroServicesImage from "@/assets/heroes/hero-general-contracting.jpg";
+import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 
 interface Service {
   id: string;
@@ -35,6 +36,9 @@ interface ServiceCategory {
 const Services = () => {
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
   const [isQuizOpen, setIsQuizOpen] = useState(false);
+
+  // Analytics tracking
+  usePageAnalytics('services');
 
   useEffect(() => {
     loadServices();
@@ -94,20 +98,23 @@ const Services = () => {
 
         {/* 3D Service Cards Section */}
         <Section size="major" className="bg-background relative">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Featured Services
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Explore our specialized construction services with interactive 3D cards
-            </p>
-          </div>
+          <ScrollReveal direction="up" delay={0}>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Featured Services
+              </h2>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                Explore our specialized construction services with interactive 3D cards
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.slice(0, 6).flatMap(category => category.services.slice(0, 1)).map((service) => (
-              <ServiceCard3D
-                key={service.id}
-                {...service}
-              />
+            {categories.slice(0, 6).flatMap(category => category.services.slice(0, 1)).map((service, index) => (
+              <ScrollReveal key={service.id} direction="up" delay={index * 100}>
+                <ServiceCard3D
+                  {...service}
+                />
+              </ScrollReveal>
             ))}
           </div>
         </Section>

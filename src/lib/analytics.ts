@@ -38,6 +38,32 @@ export const trackFormSubmit = (formName: string, formData?: Record<string, any>
   });
 };
 
+// Form interaction tracking - NEW
+export const trackFormStart = (formName: string) => {
+  pushToDataLayer({
+    event: 'form_start',
+    form_name: formName,
+  });
+};
+
+export const trackFormError = (formName: string, errorField: string, errorMessage: string) => {
+  pushToDataLayer({
+    event: 'form_error',
+    form_name: formName,
+    error_field: errorField,
+    error_message: errorMessage,
+  });
+};
+
+export const trackFormAbandonment = (formName: string, lastField: string, timeSpent: number) => {
+  pushToDataLayer({
+    event: 'form_abandonment',
+    form_name: formName,
+    last_field: lastField,
+    time_spent_seconds: timeSpent,
+  });
+};
+
 // CTA click tracking
 export const trackCTAClick = (ctaName: string, ctaLocation: string) => {
   pushToDataLayer({
@@ -48,10 +74,19 @@ export const trackCTAClick = (ctaName: string, ctaLocation: string) => {
 };
 
 // Phone click tracking
-export const trackPhoneClick = () => {
+export const trackPhoneClick = (location: string = 'unknown') => {
   pushToDataLayer({
     event: 'phone_click',
     conversion_label: 'phone_call',
+    click_location: location,
+  });
+};
+
+// Email click tracking - NEW
+export const trackEmailClick = (location: string = 'unknown') => {
+  pushToDataLayer({
+    event: 'email_click',
+    click_location: location,
   });
 };
 
@@ -81,6 +116,15 @@ export const trackScrollDepth = (depth: number) => {
   });
 };
 
+// Time on page tracking - NEW
+export const trackTimeOnPage = (pageName: string, timeSeconds: number) => {
+  pushToDataLayer({
+    event: 'time_on_page',
+    page_name: pageName,
+    time_seconds: timeSeconds,
+  });
+};
+
 // Video interaction tracking
 export const trackVideoPlay = (videoName: string, location: string) => {
   pushToDataLayer({
@@ -105,6 +149,24 @@ export const trackInteraction = (elementType: string, elementName: string, actio
     element_type: elementType,
     element_name: elementName,
     interaction_action: action,
+  });
+};
+
+// Before/After slider tracking - NEW
+export const trackBeforeAfterInteraction = (projectName: string) => {
+  pushToDataLayer({
+    event: 'before_after_interaction',
+    project_name: projectName,
+  });
+};
+
+// Filter usage tracking - NEW
+export const trackFilterUsage = (filterType: string, filterValue: string, location: string) => {
+  pushToDataLayer({
+    event: 'filter_used',
+    filter_type: filterType,
+    filter_value: filterValue,
+    page_location: location,
   });
 };
 
