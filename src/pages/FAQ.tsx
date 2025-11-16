@@ -293,14 +293,14 @@ const FAQ = () => {
       
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Frequently Asked Questions"
-        description="Everything you need to know about construction, painting, EIFS, stucco, and restoration services across the GTA."
-        primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
+        description="Find answers to common questions about our construction services, pricing, and process"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "FAQ" }
         ]}
+        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
       />
 
       <main className="pb-20">

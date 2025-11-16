@@ -103,14 +103,14 @@ const Careers = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Join Our Team"
-        description="Build your career with a company that values quality, safety, and professional growth across the Greater Toronto Area."
-        primaryCTA={{ text: "View Open Positions", href: "#open-positions" }}
+        description="Build your career with Ontario's leading construction company. We invest in our people through training, growth opportunities, and industry-leading benefits."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Careers" }
         ]}
+        cta={{ label: "View Positions", href: "#positions" }}
       />
       
       <main>

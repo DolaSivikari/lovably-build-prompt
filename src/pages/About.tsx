@@ -122,15 +122,14 @@ const About = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
-        title="Building Envelope & Restoration Specialists"
-        description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
-        primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+      <PageHeader
+        title="Ontario Specialty Contractor for Envelope & Restoration"
+        description="Prime self-performed work on façades, parking structures, EIFS, masonry, and waterproofing—serving commercial, multi-family, and institutional clients across the GTA."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "About Us" }
+          { label: "About" }
         ]}
+        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
       />
 
       {/* Main Introduction */}

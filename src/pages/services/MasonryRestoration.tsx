@@ -96,16 +96,15 @@ const MasonryRestoration = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
-        title="Masonry Restoration & Repair"
-        description="Expert restoration of historic and modern masonry with uncompromising craftsmanship"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+      <PageHeader
+        title="Masonry Restoration"
+        description="Expert brick, stone, and structural masonry repairs preserving your building's integrity"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Masonry Restoration' }
         ]}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       {/* What We Deliver */}

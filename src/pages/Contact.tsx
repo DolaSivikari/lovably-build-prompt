@@ -168,15 +168,14 @@ const Contact = () => {
       <SEO title="Contact Us - Request Proposal | Ascent Group" description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA." canonical="https://ascentgroupconstruction.com/contact" />
       <Navigation />
 
-      <UnifiedPageHero
-        title="Contact Us"
-        description="Get expert building envelope and restoration services across Ontario. Our specialized crews are ready to discuss your project."
-        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+      <PageHeader
+        title="Get in Touch"
+        description="Ready to start your project? Contact us today for a free consultation and estimate."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Contact" }
         ]}
+        cta={{ label: "Call Us Now", href: "tel:+14165551234" }}
       />
 
       {/* Premium Contact Form Section */}
