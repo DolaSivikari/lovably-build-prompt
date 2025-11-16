@@ -108,7 +108,7 @@ const Hospitality = () => {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                   {hospitalityProjects.map((project, index) => (
-                    <Card key={index} className="overflow-hidden hover:shadow-xl transition-all group">
+                    <UnifiedCard key={index} variant="elevated" className="overflow-hidden hover:shadow-xl transition-all group p-0">
                       <div className="relative aspect-[4/3] overflow-hidden">
                         <img 
                           src={project.image} 
@@ -116,14 +116,14 @@ const Hospitality = () => {
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       </div>
-                      <CardContent className="p-6">
+                      <div className="p-6">
                         <h3 className="text-xl font-bold mb-2">{project.name}</h3>
                         <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
                         <div className="pt-3 border-t">
                           <p className="text-xs font-semibold text-primary">{project.metrics}</p>
                         </div>
-                      </CardContent>
-                    </Card>
+                      </div>
+                    </UnifiedCard>
                   ))}
                 </div>
               </div>
