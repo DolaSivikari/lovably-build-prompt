@@ -198,8 +198,7 @@ const Index = () => {
         <SmartCTA />
       <main id="main-content" role="main">
         <EnhancedHero />
-        {/* Smooth transition from hero to content */}
-        <div className="h-24 bg-gradient-to-b from-slate-900/80 via-background/60 to-transparent -mt-12 relative z-0" />
+        {/* Smooth transition removed - pure white background */}
         <TrustBadgeBar />
         <ValuePillars />
         <CompanyIntroduction />

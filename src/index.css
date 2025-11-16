@@ -42,7 +42,7 @@ All colors MUST be HSL.
     --steel-blue: 193 37% 48%;      /* Steel Blue #4A90A4 */
     --steel-blue-foreground: 0 0% 100%; /* White text on steel blue */
 
-    --muted: 210 15% 96%;        /* Light gray-blue muted */
+    --muted: 0 0% 100%;        /* Pure white - same as background */
     --muted-foreground: 210 10% 40%; /* Darker gray-blue text */
     
     /* Accessible color variants for WCAG AA compliance */
@@ -52,8 +52,8 @@ All colors MUST be HSL.
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 90%;         /* Light gray-blue borders */
-    --input: 210 15% 90%;
+    --border: 210 15% 85%;         /* Slightly darker for visibility on white */
+    --input: 210 15% 85%;
     --ring: 25 100% 50%;           /* Orange focus rings */
 
     --radius: 0.5rem;
@@ -85,11 +85,11 @@ All colors MUST be HSL.
     --z-tooltip: 90;       /* Tooltips */
     --z-skip-link: 100;    /* Skip to content link (highest) */
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 0 0% 100%;  /* Pure white */
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-primary-foreground: 0 0% 100%;  /* Pure white */
+    --sidebar-accent: 0 0% 100%;  /* Pure white */
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
