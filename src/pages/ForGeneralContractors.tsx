@@ -1,9 +1,11 @@
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import Breadcrumb from "@/components/Breadcrumb";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
-import { Card } from "@/components/ui/card";
+import { CTA_TEXT } from "@/design-system/constants";
 import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -119,88 +121,82 @@ const ForGeneralContractors = () => {
         </section>
 
         {/* Trade Packages Section */}
-        <section id="trade-packages" className="py-16 bg-background">
-          <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Trade Packages We Execute
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Specialized envelope and interior trades for commercial, multi-family, and institutional projects
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-              {tradePackages.map((pkg, index) => (
-                <Card key={index} className="p-4 flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-construction-orange flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground">{pkg}</span>
-                </Card>
-              ))}
-            </div>
-
-            <div className="mt-8 p-6 bg-muted/50 rounded-lg max-w-3xl mx-auto text-center">
-              <p className="text-sm text-muted-foreground mb-2">
-                <strong className="text-foreground">Typical Project Scope:</strong>
-              </p>
-              <p className="text-muted-foreground">
-                Trade package values: $25k - $75k+ | Mid-rise to high-rise projects (5-30 storeys) | New construction and occupied building restoration
-              </p>
-            </div>
+        <Section id="trade-packages" size="major">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Trade Packages We Execute
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground">
+              Specialized envelope and interior trades for commercial, multi-family, and institutional projects
+            </p>
           </div>
-        </section>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {tradePackages.map((pkg, index) => (
+              <UnifiedCard key={index} variant="base" className="p-4 flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span>{pkg}</span>
+              </UnifiedCard>
+            ))}
+          </div>
+
+          <div className="mt-8 p-6 bg-muted/50 rounded-lg max-w-3xl mx-auto text-center">
+            <p className="text-sm text-muted-foreground mb-2">
+              <strong className="text-foreground">Typical Project Scope:</strong>
+            </p>
+            <p className="text-muted-foreground">
+              Trade package values: $25k - $75k+ | Mid-rise to high-rise projects (5-30 storeys) | New construction and occupied building restoration
+            </p>
+          </div>
+        </Section>
 
         {/* Why Work With Us */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Why GCs Work With Us
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Professional execution, clear communication, and reliable trade-level expertise
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {whyWorkWithUs.map((item, index) => (
-                <Card key={index} className="p-6">
-                  <item.icon className="w-8 h-8 text-construction-orange mb-4" />
-                  <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </Card>
-              ))}
-            </div>
+        <Section size="major" className="bg-muted/30">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Why GCs Work With Us
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground">
+              Professional execution, clear communication, and reliable trade-level expertise
+            </p>
           </div>
-        </section>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {whyWorkWithUs.map((item, index) => (
+              <UnifiedCard key={index} variant="elevated">
+                <item.icon className="w-8 h-8 text-primary mb-4" />
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
+              </UnifiedCard>
+            ))}
+          </div>
+        </Section>
 
         {/* Our Process */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Our Process for GC Partners
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                From tender review to project closeout—clear steps for seamless collaboration
-              </p>
-            </div>
-
-            <div className="max-w-4xl mx-auto space-y-6">
-              {processSteps.map((step, index) => (
-                <Card key={index} className="p-6 flex gap-6 items-start">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-construction-orange text-white flex items-center justify-center font-bold text-xl">
-                    {step.number}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-foreground mb-2">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
+        <Section size="major">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Our Process for GC Partners
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground">
+              From tender review to project closeout—clear steps for seamless collaboration
+            </p>
           </div>
-        </section>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {processSteps.map((step, index) => (
+              <UnifiedCard key={index} variant="elevated" className="flex gap-6 items-start">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl">
+                  {step.number}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl md:text-2xl font-semibold mb-2">{step.title}</h3>
+                  <p className="text-muted-foreground">{step.description}</p>
+                </div>
+              </UnifiedCard>
+            ))}
+          </div>
+        </Section>
 
         {/* Building Credentials Section */}
         <section className="py-16 bg-muted/30">

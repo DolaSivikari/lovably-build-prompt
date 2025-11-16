@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { Button } from "@/ui/Button";
 import { supabase } from "@/integrations/supabase/client";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
@@ -75,30 +76,39 @@ const Services = () => {
         canonical="https://ascentgroupconstruction.com/services"
       />
       <Navigation />
+      
+      <UnifiedPageHero
+        title="Our Services"
+        description="Ontario's specialty contractor for building envelope & restoration. Self-performed work across commercial, multi-family, and institutional projects."
+        primaryCTA={{ text: CTA_TEXT.primary, href: "/estimate" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services" }
+        ]}
+      />
 
       <main className="flex-1 relative">
 
         {/* 3D Service Cards Section */}
-        <section className="py-20 bg-background relative">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                Featured Services
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Explore our specialized construction services with interactive 3D cards
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {categories.slice(0, 6).flatMap(category => category.services.slice(0, 1)).map((service) => (
-                <ServiceCard3D
-                  key={service.id}
-                  {...service}
-                />
-              ))}
-            </div>
+        <Section size="major" className="bg-background relative">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Featured Services
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Explore our specialized construction services with interactive 3D cards
+            </p>
           </div>
-        </section>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categories.slice(0, 6).flatMap(category => category.services.slice(0, 1)).map((service) => (
+              <ServiceCard3D
+                key={service.id}
+                {...service}
+              />
+            ))}
+          </div>
+        </Section>
 
         {/* Who We Serve Section */}
         <section className="py-20 bg-background">
