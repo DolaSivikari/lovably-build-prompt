@@ -98,7 +98,7 @@ const WhySpecialtyContractor = () => {
       </Section>
 
       {/* Comparison Table Section */}
-      <Section background="muted">
+      <Section>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="mb-4">{comparisonTable.title}</h2>
@@ -200,7 +200,7 @@ const WhySpecialtyContractor = () => {
       </Section>
 
       {/* Cost Breakdown Section */}
-      <Section background="muted">
+      <Section>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="mb-4">{costBreakdown.title}</h2>
@@ -365,7 +365,7 @@ const WhySpecialtyContractor = () => {
       </Section>
 
       {/* FAQ Section */}
-      <Section background="muted">
+      <Section>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-center mb-12">Frequently Asked Questions</h2>
           <div className="space-y-6">
@@ -399,7 +399,7 @@ const WhySpecialtyContractor = () => {
       </Section>
 
       {/* Final CTA Section */}
-      <Section background="muted">
+      <Section>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="mb-4">{finalCTA.title}</h2>
           <p className="text-xl text-muted-foreground mb-8">{finalCTA.description}</p>

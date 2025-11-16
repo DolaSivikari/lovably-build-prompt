@@ -109,7 +109,7 @@ const Sustainability = () => {
       />
       <Navigation />
 
-      <div className="bg-gradient-to-br from-sustainability/10 via-background to-background">
+      <div className="bg-background">
         <PageHeader
           eyebrow="Sustainability"
           title="Building a Greener Future"

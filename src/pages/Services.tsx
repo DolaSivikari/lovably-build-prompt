@@ -77,7 +77,7 @@ const Services = () => {
       <main className="flex-1 relative">
 
         {/* 3D Service Cards Section */}
-        <section className="py-20 bg-gradient-to-b from-muted/20 to-background relative">
+        <section className="py-20 bg-background relative">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -99,7 +99,7 @@ const Services = () => {
         </section>
 
         {/* Who We Serve Section */}
-        <section className="py-20 bg-gradient-to-b from-muted/10 to-background">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4">Who We Serve</h2>

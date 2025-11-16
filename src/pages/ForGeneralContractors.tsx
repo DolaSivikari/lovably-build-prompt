@@ -91,7 +91,7 @@ const ForGeneralContractors = () => {
       <Navigation />
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-28 bg-gradient-to-br from-background via-background to-construction-orange/5">
+        <section className="relative py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <Breadcrumb 
               items={[

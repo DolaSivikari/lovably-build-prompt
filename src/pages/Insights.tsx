@@ -18,7 +18,7 @@ const Insights = () => {
       
       <main id="main-content">
         {/* Hero Section */}
-        <section className="py-20 md:py-24 bg-gradient-to-br from-primary/5 to-background border-b">
+        <section className="py-20 md:py-24 bg-background border-b">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
               Industry Insights
