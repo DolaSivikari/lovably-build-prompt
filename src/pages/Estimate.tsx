@@ -391,7 +391,7 @@ Add-ons:
       />
       <Navigation />
 
-      <main className="flex-1 pt-24 pb-16 bg-gradient-to-b from-background to-muted/10">
+      <main className="flex-1 pt-24 pb-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Enhanced Header */}
