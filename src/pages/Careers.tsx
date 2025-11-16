@@ -3,7 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
-import { Card, CardContent } from "@/components/ui/card";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
