@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import logoIntroVideo from "@/assets/ascent-logo-intro.mp4";
 
 const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Check if user has seen splash in last 24 hours
@@ -14,12 +16,12 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
     const now = Date.now();
     const twentyFourHours = 24 * 60 * 60 * 1000;
 
-    if (now - lastSeen < twentyFourHours || prefersReducedMotion) {
-      // Skip splash if seen recently or user prefers reduced motion
+    if (isMobile || now - lastSeen < twentyFourHours || prefersReducedMotion) {
+      // Skip splash if mobile, seen recently, or user prefers reduced motion
       onComplete();
       return;
     }
-  }, [onComplete, prefersReducedMotion]);
+  }, [onComplete, prefersReducedMotion, isMobile]);
 
   const handleVideoEnd = () => {
     localStorage.setItem("ascent-splash-seen", Date.now().toString());
@@ -39,7 +41,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
     }, 300);
   };
 
-  if (!isVisible || prefersReducedMotion) return null;
+  if (!isVisible || prefersReducedMotion || isMobile) return null;
 
   return (
     <div
