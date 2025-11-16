@@ -123,15 +123,15 @@ const EnhancedHero = () => {
       setIsFadingOut(true);
       setIsTransitioning(true);
       
-      // Fade out (300ms) -> Change content (instant) -> Fade in (300ms)
+      // Fade out (500ms) -> Change content (instant) -> Fade in (500ms)
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
         setIsFadingOut(false);
-      }, 300);
+      }, 500);
       
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 600);
+      }, 1000);
     }, 7000);
 
     return () => {
@@ -148,15 +148,15 @@ const EnhancedHero = () => {
     setIsFadingOut(true);
     setIsTransitioning(true);
     
-    // Fade out (300ms) -> Change content (instant) -> Fade in (300ms)
+    // Fade out (500ms) -> Change content (instant) -> Fade in (500ms)
     setTimeout(() => {
       setCurrentSlide(index);
       setIsFadingOut(false);
-    }, 300);
+    }, 500);
     
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 600);
+    }, 1000);
   };
 
   const togglePlayPause = () => {
@@ -262,7 +262,7 @@ const EnhancedHero = () => {
       
       {/* Video Background */}
       <div 
-        className="absolute inset-0 w-full h-full transition-opacity duration-300 ease-in-out"
+        className="absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out"
         style={{ 
           opacity: isFadingOut ? 0.4 : 1,
           aspectRatio: '16/9'
@@ -298,7 +298,7 @@ const EnhancedHero = () => {
 
       {/* Content */}
         <div 
-          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${isPageLoaded ? 'transition-transform duration-300' : ''}`}
+          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${isPageLoaded ? 'transition-transform duration-500 ease-out' : ''}`}
           style={{ transform: isFadingOut ? 'translateY(4px)' : 'translateY(0)' }}
         >
         <div className="max-w-5xl mx-auto">
