@@ -6,7 +6,6 @@ import CompanyIntroduction from "@/components/homepage/CompanyIntroduction";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import SEO from "@/components/SEO";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
-import SmartCTA from "@/components/SmartCTA";
 import ClientValueProposition from "@/components/homepage/ClientValueProposition";
 import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
@@ -195,7 +194,6 @@ const Index = () => {
         includeRating={true} 
         />
         <Navigation />
-        <SmartCTA />
       <main id="main-content" role="main">
         <EnhancedHero />
         {/* Smooth transition removed - pure white background */}
