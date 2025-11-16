@@ -13,7 +13,7 @@ const clientTypes = [
     description: "Multi-family and residential property solutions",
     benefits: ["Quality Construction", "Professional Service", "Reliable Delivery"],
     cta: "View Services",
-    link: "/markets/multi-family",
+    link: "/services",
     color: "from-blue-500/10 to-blue-600/5",
   },
   {

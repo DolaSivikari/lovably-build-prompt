@@ -58,38 +58,6 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       ],
     },
   ],
-  markets: [
-    {
-      sectionTitle: "Markets We Serve",
-      sectionLink: "/markets",
-      categories: [
-        {
-          title: "By Sector",
-          description: "Specialized construction solutions by industry",
-          subItems: [
-            { name: "Multi-Family Residential", link: "/markets/multi-family", description: "Condos, apartments, student housing" },
-            { name: "Commercial Construction", link: "/markets/commercial", description: "Office buildings, retail, mixed-use" },
-            { name: "Institutional", link: "/markets/institutional", description: "Schools, hospitals, government" },
-            { name: "Industrial", link: "/markets/industrial", description: "Warehouses, manufacturing facilities" },
-            { name: "Healthcare Facilities", link: "/markets/healthcare", description: "Hospitals and medical centers", badge: "new" },
-            { name: "Education", link: "/markets/education", description: "K-12 schools and universities", badge: "new" },
-            { name: "Retail", link: "/markets/retail", description: "Shopping centers and stores" },
-            { name: "Hospitality", link: "/markets/hospitality", description: "Hotels and resorts" },
-          ],
-        },
-        {
-          title: "Client Solutions",
-          description: "Tailored services for different client types",
-          subItems: [
-            { name: "For Developers", link: "/company/developers", description: "New construction and repositioning", badge: "popular" },
-            { name: "For Property Managers", link: "/property-managers", description: "Building maintenance and capital projects" },
-            { name: "For Commercial Clients", link: "/commercial-clients", description: "Tenant improvements and renovations" },
-            { name: "Multi-Family", link: "/markets/multi-family", description: "Multi-family construction solutions" },
-          ],
-        },
-      ],
-    },
-  ],
   projects: [
     {
       sectionTitle: "Projects",
@@ -126,7 +94,6 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           subItems: [
             { name: "Pre-Qualification Package", link: "/prequalification", description: "Download contractor qualifications", badge: "important" },
             { name: "Capabilities Overview", link: "/capabilities", description: "Project delivery methods", badge: "new" },
-            { name: "Safety & Compliance", link: "/safety-compliance", description: "Safety programs and statistics" },
             { name: "Certifications & Insurance", link: "/company/certifications-insurance", description: "Licenses and coverage" },
           ],
         },
@@ -152,8 +119,6 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           subItems: [
             { name: "FAQ", link: "/faq", description: "Frequently asked questions" },
             { name: "Service Areas", link: "/resources/service-areas", description: "Where we work" },
-            { name: "Warranties & Guarantees", link: "/resources/warranties", description: "Project warranties", badge: "new" },
-            { name: "Financing Options", link: "/resources/financing", description: "Flexible payment solutions", badge: "new" },
             { name: "Blog & Insights", link: "/blog", description: "Industry knowledge" },
           ],
         },

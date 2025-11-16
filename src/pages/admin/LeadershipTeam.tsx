@@ -240,7 +240,7 @@ export default function LeadershipTeam() {
             <p className="text-muted-foreground">Manage your leadership team profiles</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => window.open('/company/team', '_blank')}>
+            <Button variant="outline" onClick={() => window.open('/about', '_blank')}>
               View on Website
             </Button>
             <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>

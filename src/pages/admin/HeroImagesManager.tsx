@@ -252,7 +252,7 @@ const HeroImagesManager = () => {
                       placeholder="/about"
                       required
                     />
-                    <p className="text-xs text-muted-foreground">e.g., /about, /markets, /resources/financing</p>
+                    <p className="text-xs text-muted-foreground">e.g., /about, /services, /contact</p>
                   </div>
                   
                   <div className="space-y-2">
