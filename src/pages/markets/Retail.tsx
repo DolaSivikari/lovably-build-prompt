@@ -1,12 +1,15 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/PageHeader";
+import { Card, CardContent } from "@/components/ui/card";
 import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import { CheckCircle2, Clock, TrendingUp, Store } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroRetail from "@/assets/heroes/hero-retail.jpg";
 import { CTA_TEXT } from "@/design-system/constants";
 
 const Retail = () => {
