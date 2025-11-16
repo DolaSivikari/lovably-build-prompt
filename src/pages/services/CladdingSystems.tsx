@@ -42,11 +42,11 @@ const CladdingSystems = () => {
         title="Cladding Systems"
         description="Complete exterior cladding solutions from metal panels to EIFS and rainscreen assemblies"
         breadcrumbs={[
-          { name: 'Home', path: '/' },
-          { name: 'Services', path: '/services' },
-          { name: 'Cladding Systems', path: '/services/cladding-systems' }
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Cladding Systems' }
         ]}
-        cta={{ text: CTA_TEXT.project, href: "/estimate" }}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       <main className="flex-1">

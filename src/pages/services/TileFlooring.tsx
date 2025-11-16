@@ -78,11 +78,11 @@ const TileFlooring = () => {
         title="Tile & Flooring Installation"
         description="Professional flooring solutions for commercial and multi-family projects"
         breadcrumbs={[
-          { name: 'Home', path: '/' },
-          { name: 'Services', path: '/services' },
-          { name: 'Tile & Flooring', path: '/services/tile-flooring' }
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Tile & Flooring' }
         ]}
-        cta={{ text: CTA_TEXT.project, href: "/estimate" }}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
       />
 
       <main className="flex-1">
