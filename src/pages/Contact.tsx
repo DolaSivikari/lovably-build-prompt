@@ -3,7 +3,7 @@ import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { supabase } from "@/integrations/supabase/client";
@@ -168,11 +168,10 @@ const Contact = () => {
       <SEO title="Contact Us - Request Proposal | Ascent Group" description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA." canonical="https://ascentgroupconstruction.com/contact" />
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Contact Us"
         description="Get expert building envelope and restoration services across Ontario. Our specialized crews are ready to discuss your project."
-        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Contact" }
