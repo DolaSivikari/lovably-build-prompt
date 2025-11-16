@@ -38,7 +38,7 @@ export const ScrollReveal = ({
   className,
   delay = 0,
 }: ScrollRevealProps) => {
-  const { ref, isVisible } = useScrollReveal<HTMLDivElement>({
+  const { ref, isVisible, skipAnimation } = useScrollReveal<HTMLDivElement>({
     threshold,
     triggerOnce,
   });
@@ -53,11 +53,11 @@ export const ScrollReveal = ({
     <div
       ref={ref}
       className={cn(
-        directionClass,
-        isVisible && "is-visible",
+        skipAnimation ? "opacity-100" : directionClass,
+        isVisible && !skipAnimation && "is-visible",
         className
       )}
-      style={delay > 0 ? {
+      style={!skipAnimation && delay > 0 ? {
         transitionDelay: `${delay}ms`,
       } : undefined}
     >
