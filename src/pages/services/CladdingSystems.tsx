@@ -68,7 +68,7 @@ const CladdingSystems = () => {
 
               <TabsContent value="metal" className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Building2 className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Aluminum Composite Panels (ACM)</h3>
                     <p className="text-muted-foreground mb-4">
@@ -88,9 +88,9 @@ const CladdingSystems = () => {
                         PVDF and anodized finishes
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Layers className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Standing Seam Metal Roofing/Walls</h3>
                     <p className="text-muted-foreground mb-4">
@@ -110,9 +110,9 @@ const CladdingSystems = () => {
                         Integrated gutter and trim systems
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Shield className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Insulated Metal Panels (IMP)</h3>
                     <p className="text-muted-foreground mb-4">
@@ -132,9 +132,9 @@ const CladdingSystems = () => {
                         Flush panel and ribbed profiles
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Wind className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Corrugated & Ribbed Metal Siding</h3>
                     <p className="text-muted-foreground mb-4">
@@ -154,13 +154,13 @@ const CladdingSystems = () => {
                         Multiple rib profiles and gauges
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
                 </div>
               </TabsContent>
 
               <TabsContent value="eifs" className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Building2 className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">EIFS (Exterior Insulation & Finish System)</h3>
                     <p className="text-muted-foreground mb-4">
@@ -180,9 +180,9 @@ const CladdingSystems = () => {
                         Integrated water management
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Layers className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Traditional Stucco</h3>
                     <p className="text-muted-foreground mb-4">
@@ -202,9 +202,9 @@ const CladdingSystems = () => {
                         Over masonry, CMU, or lath
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Shield className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Acrylic & Elastomeric Finishes</h3>
                     <p className="text-muted-foreground mb-4">
@@ -224,9 +224,9 @@ const CladdingSystems = () => {
                         20+ year performance life
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Wind className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">EIFS Repair & Restoration</h3>
                     <p className="text-muted-foreground mb-4">
@@ -246,13 +246,13 @@ const CladdingSystems = () => {
                         Complete system recoating
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
                 </div>
               </TabsContent>
 
               <TabsContent value="other" className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Building2 className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Fiber Cement Siding</h3>
                     <p className="text-muted-foreground mb-4">
@@ -272,9 +272,9 @@ const CladdingSystems = () => {
                         Fire-resistant and pest-proof
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Layers className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Rainscreen Cladding Systems</h3>
                     <p className="text-muted-foreground mb-4">
@@ -294,9 +294,9 @@ const CladdingSystems = () => {
                         Enhanced energy performance
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Shield className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Composite Panel Systems</h3>
                     <p className="text-muted-foreground mb-4">
@@ -316,9 +316,9 @@ const CladdingSystems = () => {
                         Phenolic resin panels
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
 
-                  <Card className="p-6">
+                  <UnifiedCard variant="elevated">
                     <Wind className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-semibold mb-2">Vinyl & PVC Siding</h3>
                     <p className="text-muted-foreground mb-4">
@@ -338,7 +338,7 @@ const CladdingSystems = () => {
                         Lifetime limited warranties
                       </li>
                     </ul>
-                  </Card>
+                  </UnifiedCard>
                 </div>
               </TabsContent>
             </Tabs>
