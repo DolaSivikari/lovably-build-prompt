@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { UnifiedSidebar } from './UnifiedSidebar';
-import { BusinessHeader } from '@/components/business/BusinessHeader';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { Menu } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { PageTransition } from '@/components/animations/PageTransition';
 import { OnboardingTour } from '@/components/admin/OnboardingTour';
@@ -77,10 +77,17 @@ export const UnifiedAdminLayout = () => {
         onRestartOnboarding={handleRestartOnboarding}
       />
       <div className={`business-main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-        <BusinessHeader 
-          user={user} 
-          onMenuClick={() => setMobileMenuOpen(true)}
-        />
+        <header className="bg-background border-b border-border px-6 py-4 flex items-center justify-between">
+          <button 
+            onClick={() => setMobileMenuOpen(true)}
+            className="lg:hidden p-2 hover:bg-muted rounded-md"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-muted-foreground">{user?.email}</span>
+          </div>
+        </header>
         <div className="business-page-content">
           <PageTransition type="fade" duration={300}>
             <Outlet />

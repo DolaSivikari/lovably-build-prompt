@@ -57,15 +57,13 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
   // Check if any route in a group is active to keep it open
   const isContentActive = ['/admin/projects', '/admin/services', '/admin/blog', '/admin/media', '/admin/testimonials', '/admin/stats', '/admin/awards', '/admin/leadership', '/admin/documents'].some(p => currentPath.startsWith(p));
   const isAppearanceActive = ['/admin/homepage-builder', '/admin/navigation-builder', '/admin/footer-settings', '/admin/about-page', '/admin/contact-page'].some(p => currentPath.startsWith(p));
-  const isInboxActive = ['/admin/contacts', '/admin/resumes', '/admin/prequalifications', '/admin/rfp', '/admin/newsletter-subscribers', '/admin/partner-permissions'].some(p => currentPath.startsWith(p));
-  const isBusinessActive = ['/admin/business'].some(p => currentPath.startsWith(p));
-  const isToolsActive = ['/admin/seo-dashboard', '/admin/redirects', '/admin/structured-data', '/admin/performance-dashboard', '/admin/search-analytics', '/admin/settings-health'].some(p => currentPath.startsWith(p));
+  const isInboxActive = ['/admin/contacts', '/admin/resumes', '/admin/prequalifications', '/admin/rfp', '/admin/newsletter-subscribers'].some(p => currentPath.startsWith(p));
+  const isToolsActive = ['/admin/seo-dashboard', '/admin/redirects', '/admin/performance-dashboard', '/admin/search-analytics', '/admin/settings-health'].some(p => currentPath.startsWith(p));
   const isSettingsActive = ['/admin/site-settings', '/admin/users', '/admin/security-settings', '/admin/editor-guide', '/admin/error-logs'].some(p => currentPath.startsWith(p));
 
   const [contentOpen, setContentOpen] = useState(isContentActive);
   const [appearanceOpen, setAppearanceOpen] = useState(isAppearanceActive);
   const [inboxOpen, setInboxOpen] = useState(isInboxActive);
-  const [businessOpen, setBusinessOpen] = useState(isBusinessActive);
   const [toolsOpen, setToolsOpen] = useState(isToolsActive);
   const [settingsOpen, setSettingsOpen] = useState(isSettingsActive);
 
@@ -217,26 +215,6 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
         </Collapsible>
 
         {/* Business Tools Section */}
-        <Collapsible open={businessOpen} onOpenChange={setBusinessOpen} data-tour="business">
-          <CollapsibleTrigger className="business-nav-group-label">
-            {!collapsed && (
-              <>
-                <Briefcase size={16} />
-                <span>Business Tools</span>
-              </>
-            )}
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <nav className="business-nav-group">
-              <NavItem to="/admin/business" icon={LayoutDashboard} label="Dashboard" />
-              <NavItem to="/admin/business/clients" icon={Users} label="Clients" />
-              <NavItem to="/admin/business/projects" icon={Briefcase} label="Projects" />
-              <NavItem to="/admin/business/estimates" icon={FileText} label="Estimates" />
-              <NavItem to="/admin/business/invoices" icon={Receipt} label="Invoices" />
-            </nav>
-          </CollapsibleContent>
-        </Collapsible>
-
         {/* Tools Section (NEW) */}
         <Collapsible open={toolsOpen} onOpenChange={setToolsOpen} data-tour="tools">
           <CollapsibleTrigger className="business-nav-group-label">
