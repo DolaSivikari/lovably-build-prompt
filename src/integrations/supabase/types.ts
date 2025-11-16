@@ -494,53 +494,6 @@ export type Database = {
           },
         ]
       }
-      business_projects: {
-        Row: {
-          client_id: string | null
-          created_at: string | null
-          description: string | null
-          end_date: string | null
-          id: string
-          name: string
-          start_date: string | null
-          status: string | null
-          updated_at: string | null
-          user_id: string
-        }
-        Insert: {
-          client_id?: string | null
-          created_at?: string | null
-          description?: string | null
-          end_date?: string | null
-          id?: string
-          name: string
-          start_date?: string | null
-          status?: string | null
-          updated_at?: string | null
-          user_id: string
-        }
-        Update: {
-          client_id?: string | null
-          created_at?: string | null
-          description?: string | null
-          end_date?: string | null
-          id?: string
-          name?: string
-          start_date?: string | null
-          status?: string | null
-          updated_at?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "business_projects_client_id_fkey"
-            columns: ["client_id"]
-            isOneToOne: false
-            referencedRelation: "clients"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       certifications: {
         Row: {
           created_at: string | null
@@ -577,48 +530,6 @@ export type Database = {
           logo_url?: string | null
           name?: string
           updated_at?: string | null
-        }
-        Relationships: []
-      }
-      clients: {
-        Row: {
-          address: string | null
-          company: string | null
-          created_at: string | null
-          email: string | null
-          id: string
-          is_active: boolean | null
-          name: string
-          notes: string | null
-          phone: string | null
-          updated_at: string | null
-          user_id: string
-        }
-        Insert: {
-          address?: string | null
-          company?: string | null
-          created_at?: string | null
-          email?: string | null
-          id?: string
-          is_active?: boolean | null
-          name: string
-          notes?: string | null
-          phone?: string | null
-          updated_at?: string | null
-          user_id: string
-        }
-        Update: {
-          address?: string | null
-          company?: string | null
-          created_at?: string | null
-          email?: string | null
-          id?: string
-          is_active?: boolean | null
-          name?: string
-          notes?: string | null
-          phone?: string | null
-          updated_at?: string | null
-          user_id?: string
         }
         Relationships: []
       }
@@ -1055,78 +966,6 @@ export type Database = {
         }
         Relationships: []
       }
-      estimates: {
-        Row: {
-          client_id: string | null
-          created_at: string | null
-          discount_cents: number | null
-          estimate_number: string
-          id: string
-          line_items: Json | null
-          notes: string | null
-          project_id: string | null
-          status: string | null
-          subtotal_cents: number | null
-          tax_amount_cents: number | null
-          tax_rate: number | null
-          total_cents: number | null
-          updated_at: string | null
-          user_id: string
-          valid_until: string | null
-        }
-        Insert: {
-          client_id?: string | null
-          created_at?: string | null
-          discount_cents?: number | null
-          estimate_number: string
-          id?: string
-          line_items?: Json | null
-          notes?: string | null
-          project_id?: string | null
-          status?: string | null
-          subtotal_cents?: number | null
-          tax_amount_cents?: number | null
-          tax_rate?: number | null
-          total_cents?: number | null
-          updated_at?: string | null
-          user_id: string
-          valid_until?: string | null
-        }
-        Update: {
-          client_id?: string | null
-          created_at?: string | null
-          discount_cents?: number | null
-          estimate_number?: string
-          id?: string
-          line_items?: Json | null
-          notes?: string | null
-          project_id?: string | null
-          status?: string | null
-          subtotal_cents?: number | null
-          tax_amount_cents?: number | null
-          tax_rate?: number | null
-          total_cents?: number | null
-          updated_at?: string | null
-          user_id?: string
-          valid_until?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "estimates_client_id_fkey"
-            columns: ["client_id"]
-            isOneToOne: false
-            referencedRelation: "clients"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "estimates_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "business_projects"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       footer_settings: {
         Row: {
           contact_info: Json | null
@@ -1417,97 +1256,6 @@ export type Database = {
           updated_by?: string | null
         }
         Relationships: []
-      }
-      invoices: {
-        Row: {
-          balance_cents: number | null
-          client_id: string | null
-          created_at: string | null
-          discount_cents: number | null
-          due_date: string
-          estimate_id: string | null
-          id: string
-          invoice_number: string
-          issue_date: string
-          line_items: Json | null
-          notes: string | null
-          paid_cents: number | null
-          project_id: string | null
-          status: string | null
-          subtotal_cents: number | null
-          tax_amount_cents: number | null
-          tax_rate: number | null
-          total_cents: number | null
-          updated_at: string | null
-          user_id: string
-        }
-        Insert: {
-          balance_cents?: number | null
-          client_id?: string | null
-          created_at?: string | null
-          discount_cents?: number | null
-          due_date: string
-          estimate_id?: string | null
-          id?: string
-          invoice_number: string
-          issue_date: string
-          line_items?: Json | null
-          notes?: string | null
-          paid_cents?: number | null
-          project_id?: string | null
-          status?: string | null
-          subtotal_cents?: number | null
-          tax_amount_cents?: number | null
-          tax_rate?: number | null
-          total_cents?: number | null
-          updated_at?: string | null
-          user_id: string
-        }
-        Update: {
-          balance_cents?: number | null
-          client_id?: string | null
-          created_at?: string | null
-          discount_cents?: number | null
-          due_date?: string
-          estimate_id?: string | null
-          id?: string
-          invoice_number?: string
-          issue_date?: string
-          line_items?: Json | null
-          notes?: string | null
-          paid_cents?: number | null
-          project_id?: string | null
-          status?: string | null
-          subtotal_cents?: number | null
-          tax_amount_cents?: number | null
-          tax_rate?: number | null
-          total_cents?: number | null
-          updated_at?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "invoices_client_id_fkey"
-            columns: ["client_id"]
-            isOneToOne: false
-            referencedRelation: "clients"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "invoices_estimate_id_fkey"
-            columns: ["estimate_id"]
-            isOneToOne: false
-            referencedRelation: "estimates"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "invoices_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "business_projects"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       job_postings: {
         Row: {
@@ -1821,54 +1569,6 @@ export type Database = {
           resolved_by?: string | null
           status?: string | null
           title?: string
-        }
-        Relationships: []
-      }
-      partner_permissions: {
-        Row: {
-          contact_email: string | null
-          created_at: string | null
-          created_by: string | null
-          id: string
-          logo_file_path: string | null
-          notes: string | null
-          partner_name: string
-          permission_date: string | null
-          permission_scope: string[] | null
-          permission_status: string | null
-          updated_at: string | null
-          updated_by: string | null
-          website_url: string | null
-        }
-        Insert: {
-          contact_email?: string | null
-          created_at?: string | null
-          created_by?: string | null
-          id?: string
-          logo_file_path?: string | null
-          notes?: string | null
-          partner_name: string
-          permission_date?: string | null
-          permission_scope?: string[] | null
-          permission_status?: string | null
-          updated_at?: string | null
-          updated_by?: string | null
-          website_url?: string | null
-        }
-        Update: {
-          contact_email?: string | null
-          created_at?: string | null
-          created_by?: string | null
-          id?: string
-          logo_file_path?: string | null
-          notes?: string | null
-          partner_name?: string
-          permission_date?: string | null
-          permission_scope?: string[] | null
-          permission_status?: string | null
-          updated_at?: string | null
-          updated_by?: string | null
-          website_url?: string | null
         }
         Relationships: []
       }
@@ -2240,30 +1940,6 @@ export type Database = {
           },
         ]
       }
-      quiz_submissions: {
-        Row: {
-          answers: Json
-          created_at: string | null
-          id: string
-          recommended_services: string[] | null
-          user_email: string | null
-        }
-        Insert: {
-          answers: Json
-          created_at?: string | null
-          id?: string
-          recommended_services?: string[] | null
-          user_email?: string | null
-        }
-        Update: {
-          answers?: Json
-          created_at?: string | null
-          id?: string
-          recommended_services?: string[] | null
-          user_email?: string | null
-        }
-        Relationships: []
-      }
       quote_requests: {
         Row: {
           access_hours: string | null
@@ -2457,56 +2133,6 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
-      }
-      review_requests: {
-        Row: {
-          clicked_at: string | null
-          client_name: string | null
-          completed_at: string | null
-          created_at: string | null
-          email: string
-          id: string
-          platform: string | null
-          project_id: string | null
-          sent_at: string | null
-          status: string
-          updated_at: string | null
-        }
-        Insert: {
-          clicked_at?: string | null
-          client_name?: string | null
-          completed_at?: string | null
-          created_at?: string | null
-          email: string
-          id?: string
-          platform?: string | null
-          project_id?: string | null
-          sent_at?: string | null
-          status?: string
-          updated_at?: string | null
-        }
-        Update: {
-          clicked_at?: string | null
-          client_name?: string | null
-          completed_at?: string | null
-          created_at?: string | null
-          email?: string
-          id?: string
-          platform?: string | null
-          project_id?: string | null
-          sent_at?: string | null
-          status?: string
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "review_requests_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       rfp_submissions: {
         Row: {
@@ -3015,39 +2641,6 @@ export type Database = {
           updated_at?: string | null
           updated_by?: string | null
           value?: number
-        }
-        Relationships: []
-      }
-      structured_data_templates: {
-        Row: {
-          created_at: string | null
-          created_by: string | null
-          id: string
-          is_active: boolean | null
-          name: string
-          schema_json: Json
-          type: string
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          created_by?: string | null
-          id?: string
-          is_active?: boolean | null
-          name: string
-          schema_json: Json
-          type: string
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          created_by?: string | null
-          id?: string
-          is_active?: boolean | null
-          name?: string
-          schema_json?: Json
-          type?: string
-          updated_at?: string | null
         }
         Relationships: []
       }

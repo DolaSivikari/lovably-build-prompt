@@ -61,7 +61,6 @@ import Accessibility from "./pages/Accessibility";
 import Unsubscribe from "./pages/Unsubscribe";
 import CookieBanner from "./components/CookieBanner";
 import NewsletterSubscribers from "./pages/admin/NewsletterSubscribers";
-import PartnerPermissions from "./pages/admin/PartnerPermissions";
 import DynamicSpecialtyPage from "./pages/DynamicSpecialtyPage";
 import WhySpecialtyContractor from "./pages/WhySpecialtyContractor";
 
@@ -163,9 +162,6 @@ const EditorGuide = lazy(() => import("./pages/admin/EditorGuide").catch(() => (
 const RedirectsManager = lazy(() => import("./pages/admin/RedirectsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Redirects Manager</p></div>
 })));
-const StructuredDataManager = lazy(() => import("./pages/admin/StructuredDataManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Structured Data Manager</p></div>
-})));
 const AboutPageSettings = lazy(() => import("./pages/admin/AboutPageSettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load About Page Settings</p></div>
 })));
@@ -187,9 +183,6 @@ const ErrorLogs = lazy(() => import("./pages/admin/ErrorLogs").catch(() => ({
 const QuoteRequests = lazy(() => import("./pages/admin/QuoteRequests").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Quote Requests</p></div>
 })));
-const ReviewManager = lazy(() => import("./pages/admin/ReviewManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Review Manager</p></div>
-})));
 
 // WordPress-style Admin Pages
 const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
@@ -206,23 +199,6 @@ const ToolsOverview = lazy(() => import("./pages/admin/ToolsOverview").catch(() 
 })));
 const NavigationMigration = lazy(() => import("./pages/admin/NavigationMigration").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Migration</p></div>
-})));
-
-// Business Management Pages
-const BusinessDashboard = lazy(() => import("./pages/admin/business/BusinessDashboard").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Dashboard</p></div>
-})));
-const BusinessClients = lazy(() => import("./pages/admin/business/BusinessClients").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Clients</p></div>
-})));
-const BusinessProjects = lazy(() => import("./pages/admin/business/BusinessProjects").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Projects</p></div>
-})));
-const BusinessEstimates = lazy(() => import("./pages/admin/business/BusinessEstimates").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Estimates</p></div>
-})));
-const BusinessInvoices = lazy(() => import("./pages/admin/business/BusinessInvoices").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Business Invoices</p></div>
 })));
 
 // Unified Admin Layout
@@ -411,11 +387,9 @@ const App = () => (
                     <Route path="search-analytics" element={<SearchAnalytics />} />
                     <Route path="error-logs" element={<ErrorLogs />} />
                     <Route path="quote-requests" element={<QuoteRequests />} />
-                    <Route path="reviews" element={<ReviewManager />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
                     <Route path="newsletter-subscribers" element={<Suspense fallback={<PageLoader />}><NewsletterSubscribers /></Suspense>} />
-                    <Route path="partner-permissions" element={<Suspense fallback={<PageLoader />}><PartnerPermissions /></Suspense>} />
                     
                     {/* Phase 1 & 2: Homepage & Navigation Management */}
                     <Route path="homepage-content" element={<HomepageContent />} />
@@ -423,7 +397,6 @@ const App = () => (
                     <Route path="homepage-company-overview" element={<HomepageCompanyOverview />} />
                     <Route path="navigation-builder" element={<NavigationBuilder />} />
                     <Route path="redirects" element={<RedirectsManager />} />
-                    <Route path="structured-data" element={<StructuredDataManager />} />
                     <Route path="editor-guide" element={<EditorGuide />} />
                     
                     {/* WordPress-style reorganization - NEW */}
@@ -438,13 +411,6 @@ const App = () => (
                     <Route path="hero-images" element={<HeroImagesManager />} />
                     <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder?tab=why-choose" replace />} />
                     <Route path="landing-menu" element={<Navigate to="/admin/homepage-builder?tab=landing-menu" replace />} />
-                    
-                    {/* Business Management Routes */}
-                    <Route path="business" element={<BusinessDashboard />} />
-                    <Route path="business/clients" element={<BusinessClients />} />
-                    <Route path="business/projects" element={<BusinessProjects />} />
-                    <Route path="business/estimates" element={<BusinessEstimates />} />
-                    <Route path="business/invoices" element={<BusinessInvoices />} />
                   </Route>
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
