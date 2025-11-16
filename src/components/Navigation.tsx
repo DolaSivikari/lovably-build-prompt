@@ -6,7 +6,7 @@ import ascentLogoHorizontalLight from "@/assets/ascent-logo-horizontal-light.png
 import { ChevronDown, Shield, Phone, ArrowRight, FileText } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { supabase } from "@/integrations/supabase/client";
-import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
+import { SimpleDropdownMenu } from "./navigation/SimpleDropdownMenu";
 import { MobileNavSheet } from "./navigation/MobileNavSheet";
 
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
@@ -190,7 +190,7 @@ const Navigation = () => {
                   activeMegaMenu === "services" && "rotate-180"
                 )} />
               </Link>
-              <MegaMenuWithSections
+              <SimpleDropdownMenu
                 sections={megaMenuDataEnhanced.services}
                 isOpen={activeMegaMenu === "services"}
                 onClose={closeMegaMenu}
@@ -232,7 +232,7 @@ const Navigation = () => {
                   activeMegaMenu === "company" && "rotate-180"
                 )} />
               </button>
-              <MegaMenuWithSections
+              <SimpleDropdownMenu
                 sections={megaMenuDataEnhanced.company}
                 isOpen={activeMegaMenu === "company"}
                 onClose={closeMegaMenu}
@@ -261,7 +261,7 @@ const Navigation = () => {
                   activeMegaMenu === "resources" && "rotate-180"
                 )} />
               </button>
-              <MegaMenuWithSections
+              <SimpleDropdownMenu
                 sections={megaMenuDataEnhanced.resources}
                 isOpen={activeMegaMenu === "resources"}
                 onClose={closeMegaMenu}

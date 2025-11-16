@@ -1,0 +1,163 @@
+/* ===== SIMPLE DROPDOWN NAVIGATION ===== */
+
+/* Dropdown Container */
+.simple-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  
+  /* Smooth transitions */
+  transition: opacity 200ms ease-out, 
+              visibility 200ms ease-out,
+              transform 200ms ease-out;
+  
+  /* Initial position slightly above */
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* Open state */
+.simple-dropdown--open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Dropdown Content */
+.simple-dropdown-content {
+  width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+  
+  /* Styling */
+  @apply bg-background/95 backdrop-blur-lg;
+  @apply border border-border/50;
+  @apply rounded-lg shadow-xl;
+  @apply py-3;
+  
+  /* Prevent text selection during navigation */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Section Container */
+.simple-dropdown-section {
+  @apply px-2;
+}
+
+.simple-dropdown-section:not(:last-child) {
+  @apply mb-4;
+}
+
+/* Category */
+.simple-dropdown-category {
+  @apply mb-3;
+}
+
+.simple-dropdown-category:last-child {
+  @apply mb-0;
+}
+
+/* Category Header */
+.simple-dropdown-category-header {
+  @apply px-3 py-2;
+  @apply text-xs font-semibold uppercase tracking-wider;
+  @apply text-muted-foreground;
+  @apply border-b border-border/30;
+  @apply mb-1;
+}
+
+/* Link List */
+.simple-dropdown-list {
+  @apply space-y-0.5;
+}
+
+/* Individual Links */
+.simple-dropdown-link {
+  @apply flex items-center justify-between;
+  @apply px-3 py-2.5;
+  @apply rounded-md;
+  @apply text-sm font-medium;
+  @apply text-foreground;
+  @apply transition-all duration-200;
+  @apply relative;
+  
+  /* Remove default link underline */
+  text-decoration: none;
+}
+
+/* Hover State */
+@media (hover: hover) and (pointer: fine) {
+  .simple-dropdown-link:hover {
+    @apply bg-accent/50;
+    @apply text-primary;
+    @apply pl-4;
+    
+    /* Left accent border on hover */
+    border-left: 3px solid hsl(var(--primary));
+  }
+}
+
+/* Active/Focus State */
+.simple-dropdown-link:active,
+.simple-dropdown-link:focus-visible {
+  @apply outline-none ring-2 ring-primary ring-offset-2;
+}
+
+/* Badge Styling */
+.simple-dropdown-badge {
+  @apply text-[10px] font-semibold uppercase;
+  @apply px-2 py-0.5 rounded-full;
+  @apply ml-2;
+}
+
+.simple-dropdown-badge--new {
+  @apply bg-primary/10 text-primary;
+}
+
+.simple-dropdown-badge--popular {
+  @apply bg-orange-500/10 text-orange-600;
+}
+
+.simple-dropdown-badge--important {
+  @apply bg-red-500/10 text-red-600;
+}
+
+/* Scrollbar Styling for Dropdown */
+.simple-dropdown-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.simple-dropdown-content::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.simple-dropdown-content::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
+}
+
+.simple-dropdown-content::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .simple-dropdown,
+  .simple-dropdown-link {
+    transition: none !important;
+  }
+}
+
+/* Mobile: Hide on small screens (navigation uses mobile sheet instead) */
+@media (max-width: 1024px) {
+  .simple-dropdown {
+    display: none;
+  }
+}
