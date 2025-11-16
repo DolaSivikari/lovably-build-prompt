@@ -164,7 +164,7 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              placeholder="(416) 555-1234"
+              placeholder="(647) 123-4567"
             />
           </div>
 

@@ -136,8 +136,8 @@ const Unsubscribe = () => {
                   {error?.includes("Invalid") && (
                     <p className="text-sm text-muted-foreground">
                       If you're having trouble unsubscribing, please contact us at{" "}
-                      <a href="mailto:privacy@ascentgroupconstruction.com" className="text-primary hover:underline">
-                        privacy@ascentgroupconstruction.com
+                      <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">
+                        info@ascentgroupconstruction.com
                       </a>
                     </p>
                   )}

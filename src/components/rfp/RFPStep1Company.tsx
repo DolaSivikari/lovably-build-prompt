@@ -83,7 +83,7 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
             <Input
               id="phone"
               {...register("phone")}
-              placeholder="(416) 555-1234"
+              placeholder="(647) 123-4567"
               className={errors.phone ? "border-destructive" : ""}
             />
             {errors.phone && (

@@ -207,9 +207,9 @@ const Privacy = () => {
                 <h3 className="text-lg font-medium mb-2">How to Exercise Your Rights</h3>
                 <p className="mb-2">To exercise any of these rights, contact us at:</p>
                 <ul className="list-none space-y-1">
-                  <li><strong>Email:</strong> privacy@ascentgroupconstruction.com</li>
-                  <li><strong>Phone:</strong> (555) 123-4567</li>
-                  <li><strong>Mail:</strong> Ascent Group Construction, Privacy Officer, [Address]</li>
+                  <li><strong>Email:</strong> info@ascentgroupconstruction.com</li>
+                  <li><strong>Phone:</strong> 647-528-6804</li>
+                  <li><strong>Mail:</strong> Ascent Group Construction, Privacy Officer, 2 Jody Ave, North York, ON M3N 1H1</li>
                 </ul>
                 <p className="mt-2 text-sm">We will respond to your request within 30 days as required by PIPEDA.</p>
               </div>
@@ -262,8 +262,8 @@ const Privacy = () => {
                 <div className="space-y-2">
                   <p><strong>Ascent Group Construction</strong></p>
                   <p>Privacy Officer</p>
-                  <p>Email: <a href="mailto:privacy@ascentgroupconstruction.com" className="text-primary hover:underline">privacy@ascentgroupconstruction.com</a></p>
-                  <p>Phone: <a href="tel:+15551234567" className="text-primary hover:underline">(555) 123-4567</a></p>
+                  <p>Email: <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">info@ascentgroupconstruction.com</a></p>
+                  <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
                   <p className="mt-4 text-sm text-muted-foreground">
                     If you are not satisfied with our response, you may file a complaint with the Office of the Privacy Commissioner of Canada: <a href="https://www.priv.gc.ca" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">www.priv.gc.ca</a>
                   </p>

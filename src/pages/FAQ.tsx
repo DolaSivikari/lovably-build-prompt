@@ -429,10 +429,10 @@ const FAQ = () => {
                     Contact Us
                   </a>
                   <a
-                    href="tel:4165557246"
+                    href="tel:647-528-6804"
                     className="inline-flex items-center justify-center px-8 py-4 bg-primary-foreground/20 backdrop-blur-sm text-primary-foreground rounded-lg font-semibold hover:bg-primary-foreground/30 transition-colors text-lg"
                   >
-                    Call (416) 555-PAINT
+                    Call 647-528-6804
                   </a>
                 </div>
               </CardContent>

@@ -156,7 +156,7 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              placeholder="(416) 555-0123"
+              placeholder="(647) 123-4567"
               required
             />
           </div>
