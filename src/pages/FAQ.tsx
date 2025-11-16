@@ -3,11 +3,12 @@ import { Search, Sparkles, TrendingUp, MessageCircle } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";
+import { CTA_TEXT } from "@/design-system/constants";
 import {
   Accordion,
   AccordionContent,
@@ -291,14 +292,14 @@ const FAQ = () => {
       
       <Navigation />
 
-      <PageHeader
+      <UnifiedPageHero
         title="Frequently Asked Questions"
-        description="Everything you need to know about painting, EIFS, stucco, and construction services in the GTA"
+        description="Everything you need to know about construction, painting, EIFS, stucco, and restoration services across the GTA."
+        primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "FAQ" }
         ]}
-        variant="standard"
       />
 
       <main className="pb-20">

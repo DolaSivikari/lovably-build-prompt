@@ -2,10 +2,11 @@ import { Building2, Users, Hammer, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
+import { CTA_TEXT } from "@/design-system/constants";
 
 const Capabilities = () => {
   const deliveryMethods = [
@@ -65,9 +66,10 @@ const Capabilities = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <UnifiedPageHero
         title="Project Delivery Capabilities"
-        description="Comprehensive project delivery methods and self-perform trade expertise"
+        description="Comprehensive project delivery methods and self-perform trade expertise across Ontario. From general contracting to design-build, we deliver exceptional results."
+        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Capabilities" }

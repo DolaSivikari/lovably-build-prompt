@@ -2,12 +2,12 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumb from "@/components/Breadcrumb";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
+import { CTA_TEXT } from "@/design-system/constants";
 import { 
   Heart, 
   Award, 
@@ -102,15 +102,14 @@ const Careers = () => {
       />
       <Navigation />
 
-      <PageHeader
-        eyebrow="Careers"
+      <UnifiedPageHero
         title="Join Our Team"
-        description="Build your career with a company that values quality, safety, and professional growth"
+        description="Build your career with a company that values quality, safety, and professional growth across the Greater Toronto Area."
+        primaryCTA={{ text: "View Open Positions", href: "#open-positions" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Careers" }
         ]}
-        variant="standard"
       />
       
       <main>
