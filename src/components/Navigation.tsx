@@ -154,7 +154,7 @@ const Navigation = () => {
             : "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50"
         )}
       >
-        <div className="w-full max-w-none px-6 md:px-8 lg:px-12">
+        <div className="w-full max-w-none px-6 md:px-8 lg:px-16 xl:px-20">
         <div className="hidden md:flex items-center justify-between w-full h-20">
           {/* Left: Logo + Company Name */}
           <Link to="/" className="flex items-center group" aria-label="Ascent Group Construction - Home">
@@ -325,7 +325,7 @@ const Navigation = () => {
           </nav>
 
           {/* Right: Utility Items */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {/* Phone Number - Clickable on Mobile */}
             {settings?.phone && (
               <a
