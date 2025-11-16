@@ -88,7 +88,7 @@ const Blog = () => {
   }, [filteredPosts]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/10">
+    <div className="min-h-screen bg-background">
       <SEO 
         title="Construction Insights | Envelope & Restoration Contractor"
         description="Expert insights on building envelope restoration, façade remediation, parking garage restoration, and real-world case studies showcasing successful specialty projects from Ascent Group Construction."

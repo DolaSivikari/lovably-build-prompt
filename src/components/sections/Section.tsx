@@ -5,7 +5,6 @@ interface SectionProps {
   children: ReactNode;
   size?: "major" | "subsection";
   className?: string;
-  background?: "default" | "muted";
 }
 
 /**
@@ -16,15 +15,13 @@ interface SectionProps {
 export const Section = ({ 
   children, 
   size = "major", 
-  className,
-  background = "default"
+  className
 }: SectionProps) => {
   return (
     <section 
       className={cn(
-        "w-full",
+        "w-full bg-background",
         size === "major" ? "py-12 sm:py-16 lg:py-20" : "py-10 sm:py-12 lg:py-16",
-        background === "muted" && "bg-muted/30",
         className
       )}
     >
