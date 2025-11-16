@@ -5,38 +5,39 @@ body {
 
 h1 {
   font-weight: 800;
-  font-size: 48px;
-  line-height: 56px;
-  letter-spacing: -0.015em;
+  font-size: 72px;
+  line-height: 80px;
+  letter-spacing: -0.02em;
   font-family: Barlow, sans-serif;
 }
 
 h2 {
   font-weight: 800;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  font-family: Barlow, sans-serif;
+}
+
+h3 {
+  font-weight: 700;
   font-size: 36px;
   line-height: 44px;
   letter-spacing: -0.015em;
   font-family: Barlow, sans-serif;
 }
 
-h3 {
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 36px;
-  font-family: Barlow, sans-serif;
-}
-
 h4 {
   font-weight: 600;
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 28px;
+  line-height: 36px;
   font-family: Barlow, sans-serif;
 }
 
 p,
 li {
   font-weight: 400;
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 18px;
+  line-height: 32px;
   font-family: Barlow, sans-serif;
 }
