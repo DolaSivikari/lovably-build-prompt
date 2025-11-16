@@ -11,6 +11,7 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from '@/utils/schemaGenerators';
 import heroImage from '@/assets/hero-masonry-restoration.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const MasonryRestoration = () => {
   const serviceConfig = SERVICE_SCHEMAS["masonry-restoration"];

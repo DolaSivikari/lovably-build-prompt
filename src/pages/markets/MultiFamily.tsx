@@ -8,6 +8,7 @@ import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const MultiFamily = () => {
   const challenges = [

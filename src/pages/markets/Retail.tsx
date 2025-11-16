@@ -7,6 +7,7 @@ import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import { CheckCircle2, Clock, TrendingUp, Store } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroRetail from "@/assets/heroes/hero-retail.jpg";
 import { CTA_TEXT } from "@/design-system/constants";
 

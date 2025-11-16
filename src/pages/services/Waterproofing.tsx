@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { PageHero } from '@/components/sections/PageHero';
+import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
 import { Button } from '@/ui/Button';
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
@@ -11,6 +11,7 @@ import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from
 import heroImage from '@/assets/hero-waterproofing.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const Waterproofing = () => {
   const serviceConfig = SERVICE_SCHEMAS["waterproofing"];
@@ -93,23 +94,17 @@ const Waterproofing = () => {
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
+      <UnifiedPageHero
+        title="Waterproofing Systems"
+        description="Comprehensive waterproofing solutions protecting your investment from foundation to roof"
+        primaryCTA={{ text: CTA_TEXT.primary, href: "/estimate" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Waterproofing' }
-        ]} />
-        <PageHero.Title>Waterproofing Systems</PageHero.Title>
-        <PageHero.Subtitle>
-          Comprehensive waterproofing solutions protecting your investment from foundation to roof
-        </PageHero.Subtitle>
-        <PageHero.CTAs
-          primaryText="Request Assessment"
-          primaryHref="/contact"
-          secondaryText="View Projects"
-          secondaryHref="/projects"
-        />
-      </PageHero.Root>
+        ]}
+      />
 
       {/* What We Deliver */}
       <section className="py-20 bg-background">
