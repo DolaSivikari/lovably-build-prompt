@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
@@ -71,11 +71,10 @@ const Healthcare = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-          <UnifiedPageHero
+          <PageHeader
             title="Building Healing Environments"
             description="Expert construction services for hospitals, clinics, and care facilities with uncompromising infection control and zero-disruption protocols"
-            primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-            secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+            cta={{ label: CTA_TEXT.primary, href: "/contact" }}
             breadcrumbs={[
               { label: "Home", href: "/" },
               { label: "Markets", href: "/markets/commercial" },

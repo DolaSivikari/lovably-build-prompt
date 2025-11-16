@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
+import PageHeader from '@/components/PageHeader';
 import { Button } from '@/ui/Button';
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
@@ -94,11 +94,10 @@ const Waterproofing = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Waterproofing Systems"
         description="Comprehensive waterproofing solutions protecting your investment from foundation to roof"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/estimate" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
