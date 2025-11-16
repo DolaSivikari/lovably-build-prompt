@@ -7,9 +7,9 @@
 export const LAYOUT = {
   maxWidth: 'max-w-7xl',
   sectionSpacing: {
-    major: 'py-16 md:py-20 lg:py-24',
-    subsection: 'py-12 md:py-16',
-    tight: 'py-8 md:py-12',
+    major: 'py-24 md:py-32 lg:py-40',
+    subsection: 'py-16 md:py-24 lg:py-32',
+    tight: 'py-12 md:py-16 lg:py-20',
   },
   containerPadding: 'px-4 sm:px-6 lg:px-8',
 } as const;
@@ -28,8 +28,8 @@ export const CTA_TEXT = {
 // Card & Component Styling
 export const CARD_STYLES = {
   base: 'rounded-[var(--radius-md)] border border-border bg-card',
-  elevated: 'rounded-[var(--radius-md)] border border-border bg-card shadow-[var(--shadow-card-elevated)]',
-  hover: 'transition-all duration-300 hover:shadow-[var(--shadow-card-elevated)] hover:-translate-y-1',
+  elevated: 'rounded-[var(--radius-md)] border border-border bg-card shadow-[0_8px_30px_rgb(0,0,0,0.12)]',
+  hover: 'transition-all duration-300 hover:shadow-[0_20px_60px_rgb(0,0,0,0.20)] hover:-translate-y-2 hover:scale-[1.02]',
 } as const;
 
 // Animation Presets
