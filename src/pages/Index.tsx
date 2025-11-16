@@ -12,7 +12,6 @@ import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
 import SkipLink from "@/components/SkipLink";
 import ContentHub from "@/components/homepage/ContentHub";
-import Testimonials from "@/components/Testimonials";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
@@ -217,7 +216,6 @@ const Index = () => {
         </div>
         
         {/* Social Proof */}
-        <Testimonials />
         <ClientLogosCarousel />
         <VideoTestimonials />
         <InteractiveProjectMap />
