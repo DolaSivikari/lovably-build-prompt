@@ -38,21 +38,20 @@ const Index = () => {
     personalization.initialize();
     initializeTests();
   }, []);
-  // Add loading class to html element and remove after 500ms
+  // Remove loading classes when hero is ready
   useEffect(() => {
-    // Add both loading classes immediately on mount
-    document.documentElement.classList.add('loading');
-    document.documentElement.classList.add('page-loading');
-    
-    const timer = setTimeout(() => {
-      document.documentElement.classList.remove('loading');
-      document.documentElement.classList.remove('page-loading');
-    }, 300);
+    const handleHeroReady = () => {
+      // Small delay to ensure smooth transition
+      setTimeout(() => {
+        document.documentElement.classList.remove('loading');
+        document.documentElement.classList.remove('page-loading');
+      }, 100);
+    };
+
+    window.addEventListener('hero-ready', handleHeroReady);
     
     return () => {
-      clearTimeout(timer);
-      document.documentElement.classList.remove('loading');
-      document.documentElement.classList.remove('page-loading');
+      window.removeEventListener('hero-ready', handleHeroReady);
     };
   }, []);
 

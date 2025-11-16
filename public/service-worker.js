@@ -3,7 +3,7 @@
  * Ensures fresh HTML + cached assets never mix versions
  */
 
-const CACHE_VERSION = '1.0.3';
+const CACHE_VERSION = '1.0.4';
 const PRECACHE_NAME = `app-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `app-runtime-${CACHE_VERSION}`;
 const API_CACHE = `app-api-${CACHE_VERSION}`;
@@ -103,22 +103,16 @@ self.addEventListener('fetch', event => {
     return; // Don't cache analytics
   }
 
-  // HTML pages: ALWAYS network-first to prevent stale markup
+  // HTML pages: ALWAYS network-first, NEVER serve stale cache
   if (request.destination === 'document' || request.mode === 'navigate') {
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: 'no-cache' })
         .then(response => {
-          // Only cache successful HTML
-          if (response.status === 200) {
-            const responseToCache = response.clone();
-            caches.open(RUNTIME_CACHE)
-              .then(cache => cache.put(request, responseToCache))
-              .catch(err => console.warn('[SW] Cache failed:', err));
-          }
+          // Don't cache HTML at all to prevent stale content
           return response;
         })
         .catch(() => {
-          // Fallback to cached HTML
+          // Only use cache as last resort fallback when offline
           return caches.match(request)
             .then(cached => cached || new Response('Offline', { status: 503 }));
         })

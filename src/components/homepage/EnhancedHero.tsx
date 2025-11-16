@@ -69,12 +69,9 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   // Helper to detect mobile device
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-  // Enable animations after initial render to prevent flash
+  // Enable animations immediately
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimationsEnabled(true);
-    }, 300);
-    return () => clearTimeout(timer);
+    setAnimationsEnabled(true);
   }, []);
 
   // Enable animations after hero is ready (poster or video loaded)
