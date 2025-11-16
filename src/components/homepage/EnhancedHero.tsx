@@ -254,10 +254,12 @@ const EnhancedHero = () => {
 
   return (
     <section 
-      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-24"
+      className="relative w-full min-h-screen overflow-hidden bg-black" 
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      role="banner"
+      aria-label="Hero section"
     >
       
       {/* Video Background */}
@@ -293,130 +295,104 @@ const EnhancedHero = () => {
         </video>
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+      {/* Gradient Overlay - Stronger for text contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/85 z-10" />
 
-      {/* Content */}
-        <div 
-          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${isPageLoaded ? 'transition-transform duration-300' : ''}`}
-          style={{ transform: isFadingOut ? 'translateY(4px)' : 'translateY(0)' }}
-        >
-        <div className="max-w-5xl mx-auto">
-          {/* Floating Stat Mini-Cards with Glassmorphism */}
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-8">
-            {/* Main Stat Card */}
-            <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-accent/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative flex items-center gap-3">
-                <TrendingUp className="h-6 w-6 text-accent" />
-                <div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">
-                    {statNumber}
-                  </div>
-                  <div className="text-xs text-white/80 font-medium whitespace-nowrap">{statLabel}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* COR Certified Badge */}
-            <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-green-500/20">
-                  <Shield className="h-5 w-5 text-green-400" />
-                </div>
-                <span className="text-sm font-bold text-white">COR Certified</span>
-              </div>
-            </div>
-
-            {/* Zero Incidents Badge */}
-            <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-blue-500/20">
-                  <CheckCircle2 className="h-5 w-5 text-blue-400" />
-                </div>
-                <span className="text-sm font-bold text-white whitespace-nowrap">Zero Incidents</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Main Headline with Gradient Text */}
+      {/* Content Overlay - Centered Full Viewport */}
+      <div className="relative z-20 min-h-screen flex items-center justify-center px-6 sm:px-8 lg:px-12">
+        <div className="w-full max-w-6xl mx-auto text-center">
+          {/* Main Headline - Enterprise Scale Typography */}
           <h1 
-            className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-            style={{ 
-              textShadow: '0 4px 30px rgba(0,0,0,0.5)'
+            className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 
+                       text-white
+                       drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]
+                       ${animationsEnabled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            style={{
+              animation: animationsEnabled ? 'fade-in 0.8s ease-out 0.1s both, scale-in 0.8s ease-out 0.1s both' : 'none',
+              lineHeight: '1.05',
+              letterSpacing: '-0.025em',
+              textShadow: '0 6px 24px rgba(0,0,0,0.9), 0 3px 12px rgba(0,0,0,0.7)'
             }}
           >
-            <span className="bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
-              {headline.split(' ').map((word, i) => {
-                // Apply gradient to numbers and key words
-                const isNumber = /\d/.test(word) || word.includes('$') || word.includes('%');
-                const isKeyWord = ['Zero', 'Prime', 'Emergency', 'Certified'].includes(word);
-                
-                if (isNumber || isKeyWord) {
-                  return (
-                    <span 
-                      key={i} 
-                      className="bg-gradient-to-r from-accent via-accent/90 to-accent/70 bg-clip-text text-transparent font-black"
-                    >
-                      {word}{' '}
-                    </span>
-                  );
-                }
-                return word + ' ';
-              })}
+            <span className="bg-gradient-to-r from-white via-white to-white/95 bg-clip-text text-transparent">
+              {headline}
             </span>
           </h1>
+
+          {/* Subheadline - Clean and Simple */}
           <p 
-            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-10 max-w-3xl leading-relaxed font-medium ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-            style={{ 
-              textShadow: '0 2px 15px rgba(0,0,0,0.4)'
+            className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-16 text-white/95 
+                       max-w-5xl mx-auto font-normal
+                       drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]
+                       ${animationsEnabled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            style={{
+              animation: animationsEnabled ? 'fade-in 0.8s ease-out 0.3s both' : 'none',
+              lineHeight: '1.3',
+              letterSpacing: '-0.01em',
+              textShadow: '0 3px 16px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)'
             }}
           >
             {subheadline}
           </p>
 
-          {/* Enhanced CTAs with Staggered Animation */}
+          {/* Simplified CTA Buttons */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 mb-12 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            className={`flex flex-col sm:flex-row gap-6 justify-center items-center mb-16
+                       ${animationsEnabled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            style={{
+              animation: animationsEnabled ? 'fade-in 0.8s ease-out 0.5s both' : 'none'
+            }}
           >
-            <Button asChild size="lg" variant="primary" className="group relative overflow-hidden shadow-2xl shadow-accent/50 hover:shadow-accent/70 transition-all duration-300">
-              <Link to={primaryCTA.href} className="gap-2">
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <primaryCTA.icon className="h-5 w-5 relative z-10" />
-                <span className="relative z-10">{primaryCTA.label}</span>
-                <ArrowRight className="h-4 w-4 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+            <Button 
+              asChild
+              size="lg"
+              className="group bg-gradient-to-r from-[hsl(var(--brand-accent))] to-[hsl(24_100%_60%)] 
+                       hover:from-[hsl(24_100%_60%)] hover:to-[hsl(var(--brand-accent))]
+                       text-white border-0 shadow-[0_8px_24px_rgba(249,115,22,0.4)]
+                       hover:shadow-[0_12px_32px_rgba(249,115,22,0.5)]
+                       transition-all duration-300 ease-out
+                       px-10 py-7 text-xl font-semibold rounded-xl
+                       hover:scale-105 hover:-translate-y-1"
+            >
+              <Link to={primaryCTA.href}>
+                <primaryCTA.icon className="mr-3 h-6 w-6" />
+                {primaryCTA.label}
+                <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
-            
-            <Button asChild size="lg" variant="outline" className="group relative overflow-hidden bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-xl shadow-xl transition-all duration-300">
+
+            <Button 
+              asChild
+              size="lg"
+              variant="outline"
+              className="group backdrop-blur-xl bg-white/10 border-2 border-white/30 
+                       text-white hover:bg-white/20 hover:border-white/50
+                       shadow-[0_4px_16px_rgba(0,0,0,0.3)]
+                       hover:shadow-[0_8px_24px_rgba(255,255,255,0.2)]
+                       transition-all duration-300 ease-out
+                       px-10 py-7 text-xl font-semibold rounded-xl
+                       hover:scale-105 hover:-translate-y-1"
+            >
               <Link to={secondaryCTA.href}>
-                <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative z-10">{secondaryCTA.label}</span>
+                {secondaryCTA.label}
+                <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
           </div>
 
-          {/* Slide Indicators */}
-          <div className={`flex gap-2 justify-center md:justify-start ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}>
+          {/* Slide Indicators - Minimal and Centered */}
+          <div className={`flex gap-3 justify-center ${animationsEnabled ? 'animate-fade-in' : ''}`}>
             {activeSlides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleSlideChange(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    index === currentSlide 
-                      ? 'w-12 bg-accent' 
-                      : 'w-6 bg-white/50 hover:bg-white/70'
-                  }`}
-                />
+              <button
+                key={index}
+                onClick={() => handleSlideChange(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === currentSlide 
+                    ? 'w-12 bg-white' 
+                    : 'w-2 bg-white/40 hover:bg-white/60'
+                }`}
+              />
             ))}
           </div>
         </div>
@@ -425,21 +401,21 @@ const EnhancedHero = () => {
       {/* Play/Pause Control */}
       <button
         onClick={togglePlayPause}
-        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 backdrop-blur-md border border-[hsl(var(--bg))]/30 flex items-center justify-center transition-all duration-300 group"
+        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all duration-300 group"
         aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
       >
         {isPlaying ? (
-          <Pause className="h-5 w-5 text-[hsl(var(--bg))] group-hover:scale-110 transition-transform" />
+          <Pause className="h-5 w-5 text-white group-hover:scale-110 transition-transform" />
         ) : (
-          <Play className="h-5 w-5 text-[hsl(var(--bg))] group-hover:scale-110 transition-transform" />
+          <Play className="h-5 w-5 text-white group-hover:scale-110 transition-transform" />
         )}
       </button>
 
       {/* Scroll Indicator */}
       {!prefersReducedMotion && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-[hsl(var(--bg))]/30 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-[hsl(var(--bg))]/60 rounded-full animate-slide-up" />
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
+            <div className="w-1 h-3 bg-white/60 rounded-full animate-slide-up" />
           </div>
         </div>
       )}

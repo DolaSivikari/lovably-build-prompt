@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
@@ -14,7 +14,6 @@ import ContentHub from "@/components/homepage/ContentHub";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
-import SplashScreen from "@/components/SplashScreen";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
 import { ExitIntentPopup } from "@/components/engagement/ExitIntentPopup";
 import { personalization } from "@/utils/personalization";
@@ -22,30 +21,10 @@ import { initializeTests } from "@/utils/ab-testing";
 import { CTA_TEXT } from "@/design-system/constants";
 
 const Index = () => {
-  const [showSplash, setShowSplash] = useState(true);
-  const [splashComplete, setSplashComplete] = useState(false);
-
   // Initialize personalization and A/B testing
   useEffect(() => {
     personalization.initialize();
     initializeTests();
-  }, []);
-  // Add loading class to html element and remove after 500ms
-  useEffect(() => {
-    // Add both loading classes immediately on mount
-    document.documentElement.classList.add('loading');
-    document.documentElement.classList.add('page-loading');
-    
-    const timer = setTimeout(() => {
-      document.documentElement.classList.remove('loading');
-      document.documentElement.classList.remove('page-loading');
-    }, 300);
-    
-    return () => {
-      clearTimeout(timer);
-      document.documentElement.classList.remove('loading');
-      document.documentElement.classList.remove('page-loading');
-    };
   }, []);
 
   // AEO/GEO Structured Data
@@ -175,14 +154,6 @@ const Index = () => {
 
   return (
     <>
-      {showSplash && (
-        <SplashScreen
-          onComplete={() => {
-            setShowSplash(false);
-            setSplashComplete(true);
-          }}
-        />
-      )}
       <div className="min-h-screen relative">
         <SkipLink />
         
