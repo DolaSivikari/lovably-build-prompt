@@ -18,7 +18,6 @@ import ValuePillars from "@/components/homepage/ValuePillars";
 import SplashScreen from "@/components/SplashScreen";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
 import { ExitIntentPopup } from "@/components/engagement/ExitIntentPopup";
-import { ClientLogosCarousel } from "@/components/engagement/ClientLogosCarousel";
 import { InteractiveProjectMap } from "@/components/advanced/InteractiveProjectMap";
 import { VideoTestimonials } from "@/components/advanced/VideoTestimonials";
 import { LiveChat } from "@/components/advanced/LiveChat";
@@ -216,7 +215,6 @@ const Index = () => {
         </div>
         
         {/* Social Proof */}
-        <ClientLogosCarousel />
         <VideoTestimonials />
         <InteractiveProjectMap />
         <PrequalPackage />
