@@ -8,6 +8,7 @@ import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CheckCircle, CreditCard } from "lucide-react";
 import { CTA_TEXT } from "@/design-system/constants";
+import heroImage from "@/assets/heroes/hero-multi-family.jpg";
 
 const PropertyManagers = () => {
   const benefits = [
@@ -73,6 +74,7 @@ const PropertyManagers = () => {
       <PageHeader
         title="Your Trusted Property Maintenance Partner"
         description="Maximize property value and tenant satisfaction with our specialized multi-unit construction and restoration services. We understand the unique challenges of property management."
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

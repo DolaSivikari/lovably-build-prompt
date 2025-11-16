@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
 import { CTA_TEXT } from "@/design-system/constants";
+import heroImage from "@/assets/heroes/hero-commercial.jpg";
 
 const CommercialClients = () => {
   const benefits = [
@@ -74,6 +75,7 @@ const CommercialClients = () => {
         eyebrow="For Commercial Clients"
         title="Keep Your Business Running While We Work"
         description="Professional commercial construction and project management services designed around your operations. We deliver quality results with minimal disruption to your business."
+        backgroundImage={heroImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Commercial Clients" }

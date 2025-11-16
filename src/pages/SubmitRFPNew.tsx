@@ -18,6 +18,8 @@ import { RFPStep3Timeline } from "@/components/rfp/RFPStep3Timeline";
 import { trackConversion } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { RFPStep4Scope } from "@/components/rfp/RFPStep4Scope";
+import PageHeader from "@/components/PageHeader";
+import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 
 export default function SubmitRFPNew() {
   const navigate = useNavigate();
@@ -182,16 +184,19 @@ export default function SubmitRFPNew() {
       />
       <Navigation />
 
-      {/* Enhanced Hero */}
-      <section className="pt-24 pb-12 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-        <div className="container mx-auto px-4 max-w-4xl relative z-10">
-          <div className="text-center mb-8 animate-fade-in-up">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Submit Your RFP</h1>
-            <p className="text-xl text-primary-foreground/90">Complete our 4-step form to receive a detailed construction proposal</p>
-          </div>
+      <PageHeader
+        title="Submit Your RFP"
+        description="Complete our 4-step form to receive a detailed construction proposal"
+        backgroundImage={heroImage}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Submit RFP" }
+        ]}
+      />
 
-          {/* Enhanced Progress */}
+      {/* Enhanced Progress */}
+      <section className="py-8 bg-background">
+        <div className="container mx-auto px-4 max-w-4xl">
           <div className="flex justify-center gap-4 mb-8">
             {steps.map((step) => (
               <div key={step.number} className={`flex flex-col items-center transition-all ${step.number === currentStep ? "scale-110" : step.number < currentStep ? "opacity-70" : "opacity-40"}`}>

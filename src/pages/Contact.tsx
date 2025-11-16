@@ -29,6 +29,7 @@ import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import heroImage from "@/assets/heroes/hero-about-company.jpg";
 
 // Input validation schema
 const contactSchema = z.object({
@@ -171,6 +172,7 @@ const Contact = () => {
       <PageHeader
         title="Contact Us"
         description="Get expert building envelope and restoration services across Ontario. Our specialized crews are ready to discuss your project."
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

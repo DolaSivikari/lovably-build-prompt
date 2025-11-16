@@ -9,6 +9,7 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import heroImage from "@/assets/heroes/hero-construction-management.jpg";
 
 const ForGeneralContractors = () => {
   const tradePackages = [
@@ -96,6 +97,7 @@ const ForGeneralContractors = () => {
       <PageHeader
         title="Trade Partner for Envelope & Interior Work"
         description="Reliable, self-performed specialty trades for GCs executing commercial, multi-family, and institutional projects"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.gc, href: "#contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import heroImage from "@/assets/heroes/hero-about-company.jpg";
 import {
   Accordion,
   AccordionContent,
@@ -296,6 +297,7 @@ const FAQ = () => {
       <PageHeader
         title="Frequently Asked Questions"
         description="Everything you need to know about construction, painting, EIFS, stucco, and restoration services across the GTA."
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.contact, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

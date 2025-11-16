@@ -7,8 +7,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import heroImage from "@/assets/heroes/hero-sustainable.jpg";
 import { 
-  Leaf, 
+  Leaf,
   Recycle, 
   Sun, 
   Droplet, 
@@ -114,6 +115,7 @@ const Sustainability = () => {
           eyebrow="Sustainability"
           title="Building a Greener Future"
           description="Our commitment to environmental responsibility through sustainable practices and eco-friendly solutions"
+          backgroundImage={heroImage}
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Sustainability" }
