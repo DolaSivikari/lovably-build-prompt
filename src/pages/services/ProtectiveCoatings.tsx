@@ -2,10 +2,12 @@ import { Paintbrush, CheckCircle2, ArrowRight, Clock, Shield, Sparkles, Building
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { PageHero } from "@/components/sections/PageHero";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { Button } from '@/ui/Button';
 import SEO from "@/components/SEO";
+import { CTA_TEXT } from "@/design-system/constants";
 import heroImage from "@/assets/heroes/hero-protective-coatings.jpg";
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 
@@ -99,23 +101,17 @@ const ProtectiveCoatings = () => {
       />
       <Navigation />
       
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
+      <UnifiedPageHero
+        title="Protective & Architectural Coatings"
+        description="High-performance coating systems protecting and beautifying commercial, industrial, and institutional surfaces"
+        primaryCTA={{ text: CTA_TEXT.project, href: "/contact" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
           { label: "Protective & Architectural Coatings" }
-        ]} />
-        <PageHero.Title>Protective & Architectural Coatings</PageHero.Title>
-        <PageHero.Subtitle>
-          High-performance coating systems protecting and beautifying commercial, industrial, and institutional surfaces.
-        </PageHero.Subtitle>
-        <PageHero.CTAs
-          primaryText="Request Quote" 
-          primaryHref="/contact"
-          secondaryText="View Projects"
-          secondaryHref="/projects"
-        />
-      </PageHero.Root>
+        ]}
+      />
 
       <main>
         {/* What We Deliver */}

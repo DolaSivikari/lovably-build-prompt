@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { PageHero } from '@/components/sections/PageHero';
+import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { Button } from '@/ui/Button';
-import { Card } from "@/components/ui/card";
+import { CTA_TEXT } from "@/design-system/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Building2, Shield, Layers, Wind, CheckCircle2, ArrowRight } from 'lucide-react';
 import heroImage from '@/assets/heroes/hero-cladding.jpg';
@@ -35,19 +37,16 @@ const CladdingSystems = () => {
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
+      <UnifiedPageHero
+        title="Cladding Systems"
+        description="Complete exterior cladding solutions from metal panels to EIFS and rainscreen assemblies"
+        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
+        breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Cladding Systems', href: '/services/cladding-systems' }
-        ]} />
-        <PageHero.Title>Cladding Systems</PageHero.Title>
-        <PageHero.Subtitle>
-          Complete exterior cladding solutions from metal panels to EIFS and rainscreen assemblies
-        </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs primaryText="Request Quote" primaryHref="/estimate" />
-      </PageHero.Root>
+        ]}
+      />
 
       <main className="flex-1">
         {/* Cladding Types Tabs Section */}

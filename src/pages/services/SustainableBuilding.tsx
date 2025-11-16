@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { PageHero } from '@/components/sections/PageHero';
+import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
 import { Button } from '@/ui/Button';
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
@@ -93,19 +93,16 @@ const SustainableBuilding = () => {
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
+      <UnifiedPageHero
+        title="Sustainable Building Solutions"
+        description="LEED certification, energy-efficient envelope systems, and green building expertise"
+        primaryCTA={{ text: "Request Consultation", href: "/estimate" }}
+        breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Sustainable Building', href: '/services/sustainable-construction' }
-        ]} />
-        <PageHero.Title>Sustainable Building Solutions</PageHero.Title>
-        <PageHero.Subtitle>
-          LEED certification, energy-efficient envelope systems, and green building expertise
-        </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs primaryText="Request Consultation" primaryHref="/estimate" />
-      </PageHero.Root>
+        ]}
+      />
 
       <main className="flex-1">
         {/* What We Deliver Section */}
