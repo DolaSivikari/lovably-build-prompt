@@ -157,7 +157,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               asChild
             >
               <Link to="/contact">
-                Request Proposal
+                Request Project Quote
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -241,7 +241,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                   <Button variant="outline" className="w-full" asChild>
                     <Link to="/contact">
                       <Mail className="w-5 h-5 mr-2" />
-                      Request Proposal
+                      Request Project Quote
                     </Link>
                   </Button>
                 </div>

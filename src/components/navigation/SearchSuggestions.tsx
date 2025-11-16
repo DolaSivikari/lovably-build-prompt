@@ -16,7 +16,7 @@ export function SearchSuggestions({ onSelectSearch, onNavigate, mobile = false }
 
   const quickLinks = [
     { name: 'Contact Us', link: '/contact' },
-    { name: 'Submit RFP', link: '/submit-rfp' },
+    { name: 'Request Quote', link: '/contact' },
     { name: 'Our Services', link: '/services' },
   ];
 

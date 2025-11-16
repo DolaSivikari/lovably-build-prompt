@@ -13,7 +13,7 @@ export interface NavigationSyncResult {
  */
 export const EXPECTED_SERVICE_SLUGS = [
   // Building Envelope Systems
-  'building-envelope',
+  'eifs-stucco-sealant',
   'cladding-systems',
   'masonry-restoration',
   'protective-coatings',
@@ -21,11 +21,8 @@ export const EXPECTED_SERVICE_SLUGS = [
   
   // Interior Construction
   'interior-buildouts',
-  
-  // Specialty Services
   'painting-services',
   'tile-flooring',
-  'sustainable-construction',
 ];
 
 /**

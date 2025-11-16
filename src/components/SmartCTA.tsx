@@ -89,8 +89,8 @@ export default function SmartCTA() {
               className="flex-[1.5] gap-2"
               asChild
             >
-              <Link to="/estimate">
-                Request Proposal
+              <Link to="/contact">
+                Request Site Assessment
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -129,9 +129,9 @@ export default function SmartCTA() {
             className="h-14 px-6 rounded-full shadow-xl hover:shadow-2xl transition-all hover:scale-105 group gap-2"
             asChild
           >
-            <Link to="/estimate">
-              <span className="hidden lg:inline">Request Proposal</span>
-              <span className="lg:hidden">Proposal</span>
+            <Link to="/contact">
+              <span className="hidden lg:inline">Request Site Assessment</span>
+              <span className="lg:hidden">Get Quote</span>
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
