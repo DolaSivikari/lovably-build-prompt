@@ -2,22 +2,30 @@
 
 ## Color System
 
-### Primary Colors
-- **Primary Blue** (`hsl(210 95% 25%)`) - Main brand color for navigation, headers, and primary sections
-- **Primary Dark** (`hsl(220 90% 20%)`) - Deeper variant for gradients and emphasis
-- **Charcoal** (`hsl(215 25% 15%)`) - Professional dark tone for contrast
+### Corporate Color Palette
 
-### Accent Colors
-- **Construction Orange** (`hsl(25 95% 53%)`) - Bright, energetic accent for hover states
-- **Construction Orange Dark** (`hsl(20 95% 48%)`) - Primary orange for buttons and CTAs (better contrast)
-- **Cream** (`hsl(40 80% 95%)`) - Soft, warm light color for text on dark backgrounds
+**Deep Black (`--brand-primary`)**
+- **HSL:** `0 0% 10%`
+- **Hex:** `#1A1A1A`
+- **Usage:** Primary brand color for headers, navigation, text, emphasis elements
+- **RGB:** `26, 26, 26`
+
+**Pure Orange (`--brand-accent`)**
+- **HSL:** `25 100% 50%`
+- **Hex:** `#FF6600`
+- **Usage:** Accent color for CTAs, highlights, active states, interactive elements
+- **RGB:** `255, 102, 0`
+
+**Medium Gray (`--brand-gray`)**
+- **HSL:** `0 0% 40%`
+- **Hex:** `#666666`
+- **Usage:** Secondary text, borders, muted UI elements
+- **RGB:** `102, 102, 102`
 
 ### When to Use Each Color
-1. **Primary (Blue)**: Main sections, navigation, headers, professional content
-2. **Secondary (Orange Dark)**: Call-to-action buttons, important highlights, badges
-3. **Orange Bright**: Hover states, icons, secondary accents
-4. **Cream**: Text on dark backgrounds, subtle highlights
-5. **Charcoal**: Dark sections, footer, contrast elements
+1. **Deep Black**: Main sections, navigation, headers, body text, professional content
+2. **Pure Orange**: Call-to-action buttons, important highlights, badges, hover states
+3. **Medium Gray**: Secondary text, borders, subtle UI elements, disabled states
 
 ## Typography
 

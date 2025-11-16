@@ -18,29 +18,34 @@ export default {
         barlow: ['Barlow', 'sans-serif'],
       },
       colors: {
-        // Construction theme colors
-        "construction-blue": {
-          DEFAULT: "hsl(210 85% 35%)",
-          light: "hsl(210 75% 45%)",
-          dark: "hsl(210 85% 25%)",
+        // Corporate theme colors
+        "construction-black": {
+          DEFAULT: "hsl(0 0% 10%)",
+          light: "hsl(0 0% 20%)",
+          dark: "hsl(0 0% 5%)",
         },
         "construction-orange": {
-          DEFAULT: "hsl(25 95% 53%)",
-          light: "hsl(30 95% 58%)",
-          dark: "hsl(20 95% 48%)",
+          DEFAULT: "hsl(25 100% 50%)",
+          light: "hsl(25 100% 60%)",
+          dark: "hsl(25 100% 45%)",
+        },
+        "construction-gray": {
+          DEFAULT: "hsl(0 0% 40%)",
+          light: "hsl(0 0% 60%)",
+          dark: "hsl(0 0% 30%)",
         },
         cream: {
           DEFAULT: "hsl(45 50% 95%)",
           dark: "hsl(45 30% 90%)",
         },
         charcoal: {
-          DEFAULT: "hsl(0 0% 17%)",
-          light: "hsl(0 0% 27%)",
+          DEFAULT: "hsl(0 0% 10%)",
+          light: "hsl(0 0% 20%)",
         },
         navy: {
-          DEFAULT: "hsl(210 100% 18%)",
-          light: "hsl(210 100% 28%)",
-          dark: "hsl(210 100% 13%)",
+          DEFAULT: "hsl(0 0% 10%)",
+          light: "hsl(0 0% 20%)",
+          dark: "hsl(0 0% 5%)",
         },
         "slate-cool": {
           50: "hsl(210 40% 98%)",

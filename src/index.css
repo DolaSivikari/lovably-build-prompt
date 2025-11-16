@@ -25,17 +25,17 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 210 10% 30%;
 
-    /* GC Professional Color Palette */
-    --primary: 210 100% 20%;        /* Navy Blue #003366 */
+    /* Corporate Color Palette */
+    --primary: 0 0% 10%;            /* Deep Black #1A1A1A */
     --primary-foreground: 0 0% 100%; /* White */
-    --primary-light: 210 100% 30%;
-    --primary-dark: 210 100% 15%;
-    --primary-glow: 210 100% 24%;
+    --primary-light: 0 0% 20%;
+    --primary-dark: 0 0% 5%;
+    --primary-glow: 0 0% 15%;
     
-    --secondary: 210 10% 30%;       /* Charcoal Gray #36454F */
-    --secondary-foreground: 0 0% 100%; /* White on charcoal */
+    --secondary: 0 0% 40%;          /* Medium Gray #666666 */
+    --secondary-foreground: 0 0% 100%; /* White on gray */
 
-    --accent: 14 100% 60%;          /* Safety Orange #FF6B35 */
+    --accent: 25 100% 50%;          /* Pure Orange #FF6600 */
     --accent-foreground: 0 0% 100%; /* White text on orange */
 
     /* Steel Blue - Secondary accent for links, icons, highlights */
@@ -46,7 +46,7 @@ All colors MUST be HSL.
     --muted-foreground: 210 10% 40%; /* Darker gray-blue text */
     
     /* Accessible color variants for WCAG AA compliance */
-    --accent-orange-dark: 14 100% 50%; /* Darker orange for contrast */
+    --accent-orange-dark: 25 100% 45%; /* Darker orange for contrast */
     --text-on-orange: 0 0% 100%; /* White text on orange */
 
     --destructive: 0 84% 60%;
@@ -54,18 +54,18 @@ All colors MUST be HSL.
 
     --border: 210 15% 90%;         /* Light gray-blue borders */
     --input: 210 15% 90%;
-    --ring: 14 100% 60%;           /* Orange focus rings */
+    --ring: 25 100% 50%;           /* Orange focus rings */
 
     --radius: 0.5rem;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(210 100% 20%) 0%, hsl(210 100% 30%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(14 100% 60%) 0%, hsl(14 100% 70%) 100%);
-    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(210 100% 20% / 0.9) 100%);
-    --shadow-soft: 0 2px 10px hsl(210 100% 20% / 0.1);
-    --shadow-medium: 0 4px 20px hsl(210 100% 20% / 0.15);
-    --shadow-strong: 0 10px 40px -10px hsl(210 100% 20% / 0.25);
-    --shadow-accent: 0 8px 30px -8px hsl(14 100% 60% / 0.4);
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 20%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(25 100% 50%) 0%, hsl(25 100% 60%) 100%);
+    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(0 0% 10% / 0.9) 100%);
+    --shadow-soft: 0 2px 10px hsl(0 0% 10% / 0.1);
+    --shadow-medium: 0 4px 20px hsl(0 0% 10% / 0.15);
+    --shadow-strong: 0 10px 40px -10px hsl(0 0% 10% / 0.25);
+    --shadow-accent: 0 8px 30px -8px hsl(25 100% 50% / 0.4);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Card Shadows */
@@ -105,16 +105,16 @@ All colors MUST be HSL.
     --popover: 215 28% 12%;
     --popover-foreground: 210 20% 95%;
 
-    --primary: 210 100% 70%;        /* Light navy for dark mode */
-    --primary-foreground: 210 100% 10%; /* Dark navy text */
-    --primary-light: 210 100% 80%;
-    --primary-dark: 210 100% 60%;
-    --primary-glow: 210 100% 75%;
+    --primary: 0 0% 95%;            /* Light gray for dark mode */
+    --primary-foreground: 0 0% 10%; /* Dark text */
+    --primary-light: 0 0% 98%;
+    --primary-dark: 0 0% 85%;
+    --primary-glow: 0 0% 90%;
 
-    --secondary: 210 10% 40%;    /* Light charcoal */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 60%;          /* Lighter gray for dark mode */
+    --secondary-foreground: 0 0% 10%;
 
-    --accent: 14 100% 65%;      /* Bright orange for dark mode */
+    --accent: 25 100% 55%;          /* Brighter orange for dark mode */
     --accent-foreground: 0 0% 100%;
 
     /* Steel Blue - Dark mode */
@@ -125,7 +125,7 @@ All colors MUST be HSL.
     --muted-foreground: 210 15% 65%;
     
     /* Accessible color variants for dark mode */
-    --accent-orange-dark: 14 100% 55%;
+    --accent-orange-dark: 25 100% 50%;
     --text-on-orange: 0 0% 100%;
 
     --destructive: 0 70% 50%;
