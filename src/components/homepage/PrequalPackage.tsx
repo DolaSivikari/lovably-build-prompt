@@ -12,19 +12,19 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
 const packageItems = [
-  { icon: Shield, label: "Insurance & Bonding Certificates", desc: "$5M liability, $5M bonding capacity" },
-  { icon: Award, label: "Safety Certifications", desc: "COR certified, zero lost-time incidents" },
-  { icon: TrendingUp, label: "Financial Statements", desc: "Audited financials & credit references" },
-  { icon: Users, label: "Crew & Equipment Details", desc: "Full-time crews & modern equipment fleet" },
-  { icon: Building2, label: "Project References", desc: "Recent projects with contact details" },
-  { icon: CheckCircle, label: "Quality Systems", desc: "ISO-compliant processes & documentation" },
+  { icon: Shield, label: "Insurance & Licensing", desc: "WSIB registration in progress, business liability coverage" },
+  { icon: Users, label: "Crew & Trade Capabilities", desc: "10-person self-performed crew for envelope trades" },
+  { icon: Building2, label: "Project Examples", desc: "Completed envelope & restoration work in GTA" },
+  { icon: CheckCircle, label: "Work Documentation", desc: "Photo logs, submittal tracking, punch-list closeout" },
+  { icon: FileText, label: "Scope-Specific Qualifications", desc: "Trade certifications and manufacturer training as applicable" },
+  { icon: Clock, label: "Response Standards", desc: "48-72 hour site walks, clear communication protocols" },
 ];
 
 const stats = [
   { value: "15+", label: "Years Experience" },
-  { value: "$5M", label: "Bonding Capacity" },
-  { value: "500+", label: "Projects Completed" },
-  { value: "98%", label: "Client Satisfaction" },
+  { value: "10", label: "Crew Members" },
+  { value: "10+", label: "Projects Completed" },
+  { value: "GTA", label: "Service Area" },
 ];
 
 const PrequalPackage = () => {
@@ -92,7 +92,7 @@ const PrequalPackage = () => {
 
       toast({
         title: "Request Submitted",
-        description: "We'll send the prequalification package to your email within 24 hours.",
+        description: "We'll send the vendor information package to your email within 1-2 business days.",
       });
 
       setOpen(false);
@@ -127,10 +127,10 @@ const PrequalPackage = () => {
             <span>Contractor Prequalification</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Ready to Evaluate Us?
+            Vendor Information Package
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Access our complete prequalification package with all the documentation you need to make an informed decision
+            Request our vendor packet with company information, trade capabilities, and project examples for your prequalification review
           </p>
         </div>
 
@@ -178,8 +178,8 @@ const PrequalPackage = () => {
                     <Download className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground">Instant Access</p>
-                    <p className="text-sm text-muted-foreground">Delivered within 24 hours</p>
+                    <p className="font-semibold text-foreground">Standard Response</p>
+                    <p className="text-sm text-muted-foreground">Delivered within 1-2 business days</p>
                   </div>
                 </div>
 
@@ -187,9 +187,9 @@ const PrequalPackage = () => {
                   <div className="flex items-start gap-2 mb-2">
                     <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold text-sm text-foreground mb-1">Quick Response Guarantee</p>
+                      <p className="font-semibold text-sm text-foreground mb-1">Vendor Packet Request</p>
                       <p className="text-sm text-muted-foreground">
-                        Request your package now and receive it via email within 24 hours. All documentation is current and ready for your review.
+                        Submit your request and we'll send our vendor information packet within 1-2 business days. Package includes company overview, trade capabilities, and project examples.
                       </p>
                     </div>
                   </div>
@@ -198,15 +198,15 @@ const PrequalPackage = () => {
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle className="w-4 h-4 text-primary" />
-                    <span className="text-muted-foreground">All certificates current & verified</span>
+                    <span className="text-muted-foreground">Company registration & WSIB status</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle className="w-4 h-4 text-primary" />
-                    <span className="text-muted-foreground">Financial statements included</span>
+                    <span className="text-muted-foreground">Insurance coverage details</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle className="w-4 h-4 text-primary" />
-                    <span className="text-muted-foreground">Reference list with contact info</span>
+                    <span className="text-muted-foreground">Project examples & scope descriptions</span>
                   </div>
                 </div>
               </div>
@@ -215,15 +215,15 @@ const PrequalPackage = () => {
                 <Dialog open={open} onOpenChange={setOpen}>
                   <DialogTrigger asChild>
                     <Button size="lg" className="w-full">
-                      Request Full Package
+                      Request Vendor Packet
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-md">
                     <DialogHeader>
-                      <DialogTitle>Request Prequalification Package</DialogTitle>
+                      <DialogTitle>Request Vendor Information Package</DialogTitle>
                       <DialogDescription>
-                        Fill out the form below and we'll send the complete package to your email within 24 hours.
+                        Fill out the form below and we'll send the vendor packet to your email within 1-2 business days.
                       </DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleSubmit} className="space-y-4">
