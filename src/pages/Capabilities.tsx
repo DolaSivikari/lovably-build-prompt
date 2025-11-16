@@ -67,10 +67,10 @@ const Capabilities = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Project Delivery Capabilities"
         description="Comprehensive project delivery methods and self-perform trade expertise across Ontario. From general contracting to design-build, we deliver exceptional results."
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
+        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Capabilities" }

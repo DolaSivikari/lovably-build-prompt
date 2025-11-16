@@ -93,11 +93,10 @@ const ForGeneralContractors = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Trade Partner for Envelope & Interior Work"
         description="Reliable, self-performed specialty trades for GCs executing commercial, multi-family, and institutional projects"
-        primaryCTA={{ text: CTA_TEXT.gc, href: "#contact" }}
-        secondaryCTA={{ text: "View Trade Packages", href: "#trade-packages" }}
+        cta={{ label: CTA_TEXT.gc, href: "#contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "For General Contractors" }

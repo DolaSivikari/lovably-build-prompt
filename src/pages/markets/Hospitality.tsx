@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
@@ -71,11 +71,10 @@ const Hospitality = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-          <UnifiedPageHero
+          <PageHeader
             title="Crafting Memorable Guest Experiences"
             description="Expert construction and renovation services for hotels, resorts, and restaurants with guest-focused scheduling and premium execution"
-            primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-            secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+            cta={{ label: CTA_TEXT.primary, href: "/contact" }}
             breadcrumbs={[
               { label: "Home", href: "/" },
               { label: "Markets", href: "/markets/commercial" },

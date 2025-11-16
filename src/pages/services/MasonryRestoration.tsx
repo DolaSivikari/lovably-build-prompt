@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
+import PageHeader from '@/components/PageHeader';
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from '@/ui/Button';
@@ -96,11 +96,10 @@ const MasonryRestoration = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Masonry Restoration & Repair"
         description="Expert restoration of historic and modern masonry with uncompromising craftsmanship"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },

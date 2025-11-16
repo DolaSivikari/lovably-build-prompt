@@ -6,7 +6,7 @@ import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
@@ -45,11 +45,10 @@ const Commercial = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Commercial Construction"
         description="Expert delivery of office buildings, tenant improvements, and retail spaces"
-        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects?client_type=Commercial" }}
+        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Markets", href: "/markets" },

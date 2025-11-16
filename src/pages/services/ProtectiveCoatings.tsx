@@ -2,7 +2,7 @@ import { Paintbrush, CheckCircle2, ArrowRight, Clock, Shield, Sparkles, Building
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from '@/ui/Button';
@@ -102,11 +102,10 @@ const ProtectiveCoatings = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Protective & Architectural Coatings"
         description="High-performance coating systems protecting and beautifying commercial, industrial, and institutional surfaces"
-        primaryCTA={{ text: CTA_TEXT.project, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        cta={{ label: CTA_TEXT.project, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
