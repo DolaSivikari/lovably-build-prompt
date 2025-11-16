@@ -50,6 +50,7 @@ import ContractorPortal from "./pages/resources/ContractorPortal";
 import ServiceAreas from "./pages/resources/ServiceAreas";
 import EquipmentResources from "./pages/company/EquipmentResources";
 import Developers from "./pages/company/Developers";
+import ForGeneralContractors from "./pages/ForGeneralContractors";
 import Warranties from "./pages/resources/Warranties";
 import Financing from "./pages/resources/Financing";
 import SubmitRFPNew from "./pages/SubmitRFPNew";
@@ -338,7 +339,7 @@ const App = () => (
                   <Route path="/submit-rfp" element={<SubmitRFPNew />} />
                   
                   {/* Specialty Landing Pages - Dynamic routing */}
-                  <Route path="/for-general-contractors" element={<DynamicSpecialtyPage />} />
+                  <Route path="/for-general-contractors" element={<ForGeneralContractors />} />
                   <Route path="/emergency-maintenance" element={<DynamicSpecialtyPage />} />
                   <Route path="/vendor-packet" element={<DynamicSpecialtyPage />} />
                   <Route path="/insights" element={<Insights />} />

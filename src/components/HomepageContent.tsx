@@ -5,15 +5,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 const HomepageContent = () => {
   const [content, setContent] = useState({
-    headline: "Ontario's Envelope & Restoration Contractor",
-    subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
-    hero_description: "With 15+ years of building envelope and restoration expertise across Ontario, Ascent Group Construction specializes in self-performed specialty trades for commercial, institutional, and multi-family projects. We deliver quality results through transparent project management and proven construction methodologies.",
-    cta_primary_text: "Submit RFP",
-    cta_primary_url: "/submit-rfp",
-    cta_secondary_text: "Request Proposal",
-    cta_secondary_url: "/contact",
-    cta_tertiary_text: "View Projects",
-    cta_tertiary_url: "/projects"
+    headline: "Building Envelope & Interior Trades Specialist",
+    subheadline: "Founded by construction professionals with 15+ years of highrise and commercial experience",
+    hero_description: "Ascent Group Construction delivers specialized building envelope and interior trade services for commercial and multi-family properties across Ontario's GTA. Established in 2025 and building on 15+ years of industry experience, we provide professional execution with a 10-person self-performed crew—handling EIFS, stucco, masonry restoration, sealant replacement, painting, tile, and interior finishes with clear accountability and safety compliance.",
+    cta_primary_text: "Request Site Assessment",
+    cta_primary_url: "/contact",
+    cta_secondary_text: "View Our Services",
+    cta_secondary_url: "/services",
+    cta_tertiary_text: "For General Contractors",
+    cta_tertiary_url: "/for-general-contractors"
   });
 
   useEffect(() => {
@@ -63,9 +63,7 @@ const HomepageContent = () => {
           </p>
           
           <p>
-            From pre-construction planning to final closeout, our team delivers excellence through comprehensive project management, 
-            quality control, and proven construction methods. Every project is backed by detailed documentation, comprehensive warranties, 
-            and our commitment to safety and client satisfaction.
+            Whether you're a property manager protecting an existing asset, a developer planning new construction, or a general contractor needing a reliable trade partner, we bring professional project management, safety compliance (working toward full WSIB and COR certification), comprehensive documentation, and warranty-backed installation. Our specialty focus means no distractions—we execute envelope and interior trades with quality workmanship and full accountability.
           </p>
           
           <div className="flex flex-wrap gap-4 mt-8 not-prose">

@@ -1,65 +1,70 @@
-// Authentic positioning for emerging specialty contractor
-// Focus: Trade specialization, service quality, GTA coverage
+// Import video and poster assets
+import buildingVideo from "@/assets/videos/building-facade.mp4";
+import buildingPoster from "@/assets/videos/building-facade-poster.jpg";
 
 export const enrichedHeroSlides = [
   {
-    video: "/hero-clipchamp.mp4",
-    poster: '/hero-poster-1.webp',
-    stat: '48-72h',
-    statLabel: 'Site Response',
-    headline: "Building Envelope & Restoration Specialists",
-    subheadline: "Practical, reliable waterproofing and façade solutions for property managers, building owners, and developers across Ontario's GTA. We take full project responsibility for envelope repairs, balcony restoration, and leak investigation—delivering professional execution with clear communication and safety-first practices.",
-    primaryCTA: { label: 'Request Site Assessment', href: '/contact' },
-    secondaryCTA: { label: 'View Services', href: '/services' }
+    video: buildingVideo,
+    poster: buildingPoster,
+    stat: "15+",
+    statLabel: "Years Experience",
+    headline: "Building Envelope & Interior Trades Specialist",
+    subheadline: "Founded by construction professionals with 15+ years of highrise and commercial experience—delivering quality envelope and interior work with professional execution and full accountability.",
+    primaryCTA: {
+      label: "Request Site Assessment",
+      href: "/contact",
+    },
+    secondaryCTA: {
+      label: "View Our Services",
+      href: "/services",
+    },
   },
   {
-    video: "/hero-clipchamp.mp4",
-    poster: '/hero-poster-2.webp',
-    stat: 'GTA',
-    statLabel: 'Service Area',
-    headline: 'Façade & Waterproofing Solutions',
-    subheadline: "Complete building envelope repairs for commercial and multi-family properties. From leak investigation to full façade remediation—we deliver quality workmanship with proper documentation and warranty support. Serving Toronto, Mississauga, Brampton, Markham, Vaughan, and surrounding GTA communities.",
-    primaryCTA: { label: 'Envelope Services', href: '/services/building-envelope' },
-    secondaryCTA: { label: 'Contact Us', href: '/contact' }
+    video: buildingVideo,
+    poster: buildingPoster,
+    stat: "85%",
+    statLabel: "Self-Performed",
+    headline: "One Team. Direct Accountability.",
+    subheadline: "With our 10-person crew, we self-perform 85% of our work—no subcontractor layers, no coordination delays. From EIFS and masonry to painting and interior finishes, you get one point of contact and clear responsibility.",
+    primaryCTA: {
+      label: "Request Project Quote",
+      href: "/contact",
+    },
+    secondaryCTA: {
+      label: "View Services",
+      href: "/services",
+    },
   },
   {
-    video: "/hero-clipchamp.mp4",
-    poster: '/hero-poster-3.webp',
-    stat: 'WSIB',
-    statLabel: 'Compliant',
-    headline: 'Trade Partner for General Contractors',
-    subheadline: "Reliable envelope and restoration trade services for GC partners across Ontario. Fast turnaround on quotes, clear unit pricing, full WSIB compliance, and safety-focused execution. We handle façade work, waterproofing, and balcony restoration packages—allowing you to focus on overall project delivery.",
-    primaryCTA: { label: 'Trade Services', href: '/for-general-contractors' },
-    secondaryCTA: { label: 'Download Vendor Packet', href: '/vendor-packet' }
+    video: buildingVideo,
+    poster: buildingPoster,
+    stat: "24/7",
+    statLabel: "Emergency Response",
+    headline: "Emergency Response When You Need It",
+    subheadline: "Water infiltration, façade failures, and building emergencies require immediate attention. Our team provides 24/7 emergency response with 48-72 hour site assessments and rapid mobilization for critical building protection.",
+    primaryCTA: {
+      label: "Call for Emergency",
+      href: "/contact",
+    },
+    secondaryCTA: {
+      label: "Our Process",
+      href: "/our-process",
+    },
   },
   {
-    video: "/hero-clipchamp.mp4",
-    poster: '/hero-poster-4.webp',
-    stat: 'Licensed',
-    statLabel: '& Insured',
-    headline: 'Balcony & Concrete Restoration',
-    subheadline: "Professional balcony waterproofing and concrete repair services for occupied buildings. We understand tenant coordination, safety requirements, and proper phasing. Complete restoration programs including membrane replacement, concrete repair, railing work, and protective coatings—all backed by manufacturer warranties.",
-    primaryCTA: { label: 'Restoration Services', href: '/services/balcony-restoration' },
-    secondaryCTA: { label: 'Request Quote', href: '/contact' }
+    video: buildingVideo,
+    poster: buildingPoster,
+    stat: "10+",
+    statLabel: "Projects Completed",
+    headline: "Building Our Track Record",
+    subheadline: "Established in 2025 and building on 15+ years of industry experience. We're actively completing envelope and interior projects across the GTA, delivering professional execution with safety compliance and warranty-backed installation.",
+    primaryCTA: {
+      label: "View Our Work",
+      href: "/projects",
+    },
+    secondaryCTA: {
+      label: "For General Contractors",
+      href: "/for-general-contractors",
+    },
   },
-  {
-    video: "/hero-clipchamp.mp4",
-    poster: '/hero-poster-5.webp',
-    stat: '24/7',
-    statLabel: 'Emergency',
-    headline: 'Emergency Response & Leak Investigation',
-    subheadline: "When water infiltration can't wait, we respond. Emergency leak investigation and temporary repairs to protect your property. Available for urgent situations affecting building integrity, tenant safety, or causing active damage. Serving commercial and multi-family properties across the Greater Toronto Area.",
-    primaryCTA: { label: 'Emergency Service', href: '/contact' },
-    secondaryCTA: { label: 'View All Services', href: '/services' }
-  },
-  {
-    video: "/hero-clipchamp.mp4",
-    poster: '/hero-poster-6.webp',
-    stat: 'COR',
-    statLabel: 'Safety',
-    headline: 'Safety-First Building Envelope Work',
-    subheadline: 'Every project starts with safety planning and proper site management. WSIB compliant, fully insured, and committed to protecting workers, tenants, and property. We deliver professional envelope and restoration services with the documentation and accountability that property managers and GCs expect from trade partners.',
-    primaryCTA: { label: 'Our Approach', href: '/about' },
-    secondaryCTA: { label: 'Get Started', href: '/contact' }
-  }
 ];
