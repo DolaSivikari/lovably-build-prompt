@@ -315,8 +315,8 @@ const Terms = () => {
                 <div className="space-y-2">
                   <p><strong>Ascent Group Construction</strong></p>
                   <p>Legal Department</p>
-                  <p>Email: <a href="mailto:legal@ascentgroupconstruction.com" className="text-primary hover:underline">legal@ascentgroupconstruction.com</a></p>
-                  <p>Phone: <a href="tel:+15551234567" className="text-primary hover:underline">(555) 123-4567</a></p>
+                  <p>Email: <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">info@ascentgroupconstruction.com</a></p>
+                  <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
                 </div>
               </div>
             </section>

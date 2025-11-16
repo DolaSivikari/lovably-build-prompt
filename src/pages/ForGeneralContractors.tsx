@@ -268,15 +268,15 @@ const ForGeneralContractors = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:estimating@ascentgroupconstruction.com" className="hover:text-primary transition-colors">
-                  estimating@ascentgroupconstruction.com
+                <a href="mailto:projects@ascentgroupconstruction.com" className="hover:text-primary transition-colors">
+                  projects@ascentgroupconstruction.com
                 </a>
               </div>
               <div className="hidden sm:block text-muted-foreground/50">|</div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <a href="tel:+14165555555" className="hover:text-primary transition-colors">
-                  (416) 555-5555
+                <a href="tel:647-528-6804" className="hover:text-primary transition-colors">
+                  647-528-6804
                 </a>
               </div>
             </div>

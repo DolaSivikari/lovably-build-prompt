@@ -392,8 +392,8 @@ const Prequalification = () => {
                           </div>
                           <div>
                             <p className="font-semibold mb-1">Phone</p>
-                            <a href="tel:+14165551234" className="text-muted-foreground hover:text-primary transition-colors">
-                              (416) 555-1234
+                            <a href="tel:647-528-6804" className="text-muted-foreground hover:text-primary transition-colors">
+                              647-528-6804
                             </a>
                           </div>
                         </div>

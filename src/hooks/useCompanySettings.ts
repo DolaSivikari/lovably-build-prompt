@@ -73,7 +73,7 @@ export function useCompanySettings(): UseCompanySettingsResult {
             companyName: settingsData.company_name || 'Ascent Group Construction',
             phone: settingsData.phone || '647-528-6804',
             email: settingsData.email || 'info@ascentgroupconstruction.com',
-            address: settingsData.address || '7895 Tranmere Drive, Unit #22, Mississauga, ON L5S 1V9',
+            address: settingsData.address || '2 Jody Ave, North York, ON M3N 1H1',
             businessHours: {
               weekday: businessHours?.weekday || 'Mon-Fri: 8AM-6PM',
               saturday: businessHours?.saturday || 'Sat: 9AM-4PM',

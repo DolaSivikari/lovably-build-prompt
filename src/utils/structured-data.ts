@@ -17,10 +17,10 @@ export const organizationSchema = (options?: OrganizationSchemaOptions) => {
     logo: options?.logo || `${siteUrl}/logo.png`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "7895 Tranmere Drive, Unit #22",
-      addressLocality: "Mississauga",
+      streetAddress: "2 Jody Ave",
+      addressLocality: "North York",
       addressRegion: "ON",
-      postalCode: "L5S 1V9",
+      postalCode: "M3N 1H1",
       addressCountry: "CA",
     },
     areaServed: {

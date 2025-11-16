@@ -153,9 +153,9 @@ const Contact = () => {
   };
 
   // Fallback values
-  const officeAddress = contactSettings?.office_address || '123 Industrial Parkway\nMississauga, ON L5T 1A1\nCanada';
-  const mainPhone = contactSettings?.main_phone || '(416) 555-PAINT';
-  const tollFreePhone = contactSettings?.toll_free_phone || '1-800-555-ASCENT';
+  const officeAddress = contactSettings?.office_address || '2 Jody Ave\nNorth York, ON M3N 1H1\nCanada';
+  const mainPhone = contactSettings?.main_phone || '647-528-6804';
+  const tollFreePhone = contactSettings?.toll_free_phone || '647-528-6804';
   const generalEmail = contactSettings?.general_email || 'info@ascentgroupconstruction.com';
   const projectsEmail = contactSettings?.projects_email || 'projects@ascentgroupconstruction.com';
   const careersEmail = contactSettings?.careers_email || 'careers@ascentgroupconstruction.com';
@@ -274,7 +274,7 @@ const Contact = () => {
                     <div className="space-y-2"><Label htmlFor="email" className="text-base">Email *</Label><Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="john@example.com" className="h-14 text-base" /></div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2"><Label htmlFor="phone" className="text-base">Phone</Label><Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="(416) 555-0123" className="h-14 text-base" /></div>
+                    <div className="space-y-2"><Label htmlFor="phone" className="text-base">Phone</Label><Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="(647) 123-4567" className="h-14 text-base" /></div>
                     <div className="space-y-2"><Label htmlFor="company" className="text-base">Company</Label><Input id="company" name="company" value={formData.company} onChange={handleChange} placeholder="Your Company" className="h-14 text-base" /></div>
                   </div>
                   <div className="space-y-2"><Label htmlFor="message" className="text-base font-semibold">Project Details *</Label><Textarea id="message" name="message" value={formData.message} onChange={handleChange} required placeholder="Tell us about your project requirements, timeline, and budget..." className="min-h-[200px] text-base" /></div>

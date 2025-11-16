@@ -250,8 +250,8 @@ export default function SubmitRFPNew() {
               <h3 className="font-bold text-lg mb-3">Need Help?</h3>
               <p className="text-muted-foreground mb-4">Have questions about the RFP process or need assistance with your submission?</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div><p className="font-semibold mb-1">📞 Call Us</p><p className="text-muted-foreground">(416) 647-5286</p></div>
-                <div><p className="font-semibold mb-1">📧 Email</p><p className="text-muted-foreground">rfp@ascentgroupconstruction.com</p></div>
+                <div><p className="font-semibold mb-1">📞 Call Us</p><p className="text-muted-foreground">647-528-6804</p></div>
+                <div><p className="font-semibold mb-1">📧 Email</p><p className="text-muted-foreground">projects@ascentgroupconstruction.com</p></div>
               </div>
             </CardContent>
           </Card>

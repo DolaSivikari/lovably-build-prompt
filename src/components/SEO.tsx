@@ -34,10 +34,10 @@ const SEO = ({
     "@id": `${siteUrl}/#organization`,
     name: "Ascent Group Construction",
     alternateName: "Ascent Group",
-    slogan: "Ontario's Envelope & Restoration Contractor Since 2009",
+    slogan: "Envelope & Restoration Contractor — Ontario & GTA",
     description: description,
     url: siteUrl,
-    telephone: "+1-647-123-4567",
+    telephone: "+1-647-528-6804",
     logo: {
       "@type": "ImageObject",
       url: `${siteUrl}/ascent-logo.png`,
@@ -108,7 +108,7 @@ const SEO = ({
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      telephone: "+1-647-123-4567",
+      telephone: "+1-647-528-6804",
       email: "info@ascentgroupconstruction.com",
       availableLanguage: ["English"],
       areaServed: "CA"
