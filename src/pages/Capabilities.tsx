@@ -34,24 +34,19 @@ const Capabilities = () => {
 
   const marketSectors = [
     {
-      name: "Multi-Family Residential",
-      services: ["New construction (wood-frame, concrete)", "Building repositioning", "Condo restorations", "Student housing"],
-      link: "/markets/multi-family",
+      name: "Building Envelope Services",
+      services: ["Stucco & EIFS", "Cladding Systems", "Masonry Restoration", "Waterproofing"],
+      link: "/services/building-envelope",
     },
     {
-      name: "Commercial Real Estate",
-      services: ["Office buildings", "Tenant improvements", "Retail spaces", "Mixed-use developments"],
-      link: "/markets/commercial",
+      name: "Interior Services",
+      services: ["Interior Buildouts", "Painting Services", "Tile & Flooring", "Protective Coatings"],
+      link: "/services/interior-buildouts",
     },
     {
-      name: "Institutional",
-      services: ["Educational facilities", "Healthcare buildings", "Government projects", "Community centers"],
-      link: "/markets/institutional",
-    },
-    {
-      name: "Industrial",
-      services: ["Warehouses & distribution", "Manufacturing facilities", "Light industrial", "Flex space"],
-      link: "/markets/industrial",
+      name: "Specialty Services",
+      services: ["Sustainable Construction", "Historic Restoration", "Custom Projects"],
+      link: "/services/sustainable-construction",
     },
   ];
 

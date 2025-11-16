@@ -10,14 +10,4 @@ export const NAVIGATION_DESCRIPTIONS: Record<string, string> = {
   '/services/painting-services': 'Professional Finish',
   '/services/tile-flooring': 'Quality Surfaces',
   '/services/sustainable-construction': 'Green Building',
-  
-  // Markets
-  '/markets/commercial': 'Office & Retail',
-  '/markets/industrial': 'Manufacturing',
-  '/markets/institutional': 'Government',
-  '/markets/healthcare': 'Medical',
-  '/markets/education': 'Schools',
-  '/markets/multi-family': 'Apartments',
-  '/markets/hospitality': 'Hotels',
-  '/markets/retail': 'Shopping',
 };

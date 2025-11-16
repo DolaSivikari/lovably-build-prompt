@@ -250,10 +250,10 @@ export function UnifiedFooter({
             </Link>
             
             <Link 
-              to="/emergency-maintenance"
+              to="/contact"
               className="block w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors px-4 py-3 rounded-md text-center font-semibold"
             >
-              Emergency Service
+              Contact Us
             </Link>
             
             <div className="pt-4 space-y-2">

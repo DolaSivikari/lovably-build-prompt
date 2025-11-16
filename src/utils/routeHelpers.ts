@@ -77,8 +77,6 @@ export const generatePreviewToken = (): string => {
 export const VALID_PUBLIC_ROUTES = [
   '/',
   '/about',
-  '/about#values',
-  '/about#team',
   '/services',
   '/projects',
   '/contact',
@@ -87,7 +85,7 @@ export const VALID_PUBLIC_ROUTES = [
   '/estimate',
   '/prequalification',
   '/submit-rfp',
-  '/safety-compliance',
+  
   '/sustainability',
   '/faq',
   '/company/certifications-insurance',
@@ -97,21 +95,8 @@ export const VALID_PUBLIC_ROUTES = [
   '/capabilities',
   '/property-managers',
   '/commercial-clients',
-  '/markets',
-  '/markets/commercial',
-  '/markets/multi-family',
-  '/markets/industrial',
-  '/markets/institutional',
-  '/markets/education',
-  '/markets/healthcare',
-  '/markets/hospitality',
-  '/markets/retail',
   '/resources/service-areas',
-  '/resources/warranties',
-  '/resources/financing',
   '/resources/contractor-portal',
-  '/emergency-maintenance',
-  '/vendor-packet',
 ] as const;
 
 /**

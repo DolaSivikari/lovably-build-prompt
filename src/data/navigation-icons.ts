@@ -10,17 +10,6 @@ export const NAVIGATION_ICONS: Record<string, string> = {
   '/services/painting-services': 'Paintbrush',
   '/services/tile-flooring': 'Layers',
   '/services/sustainable-construction': 'Leaf',
-  
-  // Markets
-  '/markets/commercial': 'Briefcase',
-  '/markets/industrial': 'Factory',
-  '/markets/institutional': 'Landmark',
-  '/markets/healthcare': 'Heart',
-  '/markets/education': 'GraduationCap',
-  '/markets/multi-family': 'Building',
-  '/markets/hospitality': 'Hotel',
-  '/markets/retail': 'ShoppingBag',
-  
   // Projects
   '/projects': 'FolderOpen',
   '/projects?category=commercial': 'Briefcase',
@@ -28,21 +17,16 @@ export const NAVIGATION_ICONS: Record<string, string> = {
   '/projects?category=institutional': 'Landmark',
   
   // Company
-  '/company/team': 'HardHat',
   '/company/certifications-insurance': 'Award',
   '/company/equipment-resources': 'Wrench',
   '/company/developers': 'Code',
   '/about': 'Info',
   '/careers': 'UserPlus',
-  '/values': 'Heart',
   '/how-we-work': 'Workflow',
   '/our-process': 'GitBranch',
-  '/safety': 'Shield',
   
   // Resources
   '/resources/service-areas': 'MapPin',
-  '/resources/warranties': 'FileCheck',
-  '/resources/financing': 'DollarSign',
   '/resources/contractor-portal': 'LogIn',
   
   // Quick Actions

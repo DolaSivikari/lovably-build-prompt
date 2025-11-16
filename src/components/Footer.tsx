@@ -51,16 +51,14 @@ const Footer = () => {
   // Static fallback links if admin hasn't configured them
   const companyLinks = quickLinks.length > 0 ? quickLinks : [
     { label: "About", href: "/about" },
-    { label: "Leadership", href: "/company/team" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
   ];
 
   const marketLinks = sectorsLinks.length > 0 ? sectorsLinks : [
-    { label: "Multi-Family", href: "/markets/multi-family" },
-    { label: "Commercial", href: "/markets/commercial" },
-    { label: "Institutional", href: "/markets/institutional" },
-    { label: "Industrial", href: "/markets/industrial" },
+    { label: "Services", href: "/services" },
+    { label: "Projects", href: "/projects" },
+    { label: "Our Process", href: "/our-process" },
   ];
 
   const projectLinks = [

@@ -21,11 +21,11 @@ import PropertyManagers from "./pages/PropertyManagers";
 import CommercialClients from "./pages/CommercialClients";
 import OurProcess from "./pages/OurProcess";
 import Sustainability from "./pages/Sustainability";
-import SafetyCompliance from "./pages/SafetyCompliance";
+
 import Prequalification from "./pages/Prequalification";
 import Capabilities from "./pages/Capabilities";
 import Careers from "./pages/Careers";
-import Reviews from "./pages/Reviews";
+
 import ServiceDetail from "./pages/ServiceDetail";
 import InteriorBuildouts from "./pages/services/InteriorBuildouts";
 import BuildingEnvelope from "./pages/services/BuildingEnvelope";
@@ -35,15 +35,6 @@ import CladdingSystems from "./pages/services/CladdingSystems";
 import TileFlooring from "./pages/services/TileFlooring";
 import PaintingServices from "./pages/services/PaintingServices";
 import SustainableBuilding from "./pages/services/SustainableBuilding";
-import Markets from "./pages/Markets";
-import MultiFamily from "./pages/markets/MultiFamily";
-import Commercial from "./pages/markets/Commercial";
-import Institutional from "./pages/markets/Institutional";
-import Industrial from "./pages/markets/Industrial";
-import Healthcare from "./pages/markets/Healthcare";
-import Education from "./pages/markets/Education";
-import Retail from "./pages/markets/Retail";
-import Hospitality from "./pages/markets/Hospitality";
 import FAQ from "./pages/FAQ";
 import CertificationsInsurance from "./pages/company/CertificationsInsurance";
 import ContractorPortal from "./pages/resources/ContractorPortal";
@@ -51,8 +42,6 @@ import ServiceAreas from "./pages/resources/ServiceAreas";
 import EquipmentResources from "./pages/company/EquipmentResources";
 import Developers from "./pages/company/Developers";
 import ForGeneralContractors from "./pages/ForGeneralContractors";
-import Warranties from "./pages/resources/Warranties";
-import Financing from "./pages/resources/Financing";
 import SubmitRFPNew from "./pages/SubmitRFPNew";
 import Insights from "./pages/Insights";
 import Privacy from "./pages/Privacy";
@@ -264,7 +253,7 @@ const App = () => (
                   <Route path="/prequalification" element={<Prequalification />} />
                   <Route path="/capabilities" element={<Capabilities />} />
                   <Route path="/careers" element={<Careers />} />
-                  <Route path="/reviews" element={<Reviews />} />
+                  
             <Route path="/services" element={<Services />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
             <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
@@ -300,15 +289,6 @@ const App = () => (
             <Route path="/services/virtual-design-construction" element={<Navigate to="/services" replace />} />
             
             <Route path="/services/:slug" element={<ServiceDetail />} />
-            <Route path="/markets" element={<Markets />} />
-            <Route path="/markets/multi-family" element={<MultiFamily />} />
-            <Route path="/markets/commercial" element={<Commercial />} />
-            <Route path="/markets/institutional" element={<Institutional />} />
-            <Route path="/markets/industrial" element={<Industrial />} />
-            <Route path="/markets/healthcare" element={<Healthcare />} />
-            <Route path="/markets/education" element={<Education />} />
-            <Route path="/markets/retail" element={<Retail />} />
-            <Route path="/markets/hospitality" element={<Hospitality />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/estimate" element={<Estimate />} />
@@ -316,15 +296,13 @@ const App = () => (
                   
                   {/* Specialty Landing Pages - Dynamic routing */}
                   <Route path="/for-general-contractors" element={<ForGeneralContractors />} />
-                  <Route path="/emergency-maintenance" element={<DynamicSpecialtyPage />} />
-                  <Route path="/vendor-packet" element={<DynamicSpecialtyPage />} />
                   <Route path="/insights" element={<Insights />} />
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/accessibility" element={<Accessibility />} />
                   <Route path="/unsubscribe" element={<Unsubscribe />} />
                   <Route path="/property-managers" element={<PropertyManagers />} />
-                  <Route path="/homeowners" element={<Navigate to="/markets/multi-family" replace />} />
+                  <Route path="/homeowners" element={<Navigate to="/services" replace />} />
                   <Route path="/commercial-clients" element={<CommercialClients />} />
                   <Route path="/our-process" element={<OurProcess />} />
                   <Route path="/sustainability" element={<Sustainability />} />
@@ -334,16 +312,8 @@ const App = () => (
                   <Route path="/company/equipment-resources" element={<EquipmentResources />} />
                   <Route path="/company/developers" element={<Developers />} />
                   
-                  {/* Redirects for deleted/consolidated pages */}
-                  <Route path="/safety" element={<Navigate to="/safety-compliance" replace />} />
-                  <Route path="/company/safety-and-compliance" element={<Navigate to="/safety-compliance" replace />} />
-                  <Route path="/values" element={<Navigate to="/about#values" replace />} />
-                  <Route path="/how-we-work" element={<Navigate to="/our-process" replace />} />
-                  <Route path="/company/team" element={<Navigate to="/about#team" replace />} />
                   <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
                   <Route path="/resources/service-areas" element={<ServiceAreas />} />
-                  <Route path="/resources/warranties" element={<Warranties />} />
-                  <Route path="/resources/financing" element={<Financing />} />
                   
                   {/* Heavy content pages - lazy loaded */}
                   <Route path="/blog" element={<Blog />} />
