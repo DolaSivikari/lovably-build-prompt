@@ -42,7 +42,12 @@ export const ANIMATIONS = {
 
 // Brand Voice & Positioning
 export const BRAND = {
-  positioning: "Lead/specialty contractor for building envelope & restoration",
+  positioning: "Ontario's specialty contractor for building envelope & restoration",
   tagline: "Ontario's specialty contractor for building envelope & restoration",
   fullName: "Ascent Group Construction",
+  colors: {
+    primary: "Navy Blue #003366",
+    accent: "Construction Orange #F97316", 
+    secondary: "Charcoal Gray #36454F"
+  }
 } as const;

@@ -20,32 +20,32 @@ export default {
       colors: {
         // Corporate theme colors
         "construction-black": {
-          DEFAULT: "hsl(0 0% 10%)",
-          light: "hsl(0 0% 20%)",
-          dark: "hsl(0 0% 5%)",
+          DEFAULT: "hsl(210 100% 20%)",
+          light: "hsl(210 100% 30%)",
+          dark: "hsl(210 100% 15%)",
         },
         "construction-orange": {
-          DEFAULT: "hsl(25 100% 50%)",
-          light: "hsl(25 100% 60%)",
-          dark: "hsl(25 100% 45%)",
+          DEFAULT: "hsl(24 95% 53%)",
+          light: "hsl(24 95% 63%)",
+          dark: "hsl(24 95% 48%)",
         },
         "construction-gray": {
-          DEFAULT: "hsl(0 0% 40%)",
-          light: "hsl(0 0% 60%)",
-          dark: "hsl(0 0% 30%)",
+          DEFAULT: "hsl(200 18% 26%)",
+          light: "hsl(200 18% 46%)",
+          dark: "hsl(200 18% 20%)",
         },
         cream: {
           DEFAULT: "hsl(45 50% 95%)",
           dark: "hsl(45 30% 90%)",
         },
         charcoal: {
-          DEFAULT: "hsl(0 0% 10%)",
-          light: "hsl(0 0% 20%)",
+          DEFAULT: "hsl(200 18% 26%)",
+          light: "hsl(200 18% 46%)",
         },
         navy: {
-          DEFAULT: "hsl(0 0% 10%)",
-          light: "hsl(0 0% 20%)",
-          dark: "hsl(0 0% 5%)",
+          DEFAULT: "hsl(210 100% 20%)",
+          light: "hsl(210 100% 30%)",
+          dark: "hsl(210 100% 15%)",
         },
         "slate-cool": {
           50: "hsl(210 40% 98%)",
