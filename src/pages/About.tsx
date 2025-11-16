@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { 

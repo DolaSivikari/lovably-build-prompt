@@ -2,7 +2,7 @@ import { Factory, Zap, Wrench, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
@@ -45,16 +45,15 @@ const Industrial = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Industrial Construction"
         description="Specialized expertise in warehouses, manufacturing facilities, and industrial buildings"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Markets", href: "/markets/commercial" },
-          { label: "Industrial" }
+          { name: "Home", path: "/" },
+          { name: "Markets", path: "/markets/commercial" },
+          { name: "Industrial" }
         ]}
+        cta={{ text: CTA_TEXT.primary, href: "/contact" }}
       />
 
       <main>

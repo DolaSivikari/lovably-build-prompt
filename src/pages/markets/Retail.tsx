@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
@@ -72,16 +72,15 @@ const Retail = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-        <UnifiedPageHero
+        <PageHeader
           title="Building Better Shopping Experiences"
           description="Expert retail construction and renovation services with fast-track delivery and minimal business disruption"
-          primaryCTA={{ text: CTA_TEXT.primary, href: "/estimate" }}
-          secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
           breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Markets", href: "/markets/commercial" },
-            { label: "Retail" }
+            { name: "Home", path: "/" },
+            { name: "Markets", path: "/markets/commercial" },
+            { name: "Retail" }
           ]}
+          cta={{ text: CTA_TEXT.primary, href: "/estimate" }}
         />
 
           <Section size="major">

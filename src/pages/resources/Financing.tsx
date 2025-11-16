@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
 import { CTA_TEXT } from "@/design-system/constants";
 
@@ -16,15 +16,15 @@ const Financing = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-          <UnifiedPageHero
+          <PageHeader
             title="Financing Options"
             description="Flexible payment solutions for your construction project"
-            primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
             breadcrumbs={[
-              { label: "Home", href: "/" },
-              { label: "Resources", href: "/resources" },
-              { label: "Financing" }
+              { name: "Home", path: "/" },
+              { name: "Resources", path: "/resources" },
+              { name: "Financing" }
             ]}
+            cta={{ text: CTA_TEXT.contact, href: "/contact" }}
           />
           <Section size="major" maxWidth="narrow">
             <div className="text-center">

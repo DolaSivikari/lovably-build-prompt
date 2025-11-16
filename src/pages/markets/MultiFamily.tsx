@@ -2,7 +2,7 @@ import { Building2, Users, TrendingUp, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Button } from "@/ui/Button";
@@ -45,16 +45,15 @@ const MultiFamily = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Multi-Family Residential Construction"
         description="Specialized expertise in condos, apartments, and multi-unit residential buildings"
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Markets", href: "/markets/commercial" },
-          { label: "Multi-Family" }
+          { name: "Home", path: "/" },
+          { name: "Markets", path: "/markets/commercial" },
+          { name: "Multi-Family" }
         ]}
+        cta={{ text: CTA_TEXT.primary, href: "/contact" }}
       />
 
       <main>

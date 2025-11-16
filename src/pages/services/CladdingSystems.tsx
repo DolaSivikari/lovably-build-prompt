@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
+import PageHeader from '@/components/PageHeader';
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from '@/ui/Button';
@@ -38,15 +38,15 @@ const CladdingSystems = () => {
       />
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title="Cladding Systems"
         description="Complete exterior cladding solutions from metal panels to EIFS and rainscreen assemblies"
-        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Services', href: '/services' },
-          { label: 'Cladding Systems', href: '/services/cladding-systems' }
+          { name: 'Home', path: '/' },
+          { name: 'Services', path: '/services' },
+          { name: 'Cladding Systems', path: '/services/cladding-systems' }
         ]}
+        cta={{ text: CTA_TEXT.project, href: "/estimate" }}
       />
 
       <main className="flex-1">

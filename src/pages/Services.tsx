@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
 import { supabase } from "@/integrations/supabase/client";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
@@ -78,15 +78,14 @@ const Services = () => {
       />
       <Navigation />
       
-      <UnifiedPageHero
+      <PageHeader
         title="Our Services"
         description="Ontario's specialty contractor for building envelope & restoration. Self-performed work across commercial, multi-family, and institutional projects."
-        primaryCTA={{ text: CTA_TEXT.primary, href: "/estimate" }}
-        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Services" }
+          { name: "Home", path: "/" },
+          { name: "Services" }
         ]}
+        cta={{ text: CTA_TEXT.primary, href: "/estimate" }}
       />
 
       <main className="flex-1 relative">

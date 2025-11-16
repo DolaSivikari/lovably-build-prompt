@@ -1,4 +1,4 @@
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
@@ -69,15 +69,14 @@ const WhySpecialtyContractor = () => {
 
       <Navigation />
 
-      <UnifiedPageHero
+      <PageHeader
         title={hero.title}
         description={hero.subtitle}
-        primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
-        secondaryCTA={{ text: "View Our Work", href: "/projects" }}
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Why Specialty Contractor" }
+          { name: "Home", path: "/" },
+          { name: "Why Specialty Contractor" }
         ]}
+        cta={{ text: CTA_TEXT.contact, href: "/contact" }}
       />
 
       {/* Introduction Section */}
