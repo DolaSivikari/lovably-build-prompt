@@ -1,8 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
-import { Card, CardContent } from "@/components/ui/card";
 import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
@@ -73,78 +71,62 @@ const Retail = () => {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main id="main-content">
-        <PageHeader
-          eyebrow="Retail Market"
+        <UnifiedPageHero
           title="Building Better Shopping Experiences"
           description="Expert retail construction and renovation services with fast-track delivery and minimal business disruption"
+          primaryCTA={{ text: CTA_TEXT.primary, href: "/estimate" }}
+          secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Markets", href: "/markets/commercial" },
             { label: "Retail" }
           ]}
-          variant="standard"
-          backgroundImage={heroRetail}
         />
 
-          {/* Value Propositions */}
-          <section className="py-16 bg-background">
-            <div className="container mx-auto px-4">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-4xl font-bold text-center mb-12">Why Retailers Choose Ascent</h2>
-                <div className="grid md:grid-cols-3 gap-8">
-                  {valuePropositions.map((prop, index) => (
-                    <Card key={index} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-8 text-center">
+          <Section size="major">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Why Retailers Choose Ascent</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {valuePropositions.map((prop, index) => (
+                <UnifiedCard key={index} variant="elevated" className="text-center">
                         <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                           <prop.icon className="w-8 h-8 text-primary" />
                         </div>
                         <h3 className="text-xl font-bold mb-3">{prop.title}</h3>
                         <p className="text-muted-foreground">{prop.description}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+                </UnifiedCard>
+              ))}
             </div>
-          </section>
+          </Section>
 
-          {/* Retail Projects Gallery */}
-          <section className="py-16 bg-muted/30">
-            <div className="container mx-auto px-4">
-              <div className="max-w-6xl mx-auto">
-                <div className="text-center mb-12">
-                  <h2 className="text-4xl font-bold mb-4">Retail Project Portfolio</h2>
-                  <p className="text-lg text-muted-foreground">Creating exceptional retail environments that drive sales</p>
-                </div>
-                <div className="grid md:grid-cols-3 gap-8">
-                  {retailProjects.map((project, index) => (
-                    <Card key={index} className="overflow-hidden hover:shadow-xl transition-all group">
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <img 
-                          src={project.image} 
-                          alt={project.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                      </div>
-                      <CardContent className="p-6">
-                        <h3 className="text-xl font-bold mb-2">{project.name}</h3>
-                        <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
-                        <div className="pt-3 border-t">
-                          <p className="text-xs font-semibold text-primary">{project.metrics}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+          <Section size="major" className="bg-muted/30">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Retail Project Portfolio</h2>
+              <p className="text-lg text-muted-foreground">Creating exceptional retail environments that drive sales</p>
             </div>
-          </section>
+            <div className="grid md:grid-cols-3 gap-8">
+              {retailProjects.map((project, index) => (
+                <UnifiedCard key={index} variant="elevated" className="overflow-hidden hover:shadow-xl transition-all group">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={project.image} 
+                      alt={project.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{project.name}</h3>
+                    <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
+                    <div className="pt-3 border-t">
+                      <p className="text-xs font-semibold text-primary">{project.metrics}</p>
+                    </div>
+                  </div>
+                </UnifiedCard>
+              ))}
+            </div>
+          </Section>
 
-          {/* Retail Capabilities */}
-          <section className="py-16 bg-background">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-4xl font-bold text-center mb-12">Retail-Specific Capabilities</h2>
+          <Section size="major">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Retail-Specific Capabilities</h2>
                 <div className="grid md:grid-cols-2 gap-4">
                   {capabilities.map((capability, index) => (
                     <div key={index} className="flex items-start gap-3 p-4 rounded-lg hover:bg-muted/50 transition-colors">
@@ -152,30 +134,25 @@ const Retail = () => {
                       <span className="text-lg">{capability}</span>
                     </div>
                   ))}
-                </div>
-              </div>
             </div>
-          </section>
+          </Section>
 
-          {/* CTA Section */}
-          <section className="py-16 bg-primary text-primary-foreground">
-            <div className="container mx-auto px-4 text-center">
-              <div className="max-w-3xl mx-auto">
-                <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Retail Space?</h2>
-                <p className="text-xl mb-8 opacity-90">
-                  Let's discuss how we can deliver your store renovation or build-out without disrupting sales.
-                </p>
-                <div className="flex gap-4 justify-center flex-wrap">
-                  <Button size="lg" variant="secondary" asChild>
-                    <Link to="/submit-rfp">Submit RFP</Link>
-                  </Button>
-                  <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
-                    <Link to="/contact">Contact Us</Link>
-                  </Button>
-                </div>
+          <Section size="major" className="bg-primary text-primary-foreground">
+            <div className="text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Retail Space?</h2>
+              <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
+                Let's discuss how we can deliver your store renovation or build-out without disrupting sales.
+              </p>
+              <div className="flex gap-4 justify-center flex-wrap">
+                <Button size="lg" variant="secondary" asChild>
+                  <Link to="/submit-rfp">Submit RFP</Link>
+                </Button>
+                <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
+                  <Link to="/contact">{CTA_TEXT.contact}</Link>
+                </Button>
               </div>
             </div>
-          </section>
+          </Section>
         </main>
         <Footer />
       </div>
