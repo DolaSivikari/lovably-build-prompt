@@ -63,8 +63,8 @@ const ProjectCard = ({
             e.currentTarget.src = "/placeholder.svg";
           }}
           className={cn(
-            "w-full h-full object-cover object-center transition-transform duration-500",
-            isHovered && "scale-110"
+            "w-full h-full object-cover object-center transition-transform duration-700",
+            isHovered && "scale-[1.15]"
           )}
         />
         

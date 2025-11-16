@@ -20,6 +20,8 @@ import { ExitIntentPopup } from "@/components/engagement/ExitIntentPopup";
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
 import { CTA_TEXT } from "@/design-system/constants";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 const Index = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -196,23 +198,35 @@ const Index = () => {
         <Navigation />
       <main id="main-content" role="main">
         <EnhancedHero />
-        {/* Smooth transition removed - pure white background */}
-        <TrustBadgeBar />
-        <ValuePillars />
-        <CompanyIntroduction />
         
-        {/* Unified Client Value Proposition */}
-        <ClientValueProposition />
+        <ScrollReveal direction="up" delay={0}>
+          <TrustBadgeBar />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={100}>
+          <ValuePillars />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0}>
+          <CompanyIntroduction />
+        </ScrollReveal>
         
-        {/* Services Explorer */}
-        <div className="py-24">
-          <ServicesExplorer />
-        </div>
+        <ScrollReveal direction="up" delay={100}>
+          <ClientValueProposition />
+        </ScrollReveal>
         
-        {/* Social Proof */}
-        <PrequalPackage />
+        <ScrollReveal direction="up" delay={0}>
+          <div className="py-24">
+            <ServicesExplorer />
+          </div>
+        </ScrollReveal>
+        
+        <ScrollReveal direction="up" delay={100}>
+          <PrequalPackage />
+        </ScrollReveal>
       </main>
         <Footer />
+        <ScrollToTop />
         <ExitIntentPopup />
       </div>
     </>
