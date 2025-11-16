@@ -134,10 +134,10 @@ const About = () => {
           <div className="container mx-auto px-4 py-32 text-center">
             <p className="text-sm uppercase tracking-wider text-white/80 mb-4">About Us</p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Ontario's Building Envelope & Restoration Specialist
+              Building Envelope & Restoration Specialists
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Delivering accountable, prime-scope execution for owners, property managers, and consulting engineers.
+              An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project.
             </p>
           </div>
         </VideoBackground>
@@ -156,25 +156,40 @@ const About = () => {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
               <p className="text-xl text-foreground/90 leading-relaxed mb-6">
-                At Ascent Group Construction, we take full responsibility for the success of our specialty scopes. 
-                As a lead/prime contractor for building envelope and exterior restoration projects, we coordinate 
-                the required trades, manage safety and quality, and keep stakeholders informed from site walk to closeout.
+                Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
+                work across Ontario's Greater Toronto Area. We're in the early stages of building our company—establishing 
+                systems, earning trust, and delivering quality work that speaks for itself.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Today, we focus on the work we do best—façade remediation, sealant replacement, concrete & parking 
-                garage repair, EIFS/stucco, masonry restoration, waterproofing, and protective coatings—while building 
-                toward our long-term goal of becoming a general contractor within the next 3–5 years.
+                Right now, we specialize in façade remediation, sealant replacement, concrete & parking garage repair, 
+                EIFS/stucco, masonry restoration, waterproofing, and protective coatings. Our goal is clear: become the 
+                most reliable specialty contractor in our market, then expand into full general contracting capabilities 
+                over the next 3–5 years. Every project we complete, every relationship we build, and every lesson we 
+                learn moves us toward that vision.
               </p>
             </div>
 
-            {/* Founder Quote */}
+            {/* Founder Story */}
             <Card className="mt-12 border-l-4 border-primary bg-muted/30">
               <CardContent className="p-8">
-                <blockquote className="text-xl italic text-foreground/90 mb-4">
-                  "I started Ascent to raise the bar on reliability and accountability. Every scope we lead is 
-                  treated like it's our own building—planned carefully, executed safely, and finished right."
+                <h3 className="text-2xl font-semibold mb-4 text-foreground">The Ascent Story</h3>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  I founded Ascent Group Construction because I saw too many contractors making promises they couldn't 
+                  keep—overpromising on scope, underdelivering on quality, and leaving property managers and building 
+                  owners frustrated. I knew there was a better way: be honest about what you can do, deliver exactly 
+                  what you promise, and build your reputation one project at a time.
+                </p>
+                <blockquote className="text-xl italic text-foreground/90 mb-4 border-l-2 border-primary/50 pl-6">
+                  "We're not trying to be the biggest contractor in Ontario—we're trying to be the most reliable. 
+                  Every scope we lead is treated like it's our own building: planned carefully, executed safely, 
+                  and finished right."
                 </blockquote>
-                <p className="text-sm font-semibold text-primary">— Hebun Isik, Founder</p>
+                <div className="flex items-center gap-4 mt-6">
+                  <div>
+                    <p className="font-semibold text-primary text-lg">Hebun Isik</p>
+                    <p className="text-sm text-muted-foreground">Founder & Principal</p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -395,13 +410,28 @@ const About = () => {
             <Card className="border-2 border-primary/20">
               <CardContent className="p-12 text-center">
                 <TrendingUp className="w-16 h-16 text-primary mx-auto mb-6" />
-                <h2 className="text-4xl font-bold mb-6">Our Vision</h2>
-                <p className="text-xl text-muted-foreground leading-relaxed">
-                  We're building a reputation as Ontario's trusted lead contractor for envelope & restoration 
-                  scopes—and using that foundation to expand responsibly into a full GC service offering over 
-                  the next 3–5 years. Every successful scope, relationship, and referral gets us closer—without 
-                  compromising the service standards that define Ascent.
-                </p>
+                <h2 className="text-4xl font-bold mb-6">Our Vision: From Specialist to General Contractor</h2>
+                <div className="text-left space-y-4">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Today (Year 1):</strong> We're establishing ourselves as a reliable 
+                    specialty contractor for building envelope and restoration work. We're earning trust through quality 
+                    execution, clear communication, and safety-first practices.
+                  </p>
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Years 2-3:</strong> Expand our capabilities as a lead contractor, 
+                    taking full project responsibility for larger envelope programs while building relationships with key 
+                    property managers, developers, and consultants across Ontario.
+                  </p>
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Years 4-5:</strong> Transition into a full-service general contractor, 
+                    managing multiple trades and larger projects—while maintaining the specialty envelope expertise and service 
+                    standards that define Ascent Group Construction.
+                  </p>
+                  <p className="text-lg text-primary font-semibold mt-6 text-center">
+                    We're not rushing the process. We're building the right foundation—one project, one relationship, 
+                    one reputation at a time.
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </div>
