@@ -1,12 +1,13 @@
 :root {
-  /* Brand Colors - ALL IN HSL FORMAT */
-  --brand-primary: 210 100% 20%; /* Navy Blue #003366 */
-  --brand-accent: 25 95% 53%; /* Construction Orange #F97316 */
-  --ink: 215 25% 15%; /* Text */
-  --muted: 215 16% 47%; /* Secondary text */
-  --line: 220 13% 91%; /* Borders */
+  /* Brand Colors - Corporate Palette - ALL IN HSL FORMAT */
+  --brand-primary: 0 0% 10%; /* Deep Black #1A1A1A */
+  --brand-accent: 25 100% 50%; /* Pure Orange #FF6600 */
+  --brand-gray: 0 0% 40%; /* Medium Gray #666666 */
+  --ink: 0 0% 10%; /* Text - Deep Black */
+  --muted: 0 0% 40%; /* Secondary text - Medium Gray */
+  --line: 0 0% 90%; /* Borders - Light Gray */
   --bg: 0 0% 100%; /* White */
-  --bg-soft: 210 40% 98%; /* Soft background */
+  --bg-soft: 0 0% 98%; /* Soft background */
 
   /* Feedback Colors - ALL IN HSL FORMAT */
   --success: 142 76% 36%; /* Green #16A34A */
@@ -22,11 +23,11 @@
   --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
   --shadow-text: 0 2px 8px rgba(0, 0, 0, 0.8);
   --shadow-text-overlay: 0 2px 8px rgba(0, 0, 0, 0.8);
-  --shadow-glow: 0 0 20px rgba(0, 51, 102, 0.3);
+  --shadow-glow: 0 0 20px rgba(255, 102, 0, 0.3);
   --shadow-dropdown: 0 10px 40px rgba(0, 0, 0, 0.12);
 
   /* Badge & Tag Gradients */
-  --badge-gradient-primary: linear-gradient(135deg, hsl(var(--brand-primary)), hsl(210 100% 30%));
+  --badge-gradient-primary: linear-gradient(135deg, hsl(var(--brand-primary)), hsl(0 0% 20%));
   --badge-gradient-success: linear-gradient(135deg, #10b981, #059669);
   --badge-gradient-warning: linear-gradient(135deg, #f59e0b, #d97706);
   --badge-gradient-info: linear-gradient(135deg, #3b82f6, #2563eb);
