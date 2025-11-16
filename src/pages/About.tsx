@@ -1,8 +1,9 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import Breadcrumb from "@/components/Breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { 
@@ -21,9 +22,6 @@ import {
   Factory
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { VideoBackground } from "@/components/shared/VideoBackground";
-import logoIntroVideo from "@/assets/ascent-logo-intro.mp4";
-import heroAboutImage from "@/assets/heroes/hero-about-company.jpg";
 
 const About = () => {
   const services = [
@@ -122,136 +120,105 @@ const About = () => {
         keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor"
       />
       <Navigation />
-
-      <div className="relative">
-      <VideoBackground
-        videoUrl={logoIntroVideo}
-        posterUrl={heroAboutImage}
-        overlay={true}
-        overlayOpacity={0.4}
-        showControls={false}
-        className="min-h-[500px] md:min-h-[600px] lg:min-h-[70vh]"
-      >
-          <div className="container mx-auto px-4 py-32 text-center">
-            <p className="text-sm uppercase tracking-wider text-white/80 mb-4">About Us</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Building Envelope & Restoration Specialists
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project.
-            </p>
-          </div>
-        </VideoBackground>
-      </div>
-
-      <Breadcrumb
-        items={[
+      
+      <UnifiedPageHero
+        title="Building Envelope & Restoration Specialists"
+        description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
+        primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
+        secondaryCTA={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About Us" }
         ]}
       />
 
       {/* Main Introduction */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <p className="text-xl text-foreground/90 leading-relaxed mb-6">
-                Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
-                work across Ontario's Greater Toronto Area. We're in the early stages of building our company—establishing 
-                systems, earning trust, and delivering quality work that speaks for itself.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Right now, we specialize in façade remediation, sealant replacement, concrete & parking garage repair, 
-                EIFS/stucco, masonry restoration, waterproofing, and protective coatings. Our goal is clear: become the 
-                most reliable specialty contractor in our market, then expand into full general contracting capabilities 
-                over the next 3–5 years. Every project we complete, every relationship we build, and every lesson we 
-                learn moves us toward that vision.
-              </p>
-            </div>
-
-            {/* Founder Story */}
-            <Card className="mt-12 border-l-4 border-primary bg-muted/30">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-semibold mb-4 text-foreground">The Ascent Story</h3>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  I founded Ascent Group Construction in 2025 after spending 15+ years working in Ontario's construction industry. 
-                  I started by studying Construction Engineering Technology, then worked my way through the field—first as a Site 
-                  Coordinator with Madison Group and Aspenridge Homes on highrise residential projects, then as a trade subcontractor 
-                  handling envelope and interior work on various commercial and multi-family properties.
-                </p>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Through those years, I learned what property managers and general contractors actually need from trade partners: 
-                  fast turnaround on quotes, reliable execution, clear communication, and professional documentation. I also saw too 
-                  many contractors overpromising and underdelivering—damaging relationships and leaving clients frustrated.
-                </p>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  That's why I started Ascent Group: to provide specialty trade services with professional accountability. We're not 
-                  trying to be the biggest contractor in Ontario—we're building our reputation by delivering exactly what we promise, 
-                  one project at a time. We have a 10-person self-performed crew, we execute 85% of our work in-house, and we're 
-                  actively working toward full WSIB clearance, COR certification, and bonding capacity.
-                </p>
-                <blockquote className="text-xl italic text-foreground/90 mb-4 border-l-2 border-primary/50 pl-6">
-                  "We're building Ascent Group the right way—professional systems, quality execution, and honest positioning. 
-                  Every project we complete moves us closer to becoming a full general contractor, but we're not there yet. 
-                  Right now, we're focused on being the most reliable envelope and interior trade specialist in the GTA."
-                </blockquote>
-                <div className="flex items-center gap-4 mt-6">
-                  <div>
-                    <p className="font-semibold text-primary text-lg">Hebun Isik</p>
-                    <p className="text-sm text-muted-foreground">Founder & Principal, Ascent Group Construction</p>
-                    <p className="text-xs text-muted-foreground mt-1">Construction Engineering Technician | 15+ Years Industry Experience</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+      <Section size="major" maxWidth="narrow">
+        <div className="prose prose-lg max-w-none">
+          <p className="text-lg md:text-xl leading-relaxed mb-6">
+            Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
+            work across Ontario's Greater Toronto Area. We're in the early stages of building our company—establishing 
+            systems, earning trust, and delivering quality work that speaks for itself.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
+            Right now, we specialize in façade remediation, sealant replacement, concrete & parking garage repair, 
+            EIFS/stucco, masonry restoration, waterproofing, and protective coatings. Our goal is clear: become the 
+            most reliable specialty contractor in our market, then expand into full general contracting capabilities 
+            over the next 3–5 years. Every project we complete, every relationship we build, and every lesson we 
+            learn moves us toward that vision.
+          </p>
         </div>
-      </section>
+
+        {/* Founder Story */}
+        <UnifiedCard variant="elevated" className="mt-12 border-l-4 border-primary">
+          <h3 className="text-2xl md:text-3xl font-semibold mb-4">The Ascent Story</h3>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+            I founded Ascent Group Construction in 2025 after spending 15+ years working in Ontario's construction industry. 
+            I started by studying Construction Engineering Technology, then worked my way through the field—first as a Site 
+            Coordinator with Madison Group and Aspenridge Homes on highrise residential projects, then as a trade subcontractor 
+            handling envelope and interior work on various commercial and multi-family properties.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+            Through those years, I learned what property managers and general contractors actually need from trade partners: 
+            fast turnaround on quotes, reliable execution, clear communication, and professional documentation. I also saw too 
+            many contractors overpromising and underdelivering—damaging relationships and leaving clients frustrated.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+            That's why I started Ascent Group—to build a specialty contractor that delivers on promises. We're currently 
+            actively working toward full WSIB clearance, COR certification, and bonding capacity.
+          </p>
+          <blockquote className="text-xl italic mb-4 border-l-2 border-primary/50 pl-6">
+            "We're building Ascent Group the right way—professional systems, quality execution, and honest positioning. 
+            Every project we complete moves us closer to becoming a full general contractor, but we're not there yet. 
+            Right now, we're focused on being the most reliable envelope and interior trade specialist in the GTA."
+          </blockquote>
+          <div className="flex items-center gap-4 mt-6">
+            <div>
+              <p className="font-semibold text-primary text-lg">Hebun Isik</p>
+              <p className="text-sm text-muted-foreground">Founder & Principal, Ascent Group Construction</p>
+              <p className="text-xs text-muted-foreground mt-1">Construction Engineering Technician | 15+ Years Industry Experience</p>
+            </div>
+          </div>
+        </UnifiedCard>
+      </Section>
 
       {/* Who We Serve */}
-      <section className="py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Who We Serve</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Trusted partners across Ontario's construction ecosystem
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {clientTypes.map((client, index) => {
-                const IconComponent = client.icon;
-                return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-8">
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className="p-3 bg-primary/10 rounded-lg">
-                          <IconComponent className="w-6 h-6 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-2">
-                            <h3 className="text-xl font-semibold">{client.title}</h3>
-                            <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                              client.priority === 'Primary' ? 'bg-primary/20 text-primary' :
-                              client.priority === 'Secondary' ? 'bg-secondary/20 text-secondary-foreground' :
-                              'bg-muted text-muted-foreground'
-                            }`}>
-                              {client.priority}
-                            </span>
-                          </div>
-                          <p className="text-muted-foreground">{client.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
+      <Section size="major" className="bg-muted/30">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Who We Serve</h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Trusted partners across Ontario's construction ecosystem
+          </p>
         </div>
-      </section>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {clientTypes.map((client, index) => {
+            const IconComponent = client.icon;
+            return (
+              <UnifiedCard key={index} variant="interactive">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="p-3 bg-primary/10 rounded-lg">
+                    <IconComponent className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-xl md:text-2xl font-semibold">{client.title}</h3>
+                      <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
+                        client.priority === 'Primary' ? 'bg-primary/20 text-primary' :
+                        client.priority === 'Secondary' ? 'bg-secondary/20 text-secondary-foreground' :
+                        'bg-muted text-muted-foreground'
+                      }`}>
+                        {client.priority}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground">{client.description}</p>
+                  </div>
+                </div>
+              </UnifiedCard>
+            );
+          })}
+        </div>
+      </Section>
 
       {/* What We Self-Perform */}
       <section className="py-24 bg-background">
