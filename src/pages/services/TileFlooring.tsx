@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { PageHero } from '@/components/sections/PageHero';
+import { UnifiedPageHero } from '@/components/sections/UnifiedPageHero';
 import { Button } from '@/ui/Button';
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
@@ -73,19 +73,16 @@ const TileFlooring = () => {
       />
       <Navigation />
 
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
+      <UnifiedPageHero
+        title="Tile & Flooring Installation"
+        description="Professional flooring solutions for commercial and multi-family projects"
+        primaryCTA={{ text: CTA_TEXT.project, href: "/estimate" }}
+        breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Tile & Flooring', href: '/services/tile-flooring' }
-        ]} />
-        <PageHero.Title>Tile & Flooring Installation</PageHero.Title>
-        <PageHero.Subtitle>
-          Professional flooring solutions for commercial and multi-family projects
-        </PageHero.Subtitle>
-        <PageHero.Stats stats={stats} />
-        <PageHero.CTAs primaryText={CTA_TEXT.project} primaryHref="/estimate" />
-      </PageHero.Root>
+        ]}
+      />
 
       <main className="flex-1">
         {/* What We Deliver Section */}

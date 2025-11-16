@@ -2,10 +2,12 @@ import { Shield, Droplets, Wind, ThermometerSun, CheckCircle2, ArrowRight, Clock
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { PageHero } from "@/components/sections/PageHero";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Section } from "@/components/sections/Section";
 import { Button } from '@/ui/Button';
 import SEO from "@/components/SEO";
+import { CTA_TEXT } from "@/design-system/constants";
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
 import heroImage from "@/assets/hero-building-envelope.jpg";
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
@@ -127,23 +129,17 @@ const BuildingEnvelope = () => {
       />
       <Navigation />
       
-      <PageHero.Root backgroundImage={heroImage}>
-        <PageHero.Breadcrumb items={[
+      <UnifiedPageHero
+        title="Building Envelope"
+        description="Durable, energy-efficient building performance through expert envelope systems"
+        primaryCTA={{ text: CTA_TEXT.primary, href: "/contact" }}
+        secondaryCTA={{ text: "View Envelope Projects", href: "/projects?type=envelope" }}
+        breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
           { label: "Building Envelope" }
-        ]} />
-        <PageHero.Title>Building Envelope</PageHero.Title>
-        <PageHero.Subtitle>
-          Durable, energy-efficient building performance through expert envelope systems.
-        </PageHero.Subtitle>
-        <PageHero.CTAs
-          primaryText="Request Assessment" 
-          primaryHref="/contact"
-          secondaryText="View Envelope Projects"
-          secondaryHref="/projects?type=envelope"
-        />
-      </PageHero.Root>
+        ]}
+      />
 
       <main>
         {/* What We Deliver */}
@@ -160,17 +156,13 @@ const BuildingEnvelope = () => {
               {whatWeDeliver.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                        <Icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <CardTitle className="text-lg">{item.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
-                    </CardContent>
-                  </Card>
+                  <UnifiedCard key={index} variant="elevated" className="p-6">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-bold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  </UnifiedCard>
                 );
               })}
             </div>
@@ -188,18 +180,16 @@ const BuildingEnvelope = () => {
                 </p>
               </div>
 
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {systemsWeInstall.map((system, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{system}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              <UnifiedCard variant="base" className="p-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  {systemsWeInstall.map((system, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">{system}</span>
+                    </div>
+                  ))}
+                </div>
+              </UnifiedCard>
             </div>
           </div>
         </section>
@@ -216,26 +206,22 @@ const BuildingEnvelope = () => {
 
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {howWeWork.map((phase, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                        {index + 1}
-                      </div>
-                      <CardTitle className="text-xl">{phase.phase}</CardTitle>
+                <UnifiedCard key={index} variant="elevated" className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+                      {index + 1}
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {phase.activities.map((activity, actIndex) => (
-                        <li key={actIndex} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                          <span className="text-sm text-muted-foreground">{activity}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
+                    <h3 className="text-xl font-bold">{phase.phase}</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {phase.activities.map((activity, actIndex) => (
+                      <li key={actIndex} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                        <span className="text-sm text-muted-foreground">{activity}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </UnifiedCard>
               ))}
             </div>
           </div>
@@ -251,61 +237,45 @@ const BuildingEnvelope = () => {
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 text-left">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Wrench className="w-5 h-5 text-primary" />
-                      Technical Expertise
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      Our crews receive ongoing training on latest systems, materials, and installation techniques.
-                    </p>
-                  </CardContent>
-                </Card>
+                <UnifiedCard variant="elevated" className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Wrench className="w-5 h-5 text-primary" />
+                    <h3 className="text-base font-bold">Technical Expertise</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Our crews receive ongoing training on latest systems, materials, and installation techniques.
+                  </p>
+                </UnifiedCard>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Shield className="w-5 h-5 text-primary" />
-                      Quality Consistency
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      Same crews, same standards, same quality control processes across all projects.
-                    </p>
-                  </CardContent>
-                </Card>
+                <UnifiedCard variant="elevated" className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Shield className="w-5 h-5 text-primary" />
+                    <h3 className="text-base font-bold">Quality Consistency</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Same crews, same standards, same quality control processes across all projects.
+                  </p>
+                </UnifiedCard>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-primary" />
-                      Schedule Reliability
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      Direct control eliminates subcontractor scheduling conflicts and availability issues.
-                    </p>
-                  </CardContent>
-                </Card>
+                <UnifiedCard variant="elevated" className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Clock className="w-5 h-5 text-primary" />
+                    <h3 className="text-base font-bold">Schedule Reliability</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Direct control eliminates subcontractor scheduling conflicts and availability issues.
+                  </p>
+                </UnifiedCard>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-primary" />
-                      Warranty Confidence
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      We stand behind our work with comprehensive warranties and responsive service.
-                    </p>
-                  </CardContent>
-                </Card>
+                <UnifiedCard variant="elevated" className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <h3 className="text-base font-bold">Warranty Confidence</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    We stand behind our work with comprehensive warranties and responsive service.
+                  </p>
+                </UnifiedCard>
               </div>
             </div>
           </div>
@@ -323,26 +293,22 @@ const BuildingEnvelope = () => {
 
             <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {caseStudies.map((project, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all hover:-translate-y-1">
-                  <CardHeader>
-                    <CardTitle className="text-lg">{project.title}</CardTitle>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
-                        {project.location}
-                      </span>
-                      <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
-                        {project.size}
-                      </span>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Clock className="w-3 h-3" />
-                      <span>Completed in {project.duration}</span>
-                    </div>
-                  </CardContent>
-                </Card>
+                <UnifiedCard key={index} variant="interactive" className="p-6">
+                  <h3 className="text-lg font-bold mb-3">{project.title}</h3>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
+                      {project.location}
+                    </span>
+                    <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
+                      {project.size}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Clock className="w-3 h-3" />
+                    <span>Completed in {project.duration}</span>
+                  </div>
+                </UnifiedCard>
               ))}
             </div>
 
