@@ -222,35 +222,18 @@ const Navigation = () => {
               />
             </div>
 
-            {/* Projects Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("projects")}
-              onMouseLeave={handleMegaMenuLeave}
+            {/* Projects */}
+            <Link
+              to="/projects"
+              className={cn(
+                "px-2 py-2 text-sm font-medium hover:text-primary hover-scale transition-colors duration-500",
+                "link-underline",
+                isActive("/projects") && "text-primary",
+                !isActive("/projects") && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
+              )}
             >
-              <Link
-                to="/projects"
-                className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
-                  "link-underline",
-                  activeMegaMenu === "projects" && "text-primary scale-105",
-                  activeMegaMenu !== "projects" && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
-                )}
-                aria-expanded={activeMegaMenu === "projects"}
-                aria-controls="projects-mega-menu"
-              >
-                Projects
-                <ChevronDown className={cn(
-                  "w-4 h-4 icon-rotate transition-transform duration-300",
-                  activeMegaMenu === "projects" && "rotate-180"
-                )} />
-              </Link>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.projects}
-                isOpen={activeMegaMenu === "projects"}
-                onClose={closeMegaMenu}
-              />
-            </div>
+              Projects
+            </Link>
 
             {/* Company Mega-Menu */}
             <div

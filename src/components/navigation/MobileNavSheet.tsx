@@ -361,6 +361,21 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     <Briefcase className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
                     <span>Portal</span>
                   </Link>
+                  <Link
+                    to="/projects"
+                    onClick={() => handleLinkClick("Projects", "Navigation")}
+                    onMouseDown={addRipple}
+                    className={cn(
+                      "flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation ripple relative overflow-hidden",
+                      isActive("/projects")
+                        ? "bg-gradient-to-br from-accent/20 to-accent/10 text-accent border-2 border-accent/30"
+                        : "bg-background/50 backdrop-blur-sm border border-border/50 hover:border-accent/30"
+                    )}
+                    aria-current={isActive("/projects") ? "page" : undefined}
+                  >
+                    <Building className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                    <span>Projects</span>
+                  </Link>
                 </div>
               </div>
 
@@ -504,69 +519,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         {item.badge === "new" && (
                                           <Badge variant="secondary" size="xs" className="ml-2">
                                             <Sparkles className="h-3 w-3" aria-hidden="true" />
-                                          </Badge>
-                                        )}
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </AccordionContent>
-                </AccordionItem>
-
-                {/* Projects Section */}
-                <AccordionItem value="projects" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
-                  <AccordionTrigger 
-                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
-                    onMouseDown={addRipple}
-                    aria-label="Projects menu"
-                  >
-                    <NavCategoryCard
-                      icon={Building}
-                      title="Projects"
-                      itemCount={megaMenuDataEnhanced.projects.reduce((acc, section) => acc + section.categories.length, 0)}
-                      gradient="bg-gradient-to-br from-[hsl(158,64%,52%)] to-[hsl(173,58%,39%)]"
-                      iconColor="text-white"
-                    >
-                      <span className="text-base font-bold">Projects</span>
-                    </NavCategoryCard>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-4 pb-4 pt-2">
-                    {megaMenuDataEnhanced.projects.map((section) => (
-                      <div key={section.sectionTitle} className="mb-3">
-                        <div className="space-y-0.5">
-                          {section.categories.map((category) => (
-                            <div key={category.title} className="ml-1">
-                              {category.subItems && (
-                                <div className="space-y-0.5">
-                                  {category.subItems.map((item, itemIndex) => {
-                                    const IconComponent = getIcon(NAVIGATION_ICONS[item.link] || "ChevronRight");
-                                    const description = NAVIGATION_DESCRIPTIONS[item.link];
-                                    
-                                    return (
-                                      <Link
-                                        key={item.link}
-                                        to={item.link}
-                                        onClick={() => handleLinkClick(item.name, "Projects")}
-                                        onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
-                                        aria-label={`${item.name}${description ? `: ${description}` : ""}`}
-                                      >
-                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-accent/60" aria-hidden="true" />
-                                        <div className="flex-1 min-w-0">
-                                          <span className="group-hover:translate-x-0.5 transition-transform block">{item.name}</span>
-                                          {description && (
-                                            <span className="text-xs text-muted-foreground/70 block">{description}</span>
-                                          )}
-                                        </div>
-                                        {item.badge === "popular" && (
-                                          <Badge variant="warning" size="xs" className="ml-2">
-                                            <Star className="h-3 w-3" aria-hidden="true" />
                                           </Badge>
                                         )}
                                       </Link>
