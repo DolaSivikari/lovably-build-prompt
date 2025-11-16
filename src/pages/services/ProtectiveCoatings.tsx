@@ -128,17 +128,13 @@ const ProtectiveCoatings = () => {
               {whatWeDeliver.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                        <Icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <CardTitle className="text-lg">{item.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
-                    </CardContent>
-                  </Card>
+                  <UnifiedCard key={index} variant="interactive">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  </UnifiedCard>
                 );
               })}
             </div>
@@ -157,26 +153,22 @@ const ProtectiveCoatings = () => {
 
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {howWeWork.map((phase, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                        {index + 1}
-                      </div>
-                      <CardTitle className="text-xl">{phase.phase}</CardTitle>
+                <UnifiedCard key={index} variant="elevated">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+                      {index + 1}
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {phase.activities.map((activity, actIndex) => (
-                        <li key={actIndex} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                          <span className="text-sm text-muted-foreground">{activity}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
+                    <h3 className="text-xl font-semibold">{phase.phase}</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {phase.activities.map((activity, actIndex) => (
+                      <li key={actIndex} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                        <span className="text-sm text-muted-foreground">{activity}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </UnifiedCard>
               ))}
             </div>
           </div>
@@ -194,26 +186,22 @@ const ProtectiveCoatings = () => {
 
             <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {caseStudies.map((project, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all hover:-translate-y-1">
-                  <CardHeader>
-                    <CardTitle className="text-lg">{project.title}</CardTitle>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
-                        {project.location}
-                      </span>
-                      <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
-                        {project.size}
-                      </span>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Clock className="w-3 h-3" />
-                      <span>Completed in {project.duration}</span>
-                    </div>
-                  </CardContent>
-                </Card>
+                <UnifiedCard key={index} variant="interactive">
+                  <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
+                      {project.location}
+                    </span>
+                    <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
+                      {project.size}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Clock className="w-3 h-3" />
+                    <span>Completed in {project.duration}</span>
+                  </div>
+                </UnifiedCard>
               ))}
             </div>
 
