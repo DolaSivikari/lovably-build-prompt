@@ -31,23 +31,6 @@ export const getAllNavigationItems = (): SearchResult[] => {
     });
   });
 
-  // Extract items from markets
-  megaMenuDataEnhanced.markets.forEach((section) => {
-    section.categories.forEach((category) => {
-      if (category.subItems) {
-        category.subItems.forEach((item) => {
-          items.push({
-            name: item.name,
-            link: item.link,
-            category: category.title,
-            section: "Markets",
-            badge: item.badge as "new" | "popular" | "important" | undefined,
-          });
-        });
-      }
-    });
-  });
-
   // Extract items from projects
   megaMenuDataEnhanced.projects.forEach((section) => {
     section.categories.forEach((category) => {
