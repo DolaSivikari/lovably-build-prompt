@@ -41,7 +41,7 @@ interface HeroSlide {
   poster_url?: string;
 }
 
-const EnhancedHero = () => {
+const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -117,29 +117,33 @@ const EnhancedHero = () => {
   const minSwipeDistance = 50;
 
   useEffect(() => {
-    if (!isPlaying || activeSlides.length === 0) return;
+    if (!isPlaying || activeSlides.length === 0 || !splashComplete) return;
 
-    autoplayIntervalRef.current = setInterval(() => {
-      setIsFadingOut(true);
-      setIsTransitioning(true);
-      
-      // Fade out (500ms) -> Change content (instant) -> Fade in (500ms)
-      setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
-        setIsFadingOut(false);
-      }, 500);
-      
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 1000);
-    }, 7000);
+    // Add a 2 second delay after splash completes before starting auto-rotation
+    const initialDelay = setTimeout(() => {
+      autoplayIntervalRef.current = setInterval(() => {
+        setIsFadingOut(true);
+        setIsTransitioning(true);
+        
+        // Fade out (500ms) -> Change content (instant) -> Fade in (500ms)
+        setTimeout(() => {
+          setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
+          setIsFadingOut(false);
+        }, 500);
+        
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 1000);
+      }, 7000);
+    }, 2000);
 
     return () => {
+      clearTimeout(initialDelay);
       if (autoplayIntervalRef.current) {
         clearInterval(autoplayIntervalRef.current);
       }
     };
-  }, [isPlaying, activeSlides.length, currentSlide]);
+  }, [isPlaying, activeSlides.length, currentSlide, splashComplete]);
 
   const handleSlideChange = (index: number) => {
     if (index === currentSlide) return; // Don't transition to the same slide

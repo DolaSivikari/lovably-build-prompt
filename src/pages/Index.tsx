@@ -204,7 +204,7 @@ const Index = () => {
         <Navigation />
       <main id="main-content" role="main">
         <ParallaxSection speed="slow">
-          <EnhancedHero />
+          <EnhancedHero splashComplete={splashComplete} />
         </ParallaxSection>
         
         <ScrollReveal direction="up" delay={0}>

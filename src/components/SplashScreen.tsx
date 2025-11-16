@@ -6,6 +6,8 @@ import logoIntroVideo from "@/assets/ascent-logo-intro.mp4";
 const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [minDisplayMet, setMinDisplayMet] = useState(false);
+  const [mountTime] = useState(Date.now());
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useIsMobile();
 
@@ -21,9 +23,30 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
       onComplete();
       return;
     }
+
+    // Set minimum display time of 2 seconds
+    const minTimer = setTimeout(() => {
+      setMinDisplayMet(true);
+    }, 2000);
+
+    return () => clearTimeout(minTimer);
   }, [onComplete, prefersReducedMotion, isMobile]);
 
   const handleVideoEnd = () => {
+    // Only complete if minimum display time has been met
+    if (!minDisplayMet) {
+      // Calculate remaining time based on mount time
+      const elapsed = Date.now() - mountTime;
+      const remainingTime = Math.max(0, 2000 - elapsed);
+      setTimeout(() => {
+        finishSplash();
+      }, remainingTime);
+    } else {
+      finishSplash();
+    }
+  };
+
+  const finishSplash = () => {
     localStorage.setItem("ascent-splash-seen", Date.now().toString());
     setIsFadingOut(true);
     setTimeout(() => {
@@ -33,12 +56,10 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   };
 
   const handleSkip = () => {
-    localStorage.setItem("ascent-splash-seen", Date.now().toString());
-    setIsFadingOut(true);
-    setTimeout(() => {
-      setIsVisible(false);
-      onComplete();
-    }, 300);
+    // Only allow skip if minimum display time has been met
+    if (minDisplayMet) {
+      finishSplash();
+    }
   };
 
   if (!isVisible || prefersReducedMotion || isMobile) return null;
@@ -61,7 +82,12 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
 
       <button
         onClick={handleSkip}
-        className="absolute bottom-8 right-8 px-6 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-accent"
+        disabled={!minDisplayMet}
+        className={`absolute bottom-8 right-8 px-6 py-2 text-sm transition-all border border-border rounded-md ${
+          minDisplayMet 
+            ? 'text-muted-foreground hover:text-foreground hover:bg-accent cursor-pointer' 
+            : 'text-muted-foreground/50 cursor-not-allowed opacity-50'
+        }`}
       >
         Skip Intro
       </button>
