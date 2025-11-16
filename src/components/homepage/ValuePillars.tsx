@@ -44,7 +44,7 @@ const ValuePillars = () => {
   if (!pillars || pillars.length === 0) return null;
 
   return (
-    <section className="py-12 md:py-16 bg-muted/30">
+    <section className="py-12 md:py-16 bg-gradient-to-b from-background via-construction-orange/5 to-background">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pillars.map((pillar) => {
@@ -53,12 +53,16 @@ const ValuePillars = () => {
               : null;
 
             return (
-              <Card key={pillar.id} className="border-border/40 bg-card hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="p-4">
+              <Card 
+                key={pillar.id} 
+                className="group border border-construction-orange/20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md hover:border-construction-orange/40 hover:shadow-xl hover:shadow-construction-orange/20 transition-all duration-300 hover:scale-105 rounded-xl overflow-hidden relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-construction-orange/0 to-construction-orange/0 group-hover:from-construction-orange/10 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <CardContent className="p-6 relative z-10">
                   <div className="flex flex-col items-start gap-4">
                     {IconComponent && (
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <IconComponent className="w-6 h-6 text-primary" />
+                      <div className="w-12 h-12 rounded-xl bg-construction-orange/10 flex items-center justify-center group-hover:bg-construction-orange/15 transition-colors duration-300">
+                        <IconComponent className="w-6 h-6 text-construction-orange" />
                       </div>
                     )}
                     <div>
