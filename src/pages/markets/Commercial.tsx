@@ -2,7 +2,6 @@ import { Building2, Clock, DollarSign, CheckCircle2, ArrowRight } from "lucide-r
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
@@ -72,19 +71,17 @@ const Commercial = () => {
 
           {/* Challenges */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Commercial Construction Challenges</h2>
-            <Card>
-              <CardContent className="pt-6">
-                <ul className="space-y-4">
-                  {challenges.map((challenge, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-1" />
-                      <span className="text-muted-foreground">{challenge}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Commercial Construction Challenges</h2>
+            <UnifiedCard variant="elevated">
+              <ul className="space-y-4">
+                {challenges.map((challenge, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-1" />
+                    <span className="text-muted-foreground">{challenge}</span>
+                  </li>
+                ))}
+              </ul>
+            </UnifiedCard>
           </section>
 
           {/* Our Solutions */}
@@ -94,15 +91,13 @@ const Commercial = () => {
               {solutions.map((solution, index) => {
                 const Icon = solution.icon;
                 return (
-                  <Card key={index}>
-                    <CardHeader>
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <CardTitle>{solution.title}</CardTitle>
-                      <CardDescription>{solution.description}</CardDescription>
-                    </CardHeader>
-                  </Card>
+                  <UnifiedCard key={index} variant="elevated">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <Icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
+                    <p className="text-muted-foreground">{solution.description}</p>
+                  </UnifiedCard>
                 );
               })}
             </div>
@@ -110,70 +105,60 @@ const Commercial = () => {
 
           {/* Services */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Commercial Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Commercial Services</h2>
             <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>New Construction</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Office building construction</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Mixed-use developments</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Retail plaza construction</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Ground-up commercial buildings</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
+              <UnifiedCard variant="elevated">
+                <h3 className="text-xl font-semibold mb-4">New Construction</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span className="text-muted-foreground">Office building construction</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span className="text-muted-foreground">Mixed-use developments</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span className="text-muted-foreground">Retail plaza construction</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span className="text-muted-foreground">Ground-up commercial buildings</span>
+                  </li>
+                </ul>
+              </UnifiedCard>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Tenant Improvements</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Office space buildouts</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Retail fit-outs</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Building renovations</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">Facade upgrades</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
+              <UnifiedCard variant="elevated">
+                <h3 className="text-xl font-semibold mb-4">Tenant Improvements</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span className="text-muted-foreground">Office space buildouts</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span className="text-muted-foreground">Retail fit-outs</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span className="text-muted-foreground">Building renovations</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span className="text-muted-foreground">Facade upgrades</span>
+                  </li>
+                </ul>
+              </UnifiedCard>
             </div>
           </section>
 
           {/* CTA */}
           <section>
-            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Ready to Start Your Commercial Project?</CardTitle>
-                <CardDescription>Let's discuss your requirements and create a comprehensive proposal</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
+            <UnifiedCard variant="elevated" className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent text-center">
+              <h3 className="text-2xl font-semibold mb-2">Ready to Start Your Commercial Project?</h3>
+              <p className="text-muted-foreground mb-6">Let's discuss your requirements and create a comprehensive proposal</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="gap-2">
                   <Link to="/submit-rfp">
                     Submit RFP
@@ -185,8 +170,8 @@ const Commercial = () => {
                     View Commercial Projects
                   </Link>
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </UnifiedCard>
           </section>
         </div>
       </main>
