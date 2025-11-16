@@ -93,6 +93,7 @@ const InteriorBuildouts = () => {
       <PageHeader
         title="Interior Buildouts & Finishing"
         description="Complete interior construction from tenant improvements to precision finishing"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },

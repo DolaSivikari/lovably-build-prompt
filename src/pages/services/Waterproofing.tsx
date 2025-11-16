@@ -97,6 +97,7 @@ const Waterproofing = () => {
       <PageHeader
         title="Waterproofing Systems"
         description="Comprehensive waterproofing solutions protecting your investment from foundation to roof"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },

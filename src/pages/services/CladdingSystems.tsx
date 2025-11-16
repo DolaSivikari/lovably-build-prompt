@@ -41,6 +41,7 @@ const CladdingSystems = () => {
       <PageHeader
         title="Cladding Systems"
         description="Complete exterior cladding solutions from metal panels to EIFS and rainscreen assemblies"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },

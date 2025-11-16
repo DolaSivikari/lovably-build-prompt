@@ -108,6 +108,7 @@ const PaintingServices = () => {
       <PageHeader
         title="Painting Services"
         description="Professional painting for commercial, multi-family, and residential projects"
+        backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },

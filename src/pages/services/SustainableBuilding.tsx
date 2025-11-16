@@ -97,6 +97,7 @@ const SustainableBuilding = () => {
       <PageHeader
         title="Sustainable Building Solutions"
         description="LEED certification, energy-efficient envelope systems, and green building expertise"
+        backgroundImage={heroImage}
         cta={{ label: "Request Consultation", href: "/estimate" }}
         breadcrumbs={[
           { label: 'Home', href: '/' },
