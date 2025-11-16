@@ -1,4 +1,4 @@
-import { PageHero } from "@/components/sections/PageHero";
+import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
+import { CTA_TEXT } from "@/design-system/constants";
 import { specialtyContractorComparison } from "@/data/specialty-contractor-comparison";
 import { 
   Building2, 
@@ -67,23 +68,16 @@ const WhySpecialtyContractor = () => {
 
       <Navigation />
 
-      <PageHero.Root backgroundImage="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80">
-        <PageHero.Breadcrumb 
-          items={[
-            { label: "Home", href: "/" },
-            { label: "Why Specialty Contractor" }
-          ]}
-        />
-        <PageHero.Title>{hero.title}</PageHero.Title>
-        <PageHero.Subtitle>{hero.subtitle}</PageHero.Subtitle>
-        <PageHero.Stats stats={hero.stats} />
-        <PageHero.CTAs 
-          primaryText="Request Consultation"
-          primaryHref="/contact"
-          secondaryText="View Our Work"
-          secondaryHref="/projects"
-        />
-      </PageHero.Root>
+      <UnifiedPageHero
+        title={hero.title}
+        description={hero.subtitle}
+        primaryCTA={{ text: CTA_TEXT.contact, href: "/contact" }}
+        secondaryCTA={{ text: "View Our Work", href: "/projects" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Why Specialty Contractor" }
+        ]}
+      />
 
       {/* Introduction Section */}
       <Section>
