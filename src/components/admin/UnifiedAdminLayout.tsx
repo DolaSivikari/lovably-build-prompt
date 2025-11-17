@@ -6,6 +6,7 @@ import { Menu } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { PageTransition } from '@/components/animations/PageTransition';
 import { OnboardingTour } from '@/components/admin/OnboardingTour';
+import { NotificationBellInbox } from './NotificationBellInbox';
 import '@/styles/admin-theme.css';
 
 export const UnifiedAdminLayout = () => {
@@ -84,7 +85,8 @@ export const UnifiedAdminLayout = () => {
           >
             <Menu className="w-6 h-6" />
           </button>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 ml-auto">
+            <NotificationBellInbox />
             <span className="text-sm text-muted-foreground">{user?.email}</span>
           </div>
         </header>

@@ -136,6 +136,9 @@ const HomepageCompanyOverview = lazy(() => import("./pages/admin/HomepageCompany
 const HomepageContent = lazy(() => import("./pages/admin/HomepageContent").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Content</p></div>
 })));
+const UnifiedInbox = lazy(() => import("./pages/admin/UnifiedInbox").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Unified Inbox</p></div>
+})));
 
 import "./index.css";
 import "./styles/typography.css";
@@ -356,6 +359,7 @@ const App = () => (
                     <Route path="search-analytics" element={<SearchAnalytics />} />
                     <Route path="error-logs" element={<ErrorLogs />} />
                     <Route path="quote-requests" element={<QuoteRequests />} />
+                    <Route path="inbox" element={<UnifiedInbox />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
                     <Route path="hero-images" element={<HeroImagesManager />} />
                     <Route path="newsletter-subscribers" element={<Suspense fallback={<PageLoader />}><NewsletterSubscribers /></Suspense>} />
