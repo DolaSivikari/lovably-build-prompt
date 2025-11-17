@@ -39,13 +39,13 @@
   }
 }
 
-/* Pulse Glow Animation */
+/* Pulse Glow Animation - Using Design System */
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
   }
   50% {
-    box-shadow: 0 0 30px rgba(249, 115, 22, 0.5);
+    box-shadow: 0 0 30px hsl(var(--accent) / 0.5);
   }
 }
 
@@ -77,43 +77,24 @@
   height: 300px;
 }
 
-/* Glass Morphism Effect */
+/* Glass Morphism Effect - Using Design System */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.1);
+  background: hsl(var(--card) / 0.95);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid hsl(var(--border));
 }
 
-/* Category Color Coding */
-.category-services {
-  --category-color: hsl(24, 95%, 53%);
-  --category-color-light: hsl(24, 95%, 63%);
-  --category-gradient: linear-gradient(135deg, hsl(24, 95%, 53%) 0%, hsl(20, 91%, 48%) 100%);
-}
-
-.category-markets {
-  --category-color: hsl(217, 91%, 60%);
-  --category-color-light: hsl(217, 91%, 70%);
-  --category-gradient: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(221, 83%, 53%) 100%);
-}
-
-.category-projects {
-  --category-color: hsl(173, 58%, 39%);
-  --category-color-light: hsl(173, 58%, 49%);
-  --category-gradient: linear-gradient(135deg, hsl(158, 64%, 52%) 0%, hsl(173, 58%, 39%) 100%);
-}
-
-.category-company {
-  --category-color: hsl(221, 83%, 53%);
-  --category-color-light: hsl(221, 83%, 63%);
-  --category-gradient: linear-gradient(135deg, hsl(221, 83%, 53%) 0%, hsl(230, 81%, 48%) 100%);
-}
-
+/* Category Color Coding - Using Design System Tokens */
+.category-services,
+.category-markets,
+.category-projects,
+.category-company,
+.category-partners,
 .category-resources {
-  --category-color: hsl(262, 83%, 58%);
-  --category-color-light: hsl(262, 83%, 68%);
-  --category-gradient: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(251, 91%, 60%) 100%);
+  --category-color: hsl(var(--accent));
+  --category-color-light: hsl(var(--steel-blue));
+  --category-gradient: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-light)) 100%);
 }
 
 /* Hover Lift Effect */
@@ -157,7 +138,7 @@
   }
 }
 
-/* Search Bar Focus Effect */
+/* Search Bar Focus Effect - Using Design System */
 .search-input-focus {
   position: relative;
 }
@@ -168,7 +149,7 @@
   inset: -2px;
   border-radius: inherit;
   padding: 2px;
-  background: linear-gradient(135deg, hsl(24, 95%, 53%), hsl(217, 91%, 60%), hsl(262, 83%, 58%));
+  background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--steel-blue)));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -181,10 +162,10 @@
   opacity: 1;
 }
 
-/* Bottom CTA Enhanced */
+/* Bottom CTA Enhanced - Using Design System */
 .bottom-cta-enhanced {
-  background: linear-gradient(135deg, hsl(24, 95%, 53%) 0%, hsl(20, 91%, 48%) 100%);
-  box-shadow: 0 -4px 20px rgba(249, 115, 22, 0.2);
+  background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--accent)) 100%);
+  box-shadow: 0 -4px 20px hsl(var(--accent) / 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -198,7 +179,7 @@
   height: 200%;
   background: linear-gradient(
     to bottom right,
-    rgba(255, 255, 255, 0.3),
+    hsl(var(--background) / 0.3),
     transparent
   );
   animation: shine 3s ease-in-out infinite;
