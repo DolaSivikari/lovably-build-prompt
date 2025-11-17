@@ -2248,6 +2248,8 @@ export type Database = {
           admin_notes: string | null
           bonding_required: boolean | null
           company_name: string
+          consent_ip: string | null
+          consent_timestamp: string | null
           contact_name: string
           created_at: string | null
           delivery_method: string | null
@@ -2257,6 +2259,7 @@ export type Database = {
           estimated_value_range: string | null
           id: string
           phone: string | null
+          plans_available: boolean | null
           prequalification_complete: boolean | null
           project_description: string | null
           project_location: string | null
@@ -2264,14 +2267,18 @@ export type Database = {
           project_start_date: string | null
           project_type: string | null
           scope_of_work: string
+          site_visit_required: boolean | null
           special_requirements: string | null
           status: string | null
+          title: string | null
         }
         Insert: {
           additional_requirements?: string | null
           admin_notes?: string | null
           bonding_required?: boolean | null
           company_name: string
+          consent_ip?: string | null
+          consent_timestamp?: string | null
           contact_name: string
           created_at?: string | null
           delivery_method?: string | null
@@ -2281,6 +2288,7 @@ export type Database = {
           estimated_value_range?: string | null
           id?: string
           phone?: string | null
+          plans_available?: boolean | null
           prequalification_complete?: boolean | null
           project_description?: string | null
           project_location?: string | null
@@ -2288,14 +2296,18 @@ export type Database = {
           project_start_date?: string | null
           project_type?: string | null
           scope_of_work?: string
+          site_visit_required?: boolean | null
           special_requirements?: string | null
           status?: string | null
+          title?: string | null
         }
         Update: {
           additional_requirements?: string | null
           admin_notes?: string | null
           bonding_required?: boolean | null
           company_name?: string
+          consent_ip?: string | null
+          consent_timestamp?: string | null
           contact_name?: string
           created_at?: string | null
           delivery_method?: string | null
@@ -2305,6 +2317,7 @@ export type Database = {
           estimated_value_range?: string | null
           id?: string
           phone?: string | null
+          plans_available?: boolean | null
           prequalification_complete?: boolean | null
           project_description?: string | null
           project_location?: string | null
@@ -2312,8 +2325,10 @@ export type Database = {
           project_start_date?: string | null
           project_type?: string | null
           scope_of_work?: string
+          site_visit_required?: boolean | null
           special_requirements?: string | null
           status?: string | null
+          title?: string | null
         }
         Relationships: []
       }

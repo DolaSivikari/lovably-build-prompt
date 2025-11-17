@@ -104,6 +104,7 @@ export default function SubmitRFPNew() {
         contact_name: data.contact_name,
         email: data.email,
         phone: data.phone,
+        title: data.title || undefined,
         project_name: data.project_name,
         project_type: data.project_type,
         project_location: data.project_location,
@@ -113,10 +114,12 @@ export default function SubmitRFPNew() {
         scope_of_work: data.scope_of_work,
         delivery_method: data.delivery_method,
         bonding_required: data.bonding_required,
-      prequalification_complete: data.prequalification_complete,
-      additional_requirements: data.additional_requirements || undefined,
-      consent_timestamp: new Date().toISOString(),
-    };
+        prequalification_complete: data.prequalification_complete,
+        additional_requirements: data.additional_requirements || undefined,
+        plans_available: data.plans_available,
+        site_visit_required: data.site_visit_required,
+        consent_timestamp: new Date().toISOString(),
+      };
 
       const { data: submission, error: insertError } = await supabase
         .from("rfp_submissions")
