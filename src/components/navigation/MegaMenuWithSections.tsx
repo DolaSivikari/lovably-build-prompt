@@ -1,6 +1,6 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Section } from "@/data/navigation-structure-enhanced";
-import { GridMegaMenuSection } from "./GridMegaMenuSection";
+import { MegaMenuSection } from "./MegaMenuSection";
 import { cn } from "@/lib/utils";
 
 interface MegaMenuWithSectionsProps {
@@ -15,6 +15,15 @@ export const MegaMenuWithSections = ({
   onClose,
 }: MegaMenuWithSectionsProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+
+  const handleToggleCategory = (categoryTitle: string) => {
+    setExpandedCategories(prev =>
+      prev.includes(categoryTitle)
+        ? prev.filter(title => title !== categoryTitle)
+        : [...prev, categoryTitle]
+    );
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -50,9 +59,11 @@ export const MegaMenuWithSections = ({
     >
       <div className="mega-menu-sections-wrapper p-8 max-w-7xl mx-auto">
         {sections.map((section, index) => (
-          <GridMegaMenuSection
+          <MegaMenuSection
             key={index}
             section={section}
+            expandedCategories={expandedCategories}
+            onToggleCategory={handleToggleCategory}
             onLinkClick={onClose}
           />
         ))}
