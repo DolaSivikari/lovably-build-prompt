@@ -53,13 +53,24 @@ export const initErrorLogging = () => {
     );
   });
 
+  // List of expected error messages that shouldn't be logged
+  const EXPECTED_ERROR_MESSAGES = [
+    'This service requires a custom quote',
+  ];
+
+  const shouldLogError = (error: Error): boolean => {
+    return !EXPECTED_ERROR_MESSAGES.some(msg => 
+      error.message.includes(msg)
+    );
+  };
+
   // Intercept console.error
   const originalError = console.error;
   console.error = (...args) => {
     originalError(...args);
     
-    // Only log if first argument is an Error object
-    if (args[0] instanceof Error) {
+    // Only log if first argument is an Error object and it's not an expected error
+    if (args[0] instanceof Error && shouldLogError(args[0])) {
       logError(args[0], { additionalArgs: args.slice(1) });
     }
   };
