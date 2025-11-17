@@ -80,12 +80,6 @@ const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager
 const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Stats Manager</p></div>
 })));
-const AwardsManager = lazy(() => import("./pages/admin/AwardsManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Awards Manager</p></div>
-})));
-const LeadershipTeam = lazy(() => import("./pages/admin/LeadershipTeam").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Leadership Team</p></div>
-})));
 const RFPSubmissions = lazy(() => import("./pages/admin/RFPSubmissions").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load RFP Submissions</p></div>
 })));
@@ -106,9 +100,6 @@ const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts").catch(() => 
 })));
 const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post Editor</p></div>
-})));
-const ResumeSubmissions = lazy(() => import("./pages/admin/ResumeSubmissions").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Resume Submissions</p></div>
 })));
 const PrequalificationSubmissions = lazy(() => import("./pages/admin/PrequalificationSubmissions").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Prequalification Submissions</p></div>
@@ -161,9 +152,6 @@ const SettingsHealthCheck = lazy(() => import("./pages/admin/SettingsHealthCheck
 })));
 const HeroSlidesManager = lazy(() => import("./pages/admin/HeroSlidesManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Slides Manager</p></div>
-})));
-const HeroImagesManager = lazy(() => import("./pages/admin/HeroImagesManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Images Manager</p></div>
 })));
 const SearchAnalytics = lazy(() => import("./pages/admin/SearchAnalytics").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Search Analytics</p></div>
@@ -336,14 +324,11 @@ const App = () => (
                     <Route path="contacts" element={<ContactSubmissions />} />
                     <Route path="blog" element={<AdminBlogPosts />} />
                     <Route path="blog/:id" element={<BlogPostEditor />} />
-                    <Route path="resumes" element={<ResumeSubmissions />} />
                     <Route path="prequalifications" element={<PrequalificationSubmissions />} />
                     <Route path="media" element={<MediaLibrary />} />
                     <Route path="users" element={<Users />} />
                     <Route path="stats" element={<StatsManager />} />
-                    <Route path="awards" element={<AwardsManager />} />
                     <Route path="testimonials" element={<TestimonialsManager />} />
-                    <Route path="leadership-team" element={<LeadershipTeam />} />
                     <Route path="rfp-submissions" element={<RFPSubmissions />} />
                     <Route path="documents-library" element={<DocumentsLibrary />} />
                     <Route path="homepage-settings" element={<HomepageSettings />} />
@@ -361,7 +346,6 @@ const App = () => (
                     <Route path="quote-requests" element={<QuoteRequests />} />
                     <Route path="inbox" element={<UnifiedInbox />} />
                     <Route path="hero-slides" element={<HeroSlidesManager />} />
-                    <Route path="hero-images" element={<HeroImagesManager />} />
                     <Route path="newsletter-subscribers" element={<Suspense fallback={<PageLoader />}><NewsletterSubscribers /></Suspense>} />
                     
                     {/* Phase 1 & 2: Homepage & Navigation Management */}
@@ -381,7 +365,6 @@ const App = () => (
                     
                     {/* Redirects for backward compatibility */}
                     <Route path="hero-slides" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
-                    <Route path="hero-images" element={<HeroImagesManager />} />
                     <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder?tab=why-choose" replace />} />
                     <Route path="landing-menu" element={<Navigate to="/admin/homepage-builder?tab=landing-menu" replace />} />
                   </Route>
