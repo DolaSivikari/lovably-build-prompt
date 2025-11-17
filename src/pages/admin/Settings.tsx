@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Settings as SettingsIcon, Shield, MapPin, Info, Activity, FileText } from "lucide-react";
+import { GeneralSettingsTab } from "@/components/admin/settings/GeneralSettingsTab";
+import { FooterSettingsTab } from "@/components/admin/settings/FooterSettingsTab";
+import { ContactPageSettingsTab } from "@/components/admin/settings/ContactPageSettingsTab";
+import { AboutPageSettingsTab } from "@/components/admin/settings/AboutPageSettingsTab";
+import { SecuritySettingsTab } from "@/components/admin/settings/SecuritySettingsTab";
+import { HealthCheckTab } from "@/components/admin/settings/HealthCheckTab";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("general");
@@ -44,87 +49,27 @@ const Settings = () => {
         </TabsList>
 
         <TabsContent value="general" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Site Settings</CardTitle>
-              <CardDescription>
-                Manage global site-wide configuration and default SEO settings
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Site settings editor coming soon...</p>
-            </CardContent>
-          </Card>
+          <GeneralSettingsTab />
         </TabsContent>
 
         <TabsContent value="footer" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Footer Settings</CardTitle>
-              <CardDescription>
-                Configure footer links, contact info, social media, and trust indicators
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Footer settings editor coming soon...</p>
-            </CardContent>
-          </Card>
+          <FooterSettingsTab />
         </TabsContent>
 
         <TabsContent value="contact" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Contact Page Settings</CardTitle>
-              <CardDescription>
-                Manage contact page content, office details, and business hours
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Contact page settings editor coming soon...</p>
-            </CardContent>
-          </Card>
+          <ContactPageSettingsTab />
         </TabsContent>
 
         <TabsContent value="about" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>About Page Settings</CardTitle>
-              <CardDescription>
-                Configure company story, values, sustainability, safety, and credentials
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">About page settings editor coming soon...</p>
-            </CardContent>
-          </Card>
+          <AboutPageSettingsTab />
         </TabsContent>
 
         <TabsContent value="security" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Security Settings</CardTitle>
-              <CardDescription>
-                Manage authentication, MFA, and security preferences
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Security settings editor coming soon...</p>
-            </CardContent>
-          </Card>
+          <SecuritySettingsTab />
         </TabsContent>
 
         <TabsContent value="health" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Settings Health Check</CardTitle>
-              <CardDescription>
-                Diagnose and fix configuration issues across all settings
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Settings health check coming soon...</p>
-            </CardContent>
-          </Card>
+          <HealthCheckTab />
         </TabsContent>
       </Tabs>
     </div>

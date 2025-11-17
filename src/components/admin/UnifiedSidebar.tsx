@@ -95,7 +95,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
   const appearanceItems = [
     { title: "Homepage", url: "/admin/homepage-builder", icon: Layout },
     { title: "Hero Slides", url: "/admin/hero-images", icon: ImageIcon },
-    { title: "Navigation", url: "/admin/navigation", icon: Menu },
+    { title: "Navigation", url: "/admin/navigation-builder", icon: Menu },
   ];
 
   const toolsItems = [

@@ -2173,6 +2173,78 @@ export type Database = {
         }
         Relationships: []
       }
+      security_settings: {
+        Row: {
+          audit_retention_days: number | null
+          created_at: string | null
+          created_by: string | null
+          id: string
+          ip_whitelist: string[] | null
+          is_active: boolean | null
+          max_failed_login_attempts: number | null
+          mfa_required: boolean | null
+          password_min_length: number | null
+          password_require_lowercase: boolean | null
+          password_require_numbers: boolean | null
+          password_require_special: boolean | null
+          password_require_uppercase: boolean | null
+          session_timeout_minutes: number | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          audit_retention_days?: number | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          ip_whitelist?: string[] | null
+          is_active?: boolean | null
+          max_failed_login_attempts?: number | null
+          mfa_required?: boolean | null
+          password_min_length?: number | null
+          password_require_lowercase?: boolean | null
+          password_require_numbers?: boolean | null
+          password_require_special?: boolean | null
+          password_require_uppercase?: boolean | null
+          session_timeout_minutes?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          audit_retention_days?: number | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          ip_whitelist?: string[] | null
+          is_active?: boolean | null
+          max_failed_login_attempts?: number | null
+          mfa_required?: boolean | null
+          password_min_length?: number | null
+          password_require_lowercase?: boolean | null
+          password_require_numbers?: boolean | null
+          password_require_special?: boolean | null
+          password_require_uppercase?: boolean | null
+          session_timeout_minutes?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_settings_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "security_settings_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       service_promotions: {
         Row: {
           badge_color: string | null
