@@ -15,7 +15,6 @@ export const EXPECTED_SERVICE_SLUGS = [
   // Building Envelope Systems
   'eifs-stucco-sealant',
   'cladding-systems',
-  'masonry-restoration',
   'protective-coatings',
   'waterproofing',
   

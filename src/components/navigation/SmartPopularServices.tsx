@@ -19,7 +19,6 @@ const serviceGradients: Record<string, string> = {
   "building-envelope": "bg-gradient-to-br from-accent to-accent/80",
   "cladding-systems": "bg-gradient-to-br from-[hsl(336,84%,60%)] to-[hsl(346,87%,50%)]",
   "waterproofing": "bg-gradient-to-br from-steel-blue to-steel-blue/80",
-  "masonry-restoration": "bg-gradient-to-br from-[hsl(39,100%,50%)] to-[hsl(33,100%,50%)]",
   "protective-coatings": "bg-gradient-to-br from-[hsl(158,64%,52%)] to-[hsl(173,58%,39%)]",
   "interior-buildouts": "bg-gradient-to-br from-primary to-primary/80",
   "painting-services": "bg-gradient-to-br from-[hsl(280,70%,65%)] to-[hsl(290,75%,60%)]",

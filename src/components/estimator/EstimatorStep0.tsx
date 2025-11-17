@@ -29,7 +29,7 @@ const quoteTypes = [
   {
     id: "trade_package",
     title: "Trade Package for GC",
-    description: "You're the GC? We'll provide unit rates for EIFS, sealants, painting, masonry.",
+    description: "You're the GC? We'll provide unit rates for EIFS, sealants, painting, and coatings.",
     icon: Wrench,
     range: "Fast turnaround",
     color: "bg-secondary/10 border-secondary hover:border-secondary/50",
@@ -58,7 +58,6 @@ const scopeOptions = [
   { id: "parking_garage", label: "Parking Garage Restoration" },
   { id: "waterproofing", label: "Waterproofing & Sealants" },
   { id: "eifs_stucco", label: "EIFS / Stucco Systems" },
-  { id: "masonry", label: "Masonry Restoration" },
   { id: "metal_cladding", label: "Metal Cladding" },
   { id: "painting", label: "Painting / Coatings" },
 ];

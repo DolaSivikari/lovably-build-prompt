@@ -35,7 +35,6 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           subItems: [
             { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Comprehensive envelope systems", badge: "popular" },
             { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panels, EIFS, stucco & rainscreen", badge: "new" },
-            { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Tuckpointing & structural masonry" },
             { name: "Waterproofing", link: "/services/waterproofing", description: "Complete waterproofing solutions" },
             { name: "Protective & Architectural Coatings", link: "/services/protective-coatings", description: "Interior/exterior protective systems" },
           ],
