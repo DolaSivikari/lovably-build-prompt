@@ -3,8 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout, Home, Sparkles, Award } from "lucide-react";
 import HeroSlidesManager from "./HeroSlidesManager";
-import HomepageWhyChooseUs from "./HomepageWhyChooseUs";
-import HomepageCompanyOverview from "./HomepageCompanyOverview";
 import StatsManager from "./StatsManager";
 
 const HomepageBuilder = () => {
@@ -62,7 +60,7 @@ const HomepageBuilder = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <HomepageWhyChooseUs />
+              <p className="text-muted-foreground">Why Choose Us editor coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -76,7 +74,7 @@ const HomepageBuilder = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <HomepageCompanyOverview />
+              <p className="text-muted-foreground">Company Overview editor coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>
