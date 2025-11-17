@@ -23,9 +23,9 @@ import { NAVIGATION_ICONS } from "@/data/navigation-icons";
 import { NAVIGATION_DESCRIPTIONS } from "@/data/navigation-descriptions";
 import { useNavigationSearch } from "@/hooks/useNavigationSearch";
 import { MobileSearchResults } from "./MobileSearchResults";
-import { EnhancedPopularServices } from "./EnhancedPopularServices";
 import { SearchSuggestions } from "./SearchSuggestions";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
+import { SmartPopularServices } from "./SmartPopularServices";
 
 import { useSwipeGesture } from "@/hooks/useSwipeGesture";
 import { useScrollIndicator } from "@/hooks/useScrollIndicator";
@@ -239,9 +239,12 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </div>
           ) : (
             <>
-              {/* Enhanced Popular Services Section */}
+              {/* Smart Popular Services Section */}
               <div>
-                <EnhancedPopularServices onLinkClick={() => handleLinkClick()} />
+                <SmartPopularServices 
+                  onLinkClick={handleLinkClick}
+                  variant="personalized"
+                />
               </div>
 
               {/* Quick Access Section */}
