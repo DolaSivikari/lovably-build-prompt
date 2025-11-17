@@ -429,8 +429,8 @@ All colors MUST be HSL.
   }
 
   .mega-menu-sections-wrapper {
-    @apply p-6;
-    max-height: 500px;
+    @apply p-4;
+    max-height: 400px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--border)) transparent;
@@ -438,7 +438,7 @@ All colors MUST be HSL.
 
   /* Section styles */
   .mega-menu-section {
-    @apply mb-6;
+    @apply mb-4;
   }
 
   .mega-menu-section:last-child {
@@ -458,7 +458,7 @@ All colors MUST be HSL.
   }
 
   .mega-menu-section-categories {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col gap-1.5;
   }
 
   /* Accordion category styles */
@@ -471,7 +471,7 @@ All colors MUST be HSL.
 
   .mega-menu-accordion-trigger {
     @apply w-full flex items-center justify-between;
-    @apply px-4 py-3.5 bg-transparent border-none cursor-pointer;
+    @apply px-3.5 py-2.5 bg-transparent border-none cursor-pointer;
     @apply transition-all duration-200 text-foreground;
     @apply hover:bg-muted/50;
   }
@@ -514,7 +514,7 @@ All colors MUST be HSL.
   }
 
   .mega-menu-accordion-link {
-    @apply block px-4 py-2.5 text-sm text-muted-foreground;
+    @apply block px-3.5 py-2 text-sm text-muted-foreground;
     @apply transition-all duration-200;
     @apply border-l-2 border-transparent;
     @apply hover:text-foreground hover:bg-muted/40 hover:border-l-primary hover:pl-5;
@@ -527,7 +527,7 @@ All colors MUST be HSL.
     }
     
     .mega-menu-sections-wrapper {
-      max-height: 70vh;
+      max-height: 60vh;
     }
   }
 }

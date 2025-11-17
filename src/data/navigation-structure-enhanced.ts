@@ -65,6 +65,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       categories: [
         {
           title: "Browse by Type",
+          description: "View projects by category and client type",
           subItems: [
             { name: "All Projects", link: "/projects" },
             { name: "Residential Projects", link: "/projects?client_type=homeowner" },
@@ -83,6 +84,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       categories: [
         {
           title: "Our Company",
+          description: "Learn about our team and values",
           subItems: [
             { name: "About Us", link: "/about", description: "Our story and values" },
             { name: "Leadership Team", link: "/about#team", description: "Meet our experienced team" },
@@ -91,6 +93,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         },
         {
           title: "Credentials & Compliance",
+          description: "Qualifications and certifications",
           subItems: [
             { name: "Pre-Qualification Package", link: "/prequalification", description: "Download contractor qualifications", badge: "important" },
             { name: "Capabilities Overview", link: "/capabilities", description: "Project delivery methods", badge: "new" },
@@ -99,6 +102,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         },
         {
           title: "Resources",
+          description: "Additional information and opportunities",
           subItems: [
             { name: "Why Specialty Contractor?", link: "/why-specialty-contractor", description: "Specialty vs general contractor comparison", badge: "new" },
             { name: "Equipment & Resources", link: "/company/equipment-resources", description: "Our self-perform capabilities" },
@@ -116,6 +120,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       categories: [
         {
           title: "Resources",
+          description: "Help center and knowledge base",
           subItems: [
             { name: "FAQ", link: "/faq", description: "Frequently asked questions" },
             { name: "Service Areas", link: "/resources/service-areas", description: "Where we work" },
@@ -124,6 +129,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
         },
         {
           title: "For Professionals",
+          description: "Tools for contractors and partners",
           subItems: [
             { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Trade partner resources", badge: "important" },
             { name: "Submit RFP", link: "/submit-rfp", description: "Request for proposal" },
