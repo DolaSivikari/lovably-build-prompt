@@ -16,7 +16,6 @@ interface RFPNotificationRequest {
   project_name: string;
   project_type: string;
   estimated_value_range: string;
-  submission_id: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -68,7 +67,6 @@ const handler = async (req: Request): Promise<Response> => {
                   <li><strong>Project:</strong> ${data.project_name}</li>
                   <li><strong>Type:</strong> ${data.project_type}</li>
                   <li><strong>Estimated Value:</strong> ${data.estimated_value_range}</li>
-                  <li><strong>Reference ID:</strong> #${data.submission_id.substring(0, 8)}</li>
                 </ul>
               </div>
               
@@ -136,7 +134,6 @@ const handler = async (req: Request): Promise<Response> => {
         <p><strong>Name:</strong> ${data.project_name}</p>
         <p><strong>Type:</strong> ${data.project_type}</p>
         <p><strong>Est. Value:</strong> ${data.estimated_value_range}</p>
-        <p><strong>Submission ID:</strong> ${data.submission_id}</p>
         <hr>
         <p><a href="https://ascentgroupconstruction.com/admin/rfp-submissions">View in Admin Dashboard →</a></p>
       `,

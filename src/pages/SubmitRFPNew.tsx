@@ -127,7 +127,7 @@ export default function SubmitRFPNew() {
 
       if (insertError) throw insertError;
 
-      // Send notification emails
+      // Send notification email
       try {
         await supabase.functions.invoke("send-rfp-notification", {
           body: {
@@ -138,15 +138,6 @@ export default function SubmitRFPNew() {
             project_name: data.project_name,
             project_type: data.project_type,
             estimated_value_range: data.estimated_value_range,
-          },
-        });
-
-        // Phase 2: Send review request after successful RFP submission
-        await supabase.functions.invoke("send-review-request", {
-          body: {
-            email: data.email,
-            clientName: data.contact_name,
-            templateName: 'default-review-request',
           },
         });
       } catch (emailError) {
