@@ -64,7 +64,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   });
 
   const recentlyViewed = getRecentlyViewed(5);
-  const allCategories = ["All", "Services", "Projects", "Company", "Resources"];
+  const allCategories = ["All", "Services", "Projects", "Company", "Partners", "Resources"];
 
   // Get all service items for Show More/Less functionality
   const allServiceItems = megaMenuDataEnhanced.services.flatMap(section => 
@@ -462,6 +462,78 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         key={item.link}
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Company")}
+                                        onMouseDown={addRipple}
+                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
+                                        aria-label={`${item.name}${description ? `: ${description}` : ""}`}
+                                      >
+                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-primary/60" aria-hidden="true" />
+                                        <div className="flex-1 min-w-0">
+                                          <span className="group-hover:translate-x-0.5 transition-transform block">{item.name}</span>
+                                          {description && (
+                                            <span className="text-xs text-muted-foreground/70 block">{description}</span>
+                                          )}
+                                        </div>
+                                        {item.badge === "new" && (
+                                          <Badge variant="secondary" size="xs" className="ml-2">
+                                            <Sparkles className="h-3 w-3" aria-hidden="true" />
+                                          </Badge>
+                                        )}
+                                        {item.badge === "important" && (
+                                          <Badge variant="default" size="xs" className="ml-2">
+                                            <Star className="h-3 w-3" aria-hidden="true" />
+                                          </Badge>
+                                        )}
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Partners Section */}
+                <AccordionItem value="partners" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
+                  <AccordionTrigger 
+                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
+                    onMouseDown={addRipple}
+                    aria-label="Partners menu"
+                  >
+                    <NavCategoryCard
+                      icon={Users}
+                      title="Partners"
+                      itemCount={megaMenuDataEnhanced.partners.reduce((acc, section) => acc + section.categories.length, 0)}
+                      gradient="bg-gradient-to-br from-[hsl(280,83%,53%)] to-[hsl(270,81%,48%)]"
+                      iconColor="text-white"
+                    >
+                      <span className="text-base font-bold">Partners</span>
+                    </NavCategoryCard>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 pb-4 pt-2">
+                    {megaMenuDataEnhanced.partners.map((section, sectionIndex) => (
+                      <div key={section.sectionTitle} className="mb-3">
+                        {sectionIndex > 0 && <Separator className="my-3" />}
+                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2 px-2">
+                          {section.sectionTitle}
+                        </h4>
+                        <div className="space-y-1">
+                          {section.categories.map((category) => (
+                            <div key={category.title} className="ml-1">
+                              {category.subItems && (
+                                <div className="space-y-0.5">
+                                  {category.subItems.map((item, itemIndex) => {
+                                    const IconComponent = getIcon(NAVIGATION_ICONS[item.link] || "ChevronRight");
+                                    const description = NAVIGATION_DESCRIPTIONS[item.link];
+                                    
+                                    return (
+                                      <Link
+                                        key={item.link}
+                                        to={item.link}
+                                        onClick={() => handleLinkClick(item.name, "Partners")}
                                         onMouseDown={addRipple}
                                         className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}

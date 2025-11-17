@@ -239,6 +239,35 @@ const Navigation = () => {
               />
             </div>
 
+            {/* Partners Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("partners")}
+              onMouseLeave={handleMegaMenuLeave}
+            >
+              <button
+                className={cn(
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
+                  "link-underline",
+                  activeMegaMenu === "partners" && "text-primary scale-105",
+                  activeMegaMenu !== "partners" && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
+                )}
+                aria-expanded={activeMegaMenu === "partners"}
+                aria-controls="partners-mega-menu"
+              >
+                Partners
+                <ChevronDown className={cn(
+                  "w-4 h-4 icon-rotate transition-transform duration-300",
+                  activeMegaMenu === "partners" && "rotate-180"
+                )} />
+              </button>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.partners}
+                isOpen={activeMegaMenu === "partners"}
+                onClose={closeMegaMenu}
+              />
+            </div>
+
             {/* Resources Mega-Menu */}
             <div
               className="relative"

@@ -112,8 +112,15 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             { name: "Careers", link: "/careers", description: "Join our team" },
           ],
         },
+      ],
+    },
+  ],
+  partners: [
+    {
+      sectionTitle: "For Our Partners",
+      categories: [
         {
-          title: "For Our Partners",
+          title: "Partner Solutions",
           description: "Specialized services for industry professionals",
           subItems: [
             { name: "Commercial Clients", link: "/commercial-clients", description: "Solutions for commercial projects" },
