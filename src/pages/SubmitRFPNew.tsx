@@ -121,11 +121,9 @@ export default function SubmitRFPNew() {
         consent_timestamp: new Date().toISOString(),
       };
 
-      const { data: submission, error: insertError } = await supabase
+      const { error: insertError } = await supabase
         .from("rfp_submissions")
-        .insert([submissionData])
-        .select()
-        .single();
+        .insert([submissionData]);
 
       if (insertError) throw insertError;
 
@@ -140,7 +138,6 @@ export default function SubmitRFPNew() {
             project_name: data.project_name,
             project_type: data.project_type,
             estimated_value_range: data.estimated_value_range,
-            submission_id: submission.id,
           },
         });
 
@@ -149,7 +146,6 @@ export default function SubmitRFPNew() {
           body: {
             email: data.email,
             clientName: data.contact_name,
-            projectId: submission.id,
             templateName: 'default-review-request',
           },
         });
