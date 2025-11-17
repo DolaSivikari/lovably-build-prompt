@@ -45,8 +45,6 @@ const Dashboard = () => {
     caseStudies: 0,
     contactSubmissions: 0,
     newSubmissions: 0,
-    resumeSubmissions: 0,
-    newResumes: 0,
     prequalRequests: 0,
     newPrequalRequests: 0,
     draftProjects: 0,
@@ -163,8 +161,6 @@ const Dashboard = () => {
           caseStudies: (stats.projects_published || 0) + (stats.projects_draft || 0),
           contactSubmissions: stats.contact_submissions_total || 0,
           newSubmissions: stats.contact_submissions_new || 0,
-          resumeSubmissions: stats.resume_submissions_total || 0,
-          newResumes: stats.resume_submissions_new || 0,
           prequalRequests: prequalTotal,
           newPrequalRequests: prequalNew,
           draftProjects: stats.projects_draft || 0,
@@ -318,14 +314,13 @@ const Dashboard = () => {
             value={stats.contactSubmissions}
             icon={Mail}
             badge={stats.newSubmissions}
-            onClick={() => navigate("/admin/contacts")}
+            onClick={() => navigate("/admin/inbox")}
           />
           <MetricCard
-            title="Resume Inbox"
-            value={stats.resumeSubmissions}
-            icon={Users}
-            badge={stats.newResumes}
-            onClick={() => navigate("/admin/resumes")}
+            title="Services"
+            value={stats.services}
+            icon={TrendingUp}
+            onClick={() => navigate("/admin/services-manager")}
           />
         </StaggerContainer>
       )}
