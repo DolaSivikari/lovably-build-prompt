@@ -31,6 +31,7 @@ const KNOWN_ROUTES = [
   "/our-process",
   "/commercial-clients",
   "/property-managers",
+  "/for-general-contractors",
   "/company/certifications-insurance",
   "/company/equipment-resources",
   "/company/developers",
