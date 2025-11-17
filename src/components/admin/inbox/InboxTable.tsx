@@ -44,7 +44,9 @@ export const InboxTable = ({ type }: InboxTableProps) => {
         typeLabel: string,
         selectFields: string
       ) => {
-        let query: any = supabase.from(table).select(selectFields).order("created_at", { ascending: false });
+        // Use type assertion to handle dynamic table queries
+        const baseQuery: any = supabase.from(table as any);
+        let query = baseQuery.select(selectFields).order("created_at", { ascending: false });
         
         if (statusFilter !== "all" && table !== "newsletter_subscribers") {
           query = query.eq("status", statusFilter);
