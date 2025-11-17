@@ -25,6 +25,9 @@ const EstimatorStep2Enhanced = ({ service, data, onChange }: Step2EnhancedProps)
   const isCommercialPainting = service === "commercial_painting";
   const isCondoPainting = service === "condo_multi_unit_painting";
   const isSiding = service === "exterior_siding_cladding";
+  const isStucco = service === "stucco_eifs";
+  const isDrywall = service === "drywall_interior_finishing";
+  const isResidential = service === "residential_painting";
 
   return (
     <div className="space-y-6">

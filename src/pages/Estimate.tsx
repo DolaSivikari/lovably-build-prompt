@@ -194,20 +194,21 @@ const Estimate = () => {
         );
       case 2:
         // Base fields required for all services
-        let baseValid = formData.prepComplexity && formData.finishQuality && formData.region;
+        const baseValid = formData.prepComplexity && formData.finishQuality && formData.region;
         
         // Service-specific required fields
         if (formData.service === "commercial_painting") {
-          return baseValid && formData.buildingType && formData.accessibility && formData.businessHoursConstraint;
+          return Boolean(baseValid && formData.buildingType && formData.accessibility && formData.businessHoursConstraint);
         }
         if (formData.service === "condo_multi_unit_painting") {
-          return baseValid && formData.unitCount;
+          return Boolean(baseValid && formData.unitCount);
         }
         if (formData.service === "exterior_siding_cladding") {
-          return baseValid && formData.materialType;
+          return Boolean(baseValid && formData.materialType);
         }
         
-        return baseValid;
+        // All other estimatable services just need base fields
+        return Boolean(baseValid);
       case 3:
         return true; // Optional step
       case 4:
