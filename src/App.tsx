@@ -56,9 +56,6 @@ import WhySpecialtyContractor from "./pages/WhySpecialtyContractor";
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Dashboard</p></div>
 })));
-const AdminServices = lazy(() => import("./pages/admin/Services").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Services</p></div>
-})));
 const AdminProjects = lazy(() => import("./pages/admin/Projects").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Projects</p></div>
 })));
@@ -68,28 +65,14 @@ const ServiceEditor = lazy(() => import("./pages/admin/ServiceEditor").catch(() 
 const ProjectEditor = lazy(() => import("./pages/admin/ProjectEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Project Editor</p></div>
 })));
-const ContactSubmissions = lazy(() => import("./pages/admin/ContactSubmissions").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Contact Submissions</p></div>
-})));
-const SiteSettings = lazy(() => import("./pages/admin/SiteSettings").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Site Settings</p></div>
-})));
 const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Testimonials Manager</p></div>
 })));
 const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Stats Manager</p></div>
 })));
-// Removed RFPSubmissions - consolidated into UnifiedInbox
 const DocumentsLibrary = lazy(() => import("./pages/admin/DocumentsLibrary").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Documents Library</p></div>
-})));
-// Removed HomepageSettings - consolidated into HomepageBuilder
-const FooterSettings = lazy(() => import("./pages/admin/FooterSettings").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Footer Settings</p></div>
-})));
-const ContactPageSettings = lazy(() => import("./pages/admin/ContactPageSettings").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Contact Page Settings</p></div>
 })));
 const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Posts</p></div>
@@ -97,28 +80,15 @@ const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts").catch(() => 
 const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post Editor</p></div>
 })));
-// Removed PrequalificationSubmissions - consolidated into UnifiedInbox
 const MediaLibrary = lazy(() => import("./pages/admin/MediaLibraryEnhanced").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Media Library</p></div>
 })));
 const Users = lazy(() => import("./pages/admin/Users").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Users</p></div>
 })));
-const SecuritySettings = lazy(() => import("./pages/admin/SecuritySettings").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Security Settings</p></div>
-})));
 const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Performance Dashboard</p></div>
 })));
-
-// Phase 1 & 2 Admin Pages
-const HomepageWhyChooseUs = lazy(() => import("./pages/admin/HomepageWhyChooseUs").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Editor</p></div>
-})));
-const HomepageCompanyOverview = lazy(() => import("./pages/admin/HomepageCompanyOverview").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Editor</p></div>
-})));
-// Removed HomepageContent - redundant navigation page
 const UnifiedInbox = lazy(() => import("./pages/admin/UnifiedInbox").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Unified Inbox</p></div>
 })));
@@ -130,15 +100,8 @@ import "./styles/textures.css";
 const NavigationBuilder = lazy(() => import("./pages/admin/NavigationBuilder").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Builder</p></div>
 })));
-// Removed EditorGuide - moved to external docs
 const RedirectsManager = lazy(() => import("./pages/admin/RedirectsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Redirects Manager</p></div>
-})));
-const AboutPageSettings = lazy(() => import("./pages/admin/AboutPageSettings").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load About Page Settings</p></div>
-})));
-const SettingsHealthCheck = lazy(() => import("./pages/admin/SettingsHealthCheck").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Settings Health Check</p></div>
 })));
 const HeroSlidesManager = lazy(() => import("./pages/admin/HeroSlidesManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Slides Manager</p></div>
@@ -149,24 +112,10 @@ const SEODashboard = lazy(() => import("./pages/admin/SEODashboard").catch(() =>
 const SearchAnalytics = lazy(() => import("./pages/admin/SearchAnalytics").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Search Analytics</p></div>
 })));
-const ErrorLogs = lazy(() => import("./pages/admin/ErrorLogs").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Error Logs</p></div>
-})));
-const QuoteRequests = lazy(() => import("./pages/admin/QuoteRequests").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Quote Requests</p></div>
-})));
 
-// WordPress-style Admin Pages
 const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Builder</p></div>
 })));
-// Removed ContentOverview - redundant navigation page
-// Removed AppearanceOverview - redundant navigation page
-const ToolsOverview = lazy(() => import("./pages/admin/ToolsOverview").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Tools Overview</p></div>
-})));
-// Removed NavigationMigration - one-time utility no longer needed
-// New consolidated pages
 const Settings = lazy(() => import("./pages/admin/Settings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Settings</p></div>
 })));
@@ -311,7 +260,7 @@ const App = () => (
                   {/* Admin pages - unified layout */}
                   <Route path="/admin" element={<UnifiedAdminLayout />}>
                     <Route index element={<Dashboard />} />
-                    <Route path="services" element={<AdminServices />} />
+                    <Route path="services" element={<Navigate to="/admin/services-manager" replace />} />
                     <Route path="services/:id" element={<ServiceEditor />} />
                     <Route path="services-manager" element={<ServicesManager />} />
                     <Route path="projects" element={<AdminProjects />} />
@@ -346,7 +295,7 @@ const App = () => (
                     <Route path="redirects" element={<RedirectsManager />} />
                     <Route path="performance-dashboard" element={<PerformanceDashboard />} />
                     <Route path="search-analytics" element={<SearchAnalytics />} />
-                    <Route path="quote-requests" element={<QuoteRequests />} />
+                    <Route path="quote-requests" element={<Navigate to="/admin/inbox?tab=quote" replace />} />
                     
                     {/* Inbox */}
                     <Route path="inbox" element={<UnifiedInbox />} />

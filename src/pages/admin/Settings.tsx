@@ -2,12 +2,6 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Settings as SettingsIcon, Shield, MapPin, Info, Activity, FileText } from "lucide-react";
-import SiteSettings from "./SiteSettings";
-import FooterSettings from "./FooterSettings";
-import ContactPageSettings from "./ContactPageSettings";
-import AboutPageSettings from "./AboutPageSettings";
-import SecuritySettings from "./SecuritySettings";
-import SettingsHealthCheck from "./SettingsHealthCheck";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("general");
@@ -58,7 +52,7 @@ const Settings = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <SiteSettings />
+              <p className="text-muted-foreground">Site settings editor coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -72,7 +66,7 @@ const Settings = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <FooterSettings />
+              <p className="text-muted-foreground">Footer settings editor coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -86,7 +80,7 @@ const Settings = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ContactPageSettings />
+              <p className="text-muted-foreground">Contact page settings editor coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -100,7 +94,7 @@ const Settings = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <AboutPageSettings />
+              <p className="text-muted-foreground">About page settings editor coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -114,7 +108,7 @@ const Settings = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <SecuritySettings />
+              <p className="text-muted-foreground">Security settings editor coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -128,7 +122,7 @@ const Settings = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <SettingsHealthCheck />
+              <p className="text-muted-foreground">Settings health check coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>

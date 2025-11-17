@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { List, BarChart, Star, Megaphone } from "lucide-react";
-import Services from "./Services";
 import { ServiceAnalyticsDashboard } from "@/components/admin/ServiceAnalyticsDashboard";
 import { FeaturedServicesManager } from "@/components/admin/FeaturedServicesManager";
 import { PromotionsManager } from "@/components/admin/PromotionsManager";
@@ -48,7 +47,7 @@ const ServicesManager = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Services />
+              <p className="text-muted-foreground">Services list management coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>
