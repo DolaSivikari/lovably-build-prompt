@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Layout, Home, Sparkles } from "lucide-react";
+import { Layout, Home, Sparkles, Award } from "lucide-react";
 import HeroSlidesManager from "./HeroSlidesManager";
 import HomepageWhyChooseUs from "./HomepageWhyChooseUs";
 import HomepageCompanyOverview from "./HomepageCompanyOverview";
+import StatsManager from "./StatsManager";
 
 const HomepageBuilder = () => {
   const [activeTab, setActiveTab] = useState("hero");
@@ -19,7 +20,7 @@ const HomepageBuilder = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="hero" className="flex items-center gap-2">
             <Layout className="h-4 w-4" />
             <span className="hidden sm:inline">Hero Slides</span>
@@ -31,6 +32,10 @@ const HomepageBuilder = () => {
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <Home className="h-4 w-4" />
             <span className="hidden sm:inline">Company Overview</span>
+          </TabsTrigger>
+          <TabsTrigger value="stats" className="flex items-center gap-2">
+            <Award className="h-4 w-4" />
+            <span className="hidden sm:inline">Stats & Badges</span>
           </TabsTrigger>
         </TabsList>
 
@@ -72,6 +77,20 @@ const HomepageBuilder = () => {
             </CardHeader>
             <CardContent>
               <HomepageCompanyOverview />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="stats" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Stats & Badges</CardTitle>
+              <CardDescription>
+                Manage company statistics and certification badges displayed on the homepage
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <StatsManager />
             </CardContent>
           </Card>
         </TabsContent>

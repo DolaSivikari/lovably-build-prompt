@@ -28,7 +28,12 @@ import {
   Wrench,
   AlertTriangle,
   ArrowRightLeft,
-  Database
+  Database,
+  Building,
+  Quote,
+  FolderOpen,
+  Menu,
+  ImageIcon
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
@@ -56,10 +61,10 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
 
   // Check if any route in a group is active to keep it open
   const isContentActive = ['/admin/projects', '/admin/services', '/admin/blog', '/admin/media', '/admin/testimonials', '/admin/stats', '/admin/documents'].some(p => currentPath.startsWith(p));
-  const isAppearanceActive = ['/admin/homepage-builder', '/admin/navigation-builder', '/admin/footer-settings', '/admin/about-page', '/admin/contact-page'].some(p => currentPath.startsWith(p));
-  const isInboxActive = ['/admin/inbox', '/admin/contacts', '/admin/resumes', '/admin/prequalifications', '/admin/rfp', '/admin/newsletter-subscribers'].some(p => currentPath.startsWith(p));
-  const isToolsActive = ['/admin/seo-dashboard', '/admin/redirects', '/admin/performance-dashboard', '/admin/search-analytics', '/admin/settings-health'].some(p => currentPath.startsWith(p));
-  const isSettingsActive = ['/admin/site-settings', '/admin/users', '/admin/security-settings', '/admin/editor-guide', '/admin/error-logs'].some(p => currentPath.startsWith(p));
+  const isAppearanceActive = ['/admin/homepage-builder', '/admin/navigation', '/admin/settings'].some(p => currentPath.startsWith(p));
+  const isInboxActive = ['/admin/inbox'].some(p => currentPath.startsWith(p));
+  const isToolsActive = ['/admin/seo-dashboard', '/admin/redirects', '/admin/performance-dashboard', '/admin/search-analytics'].some(p => currentPath.startsWith(p));
+  const isSettingsActive = ['/admin/settings', '/admin/users'].some(p => currentPath.startsWith(p));
 
   const [contentOpen, setContentOpen] = useState(isContentActive);
   const [appearanceOpen, setAppearanceOpen] = useState(isAppearanceActive);
@@ -78,6 +83,33 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
       {!collapsed && <span>{label}</span>}
     </NavLink>
   );
+
+  const contentItems = [
+    { title: "Services", url: "/admin/services-manager", icon: Wrench },
+    { title: "Projects", url: "/admin/projects", icon: Building },
+    { title: "Blog Posts", url: "/admin/blog-posts", icon: FileText },
+    { title: "Testimonials", url: "/admin/testimonials", icon: Quote },
+    { title: "Documents", url: "/admin/documents-library", icon: FolderOpen },
+    { title: "Media Library", url: "/admin/media-library", icon: Image },
+  ];
+
+  const appearanceItems = [
+    { title: "Homepage", url: "/admin/homepage-builder", icon: Layout },
+    { title: "Hero Images", url: "/admin/hero-images", icon: ImageIcon },
+    { title: "Navigation", url: "/admin/navigation", icon: Menu },
+    { title: "Settings", url: "/admin/settings", icon: Settings },
+  ];
+
+  const toolsItems = [
+    { title: "SEO Dashboard", url: "/admin/seo-dashboard", icon: BarChart },
+    { title: "Redirects", url: "/admin/redirects", icon: ArrowRightLeft },
+    { title: "Performance", url: "/admin/performance-dashboard", icon: Activity },
+    { title: "Search Analytics", url: "/admin/search-analytics", icon: Database },
+  ];
+
+  const adminItems = [
+    { title: "Users", url: "/admin/users", icon: Shield },
+  ];
 
   return (
     <>
