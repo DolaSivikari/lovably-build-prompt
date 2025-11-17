@@ -199,15 +199,8 @@ const Dashboard = () => {
         .order("downloaded_at", { ascending: false })
         .limit(10);
 
-      // Load resume submissions
-      const { data: resumeData, error: resumeError } = await supabase
-        .from("resume_submissions")
-        .select("id, applicant_name, email, cover_message, status, created_at")
-        .order("created_at", { ascending: false })
-        .limit(10);
-
-      if (contactError || prequalError || resumeError) {
-        console.error('Error loading submissions:', { contactError, prequalError, resumeError });
+      if (contactError || prequalError) {
+        console.error('Error loading submissions:', { contactError, prequalError });
       }
 
       // Normalize and merge all submissions
@@ -226,15 +219,6 @@ const Dashboard = () => {
           status: s.status,
           created_at: s.downloaded_at,
           submission_type: 'prequal_request'
-        })),
-        ...(resumeData || []).map(s => ({
-          ...s,
-          applicant_name: s.applicant_name,
-          email: s.email,
-          message: s.cover_message,
-          status: s.status,
-          created_at: s.created_at,
-          submission_type: 'resume'
         }))
       ];
 

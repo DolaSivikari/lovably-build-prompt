@@ -8,17 +8,13 @@ export const InboxDashboard = () => {
   const { data: stats, isLoading } = useQuery({
     queryKey: ["inbox-stats"],
     queryFn: async () => {
-      const [rfp, contact, resume, prequal, quote, newsletter] = await Promise.all([
+      const [rfp, contact, prequal, quote, newsletter] = await Promise.all([
         supabase
           .from("rfp_submissions")
           .select("*", { count: "exact", head: true })
           .eq("status", "new"),
         supabase
           .from("contact_submissions")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "new"),
-        supabase
-          .from("resume_submissions")
           .select("*", { count: "exact", head: true })
           .eq("status", "new"),
         supabase
@@ -38,7 +34,6 @@ export const InboxDashboard = () => {
       return {
         rfp: rfp.count || 0,
         contact: contact.count || 0,
-        resume: resume.count || 0,
         prequal: prequal.count || 0,
         quote: quote.count || 0,
         newsletter: newsletter.count || 0,
@@ -61,14 +56,6 @@ export const InboxDashboard = () => {
       icon: Mail,
       color: "text-blue-500",
       bgColor: "bg-blue-50 dark:bg-blue-950/20",
-      priority: "medium",
-    },
-    {
-      title: "New Resumes",
-      value: stats?.resume || 0,
-      icon: FileUser,
-      color: "text-green-500",
-      bgColor: "bg-green-50 dark:bg-green-950/20",
       priority: "medium",
     },
     {
