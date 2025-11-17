@@ -61,16 +61,14 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
 
   // Check if any route in a group is active to keep it open
   const isContentActive = ['/admin/projects', '/admin/services', '/admin/blog', '/admin/media', '/admin/testimonials', '/admin/stats', '/admin/documents'].some(p => currentPath.startsWith(p));
-  const isAppearanceActive = ['/admin/homepage-builder', '/admin/navigation', '/admin/settings'].some(p => currentPath.startsWith(p));
+  const isAppearanceActive = ['/admin/homepage-builder', '/admin/navigation', '/admin/hero-images'].some(p => currentPath.startsWith(p));
   const isInboxActive = ['/admin/inbox'].some(p => currentPath.startsWith(p));
   const isToolsActive = ['/admin/seo-dashboard', '/admin/redirects', '/admin/performance-dashboard', '/admin/search-analytics'].some(p => currentPath.startsWith(p));
-  const isSettingsActive = ['/admin/settings', '/admin/users'].some(p => currentPath.startsWith(p));
 
   const [contentOpen, setContentOpen] = useState(isContentActive);
   const [appearanceOpen, setAppearanceOpen] = useState(isAppearanceActive);
   const [inboxOpen, setInboxOpen] = useState(isInboxActive);
   const [toolsOpen, setToolsOpen] = useState(isToolsActive);
-  const [settingsOpen, setSettingsOpen] = useState(isSettingsActive);
 
   const isActive = (path: string) => currentPath === path || currentPath.startsWith(path + '/');
 
@@ -89,15 +87,15 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
     { title: "Projects", url: "/admin/projects", icon: Building },
     { title: "Blog Posts", url: "/admin/blog-posts", icon: FileText },
     { title: "Testimonials", url: "/admin/testimonials", icon: Quote },
+    { title: "Stats & Badges", url: "/admin/stats", icon: Award },
     { title: "Documents", url: "/admin/documents-library", icon: FolderOpen },
     { title: "Media Library", url: "/admin/media-library", icon: Image },
   ];
 
   const appearanceItems = [
     { title: "Homepage", url: "/admin/homepage-builder", icon: Layout },
-    { title: "Hero Images", url: "/admin/hero-images", icon: ImageIcon },
+    { title: "Hero Slides", url: "/admin/hero-images", icon: ImageIcon },
     { title: "Navigation", url: "/admin/navigation", icon: Menu },
-    { title: "Settings", url: "/admin/settings", icon: Settings },
   ];
 
   const toolsItems = [
@@ -193,7 +191,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
               <NavItem to="/admin/services" icon={Package} label="Services" />
               <NavItem to="/admin/blog" icon={FileText} label="Blog Posts" />
               <NavItem to="/admin/testimonials" icon={MessageSquare} label="Testimonials" />
-              <NavItem to="/admin/stats" icon={BarChart} label="Stats" />
+              <NavItem to="/admin/stats" icon={BarChart} label="Stats & Badges" />
               <NavItem to="/admin/documents-library" icon={FileCheck} label="Documents" />
               <NavItem to="/admin/media" icon={Image} label="Media Library" />
             </nav>
@@ -212,9 +210,10 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           </CollapsibleTrigger>
           <CollapsibleContent>
             <nav className="business-nav-group">
-              <NavItem to="/admin/navigation-builder" icon={Navigation} label="Navigation" />
-              <NavItem to="/admin/homepage-builder" icon={Layout} label="Homepage" />
-              <NavItem to="/admin/footer-settings" icon={Layout} label="Footer" />
+              <NavItem to="/admin/homepage-builder" icon={Layout} label="Homepage Builder" />
+              <NavItem to="/admin/hero-images" icon={ImageIcon} label="Hero Slides" />
+              <NavItem to="/admin/navigation" icon={Menu} label="Navigation" />
+              <NavItem to="/admin/footer-settings" icon={Layout} label="Footer Settings" />
               <NavItem to="/admin/about-page" icon={FileText} label="About Page" />
               <NavItem to="/admin/contact-page-settings" icon={Mail} label="Contact Page" />
             </nav>
@@ -270,26 +269,15 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           </CollapsibleContent>
         </Collapsible>
 
-        {/* Settings Section */}
-        <Collapsible open={settingsOpen} onOpenChange={setSettingsOpen} data-tour="settings">
-          <CollapsibleTrigger className="business-nav-group-label">
-            {!collapsed && (
-              <>
-                <Settings size={16} />
-                <span>Settings</span>
-              </>
-            )}
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <nav className="business-nav-group">
-              <NavItem to="/admin/site-settings" icon={Settings} label="Site Settings" />
-              <NavItem to="/admin/users" icon={UserCircle} label="Users & Roles" />
-              <NavItem to="/admin/security-settings" icon={Shield} label="Security" />
-              <NavItem to="/admin/editor-guide" icon={BookOpen} label="Editor Guide" />
-              <NavItem to="/admin/error-logs" icon={AlertTriangle} label="Error Logs" />
-            </nav>
-          </CollapsibleContent>
-        </Collapsible>
+        {/* Settings - Top Level */}
+        <nav style={{ marginBottom: '1.5rem' }} data-tour="settings">
+          <NavItem to="/admin/settings" icon={Settings} label="⚙️ Settings" />
+        </nav>
+
+        {/* Admin Section */}
+        <nav style={{ marginBottom: '1.5rem' }}>
+          <NavItem to="/admin/users" icon={Shield} label="👥 User Management" />
+        </nav>
 
         {onRestartOnboarding && !collapsed && (
           <button 
