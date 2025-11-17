@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Layout, Home, Sparkles, Award } from "lucide-react";
 import HeroSlidesManager from "./HeroSlidesManager";
 import StatsManager from "./StatsManager";
+import { WhyChooseUsManager } from "@/components/admin/WhyChooseUsManager";
+import { CompanyOverviewManager } from "@/components/admin/CompanyOverviewManager";
 
 const HomepageBuilder = () => {
   const [activeTab, setActiveTab] = useState("hero");
@@ -60,7 +62,7 @@ const HomepageBuilder = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground">Why Choose Us editor coming soon...</p>
+              <WhyChooseUsManager />
             </CardContent>
           </Card>
         </TabsContent>
@@ -74,7 +76,7 @@ const HomepageBuilder = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground">Company Overview editor coming soon...</p>
+              <CompanyOverviewManager />
             </CardContent>
           </Card>
         </TabsContent>

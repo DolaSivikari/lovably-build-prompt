@@ -5,6 +5,7 @@ import { List, BarChart, Star, Megaphone } from "lucide-react";
 import { ServiceAnalyticsDashboard } from "@/components/admin/ServiceAnalyticsDashboard";
 import { FeaturedServicesManager } from "@/components/admin/FeaturedServicesManager";
 import { PromotionsManager } from "@/components/admin/PromotionsManager";
+import { ServicesListManager } from "@/components/admin/ServicesListManager";
 
 const ServicesManager = () => {
   const [activeTab, setActiveTab] = useState("list");
@@ -47,7 +48,7 @@ const ServicesManager = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground">Services list management coming soon...</p>
+              <ServicesListManager />
             </CardContent>
           </Card>
         </TabsContent>
