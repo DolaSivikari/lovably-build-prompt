@@ -43,72 +43,25 @@ interface HeroSlide {
 
 const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isFadingOut, setIsFadingOut] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isPageLoaded, setIsPageLoaded] = useState(false);
-  const [animationsEnabled, setAnimationsEnabled] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const heroReadyRef = useRef(false);
 
   // Use enriched hero slides only
   const activeSlides = heroSlides;
 
-  // Extract video URLs and set up preloading
-  const videoUrls = activeSlides.map(slide => slide.video);
-  const { getVideoUrl, isPreloaded } = useVideoPreloader({
-    videoUrls,
-    currentIndex: currentSlide,
-    prefetchCount: 2 // Preload current + 2 ahead + 1 behind
-  });
-
   // Helper to detect mobile device
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-  // Enable animations immediately
+  // Mark hero as ready immediately on mount
   useEffect(() => {
-    setAnimationsEnabled(true);
+    setIsReady(true);
+    window.dispatchEvent(new CustomEvent('hero-ready'));
   }, []);
-
-  // Enable animations after hero is ready (poster or video loaded)
-  useEffect(() => {
-    const markHeroReady = () => {
-      if (!heroReadyRef.current) {
-        heroReadyRef.current = true;
-        setIsPageLoaded(true);
-        window.dispatchEvent(new CustomEvent('hero-ready'));
-      }
-    };
-
-    // Fallback timer in case assets are slow
-    const fallback = setTimeout(markHeroReady, 800);
-    
-    return () => clearTimeout(fallback);
-  }, []);
-
-  // Preload poster images for current and adjacent slides
-  useEffect(() => {
-    // Mark hero as ready on mount
-    if (!heroReadyRef.current) {
-      heroReadyRef.current = true;
-      setIsPageLoaded(true);
-      window.dispatchEvent(new CustomEvent('hero-ready'));
-    }
-  }, []);
-
-  const handleVideoReady = () => {
-    setIsVideoLoaded(true);
-    // Mark hero as ready when first video loads
-    if (!heroReadyRef.current) {
-      heroReadyRef.current = true;
-      setIsPageLoaded(true);
-      window.dispatchEvent(new CustomEvent('hero-ready'));
-    }
-  };
 
   // Minimum swipe distance (in px) to trigger slide change
   const minSwipeDistance = 50;
@@ -143,54 +96,38 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   }, [isPlaying, activeSlides.length, currentSlide, splashComplete]);
 
   const handleSlideChange = (index: number) => {
-    if (index === currentSlide) return; // Don't transition to the same slide
-    
-    setIsPlaying(false); // Pause autoplay when user interacts
-    setIsFadingOut(true);
+    if (index === currentSlide) return;
+    setIsPlaying(false);
     setIsTransitioning(true);
-    
-    // Fade out (500ms) -> Change content (instant) -> Fade in (500ms)
     setTimeout(() => {
       setCurrentSlide(index);
-      setIsFadingOut(false);
-    }, 500);
-    
-    setTimeout(() => {
       setIsTransitioning(false);
-    }, 1000);
+    }, 300);
   };
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
-  // Reset video loaded state when slide changes
+  // Simple video auto-play on mobile
   useEffect(() => {
     const v = videoRef.current;
-    if (!v) return;
-
-    // If video is already ready to play, show it immediately
-    if (v.readyState >= 3) {
-      setIsVideoLoaded(true);
+    if (!v || isMobile) return;
+    
+    const playVideo = () => {
       v.play().catch(() => {});
-      return;
+    };
+
+    if (v.readyState >= 3) {
+      playVideo();
+    } else {
+      v.addEventListener('loadeddata', playVideo, { once: true });
     }
 
-    setIsVideoLoaded(false);
-
-    const markReady = () => {
-      setIsVideoLoaded(true);
-      v.play().catch(() => {});
-    };
-
-    v.addEventListener('loadedmetadata', markReady);
-    v.addEventListener('loadeddata', markReady);
-
     return () => {
-      v.removeEventListener('loadedmetadata', markReady);
-      v.removeEventListener('loadeddata', markReady);
+      v.removeEventListener('loadeddata', playVideo);
     };
-  }, [currentSlide]);
+  }, [currentSlide, isMobile]);
 
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -210,21 +147,11 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe) {
-      // Swipe left - go to next slide
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
-        setIsTransitioning(false);
-      }, 500);
+      setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
     }
 
     if (isRightSwipe) {
-      // Swipe right - go to previous slide
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentSlide((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
-        setIsTransitioning(false);
-      }, 500);
+      setCurrentSlide((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
     }
   };
 
