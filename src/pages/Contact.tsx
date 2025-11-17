@@ -260,6 +260,80 @@ const Contact = () => {
                             <FileUploadZone onFilesChange={setFiles} maxFiles={3} />
                           </div>
                         )
+                      },
+                      {
+                        title: "Consent & Privacy",
+                        description: "Please review and accept our terms to proceed",
+                        content: (
+                          <div className="space-y-6">
+                            {/* Required Consent Checkbox */}
+                            <div className="flex items-start gap-3 p-4 bg-muted/50 rounded-lg border-2">
+                              <input
+                                type="checkbox"
+                                id="consent-multi"
+                                name="consent"
+                                checked={formData.consent}
+                                onChange={handleChange}
+                                required
+                                className="mt-1 h-5 w-5 rounded border-input accent-primary cursor-pointer"
+                              />
+                              <Label htmlFor="consent-multi" className="text-sm leading-relaxed cursor-pointer">
+                                I consent to Ascent Group Construction contacting me about my inquiry via email or phone. *
+                              </Label>
+                            </div>
+                            
+                            {/* Optional Newsletter Checkbox */}
+                            <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
+                              <input
+                                type="checkbox"
+                                id="newsletterConsent-multi"
+                                name="newsletterConsent"
+                                checked={formData.newsletterConsent}
+                                onChange={handleChange}
+                                className="mt-1 h-5 w-5 rounded border-input accent-primary cursor-pointer"
+                              />
+                              <Label htmlFor="newsletterConsent-multi" className="text-sm leading-relaxed cursor-pointer">
+                                I'd also like to receive construction industry insights and project updates.{' '}
+                                <Link to="/privacy" className="text-primary underline hover:no-underline">
+                                  Privacy Policy
+                                </Link>
+                              </Label>
+                            </div>
+                            
+                            {/* Privacy Notice */}
+                            <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-xl p-6 mt-6">
+                              <p className="text-sm text-muted-foreground leading-relaxed text-center">
+                                <strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.
+                              </p>
+                            </div>
+                            
+                            {/* Honeypot field (hidden) */}
+                            <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                              <Label htmlFor="website-multi">Website</Label>
+                              <Input 
+                                id="website-multi" 
+                                name="honeypot" 
+                                type="text" 
+                                tabIndex={-1} 
+                                autoComplete="off" 
+                                value={formData.honeypot} 
+                                onChange={handleChange} 
+                              />
+                            </div>
+                          </div>
+                        ),
+                        validate: () => {
+                          // Validate that consent is checked before proceeding
+                          if (!formData.consent) {
+                            toast({
+                              title: "Consent Required",
+                              description: "Please consent to be contacted to submit your request.",
+                              variant: "destructive"
+                            });
+                            return false;
+                          }
+                          return true;
+                        }
                       }
                     ]}
                     onComplete={async () => {
