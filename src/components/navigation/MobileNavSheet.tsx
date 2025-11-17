@@ -25,9 +25,7 @@ import { useNavigationSearch } from "@/hooks/useNavigationSearch";
 import { MobileSearchResults } from "./MobileSearchResults";
 import { EnhancedPopularServices } from "./EnhancedPopularServices";
 import { SearchSuggestions } from "./SearchSuggestions";
-import { RecentlyViewed } from "./RecentlyViewed";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
-import { useNavigationHistory } from "@/hooks/useNavigationHistory";
 
 import { useSwipeGesture } from "@/hooks/useSwipeGesture";
 import { useScrollIndicator } from "@/hooks/useScrollIndicator";
@@ -47,7 +45,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
   const { searchQuery, setSearchQuery, filteredResults, isSearching, activeCategory, setActiveCategory } = useNavigationSearch();
   const { addRecentSearch } = useRecentSearches();
-  const { trackNavigation, getRecentlyViewed } = useNavigationHistory();
   
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -63,7 +60,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
     onOpenChange(false);
   });
 
-  const recentlyViewed = getRecentlyViewed(5);
   const allCategories = ["All", "Services", "Projects", "Company", "Partners", "Resources"];
 
   // Get all service items for Show More/Less functionality
@@ -80,11 +76,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const handleLinkClick = (name?: string, category?: string) => {
+  const handleLinkClick = () => {
     haptics.light();
-    if (name && category) {
-      trackNavigation(name, category);
-    }
     onOpenChange(false);
     setSearchQuery("");
     setShowSearchSuggestions(false);
@@ -246,19 +239,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </div>
           ) : (
             <>
-              {/* Recently Viewed Section */}
-              {recentlyViewed.length > 0 && (
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-2 px-1">
-                    <Clock className="h-4 w-4 text-accent" aria-hidden="true" />
-                    <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      Recently Viewed
-                    </h4>
-                  </div>
-                  <RecentlyViewed items={recentlyViewed} onLinkClick={() => handleLinkClick()} />
-                </div>
-              )}
-
               {/* Enhanced Popular Services Section */}
               <div>
                 <EnhancedPopularServices onLinkClick={() => handleLinkClick()} />
@@ -272,7 +252,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 <div className="grid grid-cols-2 gap-2">
                   <Link
                     to="/"
-                    onClick={() => handleLinkClick("Home", "Navigation")}
+                    onClick={handleLinkClick}
                     className={cn(
                       "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
                       isActive("/")
@@ -286,7 +266,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                   </Link>
                   <Link
                     to="/contact"
-                    onClick={() => handleLinkClick("Contact", "Navigation")}
+                    onClick={handleLinkClick}
                     className={cn(
                       "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
                       isActive("/contact")
@@ -300,7 +280,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                   </Link>
                   <Link
                     to="/contact"
-                    onClick={() => handleLinkClick("Request Quote", "Navigation")}
+                    onClick={handleLinkClick}
                     className="flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation bg-card border border-border hover:border-accent/50"
                   >
                     <FileText className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
@@ -308,7 +288,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                   </Link>
                   <Link
                     to="/projects"
-                    onClick={() => handleLinkClick("Projects", "Navigation")}
+                    onClick={handleLinkClick}
                     className={cn(
                       "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
                       isActive("/projects")
@@ -376,7 +356,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                       <Link
                                         key={item.link}
                                         to={item.link}
-                                        onClick={() => handleLinkClick(item.name, "Services")}
+                                        onClick={handleLinkClick}
                                         onMouseDown={addRipple}
                                         className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
@@ -446,7 +426,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                       <Link
                                         key={item.link}
                                         to={item.link}
-                                        onClick={() => handleLinkClick(item.name, "Company")}
+                                        onClick={handleLinkClick}
                                         onMouseDown={addRipple}
                                         className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
@@ -517,7 +497,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                       <Link
                                         key={item.link}
                                         to={item.link}
-                                        onClick={() => handleLinkClick(item.name, "Partners")}
+                                        onClick={handleLinkClick}
                                         onMouseDown={addRipple}
                         className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
@@ -588,7 +568,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                       <Link
                                         key={item.link}
                                         to={item.link}
-                                        onClick={() => handleLinkClick(item.name, "Resources")}
+                                        onClick={handleLinkClick}
                                         onMouseDown={addRipple}
                         className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
@@ -634,7 +614,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             size="lg"
             className="w-full gap-2 min-h-[48px] text-sm font-semibold active:scale-[0.98] transition-all duration-200 bg-accent hover:bg-accent/90 hover:shadow-lg text-accent-foreground touch-manipulation"
           >
-            <Link to="/contact" onClick={() => handleLinkClick("Request Site Assessment", "CTA")} aria-label="Request a site assessment for your project">
+            <Link to="/contact" onClick={handleLinkClick} aria-label="Request a site assessment for your project">
               <Phone className="h-5 w-5" aria-hidden="true" />
               <span>Request Site Assessment</span>
             </Link>
