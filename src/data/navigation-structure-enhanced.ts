@@ -102,7 +102,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           ],
         },
         {
-          title: "Resources",
+          title: "Company Info",
           description: "Additional information and opportunities",
           subItems: [
             { name: "Why Specialty Contractor?", link: "/why-specialty-contractor", description: "Specialty vs general contractor comparison", badge: "new" },
