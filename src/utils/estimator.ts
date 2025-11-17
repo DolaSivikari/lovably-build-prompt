@@ -11,6 +11,9 @@ export const SERVICE_CLASSIFICATION = {
     'drywall_interior_finishing',
   ],
   requiresQuote: [
+    'commercial_construction',
+    'multi_family_construction',
+    'institutional_construction',
     'masonry',
     'roofing',
     'metal_cladding',
@@ -42,6 +45,21 @@ export function getServiceMessage(service: string): {
   ballparkRange?: string;
 } {
   const messages: Record<string, any> = {
+    commercial_construction: {
+      title: "Commercial Construction Quote Required",
+      description: "Commercial construction projects require detailed site assessment, architectural review, and comprehensive planning. We'll provide a customized quote based on your specific requirements.",
+      ballparkRange: "$250,000 - $5,000,000+ (depending on scope and complexity)",
+    },
+    multi_family_construction: {
+      title: "Multi-Family Construction Quote Required",
+      description: "Multi-family projects involve complex zoning, structural, and building code requirements. Our team will schedule a consultation to provide accurate pricing.",
+      ballparkRange: "$500,000 - $10,000,000+ (depending on unit count and specifications)",
+    },
+    institutional_construction: {
+      title: "Institutional Construction Quote Required",
+      description: "Institutional projects (schools, hospitals, government buildings) require specialized expertise and compliance. We'll provide a detailed proposal after reviewing your plans.",
+      ballparkRange: "$750,000 - $15,000,000+ (highly variable by scope)",
+    },
     masonry: {
       title: "Custom Masonry Quote Required",
       description: "Masonry projects vary significantly based on materials, structural requirements, and site conditions. We'll schedule a free site inspection to provide accurate pricing.",
