@@ -48,7 +48,7 @@ import Terms from "./pages/Terms";
 import Accessibility from "./pages/Accessibility";
 import Unsubscribe from "./pages/Unsubscribe";
 import CookieBanner from "./components/CookieBanner";
-import NewsletterSubscribers from "./pages/admin/NewsletterSubscribers";
+// Removed NewsletterSubscribers - consolidated into UnifiedInbox
 import DynamicSpecialtyPage from "./pages/DynamicSpecialtyPage";
 import WhySpecialtyContractor from "./pages/WhySpecialtyContractor";
 
@@ -80,15 +80,11 @@ const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager
 const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Stats Manager</p></div>
 })));
-const RFPSubmissions = lazy(() => import("./pages/admin/RFPSubmissions").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load RFP Submissions</p></div>
-})));
+// Removed RFPSubmissions - consolidated into UnifiedInbox
 const DocumentsLibrary = lazy(() => import("./pages/admin/DocumentsLibrary").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Documents Library</p></div>
 })));
-const HomepageSettings = lazy(() => import("./pages/admin/HomepageSettings").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Settings</p></div>
-})));
+// Removed HomepageSettings - consolidated into HomepageBuilder
 const FooterSettings = lazy(() => import("./pages/admin/FooterSettings").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Footer Settings</p></div>
 })));
@@ -101,9 +97,7 @@ const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts").catch(() => 
 const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post Editor</p></div>
 })));
-const PrequalificationSubmissions = lazy(() => import("./pages/admin/PrequalificationSubmissions").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Prequalification Submissions</p></div>
-})));
+// Removed PrequalificationSubmissions - consolidated into UnifiedInbox
 const MediaLibrary = lazy(() => import("./pages/admin/MediaLibraryEnhanced").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Media Library</p></div>
 })));
@@ -124,9 +118,7 @@ const HomepageWhyChooseUs = lazy(() => import("./pages/admin/HomepageWhyChooseUs
 const HomepageCompanyOverview = lazy(() => import("./pages/admin/HomepageCompanyOverview").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Editor</p></div>
 })));
-const HomepageContent = lazy(() => import("./pages/admin/HomepageContent").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Content</p></div>
-})));
+// Removed HomepageContent - redundant navigation page
 const UnifiedInbox = lazy(() => import("./pages/admin/UnifiedInbox").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Unified Inbox</p></div>
 })));
@@ -138,9 +130,7 @@ import "./styles/textures.css";
 const NavigationBuilder = lazy(() => import("./pages/admin/NavigationBuilder").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Builder</p></div>
 })));
-const EditorGuide = lazy(() => import("./pages/admin/EditorGuide").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Editor Guide</p></div>
-})));
+// Removed EditorGuide - moved to external docs
 const RedirectsManager = lazy(() => import("./pages/admin/RedirectsManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Redirects Manager</p></div>
 })));
@@ -152,6 +142,9 @@ const SettingsHealthCheck = lazy(() => import("./pages/admin/SettingsHealthCheck
 })));
 const HeroSlidesManager = lazy(() => import("./pages/admin/HeroSlidesManager").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Slides Manager</p></div>
+})));
+const SEODashboard = lazy(() => import("./pages/admin/SEODashboard").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
 })));
 const SearchAnalytics = lazy(() => import("./pages/admin/SearchAnalytics").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Search Analytics</p></div>
@@ -167,17 +160,18 @@ const QuoteRequests = lazy(() => import("./pages/admin/QuoteRequests").catch(() 
 const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Builder</p></div>
 })));
-const ContentOverview = lazy(() => import("./pages/admin/ContentOverview").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Content Overview</p></div>
-})));
-const AppearanceOverview = lazy(() => import("./pages/admin/AppearanceOverview").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Appearance Overview</p></div>
-})));
+// Removed ContentOverview - redundant navigation page
+// Removed AppearanceOverview - redundant navigation page
 const ToolsOverview = lazy(() => import("./pages/admin/ToolsOverview").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Tools Overview</p></div>
 })));
-const NavigationMigration = lazy(() => import("./pages/admin/NavigationMigration").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Migration</p></div>
+// Removed NavigationMigration - one-time utility no longer needed
+// New consolidated pages
+const Settings = lazy(() => import("./pages/admin/Settings").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Settings</p></div>
+})));
+const ServicesManager = lazy(() => import("./pages/admin/ServicesManager").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Services Manager</p></div>
 })));
 
 // Unified Admin Layout
@@ -319,54 +313,56 @@ const App = () => (
                     <Route index element={<Dashboard />} />
                     <Route path="services" element={<AdminServices />} />
                     <Route path="services/:id" element={<ServiceEditor />} />
+                    <Route path="services-manager" element={<ServicesManager />} />
                     <Route path="projects" element={<AdminProjects />} />
                     <Route path="projects/:id" element={<ProjectEditor />} />
-                    <Route path="contacts" element={<ContactSubmissions />} />
+                    <Route path="contacts" element={<Navigate to="/admin/inbox?tab=contact" replace />} />
                     <Route path="blog" element={<AdminBlogPosts />} />
+                    <Route path="blog-posts" element={<AdminBlogPosts />} />
                     <Route path="blog/:id" element={<BlogPostEditor />} />
-                    <Route path="prequalifications" element={<PrequalificationSubmissions />} />
+                    <Route path="prequalifications" element={<Navigate to="/admin/inbox?tab=prequalifications" replace />} />
                     <Route path="media" element={<MediaLibrary />} />
+                    <Route path="media-library" element={<MediaLibrary />} />
                     <Route path="users" element={<Users />} />
                     <Route path="stats" element={<StatsManager />} />
                     <Route path="testimonials" element={<TestimonialsManager />} />
-                    <Route path="rfp-submissions" element={<RFPSubmissions />} />
+                    <Route path="rfp" element={<Navigate to="/admin/inbox?tab=rfp" replace />} />
+                    <Route path="rfp-submissions" element={<Navigate to="/admin/inbox?tab=rfp" replace />} />
                     <Route path="documents-library" element={<DocumentsLibrary />} />
-                    <Route path="homepage-settings" element={<HomepageSettings />} />
-                    <Route path="security-settings" element={<SecuritySettings />} />
-                    <Route path="performance-dashboard" element={<PerformanceDashboard />} />
-                    <Route path="site-settings" element={<SiteSettings />} />
-                    <Route path="about-page" element={<AboutPageSettings />} />
-                    <Route path="testimonials" element={<TestimonialsManager />} />
-                    <Route path="stats" element={<StatsManager />} />
-                    <Route path="footer-settings" element={<FooterSettings />} />
-                    <Route path="contact-page-settings" element={<ContactPageSettings />} />
-                    <Route path="settings-health" element={<SettingsHealthCheck />} />
-                    <Route path="search-analytics" element={<SearchAnalytics />} />
-                    <Route path="error-logs" element={<ErrorLogs />} />
-                    <Route path="quote-requests" element={<QuoteRequests />} />
-                    <Route path="inbox" element={<UnifiedInbox />} />
-                    <Route path="hero-slides" element={<HeroSlidesManager />} />
-                    <Route path="newsletter-subscribers" element={<Suspense fallback={<PageLoader />}><NewsletterSubscribers /></Suspense>} />
+                    <Route path="newsletter-subscribers" element={<Navigate to="/admin/inbox?tab=newsletter" replace />} />
                     
-                    {/* Phase 1 & 2: Homepage & Navigation Management */}
-                    <Route path="homepage-content" element={<HomepageContent />} />
-                    <Route path="homepage-why-choose-us" element={<HomepageWhyChooseUs />} />
-                    <Route path="homepage-company-overview" element={<HomepageCompanyOverview />} />
-                    <Route path="navigation-builder" element={<NavigationBuilder />} />
+                    {/* Settings - Consolidated */}
+                    <Route path="settings" element={<Settings />} />
+                    <Route path="site-settings" element={<Navigate to="/admin/settings?tab=general" replace />} />
+                    <Route path="footer-settings" element={<Navigate to="/admin/settings?tab=footer" replace />} />
+                    <Route path="contact-page-settings" element={<Navigate to="/admin/settings?tab=contact" replace />} />
+                    <Route path="about-page-settings" element={<Navigate to="/admin/settings?tab=about" replace />} />
+                    <Route path="about-page" element={<Navigate to="/admin/settings?tab=about" replace />} />
+                    <Route path="security-settings" element={<Navigate to="/admin/settings?tab=security" replace />} />
+                    <Route path="settings-health" element={<Navigate to="/admin/settings?tab=health" replace />} />
+                    
+                    {/* Tools */}
+                    <Route path="seo-dashboard" element={<SEODashboard />} />
                     <Route path="redirects" element={<RedirectsManager />} />
-                    <Route path="editor-guide" element={<EditorGuide />} />
+                    <Route path="performance-dashboard" element={<PerformanceDashboard />} />
+                    <Route path="search-analytics" element={<SearchAnalytics />} />
+                    <Route path="quote-requests" element={<QuoteRequests />} />
                     
-                    {/* WordPress-style reorganization - NEW */}
+                    {/* Inbox */}
+                    <Route path="inbox" element={<UnifiedInbox />} />
+                    
+                    {/* Homepage Builder - Consolidated */}
                     <Route path="homepage-builder" element={<HomepageBuilder />} />
-                    <Route path="content-overview" element={<ContentOverview />} />
-                    <Route path="appearance" element={<AppearanceOverview />} />
-                    <Route path="tools-overview" element={<ToolsOverview />} />
-                    <Route path="navigation-migration" element={<NavigationMigration />} />
-                    
-                    {/* Redirects for backward compatibility */}
+                    <Route path="homepage-content" element={<Navigate to="/admin/homepage-builder" replace />} />
+                    <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder" replace />} />
+                    <Route path="homepage-why-choose-us" element={<Navigate to="/admin/homepage-builder?tab=why-choose" replace />} />
+                    <Route path="homepage-company-overview" element={<Navigate to="/admin/homepage-builder?tab=overview" replace />} />
                     <Route path="hero-slides" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
-                    <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder?tab=why-choose" replace />} />
-                    <Route path="landing-menu" element={<Navigate to="/admin/homepage-builder?tab=landing-menu" replace />} />
+                    <Route path="hero-images" element={<HeroSlidesManager />} />
+                    
+                    {/* Navigation */}
+                    <Route path="navigation" element={<NavigationBuilder />} />
+                    <Route path="navigation-builder" element={<NavigationBuilder />} />
                   </Route>
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
