@@ -136,7 +136,7 @@ const Estimate = () => {
   };
 
   const calculateCurrentEstimate = () => {
-    if (!formData.service || !formData.sqft) {
+    if (!formData.service || !isEstimatable(formData.service) || !formData.sqft) {
       return {
         min: 0,
         max: 0,
