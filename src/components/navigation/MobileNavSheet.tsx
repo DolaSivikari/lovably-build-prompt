@@ -157,20 +157,20 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
         {/* Swipe Indicator */}
         <div className="swipe-indicator" aria-hidden="true" />
 
-        <SheetHeader className="p-6 pb-4 text-left border-b border-border/50 backdrop-blur-xl bg-background/80 sticky top-0 z-10 animate-fade-in">
-          <SheetTitle className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+        <SheetHeader className="p-4 pb-3 text-left border-b border-border backdrop-blur-xl bg-card sticky top-0 z-10 animate-fade-in">
+          <SheetTitle className="text-xl font-bold text-foreground">
             Navigation
           </SheetTitle>
-          <SheetDescription className="text-base text-muted-foreground">
+          <SheetDescription className="text-sm text-muted-foreground">
             Explore our complete range of services
           </SheetDescription>
         </SheetHeader>
 
-        <div className="px-6 py-4">
-          {/* Enhanced Search Bar with Gradient Border */}
-          <div className="mb-4 search-input-focus">
+        <div className="px-4 py-3">
+          {/* Enhanced Search Bar */}
+          <div className="mb-3 search-input-focus">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-primary pointer-events-none" aria-hidden="true" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" aria-hidden="true" />
               <Input
                 type="search"
                 placeholder="Search services, markets, projects..."
@@ -178,7 +178,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={handleSearchFocus}
                 onBlur={handleSearchBlur}
-                className="pl-11 pr-10 h-14 min-h-[44px] text-base touch-manipulation bg-background/50 backdrop-blur-sm border-2 border-border/50 focus:border-primary/50 rounded-[var(--radius-md)] shadow-lg"
+                className="pl-10 pr-10 h-12 min-h-[44px] text-sm touch-manipulation bg-card border border-border focus:border-accent rounded-lg shadow-sm"
                 aria-label="Search navigation"
                 aria-controls="search-results"
                 aria-expanded={showSearchSuggestions || isSearching}
@@ -186,7 +186,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               {searchQuery && (
                 <button
                   onClick={handleClearSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-muted rounded-full transition-all hover:scale-110 touch-manipulation ripple"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-all duration-200 touch-manipulation"
                   aria-label="Clear search"
                 >
                   <X className="h-4 w-4 text-muted-foreground" />
@@ -195,20 +195,19 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             </div>
 
             {/* Category Filter Pills */}
-            {isSearching && (
-              <div className="flex gap-2 mt-3 overflow-x-auto pb-2 scrollbar-hide" role="tablist" aria-label="Filter by category">
+            {!isSearching && searchQuery && (
+              <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pt-2 pb-1" role="tablist" aria-label="Category filters">
                 {allCategories.map((category) => (
                   <button
                     key={category}
                     onClick={() => handleCategoryClick(category)}
-                    onMouseDown={addRipple}
                     role="tab"
                     aria-selected={activeCategory === (category === "All" ? "" : category)}
                     className={cn(
-                      "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 touch-manipulation ripple relative overflow-hidden",
+                      "px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 touch-manipulation",
                       activeCategory === (category === "All" ? "" : category)
-                        ? "bg-primary text-primary-foreground shadow-lg"
-                        : "bg-muted/50 text-muted-foreground hover:bg-muted"
+                        ? "bg-accent text-accent-foreground shadow-sm"
+                        : "bg-muted text-muted-foreground hover:bg-muted/80"
                     )}
                   >
                     {category}
@@ -218,8 +217,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             )}
 
             {isSearching && (
-              <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground animate-fade-in">
-                <div className="h-1 w-1 rounded-full bg-primary animate-pulse" aria-hidden="true" />
+              <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground animate-fade-in">
+                <div className="h-1 w-1 rounded-full bg-accent animate-pulse" aria-hidden="true" />
                 <span>Searching across all sections...</span>
               </div>
             )}
@@ -249,10 +248,10 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             <>
               {/* Recently Viewed Section */}
               {recentlyViewed.length > 0 && (
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-3 px-2">
-                    <Clock className="h-4 w-4 text-primary" aria-hidden="true" />
-                    <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                <div className="mb-4">
+                  <div className="flex items-center gap-2 mb-2 px-1">
+                    <Clock className="h-4 w-4 text-accent" aria-hidden="true" />
+                    <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                       Recently Viewed
                     </h4>
                   </div>
@@ -266,72 +265,59 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               </div>
 
               {/* Quick Access Section */}
-              <div className="mb-6">
-                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3 px-2">
+              <div className="mb-4">
+                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 px-1">
                   Quick Access
                 </h4>
                 <div className="grid grid-cols-2 gap-2">
                   <Link
                     to="/"
                     onClick={() => handleLinkClick("Home", "Navigation")}
-                    onMouseDown={addRipple}
                     className={cn(
-                      "flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation ripple relative overflow-hidden",
+                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
                       isActive("/")
-                        ? "bg-gradient-to-br from-primary/20 to-primary/10 text-primary border-2 border-primary/30"
-                        : "bg-background/50 backdrop-blur-sm border border-border/50 hover:border-primary/30"
+                        ? "bg-accent text-accent-foreground shadow-sm"
+                        : "bg-card border border-border hover:border-accent/50"
                     )}
                     aria-current={isActive("/") ? "page" : undefined}
                   >
-                    <Home className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                    <Home className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
                     <span>Home</span>
                   </Link>
                   <Link
                     to="/contact"
                     onClick={() => handleLinkClick("Contact", "Navigation")}
-                    onMouseDown={addRipple}
                     className={cn(
-                      "flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation ripple relative overflow-hidden",
+                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
                       isActive("/contact")
-                        ? "bg-gradient-to-br from-secondary/20 to-secondary/10 text-secondary border-2 border-secondary/30"
-                        : "bg-background/50 backdrop-blur-sm border border-border/50 hover:border-secondary/30"
+                        ? "bg-accent text-accent-foreground shadow-sm"
+                        : "bg-card border border-border hover:border-accent/50"
                     )}
                     aria-current={isActive("/contact") ? "page" : undefined}
                   >
-                    <Mail className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                    <Mail className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
                     <span>Contact</span>
                   </Link>
                   <Link
                     to="/contact"
                     onClick={() => handleLinkClick("Request Quote", "Navigation")}
-                    onMouseDown={addRipple}
-                    className="flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation bg-background/50 backdrop-blur-sm border border-border/50 hover:border-accent/30 ripple relative overflow-hidden"
+                    className="flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation bg-card border border-border hover:border-accent/50"
                   >
-                    <FileText className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                    <FileText className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
                     <span>Request Quote</span>
-                  </Link>
-                  <Link
-                    to="/resources/contractor-portal"
-                    onClick={() => handleLinkClick("Portal", "Navigation")}
-                    onMouseDown={addRipple}
-                    className="flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation bg-background/50 backdrop-blur-sm border border-border/50 hover:border-primary/30 ripple relative overflow-hidden"
-                  >
-                    <Briefcase className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
-                    <span>Portal</span>
                   </Link>
                   <Link
                     to="/projects"
                     onClick={() => handleLinkClick("Projects", "Navigation")}
-                    onMouseDown={addRipple}
                     className={cn(
-                      "flex items-center gap-2 p-3 min-h-[56px] rounded-[var(--radius-md)] text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation ripple relative overflow-hidden",
+                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
                       isActive("/projects")
-                        ? "bg-gradient-to-br from-accent/20 to-accent/10 text-accent border-2 border-accent/30"
-                        : "bg-background/50 backdrop-blur-sm border border-border/50 hover:border-accent/30"
+                        ? "bg-accent text-accent-foreground shadow-sm"
+                        : "bg-card border border-border hover:border-accent/50"
                     )}
                     aria-current={isActive("/projects") ? "page" : undefined}
                   >
-                    <Building className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                    <Briefcase className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
                     <span>Projects</span>
                   </Link>
                 </div>
@@ -392,10 +378,10 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Services")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
+                                        className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
-                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-primary/60" aria-hidden="true" />
+                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
                                         <div className="flex-1 min-w-0">
                                           <span className="group-hover:translate-x-0.5 transition-transform block">{item.name}</span>
                                           {description && (
@@ -425,20 +411,19 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 </AccordionItem>
 
                 {/* Company Section */}
-                <AccordionItem value="company" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
+                <AccordionItem value="company" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-accent/30 hover:shadow-sm">
                   <AccordionTrigger 
-                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
-                    onMouseDown={addRipple}
+                    className="px-3 py-2.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-foreground touch-manipulation"
                     aria-label="Company menu"
                   >
                     <NavCategoryCard
                       icon={Users}
                       title="Company"
                       itemCount={megaMenuDataEnhanced.company.reduce((acc, section) => acc + section.categories.length, 0)}
-                      gradient="bg-gradient-to-br from-[hsl(221,83%,53%)] to-[hsl(230,81%,48%)]"
-                      iconColor="text-white"
+                      gradient="bg-gradient-to-br from-steel-blue to-steel-blue"
+                      iconColor="text-steel-blue-foreground"
                     >
-                      <span className="text-base font-bold">Company</span>
+                      <span className="text-sm font-semibold">Company</span>
                     </NavCategoryCard>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4 pt-2">
@@ -463,10 +448,10 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Company")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
+                                        className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
-                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-primary/60" aria-hidden="true" />
+                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
                                         <div className="flex-1 min-w-0">
                                           <span className="group-hover:translate-x-0.5 transition-transform block">{item.name}</span>
                                           {description && (
@@ -497,20 +482,19 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 </AccordionItem>
 
                 {/* Partners Section */}
-                <AccordionItem value="partners" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
+                <AccordionItem value="partners" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-accent/30 hover:shadow-sm">
                   <AccordionTrigger 
-                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
-                    onMouseDown={addRipple}
+                    className="px-3 py-2.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-foreground touch-manipulation"
                     aria-label="Partners menu"
                   >
                     <NavCategoryCard
                       icon={Users}
                       title="Partners"
                       itemCount={megaMenuDataEnhanced.partners.reduce((acc, section) => acc + section.categories.length, 0)}
-                      gradient="bg-gradient-to-br from-[hsl(280,83%,53%)] to-[hsl(270,81%,48%)]"
-                      iconColor="text-white"
+                      gradient="bg-gradient-to-br from-primary to-primary-light"
+                      iconColor="text-primary-foreground"
                     >
-                      <span className="text-base font-bold">Partners</span>
+                      <span className="text-sm font-semibold">Partners</span>
                     </NavCategoryCard>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4 pt-2">
@@ -535,10 +519,10 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Partners")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
+                        className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
-                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-primary/60" aria-hidden="true" />
+                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
                                         <div className="flex-1 min-w-0">
                                           <span className="group-hover:translate-x-0.5 transition-transform block">{item.name}</span>
                                           {description && (
@@ -569,20 +553,19 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 </AccordionItem>
 
                 {/* Resources Section */}
-                <AccordionItem value="resources" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
+                <AccordionItem value="resources" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-accent/30 hover:shadow-sm">
                   <AccordionTrigger 
-                    className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
-                    onMouseDown={addRipple}
+                    className="px-3 py-2.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-foreground touch-manipulation"
                     aria-label="Resources menu"
                   >
                     <NavCategoryCard
                       icon={Building}
                       title="Resources"
                       itemCount={megaMenuDataEnhanced.resources.reduce((acc, section) => acc + section.categories.length, 0)}
-                      gradient="bg-gradient-to-br from-[hsl(262,83%,58%)] to-[hsl(251,91%,60%)]"
-                      iconColor="text-white"
+                      gradient="bg-gradient-to-br from-secondary to-secondary"
+                      iconColor="text-secondary-foreground"
                     >
-                      <span className="text-base font-bold">Resources</span>
+                      <span className="text-sm font-semibold">Resources</span>
                     </NavCategoryCard>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4 pt-2">
@@ -607,10 +590,10 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={() => handleLinkClick(item.name, "Resources")}
                                         onMouseDown={addRipple}
-                                        className="group flex items-center gap-2 py-2.5 px-3 min-h-[44px] text-sm text-muted-foreground border-l-2 border-transparent hover:text-primary hover:bg-muted/30 hover:border-l-primary hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation stagger-item"
+                        className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
-                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-secondary/60" aria-hidden="true" />
+                                        <IconComponent className="h-4 w-4 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
                                         <div className="flex-1 min-w-0">
                                           <span className="group-hover:translate-x-0.5 transition-transform block">{item.name}</span>
                                           {description && (
@@ -645,17 +628,15 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
         </div>
 
         {/* Enhanced Pinned CTA at bottom */}
-        <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-border/50 bottom-cta-enhanced backdrop-blur-xl animate-fade-in z-20">
+        <div className="sticky bottom-0 left-0 right-0 p-3 border-t border-border bg-card backdrop-blur-xl animate-fade-in z-20">
           <Button
             asChild
             size="lg"
-            className="w-full gap-3 min-h-[56px] text-base font-bold active:scale-[0.98] transition-all duration-300 bg-gradient-to-r from-primary to-primary-dark hover:shadow-2xl hover:-translate-y-0.5 text-white touch-manipulation relative overflow-hidden group ripple"
-            onMouseDown={addRipple}
+            className="w-full gap-2 min-h-[48px] text-sm font-semibold active:scale-[0.98] transition-all duration-200 bg-accent hover:bg-accent/90 hover:shadow-lg text-accent-foreground touch-manipulation"
           >
             <Link to="/contact" onClick={() => handleLinkClick("Request Site Assessment", "CTA")} aria-label="Request a site assessment for your project">
-              <Phone className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" aria-hidden="true" />
+              <Phone className="h-5 w-5" aria-hidden="true" />
               <span>Request Site Assessment</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
             </Link>
           </Button>
         </div>
