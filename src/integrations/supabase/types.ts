@@ -2283,6 +2283,50 @@ export type Database = {
         }
         Relationships: []
       }
+      review_requests: {
+        Row: {
+          client_name: string
+          created_at: string
+          email: string
+          id: string
+          project_id: string | null
+          responded_at: string | null
+          sent_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          client_name: string
+          created_at?: string
+          email: string
+          id?: string
+          project_id?: string | null
+          responded_at?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          client_name?: string
+          created_at?: string
+          email?: string
+          id?: string
+          project_id?: string | null
+          responded_at?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_requests_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rfp_submissions: {
         Row: {
           additional_requirements: string | null
