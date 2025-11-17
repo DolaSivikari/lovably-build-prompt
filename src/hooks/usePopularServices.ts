@@ -19,11 +19,6 @@ const DEFAULT_SERVICES: PopularService[] = [
     icon: Shield,
   },
   {
-    name: "Masonry Restoration",
-    link: "/services/masonry",
-    icon: Building2,
-  },
-  {
     name: "Protective Coatings",
     link: "/services/protective-coatings",
     icon: Shield,
@@ -39,8 +34,6 @@ const DEFAULT_SERVICES: PopularService[] = [
 const SERVICE_ICON_MAP: Record<string, LucideIcon> = {
   "building envelope solutions": Shield,
   "building envelope": Shield,
-  "masonry restoration": Building2,
-  "masonry": Building2,
   "protective coatings": Shield,
   "waterproofing": Shield,
   "interior buildouts": Ruler,
