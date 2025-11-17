@@ -966,6 +966,75 @@ export type Database = {
         }
         Relationships: []
       }
+      featured_services: {
+        Row: {
+          category: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          display_order: number
+          end_date: string | null
+          icon_name: string
+          id: string
+          is_active: boolean
+          promotion_badge: string | null
+          service_link: string
+          service_name: string
+          start_date: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          end_date?: string | null
+          icon_name: string
+          id?: string
+          is_active?: boolean
+          promotion_badge?: string | null
+          service_link: string
+          service_name: string
+          start_date?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          end_date?: string | null
+          icon_name?: string
+          id?: string
+          is_active?: boolean
+          promotion_badge?: string | null
+          service_link?: string
+          service_name?: string
+          start_date?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "featured_services_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "featured_services_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       footer_settings: {
         Row: {
           contact_info: Json | null
@@ -1599,6 +1668,45 @@ export type Database = {
           recorded_at?: string | null
           unit?: string | null
           value?: number
+        }
+        Relationships: []
+      }
+      popular_services_analytics: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          position: number | null
+          service_link: string
+          service_name: string
+          session_id: string | null
+          source: string
+          user_identifier: string
+          variant: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          position?: number | null
+          service_link: string
+          service_name: string
+          session_id?: string | null
+          source?: string
+          user_identifier: string
+          variant?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          position?: number | null
+          service_link?: string
+          service_name?: string
+          session_id?: string | null
+          source?: string
+          user_identifier?: string
+          variant?: string | null
         }
         Relationships: []
       }
@@ -2296,6 +2404,101 @@ export type Database = {
         }
         Relationships: []
       }
+      service_promotions: {
+        Row: {
+          badge_color: string | null
+          badge_text: string | null
+          created_at: string
+          created_by: string | null
+          discount_percentage: number | null
+          end_date: string
+          id: string
+          is_active: boolean
+          priority: number
+          promotion_message: string | null
+          promotion_type: string
+          service_link: string
+          start_date: string
+          target_audience: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          badge_color?: string | null
+          badge_text?: string | null
+          created_at?: string
+          created_by?: string | null
+          discount_percentage?: number | null
+          end_date: string
+          id?: string
+          is_active?: boolean
+          priority?: number
+          promotion_message?: string | null
+          promotion_type: string
+          service_link: string
+          start_date: string
+          target_audience?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          badge_color?: string | null
+          badge_text?: string | null
+          created_at?: string
+          created_by?: string | null
+          discount_percentage?: number | null
+          end_date?: string
+          id?: string
+          is_active?: boolean
+          priority?: number
+          promotion_message?: string | null
+          promotion_type?: string
+          service_link?: string
+          start_date?: string
+          target_audience?: string[] | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_promotions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_recommendations_cache: {
+        Row: {
+          algorithm_version: string
+          created_at: string
+          expires_at: string
+          id: string
+          recommendation_score: number | null
+          recommended_services: Json
+          user_identifier: string
+        }
+        Insert: {
+          algorithm_version?: string
+          created_at?: string
+          expires_at: string
+          id?: string
+          recommendation_score?: number | null
+          recommended_services: Json
+          user_identifier: string
+        }
+        Update: {
+          algorithm_version?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          recommendation_score?: number | null
+          recommended_services?: Json
+          user_identifier?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           canonical_url: string | null
@@ -2727,6 +2930,42 @@ export type Database = {
           },
         ]
       }
+      user_service_preferences: {
+        Row: {
+          clicked_from_popular: boolean | null
+          created_at: string
+          id: string
+          interaction_count: number
+          last_viewed_at: string
+          service_link: string
+          time_spent_seconds: number | null
+          updated_at: string
+          user_identifier: string
+        }
+        Insert: {
+          clicked_from_popular?: boolean | null
+          created_at?: string
+          id?: string
+          interaction_count?: number
+          last_viewed_at?: string
+          service_link: string
+          time_spent_seconds?: number | null
+          updated_at?: string
+          user_identifier: string
+        }
+        Update: {
+          clicked_from_popular?: boolean | null
+          created_at?: string
+          id?: string
+          interaction_count?: number
+          last_viewed_at?: string
+          service_link?: string
+          time_spent_seconds?: number | null
+          updated_at?: string
+          user_identifier?: string
+        }
+        Relationships: []
+      }
       value_pillars: {
         Row: {
           created_at: string | null
@@ -2854,7 +3093,41 @@ export type Database = {
         }
         Returns: string
       }
+      get_active_featured_services: {
+        Args: never
+        Returns: {
+          category: string
+          description: string
+          icon_name: string
+          id: string
+          promotion_badge: string
+          service_link: string
+          service_name: string
+        }[]
+      }
+      get_active_promotions: {
+        Args: never
+        Returns: {
+          badge_color: string
+          badge_text: string
+          discount_percentage: number
+          id: string
+          promotion_message: string
+          promotion_type: string
+          service_link: string
+          title: string
+        }[]
+      }
       get_admin_dashboard_stats: { Args: never; Returns: Json }
+      get_personalized_recommendations: {
+        Args: { p_limit?: number; p_user_identifier: string }
+        Returns: {
+          reason: string
+          recommendation_score: number
+          service_link: string
+          service_name: string
+        }[]
+      }
       get_security_audit_log: {
         Args: { limit_count?: number }
         Returns: {
@@ -2884,6 +3157,15 @@ export type Database = {
           p_content_snapshot: Json
           p_entity_id: string
           p_entity_type: string
+        }
+        Returns: undefined
+      }
+      track_service_interaction: {
+        Args: {
+          p_from_popular?: boolean
+          p_service_link: string
+          p_time_spent?: number
+          p_user_identifier: string
         }
         Returns: undefined
       }
