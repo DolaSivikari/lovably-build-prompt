@@ -16,7 +16,6 @@ export const ProjectTimelineEstimator = () => {
     // Realistic production rates based on Ascent Group's historical data (days per 1000 sq ft)
     const baseRates: Record<string, number> = {
       painting: 1.5,           // Faster with experienced crews
-      restoration: 3.5,        // More complex, detailed work
       waterproofing: 2.0,      // Weather-dependent application
       cladding: 4.5,           // Installation + structural work
       masonry: 4.0,            // Detailed craftsmanship
@@ -81,7 +80,6 @@ export const ProjectTimelineEstimator = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="painting">Painting & Coating</SelectItem>
-              <SelectItem value="restoration">Masonry Restoration</SelectItem>
               <SelectItem value="waterproofing">Waterproofing</SelectItem>
               <SelectItem value="cladding">Exterior Cladding</SelectItem>
               <SelectItem value="masonry">Masonry Work</SelectItem>

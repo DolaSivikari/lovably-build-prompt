@@ -44,14 +44,6 @@ const categoryConfig: Record<string, CategoryConfig> = {
     description: "Complete exterior cladding, siding, and metal panel solutions",
     image: "/src/assets/project-industrial.jpg"
   },
-  "Masonry Restoration": {
-    name: "Masonry Restoration",
-    slug: "masonry-restoration",
-    icon: "Hammer",
-    color: "sage",
-    description: "Historic masonry restoration and repair services",
-    image: "/src/assets/case-heritage-building.jpg"
-  },
   "Specialty Services": {
     name: "Interior & Finishing",
     slug: "interior-buildouts",

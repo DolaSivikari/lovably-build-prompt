@@ -29,7 +29,6 @@ import Careers from "./pages/Careers";
 import ServiceDetail from "./pages/ServiceDetail";
 import InteriorBuildouts from "./pages/services/InteriorBuildouts";
 import BuildingEnvelope from "./pages/services/BuildingEnvelope";
-import MasonryRestoration from "./pages/services/MasonryRestoration";
 import ProtectiveCoatings from "./pages/services/ProtectiveCoatings";
 import CladdingSystems from "./pages/services/CladdingSystems";
 import TileFlooring from "./pages/services/TileFlooring";
@@ -257,7 +256,7 @@ const App = () => (
             <Route path="/services" element={<Services />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
             <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
-            <Route path="/services/masonry-restoration" element={<MasonryRestoration />} />
+            <Route path="/services/masonry-restoration" element={<Navigate to="/services/building-envelope" replace />} />
             <Route path="/services/protective-coatings" element={<ProtectiveCoatings />} />
             <Route path="/services/cladding-systems" element={<CladdingSystems />} />
             <Route path="/services/tile-flooring" element={<TileFlooring />} />
@@ -280,8 +279,8 @@ const App = () => (
             <Route path="/services/construction-management" element={<Navigate to="/services" replace />} />
             <Route path="/services/design-build" element={<Navigate to="/services" replace />} />
             <Route path="/services/facade-remediation" element={<Navigate to="/services/building-envelope" replace />} />
-            <Route path="/services/parking-garage-restoration" element={<Navigate to="/services/masonry-restoration" replace />} />
-            <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/masonry-restoration" replace />} />
+            <Route path="/services/parking-garage-restoration" element={<Navigate to="/services/building-envelope" replace />} />
+            <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/building-envelope" replace />} />
             <Route path="/services/sealant-replacement" element={<Navigate to="/services/building-envelope" replace />} />
             <Route path="/services/roofing" element={<Navigate to="/services/building-envelope" replace />} />
             <Route path="/services/windows-doors" element={<Navigate to="/services/building-envelope" replace />} />

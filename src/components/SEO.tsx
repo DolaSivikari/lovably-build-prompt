@@ -120,7 +120,6 @@ const SEO = ({
     knowsAbout: [
       "Specialty Contracting",
       "Building Envelope Systems",
-      "Masonry Restoration",
       "Commercial Construction",
       "Multi-Family Construction",
       "Institutional Construction",

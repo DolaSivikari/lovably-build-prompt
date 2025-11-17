@@ -9,7 +9,6 @@ const KNOWN_ROUTES = [
   "/services/:slug",
   "/services/building-envelope",
   "/services/cladding-systems",
-  "/services/masonry-restoration",
   "/services/protective-coatings",
   "/services/waterproofing",
   "/services/interior-buildouts",
